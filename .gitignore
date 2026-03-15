@@ -1,0 +1,59 @@
+# Dependencias
+node_modules/
+
+# Build de producción
+dist/
+
+# Archivos de entorno
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Sistema operativo
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+.DS_Store?
+._*
+
+# Capacitor - plataformas nativas (se regeneran con cap sync)
+android/
+ios/
+
+# Archivos de Capacitor generados
+capacitor-cordova-android-plugins/
+capacitor-cordova-ios-plugins/
+
+# TypeScript
+*.tsbuildinfo
+
+# Testing
+coverage/
+
+# Caché de Vite
+.vite/
+
+# Archivos de debug
+*.log
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Plan de desarrollo (opcional, descomentar si se desea excluir)
+# PLAN.md
+# CLAUDE.md
