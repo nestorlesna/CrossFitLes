@@ -3,7 +3,7 @@
 
 import { Capacitor } from '@capacitor/core';
 import JSZip from 'jszip';
-import { getDatabase } from '../db/database';
+import { openDatabase, getDatabase } from '../db/database';
 import { APP_VERSION } from '../utils/constants';
 
 // Orden de tablas respetando dependencias (padres primero)
@@ -48,7 +48,7 @@ interface BackupJson {
  * Exporta base de datos y archivos multimedia en un archivo .zip
  */
 export async function exportData(): Promise<void> {
-  const db = getDatabase();
+  const db = await openDatabase();
   const zip = new JSZip();
 
   // 1. Obtener datos de la base de datos
@@ -61,8 +61,19 @@ export async function exportData(): Promise<void> {
   for (const table of TABLE_ORDER) {
     const result = await db.query(`SELECT * FROM ${table}`);
     const rows = (result.values ?? []) as Record<string, unknown>[];
-    data[table] = rows;
-    totalRecords += rows.length;
+    
+    // Limpieza de atributos antiguos/obsoletos en la exportación
+    const cleanedRows = rows.map(row => {
+      const newRow = { ...row };
+      if (table === 'exercise') {
+        // En ejercicio, el campo image_url ya contiene lo que antes era image_path
+        delete newRow.image_path;
+      }
+      return newRow;
+    });
+
+    data[table] = cleanedRows;
+    totalRecords += cleanedRows.length;
   }
 
   const backupJson: BackupJson = {
@@ -125,7 +136,31 @@ export async function exportData(): Promise<void> {
     }
   }
 
-  // 3. Generar el ZIP final
+  // 3. Incluir Assets del sistema (SVGs de ejercicios) para un backup autocontenido
+  if (data.exercise) {
+    const staticImages = new Set<string>();
+    data.exercise.forEach(ex => {
+      const url = (ex.image_url as string || ex.image_path as string) || '';
+      if (url.startsWith('/img/')) staticImages.add(url);
+    });
+
+    for (const url of Array.from(staticImages)) {
+      try {
+        const response = await fetch(url);
+        if (response.ok) {
+          const blob = await response.blob();
+          const arrayBuffer = await blob.arrayBuffer();
+          // Quitar el leading slash para la ruta del ZIP
+          const zipPath = url.startsWith('/') ? url.substring(1) : url;
+          zip.file(zipPath, arrayBuffer);
+        }
+      } catch (e) {
+        console.warn(`[Backup] No se pudo incluir asset estático: ${url}`, e);
+      }
+    }
+  }
+
+  // 4. Generar el ZIP final
   const content = await zip.generateAsync({ type: 'blob' });
   const fileName = `crossfit-backup-${formatDateForFile(new Date())}.zip`;
 
@@ -199,7 +234,7 @@ export async function importDataFromZip(zipFile: Blob): Promise<{ totalRecords: 
     throw new Error('El archivo no pertenece a CrossFit Session Tracker.');
   }
 
-  const db = getDatabase();
+  const db = await openDatabase();
   let totalRecords = 0;
 
   // 2. Limpiar media actual e importar media nueva
@@ -275,21 +310,45 @@ export async function importDataFromZip(zipFile: Blob): Promise<{ totalRecords: 
       await db.execute(`DELETE FROM ${table}`);
     }
 
-    // Insertar datos nuevos
+    // Insertar datos nuevos en lotes para mayor eficiencia
+    const BATCH_SIZE = 1000;
+    const { saveDatabase } = await import('../db/database');
+    const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+
     for (const table of TABLE_ORDER) {
       const rows = backup.data[table];
       if (!rows || rows.length === 0) continue;
 
-      for (const row of rows) {
-        const keys = Object.keys(row);
-        const values = Object.values(row);
-        const placeholders = keys.map(() => '?').join(', ');
+      console.log(`[Backup] Importando ${rows.length} registros en tabla: ${table}...`);
+      
+      for (let i = 0; i < rows.length; i += BATCH_SIZE) {
+        const batch = rows.slice(i, i + BATCH_SIZE);
+        const stmts: { statement: string; values: unknown[] }[] = [];
 
-        await db.run(
-          `INSERT INTO ${table} (${keys.join(', ')}) VALUES (${placeholders})`,
-          values as (string | number | null)[]
-        );
+        for (const row of batch) {
+          const keys = Object.keys(row);
+          const values = Object.values(row);
+          const placeholders = keys.map(() => '?').join(', ');
+          
+          stmts.push({
+            statement: `INSERT INTO ${table} (${keys.join(', ')}) VALUES (${placeholders})`,
+            values: values as (string | number | null)[]
+          });
+        }
+
+        try {
+          await db.executeSet(stmts, true);
+          console.log(`[Backup] Lote de ${table} (${i + batch.length} / ${rows.length}) insertado.`);
+        } catch (e) {
+          console.error(`[Backup] Error en lote de tabla ${table}:`, e);
+          throw e; 
+        }
       }
+
+      // Persistir tras cada tabla completa para dar respiro al sistema
+      await saveDatabase();
+      console.log(`[Backup] Tabla ${table} persistida.`);
+      
       totalRecords += rows.length;
     }
   } finally {
@@ -302,7 +361,7 @@ export async function importDataFromZip(zipFile: Blob): Promise<{ totalRecords: 
 
 // Auxiliares (mantener compatibilidad con UI actual)
 export async function countRecords(): Promise<Record<string, number>> {
-  const db = getDatabase();
+  const db = await openDatabase();
   const counts: Record<string, number> = {};
   for (const table of TABLE_ORDER) {
     const result = await db.query(`SELECT COUNT(*) as count FROM ${table}`);

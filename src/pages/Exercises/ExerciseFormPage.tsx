@@ -160,12 +160,11 @@ export function ExerciseFormPage() {
       setPrimaryMuscleId(data.primary_muscle_group_id ?? '');
       setIsCompound(data.is_compound);
 
-      // Cargar imagen: priorizar SVG (image_url) para la vista previa
-      if (data.image_url) {
-        setImagePreview(data.image_url);
-      } else if (data.image_path) {
-        setImagePath(data.image_path);
-        const url = await getImageDisplayUrl(data.image_path);
+      // Cargar imagen: priorizar image_url (para el nuevo flujo unificado)
+      const currentImageUrl = data.image_url || data.image_path;
+      if (currentImageUrl) {
+        setImagePath(currentImageUrl);
+        const url = await getImageDisplayUrl(currentImageUrl);
         setImagePreview(url);
       }
       setVideoLink(data.video_path ?? '');
@@ -346,7 +345,7 @@ export function ExerciseFormPage() {
         technical_notes: technicalNotes.trim() || undefined,
         difficulty_level_id: difficultyId || undefined,
         primary_muscle_group_id: primaryMuscleId || undefined,
-        image_path: imagePath || undefined,
+        image_url: imagePath.trim() || undefined,
         video_path: videoLink.trim() || undefined,
         video_long_path: videoLongLink.trim() || undefined,
         is_compound: isCompound,

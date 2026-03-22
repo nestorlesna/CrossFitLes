@@ -190,11 +190,11 @@ export async function create(
   const stmts: { statement: string; values: unknown[] }[] = [];
 
   stmts.push({
-    statement: `INSERT INTO exercise (id, name, description, technical_notes, difficulty_level_id, primary_muscle_group_id, image_path, video_path, video_long_path, is_compound, is_active, created_at, updated_at)
+    statement: `INSERT INTO exercise (id, name, description, technical_notes, difficulty_level_id, primary_muscle_group_id, image_url, video_path, video_long_path, is_compound, is_active, created_at, updated_at)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     values: [id, exercise.name, exercise.description ?? null, exercise.technical_notes ?? null,
       exercise.difficulty_level_id ?? null, exercise.primary_muscle_group_id ?? null,
-      exercise.image_path ?? null, exercise.video_path ?? null, exercise.video_long_path ?? null,
+      exercise.image_url ?? null, exercise.video_path ?? null, exercise.video_long_path ?? null,
       exercise.is_compound, exercise.is_active, timestamp, timestamp],
   });
 

@@ -195,7 +195,7 @@ async function seedExercisesFromJson(
   const sectionMap = new Map((sectionRows.values ?? []).map((r: any) => [r.name, r.id] as [string, string]));
   const unitMap    = new Map((unitRows.values    ?? []).map((r: any) => [r.name, r.id] as [string, string]));
 
-  const BATCH = 50;
+  const BATCH = 1000;
   for (let i = 0; i < exercises.length; i += BATCH) {
     const batch = exercises.slice(i, i + BATCH);
     const stmts: { statement: string; values: unknown[] }[] = [];
@@ -264,117 +264,114 @@ async function seedExercisesFromJson(
     await db.executeSet(stmts, true);
     const loaded = Math.min(i + BATCH, exercises.length);
     onProgress?.(loaded, exercises.length);
-    console.log(`[Seed] Ejercicios insertados: ${loaded} / ${exercises.length}`);
+    console.log(`[Seed] Batch insertado (${loaded} / ${exercises.length}).`);
   }
+
+  // Persistir cambios intermedios para asegurar que los ejercicios estén "visibles" para las plantillas
+  const { saveDatabase } = await import('../db/database');
+  await saveDatabase();
+  console.log('[Seed] Flush intermedio completado. Ejercicios persistidos.');
 }
 
 // ── Punto de entrada unificado ────────────────────────────────────────────────
 
-/**
- * Inicialización unificada (solo manual desde la UI):
- *  1. Borra toda la base de datos
- *  2. Re-ejecuta las migraciones
- *  3. Inserta catálogos base
- *  4. Inserta los 3.242 ejercicios del JSON
- *  5. Plantillas Open 26.1, 26.2, 26.3
- *  6. Plantillas Girls (21)
- *  7. Plantillas Heroes (21)
- *  8. WODs Marzo 2026
- *  9. WODs Feb–Mar 2026
- * 10. Asigna imágenes SVG
- *
- * onProgress(loaded, total) se llama tras cada lote de ejercicios base.
- */
-export async function resetAndReSeedAll(
-  onProgress?: (loaded: number, total: number) => void
-): Promise<void> {
-  console.log('[Seed] Iniciando inicialización unificada...');
+export interface SeedResult {
+  exercises: number;
+  updatedImages: number;
+  mappedMuscles: number;
+  finished: boolean;
+}
 
-  // 1. Obtener la conexión activa y borrar todas las tablas
-  const { getDatabase } = await import('../db/database');
+/**
+ * Borra absolutamente todas las tablas y persiste el cambio.
+ */
+export async function cleanDatabase(): Promise<void> {
+  console.log('[Seed] Iniciando borrado total...');
+  const { getDatabase, closeDatabase } = await import('../db/database');
   const db = getDatabase();
   await resetDatabase(db);
-  console.log('[Seed] Tablas borradas.');
+  await delay(1000);
+  await closeDatabase();
+  console.log('[Seed] Base de datos limpia y conexión cerrada.');
+}
 
-  // 2. Re-crear las tablas ejecutando las migraciones en la MISMA conexión.
-  //    No cerrar/reabrir: en jeep-sqlite (web) el singleton no puede reconectar
-  //    limpiamente dentro de la misma sesión.
+/**
+ * Inicialización unificada (solo manual desde la UI):
+ * 1. Re-ejecuta las migraciones (crea tablas si no existen tras un clean)
+ * 2. Inserta catálogos base
+ * 3. Inserta los 3.242 ejercicios del JSON
+ * ...
+ */
+export async function reSeedAll(
+  onProgress?: (loaded: number, total: number) => void
+): Promise<SeedResult> {
+  console.log('[Seed] Iniciando carga masiva de datos...');
+
+  const result: SeedResult = {
+    exercises: 0,
+    updatedImages: 0,
+    mappedMuscles: 0,
+    finished: false
+  };
+
+  const { openDatabase } = await import('../db/database');
+  const db = await openDatabase();
+
+  // 1. Re-crear las tablas ejecutando las migraciones
   const { runMigrations } = await import('../services/migrationService');
   const { migrations } = await import('../db/migrations');
-  await delay(1000);
   await db.execute('PRAGMA foreign_keys = ON;');
   await runMigrations(db, migrations);
-  console.log('[Seed] Migraciones re-ejecutadas.');
+  console.log('[Seed] Esquema de base de datos verificado/creado.');
 
-  // 3. Insertar catálogos
-  await delay(1000);
-  console.log('[Seed] Insertando catálogos...');
+  // 2. Insertar catálogos
+  await delay(500);
   await seedCatalogs(db);
   console.log('[Seed] Catálogos insertados.');
 
-  // 4. Cargar y insertar ejercicios
-  await delay(1000);
-  console.log('[Seed] Cargando ejercicios del JSON...');
+  // 3. Cargar e insertar ejercicios
+  await delay(500);
   const exercises = await loadExercisesJson();
+  result.exercises = exercises.length;
   console.log(`[Seed] Insertando ${exercises.length} ejercicios...`);
   await seedExercisesFromJson(db, exercises, onProgress);
 
-  // 5. Plantillas del Open 26
-  await delay(1000);
-  console.log('[Seed] Insertando plantillas Open 26...');
+  // 4. Plantillas del Open 26, Girls, Heroes, WODs
+  await delay(500);
   const { addOpenTemplates } = await import('./seedService3');
   await addOpenTemplates(db);
-  console.log('[Seed] Open 26 insertado.');
 
-  // 6. Plantillas Girls
-  await delay(1000);
-  console.log('[Seed] Insertando plantillas Girls...');
-  const { addGirlsTemplates } = await import('./seedService4');
+  await delay(200);
+  const { addGirlsTemplates, addHeroesTemplates } = await import('./seedService4');
   await addGirlsTemplates(db);
-  console.log('[Seed] Girls insertadas.');
-
-  // 7. Plantillas Heroes
-  await delay(1000);
-  console.log('[Seed] Insertando plantillas Heroes...');
-  const { addHeroesTemplates } = await import('./seedService4');
   await addHeroesTemplates(db);
-  console.log('[Seed] Heroes insertados.');
 
-  // 8. WODs Marzo 2026
-  await delay(1000);
-  console.log('[Seed] Insertando WODs Marzo 2026...');
+  await delay(200);
   const { addDailyWodsMarch2026 } = await import('./seedService5');
   await addDailyWodsMarch2026(db);
-  console.log('[Seed] WODs Marzo 2026 insertados.');
 
-  // 9. WODs Feb–Mar 2026
-  await delay(1000);
-  console.log('[Seed] Insertando WODs Feb–Mar 2026...');
+  await delay(200);
   const { addDailyWodsFebMar2026 } = await import('./seedService6');
   await addDailyWodsFebMar2026(db);
-  console.log('[Seed] WODs Feb–Mar 2026 insertados.');
 
   // 10. Asignar imágenes SVG
-  await delay(1000);
-  console.log('[Seed] Asignando imágenes SVG a ejercicios...');
+  await delay(500);
   const { updateExerciseImages } = await import('./imageUpdateService');
-  const updatedImages = await updateExerciseImages(db);
-  console.log(`[Seed] ${updatedImages} imágenes asignadas.`);
+  result.updatedImages = await updateExerciseImages(db);
 
   // 11. Asignar grupos musculares detallados (Mapa Corporal)
-  await delay(1000);
-  console.log('[Seed] Mapeando grupos musculares detallados...');
+  await delay(500);
   const { seedExerciseMuscleGroups } = await import('./muscleSeedService');
-  const mappedMuscles = await seedExerciseMuscleGroups(db);
-  console.log(`[Seed] ${mappedMuscles} ejercicios enriquecidos con mapa muscular.`);
+  result.mappedMuscles = await seedExerciseMuscleGroups(db);
 
-  // 12. Cerrar la conexión para que jeep-sqlite persista a IndexedDB antes del reload
-  await delay(1000);
+  // 12. Cerrar la conexión para persistir
+  await delay(500);
   const { closeDatabase } = await import('../db/database');
   await closeDatabase();
-  console.log('[Seed] Conexión cerrada — datos persistidos al store.');
+  console.log('[Seed] Datos persistidos y conexión cerrada.');
 
-  console.log('[Seed] Inicialización completada.');
+  result.finished = true;
+  return result;
 }
 
 // Exportada para uso en seedService3 (addOpenTemplates puede usarla como fallback)

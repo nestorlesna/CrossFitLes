@@ -57,7 +57,8 @@ interface TemplateDef {
 
 // Busca un ejercicio por nombre; devuelve su ID o null
 async function findExercise(db: SQLiteDBConnection, name: string): Promise<string | null> {
-  const r = await db.query('SELECT id FROM exercise WHERE name = ? AND is_active = 1', [name]);
+  const norm = name.trim().toUpperCase();
+  const r = await db.query('SELECT id FROM exercise WHERE UPPER(TRIM(name)) = ? AND is_active = 1', [norm]);
   return (r.values?.[0]?.id as string) ?? null;
 }
 

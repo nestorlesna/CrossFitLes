@@ -111,14 +111,9 @@ export function ExerciseDetailPage() {
         return;
       }
       setExercise(data);
-
-      // Cargar imagen: priorizar SVG (image_url) sobre foto (image_path)
-      if (data.image_url) {
-        setImageUrl(data.image_url);
-      } else if (data.image_path) {
-        const url = await getImageDisplayUrl(data.image_path);
-        setImageUrl(url);
-      }
+      // Resolver imagen (el servicio decide si es estática o persistente)
+      const url = await getImageDisplayUrl(data.image_url || data.image_path);
+      setImageUrl(url);
 
       // Cargar historial (últimas 10 entradas)
       const hist = (await getHistory(id)) as HistoryEntry[];

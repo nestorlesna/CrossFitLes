@@ -689,33 +689,51 @@ async function seedTemplates(db: SQLiteDBConnection): Promise<void> {
  */
 export async function resetDatabase(db: SQLiteDBConnection): Promise<void> {
   try {
-    console.warn('[Seed] Iniciando borrado total de la base de datos...');
+    console.warn('[Seed] Iniciando borrado total de la base de datos (ciclo de 10 veces para seguridad)...');
     
-    // Desactivar FKs para evitar errores de restricción al borrar
-    await db.execute('PRAGMA foreign_keys = OFF;');
+    for (let i = 1; i <= 10; i++) {
+      console.log(`[Seed] Ciclo de borrado #${i}`);
+      
+      // Desactivar FKs
+      await db.execute('PRAGMA foreign_keys = OFF;');
 
-    // Obtener todas las tablas del usuario
-    const tablesRes = await db.query(
-      "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';"
-    );
-    const tables = (tablesRes.values ?? []).map((t: any) => t.name);
+      // Obtener todas las tablas
+      const tablesRes = await db.query(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';"
+      );
+      const tables = (tablesRes.values ?? []).map((t: any) => t.name);
 
-    console.info('[Seed] Tablas encontradas para borrar:', tables);
+      if (tables.length === 0) {
+        console.log('[Seed] Ya no quedan tablas por borrar.');
+        break;
+      }
 
-    // Borrar cada tabla
-    for (const table of tables) {
-      try {
-        await db.execute(`DROP TABLE IF EXISTS ${table};`);
-        console.info(`[Seed] Tabla ${table} borrada.`);
-      } catch (e) {
-        console.warn(`[Seed] Error al borrar tabla ${table}:`, e);
+      for (const table of tables) {
+        try {
+          await db.execute(`DROP TABLE IF EXISTS ${table};`);
+        } catch (e) {
+          console.warn(`[Seed] Error al borrar tabla ${table} en ciclo ${i}:`, e);
+        }
       }
     }
 
-    // Reactivar FKs
+    // Vaciar sequence por si acaso (sin VACUUM para evitar errores de transaccion)
+    try {
+      await db.execute('DELETE FROM sqlite_sequence;');
+    } catch {}
+
+    // Reactivar FKs e invalidar versión de migraciones
     await db.execute('PRAGMA foreign_keys = ON;');
+    await db.execute('PRAGMA user_version = 0;');
     
-    console.log('[Seed] Todas las tablas han sido borradas.');
+    // PERSISTIR EL ESTADO VACÍO EN DISCO (IndexedDB)
+    try {
+      const { saveDatabase } = await import('../db/database');
+      await saveDatabase();
+      console.log('[Seed] Estado de base de datos vacía persistido en disco.');
+    } catch {}
+    
+    console.log('[Seed] Todas las tablas han sido borradas definitivamente.');
   } catch (err) {
     console.error('[Seed] Error critico en resetDatabase:', err);
     throw err;

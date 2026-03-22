@@ -153,10 +153,16 @@ export async function pickImage(subdir: MediaSubdir): Promise<PickImageResult> {
   return pickImageNative(subdir);
 }
 
-// Devuelve una data URL para mostrar una imagen dado su path relativo
-export async function getImageDisplayUrl(path: string): Promise<string | null> {
+// Devuelve una data URL para mostrar una imagen dado su path relativo o una ruta estática
+export async function getImageDisplayUrl(path: string | null | undefined): Promise<string | null> {
   if (!path) return null;
 
+  // 1. Si es una ruta estática de la aplicación (Assets)
+  if (path.startsWith('/img/') || path.startsWith('http') || path.startsWith('data:')) {
+    return path;
+  }
+
+  // 2. Si es una ruta de almacenamiento persistente (Media)
   if (Capacitor.getPlatform() === 'web') {
     return getImageDisplayUrlWeb(path);
   }
