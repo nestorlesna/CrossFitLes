@@ -1,7 +1,6 @@
 // Provider de base de datos - inicializa SQLite al montar la app
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, useRef } from 'react';
 import { openDatabase } from '../db/database';
-import { runSeed } from '../services/seedService';
 import { Dumbbell } from 'lucide-react';
 
 interface DbContextValue {
@@ -21,13 +20,15 @@ interface DbProviderProps {
 
 export function DbProvider({ children }: DbProviderProps) {
   const [state, setState] = useState<DbContextValue>({ isReady: false, error: null });
+  const initStarted = useRef(false);
 
   useEffect(() => {
+    if (initStarted.current) return;
+    initStarted.current = true;
+
     // jeep-sqlite ya fue inicializado en main.tsx antes de montar React
     openDatabase()
-      .then(async (db) => {
-        // Cargar datos semilla la primera vez (controlado por localStorage)
-        await runSeed(db);
+      .then(() => {
         setState({ isReady: true, error: null });
       })
       .catch((err: Error) => {

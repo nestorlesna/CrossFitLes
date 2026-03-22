@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="2">KB SWING</text>
+  <!-- Frame 1: Carga (KB entre piernas, hip hinge) -->
+  <g class="f1">
+    <circle cx="75" cy="100" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Espalda plana inclinada -->
+      <line x1="75" y1="113" x2="130" y2="130"/>
+      <line x1="80" y1="118" x2="80" y2="130"/><!-- shoulder bar -->
+      <line x1="120" y1="126" x2="120" y2="138"/>
+      <!-- Brazos hacia el KB -->
+      <line x1="80" y1="124" x2="95" y2="158"/><line x1="120" y1="132" x2="110" y2="158"/>
+      <!-- Piernas -->
+      <line x1="130" y1="130" x2="145" y2="172"/><line x1="145" y1="172" x2="148" y2="205"/>
+      <line x1="128" y1="132" x2="115" y2="172"/><line x1="115" y1="172" x2="112" y2="205"/>
+    </g>
+    <!-- KB entre piernas -->
+    <circle cx="103" cy="168" r="10" fill="none" stroke="#475569" stroke-width="4"/>
+    <line x1="97" y1="160" x2="109" y2="160" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="145" cy="172" r="5" fill="#64748b"/><circle cx="115" cy="172" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: KB a la cintura (subiendo) -->
+  <g class="f2">
+    <circle cx="90" cy="60" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="90" y1="73" x2="95" y2="125"/>
+      <line x1="74" y1="88" x2="116" y2="88"/>
+      <line x1="74" y1="88" x2="85" y2="130"/><line x1="116" y1="88" x2="108" y2="130"/>
+      <!-- Brazos con KB a la cadera -->
+      <line x1="85" y1="130" x2="88" y2="148"/><line x1="108" y1="130" x2="112" y2="148"/>
+      <line x1="95" y1="125" x2="125" y2="168"/><line x1="125" y1="168" x2="128" y2="205"/>
+      <line x1="93" y1="127" x2="78" y2="168"/><line x1="78" y1="168" x2="74" y2="205"/>
+    </g>
+    <!-- KB a la cadera -->
+    <circle cx="100" cy="150" r="10" fill="none" stroke="#475569" stroke-width="4"/>
+    <line x1="94" y1="142" x2="106" y2="142" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="125" cy="168" r="5" fill="#64748b"/><circle cx="78" cy="168" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: KB a la altura de los hombros (Russian) -->
+  <g class="f3">
+    <circle cx="100" cy="36" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="49" x2="100" y2="112"/>
+      <line x1="78" y1="62" x2="122" y2="62"/>
+      <!-- Brazos al frente horizontales sosteniendo KB -->
+      <line x1="78" y1="62" x2="68" y2="90"/><line x1="122" y1="62" x2="132" y2="90"/>
+      <line x1="68" y1="90" x2="88" y2="96"/><line x1="132" y1="90" x2="112" y2="96"/>
+      <line x1="95" y1="112" x2="93" y2="164"/><line x1="93" y1="164" x2="93" y2="205"/>
+      <line x1="105" y1="112" x2="107" y2="164"/><line x1="107" y1="164" x2="107" y2="205"/>
+      <line x1="79" y1="205" x2="107" y2="205"/><line x1="93" y1="205" x2="121" y2="205"/>
+    </g>
+    <!-- KB a la altura de hombros -->
+    <circle cx="100" cy="100" r="11" fill="none" stroke="#475569" stroke-width="4"/>
+    <line x1="93" y1="91" x2="107" y2="91" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</svg>

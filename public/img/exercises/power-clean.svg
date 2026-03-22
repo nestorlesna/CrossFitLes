@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="2">POWER CLEAN</text>
+  <!-- Frame 1: Setup (barra en el suelo) -->
+  <g class="f1">
+    <line x1="45" y1="205" x2="155" y2="205" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="40" y="196" width="8" height="18" rx="2" fill="#475569"/>
+    <rect x="152" y="196" width="8" height="18" rx="2" fill="#475569"/>
+    <circle cx="72" cy="102" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="72" y1="115" x2="125" y2="132"/>
+      <line x1="82" y1="120" x2="78" y2="132"/>
+      <line x1="78" y1="126" x2="82" y2="205"/>
+      <line x1="125" y1="132" x2="146" y2="172"/><line x1="146" y1="172" x2="148" y2="205"/>
+      <line x1="123" y1="134" x2="108" y2="173"/><line x1="108" y1="173" x2="106" y2="205"/>
+    </g>
+    <circle cx="146" cy="172" r="5" fill="#64748b"/><circle cx="108" cy="173" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: High pull (triple extensión, barra a pecho) -->
+  <g class="f2">
+    <line x1="52" y1="112" x2="148" y2="112" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="46" y="104" width="8" height="16" rx="2" fill="#475569"/>
+    <rect x="146" y="104" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="100" cy="52" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Cuerpo extendido, puntillas, jalando barra -->
+      <line x1="100" y1="65" x2="100" y2="118"/>
+      <line x1="78" y1="76" x2="122" y2="76"/>
+      <!-- Codos altos (high pull) -->
+      <line x1="78" y1="76" x2="64" y2="58"/><line x1="64" y1="58" x2="68" y2="112"/>
+      <line x1="122" y1="76" x2="136" y2="58"/><line x1="136" y1="58" x2="132" y2="112"/>
+      <!-- Piernas casi extendidas, puntillas -->
+      <line x1="96" y1="118" x2="90" y2="172"/><line x1="90" y1="172" x2="90" y2="200"/>
+      <line x1="104" y1="118" x2="110" y2="172"/><line x1="110" y1="172" x2="110" y2="200"/>
+      <line x1="78" y1="200" x2="104" y2="200"/><line x1="98" y1="200" x2="124" y2="200"/>
+    </g>
+    <circle cx="64" cy="58" r="5" fill="#64748b"/><circle cx="136" cy="58" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: Front rack (recibiendo la barra) -->
+  <g class="f3">
+    <line x1="52" y1="76" x2="148" y2="76" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="46" y="68" width="8" height="16" rx="2" fill="#475569"/>
+    <rect x="146" y="68" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="100" cy="42" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="55" x2="100" y2="120"/>
+      <line x1="78" y1="68" x2="122" y2="68"/>
+      <!-- Codos adelante en front rack -->
+      <line x1="78" y1="68" x2="60" y2="76"/><line x1="122" y1="68" x2="140" y2="76"/>
+      <!-- Ligero squat al recibir (power clean recibe en cuarto squat) -->
+      <line x1="95" y1="120" x2="85" y2="165"/><line x1="85" y1="165" x2="86" y2="205"/>
+      <line x1="105" y1="120" x2="118" y2="165"/><line x1="118" y1="165" x2="116" y2="205"/>
+      <line x1="72" y1="205" x2="100" y2="205"/><line x1="104" y1="205" x2="130" y2="205"/>
+    </g>
+    <circle cx="85" cy="165" r="5" fill="#64748b"/><circle cx="118" cy="165" r="5" fill="#64748b"/>
+  </g>
+</svg>

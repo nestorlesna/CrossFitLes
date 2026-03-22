@@ -57,3 +57,4 @@ coverage/
 # Plan de desarrollo (opcional, descomentar si se desea excluir)
 # PLAN.md
 # CLAUDE.md
+node_modules

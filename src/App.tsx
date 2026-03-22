@@ -10,6 +10,9 @@ import { ClassesPage } from './pages/Classes/ClassesPage';
 import { ClassTemplateFormPage } from './pages/Classes/ClassTemplateFormPage';
 import { ClassTemplateDetailPage } from './pages/Classes/ClassTemplateDetailPage';
 import { SessionsPage } from './pages/Sessions/SessionsPage';
+import { NewSessionPage } from './pages/Sessions/NewSessionPage';
+import { SessionExecutorPage } from './pages/Sessions/SessionExecutorPage';
+import { SessionDetailPage } from './pages/Sessions/SessionDetailPage';
 import { StatsPage } from './pages/Stats/StatsPage';
 import { SettingsPage } from './pages/Settings/SettingsPage';
 import { MuscleGroupsPage } from './pages/Settings/catalogs/MuscleGroupsPage';
@@ -19,6 +22,7 @@ import { DifficultyLevelsPage } from './pages/Settings/catalogs/DifficultyLevels
 import { TagsPage } from './pages/Settings/catalogs/TagsPage';
 import { SectionTypesPage } from './pages/Settings/catalogs/SectionTypesPage';
 import { WorkFormatsPage } from './pages/Settings/catalogs/WorkFormatsPage';
+import { ExerciseImagesPage } from './pages/Settings/ExerciseImagesPage';
 import { DbProvider } from './components/DbProvider';
 
 export default function App() {
@@ -38,6 +42,9 @@ export default function App() {
             <Route path="clases/:id" element={<ClassTemplateDetailPage />} />
             <Route path="clases/:id/editar" element={<ClassTemplateFormPage />} />
             <Route path="sesiones" element={<SessionsPage />} />
+            <Route path="sesiones/nueva" element={<NewSessionPage />} />
+            <Route path="sesiones/:id/ejecutar" element={<SessionExecutorPage />} />
+            <Route path="sesiones/:id" element={<SessionDetailPage />} />
             <Route path="estadisticas" element={<StatsPage />} />
             {/* Configuración y catálogos */}
             <Route path="configuracion" element={<SettingsPage />} />
@@ -48,6 +55,7 @@ export default function App() {
             <Route path="configuracion/tags" element={<TagsPage />} />
             <Route path="configuracion/tipos-seccion" element={<SectionTypesPage />} />
             <Route path="configuracion/formatos-trabajo" element={<WorkFormatsPage />} />
+            <Route path="configuracion/imagenes-ejercicios" element={<ExerciseImagesPage />} />
           </Route>
         </Routes>
       </DbProvider>

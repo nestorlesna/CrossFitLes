@@ -12,6 +12,7 @@ import {
   Target,
   Play,
   AlertTriangle,
+  Dumbbell,
 } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -20,6 +21,7 @@ import { Header } from '../../components/layout/Header';
 import { Modal } from '../../components/ui/Modal';
 import { ClassTemplateWithSections, SectionExercise } from '../../models/ClassTemplate';
 import * as classTemplateRepo from '../../db/repositories/classTemplateRepo';
+import { getImageDisplayUrl } from '../../services/mediaService';
 
 // Formatea una duración en segundos a "Xm Ys"
 function formatSeconds(seconds: number): string {
@@ -52,6 +54,28 @@ function buildExerciseParams(exercise: SectionExercise): string {
   }
 
   return parts.join(' · ');
+}
+
+function ExerciseImage({ imagePath, name }: { imagePath?: string | null; name: string }) {
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (imagePath) {
+      getImageDisplayUrl(imagePath).then(setImageUrl);
+    } else {
+      setImageUrl(null);
+    }
+  }, [imagePath]);
+
+  return (
+    <div className="w-16 h-16 rounded-lg bg-gray-800 flex items-center justify-center shrink-0 overflow-hidden">
+      {imageUrl ? (
+        <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
+      ) : (
+        <Dumbbell size={20} className="text-gray-600" />
+      )}
+    </div>
+  );
 }
 
 export function ClassTemplateDetailPage() {
@@ -286,9 +310,14 @@ export function ClassTemplateDetailPage() {
                         <div key={exercise.id} className="px-4 py-3">
                           <div className="flex items-start gap-3">
                             {/* Número de orden */}
-                            <span className="text-xs text-gray-600 mt-0.5 w-4 shrink-0 text-right">
+                            <span className="text-xs text-gray-600 mt-1 w-4 shrink-0 text-right">
                               {idx + 1}.
                             </span>
+                            {/* Imagen del ejercicio */}
+                            <ExerciseImage
+                              imagePath={exercise.exercise_image_path}
+                              name={exercise.exercise_name ?? ''}
+                            />
                             <div className="flex-1 min-w-0">
                               <p className="text-sm font-medium text-white">
                                 {exercise.exercise_name}

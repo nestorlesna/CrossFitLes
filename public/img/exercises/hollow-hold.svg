@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="240" height="180" fill="#111827" rx="12"/>
+  <line x1="20" y1="148" x2="220" y2="148" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="120" y="165" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="2">HOLLOW HOLD</text>
+  <!-- Frame 1: Acostado plano -->
+  <g class="f1">
+    <circle cx="38" cy="122" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Cuerpo horizontal, brazos a los lados -->
+      <line x1="38" y1="135" x2="200" y2="140"/>
+      <line x1="65" y1="136" x2="65" y2="148"/><line x1="100" y1="137" x2="100" y2="148"/>
+      <!-- Brazos extendidos al lado del cuerpo -->
+      <line x1="80" y1="137" x2="80" y2="148"/>
+    </g>
+  </g>
+  <!-- Frame 2: Hollow parcial (piernas y hombros levantando) -->
+  <g class="f2">
+    <circle cx="38" cy="112" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso en el suelo, extremos elevados -->
+      <line x1="38" y1="125" x2="130" y2="132"/>
+      <!-- Piernas elevadas ~30° -->
+      <line x1="130" y1="132" x2="195" y2="118"/>
+      <!-- Brazos subiendo -->
+      <line x1="38" y1="118" x2="22" y2="105"/>
+    </g>
+  </g>
+  <!-- Frame 3: Hollow completo (brazos atrás, piernas extendidas y elevadas) -->
+  <g class="f3">
+    <circle cx="50" cy="100" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Espalda baja pegada al suelo, curva pronunciada -->
+      <line x1="50" y1="113" x2="140" y2="128"/>
+      <!-- Piernas extendidas elevadas ~45° -->
+      <line x1="140" y1="128" x2="210" y2="108"/>
+      <!-- Brazos extendidos atrás por encima de la cabeza -->
+      <line x1="50" y1="107" x2="22" y2="90"/>
+      <line x1="22" y1="90" x2="18" y2="90"/>
+    </g>
+  </g>
+</svg>

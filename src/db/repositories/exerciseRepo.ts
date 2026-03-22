@@ -1,6 +1,6 @@
 // Repositorio de ejercicios: CRUD completo con relaciones y transacciones
 
-import { getDatabase } from '../database';
+import { getDatabase, saveDatabase } from '../database';
 import { generateUUID } from '../../utils/formatters';
 import { Exercise, ExerciseFilters, ExerciseRelations, ExerciseWithRelations } from '../../models/Exercise';
 
@@ -54,6 +54,10 @@ export async function getAll(filters?: ExerciseFilters): Promise<Exercise[]> {
   if (filters?.section_type_id) {
     query += ` AND e.id IN (SELECT exercise_id FROM exercise_section_type WHERE section_type_id = ?)`;
     params.push(filters.section_type_id);
+  }
+
+  if (filters?.in_classes) {
+    query += ` AND e.id IN (SELECT DISTINCT exercise_id FROM section_exercise)`;
   }
 
   query += ` ORDER BY e.name ASC`;
@@ -172,11 +176,11 @@ export async function create(
   const stmts: { statement: string; values: unknown[] }[] = [];
 
   stmts.push({
-    statement: `INSERT INTO exercise (id, name, description, technical_notes, difficulty_level_id, primary_muscle_group_id, image_path, video_path, is_compound, is_active, created_at, updated_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    statement: `INSERT INTO exercise (id, name, description, technical_notes, difficulty_level_id, primary_muscle_group_id, image_path, video_path, video_long_path, is_compound, is_active, created_at, updated_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     values: [id, exercise.name, exercise.description ?? null, exercise.technical_notes ?? null,
       exercise.difficulty_level_id ?? null, exercise.primary_muscle_group_id ?? null,
-      exercise.image_path ?? null, exercise.video_path ?? null,
+      exercise.image_path ?? null, exercise.video_path ?? null, exercise.video_long_path ?? null,
       exercise.is_compound, exercise.is_active, timestamp, timestamp],
   });
 
@@ -197,6 +201,7 @@ export async function create(
   }
 
   await db.executeSet(stmts, true);
+  await saveDatabase();
   return id;
 }
 
@@ -254,6 +259,7 @@ export async function update(
   }
 
   await db.executeSet(stmts, true);
+  await saveDatabase();
 }
 
 // Borrado lógico: marca el ejercicio como inactivo
@@ -263,6 +269,7 @@ export async function softDelete(id: string): Promise<void> {
     `UPDATE exercise SET is_active = 0, updated_at = ? WHERE id = ?`,
     [now(), id]
   );
+  await saveDatabase();
 }
 
 // Obtiene el historial de uso del ejercicio en sesiones completadas

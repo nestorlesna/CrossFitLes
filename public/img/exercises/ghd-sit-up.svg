@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 210">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="240" height="210" fill="#111827" rx="12"/>
+  <!-- GHD frame -->
+  <line x1="40" y1="178" x2="210" y2="178" stroke="#374151" stroke-width="4" stroke-linecap="round"/>
+  <line x1="90" y1="138" x2="90" y2="178" stroke="#374151" stroke-width="5" stroke-linecap="round"/>
+  <line x1="150" y1="118" x2="150" y2="178" stroke="#374151" stroke-width="5" stroke-linecap="round"/>
+  <!-- Hip pad -->
+  <rect x="80" y="130" width="22" height="10" rx="3" fill="#374151"/>
+  <!-- Foot anchor -->
+  <rect x="138" y="110" width="24" height="10" rx="3" fill="#374151"/>
+  <text x="120" y="198" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" fill="#475569" letter-spacing="2">GHD SIT-UP</text>
+  <!-- Frame 1: Extended back (hyperextended behind pad) -->
+  <g class="f1">
+    <circle cx="44" cy="110" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso tilted back past horizontal -->
+      <line x1="44" y1="122" x2="92" y2="138"/>
+      <!-- Arms overhead/behind -->
+      <line x1="56" y1="118" x2="42" y2="100"/>
+      <!-- Hip at pad, legs over -->
+      <line x1="92" y1="138" x2="150" y2="122"/>
+      <line x1="150" y1="122" x2="190" y2="118"/>
+    </g>
+    <circle cx="92" cy="138" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: Passing through horizontal (arms reaching forward) -->
+  <g class="f2">
+    <circle cx="80" cy="92" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso near horizontal rising -->
+      <line x1="80" y1="104" x2="92" y2="138"/>
+      <!-- Arms outstretched forward -->
+      <line x1="76" y1="108" x2="52" y2="96"/>
+      <!-- Legs -->
+      <line x1="92" y1="138" x2="150" y2="122"/>
+      <line x1="150" y1="122" x2="190" y2="118"/>
+    </g>
+    <circle cx="92" cy="138" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: Fully upright / past vertical (sit-up complete) -->
+  <g class="f3">
+    <circle cx="104" cy="62" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso vertical -->
+      <line x1="104" y1="74" x2="92" y2="138"/>
+      <!-- Arms forward/overhead -->
+      <line x1="100" y1="80" x2="80" y2="60"/>
+      <line x1="108" y1="80" x2="128" y2="60"/>
+      <!-- Legs -->
+      <line x1="92" y1="138" x2="150" y2="122"/>
+      <line x1="150" y1="122" x2="190" y2="118"/>
+    </g>
+    <circle cx="92" cy="138" r="5" fill="#64748b"/>
+  </g>
+</svg>

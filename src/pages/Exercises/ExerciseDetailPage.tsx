@@ -1,7 +1,7 @@
 // Pantalla de detalle de un ejercicio con historial de uso
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ChevronLeft, Edit2, Trash2, Dumbbell, Star, CheckCircle, Circle } from 'lucide-react';
+import { ChevronLeft, Edit2, Trash2, Dumbbell, Star, CheckCircle, Circle, Video, Youtube } from 'lucide-react';
 import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
 import { Badge } from '../../components/ui/Badge';
@@ -20,6 +20,71 @@ interface HistoryEntry {
   actual_distance?: number;
   weight_unit?: string;
   distance_unit?: string;
+}
+
+// Función helper para obtener el ID de YouTube
+function getYoutubeId(url: string): string | null {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : null;
+}
+
+// Función helper para obtener el ID de Vimeo
+function getVimeoId(url: string): string | null {
+  const regExp = /vimeo\.com\/(?:video\/|channels\/(?:\w+\/)?|groups\/(?:\w+\/)?|album\/(?:\w+\/)?|showcase\/(?:\w+\/)?|)(\d+)(?:$|\/|\?)/;
+  const match = url.match(regExp);
+  return (match && match[1]) ? match[1] : null;
+}
+
+// Componente reutilizable para mostrar un video embebido o enlace externo
+function VideoEmbed({ url }: { url: string }) {
+  const youtubeId = getYoutubeId(url);
+  const vimeoId = getVimeoId(url);
+
+  if (youtubeId) {
+    return (
+      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
+        <iframe
+          src={`https://www.youtube.com/embed/${youtubeId}`}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="absolute top-0 left-0 w-full h-full"
+        />
+      </div>
+    );
+  }
+
+  if (vimeoId) {
+    return (
+      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
+        <iframe
+          src={`https://player.vimeo.com/video/${vimeoId}`}
+          title="Vimeo video player"
+          frameBorder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+          className="absolute top-0 left-0 w-full h-full"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center justify-between bg-gray-800 hover:bg-gray-700 p-3 rounded-lg transition-colors group"
+    >
+      <div className="flex items-center gap-2">
+        <Youtube size={20} className="text-red-500" />
+        <span className="text-sm text-gray-200 truncate max-w-[200px]">{url}</span>
+      </div>
+      <span className="text-xs text-primary-500 font-medium group-hover:underline">Ver video</span>
+    </a>
+  );
 }
 
 export function ExerciseDetailPage() {
@@ -287,6 +352,28 @@ export function ExerciseDetailPage() {
             <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
               <h2 className="text-white font-semibold text-base mb-2">Notas técnicas</h2>
               <p className="text-gray-300 text-sm leading-relaxed">{exercise.technical_notes}</p>
+            </div>
+          )}
+
+          {/* ── Video corto ── */}
+          {exercise.video_path && (
+            <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
+              <h2 className="text-white font-semibold text-base mb-3 flex items-center gap-2">
+                <Video size={18} className="text-primary-500" />
+                Video corto
+              </h2>
+              <VideoEmbed url={exercise.video_path} />
+            </div>
+          )}
+
+          {/* ── Video explicativo ── */}
+          {exercise.video_long_path && (
+            <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
+              <h2 className="text-white font-semibold text-base mb-3 flex items-center gap-2">
+                <Video size={18} className="text-primary-500" />
+                Video explicativo
+              </h2>
+              <VideoEmbed url={exercise.video_long_path} />
             </div>
           )}
 

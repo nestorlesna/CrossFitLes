@@ -1,0 +1,2556 @@
+{
+  "meta": {
+    "app": "CrossFit Session Tracker",
+    "version": "1.0.0",
+    "exportDate": "2026-03-21T10:59:59.043Z",
+    "schemaVersion": 3,
+    "tables": 19,
+    "totalRecords": 344
+  },
+  "data": {
+    "muscle_group": [
+      {
+        "id": "84ed4cd7-731b-4e95-99e1-0a2d0cf34bdb",
+        "name": "Pectorales",
+        "description": null,
+        "body_zone": "upper_body",
+        "image_path": null,
+        "sort_order": 1,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "2db86c6f-6005-4c25-9428-63fd96b4122a",
+        "name": "Dorsales",
+        "description": null,
+        "body_zone": "upper_body",
+        "image_path": null,
+        "sort_order": 2,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "e437bcc0-4549-4342-b8bc-3d0d4ca7b552",
+        "name": "Deltoides",
+        "description": null,
+        "body_zone": "upper_body",
+        "image_path": null,
+        "sort_order": 3,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "cc323603-de86-4cb0-913c-05fc3592f405",
+        "name": "Bíceps",
+        "description": null,
+        "body_zone": "upper_body",
+        "image_path": null,
+        "sort_order": 4,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "c66e16bb-65f4-4a81-b4b4-e4ddd6e4b229",
+        "name": "Tríceps",
+        "description": null,
+        "body_zone": "upper_body",
+        "image_path": null,
+        "sort_order": 5,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "e869a1c9-912a-42e8-b180-a9fe7da08479",
+        "name": "Trapecio",
+        "description": null,
+        "body_zone": "upper_body",
+        "image_path": null,
+        "sort_order": 6,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "c79af9dc-cec8-489a-a031-87eb7a59cb65",
+        "name": "Antebrazos",
+        "description": null,
+        "body_zone": "upper_body",
+        "image_path": null,
+        "sort_order": 7,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "8dc23b27-8083-446c-8308-a4b902cdbda2",
+        "name": "Cuádriceps",
+        "description": null,
+        "body_zone": "lower_body",
+        "image_path": null,
+        "sort_order": 8,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "7910032e-5dfe-4bca-9e81-1f72b1d16cb3",
+        "name": "Isquiotibiales",
+        "description": null,
+        "body_zone": "lower_body",
+        "image_path": null,
+        "sort_order": 9,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "87f73e09-9266-4ecf-b4c6-d73fcd850943",
+        "name": "Glúteos",
+        "description": null,
+        "body_zone": "lower_body",
+        "image_path": null,
+        "sort_order": 10,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "0d25cb3c-fb73-4d2b-b0a1-5a2907b43e79",
+        "name": "Pantorrillas",
+        "description": null,
+        "body_zone": "lower_body",
+        "image_path": null,
+        "sort_order": 11,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "name": "Core/Abdominales",
+        "description": null,
+        "body_zone": "core",
+        "image_path": null,
+        "sort_order": 12,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "9311c58a-0664-43ac-af78-8411b23308b6",
+        "name": "Barra olímpica",
+        "description": null,
+        "image_path": null,
+        "category": "barbell",
+        "sort_order": 1,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "f4b0bf4a-a5a4-4801-8a8d-2c88ff7dd0fb",
+        "name": "Mancuernas",
+        "description": null,
+        "image_path": null,
+        "category": "dumbbell",
+        "sort_order": 2,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "ce418e13-e021-4879-b901-a54fe412e8ca",
+        "name": "Kettlebell",
+        "description": null,
+        "image_path": null,
+        "category": "kettlebell",
+        "sort_order": 3,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "4d914e22-70ab-4562-8156-347b0829a879",
+        "name": "Anillas",
+        "description": null,
+        "image_path": null,
+        "category": "bodyweight",
+        "sort_order": 4,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "7b8adace-f35f-4c86-ad37-511242d66a57",
+        "name": "Pull-up bar",
+        "description": null,
+        "image_path": null,
+        "category": "bodyweight",
+        "sort_order": 5,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "ebdf1072-00d7-48b9-8a9d-ab8476546459",
+        "name": "Rower",
+        "description": null,
+        "image_path": null,
+        "category": "cardio",
+        "sort_order": 6,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "78b9badf-cdde-4f8c-bc1d-194d8dcac328",
+        "name": "Assault bike",
+        "description": null,
+        "image_path": null,
+        "category": "cardio",
+        "sort_order": 7,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "64f67f37-6e51-410c-8e2d-a0313a787358",
+        "name": "Cuerda para saltar",
+        "description": null,
+        "image_path": null,
+        "category": "cardio",
+        "sort_order": 8,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "d80a46f4-36a1-49b5-991e-d5536b244942",
+        "name": "Box de salto",
+        "description": null,
+        "image_path": null,
+        "category": "other",
+        "sort_order": 9,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "c01c4301-efe3-4857-8bf7-4cb8ac61d022",
+        "name": "Banda elástica",
+        "description": null,
+        "image_path": null,
+        "category": "other",
+        "sort_order": 10,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "7489520d-3798-4303-941c-3d44cd214d91",
+        "name": "Balón medicinal",
+        "description": null,
+        "image_path": null,
+        "category": "other",
+        "sort_order": 11,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "396d022b-52b5-412d-925e-399d1aa613c9",
+        "name": "Wall ball",
+        "description": null,
+        "image_path": null,
+        "category": "other",
+        "sort_order": 12,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "36989a6c-3839-4716-a5d0-4545adfcbf6e",
+        "name": "Paralelas",
+        "description": null,
+        "image_path": null,
+        "category": "bodyweight",
+        "sort_order": 13,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "f3bd3399-6adf-4a46-882b-38efc862ed57",
+        "name": "GHD",
+        "description": null,
+        "image_path": null,
+        "category": "machine",
+        "sort_order": 14,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "32d628eb-91d5-48c5-b17c-2c31cfacba75",
+        "name": "Sled",
+        "description": null,
+        "image_path": null,
+        "category": "other",
+        "sort_order": 15,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "efbc0f3b-807b-4d84-b50b-d8dd75c3e51e",
+        "name": "Prueba",
+        "description": "esto es una descripcion de prueba",
+        "image_path": null,
+        "category": "kettlebell",
+        "sort_order": 16,
+        "is_active": 0,
+        "created_at": "2026-03-10 23:39:39",
+        "updated_at": "2026-03-10 23:39:45"
+      }
+    ],
+    "measurement_unit": [
+      {
+        "id": "a43b86e4-fbb6-4772-9e7e-f0471cc225c4",
+        "name": "Kilogramos",
+        "abbreviation": "kg",
+        "unit_type": "weight",
+        "sort_order": 1,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "d203f04d-5de6-40d8-b759-9f3f97626bd3",
+        "name": "Libras",
+        "abbreviation": "lb",
+        "unit_type": "weight",
+        "sort_order": 2,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "name": "Repeticiones",
+        "abbreviation": "rep",
+        "unit_type": "repetitions",
+        "sort_order": 3,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "c368db94-d1f4-4ac5-ae64-9bb4b7ff1019",
+        "name": "Calorías",
+        "abbreviation": "cal",
+        "unit_type": "calories",
+        "sort_order": 4,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "1951e6c0-d91b-450e-83c9-2cb179f342f9",
+        "name": "Minutos",
+        "abbreviation": "min",
+        "unit_type": "time",
+        "sort_order": 5,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "3d24b95d-2ed9-4173-a676-4545b9af5dbb",
+        "name": "Segundos",
+        "abbreviation": "seg",
+        "unit_type": "time",
+        "sort_order": 6,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "46e6ffb9-5698-4409-8803-bee2f6a2da2e",
+        "name": "Metros",
+        "abbreviation": "m",
+        "unit_type": "distance",
+        "sort_order": 7,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "e3891bf5-1465-4251-96a0-40dfb656bfee",
+        "name": "Kilómetros",
+        "abbreviation": "km",
+        "unit_type": "distance",
+        "sort_order": 8,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "7f94e28c-bb7e-4045-bdaf-4cc2d0062426",
+        "name": "Millas",
+        "abbreviation": "mi",
+        "unit_type": "distance",
+        "sort_order": 9,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      }
+    ],
+    "difficulty_level": [
+      {
+        "id": "9105b7af-5bc4-423d-a8c9-5e18e81ea1c7",
+        "name": "Básico",
+        "description": null,
+        "color": "#22c55e",
+        "numeric_value": 1,
+        "sort_order": 1,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "580b837b-614c-4341-a3e9-42d905fdbbd9",
+        "name": "Intermedio",
+        "description": null,
+        "color": "#f59e0b",
+        "numeric_value": 2,
+        "sort_order": 2,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "a92fba2a-04bd-430b-b394-f3eab1c3a5f7",
+        "name": "Avanzado",
+        "description": null,
+        "color": "#ef4444",
+        "numeric_value": 3,
+        "sort_order": 3,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "4ac537cb-8933-48d5-b334-1d938a153980",
+        "name": "Experto",
+        "description": null,
+        "color": "#8b5cf6",
+        "numeric_value": 4,
+        "sort_order": 4,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      }
+    ],
+    "tag": [
+      {
+        "id": "2b20be15-f9ec-4eaa-9500-8a6053033370",
+        "name": "hombro",
+        "color": "#6366f1",
+        "sort_order": 1,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "54341f6d-714c-468c-8360-ed589d1c3236",
+        "name": "sentadilla",
+        "color": "#8b5cf6",
+        "sort_order": 2,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "18039354-d400-4bc8-a22b-ec7f88da9c7b",
+        "name": "core",
+        "color": "#ec4899",
+        "sort_order": 3,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "c66153e9-de3c-4125-8b37-3d814b28c07b",
+        "name": "olímpico",
+        "color": "#f59e0b",
+        "sort_order": 4,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "ce8b0f00-e7d0-4380-9618-f00bd75a1558",
+        "name": "gimnástico",
+        "color": "#22c55e",
+        "sort_order": 5,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "ef6345cc-d224-49ff-8af9-ce3fe3d4fc66",
+        "name": "cardio",
+        "color": "#ef4444",
+        "sort_order": 6,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "34d0e2a0-917e-4785-ab6e-fe6a1dadefe0",
+        "name": "monoarticular",
+        "color": "#64748b",
+        "sort_order": 7,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "8d652589-21c5-4b36-9849-7fa9a9077ca6",
+        "name": "press",
+        "color": "#0ea5e9",
+        "sort_order": 8,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "d0ba70e8-311b-4c42-bbcf-1c5015a19ca7",
+        "name": "pull",
+        "color": "#06b6d4",
+        "sort_order": 9,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "53025a7d-7ce1-4d4e-b15b-ce7561cc6cc8",
+        "name": "push",
+        "color": "#0ea5e9",
+        "sort_order": 10,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "950c1ca2-5a68-4e52-a84f-f4908b025e4f",
+        "name": "bilateral",
+        "color": "#64748b",
+        "sort_order": 11,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "8cf38598-abf1-4efd-ac8f-8b9125fe231e",
+        "name": "unilateral",
+        "color": "#94a3b8",
+        "sort_order": 12,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "37d07c6d-bb93-46e3-849c-7fbb4d9fdfa9",
+        "name": "isométrico",
+        "color": "#64748b",
+        "sort_order": 13,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "d2298e6f-2fe3-4fee-893a-f73ec1b2312b",
+        "name": "pliométrico",
+        "color": "#f97316",
+        "sort_order": 14,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      }
+    ],
+    "section_type": [
+      {
+        "id": "971526c7-16f5-46bf-ba10-f2a0ad05ac72",
+        "name": "Entrada en calor",
+        "description": null,
+        "default_order": 1,
+        "color": "#22c55e",
+        "icon": "Flame",
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26",
+        "sort_order": 1
+      },
+      {
+        "id": "72620e3e-41e7-40b6-9763-72050e2a5534",
+        "name": "Activación",
+        "description": null,
+        "default_order": 2,
+        "color": "#f59e0b",
+        "icon": "Zap",
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26",
+        "sort_order": 2
+      },
+      {
+        "id": "59d698e5-4a2d-4fc1-bcba-2bd73ebddccf",
+        "name": "Fuerza",
+        "description": null,
+        "default_order": 3,
+        "color": "#ef4444",
+        "icon": "Dumbbell",
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26",
+        "sort_order": 3
+      },
+      {
+        "id": "248d14d9-a8c2-4bc4-9b1e-11a15d15e2f2",
+        "name": "Habilidad",
+        "description": null,
+        "default_order": 4,
+        "color": "#8b5cf6",
+        "icon": "Star",
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26",
+        "sort_order": 4
+      },
+      {
+        "id": "abee8691-2bf7-43bf-b718-5f054bdd4114",
+        "name": "WOD",
+        "description": null,
+        "default_order": 5,
+        "color": "#f97316",
+        "icon": "Timer",
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26",
+        "sort_order": 5
+      },
+      {
+        "id": "4169250b-b598-4beb-8ea2-f6396349d277",
+        "name": "Vuelta a la calma",
+        "description": null,
+        "default_order": 6,
+        "color": "#06b6d4",
+        "icon": "Wind",
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26",
+        "sort_order": 6
+      },
+      {
+        "id": "05824437-e40d-4f79-a854-b97c14a8014e",
+        "name": "Accesorio",
+        "description": null,
+        "default_order": 7,
+        "color": "#64748b",
+        "icon": "Plus",
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26",
+        "sort_order": 7
+      }
+    ],
+    "work_format": [
+      {
+        "id": "c88cef8e-beba-41a7-b4b0-d69e49724310",
+        "name": "Por rondas",
+        "description": null,
+        "has_time_cap": 0,
+        "has_rounds": 1,
+        "sort_order": 1,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:29:30"
+      },
+      {
+        "id": "23b618c6-53f1-48f6-912c-0a25e7e0334a",
+        "name": "EMOM",
+        "description": null,
+        "has_time_cap": 1,
+        "has_rounds": 1,
+        "sort_order": 2,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:29:30"
+      },
+      {
+        "id": "342455a8-f11f-4bc0-ae2a-3532d4513c9b",
+        "name": "AMRAP",
+        "description": null,
+        "has_time_cap": 1,
+        "has_rounds": 0,
+        "sort_order": 3,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "bab8ceda-9695-401b-97bd-4015e97f02c3",
+        "name": "For Time",
+        "description": null,
+        "has_time_cap": 1,
+        "has_rounds": 0,
+        "sort_order": 4,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "5bcb5606-fd4c-47a7-98f6-669a375e6c8e",
+        "name": "Series fijas",
+        "description": null,
+        "has_time_cap": 0,
+        "has_rounds": 1,
+        "sort_order": 5,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "3a2c4e2f-fe89-49e2-9f04-93cd80cfa44c",
+        "name": "Trabajo libre",
+        "description": null,
+        "has_time_cap": 0,
+        "has_rounds": 0,
+        "sort_order": 6,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "6020ab6d-1afd-4aa3-a865-f9bd30a5876c",
+        "name": "Intervalos",
+        "description": null,
+        "has_time_cap": 1,
+        "has_rounds": 1,
+        "sort_order": 7,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "b128f371-0aa3-450a-b5cb-15ab0e2dacc5",
+        "name": "Tabata",
+        "description": null,
+        "has_time_cap": 1,
+        "has_rounds": 1,
+        "sort_order": 8,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "7c8bd808-0632-4773-a412-684de47f70da",
+        "name": "E2MOM",
+        "description": null,
+        "has_time_cap": 1,
+        "has_rounds": 1,
+        "sort_order": 9,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      },
+      {
+        "id": "c4c6ffb9-a063-40e5-a9a9-f6fbc3747d90",
+        "name": "Escalera",
+        "description": null,
+        "has_time_cap": 0,
+        "has_rounds": 0,
+        "sort_order": 10,
+        "is_active": 1,
+        "created_at": "2026-03-10 23:13:26",
+        "updated_at": "2026-03-10 23:13:26"
+      }
+    ],
+    "exercise": [
+      {
+        "id": "ad3e7ff1-0231-4eba-b49a-9d4bb61660e3",
+        "name": "Clean & Jerk",
+        "description": "Levantamiento olímpico completo: cargada desde el suelo + envión por encima de la cabeza.",
+        "technical_notes": null,
+        "difficulty_level_id": "a92fba2a-04bd-430b-b394-f3eab1c3a5f7",
+        "primary_muscle_group_id": "8dc23b27-8083-446c-8308-a4b902cdbda2",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "cb8c4530-b941-4960-9177-3c0e9985c88a",
+        "name": "Snatch",
+        "description": "Arrancada olímpica: levantar la barra desde el suelo hasta overhead en un solo movimiento.",
+        "technical_notes": null,
+        "difficulty_level_id": "a92fba2a-04bd-430b-b394-f3eab1c3a5f7",
+        "primary_muscle_group_id": "8dc23b27-8083-446c-8308-a4b902cdbda2",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "c4d5d2f5-6a0e-457c-9ef0-05331a2efa6a",
+        "name": "Power Clean",
+        "description": "Cargada de potencia: levantar la barra desde el suelo hasta los hombros sin sentadilla completa.",
+        "technical_notes": null,
+        "difficulty_level_id": "580b837b-614c-4341-a3e9-42d905fdbbd9",
+        "primary_muscle_group_id": "8dc23b27-8083-446c-8308-a4b902cdbda2",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "a77a0a74-6f22-41b7-9750-b14e54ca7596",
+        "name": "Thruster",
+        "description": "Front Squat + Press en un solo movimiento fluido. Ejercicio fundamental en WODs como Fran.",
+        "technical_notes": null,
+        "difficulty_level_id": "580b837b-614c-4341-a3e9-42d905fdbbd9",
+        "primary_muscle_group_id": "8dc23b27-8083-446c-8308-a4b902cdbda2",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "12450311-0af0-49c0-8b2e-481716c51639",
+        "name": "Back Squat",
+        "description": "Sentadilla trasera con barra sobre los trapecios. Movimiento rey para fuerza de piernas.",
+        "technical_notes": null,
+        "difficulty_level_id": "580b837b-614c-4341-a3e9-42d905fdbbd9",
+        "primary_muscle_group_id": "8dc23b27-8083-446c-8308-a4b902cdbda2",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "5b105b34-764a-4dbd-aba8-a891dc7230f7",
+        "name": "Front Squat",
+        "description": "Sentadilla frontal con barra en rack position. Mayor demanda de core y cuádriceps.",
+        "technical_notes": null,
+        "difficulty_level_id": "580b837b-614c-4341-a3e9-42d905fdbbd9",
+        "primary_muscle_group_id": "8dc23b27-8083-446c-8308-a4b902cdbda2",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "7ab746fc-7a37-42a7-b0d5-f3f11c458dae",
+        "name": "Overhead Squat",
+        "description": "Sentadilla con barra sostenida por encima de la cabeza. Exige gran movilidad.",
+        "technical_notes": null,
+        "difficulty_level_id": "a92fba2a-04bd-430b-b394-f3eab1c3a5f7",
+        "primary_muscle_group_id": "8dc23b27-8083-446c-8308-a4b902cdbda2",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "6c634f06-f131-45fc-b78a-1ba92547004b",
+        "name": "Air Squat",
+        "description": "Sentadilla sin peso (bodyweight). Base de todo movimiento de piernas en CrossFit.",
+        "technical_notes": null,
+        "difficulty_level_id": "9105b7af-5bc4-423d-a8c9-5e18e81ea1c7",
+        "primary_muscle_group_id": "8dc23b27-8083-446c-8308-a4b902cdbda2",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "2c0e0026-6294-4f8f-b117-d1f4b8008817",
+        "name": "Deadlift",
+        "description": "Peso muerto: levantar la carga desde el suelo hasta la posición de pie. Ejercicio clave de cadena posterior.",
+        "technical_notes": null,
+        "difficulty_level_id": "580b837b-614c-4341-a3e9-42d905fdbbd9",
+        "primary_muscle_group_id": "7910032e-5dfe-4bca-9e81-1f72b1d16cb3",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "52108c0a-a131-4fa1-88b6-8566a773af7a",
+        "name": "Pull-up",
+        "description": "Dominada estricta o con kipping. Fundamental para la fuerza de tracción del tren superior.",
+        "technical_notes": null,
+        "difficulty_level_id": "580b837b-614c-4341-a3e9-42d905fdbbd9",
+        "primary_muscle_group_id": "2db86c6f-6005-4c25-9428-63fd96b4122a",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "2925dfcd-7380-48de-a9bf-f3692a872730",
+        "name": "Push-up",
+        "description": "Flexión de brazos en el suelo. Ejercicio básico de empuje horizontal.",
+        "technical_notes": null,
+        "difficulty_level_id": "9105b7af-5bc4-423d-a8c9-5e18e81ea1c7",
+        "primary_muscle_group_id": "84ed4cd7-731b-4e95-99e1-0a2d0cf34bdb",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "8dd70445-3d6f-4620-9d77-283c3272c84d",
+        "name": "Shoulder Press",
+        "description": "Press de hombros estricto con barra. Fuerza pura de empuje vertical.",
+        "technical_notes": null,
+        "difficulty_level_id": "580b837b-614c-4341-a3e9-42d905fdbbd9",
+        "primary_muscle_group_id": "e437bcc0-4549-4342-b8bc-3d0d4ca7b552",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "843cfa5f-b6b3-4a2a-8794-e8ad7bac124e",
+        "name": "Push Press",
+        "description": "Press de hombros con ayuda del impulso de piernas (dip & drive).",
+        "technical_notes": null,
+        "difficulty_level_id": "580b837b-614c-4341-a3e9-42d905fdbbd9",
+        "primary_muscle_group_id": "e437bcc0-4549-4342-b8bc-3d0d4ca7b552",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "7074c6e5-2ff2-4aad-878d-cf113196ea76",
+        "name": "Dips",
+        "description": "Fondos en anillas o paralelas. Gran exigencia para tríceps y pectorales.",
+        "technical_notes": null,
+        "difficulty_level_id": "a92fba2a-04bd-430b-b394-f3eab1c3a5f7",
+        "primary_muscle_group_id": "c66e16bb-65f4-4a81-b4b4-e4ddd6e4b229",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "6aa458d7-73f2-47b8-b99e-fdf8c61e8548",
+        "name": "Toes to Bar (T2B)",
+        "description": "Colgado de la barra, llevar los pies hasta tocarla. Exige fuerza de core y agarre.",
+        "technical_notes": null,
+        "difficulty_level_id": "580b837b-614c-4341-a3e9-42d905fdbbd9",
+        "primary_muscle_group_id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "426d3a3c-8a53-4027-8de4-43acbb5ec825",
+        "name": "Hollow Hold",
+        "description": "Posición isométrica fundamental de gimnasia para fortalecer el core.",
+        "technical_notes": null,
+        "difficulty_level_id": "9105b7af-5bc4-423d-a8c9-5e18e81ea1c7",
+        "primary_muscle_group_id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 0,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "13884997-42c9-4d50-bdbc-92dd2a62c0c5",
+        "name": "Wall Walk",
+        "description": "Caminar por la pared hasta quedar en posición de pino de cara a la pared.",
+        "technical_notes": null,
+        "difficulty_level_id": "580b837b-614c-4341-a3e9-42d905fdbbd9",
+        "primary_muscle_group_id": "e437bcc0-4549-4342-b8bc-3d0d4ca7b552",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "71756183-7e82-44e4-8c98-becfe7e1c372",
+        "name": "Box Jump",
+        "description": "Salto al cajón. Ejercicio pliométrico clave para la potencia de piernas.",
+        "technical_notes": null,
+        "difficulty_level_id": "9105b7af-5bc4-423d-a8c9-5e18e81ea1c7",
+        "primary_muscle_group_id": "8dc23b27-8083-446c-8308-a4b902cdbda2",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "f6e58a97-467e-43a3-9aa0-f51426364da6",
+        "name": "Burpee",
+        "description": "Lanzarse al suelo, pecho toca tierra, y levantarse con un pequeño salto. El rey del cardio funcional.",
+        "technical_notes": null,
+        "difficulty_level_id": "9105b7af-5bc4-423d-a8c9-5e18e81ea1c7",
+        "primary_muscle_group_id": "84ed4cd7-731b-4e95-99e1-0a2d0cf34bdb",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "b84264d5-1e39-4616-a454-f36ca16e537f",
+        "name": "Double Under",
+        "description": "Saltos dobles de comba. Requiere coordinación y capacidad cardiovascular.",
+        "technical_notes": null,
+        "difficulty_level_id": "580b837b-614c-4341-a3e9-42d905fdbbd9",
+        "primary_muscle_group_id": "0d25cb3c-fb73-4d2b-b0a1-5a2907b43e79",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 0,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "6607afc5-ae62-4bc6-a4ed-9391d8c6ab49",
+        "name": "Rowing",
+        "description": "Remo indoor. Trabajo cardiovascular de cuerpo completo.",
+        "technical_notes": null,
+        "difficulty_level_id": "9105b7af-5bc4-423d-a8c9-5e18e81ea1c7",
+        "primary_muscle_group_id": "2db86c6f-6005-4c25-9428-63fd96b4122a",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "f0874a8e-6564-433d-940c-10c9f306b7a0",
+        "name": "Assault Bike",
+        "description": "Bicicleta de aire. Uno de los dispositivos de cardio más exigentes.",
+        "technical_notes": null,
+        "difficulty_level_id": "9105b7af-5bc4-423d-a8c9-5e18e81ea1c7",
+        "primary_muscle_group_id": "8dc23b27-8083-446c-8308-a4b902cdbda2",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "1477f818-46e8-4d92-b36c-c6d927001c40",
+        "name": "Wall Ball Shot",
+        "description": "Lanzar un balón medicinal a una diana tras realizar una sentadilla completa.",
+        "technical_notes": null,
+        "difficulty_level_id": "9105b7af-5bc4-423d-a8c9-5e18e81ea1c7",
+        "primary_muscle_group_id": "8dc23b27-8083-446c-8308-a4b902cdbda2",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "9b7447c0-0e42-4189-8915-2a082e29e274",
+        "name": "Kettlebell Swing",
+        "description": "Balanceo de pesa rusa. Movimiento de bisagra de cadera fundamental.",
+        "technical_notes": null,
+        "difficulty_level_id": "9105b7af-5bc4-423d-a8c9-5e18e81ea1c7",
+        "primary_muscle_group_id": "87f73e09-9266-4ecf-b4c6-d73fcd850943",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      },
+      {
+        "id": "650f05f9-09f1-407f-ae21-24f0f6584de7",
+        "name": "Walking Lunge",
+        "description": "Estocadas caminando. Gran trabajo de estabilidad y fuerza unilateral.",
+        "technical_notes": null,
+        "difficulty_level_id": "9105b7af-5bc4-423d-a8c9-5e18e81ea1c7",
+        "primary_muscle_group_id": "8dc23b27-8083-446c-8308-a4b902cdbda2",
+        "image_path": null,
+        "video_path": null,
+        "is_compound": 1,
+        "is_active": 1,
+        "created_at": "2026-03-21 10:56:28",
+        "updated_at": "2026-03-21 10:56:28",
+        "video_long_path": null
+      }
+    ],
+    "exercise_muscle_group": [
+      {
+        "id": "d3524ede-1e13-4178-ab62-81e78674f6f3",
+        "exercise_id": "ad3e7ff1-0231-4eba-b49a-9d4bb61660e3",
+        "muscle_group_id": "87f73e09-9266-4ecf-b4c6-d73fcd850943",
+        "is_primary": 0
+      },
+      {
+        "id": "4df02860-bddb-44d1-a83f-f22f5e3bbd8f",
+        "exercise_id": "ad3e7ff1-0231-4eba-b49a-9d4bb61660e3",
+        "muscle_group_id": "e437bcc0-4549-4342-b8bc-3d0d4ca7b552",
+        "is_primary": 0
+      },
+      {
+        "id": "43be4799-5270-47fd-ab46-db539e0ce034",
+        "exercise_id": "ad3e7ff1-0231-4eba-b49a-9d4bb61660e3",
+        "muscle_group_id": "e869a1c9-912a-42e8-b180-a9fe7da08479",
+        "is_primary": 0
+      },
+      {
+        "id": "62839e82-6c96-4967-9b46-2c3918444d5b",
+        "exercise_id": "ad3e7ff1-0231-4eba-b49a-9d4bb61660e3",
+        "muscle_group_id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "is_primary": 0
+      },
+      {
+        "id": "5e6d642b-b2b0-42bc-ad78-b67ad39beb5c",
+        "exercise_id": "cb8c4530-b941-4960-9177-3c0e9985c88a",
+        "muscle_group_id": "87f73e09-9266-4ecf-b4c6-d73fcd850943",
+        "is_primary": 0
+      },
+      {
+        "id": "35c25e85-acbe-4bb1-b4e8-d16a1c2cce4b",
+        "exercise_id": "cb8c4530-b941-4960-9177-3c0e9985c88a",
+        "muscle_group_id": "e437bcc0-4549-4342-b8bc-3d0d4ca7b552",
+        "is_primary": 0
+      },
+      {
+        "id": "1de7fb40-be4a-4709-8731-735cff598372",
+        "exercise_id": "cb8c4530-b941-4960-9177-3c0e9985c88a",
+        "muscle_group_id": "e869a1c9-912a-42e8-b180-a9fe7da08479",
+        "is_primary": 0
+      },
+      {
+        "id": "377397ed-4a2f-4d3a-9526-8bded445eb74",
+        "exercise_id": "cb8c4530-b941-4960-9177-3c0e9985c88a",
+        "muscle_group_id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "is_primary": 0
+      },
+      {
+        "id": "a0a4d4f3-b350-4220-b227-1194b1f6e906",
+        "exercise_id": "c4d5d2f5-6a0e-457c-9ef0-05331a2efa6a",
+        "muscle_group_id": "87f73e09-9266-4ecf-b4c6-d73fcd850943",
+        "is_primary": 0
+      },
+      {
+        "id": "e5aab492-b08d-46a0-ac65-ea99b920db28",
+        "exercise_id": "c4d5d2f5-6a0e-457c-9ef0-05331a2efa6a",
+        "muscle_group_id": "e869a1c9-912a-42e8-b180-a9fe7da08479",
+        "is_primary": 0
+      },
+      {
+        "id": "67b91e15-9b35-49c9-82de-156860abeff7",
+        "exercise_id": "c4d5d2f5-6a0e-457c-9ef0-05331a2efa6a",
+        "muscle_group_id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "is_primary": 0
+      },
+      {
+        "id": "f3f79bde-c755-4a31-95c2-5ff5c3bf7402",
+        "exercise_id": "a77a0a74-6f22-41b7-9750-b14e54ca7596",
+        "muscle_group_id": "87f73e09-9266-4ecf-b4c6-d73fcd850943",
+        "is_primary": 0
+      },
+      {
+        "id": "0b3baf56-bfe0-4362-a56d-ceb3b86a2b51",
+        "exercise_id": "a77a0a74-6f22-41b7-9750-b14e54ca7596",
+        "muscle_group_id": "e437bcc0-4549-4342-b8bc-3d0d4ca7b552",
+        "is_primary": 0
+      },
+      {
+        "id": "80f9eb2c-8f61-4d7f-9aac-7bce96e84f23",
+        "exercise_id": "a77a0a74-6f22-41b7-9750-b14e54ca7596",
+        "muscle_group_id": "c66e16bb-65f4-4a81-b4b4-e4ddd6e4b229",
+        "is_primary": 0
+      },
+      {
+        "id": "b5a4a1e2-c292-467a-8096-c471e8e579b9",
+        "exercise_id": "a77a0a74-6f22-41b7-9750-b14e54ca7596",
+        "muscle_group_id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "is_primary": 0
+      },
+      {
+        "id": "446dcb0b-2801-49fc-883a-173ce6996afb",
+        "exercise_id": "12450311-0af0-49c0-8b2e-481716c51639",
+        "muscle_group_id": "87f73e09-9266-4ecf-b4c6-d73fcd850943",
+        "is_primary": 0
+      },
+      {
+        "id": "2e6c88d5-b874-41d0-a9c2-862bfa713157",
+        "exercise_id": "12450311-0af0-49c0-8b2e-481716c51639",
+        "muscle_group_id": "7910032e-5dfe-4bca-9e81-1f72b1d16cb3",
+        "is_primary": 0
+      },
+      {
+        "id": "725f5f59-bdc2-40c4-af62-a0f7b0f31787",
+        "exercise_id": "12450311-0af0-49c0-8b2e-481716c51639",
+        "muscle_group_id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "is_primary": 0
+      },
+      {
+        "id": "bccb61df-493b-4f96-a0d9-abcc095e1f5b",
+        "exercise_id": "5b105b34-764a-4dbd-aba8-a891dc7230f7",
+        "muscle_group_id": "87f73e09-9266-4ecf-b4c6-d73fcd850943",
+        "is_primary": 0
+      },
+      {
+        "id": "bd14dcb1-52a4-4a99-ae46-eec1d6d75e3a",
+        "exercise_id": "5b105b34-764a-4dbd-aba8-a891dc7230f7",
+        "muscle_group_id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "is_primary": 0
+      },
+      {
+        "id": "9e85c433-88d0-44c4-b7d4-1f9bd76e9a35",
+        "exercise_id": "7ab746fc-7a37-42a7-b0d5-f3f11c458dae",
+        "muscle_group_id": "87f73e09-9266-4ecf-b4c6-d73fcd850943",
+        "is_primary": 0
+      },
+      {
+        "id": "d1c61482-2f7e-4c81-8e40-8e68742eeec7",
+        "exercise_id": "7ab746fc-7a37-42a7-b0d5-f3f11c458dae",
+        "muscle_group_id": "e437bcc0-4549-4342-b8bc-3d0d4ca7b552",
+        "is_primary": 0
+      },
+      {
+        "id": "2dbdfcae-4e9d-4671-ae7f-2a6984338a7f",
+        "exercise_id": "7ab746fc-7a37-42a7-b0d5-f3f11c458dae",
+        "muscle_group_id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "is_primary": 0
+      },
+      {
+        "id": "1bc4d37b-782a-482f-9849-6c03b6a92778",
+        "exercise_id": "6c634f06-f131-45fc-b78a-1ba92547004b",
+        "muscle_group_id": "87f73e09-9266-4ecf-b4c6-d73fcd850943",
+        "is_primary": 0
+      },
+      {
+        "id": "90ee0b00-4a51-43ea-b0a9-82b9f83e1543",
+        "exercise_id": "6c634f06-f131-45fc-b78a-1ba92547004b",
+        "muscle_group_id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "is_primary": 0
+      },
+      {
+        "id": "ce7f2281-12ce-4c0b-8425-0a2dc91aa160",
+        "exercise_id": "2c0e0026-6294-4f8f-b117-d1f4b8008817",
+        "muscle_group_id": "87f73e09-9266-4ecf-b4c6-d73fcd850943",
+        "is_primary": 0
+      },
+      {
+        "id": "18df024b-4125-4f8e-a3b5-7e1adb038170",
+        "exercise_id": "2c0e0026-6294-4f8f-b117-d1f4b8008817",
+        "muscle_group_id": "2db86c6f-6005-4c25-9428-63fd96b4122a",
+        "is_primary": 0
+      },
+      {
+        "id": "c07d1a83-c891-4381-afee-9f45f745883f",
+        "exercise_id": "2c0e0026-6294-4f8f-b117-d1f4b8008817",
+        "muscle_group_id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "is_primary": 0
+      },
+      {
+        "id": "cd3be323-71e7-41aa-97af-9532f28d1f66",
+        "exercise_id": "52108c0a-a131-4fa1-88b6-8566a773af7a",
+        "muscle_group_id": "cc323603-de86-4cb0-913c-05fc3592f405",
+        "is_primary": 0
+      },
+      {
+        "id": "cef9b0f3-59de-45f5-b383-daddbee7cde9",
+        "exercise_id": "52108c0a-a131-4fa1-88b6-8566a773af7a",
+        "muscle_group_id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "is_primary": 0
+      },
+      {
+        "id": "dfeaa90e-b574-47bc-8443-6762388b2600",
+        "exercise_id": "2925dfcd-7380-48de-a9bf-f3692a872730",
+        "muscle_group_id": "c66e16bb-65f4-4a81-b4b4-e4ddd6e4b229",
+        "is_primary": 0
+      },
+      {
+        "id": "42e7b486-af39-4f9b-9091-ae25cfd7dfa9",
+        "exercise_id": "2925dfcd-7380-48de-a9bf-f3692a872730",
+        "muscle_group_id": "e437bcc0-4549-4342-b8bc-3d0d4ca7b552",
+        "is_primary": 0
+      },
+      {
+        "id": "ab757dc3-5953-45ac-b8c6-fdea23ac509d",
+        "exercise_id": "8dd70445-3d6f-4620-9d77-283c3272c84d",
+        "muscle_group_id": "c66e16bb-65f4-4a81-b4b4-e4ddd6e4b229",
+        "is_primary": 0
+      },
+      {
+        "id": "74aea518-4de5-4216-b4bf-a97639295dc9",
+        "exercise_id": "8dd70445-3d6f-4620-9d77-283c3272c84d",
+        "muscle_group_id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "is_primary": 0
+      },
+      {
+        "id": "e4b8a059-352e-480f-b09f-94f1c83d1e39",
+        "exercise_id": "843cfa5f-b6b3-4a2a-8794-e8ad7bac124e",
+        "muscle_group_id": "c66e16bb-65f4-4a81-b4b4-e4ddd6e4b229",
+        "is_primary": 0
+      },
+      {
+        "id": "bfd6c702-2a0b-4288-a03e-915619e1f8a8",
+        "exercise_id": "843cfa5f-b6b3-4a2a-8794-e8ad7bac124e",
+        "muscle_group_id": "8dc23b27-8083-446c-8308-a4b902cdbda2",
+        "is_primary": 0
+      },
+      {
+        "id": "24bd12c0-e057-4108-9f0a-0130fcc0c25e",
+        "exercise_id": "843cfa5f-b6b3-4a2a-8794-e8ad7bac124e",
+        "muscle_group_id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "is_primary": 0
+      },
+      {
+        "id": "5f3c1704-7d68-4ad3-a488-8682f8a7e37e",
+        "exercise_id": "7074c6e5-2ff2-4aad-878d-cf113196ea76",
+        "muscle_group_id": "84ed4cd7-731b-4e95-99e1-0a2d0cf34bdb",
+        "is_primary": 0
+      },
+      {
+        "id": "241fcfe1-3c42-4a8c-a6cd-f88d8e6ecc4a",
+        "exercise_id": "7074c6e5-2ff2-4aad-878d-cf113196ea76",
+        "muscle_group_id": "e437bcc0-4549-4342-b8bc-3d0d4ca7b552",
+        "is_primary": 0
+      },
+      {
+        "id": "840a14a9-b41e-4ce0-9690-7c7c292c158c",
+        "exercise_id": "6aa458d7-73f2-47b8-b99e-fdf8c61e8548",
+        "muscle_group_id": "c79af9dc-cec8-489a-a031-87eb7a59cb65",
+        "is_primary": 0
+      },
+      {
+        "id": "c917dd9d-6889-47fd-99d3-67e8775fd9be",
+        "exercise_id": "6aa458d7-73f2-47b8-b99e-fdf8c61e8548",
+        "muscle_group_id": "2db86c6f-6005-4c25-9428-63fd96b4122a",
+        "is_primary": 0
+      },
+      {
+        "id": "4626cca4-6acd-4bb0-838b-a58105d5ff66",
+        "exercise_id": "13884997-42c9-4d50-bdbc-92dd2a62c0c5",
+        "muscle_group_id": "c66e16bb-65f4-4a81-b4b4-e4ddd6e4b229",
+        "is_primary": 0
+      },
+      {
+        "id": "d6b44dd3-d6c2-45bf-86f6-b96d53125f78",
+        "exercise_id": "13884997-42c9-4d50-bdbc-92dd2a62c0c5",
+        "muscle_group_id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "is_primary": 0
+      },
+      {
+        "id": "0b4cce4d-585f-40c6-bef6-891106982224",
+        "exercise_id": "71756183-7e82-44e4-8c98-becfe7e1c372",
+        "muscle_group_id": "87f73e09-9266-4ecf-b4c6-d73fcd850943",
+        "is_primary": 0
+      },
+      {
+        "id": "976d8d59-183a-4bd4-a8fd-a29d8eaf534e",
+        "exercise_id": "71756183-7e82-44e4-8c98-becfe7e1c372",
+        "muscle_group_id": "0d25cb3c-fb73-4d2b-b0a1-5a2907b43e79",
+        "is_primary": 0
+      },
+      {
+        "id": "e8785c11-8c5a-4822-b01a-acb0a3f3314a",
+        "exercise_id": "f6e58a97-467e-43a3-9aa0-f51426364da6",
+        "muscle_group_id": "8dc23b27-8083-446c-8308-a4b902cdbda2",
+        "is_primary": 0
+      },
+      {
+        "id": "b2b28517-8407-42c6-98bf-74807c2f4c71",
+        "exercise_id": "f6e58a97-467e-43a3-9aa0-f51426364da6",
+        "muscle_group_id": "e437bcc0-4549-4342-b8bc-3d0d4ca7b552",
+        "is_primary": 0
+      },
+      {
+        "id": "37a21d28-557c-431b-b2e9-d8c2ff03e3f7",
+        "exercise_id": "f6e58a97-467e-43a3-9aa0-f51426364da6",
+        "muscle_group_id": "c66e16bb-65f4-4a81-b4b4-e4ddd6e4b229",
+        "is_primary": 0
+      },
+      {
+        "id": "5297b555-b31f-4388-ba21-32c743aa8df1",
+        "exercise_id": "6607afc5-ae62-4bc6-a4ed-9391d8c6ab49",
+        "muscle_group_id": "8dc23b27-8083-446c-8308-a4b902cdbda2",
+        "is_primary": 0
+      },
+      {
+        "id": "0863c132-6abf-4c0d-a0bb-795b62059201",
+        "exercise_id": "6607afc5-ae62-4bc6-a4ed-9391d8c6ab49",
+        "muscle_group_id": "cc323603-de86-4cb0-913c-05fc3592f405",
+        "is_primary": 0
+      },
+      {
+        "id": "065df047-b273-4e06-9083-16ff5f5243d9",
+        "exercise_id": "6607afc5-ae62-4bc6-a4ed-9391d8c6ab49",
+        "muscle_group_id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "is_primary": 0
+      },
+      {
+        "id": "e11ff487-5223-41ab-a303-16837860b4e4",
+        "exercise_id": "f0874a8e-6564-433d-940c-10c9f306b7a0",
+        "muscle_group_id": "e437bcc0-4549-4342-b8bc-3d0d4ca7b552",
+        "is_primary": 0
+      },
+      {
+        "id": "5ad9f451-252a-4268-98f3-6539de5f0ce8",
+        "exercise_id": "f0874a8e-6564-433d-940c-10c9f306b7a0",
+        "muscle_group_id": "c66e16bb-65f4-4a81-b4b4-e4ddd6e4b229",
+        "is_primary": 0
+      },
+      {
+        "id": "9a2f7a89-ce1a-4c1a-a6eb-afc8995c35f0",
+        "exercise_id": "1477f818-46e8-4d92-b36c-c6d927001c40",
+        "muscle_group_id": "e437bcc0-4549-4342-b8bc-3d0d4ca7b552",
+        "is_primary": 0
+      },
+      {
+        "id": "2590865c-b91a-461e-ae6e-0f347803b779",
+        "exercise_id": "1477f818-46e8-4d92-b36c-c6d927001c40",
+        "muscle_group_id": "87f73e09-9266-4ecf-b4c6-d73fcd850943",
+        "is_primary": 0
+      },
+      {
+        "id": "c299cb93-6d59-43fb-b6bc-9aa63606932c",
+        "exercise_id": "1477f818-46e8-4d92-b36c-c6d927001c40",
+        "muscle_group_id": "c66e16bb-65f4-4a81-b4b4-e4ddd6e4b229",
+        "is_primary": 0
+      },
+      {
+        "id": "c98e2de7-cab7-4648-a377-17823f4e20ab",
+        "exercise_id": "9b7447c0-0e42-4189-8915-2a082e29e274",
+        "muscle_group_id": "7910032e-5dfe-4bca-9e81-1f72b1d16cb3",
+        "is_primary": 0
+      },
+      {
+        "id": "e7a886de-f6d4-4add-9cb7-10d5b101f5a4",
+        "exercise_id": "9b7447c0-0e42-4189-8915-2a082e29e274",
+        "muscle_group_id": "2db86c6f-6005-4c25-9428-63fd96b4122a",
+        "is_primary": 0
+      },
+      {
+        "id": "0ad90c87-c117-4823-87b9-fb43e21874f7",
+        "exercise_id": "9b7447c0-0e42-4189-8915-2a082e29e274",
+        "muscle_group_id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "is_primary": 0
+      },
+      {
+        "id": "1035132e-f0d6-4710-8c15-9eee6019fcd7",
+        "exercise_id": "650f05f9-09f1-407f-ae21-24f0f6584de7",
+        "muscle_group_id": "87f73e09-9266-4ecf-b4c6-d73fcd850943",
+        "is_primary": 0
+      },
+      {
+        "id": "ce3db3a6-b858-47f6-b822-00a3dfb7fcb8",
+        "exercise_id": "650f05f9-09f1-407f-ae21-24f0f6584de7",
+        "muscle_group_id": "7910032e-5dfe-4bca-9e81-1f72b1d16cb3",
+        "is_primary": 0
+      },
+      {
+        "id": "cde14058-f973-4c97-bd45-47231d9695de",
+        "exercise_id": "650f05f9-09f1-407f-ae21-24f0f6584de7",
+        "muscle_group_id": "cd60e0ce-195c-4821-ba55-c43ec856507e",
+        "is_primary": 0
+      }
+    ],
+    "exercise_equipment": [
+      {
+        "id": "59eee626-0fa7-4569-96d6-4f91e2fb820b",
+        "exercise_id": "ad3e7ff1-0231-4eba-b49a-9d4bb61660e3",
+        "equipment_id": "9311c58a-0664-43ac-af78-8411b23308b6",
+        "is_required": 1
+      },
+      {
+        "id": "3aab83a3-7457-44ff-b962-19babc16ba35",
+        "exercise_id": "cb8c4530-b941-4960-9177-3c0e9985c88a",
+        "equipment_id": "9311c58a-0664-43ac-af78-8411b23308b6",
+        "is_required": 1
+      },
+      {
+        "id": "d74b2d56-be7f-4836-ae9c-8056f5b79134",
+        "exercise_id": "c4d5d2f5-6a0e-457c-9ef0-05331a2efa6a",
+        "equipment_id": "9311c58a-0664-43ac-af78-8411b23308b6",
+        "is_required": 1
+      },
+      {
+        "id": "2554c592-0adb-4b69-9ff4-3996c7bdbad5",
+        "exercise_id": "a77a0a74-6f22-41b7-9750-b14e54ca7596",
+        "equipment_id": "9311c58a-0664-43ac-af78-8411b23308b6",
+        "is_required": 1
+      },
+      {
+        "id": "e58a4405-33f7-4956-8d2e-befb9acfd61b",
+        "exercise_id": "12450311-0af0-49c0-8b2e-481716c51639",
+        "equipment_id": "9311c58a-0664-43ac-af78-8411b23308b6",
+        "is_required": 1
+      },
+      {
+        "id": "47b69a5e-1d51-4ca3-b1e4-0662ad5a5d1e",
+        "exercise_id": "5b105b34-764a-4dbd-aba8-a891dc7230f7",
+        "equipment_id": "9311c58a-0664-43ac-af78-8411b23308b6",
+        "is_required": 1
+      },
+      {
+        "id": "aef7de9b-db1d-4e88-834c-0da15bf18476",
+        "exercise_id": "7ab746fc-7a37-42a7-b0d5-f3f11c458dae",
+        "equipment_id": "9311c58a-0664-43ac-af78-8411b23308b6",
+        "is_required": 1
+      },
+      {
+        "id": "662095ba-dab5-4542-9fb4-d4dfcd154504",
+        "exercise_id": "2c0e0026-6294-4f8f-b117-d1f4b8008817",
+        "equipment_id": "9311c58a-0664-43ac-af78-8411b23308b6",
+        "is_required": 1
+      },
+      {
+        "id": "807aba57-5bbc-4ce6-95d0-32ef5e6c1cf4",
+        "exercise_id": "52108c0a-a131-4fa1-88b6-8566a773af7a",
+        "equipment_id": "7b8adace-f35f-4c86-ad37-511242d66a57",
+        "is_required": 1
+      },
+      {
+        "id": "5ae6ecee-ddf1-4da4-9efa-0c3c858e66e6",
+        "exercise_id": "8dd70445-3d6f-4620-9d77-283c3272c84d",
+        "equipment_id": "9311c58a-0664-43ac-af78-8411b23308b6",
+        "is_required": 1
+      },
+      {
+        "id": "689b6f5d-8999-440e-8fab-cd0183d7df65",
+        "exercise_id": "843cfa5f-b6b3-4a2a-8794-e8ad7bac124e",
+        "equipment_id": "9311c58a-0664-43ac-af78-8411b23308b6",
+        "is_required": 1
+      },
+      {
+        "id": "4f678105-55f4-46c8-8cdb-68fa979b2526",
+        "exercise_id": "7074c6e5-2ff2-4aad-878d-cf113196ea76",
+        "equipment_id": "4d914e22-70ab-4562-8156-347b0829a879",
+        "is_required": 1
+      },
+      {
+        "id": "83a5d284-8a41-4e29-bcdf-a69748836874",
+        "exercise_id": "7074c6e5-2ff2-4aad-878d-cf113196ea76",
+        "equipment_id": "36989a6c-3839-4716-a5d0-4545adfcbf6e",
+        "is_required": 1
+      },
+      {
+        "id": "77724dcb-13dd-417a-969f-5dfd10481ccc",
+        "exercise_id": "6aa458d7-73f2-47b8-b99e-fdf8c61e8548",
+        "equipment_id": "7b8adace-f35f-4c86-ad37-511242d66a57",
+        "is_required": 1
+      },
+      {
+        "id": "72d41daf-b8c8-454e-b5a0-c4811ccc659f",
+        "exercise_id": "71756183-7e82-44e4-8c98-becfe7e1c372",
+        "equipment_id": "d80a46f4-36a1-49b5-991e-d5536b244942",
+        "is_required": 1
+      },
+      {
+        "id": "3de48946-531a-4823-a77a-5a422120d0a3",
+        "exercise_id": "b84264d5-1e39-4616-a454-f36ca16e537f",
+        "equipment_id": "64f67f37-6e51-410c-8e2d-a0313a787358",
+        "is_required": 1
+      },
+      {
+        "id": "3b47f3e6-9245-4475-aef3-4010fb9428f4",
+        "exercise_id": "6607afc5-ae62-4bc6-a4ed-9391d8c6ab49",
+        "equipment_id": "ebdf1072-00d7-48b9-8a9d-ab8476546459",
+        "is_required": 1
+      },
+      {
+        "id": "d3615b52-5005-42b7-a7c8-735559bb4cbe",
+        "exercise_id": "f0874a8e-6564-433d-940c-10c9f306b7a0",
+        "equipment_id": "78b9badf-cdde-4f8c-bc1d-194d8dcac328",
+        "is_required": 1
+      },
+      {
+        "id": "e2e2e248-2055-4c61-abff-055f327ff038",
+        "exercise_id": "1477f818-46e8-4d92-b36c-c6d927001c40",
+        "equipment_id": "396d022b-52b5-412d-925e-399d1aa613c9",
+        "is_required": 1
+      },
+      {
+        "id": "f34a1a62-b032-4c94-8ce3-32786a7ae8d5",
+        "exercise_id": "9b7447c0-0e42-4189-8915-2a082e29e274",
+        "equipment_id": "ce418e13-e021-4879-b901-a54fe412e8ca",
+        "is_required": 1
+      },
+      {
+        "id": "b1748d7d-f9b9-424e-96f0-d32dd1e10037",
+        "exercise_id": "650f05f9-09f1-407f-ae21-24f0f6584de7",
+        "equipment_id": "f4b0bf4a-a5a4-4801-8a8d-2c88ff7dd0fb",
+        "is_required": 1
+      },
+      {
+        "id": "8c67c2bb-fe22-4bb8-bfb8-1ed612e407f1",
+        "exercise_id": "650f05f9-09f1-407f-ae21-24f0f6584de7",
+        "equipment_id": "ce418e13-e021-4879-b901-a54fe412e8ca",
+        "is_required": 1
+      }
+    ],
+    "exercise_section_type": [
+      {
+        "id": "fe0e7925-16df-474c-95ab-c4e21bb7293a",
+        "exercise_id": "ad3e7ff1-0231-4eba-b49a-9d4bb61660e3",
+        "section_type_id": "59d698e5-4a2d-4fc1-bcba-2bd73ebddccf"
+      },
+      {
+        "id": "270b0bf0-ddb5-4cdd-8371-d8b0f92a756f",
+        "exercise_id": "ad3e7ff1-0231-4eba-b49a-9d4bb61660e3",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "2e7f87e0-8ffe-449a-a844-39028b6742bf",
+        "exercise_id": "ad3e7ff1-0231-4eba-b49a-9d4bb61660e3",
+        "section_type_id": "248d14d9-a8c2-4bc4-9b1e-11a15d15e2f2"
+      },
+      {
+        "id": "79645b95-68d4-4647-b154-af7992ab3068",
+        "exercise_id": "cb8c4530-b941-4960-9177-3c0e9985c88a",
+        "section_type_id": "59d698e5-4a2d-4fc1-bcba-2bd73ebddccf"
+      },
+      {
+        "id": "132cc946-f52a-47d3-9f74-acae78d8b143",
+        "exercise_id": "cb8c4530-b941-4960-9177-3c0e9985c88a",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "59511b94-8594-48f8-b35b-464b5d50e5da",
+        "exercise_id": "cb8c4530-b941-4960-9177-3c0e9985c88a",
+        "section_type_id": "248d14d9-a8c2-4bc4-9b1e-11a15d15e2f2"
+      },
+      {
+        "id": "1c0b7a95-6998-4c5b-a8e2-25064e5dfda7",
+        "exercise_id": "c4d5d2f5-6a0e-457c-9ef0-05331a2efa6a",
+        "section_type_id": "59d698e5-4a2d-4fc1-bcba-2bd73ebddccf"
+      },
+      {
+        "id": "b793049a-5dbe-466f-ac1b-4c6586332a31",
+        "exercise_id": "c4d5d2f5-6a0e-457c-9ef0-05331a2efa6a",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "399767cd-de33-4d6f-92cf-409e244138f5",
+        "exercise_id": "a77a0a74-6f22-41b7-9750-b14e54ca7596",
+        "section_type_id": "59d698e5-4a2d-4fc1-bcba-2bd73ebddccf"
+      },
+      {
+        "id": "03819fa0-00a7-4130-8950-06a010b95da1",
+        "exercise_id": "a77a0a74-6f22-41b7-9750-b14e54ca7596",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "9e11b1fe-0871-41d0-a73e-2f0a699efcdf",
+        "exercise_id": "12450311-0af0-49c0-8b2e-481716c51639",
+        "section_type_id": "59d698e5-4a2d-4fc1-bcba-2bd73ebddccf"
+      },
+      {
+        "id": "5f71dcd6-f426-4d59-a8c0-ec6c0148a4ed",
+        "exercise_id": "5b105b34-764a-4dbd-aba8-a891dc7230f7",
+        "section_type_id": "59d698e5-4a2d-4fc1-bcba-2bd73ebddccf"
+      },
+      {
+        "id": "c3ab48e7-1888-4791-99aa-f25f7a0cfaeb",
+        "exercise_id": "5b105b34-764a-4dbd-aba8-a891dc7230f7",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "1da44844-ba4a-4f80-a08f-5765a6aa20ee",
+        "exercise_id": "7ab746fc-7a37-42a7-b0d5-f3f11c458dae",
+        "section_type_id": "59d698e5-4a2d-4fc1-bcba-2bd73ebddccf"
+      },
+      {
+        "id": "e0afe0f4-a45b-4b61-9639-e9f68fffed18",
+        "exercise_id": "7ab746fc-7a37-42a7-b0d5-f3f11c458dae",
+        "section_type_id": "248d14d9-a8c2-4bc4-9b1e-11a15d15e2f2"
+      },
+      {
+        "id": "10bcd809-4184-4632-abd7-2227b80abdfe",
+        "exercise_id": "6c634f06-f131-45fc-b78a-1ba92547004b",
+        "section_type_id": "971526c7-16f5-46bf-ba10-f2a0ad05ac72"
+      },
+      {
+        "id": "8fb06ad4-7e12-4bda-824a-1ae7f4ef543c",
+        "exercise_id": "6c634f06-f131-45fc-b78a-1ba92547004b",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "2ec3db3f-9444-4eeb-aff0-ba749d9a215c",
+        "exercise_id": "2c0e0026-6294-4f8f-b117-d1f4b8008817",
+        "section_type_id": "59d698e5-4a2d-4fc1-bcba-2bd73ebddccf"
+      },
+      {
+        "id": "36c88045-1df1-460f-b3d3-eeec69137e40",
+        "exercise_id": "2c0e0026-6294-4f8f-b117-d1f4b8008817",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "bc7d8697-fa97-4ec7-bba8-62509a21824f",
+        "exercise_id": "52108c0a-a131-4fa1-88b6-8566a773af7a",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "da93783e-b71c-49e4-8533-bf476ce4543a",
+        "exercise_id": "52108c0a-a131-4fa1-88b6-8566a773af7a",
+        "section_type_id": "248d14d9-a8c2-4bc4-9b1e-11a15d15e2f2"
+      },
+      {
+        "id": "bf7f5098-e21b-4ef3-8cfe-3e8fd6f5ba57",
+        "exercise_id": "2925dfcd-7380-48de-a9bf-f3692a872730",
+        "section_type_id": "971526c7-16f5-46bf-ba10-f2a0ad05ac72"
+      },
+      {
+        "id": "2b8cafd7-f48e-4650-b868-a2637ac9639d",
+        "exercise_id": "2925dfcd-7380-48de-a9bf-f3692a872730",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "20085f84-75a9-441e-ad13-197d72f368ae",
+        "exercise_id": "8dd70445-3d6f-4620-9d77-283c3272c84d",
+        "section_type_id": "59d698e5-4a2d-4fc1-bcba-2bd73ebddccf"
+      },
+      {
+        "id": "d51e7e40-10c6-4e69-8f9d-7c304fc9d7a6",
+        "exercise_id": "843cfa5f-b6b3-4a2a-8794-e8ad7bac124e",
+        "section_type_id": "59d698e5-4a2d-4fc1-bcba-2bd73ebddccf"
+      },
+      {
+        "id": "9c2070a4-28f1-45df-99c8-49f3d5535b97",
+        "exercise_id": "843cfa5f-b6b3-4a2a-8794-e8ad7bac124e",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "f434c19f-7aa3-4a91-b180-43c81ce9e6fe",
+        "exercise_id": "7074c6e5-2ff2-4aad-878d-cf113196ea76",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "a1e07f72-ec49-4058-b46c-17ef8ba5754d",
+        "exercise_id": "7074c6e5-2ff2-4aad-878d-cf113196ea76",
+        "section_type_id": "248d14d9-a8c2-4bc4-9b1e-11a15d15e2f2"
+      },
+      {
+        "id": "afef3b88-cf8b-43df-819e-06eb7eccc5cc",
+        "exercise_id": "6aa458d7-73f2-47b8-b99e-fdf8c61e8548",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "22c28c20-d7cc-4fbb-887d-453cffae59b3",
+        "exercise_id": "6aa458d7-73f2-47b8-b99e-fdf8c61e8548",
+        "section_type_id": "248d14d9-a8c2-4bc4-9b1e-11a15d15e2f2"
+      },
+      {
+        "id": "e5fc22f0-e7c8-4011-bca3-c1263fda5dae",
+        "exercise_id": "426d3a3c-8a53-4027-8de4-43acbb5ec825",
+        "section_type_id": "971526c7-16f5-46bf-ba10-f2a0ad05ac72"
+      },
+      {
+        "id": "fe02d521-a042-41b7-97f9-720651db1027",
+        "exercise_id": "426d3a3c-8a53-4027-8de4-43acbb5ec825",
+        "section_type_id": "72620e3e-41e7-40b6-9763-72050e2a5534"
+      },
+      {
+        "id": "1088669e-c0b6-4b6d-b8af-800cff9f00a1",
+        "exercise_id": "13884997-42c9-4d50-bdbc-92dd2a62c0c5",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "dc098bea-6e27-45b8-b6a4-7ed626b87ef3",
+        "exercise_id": "13884997-42c9-4d50-bdbc-92dd2a62c0c5",
+        "section_type_id": "248d14d9-a8c2-4bc4-9b1e-11a15d15e2f2"
+      },
+      {
+        "id": "80373cc6-c9c9-4502-bef1-e637dff0d860",
+        "exercise_id": "71756183-7e82-44e4-8c98-becfe7e1c372",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "2eacb5c3-5ca4-48ed-9320-c1c17e981e86",
+        "exercise_id": "f6e58a97-467e-43a3-9aa0-f51426364da6",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "21f593cc-f41b-4ce8-a889-b3982d94d58c",
+        "exercise_id": "b84264d5-1e39-4616-a454-f36ca16e537f",
+        "section_type_id": "971526c7-16f5-46bf-ba10-f2a0ad05ac72"
+      },
+      {
+        "id": "faff9254-ab0c-4490-8b3f-391844457f91",
+        "exercise_id": "b84264d5-1e39-4616-a454-f36ca16e537f",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "67237d77-c788-4068-83f1-1dbc8ad49dcf",
+        "exercise_id": "b84264d5-1e39-4616-a454-f36ca16e537f",
+        "section_type_id": "248d14d9-a8c2-4bc4-9b1e-11a15d15e2f2"
+      },
+      {
+        "id": "76d4c912-0c38-4ff6-884e-2f3c96ae6370",
+        "exercise_id": "6607afc5-ae62-4bc6-a4ed-9391d8c6ab49",
+        "section_type_id": "971526c7-16f5-46bf-ba10-f2a0ad05ac72"
+      },
+      {
+        "id": "baf46083-330e-4715-9512-e744ac0e5204",
+        "exercise_id": "6607afc5-ae62-4bc6-a4ed-9391d8c6ab49",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "dff326e0-0f47-461b-9a57-f06ea5b564e9",
+        "exercise_id": "f0874a8e-6564-433d-940c-10c9f306b7a0",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "d6165700-5285-4596-9bb7-274c35f971d1",
+        "exercise_id": "1477f818-46e8-4d92-b36c-c6d927001c40",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "1591abf7-bf8a-4be0-9cdd-ac8a8656817c",
+        "exercise_id": "9b7447c0-0e42-4189-8915-2a082e29e274",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "55becbbc-b7b1-46c4-8bc1-eaf102af4b92",
+        "exercise_id": "9b7447c0-0e42-4189-8915-2a082e29e274",
+        "section_type_id": "72620e3e-41e7-40b6-9763-72050e2a5534"
+      },
+      {
+        "id": "389343f1-506e-4b16-97b3-dcdba941eaa5",
+        "exercise_id": "650f05f9-09f1-407f-ae21-24f0f6584de7",
+        "section_type_id": "971526c7-16f5-46bf-ba10-f2a0ad05ac72"
+      },
+      {
+        "id": "ca0efb2a-31bf-4d20-964d-863ddcf49011",
+        "exercise_id": "650f05f9-09f1-407f-ae21-24f0f6584de7",
+        "section_type_id": "abee8691-2bf7-43bf-b718-5f054bdd4114"
+      },
+      {
+        "id": "d1e1248f-dc3d-4f43-af59-0fdb17cce18d",
+        "exercise_id": "650f05f9-09f1-407f-ae21-24f0f6584de7",
+        "section_type_id": "05824437-e40d-4f79-a854-b97c14a8014e"
+      }
+    ],
+    "exercise_unit": [
+      {
+        "id": "680220cb-7b65-4611-9543-d483c3c6db2f",
+        "exercise_id": "ad3e7ff1-0231-4eba-b49a-9d4bb61660e3",
+        "measurement_unit_id": "a43b86e4-fbb6-4772-9e7e-f0471cc225c4",
+        "is_default": 1
+      },
+      {
+        "id": "b0de2741-47c8-41f5-a82a-6594e67aa608",
+        "exercise_id": "ad3e7ff1-0231-4eba-b49a-9d4bb61660e3",
+        "measurement_unit_id": "d203f04d-5de6-40d8-b759-9f3f97626bd3",
+        "is_default": 0
+      },
+      {
+        "id": "39568848-f0ca-4e10-88eb-b122fcb191ad",
+        "exercise_id": "ad3e7ff1-0231-4eba-b49a-9d4bb61660e3",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 0
+      },
+      {
+        "id": "33776839-4f66-4d8e-88d5-762425ad6100",
+        "exercise_id": "cb8c4530-b941-4960-9177-3c0e9985c88a",
+        "measurement_unit_id": "a43b86e4-fbb6-4772-9e7e-f0471cc225c4",
+        "is_default": 1
+      },
+      {
+        "id": "d1914812-2f74-4037-bb8f-53ad463fe91e",
+        "exercise_id": "cb8c4530-b941-4960-9177-3c0e9985c88a",
+        "measurement_unit_id": "d203f04d-5de6-40d8-b759-9f3f97626bd3",
+        "is_default": 0
+      },
+      {
+        "id": "2998f870-b8bb-4d12-8987-2b7f269f9037",
+        "exercise_id": "cb8c4530-b941-4960-9177-3c0e9985c88a",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 0
+      },
+      {
+        "id": "9da2ae7a-92d5-47ec-8845-0c7d30a994ef",
+        "exercise_id": "c4d5d2f5-6a0e-457c-9ef0-05331a2efa6a",
+        "measurement_unit_id": "a43b86e4-fbb6-4772-9e7e-f0471cc225c4",
+        "is_default": 1
+      },
+      {
+        "id": "65fb20c7-2601-44c5-a94c-9a23c925fd64",
+        "exercise_id": "c4d5d2f5-6a0e-457c-9ef0-05331a2efa6a",
+        "measurement_unit_id": "d203f04d-5de6-40d8-b759-9f3f97626bd3",
+        "is_default": 0
+      },
+      {
+        "id": "5294868f-9139-4b1c-b96b-46a8b4f71f6a",
+        "exercise_id": "c4d5d2f5-6a0e-457c-9ef0-05331a2efa6a",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 0
+      },
+      {
+        "id": "d538ce9f-0e17-4818-b82f-2c98b2f1399d",
+        "exercise_id": "a77a0a74-6f22-41b7-9750-b14e54ca7596",
+        "measurement_unit_id": "a43b86e4-fbb6-4772-9e7e-f0471cc225c4",
+        "is_default": 1
+      },
+      {
+        "id": "a7338842-a0b1-43a1-bdb1-faa7d8491fc9",
+        "exercise_id": "a77a0a74-6f22-41b7-9750-b14e54ca7596",
+        "measurement_unit_id": "d203f04d-5de6-40d8-b759-9f3f97626bd3",
+        "is_default": 0
+      },
+      {
+        "id": "b8a9d609-bfaa-4e1c-b671-7653d9a8bfb2",
+        "exercise_id": "a77a0a74-6f22-41b7-9750-b14e54ca7596",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 0
+      },
+      {
+        "id": "03080102-2415-408e-a3db-36873fc6ba46",
+        "exercise_id": "12450311-0af0-49c0-8b2e-481716c51639",
+        "measurement_unit_id": "a43b86e4-fbb6-4772-9e7e-f0471cc225c4",
+        "is_default": 1
+      },
+      {
+        "id": "ac48af03-f073-4b56-886c-ad2c2cc89035",
+        "exercise_id": "12450311-0af0-49c0-8b2e-481716c51639",
+        "measurement_unit_id": "d203f04d-5de6-40d8-b759-9f3f97626bd3",
+        "is_default": 0
+      },
+      {
+        "id": "1f484413-6e92-42e8-9fe5-d64e891ad59b",
+        "exercise_id": "12450311-0af0-49c0-8b2e-481716c51639",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 0
+      },
+      {
+        "id": "02751569-d0fb-42f6-b3ca-09d44e6b68bc",
+        "exercise_id": "5b105b34-764a-4dbd-aba8-a891dc7230f7",
+        "measurement_unit_id": "a43b86e4-fbb6-4772-9e7e-f0471cc225c4",
+        "is_default": 1
+      },
+      {
+        "id": "b7ad7a6d-4651-4ded-8506-84fde06b234b",
+        "exercise_id": "5b105b34-764a-4dbd-aba8-a891dc7230f7",
+        "measurement_unit_id": "d203f04d-5de6-40d8-b759-9f3f97626bd3",
+        "is_default": 0
+      },
+      {
+        "id": "891bf0d0-c2f3-4c4e-8ebb-20b7e348d0cf",
+        "exercise_id": "5b105b34-764a-4dbd-aba8-a891dc7230f7",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 0
+      },
+      {
+        "id": "be9ae246-9d1c-4db7-926d-921ba1e6aab8",
+        "exercise_id": "7ab746fc-7a37-42a7-b0d5-f3f11c458dae",
+        "measurement_unit_id": "a43b86e4-fbb6-4772-9e7e-f0471cc225c4",
+        "is_default": 1
+      },
+      {
+        "id": "09a549d7-1499-49a7-8bce-0c5b16407113",
+        "exercise_id": "7ab746fc-7a37-42a7-b0d5-f3f11c458dae",
+        "measurement_unit_id": "d203f04d-5de6-40d8-b759-9f3f97626bd3",
+        "is_default": 0
+      },
+      {
+        "id": "a11824f0-0b6b-4654-9a0c-f02d701c9aa6",
+        "exercise_id": "7ab746fc-7a37-42a7-b0d5-f3f11c458dae",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 0
+      },
+      {
+        "id": "cdaa679a-62cb-4e28-b5fc-bfd973ea97e5",
+        "exercise_id": "6c634f06-f131-45fc-b78a-1ba92547004b",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 1
+      },
+      {
+        "id": "8d807ed2-3b76-494b-a8fc-150bcad0a333",
+        "exercise_id": "2c0e0026-6294-4f8f-b117-d1f4b8008817",
+        "measurement_unit_id": "a43b86e4-fbb6-4772-9e7e-f0471cc225c4",
+        "is_default": 1
+      },
+      {
+        "id": "00efee1c-14a8-447d-8ba9-568b3c88f5cf",
+        "exercise_id": "2c0e0026-6294-4f8f-b117-d1f4b8008817",
+        "measurement_unit_id": "d203f04d-5de6-40d8-b759-9f3f97626bd3",
+        "is_default": 0
+      },
+      {
+        "id": "f3feaa96-7ecd-4240-90d2-757c3b3ecdef",
+        "exercise_id": "2c0e0026-6294-4f8f-b117-d1f4b8008817",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 0
+      },
+      {
+        "id": "bd8028e0-f144-4a57-8406-2b156999c286",
+        "exercise_id": "52108c0a-a131-4fa1-88b6-8566a773af7a",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 1
+      },
+      {
+        "id": "076871bb-73ec-44b6-a932-cb4cdf5d8c3d",
+        "exercise_id": "2925dfcd-7380-48de-a9bf-f3692a872730",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 1
+      },
+      {
+        "id": "831ad9d7-de11-4cb5-81a1-ed6c03c9db52",
+        "exercise_id": "8dd70445-3d6f-4620-9d77-283c3272c84d",
+        "measurement_unit_id": "a43b86e4-fbb6-4772-9e7e-f0471cc225c4",
+        "is_default": 1
+      },
+      {
+        "id": "78297403-322a-4434-bae1-4f25002e40a5",
+        "exercise_id": "8dd70445-3d6f-4620-9d77-283c3272c84d",
+        "measurement_unit_id": "d203f04d-5de6-40d8-b759-9f3f97626bd3",
+        "is_default": 0
+      },
+      {
+        "id": "f0fd7cb7-06c3-493f-b41a-765fcdb4b662",
+        "exercise_id": "8dd70445-3d6f-4620-9d77-283c3272c84d",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 0
+      },
+      {
+        "id": "7820dd9a-c86f-437c-a783-9d4b3404ea32",
+        "exercise_id": "843cfa5f-b6b3-4a2a-8794-e8ad7bac124e",
+        "measurement_unit_id": "a43b86e4-fbb6-4772-9e7e-f0471cc225c4",
+        "is_default": 1
+      },
+      {
+        "id": "c408f425-0993-46f1-adb1-a6f4c6dd328c",
+        "exercise_id": "843cfa5f-b6b3-4a2a-8794-e8ad7bac124e",
+        "measurement_unit_id": "d203f04d-5de6-40d8-b759-9f3f97626bd3",
+        "is_default": 0
+      },
+      {
+        "id": "459a3448-a97e-4b36-8051-759d6ea592c2",
+        "exercise_id": "843cfa5f-b6b3-4a2a-8794-e8ad7bac124e",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 0
+      },
+      {
+        "id": "182ae984-09d0-4848-ab0f-09ca5fc70192",
+        "exercise_id": "7074c6e5-2ff2-4aad-878d-cf113196ea76",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 1
+      },
+      {
+        "id": "245c3a67-3a22-423c-89d9-e00c56782bfd",
+        "exercise_id": "6aa458d7-73f2-47b8-b99e-fdf8c61e8548",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 1
+      },
+      {
+        "id": "edaaff94-972b-4790-bb73-d547bdff8f06",
+        "exercise_id": "426d3a3c-8a53-4027-8de4-43acbb5ec825",
+        "measurement_unit_id": "3d24b95d-2ed9-4173-a676-4545b9af5dbb",
+        "is_default": 1
+      },
+      {
+        "id": "77cfb2e5-1770-4cf6-9135-16025cd78afa",
+        "exercise_id": "426d3a3c-8a53-4027-8de4-43acbb5ec825",
+        "measurement_unit_id": "1951e6c0-d91b-450e-83c9-2cb179f342f9",
+        "is_default": 0
+      },
+      {
+        "id": "26f636e4-ec69-4963-8139-0f24264b8e07",
+        "exercise_id": "13884997-42c9-4d50-bdbc-92dd2a62c0c5",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 1
+      },
+      {
+        "id": "729fa00b-31f8-427b-886e-08aac3a2d23b",
+        "exercise_id": "71756183-7e82-44e4-8c98-becfe7e1c372",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 1
+      },
+      {
+        "id": "90e46c49-9626-4cfc-b0e8-048aa455fac3",
+        "exercise_id": "f6e58a97-467e-43a3-9aa0-f51426364da6",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 1
+      },
+      {
+        "id": "a89e9567-4a14-4a72-b3fd-c143f7a0ab02",
+        "exercise_id": "b84264d5-1e39-4616-a454-f36ca16e537f",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 1
+      },
+      {
+        "id": "2dc34371-1900-4a10-a822-a84ca9eb86ac",
+        "exercise_id": "6607afc5-ae62-4bc6-a4ed-9391d8c6ab49",
+        "measurement_unit_id": "46e6ffb9-5698-4409-8803-bee2f6a2da2e",
+        "is_default": 1
+      },
+      {
+        "id": "baf84adc-988f-40a4-b0e2-528444870a39",
+        "exercise_id": "6607afc5-ae62-4bc6-a4ed-9391d8c6ab49",
+        "measurement_unit_id": "e3891bf5-1465-4251-96a0-40dfb656bfee",
+        "is_default": 0
+      },
+      {
+        "id": "d728382e-bc9c-49c4-b6fe-d349aa809267",
+        "exercise_id": "6607afc5-ae62-4bc6-a4ed-9391d8c6ab49",
+        "measurement_unit_id": "c368db94-d1f4-4ac5-ae64-9bb4b7ff1019",
+        "is_default": 0
+      },
+      {
+        "id": "2720c52c-cff8-42ef-9667-1f58f44c9c97",
+        "exercise_id": "6607afc5-ae62-4bc6-a4ed-9391d8c6ab49",
+        "measurement_unit_id": "1951e6c0-d91b-450e-83c9-2cb179f342f9",
+        "is_default": 0
+      },
+      {
+        "id": "84873df3-b3e5-4d91-8566-929927b49c7f",
+        "exercise_id": "f0874a8e-6564-433d-940c-10c9f306b7a0",
+        "measurement_unit_id": "c368db94-d1f4-4ac5-ae64-9bb4b7ff1019",
+        "is_default": 1
+      },
+      {
+        "id": "d902dc76-9833-4605-860d-a65d7cc493a2",
+        "exercise_id": "f0874a8e-6564-433d-940c-10c9f306b7a0",
+        "measurement_unit_id": "1951e6c0-d91b-450e-83c9-2cb179f342f9",
+        "is_default": 0
+      },
+      {
+        "id": "f3652906-dadf-43a4-9797-2b10c12aac8b",
+        "exercise_id": "f0874a8e-6564-433d-940c-10c9f306b7a0",
+        "measurement_unit_id": "e3891bf5-1465-4251-96a0-40dfb656bfee",
+        "is_default": 0
+      },
+      {
+        "id": "5b61766e-0fb9-47d4-afd4-0dd29f307d19",
+        "exercise_id": "1477f818-46e8-4d92-b36c-c6d927001c40",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 1
+      },
+      {
+        "id": "bb788c3b-c83c-4319-b3fb-b6dbfe58cc7c",
+        "exercise_id": "1477f818-46e8-4d92-b36c-c6d927001c40",
+        "measurement_unit_id": "a43b86e4-fbb6-4772-9e7e-f0471cc225c4",
+        "is_default": 0
+      },
+      {
+        "id": "907a6a21-9d3b-4229-a1d7-6912d620067a",
+        "exercise_id": "1477f818-46e8-4d92-b36c-c6d927001c40",
+        "measurement_unit_id": "d203f04d-5de6-40d8-b759-9f3f97626bd3",
+        "is_default": 0
+      },
+      {
+        "id": "05f9b174-e04f-4824-8c8f-896985c43043",
+        "exercise_id": "9b7447c0-0e42-4189-8915-2a082e29e274",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 1
+      },
+      {
+        "id": "81c54e18-3df6-413e-8e7d-c197b571c043",
+        "exercise_id": "9b7447c0-0e42-4189-8915-2a082e29e274",
+        "measurement_unit_id": "a43b86e4-fbb6-4772-9e7e-f0471cc225c4",
+        "is_default": 0
+      },
+      {
+        "id": "fd6ba4c5-3f99-44ac-8ccf-d972b05da4cd",
+        "exercise_id": "9b7447c0-0e42-4189-8915-2a082e29e274",
+        "measurement_unit_id": "d203f04d-5de6-40d8-b759-9f3f97626bd3",
+        "is_default": 0
+      },
+      {
+        "id": "f9ffc8a6-e731-42c2-a9d7-c4de82cd91cf",
+        "exercise_id": "650f05f9-09f1-407f-ae21-24f0f6584de7",
+        "measurement_unit_id": "6e13a071-0821-4d5e-8248-f8b787658e0a",
+        "is_default": 1
+      },
+      {
+        "id": "0b2debed-1201-4d39-ae05-e1499f0de4c1",
+        "exercise_id": "650f05f9-09f1-407f-ae21-24f0f6584de7",
+        "measurement_unit_id": "46e6ffb9-5698-4409-8803-bee2f6a2da2e",
+        "is_default": 0
+      }
+    ],
+    "exercise_tag": [
+      {
+        "id": "97376938-b957-4dfc-ada5-924824a89124",
+        "exercise_id": "ad3e7ff1-0231-4eba-b49a-9d4bb61660e3",
+        "tag_id": "c66153e9-de3c-4125-8b37-3d814b28c07b"
+      },
+      {
+        "id": "cb37b773-9368-47f0-b7c9-f1fad8d80662",
+        "exercise_id": "ad3e7ff1-0231-4eba-b49a-9d4bb61660e3",
+        "tag_id": "53025a7d-7ce1-4d4e-b15b-ce7561cc6cc8"
+      },
+      {
+        "id": "9841cfaf-2787-41d4-9cb3-b0228658ba91",
+        "exercise_id": "ad3e7ff1-0231-4eba-b49a-9d4bb61660e3",
+        "tag_id": "950c1ca2-5a68-4e52-a84f-f4908b025e4f"
+      },
+      {
+        "id": "8eeec8cc-862d-42fd-8fd7-989757c054a8",
+        "exercise_id": "cb8c4530-b941-4960-9177-3c0e9985c88a",
+        "tag_id": "c66153e9-de3c-4125-8b37-3d814b28c07b"
+      },
+      {
+        "id": "183b2126-7121-4d5c-a190-1bd538d1c04a",
+        "exercise_id": "cb8c4530-b941-4960-9177-3c0e9985c88a",
+        "tag_id": "950c1ca2-5a68-4e52-a84f-f4908b025e4f"
+      },
+      {
+        "id": "e5d0312c-3977-4853-a4fc-12cd649bcf0a",
+        "exercise_id": "c4d5d2f5-6a0e-457c-9ef0-05331a2efa6a",
+        "tag_id": "c66153e9-de3c-4125-8b37-3d814b28c07b"
+      },
+      {
+        "id": "630b7106-4626-4fdc-947f-64fae731dfde",
+        "exercise_id": "c4d5d2f5-6a0e-457c-9ef0-05331a2efa6a",
+        "tag_id": "d0ba70e8-311b-4c42-bbcf-1c5015a19ca7"
+      },
+      {
+        "id": "c9b819c1-985b-4d50-8b60-f32c0d70026e",
+        "exercise_id": "c4d5d2f5-6a0e-457c-9ef0-05331a2efa6a",
+        "tag_id": "950c1ca2-5a68-4e52-a84f-f4908b025e4f"
+      },
+      {
+        "id": "823b3af1-0a0a-460c-8346-2477e8a55509",
+        "exercise_id": "a77a0a74-6f22-41b7-9750-b14e54ca7596",
+        "tag_id": "53025a7d-7ce1-4d4e-b15b-ce7561cc6cc8"
+      },
+      {
+        "id": "a93c0b6e-c20c-4b48-9560-f555f21122dd",
+        "exercise_id": "a77a0a74-6f22-41b7-9750-b14e54ca7596",
+        "tag_id": "54341f6d-714c-468c-8360-ed589d1c3236"
+      },
+      {
+        "id": "5688ce0f-013e-4bc5-b997-376d337c9c62",
+        "exercise_id": "a77a0a74-6f22-41b7-9750-b14e54ca7596",
+        "tag_id": "950c1ca2-5a68-4e52-a84f-f4908b025e4f"
+      },
+      {
+        "id": "1ce7624e-717e-404f-9479-927ef586fe30",
+        "exercise_id": "12450311-0af0-49c0-8b2e-481716c51639",
+        "tag_id": "54341f6d-714c-468c-8360-ed589d1c3236"
+      },
+      {
+        "id": "1189d90f-e687-40fd-b712-fd676df77038",
+        "exercise_id": "12450311-0af0-49c0-8b2e-481716c51639",
+        "tag_id": "950c1ca2-5a68-4e52-a84f-f4908b025e4f"
+      },
+      {
+        "id": "b88bf2f4-3f97-4f27-8138-7298b1e4c6a7",
+        "exercise_id": "5b105b34-764a-4dbd-aba8-a891dc7230f7",
+        "tag_id": "54341f6d-714c-468c-8360-ed589d1c3236"
+      },
+      {
+        "id": "8f5ed0d3-00f4-4ed9-8183-b6ac0e952c15",
+        "exercise_id": "5b105b34-764a-4dbd-aba8-a891dc7230f7",
+        "tag_id": "950c1ca2-5a68-4e52-a84f-f4908b025e4f"
+      },
+      {
+        "id": "4ad502a3-d080-4be8-8508-27ca5abc2cf1",
+        "exercise_id": "7ab746fc-7a37-42a7-b0d5-f3f11c458dae",
+        "tag_id": "54341f6d-714c-468c-8360-ed589d1c3236"
+      },
+      {
+        "id": "fba6e7d8-2fc0-488d-87ee-ab6a289ae04d",
+        "exercise_id": "7ab746fc-7a37-42a7-b0d5-f3f11c458dae",
+        "tag_id": "950c1ca2-5a68-4e52-a84f-f4908b025e4f"
+      },
+      {
+        "id": "21b7ec95-514a-4e2b-a394-8e482b9e5fd1",
+        "exercise_id": "7ab746fc-7a37-42a7-b0d5-f3f11c458dae",
+        "tag_id": "2b20be15-f9ec-4eaa-9500-8a6053033370"
+      },
+      {
+        "id": "d4864916-7673-4fa9-ad4b-54d41efb5317",
+        "exercise_id": "6c634f06-f131-45fc-b78a-1ba92547004b",
+        "tag_id": "54341f6d-714c-468c-8360-ed589d1c3236"
+      },
+      {
+        "id": "813e0645-2cc7-4939-8698-f2b3af4d1af9",
+        "exercise_id": "6c634f06-f131-45fc-b78a-1ba92547004b",
+        "tag_id": "950c1ca2-5a68-4e52-a84f-f4908b025e4f"
+      },
+      {
+        "id": "e9ba2f6d-8d26-40f8-9e92-9cd53cf58f05",
+        "exercise_id": "2c0e0026-6294-4f8f-b117-d1f4b8008817",
+        "tag_id": "d0ba70e8-311b-4c42-bbcf-1c5015a19ca7"
+      },
+      {
+        "id": "8c116817-ab97-4d16-a0e2-0d86fe16ebc9",
+        "exercise_id": "2c0e0026-6294-4f8f-b117-d1f4b8008817",
+        "tag_id": "950c1ca2-5a68-4e52-a84f-f4908b025e4f"
+      },
+      {
+        "id": "35efa3f1-a0ea-4b3a-906a-7850fdbee703",
+        "exercise_id": "52108c0a-a131-4fa1-88b6-8566a773af7a",
+        "tag_id": "d0ba70e8-311b-4c42-bbcf-1c5015a19ca7"
+      },
+      {
+        "id": "838a5da4-9aad-4c67-8958-b6f4b4ecd451",
+        "exercise_id": "52108c0a-a131-4fa1-88b6-8566a773af7a",
+        "tag_id": "ce8b0f00-e7d0-4380-9618-f00bd75a1558"
+      },
+      {
+        "id": "91cff7c7-2b42-4a00-9818-1f1fe69baf42",
+        "exercise_id": "52108c0a-a131-4fa1-88b6-8566a773af7a",
+        "tag_id": "950c1ca2-5a68-4e52-a84f-f4908b025e4f"
+      },
+      {
+        "id": "bf58a838-2e4e-4d10-892d-b4036a69ae94",
+        "exercise_id": "2925dfcd-7380-48de-a9bf-f3692a872730",
+        "tag_id": "53025a7d-7ce1-4d4e-b15b-ce7561cc6cc8"
+      },
+      {
+        "id": "39c5956b-9c57-4da2-93b0-65e3adf5d990",
+        "exercise_id": "2925dfcd-7380-48de-a9bf-f3692a872730",
+        "tag_id": "950c1ca2-5a68-4e52-a84f-f4908b025e4f"
+      },
+      {
+        "id": "031d3db0-aa99-4f2e-ae17-be9c054f50e2",
+        "exercise_id": "8dd70445-3d6f-4620-9d77-283c3272c84d",
+        "tag_id": "53025a7d-7ce1-4d4e-b15b-ce7561cc6cc8"
+      },
+      {
+        "id": "b5c8d106-6265-49da-af2d-6c87dd979e1f",
+        "exercise_id": "8dd70445-3d6f-4620-9d77-283c3272c84d",
+        "tag_id": "2b20be15-f9ec-4eaa-9500-8a6053033370"
+      },
+      {
+        "id": "b8eaa4a7-887f-42f8-9c32-4ecbf8062809",
+        "exercise_id": "8dd70445-3d6f-4620-9d77-283c3272c84d",
+        "tag_id": "950c1ca2-5a68-4e52-a84f-f4908b025e4f"
+      },
+      {
+        "id": "48c1a873-c9fc-4f7b-a5c2-ded041bc9c95",
+        "exercise_id": "843cfa5f-b6b3-4a2a-8794-e8ad7bac124e",
+        "tag_id": "53025a7d-7ce1-4d4e-b15b-ce7561cc6cc8"
+      },
+      {
+        "id": "44a13572-c186-4b5d-bab4-b27d2f084551",
+        "exercise_id": "843cfa5f-b6b3-4a2a-8794-e8ad7bac124e",
+        "tag_id": "2b20be15-f9ec-4eaa-9500-8a6053033370"
+      },
+      {
+        "id": "56659a64-d0e9-46c1-977c-6d57d22594a5",
+        "exercise_id": "843cfa5f-b6b3-4a2a-8794-e8ad7bac124e",
+        "tag_id": "950c1ca2-5a68-4e52-a84f-f4908b025e4f"
+      },
+      {
+        "id": "de483e68-0e58-4983-b73e-59835c03f400",
+        "exercise_id": "7074c6e5-2ff2-4aad-878d-cf113196ea76",
+        "tag_id": "53025a7d-7ce1-4d4e-b15b-ce7561cc6cc8"
+      },
+      {
+        "id": "bd28e280-a7e2-4205-8504-a974a8697b51",
+        "exercise_id": "7074c6e5-2ff2-4aad-878d-cf113196ea76",
+        "tag_id": "ce8b0f00-e7d0-4380-9618-f00bd75a1558"
+      },
+      {
+        "id": "51611c91-7324-46d4-922f-5d2081871ae6",
+        "exercise_id": "6aa458d7-73f2-47b8-b99e-fdf8c61e8548",
+        "tag_id": "18039354-d400-4bc8-a22b-ec7f88da9c7b"
+      },
+      {
+        "id": "40ff1e5b-fc67-4ba9-8fd7-57737de6267c",
+        "exercise_id": "6aa458d7-73f2-47b8-b99e-fdf8c61e8548",
+        "tag_id": "ce8b0f00-e7d0-4380-9618-f00bd75a1558"
+      },
+      {
+        "id": "684a9e28-6fcd-4419-a943-794845530f53",
+        "exercise_id": "426d3a3c-8a53-4027-8de4-43acbb5ec825",
+        "tag_id": "18039354-d400-4bc8-a22b-ec7f88da9c7b"
+      },
+      {
+        "id": "99eeba9b-df8a-4b88-a4f0-dbfe30bdfba1",
+        "exercise_id": "426d3a3c-8a53-4027-8de4-43acbb5ec825",
+        "tag_id": "37d07c6d-bb93-46e3-849c-7fbb4d9fdfa9"
+      },
+      {
+        "id": "51434915-1e18-43ea-86c4-9420a8c37cf4",
+        "exercise_id": "426d3a3c-8a53-4027-8de4-43acbb5ec825",
+        "tag_id": "ce8b0f00-e7d0-4380-9618-f00bd75a1558"
+      },
+      {
+        "id": "01a0ce0e-4060-4390-82cc-0b4323da6cf7",
+        "exercise_id": "13884997-42c9-4d50-bdbc-92dd2a62c0c5",
+        "tag_id": "53025a7d-7ce1-4d4e-b15b-ce7561cc6cc8"
+      },
+      {
+        "id": "4e0cb843-5d43-4811-9401-6247fc6e6b90",
+        "exercise_id": "13884997-42c9-4d50-bdbc-92dd2a62c0c5",
+        "tag_id": "2b20be15-f9ec-4eaa-9500-8a6053033370"
+      },
+      {
+        "id": "a54e6da0-e290-4fcc-8639-499bc8eb9d73",
+        "exercise_id": "13884997-42c9-4d50-bdbc-92dd2a62c0c5",
+        "tag_id": "ce8b0f00-e7d0-4380-9618-f00bd75a1558"
+      },
+      {
+        "id": "99d1ba02-b910-4fab-9ffe-b42b7966559e",
+        "exercise_id": "71756183-7e82-44e4-8c98-becfe7e1c372",
+        "tag_id": "d2298e6f-2fe3-4fee-893a-f73ec1b2312b"
+      },
+      {
+        "id": "fee7e3cf-3e41-4a82-9703-33646055bf75",
+        "exercise_id": "71756183-7e82-44e4-8c98-becfe7e1c372",
+        "tag_id": "950c1ca2-5a68-4e52-a84f-f4908b025e4f"
+      },
+      {
+        "id": "e51d334e-bf7a-4955-92d4-602f6649db8d",
+        "exercise_id": "f6e58a97-467e-43a3-9aa0-f51426364da6",
+        "tag_id": "ef6345cc-d224-49ff-8af9-ce3fe3d4fc66"
+      },
+      {
+        "id": "fe8b1cc7-6788-499c-b5e7-3fd6b7d5e8d7",
+        "exercise_id": "f6e58a97-467e-43a3-9aa0-f51426364da6",
+        "tag_id": "950c1ca2-5a68-4e52-a84f-f4908b025e4f"
+      },
+      {
+        "id": "919dd915-beeb-43df-b46a-8a0b7f3e4b0c",
+        "exercise_id": "b84264d5-1e39-4616-a454-f36ca16e537f",
+        "tag_id": "ef6345cc-d224-49ff-8af9-ce3fe3d4fc66"
+      },
+      {
+        "id": "0f635358-8603-4b91-949a-fdfa0ebb7806",
+        "exercise_id": "6607afc5-ae62-4bc6-a4ed-9391d8c6ab49",
+        "tag_id": "ef6345cc-d224-49ff-8af9-ce3fe3d4fc66"
+      },
+      {
+        "id": "435e2c68-3d9e-4e73-88bc-0a280976fc34",
+        "exercise_id": "6607afc5-ae62-4bc6-a4ed-9391d8c6ab49",
+        "tag_id": "d0ba70e8-311b-4c42-bbcf-1c5015a19ca7"
+      },
+      {
+        "id": "81855bc4-a056-4203-b8a5-39c6a73cdf9c",
+        "exercise_id": "f0874a8e-6564-433d-940c-10c9f306b7a0",
+        "tag_id": "ef6345cc-d224-49ff-8af9-ce3fe3d4fc66"
+      },
+      {
+        "id": "22b8fce3-dd9d-490c-8f5e-076ed18b79c7",
+        "exercise_id": "f0874a8e-6564-433d-940c-10c9f306b7a0",
+        "tag_id": "53025a7d-7ce1-4d4e-b15b-ce7561cc6cc8"
+      },
+      {
+        "id": "02466d3b-3f25-44e9-88cf-dc80dfc6bc4f",
+        "exercise_id": "1477f818-46e8-4d92-b36c-c6d927001c40",
+        "tag_id": "54341f6d-714c-468c-8360-ed589d1c3236"
+      },
+      {
+        "id": "2c23b696-cfd4-4d9b-8f50-5f5a5466012c",
+        "exercise_id": "1477f818-46e8-4d92-b36c-c6d927001c40",
+        "tag_id": "53025a7d-7ce1-4d4e-b15b-ce7561cc6cc8"
+      },
+      {
+        "id": "df849525-805d-4590-9166-7edfb6e010b6",
+        "exercise_id": "1477f818-46e8-4d92-b36c-c6d927001c40",
+        "tag_id": "d2298e6f-2fe3-4fee-893a-f73ec1b2312b"
+      },
+      {
+        "id": "e637522f-f424-4550-89e2-c236f86a6909",
+        "exercise_id": "9b7447c0-0e42-4189-8915-2a082e29e274",
+        "tag_id": "d0ba70e8-311b-4c42-bbcf-1c5015a19ca7"
+      },
+      {
+        "id": "a9f54885-4fa5-4528-ae6d-09c0048ba844",
+        "exercise_id": "9b7447c0-0e42-4189-8915-2a082e29e274",
+        "tag_id": "950c1ca2-5a68-4e52-a84f-f4908b025e4f"
+      },
+      {
+        "id": "ce8581e0-0c3f-448f-9485-ded8251c4a6c",
+        "exercise_id": "650f05f9-09f1-407f-ae21-24f0f6584de7",
+        "tag_id": "8cf38598-abf1-4efd-ac8f-8b9125fe231e"
+      },
+      {
+        "id": "4c057238-7f58-40cc-a911-69ed6f0f2b3a",
+        "exercise_id": "650f05f9-09f1-407f-ae21-24f0f6584de7",
+        "tag_id": "54341f6d-714c-468c-8360-ed589d1c3236"
+      }
+    ],
+    "class_template": [],
+    "class_section": [],
+    "section_exercise": [],
+    "training_session": [],
+    "session_exercise_result": [],
+    "personal_record": []
+  }
+}

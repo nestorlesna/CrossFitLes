@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="2">SNATCH</text>
+  <!-- Frame 1: Setup (barra en el suelo, agarre ancho) -->
+  <g class="f1">
+    <line x1="38" y1="205" x2="162" y2="205" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="32" y="196" width="8" height="18" rx="2" fill="#475569"/>
+    <rect x="160" y="196" width="8" height="18" rx="2" fill="#475569"/>
+    <circle cx="72" cy="100" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="72" y1="113" x2="125" y2="130"/>
+      <line x1="80" y1="118" x2="76" y2="130"/>
+      <!-- Agarre ancho (snatch grip) -->
+      <line x1="76" y1="124" x2="52" y2="205"/><line x1="120" y1="128" x2="148" y2="205"/>
+      <line x1="125" y1="130" x2="148" y2="170"/><line x1="148" y1="170" x2="150" y2="205"/>
+      <line x1="123" y1="132" x2="108" y2="172"/><line x1="108" y1="172" x2="106" y2="205"/>
+    </g>
+    <circle cx="148" cy="170" r="5" fill="#64748b"/><circle cx="108" cy="172" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: High pull con agarre ancho (barra al pecho) -->
+  <g class="f2">
+    <line x1="38" y1="98" x2="162" y2="98" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="32" y="90" width="8" height="16" rx="2" fill="#475569"/>
+    <rect x="160" y="90" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="100" cy="50" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="63" x2="100" y2="118"/>
+      <line x1="78" y1="75" x2="122" y2="75"/>
+      <!-- Codos altos, agarre ancho -->
+      <line x1="78" y1="75" x2="52" y2="62"/><line x1="52" y1="62" x2="50" y2="98"/>
+      <line x1="122" y1="75" x2="148" y2="62"/><line x1="148" y1="62" x2="150" y2="98"/>
+      <line x1="96" y1="118" x2="90" y2="170"/><line x1="90" y1="170" x2="90" y2="200"/>
+      <line x1="104" y1="118" x2="110" y2="170"/><line x1="110" y1="170" x2="110" y2="200"/>
+      <line x1="78" y1="200" x2="104" y2="200"/><line x1="98" y1="200" x2="124" y2="200"/>
+    </g>
+    <circle cx="52" cy="62" r="5" fill="#64748b"/><circle cx="148" cy="62" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: Overhead squat (recibiendo overhead) -->
+  <g class="f3">
+    <line x1="38" y1="18" x2="162" y2="18" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="32" y="10" width="8" height="16" rx="2" fill="#475569"/>
+    <rect x="160" y="10" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="100" cy="62" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="75" x2="97" y2="130"/>
+      <line x1="78" y1="87" x2="122" y2="87"/>
+      <!-- Brazos extendidos overhead, agarre ancho -->
+      <line x1="78" y1="87" x2="48" y2="36"/><line x1="48" y1="36" x2="44" y2="18"/>
+      <line x1="122" y1="87" x2="152" y2="36"/><line x1="152" y1="36" x2="156" y2="18"/>
+      <!-- Partial squat (power snatch recibe en cuarto squat) -->
+      <line x1="93" y1="130" x2="76" y2="168"/><line x1="76" y1="168" x2="78" y2="205"/>
+      <line x1="101" y1="130" x2="124" y2="168"/><line x1="124" y1="168" x2="122" y2="205"/>
+      <line x1="64" y1="205" x2="92" y2="205"/><line x1="110" y1="205" x2="136" y2="205"/>
+    </g>
+    <circle cx="76" cy="168" r="5" fill="#64748b"/><circle cx="124" cy="168" r="5" fill="#64748b"/>
+  </g>
+</svg>

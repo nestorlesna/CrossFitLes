@@ -1,43 +1,49 @@
 // Pantalla de inicio - dashboard principal
+import { useNavigate } from 'react-router-dom';
+import { Dumbbell, LayoutTemplate, Calendar, BarChart2 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
-import { Dumbbell } from 'lucide-react';
+
+const quickActions = [
+  { label: 'Nueva sesión',    icon: Calendar,       path: '/sesiones/nueva' },
+  { label: 'Ejercicios',      icon: Dumbbell,       path: '/ejercicios'     },
+  { label: 'Clases',          icon: LayoutTemplate, path: '/clases'         },
+  { label: 'Estadísticas',    icon: BarChart2,      path: '/estadisticas'   },
+];
 
 export function HomePage() {
+  const navigate = useNavigate();
+
   return (
     <>
-      <Header title="CrossFit Tracker" subtitle="Panel principal" />
-      <div className="p-4 space-y-4">
-        <div className="bg-gray-900 rounded-xl p-6 border border-gray-800 text-center">
-          <Dumbbell size={48} className="mx-auto text-primary-500 mb-3" />
+      <Header title="CrossFit Tracker" />
+
+      <div className="p-4 space-y-5">
+        {/* Bienvenida */}
+        <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800 text-center">
+          <Dumbbell size={44} className="mx-auto text-primary-500 mb-3" />
           <h2 className="text-xl font-bold text-white mb-1">¡Bienvenido!</h2>
-          <p className="text-gray-400 text-sm">
-            Tu tracker de sesiones CrossFit está listo.
-            Navega con los íconos de abajo para comenzar.
+          <p className="text-gray-400 text-sm leading-relaxed">
+            Registrá tus sesiones, seguí tus récords y gestioná tu biblioteca de ejercicios.
           </p>
         </div>
 
-        <div className="bg-gray-900 rounded-xl p-4 border border-gray-800">
-          <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">
-            Estado del proyecto
+        {/* Accesos rápidos */}
+        <div>
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-1">
+            Accesos rápidos
           </h3>
-          <div className="space-y-2">
-            {[
-              { fase: 'Fase 0', nombre: 'Scaffolding', done: true },
-              { fase: 'Fase 1', nombre: 'Catálogos', done: false },
-              { fase: 'Fase 2', nombre: 'Ejercicios', done: false },
-              { fase: 'Fase 3', nombre: 'Plantillas', done: false },
-              { fase: 'Fase 4', nombre: 'Sesiones', done: false },
-              { fase: 'Fase 5', nombre: 'Estadísticas', done: false },
-              { fase: 'Fase 6', nombre: 'Exportación', done: false },
-            ].map((item) => (
-              <div key={item.fase} className="flex items-center gap-3">
-                <span className={`w-2 h-2 rounded-full ${item.done ? 'bg-green-500' : 'bg-gray-700'}`} />
-                <span className="text-xs text-gray-500">{item.fase}</span>
-                <span className={`text-sm ${item.done ? 'text-white' : 'text-gray-500'}`}>
-                  {item.nombre}
-                </span>
-                {item.done && <span className="text-xs text-green-500 ml-auto">✓ Completada</span>}
-              </div>
+          <div className="grid grid-cols-2 gap-3">
+            {quickActions.map(({ label, icon: Icon, path }) => (
+              <button
+                key={path}
+                onClick={() => navigate(path)}
+                className="bg-gray-900 border border-gray-800 rounded-2xl p-4 flex flex-col items-center gap-2 hover:bg-gray-800/60 hover:border-gray-700 transition-colors active:scale-95"
+              >
+                <div className="w-10 h-10 bg-primary-500/10 rounded-xl flex items-center justify-center">
+                  <Icon size={20} className="text-primary-400" />
+                </div>
+                <span className="text-sm text-white font-medium">{label}</span>
+              </button>
             ))}
           </div>
         </div>

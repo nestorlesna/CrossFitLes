@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="2">BURPEE</text>
+  <!-- Frame 1: De pie -->
+  <g class="f1">
+    <circle cx="100" cy="26" r="14" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="40" x2="100" y2="108"/><line x1="78" y1="52" x2="122" y2="52"/>
+      <line x1="78" y1="52" x2="74" y2="100"/><line x1="122" y1="52" x2="126" y2="100"/>
+      <line x1="95" y1="108" x2="93" y2="162"/><line x1="93" y1="162" x2="93" y2="205"/>
+      <line x1="105" y1="108" x2="107" y2="162"/><line x1="107" y1="162" x2="107" y2="205"/>
+      <line x1="78" y1="205" x2="106" y2="205"/><line x1="94" y1="205" x2="122" y2="205"/>
+    </g>
+  </g>
+  <!-- Frame 2: Manos en el suelo (burpee abajo) -->
+  <g class="f2">
+    <circle cx="100" cy="128" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="141" x2="100" y2="165"/>
+      <line x1="78" y1="153" x2="122" y2="153"/>
+      <!-- Brazos al suelo -->
+      <line x1="78" y1="153" x2="55" y2="205"/><line x1="122" y1="153" x2="145" y2="205"/>
+      <!-- Manos -->
+      <line x1="46" y1="205" x2="64" y2="205"/><line x1="136" y1="205" x2="154" y2="205"/>
+      <!-- Piernas comprimidas -->
+      <line x1="95" y1="165" x2="76" y2="190"/><line x1="76" y1="190" x2="74" y2="205"/>
+      <line x1="105" y1="165" x2="124" y2="190"/><line x1="124" y1="190" x2="126" y2="205"/>
+    </g>
+    <circle cx="78" cy="153" r="5" fill="#64748b"/><circle cx="122" cy="153" r="5" fill="#64748b"/>
+    <circle cx="76" cy="190" r="5" fill="#64748b"/><circle cx="124" cy="190" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: Salto con brazos arriba -->
+  <g class="f3">
+    <circle cx="100" cy="26" r="14" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="40" x2="100" y2="108"/><line x1="78" y1="52" x2="122" y2="52"/>
+      <!-- Brazos arriba -->
+      <line x1="78" y1="52" x2="66" y2="22"/><line x1="122" y1="52" x2="134" y2="22"/>
+      <!-- Piernas rectas, pies ligeramente despegados -->
+      <line x1="95" y1="108" x2="92" y2="162"/><line x1="92" y1="162" x2="92" y2="200"/>
+      <line x1="105" y1="108" x2="108" y2="162"/><line x1="108" y1="162" x2="108" y2="200"/>
+      <line x1="78" y1="200" x2="106" y2="200"/><line x1="94" y1="200" x2="122" y2="200"/>
+    </g>
+  </g>
+</svg>

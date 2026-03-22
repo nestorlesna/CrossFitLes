@@ -926,6 +926,10 @@ Tareas:
 
 ---
 
+### FASE 8: Mejoras en funcionalidades
+La exportacion de datos, el JSON, debe de exportar las imagenes y videos asociados a los ejercicios, en base64, para que se pueda importar en otro dispositivo y se recuperen todos los datos y archivos multimedia. 
+
+---
 ## Datos precargados (Seeds)
 
 Además de los catálogos mencionados en Fase 1, incluir ejercicios de ejemplo en la primera ejecución (sin imágenes, el usuario las agregará después):
@@ -1055,3 +1059,221 @@ cd android && ./gradlew assembleDebug
 7. **Timestamps**: Guardar siempre en UTC. Mostrar en la zona horaria local del dispositivo.
 
 8. **Eliminación**: Siempre eliminación lógica (is_active = 0) excepto en tablas de relación N:N donde se elimina el registro físicamente.
+
+---
+
+## Imágenes SVG Animadas de Ejercicios
+
+### Objetivo
+Crear ilustraciones SVG animadas (3 fotogramas, estilo GIF) para cada ejercicio del seed.
+Cada imagen muestra la secuencia de movimiento de forma minimalista (stick figure con animación CSS).
+
+### Convención de nombres
+- Carpeta: `public/img/exercises/`
+- Nombre de archivo: kebab-case del nombre exacto del ejercicio en la BD.
+  Ejemplo: `"Barbell Clean and Jerk"` → `barbell-clean-and-jerk.svg`
+- El campo `image_url` del ejercicio en la BD quedará como `/img/exercises/{nombre}.svg`
+
+### Proceso de alta en BD
+Una vez generadas todas las imágenes, se actualizará la columna `image_url` de cada ejercicio
+mediante un script de migración o una función en `seedService` que haga `UPDATE exercise SET image_url = ... WHERE name = ...`.
+
+### Estado general
+- **Generadas**: 91 / 91 ✅ TODOS LOS LOTES COMPLETOS
+- **Pendientes**: 0
+
+---
+
+### Checklist de imágenes
+
+> Formato de nombre de archivo = kebab-case del nombre del ejercicio en la BD.
+
+#### ✅ seedService.ts (base) — LOTE 1 COMPLETO
+- [x] `air-squat.svg`
+- [x] `thruster.svg`
+- [x] `pull-up.svg`
+- [x] `push-up.svg`
+- [x] `deadlift.svg`
+- [x] `power-clean.svg`
+- [x] `snatch.svg`
+- [x] `clean-and-jerk.svg`
+- [x] `overhead-squat.svg`
+- [x] `front-squat.svg`
+- [x] `shoulder-press.svg`
+- [x] `push-press.svg`
+- [x] `wall-ball-shot.svg`
+- [x] `box-jump.svg`
+- [x] `burpee.svg`
+- [x] `double-under.svg`
+- [x] `rowing.svg`
+- [x] `toes-to-bar.svg`
+- [x] `kettlebell-swing.svg`
+- [x] `wall-walk.svg`
+- [x] `dips.svg`
+- [x] `hollow-hold.svg`
+- [x] `walking-lunge.svg`
+- [x] `back-squat.svg`
+- [x] `running.svg`
+
+#### ✅ seedService3.ts (Open 26) — LOTE 2 COMPLETO
+- [x] `box-jump-over.svg`
+- [x] `chest-to-bar-pull-up.svg`
+- [x] `burpee-over-the-bar.svg`
+
+#### ✅ seedService4.ts (Girls & Heroes) — LOTE 2 COMPLETO
+- [x] `bodyweight-push-up.svg`
+- [x] `bodyweight-sit-up.svg`
+- [x] `bodyweight-handstand-push-up.svg`
+- [x] `bodyweight-pistol-squat.svg`
+- [x] `ring-dip.svg`
+- [x] `barbell-overhead-squat.svg`
+- [x] `barbell-bench-press.svg`
+- [x] `ghd-back-extension.svg`
+- [x] `rope-climb.svg`
+- [x] `dumbbell-split-clean.svg`
+- [x] `ghd-sit-up.svg`
+- [x] `hanging-knees-to-elbows.svg`
+- [x] `barbell-deadlift.svg`
+- [x] `barbell-power-snatch.svg`
+- [x] `barbell-clean-and-jerk.svg`
+- [x] `barbell-push-jerk.svg`
+- [x] `barbell-push-press.svg`
+- [x] `barbell-hang-power-clean.svg`
+- [x] `barbell-squat-clean.svg`
+- [x] `barbell-sumo-deadlift-high-pull.svg`
+- [x] `ring-handstand-push-up.svg`
+
+#### ✅ seedService5.ts (WODs Marzo 2026) — LOTE 3 COMPLETO
+- [x] `hanging-toes-to-bar.svg`
+- [x] `barbell-lunge.svg`
+- [x] `single-leg-dumbbell-romanian-deadlift.svg`
+- [x] `bar-muscle-up.svg`
+- [x] `barbell-hang-clean-and-jerk.svg`
+- [x] `kettlebell-snatch.svg`
+- [x] `weighted-box-step-up.svg`
+- [x] `russian-twist.svg`
+- [x] `kettlebell-ground-to-overhead.svg`
+- [x] `kettlebell-front-squat.svg`
+- [x] `kettlebell-push-up.svg`
+- [x] `assault-bike.svg`
+
+#### ✅ seedService6.ts (WODs Feb–Mar 2026) — LOTE 4 COMPLETO
+- [x] `barbell-front-squat.svg`
+- [x] `barbell-romanian-deadlift.svg`
+- [x] `barbell-strict-press.svg`
+- [x] `barbell-hang-muscle-clean-and-press.svg`
+- [x] `barbell-muscle-snatch.svg`
+- [x] `barbell-hang-power-snatch.svg`
+- [x] `barbell-hang-clean.svg`
+- [x] `barbell-hang-power-cluster.svg`
+- [x] `barbell-bent-over-row.svg`
+- [x] `barbell-upright-row.svg`
+- [x] `nordic-hamstring-curl.svg`
+- [x] `shuttle-run.svg`
+- [x] `dumbbell-bench-press.svg`
+- [x] `dumbbell-alternating-bent-over-row.svg`
+- [x] `dumbbell-bicep-curl.svg`
+- [x] `dumbbell-thruster.svg`
+- [x] `dumbbell-devils-press.svg`
+- [x] `dumbbell-front-rack-lunge.svg`
+- [x] `dumbbell-one-arm-overhead-lunge.svg`
+- [x] `hollow-rock.svg`
+- [x] `kettlebell-clean-and-jerk.svg`
+
+---
+
+## Mapping: Nombre en BD → Archivo SVG
+
+> Referencia para `imageUpdateService.ts`. Los nombres deben coincidir **exactamente** con los insertados por cada seedService.
+
+| Nombre en BD (exacto) | Archivo SVG | Origen |
+|---|---|---|
+| Air Squat | air-squat.svg | seed base |
+| Thruster | thruster.svg | seed base |
+| Pull-up | pullup.svg | seed base |
+| Push-up | pushup.svg | seed base |
+| Deadlift | deadlift.svg | seed base |
+| Power Clean | power-clean.svg | seed base |
+| Snatch | snatch.svg | seed base |
+| Clean & Jerk | clean-and-jerk.svg | seed base |
+| Overhead Squat | overhead-squat.svg | seed base |
+| Front Squat | front-squat.svg | seed base |
+| Shoulder Press | shoulder-press.svg | seed base |
+| Push Press | push-press.svg | seed base |
+| Wall Ball Shot | wall-ball-shot.svg | seed base |
+| Box Jump | box-jump.svg | seed base |
+| Burpee | burpee.svg | seed base |
+| Double Under | double-under.svg | seed base |
+| Rowing | rowing.svg | seed base |
+| Toes to Bar (T2B) | toes-to-bar.svg | seed base |
+| Kettlebell Swing | kettlebell-swing.svg | seed base |
+| Wall Walk | wall-walk.svg | seed base |
+| Dips | dips.svg | seed base |
+| Hollow Hold | hollow-hold.svg | seed base |
+| Walking Lunge | walking-lunge.svg | seed base |
+| Back Squat | back-squat.svg | seed base |
+| Running | running.svg | seed4 |
+| Box Jump-Over | box-jump-over.svg | seed3 |
+| Chest-to-Bar Pull-Up | chest-to-bar-pull-up.svg | seed3 |
+| Burpee Over the Bar | burpee-over-the-bar.svg | seed3 |
+| Bodyweight Push Up | bodyweight-push-up.svg | seed4 |
+| Bodyweight Sit Up | bodyweight-sit-up.svg | seed4 |
+| Bodyweight Handstand Push-Up | bodyweight-handstand-push-up.svg | seed4 |
+| Bodyweight Pistol Squat | bodyweight-pistol-squat.svg | seed4 |
+| Ring Dip | ring-dip.svg | seed4 |
+| Barbell Overhead Squat | barbell-overhead-squat.svg | seed4 |
+| Barbell Bench Press | barbell-bench-press.svg | seed4 |
+| GHD Back Extension | ghd-back-extension.svg | seed4 |
+| Rope Climb | rope-climb.svg | seed4 |
+| Dumbbell Split Clean | dumbbell-split-clean.svg | seed4 |
+| GHD Sit-Up | ghd-sit-up.svg | seed4 |
+| Hanging Knees to Elbows | hanging-knees-to-elbows.svg | seed4 |
+| Barbell Deadlift | barbell-deadlift.svg | seed4 |
+| Barbell Power Snatch | barbell-power-snatch.svg | seed4 |
+| Barbell Clean and Jerk | barbell-clean-and-jerk.svg | seed4 |
+| Barbell Push Jerk | barbell-push-jerk.svg | seed4 |
+| Barbell Push Press | barbell-push-press.svg | seed4 |
+| Barbell Hang Power Clean | barbell-hang-power-clean.svg | seed4 |
+| Barbell Squat Clean | barbell-squat-clean.svg | seed4 |
+| Barbell Sumo Deadlift High Pull | barbell-sumo-deadlift-high-pull.svg | seed4 |
+| Ring Handstand Push-Up | ring-handstand-push-up.svg | seed4 |
+| Hanging Toes to Bar | hanging-toes-to-bar.svg | seed5 |
+| Barbell Lunge | barbell-lunge.svg | seed5 |
+| Single-Leg Dumbbell Romanian Deadlift | single-leg-dumbbell-romanian-deadlift.svg | seed5 |
+| Bar Muscle-Up | bar-muscle-up.svg | seed5 |
+| Barbell Hang Clean and Jerk | barbell-hang-clean-and-jerk.svg | seed5 |
+| Kettlebell Snatch | kettlebell-snatch.svg | seed5 |
+| Weighted Box Step-Up | weighted-box-step-up.svg | seed5 |
+| Russian Twist | russian-twist.svg | seed5 |
+| Kettlebell Ground-to-Overhead | kettlebell-ground-to-overhead.svg | seed5 |
+| Kettlebell Front Squat | kettlebell-front-squat.svg | seed5 |
+| Kettlebell Push-Up | kettlebell-push-up.svg | seed5 |
+| Assault Bike | assault-bike.svg | seed5 |
+| Barbell Front Squat | barbell-front-squat.svg | seed6 |
+| Barbell Romanian Deadlift | barbell-romanian-deadlift.svg | seed6 |
+| Barbell Strict Press | barbell-strict-press.svg | seed6 |
+| Barbell Hang Muscle Clean and Press | barbell-hang-muscle-clean-and-press.svg | seed6 |
+| Barbell Muscle Snatch | barbell-muscle-snatch.svg | seed6 |
+| Barbell Hang Power Snatch | barbell-hang-power-snatch.svg | seed6 |
+| Barbell Hang Clean | barbell-hang-clean.svg | seed6 |
+| Barbell Hang Power Cluster | barbell-hang-power-cluster.svg | seed6 |
+| Barbell Bent Over Row | barbell-bent-over-row.svg | seed6 |
+| Barbell Upright Row | barbell-upright-row.svg | seed6 |
+| Nordic Hamstring Curl | nordic-hamstring-curl.svg | seed6 |
+| Shuttle Run | shuttle-run.svg | seed6 |
+| Dumbbell Bench Press | dumbbell-bench-press.svg | seed6 |
+| Dumbbell Alternating Bent Over Row | dumbbell-alternating-bent-over-row.svg | seed6 |
+| Dumbbell Bicep Curl | dumbbell-bicep-curl.svg | seed6 |
+| Dumbbell Thruster | dumbbell-thruster.svg | seed6 |
+| Dumbbell Devil's Press | dumbbell-devils-press.svg | seed6 |
+| Dumbbell Front Rack Lunge | dumbbell-front-rack-lunge.svg | seed6 |
+| Dumbbell One-Arm Overhead Lunge | dumbbell-one-arm-overhead-lunge.svg | seed6 |
+| Hollow Rock | hollow-rock.svg | seed6 |
+| Kettlebell Clean and Jerk | kettlebell-clean-and-jerk.svg | seed6 |
+
+**Notas:**
+- `pullup.svg` y `pushup.svg` conservan nombre sin guión (archivos originales).
+- Ejercicios del seed base (Air Squat, Pull-up, etc.) pueden estar ausentes en BD si seedService2 reinicia los datos. En ese caso las imágenes aplican solo a ejercicios de seed3–seed6.
+- Los 3242 ejercicios de seedService2 (JSON externo) no tienen SVGs asignados.
+
+

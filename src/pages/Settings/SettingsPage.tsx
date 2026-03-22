@@ -9,8 +9,11 @@ import {
   Layout,
   Timer,
   ChevronRight,
+  ImagePlay,
 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
+import { BackupSection } from '../../components/export/BackupSection';
+import { ResetSection } from '../../components/export/ResetSection';
 
 // Definición de cada entrada del menú de catálogos
 const catalogItems = [
@@ -80,6 +83,31 @@ export function SettingsPage() {
             ))}
           </div>
         </section>
+
+        {/* Sección de listados */}
+        <section>
+          <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-1">
+            Listados
+          </h2>
+          <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+            <button
+              onClick={() => navigate('/configuracion/imagenes-ejercicios')}
+              className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
+            >
+              <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shrink-0">
+                <ImagePlay size={16} className="text-primary-400" />
+              </div>
+              <span className="flex-1 text-sm text-white">Imágenes de ejercicios</span>
+              <ChevronRight size={16} className="text-gray-600" />
+            </button>
+          </div>
+        </section>
+
+        {/* Sección de backup */}
+        <BackupSection />
+
+        {/* Sección de reset */}
+        <ResetSection />
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 // Repositorio genérico para todas las tablas de catálogos
 // Provee operaciones CRUD y reordenamiento para cualquier tabla de catálogo
 
-import { getDatabase } from '../database';
+import { getDatabase, saveDatabase } from '../database';
 import { generateUUID } from '../../utils/formatters';
 import { CatalogRecord } from '../../models/catalogs';
 
@@ -57,6 +57,7 @@ export async function create(
     values
   );
 
+  await saveDatabase();
   return id;
 }
 
@@ -79,6 +80,7 @@ export async function update(
     `UPDATE ${table} SET ${sets} WHERE id = ?`,
     values
   );
+  await saveDatabase();
 }
 
 // Borrado lógico: marca is_active = 0
@@ -89,6 +91,7 @@ export async function softDelete(table: string, id: string): Promise<void> {
     `UPDATE ${table} SET is_active = 0, updated_at = ? WHERE id = ?`,
     [now, id]
   );
+  await saveDatabase();
 }
 
 // Intercambia el sort_order del item con el anterior (sube en la lista)
@@ -123,6 +126,7 @@ export async function moveUp(table: string, id: string): Promise<void> {
     `UPDATE ${table} SET sort_order = ?, updated_at = ? WHERE id = ?`,
     [currentRow.sort_order, now, prevRow.id]
   );
+  await saveDatabase();
 }
 
 // Intercambia el sort_order del item con el siguiente (baja en la lista)
@@ -157,4 +161,5 @@ export async function moveDown(table: string, id: string): Promise<void> {
     `UPDATE ${table} SET sort_order = ?, updated_at = ? WHERE id = ?`,
     [currentRow.sort_order, now, nextRow.id]
   );
+  await saveDatabase();
 }

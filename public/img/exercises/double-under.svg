@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="2">DOUBLE UNDER</text>
+  <!-- Frame 1: Listo, soga atrás -->
+  <g class="f1">
+    <circle cx="100" cy="36" r="14" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="50" x2="100" y2="115"/>
+      <line x1="78" y1="63" x2="122" y2="63"/>
+      <!-- Brazos abajo con soga -->
+      <line x1="78" y1="63" x2="62" y2="110"/><line x1="122" y1="63" x2="138" y2="110"/>
+      <!-- Manos con manija -->
+      <circle cx="62" cy="113" r="4" fill="#475569"/><circle cx="138" cy="113" r="4" fill="#475569"/>
+      <!-- Soga detrás -->
+      <path d="M62 113 Q100 140 138 113" stroke="#64748b" stroke-width="3" fill="none"/>
+      <line x1="95" y1="115" x2="93" y2="168"/><line x1="93" y1="168" x2="93" y2="205"/>
+      <line x1="105" y1="115" x2="107" y2="168"/><line x1="107" y1="168" x2="107" y2="205"/>
+      <line x1="79" y1="205" x2="107" y2="205"/><line x1="93" y1="205" x2="121" y2="205"/>
+    </g>
+  </g>
+  <!-- Frame 2: Salto, soga pasando por abajo (1ra pasada) -->
+  <g class="f2">
+    <circle cx="100" cy="26" r="14" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="40" x2="100" y2="105"/>
+      <line x1="78" y1="53" x2="122" y2="53"/>
+      <line x1="78" y1="53" x2="62" y2="100"/><line x1="122" y1="53" x2="138" y2="100"/>
+      <circle cx="62" cy="103" r="4" fill="#475569"/><circle cx="138" cy="103" r="4" fill="#475569"/>
+      <!-- Soga pasando por abajo (pies levantados) -->
+      <path d="M62 103 Q100 215 138 103" stroke="#64748b" stroke-width="3" fill="none"/>
+      <!-- Pies despegados del suelo -->
+      <line x1="95" y1="105" x2="92" y2="162"/><line x1="92" y1="162" x2="92" y2="200"/>
+      <line x1="105" y1="105" x2="108" y2="162"/><line x1="108" y1="162" x2="108" y2="200"/>
+      <line x1="78" y1="200" x2="106" y2="200"/><line x1="94" y1="200" x2="122" y2="200"/>
+    </g>
+  </g>
+  <!-- Frame 3: Salto alto, soga en 2da pasada -->
+  <g class="f3">
+    <circle cx="100" cy="20" r="14" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="34" x2="100" y2="98"/>
+      <line x1="78" y1="47" x2="122" y2="47"/>
+      <line x1="78" y1="47" x2="60" y2="94"/><line x1="122" y1="47" x2="140" y2="94"/>
+      <circle cx="60" cy="97" r="4" fill="#475569"/><circle cx="140" cy="97" r="4" fill="#475569"/>
+      <!-- Soga pasando 2da vez -->
+      <path d="M60 97 Q100 205 140 97" stroke="#64748b" stroke-width="3" fill="none"/>
+      <line x1="95" y1="98" x2="90" y2="155"/><line x1="90" y1="155" x2="90" y2="196"/>
+      <line x1="105" y1="98" x2="110" y2="155"/><line x1="110" y1="155" x2="110" y2="196"/>
+      <line x1="76" y1="196" x2="104" y2="196"/><line x1="96" y1="196" x2="124" y2="196"/>
+    </g>
+  </g>
+</svg>

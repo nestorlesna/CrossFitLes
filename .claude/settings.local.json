@@ -10,7 +10,16 @@
       "Bash(kill %1:*)",
       "Bash(npm info:*)",
       "Bash(grep \"\"version\"\":*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(python:*)",
+      "Bash(pip install:*)",
+      "Bash(npx tsc:*)",
+      "Bash(find /c/DATOS/DESARROLLOS/React/CrossFitLes -type f -name *seed*)",
+      "Bash(grep -E \"^\\\\s+\\\\{\\\\s*$\" -A 10 /c/DATOS/DESARROLLOS/React/CrossFitLes/src/services/seedService.ts)",
+      "Bash(/tmp/exercise_list.txt:*)",
+      "Read(//tmp/**)",
+      "Bash(echo \":*)",
+      "Bash(echo \"1. Air Squat:*)"
     ]
   }
 }

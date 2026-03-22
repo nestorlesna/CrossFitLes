@@ -38,6 +38,8 @@ export function ExerciseFormPage() {
   const [isCompound, setIsCompound] = useState(0);
   const [imagePath, setImagePath] = useState('');
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [videoLink, setVideoLink] = useState('');
+  const [videoLongLink, setVideoLongLink] = useState('');
 
   // ── Catálogos ──────────────────────────────────────────────────────────────
   const [difficulties, setDifficulties] = useState<DifficultyLevel[]>([]);
@@ -84,6 +86,8 @@ export function ExerciseFormPage() {
         const url = await getImageDisplayUrl(data.image_path);
         setImagePreview(url);
       }
+      setVideoLink(data.video_path ?? '');
+      setVideoLongLink(data.video_long_path ?? '');
 
       // Cargar relaciones
       const { relations } = data;
@@ -261,7 +265,8 @@ export function ExerciseFormPage() {
         difficulty_level_id: difficultyId || undefined,
         primary_muscle_group_id: primaryMuscleId || undefined,
         image_path: imagePath || undefined,
-        video_path: undefined,
+        video_path: videoLink.trim() || undefined,
+        video_long_path: videoLongLink.trim() || undefined,
         is_compound: isCompound,
         is_active: 1,
       };
@@ -351,6 +356,30 @@ export function ExerciseFormPage() {
             placeholder="Descripción breve del ejercicio..."
             rows={3}
             className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 resize-none"
+          />
+        </div>
+
+        {/* ── 2b. Video corto ── */}
+        <div>
+          <label className="block text-sm text-gray-400 mb-1.5">Video corto</label>
+          <input
+            type="url"
+            value={videoLink}
+            onChange={(e) => setVideoLink(e.target.value)}
+            placeholder="Ej: https://www.youtube.com/watch?v=..."
+            className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 min-h-[44px]"
+          />
+        </div>
+
+        {/* ── 2c. Video explicativo ── */}
+        <div>
+          <label className="block text-sm text-gray-400 mb-1.5">Video explicativo</label>
+          <input
+            type="url"
+            value={videoLongLink}
+            onChange={(e) => setVideoLongLink(e.target.value)}
+            placeholder="Ej: https://www.youtube.com/watch?v=..."
+            className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 min-h-[44px]"
           />
         </div>
 
