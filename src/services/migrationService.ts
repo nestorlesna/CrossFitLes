@@ -21,8 +21,8 @@ async function ensureMigrationsTable(db: SQLiteDBConnection): Promise<void> {
   `);
 }
 
-// Obtiene la versión actual de la base de datos
-async function getCurrentVersion(db: SQLiteDBConnection): Promise<number> {
+// Obtiene la versión actual de la base de datos (exportada para uso en database.ts)
+export async function getCurrentVersion(db: SQLiteDBConnection): Promise<number> {
   const result = await db.query('SELECT MAX(version) as version FROM _migrations');
   const rows = result.values ?? [];
   if (rows.length === 0 || rows[0].version === null) return 0;
@@ -54,7 +54,16 @@ export async function runMigrations(
 
     // Ejecutar cada sentencia SQL de la migración
     for (const sql of migration.up) {
-      await db.execute(sql);
+      try {
+        await db.execute(sql);
+      } catch (err: any) {
+        const msg = err.message || '';
+        if (msg.includes('duplicate column name') || msg.includes('duplicate column')) {
+          console.warn(`[DB] Columna ya existe en v${migration.version}, ignorando error:`, sql);
+        } else {
+          throw err;
+        }
+      }
     }
 
     // Registrar la migración aplicada

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <!-- Pared derecha y suelo -->
+  <line x1="175" y1="10" x2="175" y2="210" stroke="#374151" stroke-width="4" stroke-linecap="round"/>
+  <line x1="20" y1="210" x2="175" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="95" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="2">WALL WALK</text>
+  <!-- Frame 1: Posición plancha, pies en el suelo -->
+  <g class="f1">
+    <circle cx="48" cy="174" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Cuerpo horizontal (plancha) -->
+      <line x1="48" y1="185" x2="152" y2="205"/>
+      <!-- Brazo apoyado -->
+      <line x1="48" y1="182" x2="42" y2="198"/><line x1="42" y1="198" x2="36" y2="210"/>
+      <line x1="28" y1="210" x2="46" y2="210"/>
+      <!-- Piernas -->
+      <line x1="152" y1="205" x2="162" y2="210"/>
+      <line x1="154" y1="200" x2="166" y2="210"/>
+    </g>
+  </g>
+  <!-- Frame 2: A mitad (pies en la pared, cuerpo a 45°) -->
+  <g class="f2">
+    <circle cx="72" cy="124" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Cuerpo en diagonal hacia la pared -->
+      <line x1="72" y1="135" x2="145" y2="178"/>
+      <!-- Brazo apoyado en suelo -->
+      <line x1="72" y1="132" x2="58" y2="156"/><line x1="58" y1="156" x2="48" y2="178"/>
+      <line x1="38" y1="178" x2="60" y2="178"/>
+      <!-- Pies en la pared (a media altura) -->
+      <line x1="145" y1="178" x2="175" y2="165"/>
+      <line x1="143" y1="182" x2="175" y2="175"/>
+    </g>
+    <circle cx="58" cy="156" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: Handstand contra la pared -->
+  <g class="f3">
+    <circle cx="100" cy="28" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Cuerpo vertical invertido -->
+      <line x1="100" y1="41" x2="100" y2="140"/>
+      <line x1="80" y1="54" x2="120" y2="54"/>
+      <!-- Brazos extendidos apoyados en suelo -->
+      <line x1="80" y1="54" x2="72" y2="82"/><line x1="72" y1="82" x2="64" y2="110"/>
+      <line x1="120" y1="54" x2="128" y2="82"/><line x1="128" y1="82" x2="136" y2="110"/>
+      <line x1="54" y1="110" x2="76" y2="110"/><line x1="126" y1="110" x2="148" y2="110"/>
+      <!-- Pies contra la pared (arriba) -->
+      <line x1="96" y1="140" x2="175" y2="138"/>
+      <line x1="104" y1="140" x2="175" y2="148"/>
+    </g>
+    <circle cx="72" cy="82" r="5" fill="#64748b"/><circle cx="128" cy="82" r="5" fill="#64748b"/>
+  </g>
+</svg>

@@ -16,7 +16,9 @@ export interface Exercise {
   difficulty_level_id?: string;
   primary_muscle_group_id?: string;
   image_path?: string;
+  image_url?: string;
   video_path?: string;
+  video_long_path?: string;
   is_compound: number;
   is_active: number;
   created_at: string;
@@ -39,4 +41,5 @@ export interface ExerciseFilters {
   equipment_id?: string;
   tag_id?: string;
   section_type_id?: string;
+  in_classes?: boolean;
 }

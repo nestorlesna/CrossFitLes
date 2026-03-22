@@ -1,6 +1,6 @@
 // Repositorio de plantillas de clase: CRUD completo con secciones y ejercicios
 
-import { getDatabase } from '../database';
+import { getDatabase, saveDatabase } from '../database';
 import { generateUUID } from '../../utils/formatters';
 import {
   ClassTemplate,
@@ -226,9 +226,18 @@ export async function create(
     }
 
     await db.commitTransaction();
+    await saveDatabase();
     return templateId;
   } catch (err) {
-    await db.rollbackTransaction();
+    // Solo intentar rollback si hay una transacción activa
+    try {
+      const isTransResult = await db.isTransactionActive();
+      if (isTransResult.result) {
+        await db.rollbackTransaction();
+      }
+    } catch (rollbackErr) {
+      console.error('Error al intentar rollback:', rollbackErr);
+    }
     throw err;
   }
 }
@@ -343,8 +352,16 @@ export async function update(
     }
 
     await db.commitTransaction();
+    await saveDatabase();
   } catch (err) {
-    await db.rollbackTransaction();
+    try {
+      const isTransResult = await db.isTransactionActive();
+      if (isTransResult.result) {
+        await db.rollbackTransaction();
+      }
+    } catch (rollbackErr) {
+      console.error('Error al intentar rollback:', rollbackErr);
+    }
     throw err;
   }
 }
@@ -451,9 +468,17 @@ export async function duplicate(id: string): Promise<string> {
     }
 
     await db.commitTransaction();
+    await saveDatabase();
     return newTemplateId;
   } catch (err) {
-    await db.rollbackTransaction();
+    try {
+      const isTransResult = await db.isTransactionActive();
+      if (isTransResult.result) {
+        await db.rollbackTransaction();
+      }
+    } catch (rollbackErr) {
+      console.error('Error al intentar rollback:', rollbackErr);
+    }
     throw err;
   }
 }
@@ -465,6 +490,7 @@ export async function softDelete(id: string): Promise<void> {
     `UPDATE class_template SET is_active = 0, updated_at = ? WHERE id = ?`,
     [now(), id]
   );
+  await saveDatabase();
 }
 
 // Obtiene plantillas dentro de un rango de fechas (para vista calendario)

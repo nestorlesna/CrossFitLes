@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .fr1{animation:f1 4s linear infinite}
+    .fr2{animation:f2 4s linear infinite}
+    .fr3{animation:f3 4s linear infinite}
+    @keyframes f1{0%,33%{opacity:1}34%,100%{opacity:0}}
+    @keyframes f2{0%,33%{opacity:0}34%,66%{opacity:1}67%,100%{opacity:0}}
+    @keyframes f3{0%,66%{opacity:0}67%,100%{opacity:1}}
+  </style>
+  <rect width="200" height="230" fill="#111827"/>
+
+  <!-- Frame 1: posicion inicial, mancuerna a la altura de la cadera -->
+  <g class="fr1" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="100" cy="28" r="10" fill="#94a3b8"/>
+    <line x1="100" y1="38" x2="102" y2="112" stroke="#94a3b8" stroke-width="4"/>
+    <!-- brazo derecho hacia abajo sosteniendo mancuerna -->
+    <line x1="100" y1="58" x2="126" y2="82" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="126" y1="82" x2="134" y2="105" stroke="#94a3b8" stroke-width="4"/>
+    <!-- brazo izquierdo relajado -->
+    <line x1="100" y1="58" x2="74" y2="75" stroke="#94a3b8" stroke-width="4"/>
+    <!-- pierna derecha -->
+    <line x1="102" y1="112" x2="92" y2="165" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="92" y1="165" x2="88" y2="215" stroke="#94a3b8" stroke-width="4"/>
+    <!-- pierna izquierda -->
+    <line x1="102" y1="112" x2="114" y2="165" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="114" y1="165" x2="118" y2="215" stroke="#94a3b8" stroke-width="4"/>
+    <!-- mancuerna -->
+    <rect x="130" y="102" width="22" height="7" rx="2" fill="#475569"/>
+    <rect x="128" y="100" width="4" height="11" rx="1" fill="#64748b"/>
+    <rect x="150" y="100" width="4" height="11" rx="1" fill="#64748b"/>
+  </g>
+
+  <!-- Frame 2: tirón explosivo, codo alto, mancuerna a la altura del hombro -->
+  <g class="fr2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="100" cy="30" r="10" fill="#94a3b8"/>
+    <line x1="100" y1="40" x2="100" y2="112" stroke="#94a3b8" stroke-width="4"/>
+    <!-- brazo derecho, codo alto -->
+    <line x1="100" y1="58" x2="122" y2="42" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="122" y1="42" x2="132" y2="20" stroke="#94a3b8" stroke-width="4"/>
+    <!-- brazo izquierdo para equilibrio -->
+    <line x1="100" y1="58" x2="68" y2="65" stroke="#94a3b8" stroke-width="4"/>
+    <!-- piernas ligeramente dobladas -->
+    <line x1="100" y1="112" x2="88" y2="162" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="88" y1="162" x2="82" y2="212" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="112" x2="114" y2="162" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="114" y1="162" x2="120" y2="212" stroke="#94a3b8" stroke-width="4"/>
+    <!-- mancuerna en alto -->
+    <rect x="128" y="14" width="22" height="7" rx="2" fill="#475569"/>
+    <rect x="126" y="12" width="4" height="11" rx="1" fill="#64748b"/>
+    <rect x="148" y="12" width="4" height="11" rx="1" fill="#64748b"/>
+  </g>
+
+  <!-- Frame 3: bloqueo overhead, brazo extendido -->
+  <g class="fr3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="100" cy="34" r="10" fill="#94a3b8"/>
+    <line x1="100" y1="44" x2="100" y2="115" stroke="#94a3b8" stroke-width="4"/>
+    <!-- brazo derecho overhead -->
+    <line x1="100" y1="64" x2="114" y2="38" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="114" y1="38" x2="118" y2="10" stroke="#94a3b8" stroke-width="4"/>
+    <!-- brazo izquierdo relajado -->
+    <line x1="100" y1="64" x2="74" y2="80" stroke="#94a3b8" stroke-width="4"/>
+    <!-- piernas -->
+    <line x1="100" y1="115" x2="90" y2="165" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="90" y1="165" x2="86" y2="215" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="115" x2="110" y2="165" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="110" y1="165" x2="114" y2="215" stroke="#94a3b8" stroke-width="4"/>
+    <!-- mancuerna overhead (vertical) -->
+    <rect x="113" y="4" width="7" height="22" rx="2" fill="#475569"/>
+    <rect x="111" y="2" width="11" height="4" rx="1" fill="#64748b"/>
+    <rect x="111" y="24" width="11" height="4" rx="1" fill="#64748b"/>
+  </g>
+</svg>

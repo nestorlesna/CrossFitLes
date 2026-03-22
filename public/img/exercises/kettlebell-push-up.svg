@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="240" height="180" fill="#111827" rx="12"/>
+  <line x1="20" y1="148" x2="220" y2="148" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="120" y="167" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="2">KB PUSH-UP</text>
+  <!-- KB handles (always visible) -->
+  <line x1="134" y1="120" x2="134" y2="148" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+  <line x1="172" y1="120" x2="172" y2="148" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="134" cy="134" r="14" fill="none" stroke="#475569" stroke-width="4"/>
+  <circle cx="172" cy="134" r="14" fill="none" stroke="#475569" stroke-width="4"/>
+  <!-- Frame 1: Top position - arms extended on KB handles -->
+  <g class="f1">
+    <circle cx="190" cy="72" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso flat -->
+      <line x1="190" y1="84" x2="90" y2="96"/>
+      <!-- Arms straight to KB -->
+      <line x1="172" y1="88" x2="172" y2="120"/>
+      <!-- Body line -->
+      <line x1="90" y1="96" x2="68" y2="148"/>
+      <line x1="92" y1="96" x2="72" y2="148"/>
+    </g>
+  </g>
+  <!-- Frame 2: Mid -->
+  <g class="f2">
+    <circle cx="187" cy="92" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="187" y1="104" x2="90" y2="112"/>
+      <line x1="172" y1="106" x2="158" y2="120"/>
+      <line x1="90" y1="112" x2="68" y2="148"/>
+      <line x1="92" y1="112" x2="72" y2="148"/>
+    </g>
+    <circle cx="158" cy="120" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: Bottom - chest below KB level (deeper range of motion) -->
+  <g class="f3">
+    <circle cx="183" cy="108" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="183" y1="120" x2="88" y2="128"/>
+      <!-- Elbow bent, arm horizontal -->
+      <line x1="170" y1="122" x2="144" y2="115"/><line x1="144" y1="115" x2="142" y2="120"/>
+      <line x1="88" y1="128" x2="66" y2="148"/>
+      <line x1="90" y1="128" x2="70" y2="148"/>
+    </g>
+    <circle cx="144" cy="115" r="5" fill="#64748b"/>
+  </g>
+</svg>

@@ -1,0 +1,5 @@
+commit 4456ad8a96b982313dfce3df050a004ecb07a1ec
+Author: Nestor Lesna <115150372+nestorlesna@users.noreply.github.com>
+Date:   2026-03-15 10:07:07 -0300
+
+    Primeras fases del proyecto incializadas, aun falta trabajo

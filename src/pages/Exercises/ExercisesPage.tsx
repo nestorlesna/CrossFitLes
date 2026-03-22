@@ -1,7 +1,7 @@
 // Pantalla principal de la biblioteca de ejercicios con búsqueda y filtros
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, SlidersHorizontal, X, Dumbbell } from 'lucide-react';
+import { Plus, SlidersHorizontal, X, Dumbbell, CalendarCheck } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { SearchBar } from '../../components/ui/SearchBar';
 import { Modal } from '../../components/ui/Modal';
@@ -17,7 +17,7 @@ export function ExercisesPage() {
   // Estado del texto de búsqueda (sin debounce aplicado aún)
   const [searchInput, setSearchInput] = useState('');
   // Filtros aplicados (con debounce en el search)
-  const [filters, setFilters] = useState<ExerciseFilters>({});
+  const [filters, setFilters] = useState<ExerciseFilters>({ in_classes: true });
   // Control del modal de filtros
   const [showFilters, setShowFilters] = useState(false);
 
@@ -74,7 +74,7 @@ export function ExercisesPage() {
     setShowFilters(false);
   }
 
-  // Limpiar todos los filtros
+  // Limpiar todos los filtros (mantiene in_classes)
   function clearFilters() {
     setTempDifficulty('');
     setTempMuscle('');
@@ -82,8 +82,14 @@ export function ExercisesPage() {
     setTempTag('');
     setFilters((prev) => ({
       search: prev.search,
+      in_classes: prev.in_classes,
     }));
     setShowFilters(false);
+  }
+
+  // Alternar el filtro "en clases"
+  function toggleInClasses() {
+    setFilters((prev) => ({ ...prev, in_classes: !prev.in_classes }));
   }
 
   // Contar filtros activos (excluyendo search) para mostrar indicador
@@ -93,6 +99,8 @@ export function ExercisesPage() {
     filters.equipment_id,
     filters.tag_id,
   ].filter(Boolean).length;
+
+  const hasAnyFilter = activeFilterCount > 0 || !!filters.search || !!filters.in_classes;
 
   const { exercises, loading, error } = useExercises(filters);
 
@@ -140,6 +148,19 @@ export function ExercisesPage() {
           </button>
         </div>
 
+        {/* Toggle: solo ejercicios en clases */}
+        <button
+          onClick={toggleInClasses}
+          className={`self-start flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+            filters.in_classes
+              ? 'bg-primary-600 border-primary-500 text-white'
+              : 'bg-gray-800 border-gray-700 text-gray-400'
+          }`}
+        >
+          <CalendarCheck size={13} />
+          En clases
+        </button>
+
         {/* Estado de carga */}
         {loading && (
           <div className="flex flex-col gap-2 mt-2">
@@ -180,12 +201,12 @@ export function ExercisesPage() {
             <div>
               <p className="text-gray-400 text-base font-medium">No hay ejercicios</p>
               <p className="text-gray-600 text-sm mt-1">
-                {activeFilterCount > 0 || filters.search
+                {hasAnyFilter
                   ? 'Probá con otros filtros o términos de búsqueda'
                   : 'Agregá tu primer ejercicio'}
               </p>
             </div>
-            {!activeFilterCount && !filters.search && (
+            {!hasAnyFilter && (
               <button
                 className="bg-primary-600 hover:bg-primary-700 text-white rounded-lg px-4 py-2 text-sm font-medium min-h-[44px]"
                 onClick={() => navigate('/ejercicios/nuevo')}

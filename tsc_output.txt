@@ -1,0 +1,6 @@
+src/db/database.ts(53,20): error TS2339: Property 'loadFromStore' does not exist on type 'SQLiteConnection'.
+src/db/database.ts(60,45): error TS2552: Cannot find name 'handleBeforeUnload'. Did you mean 'onbeforeunload'?
+src/models/TrainingSession.ts(3,42): error TS2307: Cannot find module './index' or its corresponding type declarations.
+src/pages/Sessions/SessionDetailPage.tsx(248,32): error TS2304: Cannot find name 'Info'.
+src/pages/Settings/ExerciseImagesPage.tsx(34,46): error TS2322: Type '{ title: string; showBack: true; }' is not assignable to type 'IntrinsicAttributes & HeaderProps'.
+  Property 'showBack' does not exist on type 'IntrinsicAttributes & HeaderProps'.

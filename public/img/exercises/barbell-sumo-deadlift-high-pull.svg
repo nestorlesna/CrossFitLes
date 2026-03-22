@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="240" height="230" fill="#111827" rx="12"/>
+  <line x1="20" y1="210" x2="220" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="120" y="225" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="8" font-weight="700" fill="#475569" letter-spacing="2">SUMO DEADLIFT HIGH PULL</text>
+  <!-- Frame 1: Sumo setup - wide stance, bar on floor -->
+  <g class="f1">
+    <line x1="46" y1="182" x2="194" y2="182" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="40" y="174" width="8" height="16" rx="2" fill="#475569"/>
+    <rect x="192" y="174" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="120" cy="72" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Upright-ish torso, sumo setup -->
+      <line x1="120" y1="84" x2="120" y2="128"/>
+      <line x1="100" y1="96" x2="140" y2="96"/>
+      <!-- Narrow grip arms -->
+      <line x1="100" y1="96" x2="96" y2="182"/>
+      <line x1="140" y1="96" x2="144" y2="182"/>
+      <!-- Wide sumo stance -->
+      <line x1="114" y1="128" x2="76" y2="172"/><line x1="76" y1="172" x2="60" y2="210"/>
+      <line x1="126" y1="128" x2="164" y2="172"/><line x1="164" y1="172" x2="180" y2="210"/>
+    </g>
+    <circle cx="76" cy="172" r="5" fill="#64748b"/>
+    <circle cx="164" cy="172" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: Mid pull - bar at waist, elbows rising -->
+  <g class="f2">
+    <line x1="46" y1="128" x2="194" y2="128" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="40" y="120" width="8" height="16" rx="2" fill="#475569"/>
+    <rect x="192" y="120" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="120" cy="50" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="120" y1="62" x2="120" y2="114"/>
+      <line x1="100" y1="74" x2="140" y2="74"/>
+      <line x1="100" y1="74" x2="92" y2="128"/>
+      <line x1="140" y1="74" x2="148" y2="128"/>
+      <!-- Legs mostly straight -->
+      <line x1="114" y1="114" x2="90" y2="155"/><line x1="90" y1="155" x2="72" y2="210"/>
+      <line x1="126" y1="114" x2="150" y2="155"/><line x1="150" y1="155" x2="168" y2="210"/>
+    </g>
+    <circle cx="90" cy="155" r="5" fill="#64748b"/>
+    <circle cx="150" cy="155" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: High pull finish - bar at chin, elbows flared high -->
+  <g class="f3">
+    <line x1="46" y1="76" x2="194" y2="76" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="40" y="68" width="8" height="16" rx="2" fill="#475569"/>
+    <rect x="192" y="68" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="120" cy="40" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="120" y1="52" x2="120" y2="112"/>
+      <line x1="100" y1="64" x2="140" y2="64"/>
+      <!-- Elbows high and wide -->
+      <line x1="100" y1="64" x2="72" y2="52"/><line x1="72" y1="52" x2="84" y2="76"/>
+      <line x1="140" y1="64" x2="168" y2="52"/><line x1="168" y1="52" x2="156" y2="76"/>
+      <!-- Standing legs -->
+      <line x1="114" y1="112" x2="96" y2="162"/><line x1="96" y1="162" x2="84" y2="210"/>
+      <line x1="126" y1="112" x2="144" y2="162"/><line x1="144" y1="162" x2="156" y2="210"/>
+    </g>
+    <circle cx="72" cy="52" r="5" fill="#64748b"/>
+    <circle cx="168" cy="52" r="5" fill="#64748b"/>
+  </g>
+</svg>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="220" height="230" fill="#111827" rx="12"/>
+  <line x1="20" y1="210" x2="200" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="110" y="225" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" fill="#475569" letter-spacing="2">ROMANIAN DEADLIFT</text>
+  <!-- Frame 1: Standing, bar at hips -->
+  <g class="f1">
+    <line x1="42" y1="118" x2="178" y2="118" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="36" y="110" width="8" height="16" rx="2" fill="#475569"/>
+    <rect x="176" y="110" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="110" cy="44" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="110" y1="56" x2="110" y2="112"/>
+      <line x1="90" y1="68" x2="130" y2="68"/>
+      <line x1="90" y1="68" x2="78" y2="118"/>
+      <line x1="130" y1="68" x2="142" y2="118"/>
+      <!-- Straight legs standing -->
+      <line x1="104" y1="112" x2="100" y2="162"/><line x1="100" y1="162" x2="96" y2="210"/>
+      <line x1="116" y1="112" x2="120" y2="162"/><line x1="120" y1="162" x2="124" y2="210"/>
+    </g>
+    <circle cx="100" cy="162" r="5" fill="#64748b"/>
+    <circle cx="120" cy="162" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: Mid-hinge, bar at knee -->
+  <g class="f2">
+    <line x1="42" y1="158" x2="178" y2="158" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="36" y="150" width="8" height="16" rx="2" fill="#475569"/>
+    <rect x="176" y="150" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="110" cy="58" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso 45° forward -->
+      <line x1="110" y1="70" x2="110" y2="122"/>
+      <line x1="90" y1="80" x2="130" y2="80"/>
+      <line x1="90" y1="80" x2="76" y2="158"/>
+      <line x1="130" y1="80" x2="144" y2="158"/>
+      <!-- Slight knee bend -->
+      <line x1="104" y1="122" x2="100" y2="168"/><line x1="100" y1="168" x2="94" y2="210"/>
+      <line x1="116" y1="122" x2="120" y2="168"/><line x1="120" y1="168" x2="126" y2="210"/>
+    </g>
+    <circle cx="100" cy="168" r="5" fill="#64748b"/>
+    <circle cx="120" cy="168" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: Full hinge, bar at lower shin, torso parallel -->
+  <g class="f3">
+    <line x1="42" y1="180" x2="178" y2="180" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="36" y="172" width="8" height="16" rx="2" fill="#475569"/>
+    <rect x="176" y="172" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="110" cy="76" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso nearly horizontal -->
+      <line x1="110" y1="88" x2="110" y2="136"/>
+      <line x1="90" y1="96" x2="130" y2="96"/>
+      <line x1="90" y1="96" x2="74" y2="180"/>
+      <line x1="130" y1="96" x2="146" y2="180"/>
+      <!-- Mostly straight legs -->
+      <line x1="104" y1="136" x2="100" y2="178"/><line x1="100" y1="178" x2="92" y2="210"/>
+      <line x1="116" y1="136" x2="120" y2="178"/><line x1="120" y1="178" x2="128" y2="210"/>
+    </g>
+    <circle cx="100" cy="178" r="5" fill="#64748b"/>
+    <circle cx="120" cy="178" r="5" fill="#64748b"/>
+  </g>
+</svg>

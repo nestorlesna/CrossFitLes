@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="240" fill="#111827" rx="12"/>
+  <!-- Rope (always visible) -->
+  <line x1="100" y1="10" x2="100" y2="230" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+  <text x="100" y="237" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="2">ROPE CLIMB</text>
+  <!-- Frame 1: Bottom - hanging with feet locking rope -->
+  <g class="f1">
+    <circle cx="100" cy="195" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Arms reaching up to rope -->
+      <line x1="88" y1="185" x2="84" y2="162"/><line x1="84" y1="162" x2="100" y2="148"/>
+      <line x1="112" y1="185" x2="116" y2="162"/><line x1="116" y1="162" x2="100" y2="148"/>
+      <!-- Shoulders -->
+      <line x1="88" y1="185" x2="112" y2="185"/>
+      <!-- Torso -->
+      <line x1="100" y1="207" x2="100" y2="185"/>
+      <!-- Legs with rope lock - J-hook -->
+      <line x1="95" y1="207" x2="88" y2="222"/><line x1="88" y1="222" x2="96" y2="228"/>
+      <line x1="105" y1="207" x2="100" y2="218"/>
+    </g>
+    <circle cx="84" cy="162" r="5" fill="#64748b"/>
+    <circle cx="116" cy="162" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: Mid climb - pulling body up -->
+  <g class="f2">
+    <circle cx="100" cy="150" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Arms higher on rope -->
+      <line x1="88" y1="140" x2="84" y2="118"/><line x1="84" y1="118" x2="100" y2="105"/>
+      <line x1="112" y1="140" x2="116" y2="118"/><line x1="116" y1="118" x2="100" y2="105"/>
+      <line x1="88" y1="140" x2="112" y2="140"/>
+      <line x1="100" y1="162" x2="100" y2="140"/>
+      <!-- Knees raised for next lock -->
+      <line x1="95" y1="162" x2="84" y2="178"/><line x1="84" y1="178" x2="86" y2="192"/>
+      <line x1="105" y1="162" x2="114" y2="178"/><line x1="114" y1="178" x2="112" y2="192"/>
+    </g>
+    <circle cx="84" cy="118" r="5" fill="#64748b"/>
+    <circle cx="116" cy="118" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: Near top - arms fully extended overhead -->
+  <g class="f3">
+    <circle cx="100" cy="100" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Arms high, nearly straight -->
+      <line x1="88" y1="90" x2="86" y2="68"/><line x1="86" y1="68" x2="100" y2="55"/>
+      <line x1="112" y1="90" x2="114" y2="68"/><line x1="114" y1="68" x2="100" y2="55"/>
+      <line x1="88" y1="90" x2="112" y2="90"/>
+      <line x1="100" y1="112" x2="100" y2="90"/>
+      <!-- Legs wrapped -->
+      <line x1="95" y1="112" x2="86" y2="130"/><line x1="86" y1="130" x2="90" y2="148"/>
+      <line x1="105" y1="112" x2="112" y2="130"/><line x1="112" y1="130" x2="108" y2="148"/>
+    </g>
+    <circle cx="86" cy="68" r="5" fill="#64748b"/>
+    <circle cx="114" cy="68" r="5" fill="#64748b"/>
+  </g>
+</svg>

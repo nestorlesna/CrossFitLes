@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="240" height="180" fill="#111827" rx="12"/>
+  <!-- Bench -->
+  <rect x="40" y="120" width="160" height="14" rx="4" fill="#374151"/>
+  <line x1="60" y1="134" x2="60" y2="155" stroke="#374151" stroke-width="5" stroke-linecap="round"/>
+  <line x1="180" y1="134" x2="180" y2="155" stroke="#374151" stroke-width="5" stroke-linecap="round"/>
+  <text x="120" y="172" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" fill="#475569" letter-spacing="2">DUMBBELL BENCH PRESS</text>
+  <!-- Frame 1: DBs at chest level, elbows bent -->
+  <g class="f1">
+    <circle cx="120" cy="108" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="120" y1="116" x2="46" y2="120"/>
+      <line x1="96" y1="118" x2="86" y2="108"/>
+      <!-- Elbows wide, DBs at chest -->
+      <line x1="86" y1="108" x2="66" y2="90"/>
+      <line x1="148" y1="118" x2="158" y2="108"/><line x1="158" y1="108" x2="174" y2="90"/>
+      <line x1="46" y1="120" x2="36" y2="120"/>
+    </g>
+    <!-- DB icons -->
+    <rect x="56" y="86" width="20" height="8" rx="2" fill="#475569"/>
+    <rect x="164" y="86" width="20" height="8" rx="2" fill="#475569"/>
+    <circle cx="86" cy="108" r="5" fill="#64748b"/>
+    <circle cx="158" cy="108" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: Mid press -->
+  <g class="f2">
+    <circle cx="120" cy="110" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="120" y1="118" x2="46" y2="120"/>
+      <line x1="96" y1="118" x2="84" y2="106"/>
+      <line x1="84" y1="106" x2="70" y2="78"/>
+      <line x1="148" y1="118" x2="160" y2="106"/><line x1="160" y1="106" x2="170" y2="78"/>
+      <line x1="46" y1="120" x2="36" y2="120"/>
+    </g>
+    <rect x="60" y="74" width="20" height="8" rx="2" fill="#475569"/>
+    <rect x="160" y="74" width="20" height="8" rx="2" fill="#475569"/>
+    <circle cx="84" cy="106" r="5" fill="#64748b"/>
+    <circle cx="160" cy="106" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: Arms fully extended, DBs overhead -->
+  <g class="f3">
+    <circle cx="120" cy="110" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="120" y1="118" x2="46" y2="120"/>
+      <line x1="96" y1="118" x2="82" y2="106"/>
+      <line x1="82" y1="106" x2="72" y2="60"/>
+      <line x1="148" y1="118" x2="162" y2="106"/><line x1="162" y1="106" x2="168" y2="60"/>
+      <line x1="46" y1="120" x2="36" y2="120"/>
+    </g>
+    <rect x="62" y="56" width="20" height="8" rx="2" fill="#475569"/>
+    <rect x="158" y="56" width="20" height="8" rx="2" fill="#475569"/>
+  </g>
+</svg>

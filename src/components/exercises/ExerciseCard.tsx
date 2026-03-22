@@ -16,12 +16,14 @@ export function ExerciseCard({ exercise, tags = [] }: ExerciseCardProps) {
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-  // Cargar la imagen del ejercicio si existe
+  // Cargar imagen: primero SVG estático (image_url), luego foto del usuario (image_path)
   useEffect(() => {
-    if (exercise.image_path) {
+    if (exercise.image_url) {
+      setImageUrl(exercise.image_url);
+    } else if (exercise.image_path) {
       getImageDisplayUrl(exercise.image_path).then(setImageUrl);
     }
-  }, [exercise.image_path]);
+  }, [exercise.image_url, exercise.image_path]);
 
   const visibleTags = tags.slice(0, 3);
 

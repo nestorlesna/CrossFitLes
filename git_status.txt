@@ -1,0 +1,54 @@
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   .claude/settings.local.json
+	modified:   .gitignore
+	modified:   CLAUDE.md
+	modified:   PLAN.md
+	modified:   src/App.tsx
+	modified:   src/components/DbProvider.tsx
+	modified:   src/components/exercises/ExerciseCard.tsx
+	modified:   src/db/database.ts
+	modified:   src/db/migrations/index.ts
+	modified:   src/db/repositories/catalogRepo.ts
+	modified:   src/db/repositories/classTemplateRepo.ts
+	modified:   src/db/repositories/exerciseRepo.ts
+	modified:   src/models/Exercise.ts
+	modified:   src/pages/Classes/ClassTemplateDetailPage.tsx
+	modified:   src/pages/Exercises/ExerciseDetailPage.tsx
+	modified:   src/pages/Exercises/ExerciseFormPage.tsx
+	modified:   src/pages/Exercises/ExercisesPage.tsx
+	modified:   src/pages/Home/HomePage.tsx
+	modified:   src/pages/Sessions/SessionsPage.tsx
+	modified:   src/pages/Settings/SettingsPage.tsx
+	modified:   src/services/migrationService.ts
+	modified:   src/services/seedService.ts
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	BKP/
+	git_status.txt
+	public/img/
+	public/seed2_exercises.json
+	src/components/export/
+	src/db/migrations/v003_exercise_video_long.ts
+	src/db/migrations/v004_exercise_image_url.ts
+	src/db/repositories/trainingSessionRepo.ts
+	src/models/TrainingSession.ts
+	src/pages/Sessions/NewSessionPage.tsx
+	src/pages/Sessions/SessionDetailPage.tsx
+	src/pages/Sessions/SessionExecutorPage.tsx
+	src/pages/Settings/ExerciseImagesPage.tsx
+	src/services/backupService.ts
+	src/services/imageUpdateService.ts
+	src/services/seedService2.ts
+	src/services/seedService3.ts
+	src/services/seedService4.ts
+	src/services/seedService5.ts
+	src/services/seedService6.ts
+	tsc_output.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
