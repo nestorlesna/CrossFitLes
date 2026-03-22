@@ -228,11 +228,17 @@ async function seedExercisesFromJson(
 /**
  * Inicialización unificada (solo manual desde la UI):
  *  1. Borra toda la base de datos
- *  2. Re-abre la conexión (vuelve a correr las migraciones)
- *  3. Inserta los catálogos base
+ *  2. Re-ejecuta las migraciones
+ *  3. Inserta catálogos base
  *  4. Inserta los 3.242 ejercicios del JSON
+ *  5. Plantillas Open 26.1, 26.2, 26.3
+ *  6. Plantillas Girls (21)
+ *  7. Plantillas Heroes (21)
+ *  8. WODs Marzo 2026
+ *  9. WODs Feb–Mar 2026
+ * 10. Asigna imágenes SVG
  *
- * onProgress(loaded, total) se llama tras cada lote de ejercicios.
+ * onProgress(loaded, total) se llama tras cada lote de ejercicios base.
  */
 export async function resetAndReSeedAll(
   onProgress?: (loaded: number, total: number) => void
@@ -265,7 +271,43 @@ export async function resetAndReSeedAll(
   console.log(`[Seed] Insertando ${exercises.length} ejercicios...`);
   await seedExercisesFromJson(db, exercises, onProgress);
 
-  // 5. Cerrar la conexión para que jeep-sqlite persista a IndexedDB antes del reload
+  // 5. Plantillas del Open 26
+  console.log('[Seed] Insertando plantillas Open 26...');
+  const { addOpenTemplates } = await import('./seedService3');
+  await addOpenTemplates(db);
+  console.log('[Seed] Open 26 insertado.');
+
+  // 6. Plantillas Girls
+  console.log('[Seed] Insertando plantillas Girls...');
+  const { addGirlsTemplates } = await import('./seedService4');
+  await addGirlsTemplates(db);
+  console.log('[Seed] Girls insertadas.');
+
+  // 7. Plantillas Heroes
+  console.log('[Seed] Insertando plantillas Heroes...');
+  const { addHeroesTemplates } = await import('./seedService4');
+  await addHeroesTemplates(db);
+  console.log('[Seed] Heroes insertados.');
+
+  // 8. WODs Marzo 2026
+  console.log('[Seed] Insertando WODs Marzo 2026...');
+  const { addDailyWodsMarch2026 } = await import('./seedService5');
+  await addDailyWodsMarch2026(db);
+  console.log('[Seed] WODs Marzo 2026 insertados.');
+
+  // 9. WODs Feb–Mar 2026
+  console.log('[Seed] Insertando WODs Feb–Mar 2026...');
+  const { addDailyWodsFebMar2026 } = await import('./seedService6');
+  await addDailyWodsFebMar2026(db);
+  console.log('[Seed] WODs Feb–Mar 2026 insertados.');
+
+  // 10. Asignar imágenes SVG
+  console.log('[Seed] Asignando imágenes SVG a ejercicios...');
+  const { updateExerciseImages } = await import('./imageUpdateService');
+  const updated = await updateExerciseImages(db);
+  console.log(`[Seed] ${updated} imágenes asignadas.`);
+
+  // 11. Cerrar la conexión para que jeep-sqlite persista a IndexedDB antes del reload
   const { closeDatabase } = await import('../db/database');
   await closeDatabase();
   console.log('[Seed] Conexión cerrada — datos persistidos al store.');
