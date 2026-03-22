@@ -56,21 +56,33 @@ function buildExerciseParams(exercise: SectionExercise): string {
   return parts.join(' · ');
 }
 
-function ExerciseImage({ imagePath, name }: { imagePath?: string | null; name: string }) {
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+function ExerciseImage({
+  imageUrl,
+  imagePath,
+  name,
+}: {
+  imageUrl?: string | null;
+  imagePath?: string | null;
+  name: string;
+}) {
+  const [resolvedUrl, setResolvedUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    if (imagePath) {
-      getImageDisplayUrl(imagePath).then(setImageUrl);
+    // image_url es una URL web directa (SVGs estáticos en /img/exercises/)
+    if (imageUrl) {
+      setResolvedUrl(imageUrl);
+    } else if (imagePath) {
+      // image_path es ruta del filesystem de Capacitor (fotos del usuario)
+      getImageDisplayUrl(imagePath).then(setResolvedUrl);
     } else {
-      setImageUrl(null);
+      setResolvedUrl(null);
     }
-  }, [imagePath]);
+  }, [imageUrl, imagePath]);
 
   return (
     <div className="w-16 h-16 rounded-lg bg-gray-800 flex items-center justify-center shrink-0 overflow-hidden">
-      {imageUrl ? (
-        <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
+      {resolvedUrl ? (
+        <img src={resolvedUrl} alt={name} className="w-full h-full object-cover" />
       ) : (
         <Dumbbell size={20} className="text-gray-600" />
       )}
@@ -315,6 +327,7 @@ export function ClassTemplateDetailPage() {
                             </span>
                             {/* Imagen del ejercicio */}
                             <ExerciseImage
+                              imageUrl={exercise.exercise_image_url}
                               imagePath={exercise.exercise_image_path}
                               name={exercise.exercise_name ?? ''}
                             />

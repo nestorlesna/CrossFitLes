@@ -18,7 +18,7 @@ function now(): string {
 // Tipos internos para las operaciones de creación (sin campos generados automáticamente)
 type SectionExerciseDraftForInsert = Omit<
   SectionExercise,
-  'id' | 'created_at' | 'updated_at' | 'exercise_name' | 'exercise_image_path' | 'weight_unit_abbreviation' | 'distance_unit_abbreviation'
+  'id' | 'created_at' | 'updated_at' | 'exercise_name' | 'exercise_image_path' | 'exercise_image_url' | 'weight_unit_abbreviation' | 'distance_unit_abbreviation'
 >;
 
 type SectionDraftForInsert = Omit<
@@ -113,6 +113,7 @@ export async function getById(id: string): Promise<ClassTemplateWithSections | n
       `SELECT se.*,
         e.name as exercise_name,
         e.image_path as exercise_image_path,
+        e.image_url as exercise_image_url,
         wu.abbreviation as weight_unit_abbreviation,
         du.abbreviation as distance_unit_abbreviation
       FROM section_exercise se

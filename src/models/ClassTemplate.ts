@@ -61,6 +61,7 @@ export interface SectionExercise {
   // Campos enriquecidos (JOIN)
   exercise_name?: string
   exercise_image_path?: string
+  exercise_image_url?: string
   weight_unit_abbreviation?: string
   distance_unit_abbreviation?: string
 }
