@@ -56,6 +56,68 @@ function buildExerciseParams(exercise: SectionExercise): string {
   return parts.join(' · ');
 }
 
+// Helper para obtener el ID de YouTube
+function getYoutubeId(url: string): string | null {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : null;
+}
+
+// Helper para obtener el ID de Vimeo
+function getVimeoId(url: string): string | null {
+  const regExp = /vimeo\.com\/(?:video\/|channels\/(?:\w+\/)?|groups\/(?:\w+\/)?|album\/(?:\w+\/)?|showcase\/(?:\w+\/)?|)(\d+)(?:$|\/|\?)/;
+  const match = url.match(regExp);
+  return (match && match[1]) ? match[1] : null;
+}
+
+// Componente para embeber video
+function VideoEmbed({ url }: { url: string }) {
+  const youtubeId = getYoutubeId(url);
+  const vimeoId = getVimeoId(url);
+
+  if (youtubeId) {
+    return (
+      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
+        <iframe
+          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="absolute top-0 left-0 w-full h-full"
+        />
+      </div>
+    );
+  }
+
+  if (vimeoId) {
+    return (
+      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
+        <iframe
+          src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1`}
+          title="Vimeo video player"
+          frameBorder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+          className="absolute top-0 left-0 w-full h-full"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center justify-between bg-gray-800 hover:bg-gray-700 p-3 rounded-lg transition-colors group"
+    >
+      <span className="text-sm text-gray-200 truncate max-w-[200px]">{url}</span>
+      <span className="text-xs text-primary-500 font-medium">Ver enlace</span>
+    </a>
+  );
+}
+
 function ExerciseImage({
   imageUrl,
   imagePath,
@@ -68,11 +130,9 @@ function ExerciseImage({
   const [resolvedUrl, setResolvedUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    // image_url es una URL web directa (SVGs estáticos en /img/exercises/)
     if (imageUrl) {
       setResolvedUrl(imageUrl);
     } else if (imagePath) {
-      // image_path es ruta del filesystem de Capacitor (fotos del usuario)
       getImageDisplayUrl(imagePath).then(setResolvedUrl);
     } else {
       setResolvedUrl(null);
@@ -98,6 +158,8 @@ export function ClassTemplateDetailPage() {
   const [loading, setLoading] = useState(true);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [selectedVideoUrl, setSelectedVideoUrl] = useState<string | null>(null);
+  const [exerciseNameForVideo, setExerciseNameForVideo] = useState('');
   const [duplicating, setDuplicating] = useState(false);
 
   // Carga la plantilla y sus secciones desde la base de datos
@@ -325,16 +387,32 @@ export function ClassTemplateDetailPage() {
                             <span className="text-xs text-gray-600 mt-1 w-4 shrink-0 text-right">
                               {idx + 1}.
                             </span>
-                            {/* Imagen del ejercicio */}
+                            {/* Imagen del ejercicio limpia */}
                             <ExerciseImage
                               imageUrl={exercise.exercise_image_url}
                               imagePath={exercise.exercise_image_path}
                               name={exercise.exercise_name ?? ''}
                             />
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-white">
-                                {exercise.exercise_name}
-                              </p>
+                              <div className="flex items-center gap-2">
+                                <p className="text-sm font-medium text-white truncate">
+                                  {exercise.exercise_name}
+                                </p>
+                                {exercise.exercise_video_url && (
+                                  <button
+                                    onClick={() => {
+                                      if (exercise.exercise_video_url) {
+                                        setSelectedVideoUrl(exercise.exercise_video_url);
+                                        setExerciseNameForVideo(exercise.exercise_name ?? '');
+                                      }
+                                    }}
+                                    className="p-1 rounded-full bg-primary-500/20 text-primary-500 hover:bg-primary-500 hover:text-white transition-colors"
+                                    aria-label="Ver video"
+                                  >
+                                    <Play size={10} fill="currentColor" />
+                                  </button>
+                                )}
+                              </div>
                               {params && (
                                 <p className="text-xs text-primary-400 mt-0.5">{params}</p>
                               )}
@@ -453,6 +531,21 @@ export function ClassTemplateDetailPage() {
               ¿Estás seguro de que querés eliminar esta plantilla? La acción no se puede deshacer.
             </p>
           </div>
+        </div>
+      </Modal>
+
+      {/* Modal de Video */}
+      <Modal
+        isOpen={Boolean(selectedVideoUrl)}
+        onClose={() => setSelectedVideoUrl(null)}
+        title={exerciseNameForVideo}
+        size="md"
+      >
+        <div className="flex flex-col gap-4">
+          {selectedVideoUrl && <VideoEmbed url={selectedVideoUrl} />}
+          <p className="text-xs text-gray-500 text-center">
+            Podes cerrar este video para volver a la clase.
+          </p>
         </div>
       </Modal>
     </>

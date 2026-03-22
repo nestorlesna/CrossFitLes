@@ -148,13 +148,26 @@ export async function getById(id: string): Promise<ExerciseWithRelations | null>
 // excludeId: al editar, excluir el propio ID del chequeo
 export async function existsByName(name: string, excludeId?: string): Promise<boolean> {
   const db = getDatabase();
-  const query = excludeId
-    ? `SELECT COUNT(*) as cnt FROM exercise WHERE LOWER(name) = LOWER(?) AND is_active = 1 AND id != ?`
-    : `SELECT COUNT(*) as cnt FROM exercise WHERE LOWER(name) = LOWER(?) AND is_active = 1`;
-  const params = excludeId ? [name, excludeId] : [name];
+  // Limpiamos espacios por si acaso
+  const cleanName = name.trim();
+  
+  let query = `SELECT COUNT(*) as cnt FROM exercise WHERE LOWER(name) = LOWER(?) AND is_active = 1`;
+  const params: any[] = [cleanName];
+
+  if (excludeId) {
+    query += ` AND id != ?`;
+    params.push(excludeId);
+  }
+
   const result = await db.query(query, params);
-  const cnt = (result.values?.[0] as { cnt: number })?.cnt ?? 0;
-  return cnt > 0;
+  
+  if (!result.values || result.values.length === 0) return false;
+  
+  // Algunos adaptadores devuelven la llave en mayúsculas o minúsculas
+  const row = result.values[0];
+  const cnt = row.cnt ?? row.CNT ?? Object.values(row)[0] ?? 0;
+  
+  return Number(cnt) > 0;
 }
 
 // Crea un nuevo ejercicio con todas sus relaciones usando executeSet (más confiable en web)
@@ -214,9 +227,16 @@ export async function update(
   const db = getDatabase();
   const timestamp = now();
 
-  // Verificar unicidad de nombre si se está cambiando
-  if (exercise.name && (await existsByName(exercise.name, id))) {
-    throw new Error(`Ya existe un ejercicio con el nombre "${exercise.name}"`);
+  // Verificar si el nombre está cambiando para validar unicidad
+  if (exercise.name) {
+    const current = await db.query('SELECT name FROM exercise WHERE id = ?', [id]);
+    const currentName = current.values?.[0]?.name;
+    
+    if (currentName && exercise.name.trim().toLowerCase() !== currentName.toLowerCase()) {
+      if (await existsByName(exercise.name.trim())) {
+        throw new Error(`Ya existe otro ejercicio con el nombre "${exercise.name}"`);
+      }
+    }
   }
 
   // Calcular el UPDATE del ejercicio principal

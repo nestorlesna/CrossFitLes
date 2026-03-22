@@ -114,6 +114,7 @@ export async function getById(id: string): Promise<ClassTemplateWithSections | n
         e.name as exercise_name,
         e.image_path as exercise_image_path,
         e.image_url as exercise_image_url,
+        e.video_path as exercise_video_url,
         wu.abbreviation as weight_unit_abbreviation,
         du.abbreviation as distance_unit_abbreviation
       FROM section_exercise se
