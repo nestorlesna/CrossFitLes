@@ -358,10 +358,17 @@ export async function resetAndReSeedAll(
   await delay(1000);
   console.log('[Seed] Asignando imágenes SVG a ejercicios...');
   const { updateExerciseImages } = await import('./imageUpdateService');
-  const updated = await updateExerciseImages(db);
-  console.log(`[Seed] ${updated} imágenes asignadas.`);
+  const updatedImages = await updateExerciseImages(db);
+  console.log(`[Seed] ${updatedImages} imágenes asignadas.`);
 
-  // 11. Cerrar la conexión para que jeep-sqlite persista a IndexedDB antes del reload
+  // 11. Asignar grupos musculares detallados (Mapa Corporal)
+  await delay(1000);
+  console.log('[Seed] Mapeando grupos musculares detallados...');
+  const { seedExerciseMuscleGroups } = await import('./muscleSeedService');
+  const mappedMuscles = await seedExerciseMuscleGroups(db);
+  console.log(`[Seed] ${mappedMuscles} ejercicios enriquecidos con mapa muscular.`);
+
+  // 12. Cerrar la conexión para que jeep-sqlite persista a IndexedDB antes del reload
   await delay(1000);
   const { closeDatabase } = await import('../db/database');
   await closeDatabase();

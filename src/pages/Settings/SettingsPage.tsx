@@ -89,7 +89,8 @@ export function SettingsPage() {
           <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-1">
             Listados
           </h2>
-          <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+          <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden divide-y divide-gray-800">
+            {/* Imágenes */}
             <button
               onClick={() => navigate('/configuracion/imagenes-ejercicios')}
               className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
@@ -98,6 +99,18 @@ export function SettingsPage() {
                 <ImagePlay size={16} className="text-primary-400" />
               </div>
               <span className="flex-1 text-sm text-white">Imágenes de ejercicios</span>
+              <ChevronRight size={16} className="text-gray-600" />
+            </button>
+
+            {/* Músculos */}
+            <button
+              onClick={() => navigate('/configuracion/musculos-ejercicios')}
+              className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
+            >
+              <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shrink-0">
+                <Layers size={16} className="text-primary-400" />
+              </div>
+              <span className="flex-1 text-sm text-white">Ejercicios con grupos musculares</span>
               <ChevronRight size={16} className="text-gray-600" />
             </button>
           </div>
