@@ -10,6 +10,7 @@ import { ExerciseWithRelations } from '../../models/Exercise';
 import { getById, softDelete, getHistory } from '../../db/repositories/exerciseRepo';
 import { getImageDisplayUrl } from '../../services/mediaService';
 import { formatDate } from '../../utils/formatters';
+import { MuscleMap } from '../../components/exercises/MuscleMap';
 
 // Tipo mínimo para una entrada del historial
 interface HistoryEntry {
@@ -251,26 +252,51 @@ export function ExerciseDetailPage() {
             )}
           </div>
 
-          {/* ── Grupos musculares ── */}
-          {relations.muscleGroups.length > 0 && (
-            <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
-              <h2 className="text-white font-semibold text-base mb-3">Músculos trabajados</h2>
-              <div className="flex flex-wrap gap-2">
-                {relations.muscleGroups.map((mg) => (
-                  <div key={mg.id} className="flex items-center gap-1.5">
-                    <Badge
-                      label={mg.name}
-                      color={mg.is_primary ? '#f97316' : undefined}
-                      size="sm"
-                    />
-                    {mg.is_primary ? (
-                      <Star size={10} className="text-primary-500" fill="currentColor" />
-                    ) : null}
+          {/* ── Grupos musculares (Mapa Anatómico) ── */}
+          <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
+            <h2 className="text-white font-semibold text-base mb-4">Músculos trabajados</h2>
+            
+            <div className="flex flex-col md:flex-row gap-6 items-center">
+              {/* Mapa SVG */}
+              <div className="w-full max-w-[500px] bg-gray-950/50 rounded-xl p-4 border border-gray-800/50">
+                <MuscleMap
+                  primaryMuscles={relations.muscleGroups.filter(mg => mg.is_primary).map(mg => mg.name)}
+                  secondaryMuscles={relations.muscleGroups.filter(mg => !mg.is_primary).map(mg => mg.name)}
+                  size="100%"
+                />
+              </div>
+
+              {/* Leyenda y Lista */}
+              <div className="flex-1 w-full space-y-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-[#ef4444]" />
+                    <span className="text-xs text-gray-300">Primario</span>
                   </div>
-                ))}
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-[#f59e0b]" />
+                    <span className="text-xs text-gray-300">Secundario</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {relations.muscleGroups.map((mg) => (
+                    <div key={mg.id} className="flex items-center gap-1.5">
+                      <Badge
+                        label={mg.name}
+                        color={mg.is_primary ? '#ef4444' : '#f59e0b'}
+                        size="sm"
+                      />
+                    </div>
+                  ))}
+                </div>
+                
+                {relations.muscleGroups.length === 0 && (
+                  <p className="text-gray-500 text-xs italic">No hay músculos asignados</p>
+                )}
               </div>
             </div>
-          )}
+          </div>
 
           {/* ── Equipamiento ── */}
           {relations.equipment.length > 0 && (

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ChevronLeft, Camera, Star, Check } from 'lucide-react';
 import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
+import { Badge } from '../../components/ui/Badge';
 import { ExerciseRelations } from '../../models/Exercise';
 import { create, update, getById } from '../../db/repositories/exerciseRepo';
 import { getAll as getCatalog } from '../../db/repositories/catalogRepo';
@@ -16,6 +17,7 @@ import {
   Tag,
   SectionType,
 } from '../../models/catalogs';
+import { MuscleMap } from '../../components/exercises/MuscleMap';
 
 export function ExerciseFormPage() {
   const navigate = useNavigate();
@@ -52,6 +54,32 @@ export function ExerciseFormPage() {
   // ── Estado de UI ──────────────────────────────────────────────────────────
   const [saving, setSaving] = useState(false);
   const [loadingData, setLoadingData] = useState(isEditing);
+
+  // Toggle para el mapa visual
+  const handleMuscleMapClick = (muscleName: string) => {
+    const muscle = muscleGroups.find(m => m.name.toLowerCase() === muscleName.toLowerCase());
+    if (!muscle) return;
+
+    const mid = muscle.id;
+
+    if (primaryMuscleId === mid) {
+      // Si es primario, pasa a secundario
+      setPrimaryMuscleId('');
+      setSecondaryMuscleIds(prev => [...prev, mid]);
+    } else if (secondaryMuscleIds.includes(mid)) {
+      // Si es secundario, se quita
+      setSecondaryMuscleIds(prev => prev.filter(id => id !== mid));
+    } else {
+      // Si no está seleccionado:
+      if (!primaryMuscleId) {
+        // Si no hay primario, este lo es
+        setPrimaryMuscleId(mid);
+      } else {
+        // Si ya hay primario, este es secundario
+        setSecondaryMuscleIds(prev => [...prev, mid]);
+      }
+    }
+  };
 
   // Cargar catálogos al montar
   useEffect(() => {
@@ -398,47 +426,72 @@ export function ExerciseFormPage() {
           </select>
         </div>
 
-        {/* ── 4. Grupo muscular principal ── */}
-        <div>
-          <label className="block text-sm text-gray-400 mb-1.5">Grupo muscular principal</label>
-          <select
-            value={primaryMuscleId}
-            onChange={(e) => handlePrimaryMuscleChange(e.target.value)}
-            className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 appearance-none min-h-[44px]"
-          >
-            <option value="">Sin especificar</option>
-            {muscleGroups.map((mg) => (
-              <option key={mg.id} value={mg.id}>{mg.name}</option>
-            ))}
-          </select>
-        </div>
+        {/* ── 4 & 5. Grupos musculares (Mapa Visual) ── */}
+        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
+          <label className="block text-sm text-gray-400 mb-4">Selección de músculos</label>
+          
+          <div className="flex flex-col md:flex-row gap-6 items-center mb-6">
+            <div className="w-full max-w-[500px] bg-gray-950/50 rounded-xl p-4 border border-gray-800/50">
+              <MuscleMap
+                interactive
+                onMuscleClick={handleMuscleMapClick}
+                primaryMuscles={muscleGroups.filter(m => m.id === primaryMuscleId).map(m => m.name)}
+                secondaryMuscles={muscleGroups.filter(m => secondaryMuscleIds.includes(m.id)).map(m => m.name)}
+              />
+            </div>
+            
+            <div className="flex-1 space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded-full bg-[#ef4444]" />
+                <span className="text-sm text-gray-300">Primario (Click 1)</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded-full bg-[#f59e0b]" />
+                <span className="text-sm text-gray-300">Secundario (Click 2)</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded-full bg-gray-700" />
+                <span className="text-sm text-gray-500">Sin seleccionar (Click 3)</span>
+              </div>
+              <p className="text-xs text-gray-500 mt-4 leading-relaxed italic">
+                Podes tocar directamente el mapa o usar los desplegables de abajo.
+              </p>
+            </div>
+          </div>
 
-        {/* ── 5. Músculos secundarios ── */}
-        <div>
-          <label className="block text-sm text-gray-400 mb-2">Músculos secundarios</label>
-          <div className="flex flex-wrap gap-2">
-            {muscleGroups
-              .filter((mg) => mg.id !== primaryMuscleId)
-              .map((mg) => {
-                const selected = secondaryMuscleIds.includes(mg.id);
-                return (
-                  <button
-                    key={mg.id}
-                    type="button"
-                    onClick={() => toggleSecondaryMuscle(mg.id)}
-                    className={`px-3 py-1.5 rounded-full text-sm border transition-all min-h-[36px] ${
-                      selected
-                        ? 'border-primary-500 bg-primary-500/20 text-primary-400'
-                        : 'border-gray-600 text-gray-400 bg-transparent'
-                    }`}
-                  >
-                    {mg.name}
-                  </button>
-                );
-              })}
-            {muscleGroups.filter((mg) => mg.id !== primaryMuscleId).length === 0 && (
-              <p className="text-gray-600 text-sm">Seleccioná primero un músculo principal</p>
-            )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs text-gray-500 mb-1.5 ml-1">Músculo Principal</label>
+              <select
+                value={primaryMuscleId}
+                onChange={(e) => handlePrimaryMuscleChange(e.target.value)}
+                className="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 appearance-none min-h-[44px]"
+              >
+                <option value="">Sin especificar</option>
+                {muscleGroups.map((mg) => (
+                  <option key={mg.id} value={mg.id}>{mg.name}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs text-gray-500 mb-1.5 ml-1">Músculos Secundarios</label>
+              <div className="flex flex-wrap gap-1.5 p-2 bg-gray-800/30 rounded-xl border border-gray-700/50 min-h-[46px]">
+                {muscleGroups
+                  .filter((mg) => secondaryMuscleIds.includes(mg.id))
+                  .map((mg) => (
+                    <Badge 
+                      key={mg.id} 
+                      label={mg.name} 
+                      color="#f59e0b" 
+                      size="sm" 
+                    />
+                  ))}
+                {secondaryMuscleIds.length === 0 && (
+                  <span className="text-xs text-gray-600 self-center ml-1">Ninguno</span>
+                )}
+              </div>
+            </div>
           </div>
         </div>
 
