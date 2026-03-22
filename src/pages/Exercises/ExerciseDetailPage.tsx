@@ -44,14 +44,14 @@ function VideoEmbed({ url }: { url: string }) {
 
   if (youtubeId) {
     return (
-      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
+      <div className="relative w-full max-w-[260px] aspect-video rounded-xl overflow-hidden border border-gray-800 bg-black shadow-lg">
         <iframe
           src={`https://www.youtube.com/embed/${youtubeId}`}
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-          className="absolute top-0 left-0 w-full h-full"
+          className="w-full h-full"
         />
       </div>
     );
@@ -59,14 +59,14 @@ function VideoEmbed({ url }: { url: string }) {
 
   if (vimeoId) {
     return (
-      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
+      <div className="relative w-full max-w-[260px] aspect-video rounded-xl overflow-hidden border border-gray-800 bg-black shadow-lg">
         <iframe
           src={`https://player.vimeo.com/video/${vimeoId}`}
           title="Vimeo video player"
           frameBorder="0"
           allow="autoplay; fullscreen; picture-in-picture"
           allowFullScreen
-          className="absolute top-0 left-0 w-full h-full"
+          className="w-full h-full"
         />
       </div>
     );
@@ -112,8 +112,10 @@ export function ExerciseDetailPage() {
       }
       setExercise(data);
 
-      // Cargar imagen si existe
-      if (data.image_path) {
+      // Cargar imagen: priorizar SVG (image_url) sobre foto (image_path)
+      if (data.image_url) {
+        setImageUrl(data.image_url);
+      } else if (data.image_path) {
         const url = await getImageDisplayUrl(data.image_path);
         setImageUrl(url);
       }
@@ -210,16 +212,16 @@ export function ExerciseDetailPage() {
       />
 
       <div className="flex flex-col gap-0 pb-10">
-        {/* Imagen grande */}
-        {imageUrl ? (
-          <div className="w-full h-52 bg-gray-900">
-            <img src={imageUrl} alt={exercise.name} className="w-full h-full object-cover" />
+        {/* Thumbnail minimalista */}
+        <div className="flex justify-center pt-6 pb-2 bg-black/20">
+          <div className="w-24 h-24 rounded-2xl bg-gray-900 border border-gray-800 flex items-center justify-center shrink-0 overflow-hidden shadow-xl">
+            {imageUrl ? (
+              <img src={imageUrl} alt={exercise.name} className="w-full h-full object-cover" />
+            ) : (
+              <Dumbbell size={32} className="text-gray-700" />
+            )}
           </div>
-        ) : (
-          <div className="w-full h-36 bg-gray-900 flex items-center justify-center border-b border-gray-800">
-            <Dumbbell size={48} className="text-gray-700" />
-          </div>
-        )}
+        </div>
 
         <div className="flex flex-col gap-5 p-4">
           {/* ── Información general ── */}

@@ -11,16 +11,113 @@ import {
   CheckCircle2,
   TrendingUp,
   Scale,
-  Info
+  Info,
+  Play
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
 import { Badge } from '../../components/ui/Badge';
+import { Modal } from '../../components/ui/Modal';
 import { getById as getSessionById } from '../../db/repositories/trainingSessionRepo';
 import { getById as getTemplateById } from '../../db/repositories/classTemplateRepo';
 import { SessionWithRelations } from '../../models/TrainingSession';
 import { ClassTemplateWithSections } from '../../models/ClassTemplate';
 import { formatDate } from '../../utils/formatters';
+import { getImageDisplayUrl } from '../../services/mediaService';
+
+// Helper para obtener el ID de YouTube
+function getYoutubeId(url: string): string | null {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : null;
+}
+
+// Helper para obtener el ID de Vimeo
+function getVimeoId(url: string): string | null {
+  const regExp = /vimeo\.com\/(?:video\/|channels\/(?:\w+\/)?|groups\/(?:\w+\/)?|album\/(?:\w+\/)?|showcase\/(?:\w+\/)?|)(\d+)(?:$|\/|\?)/;
+  const match = url.match(regExp);
+  return (match && match[1]) ? match[1] : null;
+}
+
+// Componente para embeber video
+function VideoEmbed({ url }: { url: string }) {
+  const youtubeId = getYoutubeId(url);
+  const vimeoId = getVimeoId(url);
+
+  if (youtubeId) {
+    return (
+      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
+        <iframe
+          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="absolute top-0 left-0 w-full h-full"
+        />
+      </div>
+    );
+  }
+
+  if (vimeoId) {
+    return (
+      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
+        <iframe
+          src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1`}
+          title="Vimeo video player"
+          frameBorder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+          className="absolute top-0 left-0 w-full h-full"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center justify-between bg-gray-800 hover:bg-gray-700 p-3 rounded-lg transition-colors group"
+    >
+      <span className="text-sm text-gray-200 truncate max-w-[200px]">{url}</span>
+      <span className="text-xs text-primary-500 font-medium">Ver enlace</span>
+    </a>
+  );
+}
+
+function ExerciseImage({ 
+  imagePath, 
+  imageUrl: initialImageUrl, 
+  name 
+}: { 
+  imagePath?: string | null; 
+  imageUrl?: string | null;
+  name: string 
+}) {
+  const [resolvedUrl, setResolvedUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (initialImageUrl) {
+      setResolvedUrl(initialImageUrl);
+    } else if (imagePath) {
+      getImageDisplayUrl(imagePath).then(setResolvedUrl);
+    } else {
+      setResolvedUrl(null);
+    }
+  }, [imagePath, initialImageUrl]);
+
+  return (
+    <div className="w-14 h-14 rounded-lg bg-gray-800 flex items-center justify-center shrink-0 overflow-hidden">
+      {resolvedUrl ? (
+        <img src={resolvedUrl} alt={name} className="w-full h-full object-cover" />
+      ) : (
+        <Dumbbell size={18} className="text-gray-600" />
+      )}
+    </div>
+  );
+}
 
 export function SessionDetailPage() {
   const navigate = useNavigate();
@@ -29,6 +126,10 @@ export function SessionDetailPage() {
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<SessionWithRelations | null>(null);
   const [template, setTemplate] = useState<ClassTemplateWithSections | null>(null);
+
+  // Video Modal
+  const [selectedVideoUrl, setSelectedVideoUrl] = useState<string | null>(null);
+  const [exerciseNameForVideo, setExerciseNameForVideo] = useState('');
 
   const loadData = useCallback(async () => {
     if (!id) return;
@@ -179,11 +280,27 @@ export function SessionDetailPage() {
                     <div key={result.id} className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
                       <div className="flex items-start justify-between gap-4 mb-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-xl bg-gray-800 flex items-center justify-center shrink-0">
-                            <Dumbbell size={20} className="text-gray-500" />
-                          </div>
+                          <ExerciseImage
+                            imagePath={result.exercise_image_path}
+                            imageUrl={result.exercise_image_url}
+                            name={result.exercise_name ?? ''}
+                          />
                           <div>
-                            <h4 className="text-white font-bold text-sm leading-tight">{result.exercise_name}</h4>
+                            <div className="flex items-center gap-2">
+                              <h4 className="text-white font-bold text-sm leading-tight">{result.exercise_name}</h4>
+                              {result.exercise_video_url && (
+                                <button
+                                  onClick={() => {
+                                    setSelectedVideoUrl(result.exercise_video_url!);
+                                    setExerciseNameForVideo(result.exercise_name ?? '');
+                                  }}
+                                  className="p-1.5 rounded-full bg-primary-500/20 text-primary-500 hover:bg-primary-500 hover:text-white transition-colors"
+                                  aria-label="Ver video"
+                                >
+                                  <Play size={10} fill="currentColor" />
+                                </button>
+                              )}
+                            </div>
                             <Badge label={result.rx_or_scaled.toUpperCase()} size="sm" color={result.rx_or_scaled === 'rx' ? '#10b981' : '#f59e0b'} />
                           </div>
                         </div>
@@ -269,6 +386,21 @@ export function SessionDetailPage() {
           Volver al Historial
         </button>
       </div>
+
+      {/* Modal de Video */}
+      <Modal
+        isOpen={Boolean(selectedVideoUrl)}
+        onClose={() => setSelectedVideoUrl(null)}
+        title={exerciseNameForVideo}
+        size="md"
+      >
+        <div className="flex flex-col gap-4">
+          {selectedVideoUrl && <VideoEmbed url={selectedVideoUrl} />}
+          <p className="text-xs text-gray-500 text-center">
+            Podes cerrar este video para volver al resumen.
+          </p>
+        </div>
+      </Modal>
     </>
   );
 }

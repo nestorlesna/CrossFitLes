@@ -27,6 +27,9 @@ export interface SessionExerciseResult {
   updated_at: string;
   // Campos enriquecidos
   exercise_name?: string;
+  exercise_image_path?: string;
+  exercise_image_url?: string;
+  exercise_video_url?: string;
   weight_unit_abbreviation?: string;
   distance_unit_abbreviation?: string;
 }

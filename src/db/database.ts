@@ -46,17 +46,21 @@ async function _initDatabase(): Promise<SQLiteDBConnection> {
   }
 
   // En web, cargar desde store si existe
-  if (Capacitor.getPlatform() === 'web') {
+  if (Capacitor.getPlatform() === 'web' && sqlite) {
     try {
-      // Intentar recuperar datos del store
+      console.log(`[DB] Intentando cargar desde store: ${DB_NAME}`);
+      // jeep-sqlite-wasm maneja los archivos en un VFS en memoria.
+      // loadFromStore copia de IndexedDB al VFS en memoria.
       await (sqlite as any).loadFromStore(DB_NAME);
+      console.log(`[DB] ✅ Datos cargados exitosamente desde IndexedDB`);
     } catch (e) {
-      // Si falla, es primera vez o no hay datos guardados
-      console.log('[DB] No hay datos previos en store o primera vez');
+      console.log('[DB] Info: No hay datos previos en store (primera ejecución)');
     }
   }
 
+  // Abrir la base de datos
   await db.open();
+  console.log(`[DB] Conexión abierta satisfactoriamente: ${DB_NAME}`);
   await db.execute('PRAGMA foreign_keys = ON;');
 
   await runMigrations(db, migrations);
@@ -64,6 +68,12 @@ async function _initDatabase(): Promise<SQLiteDBConnection> {
   // Sincronizar user_version de jeep-sqlite con nuestra tabla _migrations
   const currentVersion = await getCurrentVersion(db);
   await db.execute(`PRAGMA user_version = ${currentVersion}`);
+
+  // PERSISTIR: Muy importante guardar el estado inicial después de migraciones en web
+  if (Capacitor.getPlatform() === 'web') {
+    await saveDatabase();
+    console.log('[DB] Base de datos persistida tras inicialización/migraciones');
+  }
 
   return db;
 }
@@ -89,7 +99,7 @@ export async function closeDatabase(): Promise<void> {
     // Guardar antes de cerrar en web
     if (Capacitor.getPlatform() === 'web') {
       try {
-        await sqlite.saveToStore(DB_NAME);
+        await (sqlite as any).saveToStore(DB_NAME);
       } catch (e) {
         console.warn('[DB] Error guardando al cerrar:', e);
       }
@@ -101,21 +111,26 @@ export async function closeDatabase(): Promise<void> {
 }
 
 // Persiste la BD en memoria al store de IndexedDB (jeep-sqlite web)
-// IMPORTANTE: Debe llamarse después de CUALQUIER operación de escritura en web
 export async function saveDatabase(): Promise<void> {
-  if (Capacitor.getPlatform() === 'web' && sqlite) {
+  const platform = Capacitor.getPlatform();
+  if (platform === 'web' && sqlite) {
     try {
-      // Verificar que tenemos conexión antes de intentar guardar
+      // Verificar conexión antes de guardar
       const isConn = (await sqlite.isConnection(DB_NAME, false)).result;
       if (isConn) {
-        await sqlite.saveToStore(DB_NAME);
+        await (sqlite as any).saveToStore(DB_NAME);
+        console.log(`[DB] ✅ Datos persistidos en store (IndexedDB): ${DB_NAME}`);
+      } else {
+        console.warn(`[DB] ⚠️ No hay conexión abierta para ${DB_NAME}. Intentando recuperarla para guardar...`);
+        // Intento desesperado de recuperar si se perdió la conexión en jeep-sqlite
+        const ret = await sqlite.checkConnectionsConsistency();
+        if (ret.result) {
+           await (sqlite as any).saveToStore(DB_NAME);
+           console.log(`[DB] ✅ Datos persistidos tras recuperar consistencia: ${DB_NAME}`);
+        }
       }
     } catch (e) {
-      // Solo loggear error si no es "no connection"
-      const msg = String(e);
-      if (!msg.includes('No available connection')) {
-        console.warn('[DB] saveToStore error:', e);
-      }
+      console.error('[DB] ❌ Error crítico persistiendo base de datos:', e);
     }
   }
 }

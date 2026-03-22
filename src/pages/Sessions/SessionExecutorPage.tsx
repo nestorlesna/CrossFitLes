@@ -19,28 +19,100 @@ import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
 import { Badge } from '../../components/ui/Badge';
 import { Modal } from '../../components/ui/Modal';
-import { getById as getSessionById, saveResults, finalize } from '../../db/repositories/trainingSessionRepo';
+import { getById as getSessionById, saveResults, finalize, updateSessionDuration } from '../../db/repositories/trainingSessionRepo';
 import { getById as getTemplateById } from '../../db/repositories/classTemplateRepo';
 import { SessionWithRelations, SessionExerciseResult } from '../../models/TrainingSession';
 import { ClassTemplateWithSections, SectionExercise } from '../../models/ClassTemplate';
 import { RxScaled, GeneralFeeling } from '../../types';
 import { getImageDisplayUrl } from '../../services/mediaService';
 
-function ExerciseImage({ imagePath, name }: { imagePath?: string | null; name: string }) {
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+// Helper para obtener el ID de YouTube
+function getYoutubeId(url: string): string | null {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : null;
+}
+
+// Helper para obtener el ID de Vimeo
+function getVimeoId(url: string): string | null {
+  const regExp = /vimeo\.com\/(?:video\/|channels\/(?:\w+\/)?|groups\/(?:\w+\/)?|album\/(?:\w+\/)?|showcase\/(?:\w+\/)?|)(\d+)(?:$|\/|\?)/;
+  const match = url.match(regExp);
+  return (match && match[1]) ? match[1] : null;
+}
+
+// Componente para embeber video
+function VideoEmbed({ url }: { url: string }) {
+  const youtubeId = getYoutubeId(url);
+  const vimeoId = getVimeoId(url);
+
+  if (youtubeId) {
+    return (
+      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
+        <iframe
+          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="absolute top-0 left-0 w-full h-full"
+        />
+      </div>
+    );
+  }
+
+  if (vimeoId) {
+    return (
+      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
+        <iframe
+          src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1`}
+          title="Vimeo video player"
+          frameBorder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+          className="absolute top-0 left-0 w-full h-full"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center justify-between bg-gray-800 hover:bg-gray-700 p-3 rounded-lg transition-colors group"
+    >
+      <span className="text-sm text-gray-200 truncate max-w-[200px]">{url}</span>
+      <span className="text-xs text-primary-500 font-medium">Ver enlace</span>
+    </a>
+  );
+}
+
+function ExerciseImage({ 
+  imagePath, 
+  imageUrl: initialImageUrl, 
+  name 
+}: { 
+  imagePath?: string | null; 
+  imageUrl?: string | null;
+  name: string 
+}) {
+  const [resolvedUrl, setResolvedUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    if (imagePath) {
-      getImageDisplayUrl(imagePath).then(setImageUrl);
+    if (initialImageUrl) {
+      setResolvedUrl(initialImageUrl);
+    } else if (imagePath) {
+      getImageDisplayUrl(imagePath).then(setResolvedUrl);
     } else {
-      setImageUrl(null);
+      setResolvedUrl(null);
     }
-  }, [imagePath]);
+  }, [imagePath, initialImageUrl]);
 
   return (
     <div className="w-14 h-14 rounded-lg bg-gray-800 flex items-center justify-center shrink-0 overflow-hidden">
-      {imageUrl ? (
-        <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
+      {resolvedUrl ? (
+        <img src={resolvedUrl} alt={name} className="w-full h-full object-cover" />
       ) : (
         <Dumbbell size={18} className="text-gray-600" />
       )}
@@ -74,6 +146,10 @@ export function SessionExecutorPage() {
   const [feeling, setFeeling] = useState<GeneralFeeling>('normal');
   const [effort, setEffort] = useState(5);
   const [notes, setNotes] = useState('');
+  
+  // Video Modal
+  const [selectedVideoUrl, setSelectedVideoUrl] = useState<string | null>(null);
+  const [exerciseNameForVideo, setExerciseNameForVideo] = useState('');
 
   // 1. Cargar datos
   const loadData = useCallback(async () => {
@@ -114,19 +190,37 @@ export function SessionExecutorPage() {
     loadData();
   }, [loadData]);
 
-  // 2. Lógica del Timer
+  // 2. Lógica del Temporizador y Auto-guardado de Duración
   useEffect(() => {
     if (isActive) {
       timerRef.current = setInterval(() => {
         setSeconds(s => s + 1);
       }, 1000);
-    } else if (timerRef.current) {
-      clearInterval(timerRef.current);
+    } else {
+      if (timerRef.current) clearInterval(timerRef.current);
+      // Guardar duración parcial en la BD al pausar para no perder tiempo en caso de recarga
+      if (id && seconds > 0) {
+        saveResults(id, results); // Guardar resultados actuales
+        // También guardamos la duración en la tabla training_session
+        updateSessionDuration(id, Math.floor(seconds / 60)).catch(console.error);
+      }
     }
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isActive]);
+  }, [isActive, id]); // Depende de id y isActive
+
+  // Auto-guardado de resultados con debounce (3 segundos)
+  useEffect(() => {
+    if (!id || results.length === 0 || loading) return;
+
+    const timer = setTimeout(() => {
+      saveResults(id, results).catch(console.error);
+      // No mostramos toast para no interrumpir el flujo del usuario
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [results, id, loading]);
 
   const formatTime = (secs: number) => {
     const h = Math.floor(secs / 3600);
@@ -251,10 +345,14 @@ export function SessionExecutorPage() {
             {template.sections.map((s, idx) => (
               <button
                 key={s.id}
-                onClick={() => setActiveSectionIdx(idx)}
+                onClick={async () => {
+                  // Guardar progreso actual antes de cambiar de pestaña
+                  if (id) await saveResults(id, results);
+                  setActiveSectionIdx(idx);
+                }}
                 className={`flex-1 min-w-[120px] px-4 py-2.5 rounded-xl border text-xs font-bold transition-all ${
                   activeSectionIdx === idx
-                    ? 'bg-primary-600 border-primary-500 text-white'
+                    ? 'bg-primary-600 border-primary-500 text-white shadow-lg shadow-primary-900/40'
                     : 'bg-gray-900 border-gray-800 text-gray-400'
                 }`}
               >
@@ -312,11 +410,26 @@ export function SessionExecutorPage() {
                 <div className="p-4 bg-gray-900/40 border-b border-gray-800 flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3 flex-1 min-w-0">
                     <ExerciseImage
-                      imagePath={planned?.exercise_image_path}
+                      imagePath={result.exercise_image_path}
+                      imageUrl={result.exercise_image_url}
                       name={result.exercise_name ?? ''}
                     />
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-white font-bold text-base mb-1">{result.exercise_name}</h3>
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-white font-bold text-base truncate">{result.exercise_name}</h3>
+                        {result.exercise_video_url && (
+                          <button
+                            onClick={() => {
+                              setSelectedVideoUrl(result.exercise_video_url!);
+                              setExerciseNameForVideo(result.exercise_name ?? '');
+                            }}
+                            className="p-1.5 rounded-full bg-primary-500/20 text-primary-500 hover:bg-primary-500 hover:text-white transition-colors"
+                            aria-label="Ver video"
+                          >
+                            <Play size={10} fill="currentColor" />
+                          </button>
+                        )}
+                      </div>
                       {planned?.coach_notes && (
                         <div className="flex items-start gap-1.5 text-amber-500/80">
                           <Info size={12} className="mt-0.5 shrink-0" />
@@ -516,6 +629,21 @@ export function SessionExecutorPage() {
               />
             </div>
           </div>
+        </div>
+      </Modal>
+
+      {/* Modal de Video */}
+      <Modal
+        isOpen={Boolean(selectedVideoUrl)}
+        onClose={() => setSelectedVideoUrl(null)}
+        title={exerciseNameForVideo}
+        size="md"
+      >
+        <div className="flex flex-col gap-4">
+          {selectedVideoUrl && <VideoEmbed url={selectedVideoUrl} />}
+          <p className="text-xs text-gray-500 text-center">
+            Podes cerrar este video para volver al cronómetro.
+          </p>
         </div>
       </Modal>
     </>

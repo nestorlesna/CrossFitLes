@@ -17,7 +17,8 @@ export async function getAll(filters?: ExerciseFilters): Promise<Exercise[]> {
     SELECT e.*,
       dl.name as difficulty_name,
       dl.color as difficulty_color,
-      mg.name as primary_muscle_name
+      mg.name as primary_muscle_name,
+      (SELECT COUNT(*) FROM section_exercise se WHERE se.exercise_id = e.id) as usage_count
     FROM exercise e
     LEFT JOIN difficulty_level dl ON e.difficulty_level_id = dl.id
     LEFT JOIN muscle_group mg ON e.primary_muscle_group_id = mg.id

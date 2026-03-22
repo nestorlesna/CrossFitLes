@@ -21,6 +21,46 @@ import * as catalogRepo from '../../db/repositories/catalogRepo';
 import * as exerciseRepo from '../../db/repositories/exerciseRepo';
 import { SectionType, WorkFormat, MeasurementUnit } from '../../models/catalogs';
 import { Exercise } from '../../models/Exercise';
+import { getImageDisplayUrl } from '../../services/mediaService';
+import { Dumbbell } from 'lucide-react';
+
+// Componente para mostrar miniatura del ejercicio
+function ExerciseThumbnail({ 
+  imagePath, 
+  imageUrl, 
+  name,
+  size = 40
+}: { 
+  imagePath?: string | null; 
+  imageUrl?: string | null;
+  name: string;
+  size?: number;
+}) {
+  const [resolvedUrl, setResolvedUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (imageUrl) {
+      setResolvedUrl(imageUrl);
+    } else if (imagePath) {
+      getImageDisplayUrl(imagePath).then(setResolvedUrl);
+    } else {
+      setResolvedUrl(null);
+    }
+  }, [imagePath, imageUrl]);
+
+  return (
+    <div 
+      className="rounded-lg bg-gray-800 flex items-center justify-center shrink-0 overflow-hidden border border-gray-700"
+      style={{ width: size, height: size }}
+    >
+      {resolvedUrl ? (
+        <img src={resolvedUrl} alt={name} className="w-full h-full object-contain" />
+      ) : (
+        <Dumbbell size={size * 0.4} className="text-gray-600" />
+      )}
+    </div>
+  );
+}
 
 // Draft de un ejercicio dentro de una sección (estado local del formulario)
 interface SectionExerciseDraft {
@@ -176,8 +216,16 @@ export function ClassTemplateFormPage() {
     setExerciseSearch('');
     if (allExercises.length === 0) {
       const exercises = await exerciseRepo.getAll();
-      setAllExercises(exercises);
-      setFilteredExercises(exercises);
+      // Ordenar: primero los que tienen usage_count > 0, luego por nombre
+      // @ts-ignore (usage_count viene de la DB aunque no esté en el modelo base)
+      const sorted = [...exercises].sort((a: any, b: any) => {
+        const usageA = a.usage_count || 0;
+        const usageB = b.usage_count || 0;
+        if (usageB !== usageA) return usageB - usageA;
+        return a.name.localeCompare(b.name);
+      });
+      setAllExercises(sorted);
+      setFilteredExercises(sorted);
     } else {
       setFilteredExercises(allExercises);
     }
@@ -1107,7 +1155,7 @@ export function ClassTemplateFormPage() {
           </div>
 
           {/* Lista de ejercicios */}
-          <div className="space-y-1 max-h-64 overflow-y-auto">
+          <div className="space-y-1 max-h-[400px] overflow-y-auto pr-1">
             {filteredExercises.length === 0 ? (
               <div className="text-center py-8 text-gray-500 text-sm">
                 {exerciseSearch ? 'Sin resultados' : 'No hay ejercicios en la biblioteca'}
@@ -1117,9 +1165,21 @@ export function ClassTemplateFormPage() {
                 <button
                   key={exercise.id}
                   onClick={() => handleSelectExercise(exercise)}
-                  className="w-full text-left px-3 py-2.5 rounded-lg hover:bg-gray-800 active:bg-gray-700 transition-colors min-h-[44px] flex items-center"
+                  className="w-full text-left px-3 py-2.5 rounded-xl hover:bg-gray-800 active:bg-gray-700 transition-colors min-h-[56px] flex items-center gap-3 border border-transparent hover:border-gray-700"
                 >
-                  <span className="text-sm text-white">{exercise.name}</span>
+                  <ExerciseThumbnail 
+                    imagePath={exercise.image_path}
+                    imageUrl={exercise.image_url}
+                    name={exercise.name}
+                    size={40}
+                  />
+                  <div className="flex-1 min-w-0">
+                    <span className="text-sm text-white font-medium block truncate">{exercise.name}</span>
+                    {/* @ts-ignore */}
+                    {exercise.usage_count > 0 && (
+                      <span className="text-[10px] text-primary-500 font-bold uppercase tracking-tight">Frecuente</span>
+                    )}
+                  </div>
                 </button>
               ))
             )}

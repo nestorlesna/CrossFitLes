@@ -18,6 +18,57 @@ import {
   SectionType,
 } from '../../models/catalogs';
 import { MuscleMap } from '../../components/exercises/MuscleMap';
+import { Video } from 'lucide-react';
+
+// Helper para obtener el ID de YouTube
+function getYoutubeId(url: string): string | null {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : null;
+}
+
+// Helper para obtener el ID de Vimeo
+function getVimeoId(url: string): string | null {
+  const regExp = /vimeo\.com\/(?:video\/|channels\/(?:\w+\/)?|groups\/(?:\w+\/)?|album\/(?:\w+\/)?|showcase\/(?:\w+\/)?|)(\d+)(?:$|\/|\?)/;
+  const match = url.match(regExp);
+  return (match && match[1]) ? match[1] : null;
+}
+
+// Componente para embeber video (versión reducida para formulario)
+function VideoEmbed({ url }: { url: string }) {
+  const youtubeId = getYoutubeId(url);
+  const vimeoId = getVimeoId(url);
+
+  if (!youtubeId && !vimeoId) return null;
+
+  return (
+    <div className="mt-3 w-full max-w-[260px] aspect-video rounded-xl overflow-hidden border border-gray-800 bg-black shadow-lg">
+      <div className="absolute inset-0 flex items-center justify-center -z-10">
+        <Video size={24} className="text-gray-800 animate-pulse" />
+      </div>
+      {youtubeId && (
+        <iframe
+          src={`https://www.youtube.com/embed/${youtubeId}`}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="w-full h-full"
+        />
+      )}
+      {vimeoId && (
+        <iframe
+          src={`https://player.vimeo.com/video/${vimeoId}`}
+          title="Vimeo video player"
+          frameBorder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+          className="w-full h-full"
+        />
+      )}
+    </div>
+  );
+}
 
 export function ExerciseFormPage() {
   const navigate = useNavigate();
@@ -109,7 +160,10 @@ export function ExerciseFormPage() {
       setPrimaryMuscleId(data.primary_muscle_group_id ?? '');
       setIsCompound(data.is_compound);
 
-      if (data.image_path) {
+      // Cargar imagen: priorizar SVG (image_url) para la vista previa
+      if (data.image_url) {
+        setImagePreview(data.image_url);
+      } else if (data.image_path) {
         setImagePath(data.image_path);
         const url = await getImageDisplayUrl(data.image_path);
         setImagePreview(url);
@@ -397,6 +451,7 @@ export function ExerciseFormPage() {
             placeholder="Ej: https://www.youtube.com/watch?v=..."
             className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 min-h-[44px]"
           />
+          {videoLink && <VideoEmbed url={videoLink} />}
         </div>
 
         {/* ── 2c. Video explicativo ── */}
@@ -409,6 +464,7 @@ export function ExerciseFormPage() {
             placeholder="Ej: https://www.youtube.com/watch?v=..."
             className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 min-h-[44px]"
           />
+          {videoLongLink && <VideoEmbed url={videoLongLink} />}
         </div>
 
         {/* ── 3. Dificultad ── */}
@@ -641,35 +697,28 @@ export function ExerciseFormPage() {
           </button>
         </div>
 
-        {/* ── 12. Imagen ── */}
-        <div>
-          <label className="block text-sm text-gray-400 mb-2">Imagen</label>
-          {imagePreview ? (
-            <div className="relative">
-              <img
-                src={imagePreview}
-                alt="Preview"
-                className="w-full h-48 object-cover rounded-xl border border-gray-700"
-              />
-              <button
-                type="button"
-                onClick={handlePickImage}
-                className="absolute bottom-2 right-2 bg-gray-900/80 text-white px-3 py-1.5 rounded-lg text-sm flex items-center gap-1.5 min-h-[36px]"
-              >
-                <Camera size={14} />
-                Cambiar
-              </button>
-            </div>
-          ) : (
+        {/* ── 12. Imagen (Minimalista) ── */}
+        <div className="flex items-center gap-4 bg-gray-900 border border-gray-800 rounded-2xl p-4">
+          <div className="w-24 h-24 rounded-xl bg-gray-950 border border-gray-700 flex items-center justify-center shrink-0 overflow-hidden shadow-inner">
+            {imagePreview ? (
+              <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+            ) : (
+              <Camera size={32} className="text-gray-800" />
+            )}
+          </div>
+          <div className="flex-1 flex flex-col gap-2">
+            <h4 className="text-white text-sm font-bold">Imagen del ejercicio</h4>
+            <p className="text-xs text-gray-500 leading-tight">
+              {imagePreview ? 'Mostrando mapa muscular o foto personalizada.' : 'Elegí una foto o dejá que el sistema genere el mapa muscular.'}
+            </p>
             <button
               type="button"
               onClick={handlePickImage}
-              className="w-full h-32 border border-dashed border-gray-700 rounded-xl flex flex-col items-center justify-center gap-2 text-gray-500 hover:text-gray-400 hover:border-gray-600 transition-colors"
+              className="mt-1 self-start bg-primary-500/10 text-primary-500 border border-primary-500/20 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-primary-500 hover:text-white transition-all min-h-[36px]"
             >
-              <Camera size={24} />
-              <span className="text-sm">Seleccionar imagen</span>
+              {imagePreview ? 'Cambiar imagen' : 'Seleccionar foto'}
             </button>
-          )}
+          </div>
         </div>
 
         {/* Botón guardar al final del formulario */}
