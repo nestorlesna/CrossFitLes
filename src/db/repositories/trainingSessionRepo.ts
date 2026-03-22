@@ -42,6 +42,23 @@ export async function getAll(filters?: { status?: SessionStatus; fromDate?: stri
 }
 
 /**
+ * Obtiene la sesión activa (si existe)
+ */
+export async function getActiveSession(): Promise<TrainingSession | null> {
+  const db = getDatabase();
+  const query = `
+    SELECT ts.*, ct.name as template_name
+    FROM training_session ts
+    LEFT JOIN class_template ct ON ts.class_template_id = ct.id
+    WHERE ts.status IN ('planned', 'in_progress')
+    ORDER BY ts.updated_at DESC
+    LIMIT 1
+  `;
+  const result = await db.query(query);
+  return (result.values?.[0] as TrainingSession) || null;
+}
+
+/**
  * Obtiene una sesión completa con sus resultados
  */
 export async function getById(id: string): Promise<SessionWithRelations | null> {
