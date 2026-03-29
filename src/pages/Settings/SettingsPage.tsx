@@ -10,6 +10,10 @@ import {
   Timer,
   ChevronRight,
   ImagePlay,
+  Info,
+  User,
+  Scale,
+  Camera,
 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { BackupSection } from '../../components/export/BackupSection';
@@ -62,6 +66,55 @@ export function SettingsPage() {
       <Header title="Configuración" />
 
       <div className="p-4 space-y-6">
+
+        {/* ── Mi perfil ── */}
+        <section>
+          <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-1">
+            Mi perfil
+          </h2>
+          <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden divide-y divide-gray-800">
+            <button
+              onClick={() => navigate('/configuracion/perfil')}
+              className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
+            >
+              <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shrink-0">
+                <User size={16} className="text-primary-400" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <span className="text-sm text-white block">Mis datos</span>
+                <span className="text-xs text-gray-600">Sexo, edad, altura, nivel de experiencia</span>
+              </div>
+              <ChevronRight size={16} className="text-gray-600" />
+            </button>
+            <button
+              onClick={() => navigate('/configuracion/medidas-corporales')}
+              className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
+            >
+              <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shrink-0">
+                <Scale size={16} className="text-primary-400" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <span className="text-sm text-white block">Medidas corporales</span>
+                <span className="text-xs text-gray-600">Peso, composición, circunferencias</span>
+              </div>
+              <ChevronRight size={16} className="text-gray-600" />
+            </button>
+            <button
+              onClick={() => navigate('/configuracion/fotos-progreso')}
+              className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
+            >
+              <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shrink-0">
+                <Camera size={16} className="text-primary-400" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <span className="text-sm text-white block">Fotos de progreso</span>
+                <span className="text-xs text-gray-600">Frente, perfil y espalda</span>
+              </div>
+              <ChevronRight size={16} className="text-gray-600" />
+            </button>
+          </div>
+        </section>
+
         {/* Sección de catálogos */}
         <section>
           <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-1">
@@ -121,6 +174,22 @@ export function SettingsPage() {
 
         {/* Sección de reset */}
         <ResetSection />
+
+        {/* Acerca de */}
+        <section>
+          <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+            <button
+              onClick={() => navigate('/configuracion/acerca-de')}
+              className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
+            >
+              <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shrink-0">
+                <Info size={16} className="text-primary-400" />
+              </div>
+              <span className="flex-1 text-sm text-white">Acerca de CrossFit Les</span>
+              <ChevronRight size={16} className="text-gray-600" />
+            </button>
+          </div>
+        </section>
       </div>
     </>
   );

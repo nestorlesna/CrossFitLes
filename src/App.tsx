@@ -13,6 +13,12 @@ import { SessionsPage } from './pages/Sessions/SessionsPage';
 import { NewSessionPage } from './pages/Sessions/NewSessionPage';
 import { SessionExecutorPage } from './pages/Sessions/SessionExecutorPage';
 import { SessionDetailPage } from './pages/Sessions/SessionDetailPage';
+import { ManualSessionPage } from './pages/Sessions/ManualSessionPage';
+import { FreeSessionPage } from './pages/Sessions/FreeSessionPage';
+import { AboutPage } from './pages/Settings/AboutPage';
+import { ProfilePage } from './pages/Settings/ProfilePage';
+import { BodyMeasurementsPage } from './pages/Settings/BodyMeasurementsPage';
+import { ProgressPhotosPage } from './pages/Settings/ProgressPhotosPage';
 import { StatsPage } from './pages/Stats/StatsPage';
 import { SettingsPage } from './pages/Settings/SettingsPage';
 import { MuscleGroupsPage } from './pages/Settings/catalogs/MuscleGroupsPage';
@@ -44,6 +50,8 @@ export default function App() {
             <Route path="clases/:id/editar" element={<ClassTemplateFormPage />} />
             <Route path="sesiones" element={<SessionsPage />} />
             <Route path="sesiones/nueva" element={<NewSessionPage />} />
+            <Route path="sesiones/registrar" element={<ManualSessionPage />} />
+            <Route path="sesiones/libre" element={<FreeSessionPage />} />
             <Route path="sesiones/:id/ejecutar" element={<SessionExecutorPage />} />
             <Route path="sesiones/:id" element={<SessionDetailPage />} />
             <Route path="estadisticas" element={<StatsPage />} />
@@ -58,6 +66,10 @@ export default function App() {
             <Route path="configuracion/formatos-trabajo" element={<WorkFormatsPage />} />
             <Route path="configuracion/imagenes-ejercicios" element={<ExerciseImagesPage />} />
             <Route path="configuracion/musculos-ejercicios" element={<ExerciseMusclesPage />} />
+            <Route path="configuracion/acerca-de" element={<AboutPage />} />
+            <Route path="configuracion/perfil" element={<ProfilePage />} />
+            <Route path="configuracion/medidas-corporales" element={<BodyMeasurementsPage />} />
+            <Route path="configuracion/fotos-progreso" element={<ProgressPhotosPage />} />
           </Route>
         </Routes>
       </DbProvider>

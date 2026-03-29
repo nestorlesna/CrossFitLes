@@ -45,6 +45,7 @@ export interface TrainingSession {
   final_notes?: string;
   body_weight?: number;
   body_weight_unit_id?: string;
+  estimated_calories?: number;
   created_at: string;
   updated_at: string;
   // Campos enriquecidos

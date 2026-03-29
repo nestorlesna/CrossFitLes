@@ -34,3 +34,10 @@ export interface SectionDistribution {
   value: number;
   color?: string;
 }
+
+export interface CaloriesDataPoint {
+  date: string;        // YYYY-MM-DD (fecha de la sesión)
+  calories: number;    // kcal estimadas
+  duration: number;    // minutos (para tooltip)
+  feeling?: string;    // emoji para tooltip
+}

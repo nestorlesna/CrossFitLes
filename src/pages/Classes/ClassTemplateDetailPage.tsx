@@ -13,12 +13,14 @@ import {
   Play,
   AlertTriangle,
   Dumbbell,
+  Info,
 } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
 import { Modal } from '../../components/ui/Modal';
+import { ExerciseInfoModal } from '../../components/ui/ExerciseInfoModal';
 import { ClassTemplateWithSections, SectionExercise } from '../../models/ClassTemplate';
 import * as classTemplateRepo from '../../db/repositories/classTemplateRepo';
 import { getImageDisplayUrl } from '../../services/mediaService';
@@ -160,6 +162,8 @@ export function ClassTemplateDetailPage() {
   const [deleting, setDeleting] = useState(false);
   const [selectedVideoUrl, setSelectedVideoUrl] = useState<string | null>(null);
   const [exerciseNameForVideo, setExerciseNameForVideo] = useState('');
+  const [infoExerciseId, setInfoExerciseId] = useState<string | null>(null);
+  const [infoExerciseName, setInfoExerciseName] = useState('');
   const [duplicating, setDuplicating] = useState(false);
 
   // Carga la plantilla y sus secciones desde la base de datos
@@ -395,9 +399,25 @@ export function ClassTemplateDetailPage() {
                             />
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2">
-                                <p className="text-sm font-medium text-white truncate">
+                                <button
+                                  onClick={() => {
+                                    setInfoExerciseId(exercise.exercise_id);
+                                    setInfoExerciseName(exercise.exercise_name ?? '');
+                                  }}
+                                  className="text-sm font-medium text-white truncate text-left hover:text-primary-400 transition-colors"
+                                >
                                   {exercise.exercise_name}
-                                </p>
+                                </button>
+                                <button
+                                  onClick={() => {
+                                    setInfoExerciseId(exercise.exercise_id);
+                                    setInfoExerciseName(exercise.exercise_name ?? '');
+                                  }}
+                                  className="p-1 rounded-full text-gray-600 hover:text-gray-300 transition-colors shrink-0"
+                                  aria-label="Ver información del ejercicio"
+                                >
+                                  <Info size={13} />
+                                </button>
                                 {exercise.exercise_video_url && (
                                   <button
                                     onClick={() => {
@@ -406,7 +426,7 @@ export function ClassTemplateDetailPage() {
                                         setExerciseNameForVideo(exercise.exercise_name ?? '');
                                       }
                                     }}
-                                    className="p-1 rounded-full bg-primary-500/20 text-primary-500 hover:bg-primary-500 hover:text-white transition-colors"
+                                    className="p-1 rounded-full bg-primary-500/20 text-primary-500 hover:bg-primary-500 hover:text-white transition-colors shrink-0"
                                     aria-label="Ver video"
                                   >
                                     <Play size={10} fill="currentColor" />
@@ -548,6 +568,13 @@ export function ClassTemplateDetailPage() {
           </p>
         </div>
       </Modal>
+
+      {/* Modal de Información del Ejercicio */}
+      <ExerciseInfoModal
+        exerciseId={infoExerciseId}
+        exerciseName={infoExerciseName}
+        onClose={() => setInfoExerciseId(null)}
+      />
     </>
   );
 }

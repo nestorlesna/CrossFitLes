@@ -1,0 +1,301 @@
+Clase Fecha 28/03/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Activación, 3 vueltas de:
+
+- [Toe Touch Sit-Up](Toe_Touch_Sit-Up#_) - 30 segundos, descanso 30
+- [Hollow to Superman Roll](Hollow_to_Superman#_) - 30 segundos, descanso 30
+- [Plank to Opposite Toe Touch](Plank_to_Opposite#_) - 40 segundos, descanso 20
+
+Fuerza
+
+- 3 rondas de :
+  - A
+    - 10 [Dumbbell Front Raise](Dumbbell_Front_Raise#_) - 12.5 kg
+    - 12 [Bent-Over Dumbbell Lateral Raise](Bent-Over_Dumbbell_Lateral#_) - 12.5 kg
+  - B
+    - 10 [Stability Ball Plate Crunch](Stability_Ball_Plate#_) - 5kg
+    - 10 [Dumbbell Bench Press](Dumbbell_Bench_Press#_) - 12.5kg
+
+WOD
+
+- 4 rondas de:
+  - A
+    - Runnin 200 metros
+    - 20 metros [Farmer's Carry](Farmer's_Carry#_) - 20kg
+  - B
+    - 12 Kettlebell Sumo Deadlift High Pull - 15kg
+    - 10 [Dumbbell Bench Press](Dumbbell_Bench_Press#_) 10 kg
+
+# "V-Ups" (también llamados "Jackknife sit-ups")
+
+Cómo se describe:
+
+- Te acostás boca arriba
+- Piernas estiradas
+- Elevás simultáneamente el torso y las piernas
+- Intentás tocar los pies con las manos formando una "V" con el cuerpo
+
+**Variantes / nombres similares que podés usar en tu app:**
+
+- V-Ups
+- Jackknife Sit-Ups
+- Toe Touch Crunch (aunque este a veces es con piernas más verticales)
+- Straight Leg Sit-Up (menos preciso, pero se usa)
+
+# "Toe Touch Sit-Up" (o también "Sit-Up with Toe Touch")
+
+**Descripción correcta:**
+
+- Acostado boca arriba
+- Piernas estiradas y apoyadas en el piso
+- Elevás el torso (como un sit-up)
+- Al subir, estirás los brazos para **tocar la punta de los pies**
+
+**Otros nombres que podrías usar en tu app:**
+
+- Toe Touch Sit-Up ✅ (el más claro)
+- Straight Leg Sit-Up
+- Sit-Up Reach to Toes
+- Sit-Up with Forward Reach
+
+💡 Importante:  
+No es un "crunch" porque hay un recorrido completo del torso, y tampoco es un V-Up porque las piernas no se levantan.
+
+Si querés mantener consistencia tipo CrossFit / fitness apps, yo lo guardaría como:  
+👉 **Toe Touch Sit-Up**
+
+# "Hollow to Superman Roll"
+
+**Descripción:**
+
+- Empezás en posición **Hollow Hold** (boca arriba, brazos y piernas levemente elevadas)
+- Girás el cuerpo hacia un lado sin apoyar completamente
+- Terminás en posición **Superman Hold** (boca abajo, brazos y piernas elevados)
+- Volvés a girar hacia el otro lado
+- Repetís alternando lados
+
+**Otros nombres que podés encontrar / usar:**
+
+- Hollow Body Roll
+- Hollow to Arch Roll
+- Gymnastics Roll (menos específico)
+
+💡 En CrossFit y gimnasia se suele usar:  
+👉 **Hollow to Superman Roll** o **Hollow to Arch Roll**
+
+Si querés ser consistente con terminología más "técnica" (tipo gimnasia):
+
+- **Hollow = posición cóncava**
+- **Superman/Arch = posición convexa**
+
+📌 Para tu app te recomiendo:  
+👉 **Hollow to Superman Roll** (claro y fácil de entender)
+
+# "Plank to Opposite Toe Touch"
+
+**Descripción:**
+
+- Empezás en **plancha alta** (high plank)
+- Elevás la cadera (tipo pike)
+- Llevás una mano al **pie contrario**
+- Volvés a plancha
+- Alternás lados
+
+**Otros nombres que también se usan:**
+
+- Alternating Plank Toe Touch
+- Plank Pike Toe Touch
+- Opposite Hand to Foot Plank
+- Crossbody Plank Toe Touch
+
+💡 Conceptualmente es una mezcla de:
+
+- **Plank (estabilidad core)**
+- **Pike (flexión de cadera)**
+- **Cross-body movement (coordinación)**
+
+📌 Para tu app te recomiendo:  
+👉 **Plank to Opposite Toe Touch** (claro, descriptivo y estándar)
+
+# "Dumbbell Front Raise"
+
+**Descripción:**
+
+- De pie
+- Una mancuerna en cada mano, brazos al costado
+- Elevás los brazos **rectos al frente** hasta ~90° (altura de hombros)
+- Bajás controlado
+
+**Variantes / nombres que podés usar:**
+
+- Alternating Dumbbell Front Raise (si alternás brazos)
+- Double Dumbbell Front Raise (si suben ambos juntos)
+- Front Raise
+
+💡 Músculos principales:
+
+- Hombro anterior (deltoide anterior)
+- Secundarios: core (estabilización) y parte superior del pecho
+
+📌 Para tu app:  
+👉 **Dumbbell Front Raise** (estándar y claro)
+
+Si querés ser más específico:
+
+- **Double Dumbbell Front Raise** → ambos brazos juntos
+- **Alternating Dumbbell Front Raise** → uno y otro
+
+# "Bent-Over Dumbbell Lateral Raise"
+
+**Descripción:**
+
+- De pie con mancuernas al costado
+- Tronco **ligeramente inclinado hacia adelante**
+- Brazos casi rectos
+- Elevás los brazos **hacia los lados** lo más alto posible
+- Bajás controlado
+
+**Otros nombres que podés ver:**
+
+- Bent-Over Lateral Raise
+- Rear Delt Raise
+- Reverse Fly (aunque este a veces implica más apertura que elevación lateral pura)
+
+💡 Músculos principales:
+
+- Deltoide posterior (parte de atrás del hombro)
+- Parte alta de la espalda (romboides, trapecio medio)
+
+📌 Para tu app te recomiendo:  
+👉 **Bent-Over Dumbbell Lateral Raise** (bien específico)
+
+Si lo hicieras completamente erguido:  
+👉 sería simplemente **Dumbbell Lateral Raise** (trabaja más el deltoide medio)
+
+# "Stability Ball Plate Crunch"
+
+**Descripción:**
+
+- Te acostás **sobre una pelota suiza (stability ball)**, quedando paralelo al suelo
+- Pies apoyados para estabilidad
+- Sostenés un **disco (plate)** con las manos
+- Bajás el disco hacia atrás (extendiendo el torso)
+- Luego hacés el crunch y llevás el disco hacia adelante / arriba
+
+**Otros nombres que podés usar:**
+
+- Stability Ball Weighted Crunch
+- Swiss Ball Plate Crunch
+- Exercise Ball Crunch with Plate
+- Stability Ball Sit-Up (menos preciso si no hay recorrido completo)
+
+💡 Músculos principales:
+
+- Recto abdominal
+- Core en general (por la inestabilidad de la pelota)
+
+📌 Para tu app te recomiendo:  
+👉 **Stability Ball Plate Crunch** (claro y bastante estándar)
+
+⚠️ Nota:  
+No es "Wall Ball" - eso en CrossFit es lanzar la pelota a la pared.  
+Acá la pelota es una **stability ball / swiss ball**.
+
+Video: <https://www.youtube.com/watch?v=uKEYmOZMkRM>
+
+# "Dumbbell Bench Press"
+
+**Descripción:**
+
+- Acostado (idealmente en banco, pero puede ser en el piso)
+- Una mancuerna en cada mano, a la altura de los hombros
+- Empujás hacia arriba hasta extender los brazos (perpendicular al cuerpo)
+- Bajás controlado
+
+**Variantes según cómo lo hagas:**
+
+- **Flat Dumbbell Bench Press** → en banco plano
+- **Incline Dumbbell Press** → banco inclinado
+- **Decline Dumbbell Press** → banco declinado
+- **Dumbbell Floor Press** → si lo hacés en el piso
+
+💡 Músculos principales:
+
+- Pecho (pectoral mayor)
+- Secundarios: tríceps y hombros (deltoide anterior)
+
+📌 Para tu app:  
+👉 **Dumbbell Bench Press** (nombre estándar)
+
+Si sabés que lo hacés en el piso:  
+👉 **Dumbbell Floor Press** (más preciso)
+
+Video: <https://www.youtube.com/watch?v=QsYre__-aro>
+
+# "Farmer's Carry"
+
+**Descripción:**
+
+- De pie, sosteniendo **dos kettlebells (o mancuernas)** pesadas a los costados
+- Caminás una distancia (ej: 20 metros)
+- Manteniendo postura firme (espalda recta, core activo)
+
+**Otros nombres que podés usar:**
+
+- Farmer's Walk
+- Dumbbell Farmer's Carry (si querés especificar implemento)
+- Kettlebell Farmer's Carry
+
+💡 Músculos principales:
+
+- Antebrazos (agarre 🔥)
+- Trapecios
+- Core
+- Piernas (estabilización y marcha)
+
+📌 Para tu app te recomiendo:  
+👉 **Farmer's Carry** (nombre estándar en CrossFit)
+
+Si querés ser más específico:  
+👉 **Kettlebell Farmer's Carry**
+
+Si en algún momento hacés variantes, podés diferenciarlas fácil:
+
+- Single-arm → **Suitcase Carry**
+- Overhead → **Overhead Carry**
+- Front rack → **Front Rack Carry**
+
+"Kettlebell Sumo Deadlift High Pull"  
+(o abreviado: **KB SDHP**)
+
+**Descripción:**
+
+- De pie, **pies más abiertos que hombros** (posición sumo)
+- Sostenés la kettlebell con **ambas manos**
+- Bajás a tocar el suelo (tipo deadlift)
+- Luego tirás hacia arriba llevando la kettlebell **hasta el pecho** (high pull)
+- Codos van hacia afuera y arriba
+
+**Otros nombres que podrías ver:**
+
+- KB Sumo Deadlift + High Pull
+- Sumo High Pull (menos específico)
+
+💡 Músculos principales:
+
+- Piernas (glúteos, cuádriceps)
+- Espalda
+- Hombros
+- Core
+
+📌 Para tu app te recomiendo:  
+👉 **Kettlebell Sumo Deadlift High Pull**
+
+Es el nombre más usado en CrossFit, incluso en WODs oficiales.
+
+⚠️ Nota:  
+Si solo levantaras hasta la cadera → sería **Sumo Deadlift**  
+El "high pull" es lo que lo diferencia (la subida hasta el pecho).

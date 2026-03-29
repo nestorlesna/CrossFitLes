@@ -2,14 +2,16 @@
 // Permite exportar e importar datos (BD + Media) como archivo ZIP
 
 import { useState, useRef } from 'react';
-import { Download, Upload, Loader2, AlertTriangle, FileArchive } from 'lucide-react';
+import { Download, Upload, Loader2, AlertTriangle, FileArchive, Dumbbell } from 'lucide-react';
 import { toast } from 'sonner';
 import { Modal } from '../ui/Modal';
 import { exportData, importDataFromZip } from '../../services/backupService';
+import { importNestorSession } from '../../services/nestorImportService';
 
 export function BackupSection() {
   const [exporting, setExporting] = useState(false);
   const [importing, setImporting] = useState(false);
+  const [importingNestor, setImportingNestor] = useState(false);
   const [confirmImport, setConfirmImport] = useState(false);
   const [pendingBlob, setPendingBlob] = useState<Blob | null>(null);
   const [pendingFileName, setPendingFileName] = useState('');
@@ -84,6 +86,29 @@ export function BackupSection() {
     setPendingFileName('');
   };
 
+  // Importar clase de Nestor 28/03/2026
+  const handleImportNestor = async () => {
+    setImportingNestor(true);
+    try {
+      const result = await importNestorSession();
+      if (result.created) {
+        toast.success(
+          `Importación exitosa: ${result.exercises} ejercicio${result.exercises !== 1 ? 's' : ''} nuevo${result.exercises !== 1 ? 's' : ''} y clase "Nestor - 28/03/2026" creada`
+        );
+      } else {
+        toast.success(
+          `${result.exercises > 0 ? `${result.exercises} ejercicio${result.exercises !== 1 ? 's' : ''} nuevo${result.exercises !== 1 ? 's' : ''} creado${result.exercises !== 1 ? 's' : ''}. ` : ''}La clase "Nestor - 28/03/2026" ya existía`
+        );
+      }
+    } catch (error) {
+      toast.error(
+        `Error al importar: ${error instanceof Error ? error.message : 'Error desconocido'}`
+      );
+    } finally {
+      setImportingNestor(false);
+    }
+  };
+
   return (
     <>
       <section>
@@ -110,10 +135,29 @@ export function BackupSection() {
             </div>
           </button>
 
+          {/* Botón Importar Nestor */}
+          <button
+            onClick={handleImportNestor}
+            disabled={exporting || importing || importingNestor}
+            className="w-full flex items-center gap-3 px-4 py-4 hover:bg-gray-800/60 transition-colors text-left disabled:opacity-50 disabled:cursor-not-allowed group"
+          >
+            <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center shrink-0 border border-emerald-500/20 group-hover:border-emerald-500/50 transition-colors">
+              {importingNestor ? (
+                <Loader2 size={18} className="text-emerald-500 animate-spin" />
+              ) : (
+                <Dumbbell size={18} className="text-emerald-400" />
+              )}
+            </div>
+            <div className="flex-1">
+              <span className="text-sm text-white font-bold block">Importar Clase Nestor 28/03/2026</span>
+              <span className="text-[11px] text-gray-500">Crea 10 ejercicios y la plantilla de clase del entrenamiento</span>
+            </div>
+          </button>
+
           {/* Botón Importar */}
           <button
             onClick={handleFileSelect}
-            disabled={exporting || importing}
+            disabled={exporting || importing || importingNestor}
             className="w-full flex items-center gap-3 px-4 py-4 hover:bg-gray-800/60 transition-colors text-left disabled:opacity-50 disabled:cursor-not-allowed group"
           >
             <div className="w-10 h-10 bg-blue-500/10 rounded-xl flex items-center justify-center shrink-0 border border-blue-500/20 group-hover:border-blue-500/50 transition-colors">
@@ -134,7 +178,7 @@ export function BackupSection() {
         <input
           ref={fileInputRef}
           type="file"
-          accept=".zip"
+          accept=".zip,application/zip,application/x-zip,application/x-zip-compressed,application/octet-stream"
           onChange={handleFileChange}
           className="hidden"
         />

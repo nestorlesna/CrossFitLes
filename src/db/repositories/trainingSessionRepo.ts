@@ -3,6 +3,7 @@ import { getDatabase, saveDatabase } from '../database';
 import { generateUUID } from '../../utils/formatters';
 import { TrainingSession, SessionExerciseResult, SessionWithRelations } from '../../models/TrainingSession';
 import { SessionStatus, RecordType } from '../../types';
+import { calculateSessionCalories, resolveWeightKg } from '../../services/calorieService';
 
 // Retorna la marca de tiempo actual en formato SQLite
 function now(): string {
@@ -135,7 +136,7 @@ export async function createFromTemplate(templateId: string, date?: string): Pro
           ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         values: [
           generateUUID(), sessionId, te.id, te.exercise_id, te.section_type_id, i + 1,
-          'rx', 0, 0, timestamp, timestamp
+          'rx', 1, 0, timestamp, timestamp
         ]
       });
     }
@@ -194,7 +195,7 @@ export async function saveResults(sessionId: string, results: Partial<SessionExe
     values: [timestamp, sessionId]
   });
 
-  await db.executeSet(stmts, true);
+  await db.executeSet(stmts, false);
   await saveDatabase();
 
   // ── Detección de PRs tras persistir ──
@@ -209,11 +210,11 @@ export async function saveResults(sessionId: string, results: Partial<SessionExe
  * Finaliza una sesión con resumen
  */
 export async function finalize(
-  id: string, 
-  summary: { 
-    durationMinutes: number; 
-    feeling: string; 
-    effort: number; 
+  id: string,
+  summary: {
+    durationMinutes: number;
+    feeling: string;
+    effort: number;
     notes?: string;
     bodyWeight?: number;
     bodyWeightUnitId?: string;
@@ -222,24 +223,32 @@ export async function finalize(
   const db = getDatabase();
   const timestamp = now();
 
+  // Calcular calorías estimadas
+  const weightKg = await resolveWeightKg(summary.bodyWeight);
+  const estimatedCalories = await calculateSessionCalories(
+    id, weightKg, summary.durationMinutes, summary.effort
+  );
+
   await db.run(
-    `UPDATE training_session 
-     SET status = 'completed', 
-         actual_duration_minutes = ?, 
-         general_feeling = ?, 
-         perceived_effort = ?, 
-         final_notes = ?, 
+    `UPDATE training_session
+     SET status = 'completed',
+         actual_duration_minutes = ?,
+         general_feeling = ?,
+         perceived_effort = ?,
+         final_notes = ?,
          body_weight = ?,
          body_weight_unit_id = ?,
+         estimated_calories = ?,
          updated_at = ?
      WHERE id = ?`,
     [
-      summary.durationMinutes, 
-      summary.feeling, 
-      summary.effort, 
-      summary.notes || null, 
+      summary.durationMinutes,
+      summary.feeling,
+      summary.effort,
+      summary.notes || null,
       summary.bodyWeight || null,
       summary.bodyWeightUnitId || null,
+      estimatedCalories,
       timestamp, id
     ]
   );
@@ -262,7 +271,7 @@ export async function updateSessionDuration(id: string, durationMinutes: number)
 /**
  * Lógica interna para detectar y guardar un PR
  */
-async function checkAndSavePR(result: SessionExerciseResult): Promise<void> {
+async function checkAndSavePR(result: SessionExerciseResult, achievedDate?: string): Promise<void> {
   const db = getDatabase();
   
   // 1. Identificar tipos de récords potenciales según los datos ingresados
@@ -306,22 +315,22 @@ async function checkAndSavePR(result: SessionExerciseResult): Promise<void> {
 
     if (isNewPR) {
       const timestamp = now();
-      const achievedDate = new Date().toISOString().split('T')[0];
+      const resolvedAchievedDate = achievedDate ?? new Date().toISOString().split('T')[0];
       
       if (!currentPR) {
         // Nuevo registro de PR
         await db.run(
           `INSERT INTO personal_record (id, exercise_id, record_type, record_value, record_unit_id, session_exercise_result_id, achieved_date, created_at, updated_at)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-          [generateUUID(), result.exercise_id, p.type, p.value, p.unit || null, result.id, achievedDate, timestamp, timestamp]
+          [generateUUID(), result.exercise_id, p.type, p.value, p.unit || null, result.id, resolvedAchievedDate, timestamp, timestamp]
         );
       } else {
         // Actualizar PR existente
         await db.run(
-          `UPDATE personal_record 
+          `UPDATE personal_record
            SET record_value = ?, record_unit_id = ?, session_exercise_result_id = ?, achieved_date = ?, updated_at = ?
            WHERE id = ?`,
-          [p.value, p.unit || null, result.id, achievedDate, timestamp, currentPR.id]
+          [p.value, p.unit || null, result.id, resolvedAchievedDate, timestamp, currentPR.id]
         );
       }
 
@@ -333,6 +342,181 @@ async function checkAndSavePR(result: SessionExerciseResult): Promise<void> {
       await saveDatabase();
     }
   }
+}
+
+/**
+ * Crea y finaliza una sesión pasada directamente como completada.
+ * No requiere ejecutor ni temporizador — el usuario ingresa todo manualmente.
+ */
+export async function createAndFinalizeManual(
+  sessionDate: string,
+  templateId: string | null,
+  summary: {
+    durationMinutes?: number;
+    feeling?: string;
+    effort?: number;
+    notes?: string;
+  },
+  results: Array<{
+    exercise_id: string;
+    section_exercise_id?: string;
+    section_type_id?: string;
+    sort_order: number;
+    rx_or_scaled: 'rx' | 'scaled' | 'rx+';
+    result_text?: string;
+    actual_repetitions?: number;
+    actual_weight_value?: number;
+    actual_weight_unit_id?: string;
+    actual_time_seconds?: number;
+    actual_distance_value?: number;
+    actual_distance_unit_id?: string;
+    actual_calories?: number;
+    actual_rounds?: number;
+    notes?: string;
+    is_completed: number;
+  }>
+): Promise<string> {
+  const db = getDatabase();
+  const sessionId = generateUUID();
+  const timestamp = now();
+
+  const stmts: { statement: string; values: unknown[] }[] = [];
+
+  // Insertar la sesión ya como completada
+  stmts.push({
+    statement: `INSERT INTO training_session (
+      id, class_template_id, session_date, status,
+      actual_duration_minutes, general_feeling, perceived_effort, final_notes,
+      created_at, updated_at
+    ) VALUES (?, ?, ?, 'completed', ?, ?, ?, ?, ?, ?)`,
+    values: [
+      sessionId,
+      templateId,
+      sessionDate,
+      summary.durationMinutes ?? null,
+      summary.feeling ?? null,
+      summary.effort ?? null,
+      summary.notes ?? null,
+      timestamp,
+      timestamp
+    ]
+  });
+
+  // Insertar cada resultado
+  const resultIds: string[] = [];
+  for (const r of results) {
+    const resultId = generateUUID();
+    resultIds.push(resultId);
+    stmts.push({
+      statement: `INSERT INTO session_exercise_result (
+        id, training_session_id, section_exercise_id, exercise_id, section_type_id, sort_order,
+        rx_or_scaled, result_text,
+        actual_repetitions, actual_weight_value, actual_weight_unit_id,
+        actual_time_seconds, actual_distance_value, actual_distance_unit_id,
+        actual_calories, actual_rounds,
+        notes, is_completed, is_personal_record, created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)`,
+      values: [
+        resultId, sessionId,
+        r.section_exercise_id ?? null,
+        r.exercise_id,
+        r.section_type_id ?? null,
+        r.sort_order,
+        r.rx_or_scaled,
+        r.result_text ?? null,
+        r.actual_repetitions ?? null,
+        r.actual_weight_value ?? null,
+        r.actual_weight_unit_id ?? null,
+        r.actual_time_seconds ?? null,
+        r.actual_distance_value ?? null,
+        r.actual_distance_unit_id ?? null,
+        r.actual_calories ?? null,
+        r.actual_rounds ?? null,
+        r.notes ?? null,
+        r.is_completed,
+        timestamp, timestamp
+      ]
+    });
+  }
+
+  await db.executeSet(stmts, true);
+  await saveDatabase();
+
+  // Calcular calorías estimadas y actualizar la sesión
+  if (summary.durationMinutes && summary.durationMinutes > 0) {
+    const weightKg = await resolveWeightKg(null);
+    const estimatedCalories = await calculateSessionCalories(
+      sessionId, weightKg, summary.durationMinutes, summary.effort ?? 5
+    );
+    await db.run(
+      `UPDATE training_session SET estimated_calories = ?, updated_at = ? WHERE id = ?`,
+      [estimatedCalories, now(), sessionId]
+    );
+    await saveDatabase();
+  }
+
+  // Detección de PRs para los resultados completados
+  const savedResults = await db.query(
+    `SELECT * FROM session_exercise_result WHERE training_session_id = ?`,
+    [sessionId]
+  );
+  for (const row of (savedResults.values ?? [])) {
+    const r = row as SessionExerciseResult;
+    if (r.is_completed) {
+      await checkAndSavePR(r, sessionDate);
+    }
+  }
+
+  return sessionId;
+}
+
+/**
+ * Crea una sesión libre (sin plantilla) con estado in_progress
+ */
+export async function createFreeSession(date: string): Promise<string> {
+  const db = getDatabase();
+  const sessionId = generateUUID();
+  const timestamp = now();
+  await db.executeSet([{
+    statement: `INSERT INTO training_session (id, class_template_id, session_date, status, created_at, updated_at)
+                VALUES (?, NULL, ?, 'in_progress', ?, ?)`,
+    values: [sessionId, date, timestamp, timestamp]
+  }], false);
+  await saveDatabase();
+  return sessionId;
+}
+
+/**
+ * Agrega un ejercicio a una sesión libre creando un result row vacío
+ */
+export async function addExerciseToSession(
+  sessionId: string,
+  exerciseId: string,
+  sortOrder: number
+): Promise<string> {
+  const db = getDatabase();
+  const resultId = generateUUID();
+  const timestamp = now();
+  await db.executeSet([{
+    statement: `INSERT INTO session_exercise_result
+                  (id, training_session_id, exercise_id, sort_order, rx_or_scaled, is_completed, is_personal_record, created_at, updated_at)
+                VALUES (?, ?, ?, ?, 'rx', 1, 0, ?, ?)`,
+    values: [resultId, sessionId, exerciseId, sortOrder, timestamp, timestamp]
+  }], false);
+  await saveDatabase();
+  return resultId;
+}
+
+/**
+ * Elimina un resultado de ejercicio de una sesión libre
+ */
+export async function removeExerciseFromSession(resultId: string, sessionId: string): Promise<void> {
+  const db = getDatabase();
+  await db.executeSet([{
+    statement: `DELETE FROM session_exercise_result WHERE id = ? AND training_session_id = ?`,
+    values: [resultId, sessionId]
+  }], false);
+  await saveDatabase();
 }
 
 /**

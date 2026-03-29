@@ -106,6 +106,16 @@ const EXERCISE_IMAGES: [string, string][] = [
   ['Ring Strict Muscle Up',                        '/img/exercises/ring-strict-muscle-up.svg'],
   ['Superband Shoulder Dislocates',                '/img/exercises/superband-shoulder-dislocates.svg'],
 
+  // Ejercicios del entrenamiento de Nestor 28/03/2026
+  ['Toe Touch Sit-Up',                   '/img/exercises/toe-touch-sit-up.svg'],
+  ['Hollow to Superman Roll',            '/img/exercises/hollow-to-superman-roll.svg'],
+  ['Plank to Opposite Toe Touch',        '/img/exercises/plank-to-opposite-toe-touch.svg'],
+  ['Dumbbell Front Raise',               '/img/exercises/dumbbell-front-raise.svg'],
+  ['Bent-Over Dumbbell Lateral Raise',   '/img/exercises/bent-over-dumbbell-lateral-raise.svg'],
+  ['Stability Ball Plate Crunch',        '/img/exercises/stability-ball-plate-crunch.svg'],
+  ["Farmer's Carry",                     '/img/exercises/farmers-carry.svg'],
+  ['Kettlebell Sumo Deadlift High Pull', '/img/exercises/kettlebell-sumo-deadlift-high-pull.svg'],
+
   // 8 reusan SVG de ejercicio equivalente
   ['Bar Pull Up',                '/img/exercises/pullup.svg'],
   ['Barbell Back Squat',         '/img/exercises/back-squat.svg'],

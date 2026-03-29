@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="240" height="180" fill="#111827" rx="12"/>
+  <line x1="20" y1="148" x2="220" y2="148" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="120" y="165" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="8" font-weight="700" fill="#475569" letter-spacing="1">HOLLOW TO SUPERMAN ROLL</text>
+  <!-- Frame 1: Hollow hold (on back) — arms overhead, legs elevated -->
+  <g class="f1">
+    <circle cx="50" cy="112" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="50" y1="124" x2="172" y2="130"/>
+      <line x1="68" y1="121" x2="28" y2="105"/>
+      <line x1="162" y1="128" x2="206" y2="112"/>
+    </g>
+    <circle cx="162" cy="128" r="4" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: Mid-roll (on side, body diagonal) -->
+  <g class="f2">
+    <circle cx="95" cy="92" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="95" y1="104" x2="158" y2="126"/>
+      <line x1="100" y1="106" x2="72" y2="86"/>
+      <line x1="148" y1="122" x2="184" y2="112"/>
+    </g>
+    <circle cx="130" cy="116" r="4" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: Superman (face down, arching) — arms and legs both elevated -->
+  <g class="f3">
+    <circle cx="50" cy="106" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="50" y1="118" x2="168" y2="112"/>
+      <line x1="68" y1="114" x2="28" y2="98"/>
+      <line x1="160" y1="112" x2="206" y2="96"/>
+    </g>
+    <circle cx="160" cy="112" r="4" fill="#64748b"/>
+  </g>
+</svg>

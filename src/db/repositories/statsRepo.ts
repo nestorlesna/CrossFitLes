@@ -1,9 +1,10 @@
 import { getDatabase } from '../database';
-import { 
-  PersonalRecord, 
-  ExerciseProgressionPoint, 
-  WeeklyActivity, 
-  SectionDistribution 
+import {
+  PersonalRecord,
+  ExerciseProgressionPoint,
+  WeeklyActivity,
+  SectionDistribution,
+  CaloriesDataPoint,
 } from '../../models/Stats';
 import { format, subDays, startOfWeek, endOfWeek } from 'date-fns';
 
@@ -70,11 +71,11 @@ export async function getWeeklyActivity(weeks: number = 8): Promise<WeeklyActivi
 
   // SQLite no tiene funciones de semana potentes, agrupamos por fecha y procesamos en JS
   const query = `
-    SELECT 
+    SELECT
       ts.session_date,
       COUNT(DISTINCT ts.id) as session_count,
       SUM(ts.actual_duration_minutes) as total_duration,
-      (SELECT SUM(actual_calories) FROM session_exercise_result WHERE training_session_id = ts.id) as total_calories
+      SUM(COALESCE(ts.estimated_calories, 0)) as total_calories
     FROM training_session ts
     WHERE ts.session_date >= ? AND ts.status = 'completed'
     GROUP BY ts.session_date
@@ -98,7 +99,7 @@ export async function getWeeklyActivity(weeks: number = 8): Promise<WeeklyActivi
     const weekData = weeklyMap.get(weekStart)!;
     weekData.count += row.session_count;
     weekData.total_minutes += row.total_duration || 0;
-    weekData.total_calories += row.total_calories || 0;
+    weekData.total_calories += row.total_calories || 0;  // suma estimated_calories de las sesiones
   });
 
   return Array.from(weeklyMap.values());
@@ -125,6 +126,30 @@ export async function getSectionDistribution(): Promise<SectionDistribution[]> {
   
   const result = await db.query(query);
   return result.values || [];
+}
+
+/**
+ * Historial de calorías estimadas por sesión (últimas N semanas)
+ */
+export async function getCaloriesHistory(weeks: number = 12): Promise<CaloriesDataPoint[]> {
+  const db = getDatabase();
+  const startDate = format(subDays(new Date(), weeks * 7), 'yyyy-MM-dd');
+
+  const result = await db.query(
+    `SELECT
+       session_date as date,
+       estimated_calories as calories,
+       COALESCE(actual_duration_minutes, 0) as duration,
+       general_feeling as feeling
+     FROM training_session
+     WHERE session_date >= ?
+       AND status = 'completed'
+       AND estimated_calories IS NOT NULL
+       AND estimated_calories > 0
+     ORDER BY session_date ASC`,
+    [startDate]
+  );
+  return (result.values ?? []) as CaloriesDataPoint[];
 }
 
 /**

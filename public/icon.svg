@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Fondo oscuro redondeado -->
+  <rect width="512" height="512" rx="96" fill="#0f172a"/>
+
+  <!-- ── Barra central ── -->
+  <rect x="130" y="238" width="252" height="36" rx="7" fill="#f97316"/>
+  <!-- reflejo superior de la barra -->
+  <rect x="130" y="238" width="252" height="10" rx="5" fill="#fb923c" opacity="0.45"/>
+
+  <!-- ── Placa interior izquierda ── -->
+  <rect x="96"  y="210" width="34"  height="92" rx="9"  fill="#f97316"/>
+  <rect x="98"  y="214" width="8"   height="84" rx="4"  fill="#fb923c" opacity="0.4"/>
+
+  <!-- ── Placa exterior izquierda (grande) ── -->
+  <rect x="40"  y="178" width="56"  height="156" rx="14" fill="#ea580c"/>
+  <rect x="44"  y="182" width="10"  height="148" rx="5"  fill="#fb923c" opacity="0.35"/>
+  <!-- detalle interior placa -->
+  <rect x="54"  y="210" width="4"   height="92"  rx="2"  fill="#0f172a" opacity="0.25"/>
+
+  <!-- ── Placa interior derecha ── -->
+  <rect x="382" y="210" width="34"  height="92" rx="9"  fill="#f97316"/>
+  <rect x="384" y="214" width="8"   height="84" rx="4"  fill="#fb923c" opacity="0.4"/>
+
+  <!-- ── Placa exterior derecha (grande) ── -->
+  <rect x="416" y="178" width="56"  height="156" rx="14" fill="#ea580c"/>
+  <rect x="420" y="182" width="10"  height="148" rx="5"  fill="#fb923c" opacity="0.35"/>
+  <rect x="462" y="210" width="4"   height="92"  rx="2"  fill="#0f172a" opacity="0.25"/>
+
+  <!-- ── Texto "CF" arriba ── -->
+  <text x="256" y="148"
+    font-family="Arial Black, Impact, 'Helvetica Neue', sans-serif"
+    font-size="96" font-weight="900" text-anchor="middle"
+    fill="#f97316" letter-spacing="-3">CF</text>
+
+  <!-- ── Texto "LES" abajo ── -->
+  <text x="256" y="432"
+    font-family="Arial Black, Impact, 'Helvetica Neue', sans-serif"
+    font-size="56" font-weight="900" text-anchor="middle"
+    fill="#fb923c" letter-spacing="14">LES</text>
+</svg>

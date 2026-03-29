@@ -19,6 +19,7 @@ import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
 import { Badge } from '../../components/ui/Badge';
 import { Modal } from '../../components/ui/Modal';
+import { ExerciseInfoModal } from '../../components/ui/ExerciseInfoModal';
 import { getById as getSessionById, saveResults, finalize, updateSessionDuration } from '../../db/repositories/trainingSessionRepo';
 import { getById as getTemplateById } from '../../db/repositories/classTemplateRepo';
 import { SessionWithRelations, SessionExerciseResult } from '../../models/TrainingSession';
@@ -150,6 +151,9 @@ export function SessionExecutorPage() {
   // Video Modal
   const [selectedVideoUrl, setSelectedVideoUrl] = useState<string | null>(null);
   const [exerciseNameForVideo, setExerciseNameForVideo] = useState('');
+  // Info Modal
+  const [infoExerciseId, setInfoExerciseId] = useState<string | null>(null);
+  const [infoExerciseName, setInfoExerciseName] = useState('');
 
   // 1. Cargar datos
   const loadData = useCallback(async () => {
@@ -416,14 +420,32 @@ export function SessionExecutorPage() {
                     />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <h3 className="text-white font-bold text-base truncate">{result.exercise_name}</h3>
+                        <button
+                          onClick={() => {
+                            setInfoExerciseId(result.exercise_id);
+                            setInfoExerciseName(result.exercise_name ?? '');
+                          }}
+                          className="text-white font-bold text-base truncate text-left hover:text-primary-400 transition-colors"
+                        >
+                          {result.exercise_name}
+                        </button>
+                        <button
+                          onClick={() => {
+                            setInfoExerciseId(result.exercise_id);
+                            setInfoExerciseName(result.exercise_name ?? '');
+                          }}
+                          className="p-1 rounded-full text-gray-600 hover:text-gray-300 transition-colors shrink-0"
+                          aria-label="Ver información del ejercicio"
+                        >
+                          <Info size={13} />
+                        </button>
                         {result.exercise_video_url && (
                           <button
                             onClick={() => {
                               setSelectedVideoUrl(result.exercise_video_url!);
                               setExerciseNameForVideo(result.exercise_name ?? '');
                             }}
-                            className="p-1.5 rounded-full bg-primary-500/20 text-primary-500 hover:bg-primary-500 hover:text-white transition-colors"
+                            className="p-1.5 rounded-full bg-primary-500/20 text-primary-500 hover:bg-primary-500 hover:text-white transition-colors shrink-0"
                             aria-label="Ver video"
                           >
                             <Play size={10} fill="currentColor" />
@@ -646,6 +668,13 @@ export function SessionExecutorPage() {
           </p>
         </div>
       </Modal>
+
+      {/* Modal de Información del Ejercicio */}
+      <ExerciseInfoModal
+        exerciseId={infoExerciseId}
+        exerciseName={infoExerciseName}
+        onClose={() => setInfoExerciseId(null)}
+      />
     </>
   );
 }

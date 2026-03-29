@@ -1,23 +1,25 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { 
-  ChevronLeft, 
-  Calendar, 
-  Clock, 
-  Activity, 
-  Trophy, 
+import {
+  ChevronLeft,
+  Calendar,
+  Clock,
+  Activity,
+  Trophy,
   StickyNote,
   Dumbbell,
   CheckCircle2,
   TrendingUp,
   Scale,
   Info,
-  Play
+  Play,
+  Flame,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
 import { Badge } from '../../components/ui/Badge';
 import { Modal } from '../../components/ui/Modal';
+import { ExerciseInfoModal } from '../../components/ui/ExerciseInfoModal';
 import { getById as getSessionById } from '../../db/repositories/trainingSessionRepo';
 import { getById as getTemplateById } from '../../db/repositories/classTemplateRepo';
 import { SessionWithRelations } from '../../models/TrainingSession';
@@ -130,6 +132,8 @@ export function SessionDetailPage() {
   // Video Modal
   const [selectedVideoUrl, setSelectedVideoUrl] = useState<string | null>(null);
   const [exerciseNameForVideo, setExerciseNameForVideo] = useState('');
+  const [infoExerciseId, setInfoExerciseId] = useState<string | null>(null);
+  const [infoExerciseName, setInfoExerciseName] = useState('');
 
   const loadData = useCallback(async () => {
     if (!id) return;
@@ -245,6 +249,18 @@ export function SessionDetailPage() {
                   <p className="text-sm text-white font-bold">{session.perceived_effort || '--'}/10</p>
                 </div>
               </div>
+
+              {session.estimated_calories != null && session.estimated_calories > 0 && (
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center">
+                    <Flame size={16} className="text-orange-400" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-gray-500 font-bold uppercase">Calorías est.</p>
+                    <p className="text-sm text-white font-bold">{session.estimated_calories.toLocaleString()} kcal</p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -259,6 +275,113 @@ export function SessionDetailPage() {
 
         {/* ── Resultados por Sección ── */}
         <div className="flex flex-col gap-8 mt-2">
+          {/* Sesión libre: sin plantilla, mostrar todos los resultados directamente */}
+          {!template && session.results.length > 0 && (
+            <div className="flex flex-col gap-4">
+              <h3 className="text-white font-bold text-base px-1">Ejercicios realizados</h3>
+              <div className="flex flex-col gap-3">
+                {session.results.map((result) => (
+                    <div key={result.id} className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
+                      <div className="flex items-start justify-between gap-4 mb-4">
+                        <div className="flex items-center gap-3">
+                          <ExerciseImage
+                            imagePath={result.exercise_image_path}
+                            imageUrl={result.exercise_image_url}
+                            name={result.exercise_name ?? ''}
+                          />
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <button
+                                onClick={() => {
+                                  setInfoExerciseId(result.exercise_id);
+                                  setInfoExerciseName(result.exercise_name ?? '');
+                                }}
+                                className="text-white font-bold text-sm leading-tight text-left hover:text-primary-400 transition-colors"
+                              >
+                                {result.exercise_name}
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setInfoExerciseId(result.exercise_id);
+                                  setInfoExerciseName(result.exercise_name ?? '');
+                                }}
+                                className="p-1 rounded-full text-gray-600 hover:text-gray-300 transition-colors shrink-0"
+                              >
+                                <Info size={13} />
+                              </button>
+                              {result.exercise_video_url && (
+                                <button
+                                  onClick={() => {
+                                    setSelectedVideoUrl(result.exercise_video_url!);
+                                    setExerciseNameForVideo(result.exercise_name ?? '');
+                                  }}
+                                  className="p-1.5 rounded-full bg-primary-500/20 text-primary-500 hover:bg-primary-500 hover:text-white transition-colors shrink-0"
+                                >
+                                  <Play size={10} fill="currentColor" />
+                                </button>
+                              )}
+                            </div>
+                            <Badge label={result.rx_or_scaled.toUpperCase()} size="sm" color={result.rx_or_scaled === 'rx' ? '#10b981' : '#f59e0b'} />
+                          </div>
+                        </div>
+                        {result.is_personal_record === 1 && (
+                          <div className="bg-amber-500/10 border border-amber-500/30 text-amber-500 px-2 py-1 rounded-lg flex items-center gap-1">
+                            <Trophy size={14} fill="currentColor" />
+                            <span className="text-[10px] font-bold uppercase tracking-wide">¡NUEVO PR!</span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        {result.actual_weight_value && (
+                          <div className="bg-gray-950 p-2.5 rounded-xl border border-gray-800/50">
+                            <div className="flex items-center gap-1.5 mb-1"><Scale size={12} className="text-gray-600" /><span className="text-[10px] font-bold text-gray-500 uppercase">Peso</span></div>
+                            <span className="text-base font-black text-white">{result.actual_weight_value} <span className="text-[10px] font-normal text-gray-500">{result.weight_unit_abbreviation || 'kg'}</span></span>
+                          </div>
+                        )}
+                        {result.actual_repetitions && (
+                          <div className="bg-gray-950 p-2.5 rounded-xl border border-gray-800/50">
+                            <div className="flex items-center gap-1.5 mb-1"><TrendingUp size={12} className="text-gray-600" /><span className="text-[10px] font-bold text-gray-500 uppercase">Reps</span></div>
+                            <span className="text-base font-black text-white">{result.actual_repetitions}</span>
+                          </div>
+                        )}
+                        {result.actual_rounds && (
+                          <div className="bg-gray-950 p-2.5 rounded-xl border border-gray-800/50">
+                            <div className="flex items-center gap-1.5 mb-1"><Activity size={12} className="text-gray-600" /><span className="text-[10px] font-bold text-gray-500 uppercase">Rondas</span></div>
+                            <span className="text-base font-black text-white">{result.actual_rounds}</span>
+                          </div>
+                        )}
+                        {result.actual_time_seconds && (
+                          <div className="bg-gray-950 p-2.5 rounded-xl border border-gray-800/50">
+                            <div className="flex items-center gap-1.5 mb-1"><Clock size={12} className="text-gray-600" /><span className="text-[10px] font-bold text-gray-500 uppercase">Tiempo</span></div>
+                            <span className="text-base font-black text-white">{Math.floor(result.actual_time_seconds / 60)}:{(result.actual_time_seconds % 60).toString().padStart(2, '0')}</span>
+                          </div>
+                        )}
+                        {result.actual_distance_value && (
+                          <div className="bg-gray-950 p-2.5 rounded-xl border border-gray-800/50">
+                            <div className="flex items-center gap-1.5 mb-1"><Activity size={12} className="text-gray-600" /><span className="text-[10px] font-bold text-gray-500 uppercase">Distancia</span></div>
+                            <span className="text-base font-black text-white">{result.actual_distance_value} <span className="text-[10px] font-normal text-gray-500">{result.distance_unit_abbreviation || 'm'}</span></span>
+                          </div>
+                        )}
+                        {result.result_text && (
+                          <div className="col-span-2 bg-gray-950 p-3 rounded-xl border border-gray-800/50">
+                            <div className="flex items-center gap-1.5 mb-1"><Info size={12} className="text-gray-600" /><span className="text-[10px] font-bold text-gray-500 uppercase">Resultado</span></div>
+                            <p className="text-sm text-gray-300 italic">"{result.result_text}"</p>
+                          </div>
+                        )}
+                        {result.notes && (
+                          <div className="col-span-2 bg-gray-950 p-3 rounded-xl border border-gray-800/50">
+                            <div className="flex items-center gap-1.5 mb-1"><StickyNote size={12} className="text-gray-600" /><span className="text-[10px] font-bold text-gray-500 uppercase">Notas</span></div>
+                            <p className="text-sm text-gray-300">{result.notes}</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          )}
+
+          {/* Sesión con plantilla: agrupar por sección */}
           {template?.sections.map((section) => {
             const sectionResults = session.results.filter(r => r.section_type_id === section.section_type_id);
             if (sectionResults.length === 0) return null;
@@ -287,14 +410,32 @@ export function SessionDetailPage() {
                           />
                           <div>
                             <div className="flex items-center gap-2">
-                              <h4 className="text-white font-bold text-sm leading-tight">{result.exercise_name}</h4>
+                              <button
+                                onClick={() => {
+                                  setInfoExerciseId(result.exercise_id);
+                                  setInfoExerciseName(result.exercise_name ?? '');
+                                }}
+                                className="text-white font-bold text-sm leading-tight text-left hover:text-primary-400 transition-colors"
+                              >
+                                {result.exercise_name}
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setInfoExerciseId(result.exercise_id);
+                                  setInfoExerciseName(result.exercise_name ?? '');
+                                }}
+                                className="p-1 rounded-full text-gray-600 hover:text-gray-300 transition-colors shrink-0"
+                                aria-label="Ver información del ejercicio"
+                              >
+                                <Info size={13} />
+                              </button>
                               {result.exercise_video_url && (
                                 <button
                                   onClick={() => {
                                     setSelectedVideoUrl(result.exercise_video_url!);
                                     setExerciseNameForVideo(result.exercise_name ?? '');
                                   }}
-                                  className="p-1.5 rounded-full bg-primary-500/20 text-primary-500 hover:bg-primary-500 hover:text-white transition-colors"
+                                  className="p-1.5 rounded-full bg-primary-500/20 text-primary-500 hover:bg-primary-500 hover:text-white transition-colors shrink-0"
                                   aria-label="Ver video"
                                 >
                                   <Play size={10} fill="currentColor" />
@@ -401,6 +542,13 @@ export function SessionDetailPage() {
           </p>
         </div>
       </Modal>
+
+      {/* Modal de Información del Ejercicio */}
+      <ExerciseInfoModal
+        exerciseId={infoExerciseId}
+        exerciseName={infoExerciseName}
+        onClose={() => setInfoExerciseId(null)}
+      />
     </>
   );
 }

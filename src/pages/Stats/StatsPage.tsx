@@ -32,18 +32,20 @@ import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
-import { 
-  getPersonalRecords, 
-  getWeeklyActivity, 
-  getSectionDistribution, 
-  getExerciseProgression 
+import {
+  getPersonalRecords,
+  getWeeklyActivity,
+  getSectionDistribution,
+  getExerciseProgression,
+  getCaloriesHistory,
 } from '../../db/repositories/statsRepo';
 import { getAll as getAllExercises } from '../../db/repositories/exerciseRepo';
-import { 
-  PersonalRecord, 
-  ExerciseProgressionPoint, 
-  WeeklyActivity, 
-  SectionDistribution 
+import {
+  PersonalRecord,
+  ExerciseProgressionPoint,
+  WeeklyActivity,
+  SectionDistribution,
+  CaloriesDataPoint,
 } from '../../models/Stats';
 import { Exercise } from '../../models/Exercise';
 import { RecordType } from '../../types';
@@ -59,6 +61,9 @@ export function StatsPage() {
   const [activity, setActivity] = useState<WeeklyActivity[]>([]);
   const [distribution, setDistribution] = useState<SectionDistribution[]>([]);
   
+  // Datos de Calorías
+  const [calories, setCalories] = useState<CaloriesDataPoint[]>([]);
+
   // Datos para Progresión
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [selectedExerciseId, setSelectedExerciseId] = useState<string>('');
@@ -70,16 +75,18 @@ export function StatsPage() {
   const loadInitialData = useCallback(async () => {
     setLoading(true);
     try {
-      const [prsRes, activityRes, distRes, exercisesRes] = await Promise.all([
+      const [prsRes, activityRes, distRes, exercisesRes, calRes] = await Promise.all([
         getPersonalRecords(),
         getWeeklyActivity(12), // Últimos 3 meses
         getSectionDistribution(),
-        getAllExercises()
+        getAllExercises(),
+        getCaloriesHistory(12),
       ]);
       setPrs(prsRes);
       setActivity(activityRes);
       setDistribution(distRes);
       setExercises(exercisesRes);
+      setCalories(calRes);
       
       if (exercisesRes.length > 0) {
         setSelectedExerciseId(exercisesRes[0].id);
@@ -119,15 +126,15 @@ export function StatsPage() {
   const chartColors = ['#C1FF00', '#8B5CF6', '#EF4444', '#10B981', '#F59E0B', '#3B82F6'];
 
   // 4. Formateador de fechas para gráficos
-  const formatDate = (dateStr: string) => {
+  const formatDate = (dateStr: unknown) => {
     try {
-      return format(parseISO(dateStr), 'd MMM', { locale: es });
+      return format(parseISO(String(dateStr)), 'd MMM', { locale: es });
     } catch {
-      return dateStr;
+      return String(dateStr);
     }
   };
 
-  const recordTypeLabels: Record<{ [key in RecordType]: string }> = {
+  const recordTypeLabels: Record<RecordType, string> = {
     max_weight: 'Peso Máximo',
     max_reps: 'Repeticiones Máximas',
     min_time: 'Mejor Tiempo',
@@ -221,6 +228,79 @@ export function StatsPage() {
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
+              )}
+            </div>
+
+            {/* Calorías estimadas por sesión */}
+            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 overflow-hidden shadow-sm">
+              <div className="flex items-center gap-2 mb-6">
+                <Flame size={18} className="text-orange-400" />
+                <h3 className="text-sm font-bold text-white uppercase tracking-wider">Calorías Estimadas</h3>
+                <span className="ml-auto text-[10px] text-gray-600 font-medium">últimas 12 semanas</span>
+              </div>
+
+              {calories.length === 0 ? (
+                <EmptyStat message="Completa sesiones para ver tu gasto calórico estimado" />
+              ) : (
+                <>
+                  {/* Totales rápidos */}
+                  <div className="grid grid-cols-3 gap-2 mb-5">
+                    <div className="bg-gray-800/60 rounded-xl px-3 py-2 text-center">
+                      <p className="text-[10px] text-gray-500 uppercase tracking-wider">Total</p>
+                      <p className="text-base font-black text-orange-400">
+                        {calories.reduce((s, c) => s + c.calories, 0).toLocaleString()}
+                      </p>
+                      <p className="text-[10px] text-gray-600">kcal</p>
+                    </div>
+                    <div className="bg-gray-800/60 rounded-xl px-3 py-2 text-center">
+                      <p className="text-[10px] text-gray-500 uppercase tracking-wider">Promedio</p>
+                      <p className="text-base font-black text-orange-400">
+                        {Math.round(calories.reduce((s, c) => s + c.calories, 0) / calories.length).toLocaleString()}
+                      </p>
+                      <p className="text-[10px] text-gray-600">kcal/sesión</p>
+                    </div>
+                    <div className="bg-gray-800/60 rounded-xl px-3 py-2 text-center">
+                      <p className="text-[10px] text-gray-500 uppercase tracking-wider">Máximo</p>
+                      <p className="text-base font-black text-orange-400">
+                        {Math.max(...calories.map(c => c.calories)).toLocaleString()}
+                      </p>
+                      <p className="text-[10px] text-gray-600">kcal</p>
+                    </div>
+                  </div>
+
+                  <div className="h-[220px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={calories} barSize={calories.length > 20 ? 6 : 12}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#262626" vertical={false} />
+                        <XAxis
+                          dataKey="date"
+                          tickFormatter={formatDate}
+                          stroke="#737373"
+                          fontSize={10}
+                          tickLine={false}
+                          axisLine={false}
+                          interval={Math.floor(calories.length / 6)}
+                        />
+                        <YAxis stroke="#737373" fontSize={10} tickLine={false} axisLine={false} />
+                        <Tooltip
+                          contentStyle={{ backgroundColor: '#171717', border: '1px solid #404040', borderRadius: '12px' }}
+                          itemStyle={{ color: '#fb923c', fontSize: '12px' }}
+                          labelStyle={{ color: '#fff', fontSize: '10px', marginBottom: '4px' }}
+                          labelFormatter={formatDate}
+                          formatter={(value: any, _name: any, props: any) => [
+                            `${value} kcal${props.payload?.duration ? ` · ${props.payload.duration} min` : ''}`,
+                            'Estimado'
+                          ]}
+                        />
+                        <Bar dataKey="calories" fill="#fb923c" radius={[3, 3, 0, 0]} name="kcal estimadas" />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+
+                  <p className="text-[10px] text-gray-600 text-center mt-3 italic">
+                    Valores estimados · MET × peso × duración × factor RPE
+                  </p>
+                </>
               )}
             </div>
 
