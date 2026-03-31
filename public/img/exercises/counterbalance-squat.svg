@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 180">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="260" height="180" fill="#111827" rx="12"/>
+  <line x1="20" y1="148" x2="240" y2="148" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="130" y="167" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" fill="#475569" letter-spacing="1">COUNTERBALANCE SQUAT</text>
+  <!-- Frame 1: Standing, arms holding weight at chest height -->
+  <g class="f1">
+    <circle cx="130" cy="55" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="130" y1="67" x2="130" y2="108"/>
+      <!-- Arms forward at chest holding weight -->
+      <line x1="130" y1="82" x2="108" y2="82"/>
+      <line x1="130" y1="82" x2="152" y2="82"/>
+      <line x1="130" y1="108" x2="115" y2="148"/>
+      <line x1="130" y1="108" x2="145" y2="148"/>
+    </g>
+    <!-- Weight (plate/KB) held in front -->
+    <rect x="104" y="75" width="22" height="14" rx="3" fill="#374151" stroke="#4b5563" stroke-width="2"/>
+  </g>
+  <!-- Frame 2: Mid squat, hips back and down, arms extending forward -->
+  <g class="f2">
+    <circle cx="130" cy="68" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso leaning slightly forward -->
+      <line x1="130" y1="80" x2="126" y2="116"/>
+      <!-- Arms extended forward -->
+      <line x1="128" y1="94" x2="100" y2="88"/>
+      <line x1="128" y1="94" x2="152" y2="86"/>
+      <!-- Legs bending, knees tracking over toes -->
+      <line x1="126" y1="116" x2="108" y2="148"/>
+      <line x1="126" y1="116" x2="144" y2="148"/>
+    </g>
+    <!-- Weight extended forward -->
+    <rect x="92" y="82" width="22" height="14" rx="3" fill="#374151" stroke="#4b5563" stroke-width="2"/>
+  </g>
+  <!-- Frame 3: Full squat depth, arms fully extended forward as counterbalance -->
+  <g class="f3">
+    <circle cx="130" cy="82" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso more upright (counterbalance works) -->
+      <line x1="130" y1="94" x2="128" y2="124"/>
+      <!-- Arms fully extended forward -->
+      <line x1="129" y1="105" x2="98" y2="98"/>
+      <line x1="129" y1="105" x2="155" y2="96"/>
+      <!-- Deep squat legs -->
+      <line x1="128" y1="124" x2="108" y2="148"/>
+      <line x1="128" y1="124" x2="148" y2="148"/>
+    </g>
+    <!-- Weight at arm's length forward -->
+    <rect x="80" y="92" width="22" height="14" rx="3" fill="#374151" stroke="#4b5563" stroke-width="2"/>
+    <circle cx="108" cy="148" r="5" fill="#64748b"/>
+    <circle cx="148" cy="148" r="5" fill="#64748b"/>
+  </g>
+</svg>

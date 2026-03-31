@@ -160,6 +160,7 @@ export function ClassTemplateDetailPage() {
   const [loading, setLoading] = useState(true);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [sessionCounts, setSessionCounts] = useState<{ total: number; active: number } | null>(null);
   const [selectedVideoUrl, setSelectedVideoUrl] = useState<string | null>(null);
   const [exerciseNameForVideo, setExerciseNameForVideo] = useState('');
   const [infoExerciseId, setInfoExerciseId] = useState<string | null>(null);
@@ -217,6 +218,19 @@ export function ClassTemplateDetailPage() {
       toast.error('Error al duplicar la plantilla');
     } finally {
       setDuplicating(false);
+    }
+  };
+
+  // Abre el modal de confirmación y pre-carga el conteo de sesiones vinculadas
+  const handleOpenDeleteConfirm = async () => {
+    if (!template) return;
+    setSessionCounts(null);
+    setShowDeleteConfirm(true);
+    try {
+      const counts = await classTemplateRepo.countLinkedSessions(template.id);
+      setSessionCounts(counts);
+    } catch {
+      // Si falla la consulta igual mostramos el modal, sin info de sesiones
     }
   };
 
@@ -281,7 +295,7 @@ export function ClassTemplateDetailPage() {
         }
       />
 
-      <div className="px-4 py-4 space-y-4 pb-36">
+      <div className="px-4 py-4 space-y-4 pb-52">
         {/* Tarjeta de datos generales */}
         <div className="bg-gray-900 border border-gray-800 rounded-xl p-4 space-y-3">
           {/* Meta información */}
@@ -471,8 +485,8 @@ export function ClassTemplateDetailPage() {
         )}
       </div>
 
-      {/* Barra de acciones fija al pie */}
-      <div className="fixed bottom-0 left-0 right-0 bg-gray-950 border-t border-gray-800 px-4 py-3 safe-bottom z-30">
+      {/* Barra de acciones fija al pie — encima del BottomNav (bottom-16 = 64px) */}
+      <div className="fixed bottom-16 left-0 right-0 bg-gray-950 border-t border-gray-800 px-4 py-3 z-40">
         {/* Botón iniciar sesión */}
         <button
           onClick={() => navigate(`/sesiones/nueva?templateId=${template.id}`)}
@@ -511,7 +525,7 @@ export function ClassTemplateDetailPage() {
 
           {/* Eliminar */}
           <button
-            onClick={() => setShowDeleteConfirm(true)}
+            onClick={handleOpenDeleteConfirm}
             className="flex-1 py-2.5 rounded-xl text-sm font-medium flex items-center justify-center gap-1.5 min-h-[44px] bg-gray-900 border border-gray-800 text-red-500 hover:text-red-400 hover:border-red-900 transition-colors"
           >
             <Trash2 size={15} />
@@ -523,34 +537,66 @@ export function ClassTemplateDetailPage() {
       {/* Modal de confirmación de eliminación */}
       <Modal
         isOpen={showDeleteConfirm}
-        onClose={() => setShowDeleteConfirm(false)}
+        onClose={() => !deleting && setShowDeleteConfirm(false)}
         title="Eliminar clase"
         footer={
           <div className="flex gap-3">
             <button
               onClick={() => setShowDeleteConfirm(false)}
-              className="flex-1 py-2.5 rounded-xl border border-gray-700 text-gray-300 hover:text-white text-sm font-medium min-h-[44px]"
+              disabled={deleting}
+              className="flex-1 py-2.5 rounded-xl border border-gray-700 text-gray-300 hover:text-white text-sm font-medium min-h-[44px] disabled:opacity-50"
             >
               Cancelar
             </button>
             <button
               onClick={handleDelete}
-              disabled={deleting}
-              className="flex-1 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-sm font-medium min-h-[44px] disabled:opacity-50 transition-colors"
+              disabled={deleting || (sessionCounts?.active ?? 0) > 0}
+              className="flex-1 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-sm font-medium min-h-[44px] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {deleting ? 'Eliminando...' : 'Eliminar'}
             </button>
           </div>
         }
       >
-        <div className="flex items-start gap-3 py-2">
-          <AlertTriangle size={20} className="text-red-500 shrink-0 mt-0.5" />
-          <div>
-            <p className="text-white text-sm font-medium mb-1">{template.name}</p>
-            <p className="text-gray-400 text-sm">
-              ¿Estás seguro de que querés eliminar esta plantilla? La acción no se puede deshacer.
-            </p>
+        <div className="space-y-3 py-1">
+          <div className="flex items-start gap-3">
+            <AlertTriangle size={20} className="text-red-500 shrink-0 mt-0.5" />
+            <div>
+              <p className="text-white text-sm font-medium">{template.name}</p>
+              <p className="text-gray-400 text-sm mt-0.5">
+                Esta acción no se puede deshacer.
+              </p>
+            </div>
           </div>
+
+          {/* Info de sesiones vinculadas */}
+          {sessionCounts === null ? (
+            <div className="h-10 bg-gray-800/50 rounded-lg animate-pulse" />
+          ) : sessionCounts.active > 0 ? (
+            <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-3 space-y-1">
+              <p className="text-red-400 text-xs font-semibold flex items-center gap-1.5">
+                <AlertTriangle size={13} />
+                No se puede eliminar — hay sesiones activas
+              </p>
+              <p className="text-gray-400 text-xs">
+                Tenés {sessionCounts.active} sesión{sessionCounts.active !== 1 ? 'es' : ''} planificada{sessionCounts.active !== 1 ? 's' : ''} o en curso vinculada{sessionCounts.active !== 1 ? 's' : ''} a esta clase.
+                Finalizalas o cancelalas antes de eliminar.
+              </p>
+            </div>
+          ) : sessionCounts.total > 0 ? (
+            <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-3 space-y-1">
+              <p className="text-gray-300 text-xs font-semibold">
+                {sessionCounts.total} sesión{sessionCounts.total !== 1 ? 'es' : ''} registrada{sessionCounts.total !== 1 ? 's' : ''} con esta clase
+              </p>
+              <p className="text-gray-500 text-xs">
+                El historial de esas sesiones se conserva. Solo se elimina la plantilla.
+              </p>
+            </div>
+          ) : (
+            <div className="bg-gray-800/40 border border-gray-800 rounded-xl p-3">
+              <p className="text-gray-500 text-xs">Esta clase no tiene sesiones registradas.</p>
+            </div>
+          )}
         </div>
       </Modal>
 

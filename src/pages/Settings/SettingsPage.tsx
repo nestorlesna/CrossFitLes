@@ -17,6 +17,8 @@ import {
 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { BackupSection } from '../../components/export/BackupSection';
+import { ClassShareSection } from '../../components/export/ClassShareSection';
+import { ClassSeederSection } from '../../components/export/ClassSeederSection';
 import { ResetSection } from '../../components/export/ResetSection';
 
 // Definición de cada entrada del menú de catálogos
@@ -168,6 +170,12 @@ export function SettingsPage() {
             </button>
           </div>
         </section>
+
+        {/* Compartir clases entre usuarios */}
+        <ClassShareSection />
+
+        {/* Clases predefinidas del profesor */}
+        <ClassSeederSection />
 
         {/* Sección de backup */}
         <BackupSection />
