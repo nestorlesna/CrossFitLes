@@ -1,3 +1,37 @@
+
+Clase Fecha 30/03/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad, 2 vueltas tod 30 seg. de:
+- 30 seg de Cossack squat -  https://www.youtube.com/shorts/nFVTuC1jC_I
+- 30 seg Kettlebell ankle mobility drill en rodilla derecha - https://www.youtube.com/shorts/t0dW_gbaQG0
+- 30 seg Kettlebell ankle mobility drill en rodilla izquierda
+
+Activación, 3 vueltas todo 30 segundos
+- side plank con carga izauierda - https://www.youtube.com/shorts/GIDLif1n0bM
+- side plank con carga derecha - https://www.youtube.com/shorts/GIDLif1n0bM
+- Hollow body rock - https://www.youtube.com/shorts/tWZBamV2tjc
+- Counterbalance squat - https://www.youtube.com/shorts/vCYFgvG2Pck
+
+Fuerza, series cada 2 mintuos.
+ - Back squat - 3 al 80%, 80kg
+ - Back squat - 3 al 80%, 80kg
+ - Back squat - 3 al 80%, 80kg
+ - Back squat - 2 al 90%, 90kg
+ - Back squat - 1 al 95%, 100kg
+ 
+WOD, maximo 10 minutos
+- Shuttle run - 10 - https://www.youtube.com/shorts/8xEPRtiG7yk 
+- Overhead squat - 15 - https://www.youtube.com/watch?v=F1smC539je4
+- Burpee over the bar - 20 - https://www.youtube.com/shorts/KcBPSYkmF08
+- 1 minuto de descanso
+- Burpee over the bar - 20
+- Overhead squat - 15
+- Shuttle run - 10
+
+
 Clase Fecha 28/03/2026
 
 Calentamiento
