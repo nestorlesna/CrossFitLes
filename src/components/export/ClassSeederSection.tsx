@@ -12,6 +12,10 @@ import {
   importClass01042026,
   isClass01042026ImportDone,
 } from '../../services/class01042026ImportService';
+import {
+  importClass02042026,
+  isClass02042026ImportDone,
+} from '../../services/class02042026ImportService';
 import { saveDatabase } from '../../db/database';
 
 interface ClassEntry {
@@ -22,6 +26,12 @@ interface ClassEntry {
 }
 
 const CLASS_ENTRIES: ClassEntry[] = [
+  {
+    label: 'Clase GOAT 02/04/2026',
+    date: 'Movilidad · Activación isométrica · Deadlift series · WOD EMOM Wall Ball + T2B',
+    isDone: isClass02042026ImportDone,
+    run: importClass02042026,
+  },
   {
     label: 'Clase GOAT 01/04/2026',
     date: 'Movilidad · Activación · Complejo Snatch E2MOM · WOD en parejas',
