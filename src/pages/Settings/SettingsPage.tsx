@@ -14,11 +14,14 @@ import {
   User,
   Scale,
   Camera,
+  Video,
 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { BackupSection } from '../../components/export/BackupSection';
 import { ClassShareSection } from '../../components/export/ClassShareSection';
 import { ClassSeederSection } from '../../components/export/ClassSeederSection';
+import { MuscleSeederSection } from '../../components/export/MuscleSeederSection';
+import { VideoSeederSection } from '../../components/export/VideoSeederSection';
 import { ResetSection } from '../../components/export/ResetSection';
 
 // Definición de cada entrada del menú de catálogos
@@ -168,6 +171,18 @@ export function SettingsPage() {
               <span className="flex-1 text-sm text-white">Ejercicios con grupos musculares</span>
               <ChevronRight size={16} className="text-gray-600" />
             </button>
+
+            {/* Videos */}
+            <button
+              onClick={() => navigate('/configuracion/videos-ejercicios')}
+              className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
+            >
+              <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shrink-0">
+                <Video size={16} className="text-primary-400" />
+              </div>
+              <span className="flex-1 text-sm text-white">Ejercicios con videos</span>
+              <ChevronRight size={16} className="text-gray-600" />
+            </button>
           </div>
         </section>
 
@@ -176,6 +191,12 @@ export function SettingsPage() {
 
         {/* Clases predefinidas del profesor */}
         <ClassSeederSection />
+
+        {/* Actualizar grupos musculares */}
+        <MuscleSeederSection />
+
+        {/* Asignar videos a ejercicios */}
+        <VideoSeederSection />
 
         {/* Sección de backup */}
         <BackupSection />

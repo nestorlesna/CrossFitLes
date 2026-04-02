@@ -1,5 +1,93 @@
+### COMO USAR archivos ACTUALIZO_MUSUCLOS.md, ACTUALIZO_VIDEO.md y CREO_CLASE.md
 
-Clase Fecha 30/03/2026
+- ACTUALIZO_MUSUCLOS.md
+  Para las próximas clases (28/03, 30/03, etc.): al decir 
+      "asigná los músculos de la clase 30/03 usando ACTUALIZO_MUSCULOS.md"
+
+- CREO_CLASE.md
+  El próximo paso para usarlo: cuando tengas una clase nueva en el MD, decime     
+      "cargá la clase X usando CREO_CLASE.md"
+
+- ACTUALIZO_VIDEOS.md
+  asigná los videos de X x x x usando ACTUALIZO_VIDEO.md
+### COMO USAR
+
+### TEMPLATE
+
+
+Clase GOAT XX/XX/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+
+Activacion
+Fuerza
+WOD
+Estiramiento
+### TEMPLATE
+
+Clase GOAT 02/04/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+- Wall Toracic Extensions - https://www.youtube.com/shorts/3kd40d5m1WE
+- 90/90 Hip Rotation - https://www.youtube.com/watch?v=f_7qIPxw6nE
+- yoga push up - https://www.youtube.com/watch?v=-7TEPQKkTxI
+
+Activacion - 3 rondas de 1 minuto por ejercicio, descansas lo que te queda del minuto
+- 30 segundo de ejercicio - Lunge Isométrico pie izquierdo adelante - 12.5kg - https://www.youtube.com/shorts/VsurwTOm7JI
+- 30 segundo de ejercicio - Lunge Isométrico pie derecho adelante - 12.5kg - https://www.youtube.com/shorts/VsurwTOm7JI
+- plancha baja con carga - 10 kg - https://www.youtube.com/shorts/8tGo4goopno
+
+Fuerza - 6 rondas - 5 repeticiones
+- Peso muerto entre 80%-85% - 1ra 80 kg, 2da-5ta 90 kg, 6ta 100kg
+
+WOD 4 rondas todo cada 1 minuto
+ - wall ball - 18 reps - 9 kg - https://www.youtube.com/shorts/SDT1KrcO8ac
+ - toes to barr - 12 reps - https://www.youtube.com/watch?v=8nM4pLRRqxU
+ - ronda 1 y 4 - Assault Bike - 12 calorias, ronda 2 y 3 - Rowing - 12 calorias
+
+Estiramiento
+
+
+Clase GOAT 01/04/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+- Band Pull-Apart - https://www.youtube.com/shorts/SuvO4TBwSu4
+- Band External Rotation - https://www.youtube.com/watch?v=wQdfeB80fqo
+- 90/90 Hip Rotation - https://www.youtube.com/watch?v=f_7qIPxw6nE
+
+Activacion - todo 10 repeticions en 5 minutos
+ - 2 discos de 2.5, Lateral Raise to Overhead- https://www.youtube.com/watch?v=7mUqxKfg6zo 
+ - scapular push-ups - https://www.youtube.com/watch?v=huGj4aBk9C4
+ - 2 discos de 2.5 High Pull + External Rotation - https://www.youtube.com/watch?v=-EZP2ynZchc
+
+
+Fuerza
+
+- 3 rondas todo 5 repeticiones por 1 minto
+  a - Snatch Grip Deadlift - 20kg - https://www.youtube.com/watch?v=E42_MZOKktU
+  b - Snatch High Pull - 20kg - https://www.youtube.com/watch?v=33jE3S5IMMo
+  c - Muscle Snatch - 20Kg - https://www.youtube.com/watch?v=hFb3l16PI4U
+- 6 rondas todo 3 repeticiones por 1.5 minutos
+  - 3 Snatch con pausa en rodilla (2s) - https://www.youtube.com/watch?v=EOrFQ9O1Ng4
+WOD 10 rondas maximo 16 minutos en parejas, uno trabaja el otro descansa
+ - 6 repeticiones -  Dumbbell Deadlift - 10kg - https://www.youtube.com/shorts/ElCIiU1FWxg
+ - 4 repeticiones -  DB Lateral Step-Over / Crossover - 10kg - https://www.youtube.com/shorts/vs1813G1Q00
+ - 2 repeticiones -  Dumbbell Push Press - https://www.youtube.com/shorts/cQ67XoqcItE
+
+Estiramiento
+
+
+
+Clase GOAT 30/03/2026
 
 Calentamiento
 - 6 minutos de calentamiento
@@ -32,7 +120,7 @@ WOD, maximo 10 minutos
 - Shuttle run - 10
 
 
-Clase Fecha 28/03/2026
+Clase GOAT 28/03/2026
 
 Calentamiento
 - 6 minutos de calentamiento

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="220" height="230" fill="#111827" rx="12"/>
+  <line x1="20" y1="210" x2="200" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="110" y="225" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="8" font-weight="700" fill="#475569" letter-spacing="1">BAND EXT. ROTATION</text>
+  <!-- Frame 1: Elbow at 90°, forearm pointing inward (neutral start) -->
+  <g class="f1">
+    <circle cx="110" cy="26" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="110" y1="38" x2="110" y2="110"/>
+      <line x1="86" y1="50" x2="134" y2="50"/>
+      <line x1="86" y1="50" x2="80" y2="100"/>
+      <!-- Right arm: elbow at shoulder level bent 90° forearm pointing left -->
+      <line x1="134" y1="50" x2="134" y2="88"/>
+      <line x1="134" y1="88" x2="96" y2="88"/>
+      <line x1="110" y1="110" x2="103" y2="162"/><line x1="103" y1="162" x2="103" y2="205"/>
+      <line x1="110" y1="110" x2="117" y2="162"/><line x1="117" y1="162" x2="117" y2="205"/>
+      <line x1="88" y1="205" x2="116" y2="205"/>
+      <line x1="104" y1="205" x2="132" y2="205"/>
+    </g>
+    <circle cx="134" cy="88" r="5" fill="#64748b"/>
+    <circle cx="103" cy="162" r="4" fill="#64748b"/>
+    <circle cx="117" cy="162" r="4" fill="#64748b"/>
+    <line x1="96" y1="88" x2="56" y2="88" stroke="#a78bfa" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <!-- Frame 2: Forearm rotating outward (45°) -->
+  <g class="f2">
+    <circle cx="110" cy="26" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="110" y1="38" x2="110" y2="110"/>
+      <line x1="86" y1="50" x2="134" y2="50"/>
+      <line x1="86" y1="50" x2="80" y2="100"/>
+      <!-- Right arm: elbow bent, forearm at 45° outward -->
+      <line x1="134" y1="50" x2="134" y2="88"/>
+      <line x1="134" y1="88" x2="162" y2="60"/>
+      <line x1="110" y1="110" x2="103" y2="162"/><line x1="103" y1="162" x2="103" y2="205"/>
+      <line x1="110" y1="110" x2="117" y2="162"/><line x1="117" y1="162" x2="117" y2="205"/>
+      <line x1="88" y1="205" x2="116" y2="205"/>
+      <line x1="104" y1="205" x2="132" y2="205"/>
+    </g>
+    <circle cx="134" cy="88" r="5" fill="#64748b"/>
+    <circle cx="103" cy="162" r="4" fill="#64748b"/>
+    <circle cx="117" cy="162" r="4" fill="#64748b"/>
+    <line x1="162" y1="60" x2="188" y2="36" stroke="#a78bfa" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <!-- Frame 3: Forearm fully rotated outward (90°) -->
+  <g class="f3">
+    <circle cx="110" cy="26" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="110" y1="38" x2="110" y2="110"/>
+      <line x1="86" y1="50" x2="134" y2="50"/>
+      <line x1="86" y1="50" x2="80" y2="100"/>
+      <!-- Right arm: elbow bent, forearm pointing outward/up -->
+      <line x1="134" y1="50" x2="134" y2="88"/>
+      <line x1="134" y1="88" x2="172" y2="88"/>
+      <line x1="110" y1="110" x2="103" y2="162"/><line x1="103" y1="162" x2="103" y2="205"/>
+      <line x1="110" y1="110" x2="117" y2="162"/><line x1="117" y1="162" x2="117" y2="205"/>
+      <line x1="88" y1="205" x2="116" y2="205"/>
+      <line x1="104" y1="205" x2="132" y2="205"/>
+    </g>
+    <circle cx="134" cy="88" r="5" fill="#64748b"/>
+    <circle cx="103" cy="162" r="4" fill="#64748b"/>
+    <circle cx="117" cy="162" r="4" fill="#64748b"/>
+    <line x1="172" y1="88" x2="200" y2="88" stroke="#a78bfa" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>

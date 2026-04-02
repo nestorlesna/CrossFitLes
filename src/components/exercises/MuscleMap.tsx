@@ -14,6 +14,38 @@ interface MuscleMapProps {
   interactive?: boolean;
 }
 
+// Expansión de nombres de catálogo → nombres granulares del SVG
+// Los músculos se guardan en BD con nombres simplificados (ej: 'Deltoides')
+// pero el SVG usa nombres granulares (ej: 'Deltoides anterior').
+const CATALOG_TO_SVG: Record<string, string[]> = {
+  'deltoides':        ['Deltoides anterior', 'Deltoides lateral', 'Deltoides posterior'],
+  'cuádriceps':       ['Recto femoral', 'Vasto lateral', 'Vasto medial', 'Vasto intermedio'],
+  'glúteos':          ['Glúteo mayor', 'Glúteo medio'],
+  'dorsales':         ['Dorsal ancho'],
+  'trapecio':         ['Trapecio (superior)', 'Trapecio (medio)', 'Trapecio (inferior)'],
+  'bíceps':           ['Bíceps braquial', 'Braquial anterior'],
+  'tríceps':          ['Tríceps braquial'],
+  'pantorrillas':     ['Gastrocnemio (gemelos)', 'Sóleo'],
+  'core/abdominales': ['Recto abdominal', 'Oblicuo externo', 'Oblicuo interno', 'Erectores espinales'],
+  'antebrazos':       ['Flexores antebrazo', 'Extensores antebrazo', 'Braquiorradial'],
+  'pectorales':       ['Pectoral mayor', 'Pectoral menor'],
+  'isquiotibiales':   ['Bíceps femoral', 'Semitendinoso', 'Semimembranoso'],
+};
+
+// Expande un array de nombres (catálogo o granulares) a nombres granulares SVG
+function expandMuscleNames(names: string[]): string[] {
+  const result: string[] = [];
+  for (const name of names) {
+    const key = name.toLowerCase().trim();
+    if (CATALOG_TO_SVG[key]) {
+      result.push(...CATALOG_TO_SVG[key]);
+    } else {
+      result.push(name);
+    }
+  }
+  return result;
+}
+
 export function MuscleMap({
   primaryMuscles = [],
   secondaryMuscles = [],
@@ -24,8 +56,8 @@ export function MuscleMap({
 }: MuscleMapProps) {
   // Normalize names for comparison
   const normalize = (name: string) => name.toLowerCase().trim();
-  const highlightedPrimary = primaryMuscles.map(normalize);
-  const highlightedSecondary = secondaryMuscles.map(normalize);
+  const highlightedPrimary = expandMuscleNames(primaryMuscles).map(normalize);
+  const highlightedSecondary = expandMuscleNames(secondaryMuscles).map(normalize);
 
   const getMuscleColor = (muscleNames: string[]) => {
     const isPrimary = muscleNames.some(msg => highlightedPrimary.includes(normalize(msg)));

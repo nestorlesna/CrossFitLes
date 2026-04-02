@@ -19,7 +19,22 @@
       "Bash(/tmp/exercise_list.txt:*)",
       "Read(//tmp/**)",
       "Bash(echo \":*)",
-      "Bash(echo \"1. Air Squat:*)"
+      "Bash(echo \"1. Air Squat:*)",
+      "Read(//c/Users/nesto/AppData/Local/Android/Sdk/**)",
+      "Read(//c/Program Files/Android/**)",
+      "Bash(python3 -c \":*)",
+      "Bash(where inkscape:*)",
+      "Bash(where magick:*)",
+      "Bash(where convert:*)",
+      "Bash(magick -background none -size 1024x1024 \"public/icon.svg\" \"resources/icon.png\")",
+      "Bash(magick identify:*)",
+      "Bash(xargs grep:*)",
+      "WebSearch",
+      "WebFetch(domain:www.catalystathletics.com)",
+      "WebFetch(domain:www.muscleandstrength.com)",
+      "WebFetch(domain:barbend.com)",
+      "WebFetch(domain:wodprep.com)",
+      "WebFetch(domain:www.crossfit.com)"
     ]
   }
 }

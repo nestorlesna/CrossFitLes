@@ -30,6 +30,7 @@ import { SectionTypesPage } from './pages/Settings/catalogs/SectionTypesPage';
 import { WorkFormatsPage } from './pages/Settings/catalogs/WorkFormatsPage';
 import { ExerciseImagesPage } from './pages/Settings/ExerciseImagesPage';
 import { ExerciseMusclesPage } from './pages/Settings/ExerciseMusclesPage';
+import { ExerciseVideosPage } from './pages/Settings/ExerciseVideosPage';
 import { DbProvider } from './components/DbProvider';
 
 export default function App() {
@@ -66,6 +67,7 @@ export default function App() {
             <Route path="configuracion/formatos-trabajo" element={<WorkFormatsPage />} />
             <Route path="configuracion/imagenes-ejercicios" element={<ExerciseImagesPage />} />
             <Route path="configuracion/musculos-ejercicios" element={<ExerciseMusclesPage />} />
+            <Route path="configuracion/videos-ejercicios" element={<ExerciseVideosPage />} />
             <Route path="configuracion/acerca-de" element={<AboutPage />} />
             <Route path="configuracion/perfil" element={<ProfilePage />} />
             <Route path="configuracion/medidas-corporales" element={<BodyMeasurementsPage />} />
