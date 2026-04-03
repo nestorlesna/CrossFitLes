@@ -28,8 +28,10 @@ import { getImageDisplayUrl } from '../../services/mediaService';
 
 // ── Helpers de video ─────────────────────────────────────────────────────────
 function getYoutubeId(url: string): string | null {
-  const m = url.match(/^.*(youtu\.be\/|v\/|embed\/|watch\?v=|&v=)([^#&?]*).*/);
-  return m && m[2].length === 11 ? m[2] : null;
+  if (!url) return null;
+  // Soporta: youtu.be/ID, youtube.com/shorts/ID, youtube.com/watch?v=ID, youtube.com/v/ID, youtube.com/embed/ID
+  const m = url.match(/(?:youtube\.com\/(?:shorts\/|v\/|embed\/)|youtu\.be\/|watch\?v=)([^#&?]+)/);
+  return m ? m[1] : null;
 }
 function getVimeoId(url: string): string | null {
   const m = url.match(/vimeo\.com\/(?:video\/|channels\/(?:\w+\/)?|groups\/(?:\w+\/)?|album\/(?:\w+\/)?|showcase\/(?:\w+\/)?|)(\d+)(?:$|\/|\?)/);

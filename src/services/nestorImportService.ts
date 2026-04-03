@@ -17,7 +17,7 @@ function markImportDone(): void {
 }
 
 async function findExercise(db: SQLiteDBConnection, name: string): Promise<string | null> {
-  const r = await db.query(`SELECT id FROM exercise WHERE name = ? AND is_active = 1`, [name]);
+  const r = await db.query(`SELECT id FROM exercise WHERE UPPER(TRIM(name)) = UPPER(TRIM(?)) AND is_active = 1`, [name]);
   return (r.values?.[0]?.id as string) ?? null;
 }
 
@@ -341,8 +341,8 @@ export async function importNestorSession(): Promise<{ exercises: number; create
   const templateId = generateUUID();
   await db.run(
     `INSERT INTO class_template
-       (id, name, date, objective, is_favorite, is_active, created_at, updated_at)
-     VALUES (?, ?, ?, ?, 1, 1, ?, ?)`,
+       (id, name, date, objective, is_favorite, template_type, is_active, created_at, updated_at)
+     VALUES (?, ?, ?, ?, 1, 'generic', 1, ?, ?)`,
     [
       templateId,
       'Nestor - 28/03/2026',

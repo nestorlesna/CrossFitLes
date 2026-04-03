@@ -1,13 +1,13 @@
 // Pantalla de detalle de un ejercicio con historial de uso
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ChevronLeft, Edit2, Trash2, Dumbbell, Star, CheckCircle, Circle, Video, Youtube } from 'lucide-react';
+import { ChevronLeft, Edit2, Trash2, Dumbbell, Star, CheckCircle, Circle, Video, Youtube, CalendarDays } from 'lucide-react';
 import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
 import { Badge } from '../../components/ui/Badge';
 import { Modal } from '../../components/ui/Modal';
 import { ExerciseWithRelations } from '../../models/Exercise';
-import { getById, softDelete, getHistory } from '../../db/repositories/exerciseRepo';
+import { getById, softDelete, getHistory, getClassesUsingExercise } from '../../db/repositories/exerciseRepo';
 import { getImageDisplayUrl } from '../../services/mediaService';
 import { formatDate } from '../../utils/formatters';
 import { MuscleMap } from '../../components/exercises/MuscleMap';
@@ -23,11 +23,12 @@ interface HistoryEntry {
   distance_unit?: string;
 }
 
-// Función helper para obtener el ID de YouTube
+// Función helper para obtener el ID de YouTube (incluye Shorts)
 function getYoutubeId(url: string): string | null {
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-  const match = url.match(regExp);
-  return (match && match[2].length === 11) ? match[2] : null;
+  if (!url) return null;
+  // Soporta: youtu.be/ID, youtube.com/shorts/ID, youtube.com/watch?v=ID, youtube.com/v/ID, youtube.com/embed/ID
+  const m = url.match(/(?:youtube\.com\/(?:shorts\/|v\/|embed\/)|youtu\.be\/|watch\?v=)([^#&?]+)/);
+  return m ? m[1] : null;
 }
 
 // Función helper para obtener el ID de Vimeo
@@ -95,6 +96,7 @@ export function ExerciseDetailPage() {
   const [exercise, setExercise] = useState<ExerciseWithRelations | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const [classesUsing, setClassesUsing] = useState<{ id: string; name: string; date: string | null; section_title: string | null }[]>([]);
   const [loading, setLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -118,6 +120,10 @@ export function ExerciseDetailPage() {
       // Cargar historial (últimas 10 entradas)
       const hist = (await getHistory(id)) as HistoryEntry[];
       setHistory(hist.slice(0, 10));
+
+      // Cargar clases que usan este ejercicio
+      const classes = await getClassesUsingExercise(id);
+      setClassesUsing(classes);
     } catch (e) {
       toast.error('Error al cargar el ejercicio');
     } finally {
@@ -397,6 +403,35 @@ export function ExerciseDetailPage() {
                 Video explicativo
               </h2>
               <VideoEmbed url={exercise.video_long_path} />
+            </div>
+          )}
+
+          {/* ── Clases que usan este ejercicio ── */}
+          {classesUsing.length > 0 && (
+            <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
+              <h2 className="text-white font-semibold text-base mb-3 flex items-center gap-2">
+                <CalendarDays size={18} className="text-primary-500" />
+                Usado en {classesUsing.length} clase{classesUsing.length !== 1 ? 's' : ''}
+              </h2>
+              <div className="flex flex-col divide-y divide-gray-800">
+                {classesUsing.map((cls) => (
+                  <button
+                    key={cls.id}
+                    onClick={() => navigate(`/clases/${cls.id}`)}
+                    className="py-2.5 flex items-center justify-between hover:bg-gray-800/50 rounded-lg px-2 -mx-2 transition-colors"
+                  >
+                    <div className="flex-1 min-w-0">
+                      <span className="text-white text-sm truncate block">{cls.name}</span>
+                      {cls.section_title && (
+                        <span className="text-gray-500 text-xs">{cls.section_title}</span>
+                      )}
+                    </div>
+                    {cls.date && (
+                      <span className="text-gray-500 text-xs shrink-0 ml-3">{formatDate(cls.date)}</span>
+                    )}
+                  </button>
+                ))}
+              </div>
             </div>
           )}
 

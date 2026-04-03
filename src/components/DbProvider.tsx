@@ -1,6 +1,6 @@
 // Provider de base de datos - inicializa SQLite al montar la app
 import { createContext, useContext, useEffect, useState, useRef } from 'react';
-import { openDatabase } from '../db/database';
+import { openDatabase, getDatabase, saveDatabase } from '../db/database';
 import { Dumbbell } from 'lucide-react';
 
 interface DbContextValue {
@@ -28,6 +28,10 @@ export function DbProvider({ children }: DbProviderProps) {
 
     // jeep-sqlite ya fue inicializado en main.tsx antes de montar React
     openDatabase()
+      .then(() => {
+        // Migrar imágenes de localStorage a SQLite (una sola vez)
+        return migrateImagesFromLocalStorage();
+      })
       .then(() => {
         setState({ isReady: true, error: null });
       })
@@ -68,4 +72,57 @@ export function DbProvider({ children }: DbProviderProps) {
       {children}
     </DbContext.Provider>
   );
+}
+
+// Migrar imágenes de localStorage a SQLite (se ejecuta una sola vez)
+async function migrateImagesFromLocalStorage(): Promise<void> {
+  const prefix = 'media_';
+  const db = getDatabase();
+
+  // Verificar si la tabla existe (por si la migración aún no corrió)
+  try {
+    const tableCheck = await db.query(
+      `SELECT name FROM sqlite_master WHERE type='table' AND name='exercise_image'`
+    );
+    if (!(tableCheck.values?.length)) return;
+  } catch {
+    return;
+  }
+
+  let migrated = 0;
+
+  // Iterar por todas las claves de localStorage
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (!key || !key.startsWith(prefix)) continue;
+
+    // Solo migrar imágenes de ejercicios (no muscles/equipment)
+    const subPath = key.substring(prefix.length);
+    if (!subPath.startsWith('exercises/')) continue;
+
+    const dataUrl = localStorage.getItem(key);
+    if (!dataUrl) continue;
+
+    // Verificar si ya existe en SQLite
+    const existing = await db.query(
+      `SELECT id FROM exercise_image WHERE id = ?`,
+      [key]
+    );
+    if ((existing.values?.length ?? 0) > 0) continue;
+
+    // Extraer exercise_id del path (ej: exercises/uuid.svg -> uuid.svg)
+    const exerciseId = subPath;
+
+    // Guardar en SQLite
+    await db.run(
+      `INSERT OR REPLACE INTO exercise_image (id, exercise_id, data_url) VALUES (?, ?, ?)`,
+      [key, exerciseId, dataUrl]
+    );
+    migrated++;
+  }
+
+  if (migrated > 0) {
+    await saveDatabase();
+    console.log(`[MediaMigration] Migradas ${migrated} imágenes de localStorage a SQLite`);
+  }
 }

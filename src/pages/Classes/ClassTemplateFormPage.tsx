@@ -412,6 +412,7 @@ export function ClassTemplateFormPage() {
           ? parseInt(estimatedDuration, 10)
           : undefined,
         is_favorite: 0 as const,
+        template_type: 'my_classes' as const,
         is_active: 1 as const,
       };
 

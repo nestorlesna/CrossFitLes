@@ -149,10 +149,9 @@ export async function getById(id: string): Promise<ExerciseWithRelations | null>
 // excludeId: al editar, excluir el propio ID del chequeo
 export async function existsByName(name: string, excludeId?: string): Promise<boolean> {
   const db = getDatabase();
-  // Limpiamos espacios por si acaso
   const cleanName = name.trim();
   
-  let query = `SELECT COUNT(*) as cnt FROM exercise WHERE LOWER(name) = LOWER(?) AND is_active = 1`;
+  let query = `SELECT COUNT(*) as cnt FROM exercise WHERE LOWER(TRIM(name)) = LOWER(TRIM(?)) AND is_active = 1`;
   const params: any[] = [cleanName];
 
   if (excludeId) {
@@ -164,7 +163,6 @@ export async function existsByName(name: string, excludeId?: string): Promise<bo
   
   if (!result.values || result.values.length === 0) return false;
   
-  // Algunos adaptadores devuelven la llave en mayúsculas o minúsculas
   const row = result.values[0];
   const cnt = row.cnt ?? row.CNT ?? Object.values(row)[0] ?? 0;
   
@@ -293,6 +291,47 @@ export async function softDelete(id: string): Promise<void> {
   await saveDatabase();
 }
 
+// Borrado físico completo de un ejercicio
+export async function hardDelete(id: string): Promise<void> {
+  const db = getDatabase();
+
+  // Eliminar relaciones M2M
+  await db.run(`DELETE FROM exercise_muscle_group WHERE exercise_id = ?`, [id]);
+  await db.run(`DELETE FROM exercise_equipment WHERE exercise_id = ?`, [id]);
+  await db.run(`DELETE FROM exercise_section_type WHERE exercise_id = ?`, [id]);
+  await db.run(`DELETE FROM exercise_unit WHERE exercise_id = ?`, [id]);
+  await db.run(`DELETE FROM exercise_tag WHERE exercise_id = ?`, [id]);
+
+  // Eliminar imagen asociada
+  await db.run(`DELETE FROM exercise_image WHERE exercise_id = ?`, [id]);
+
+  // Eliminar referencias en section_exercise
+  await db.run(`DELETE FROM section_exercise WHERE exercise_id = ?`, [id]);
+
+  // Eliminar resultados de sesiones
+  await db.run(`DELETE FROM session_exercise_result WHERE exercise_id = ?`, [id]);
+
+  // Eliminar récords personales
+  await db.run(`DELETE FROM personal_record WHERE exercise_id = ?`, [id]);
+
+  // Eliminar el ejercicio
+  await db.run(`DELETE FROM exercise WHERE id = ?`, [id]);
+
+  await saveDatabase();
+}
+
+// Verifica si un ejercicio está siendo usado en alguna clase
+export async function isExerciseInClass(exerciseId: string): Promise<boolean> {
+  const db = getDatabase();
+  const result = await db.query(
+    `SELECT COUNT(*) as cnt FROM section_exercise WHERE exercise_id = ?`,
+    [exerciseId]
+  );
+  const row = result.values?.[0];
+  const cnt = row?.cnt ?? row?.CNT ?? Object.values(row ?? {})[0] ?? 0;
+  return Number(cnt) > 0;
+}
+
 // Obtiene el historial de uso del ejercicio en sesiones completadas
 export async function getHistory(exerciseId: string): Promise<unknown[]> {
   const db = getDatabase();
@@ -323,4 +362,64 @@ export async function getPersonalRecords(exerciseId: string): Promise<unknown[]>
     [exerciseId]
   );
   return result.values ?? [];
+}
+
+// Obtiene las clases que usan un ejercicio
+export async function getClassesUsingExercise(exerciseId: string): Promise<{
+  id: string;
+  name: string;
+  date: string | null;
+  section_title: string | null;
+}[]> {
+  const db = getDatabase();
+  const result = await db.query(
+    `SELECT DISTINCT ct.id, ct.name, ct.date, cs.visible_title as section_title
+     FROM section_exercise se
+     JOIN class_section cs ON se.class_section_id = cs.id
+     JOIN class_template ct ON cs.class_template_id = ct.id
+     WHERE se.exercise_id = ? AND ct.is_active = 1
+     ORDER BY ct.date DESC, ct.name ASC`,
+    [exerciseId]
+  );
+  return (result.values ?? []) as { id: string; name: string; date: string | null; section_title: string | null }[];
+}
+
+// Obtiene ejercicios duplicados (mismo nombre normalizado con LOWER(TRIM(name)))
+export async function getDuplicateExercises(): Promise<{
+  normalized_name: string;
+  count: number;
+  exercises: { id: string; name: string; is_active: number; created_at: string }[];
+}[]> {
+  const db = getDatabase();
+
+  // Primero obtener los nombres duplicados
+  const dupResult = await db.query(
+    `SELECT LOWER(TRIM(name)) as normalized_name, COUNT(*) as cnt
+     FROM exercise
+     GROUP BY LOWER(TRIM(name))
+     HAVING COUNT(*) > 1
+     ORDER BY cnt DESC, normalized_name ASC`
+  );
+
+  const duplicates = (dupResult.values ?? []) as { normalized_name: string; cnt: number }[];
+
+  // Para cada nombre duplicado, obtener los ejercicios
+  const result: { normalized_name: string; count: number; exercises: { id: string; name: string; is_active: number; created_at: string }[] }[] = [];
+
+  for (const dup of duplicates) {
+    const exResult = await db.query(
+      `SELECT id, name, is_active, created_at
+       FROM exercise
+       WHERE LOWER(TRIM(name)) = ?
+       ORDER BY is_active DESC, created_at ASC`,
+      [dup.normalized_name]
+    );
+    result.push({
+      normalized_name: dup.normalized_name,
+      count: dup.cnt,
+      exercises: (exResult.values ?? []) as { id: string; name: string; is_active: number; created_at: string }[],
+    });
+  }
+
+  return result;
 }

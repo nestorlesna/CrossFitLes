@@ -199,8 +199,7 @@ npx tsc --noEmit
 // src/services/muscles{Descripcion}UpdateService.ts
 // Asigna grupos musculares a los ejercicios de {descripción}
 
-import { SQLiteDBConnection } from '@capacitor-community/sqlite';
-import { getDatabase } from '../db/database';
+import { getDatabase, saveDatabase } from '../db/database';
 import { generateUUID } from '../utils/formatters';
 
 const UPDATE_FLAG = 'muscles_{descripcion}_done';
@@ -213,10 +212,32 @@ function markDone(): void {
   localStorage.setItem(UPDATE_FLAG, 'true');
 }
 
+// ⚠️ CRÍTICO: Mapeo de nombres simplificados a granulares (post "Cargar Datos Base")
+// Después de "Cargar Datos Base", la BD tiene nombres granulares.
+// Esta tabla traduce automáticamente los nombres del servicio a los de la BD.
+const SIMPLIFIED_TO_GRANULAR: Record<string, string> = {
+  'Deltoides': 'Deltoides anterior',
+  'Cuádriceps': 'Recto femoral',
+  'Isquiotibiales': 'Bíceps femoral',
+  'Glúteos': 'Glúteo mayor',
+  'Dorsales': 'Dorsal ancho',
+  'Trapecio': 'Trapecio (superior)',
+  'Bíceps': 'Bíceps braquial',
+  'Tríceps': 'Tríceps braquial',
+  'Pantorrillas': 'Gastrocnemio (gemelos)',
+  'Core/Abdominales': 'Recto abdominal',
+  'Antebrazos': 'Flexores antebrazo',
+  'Pectorales': 'Pectoral mayor',
+};
+
+function toDbName(name: string): string {
+  return SIMPLIFIED_TO_GRANULAR[name] ?? name;
+}
+
 interface MuscleAssignment {
   exerciseName: string;        // nombre exacto en la BD
-  primary: string;             // 1 músculo primario
-  secondary: string[];         // 0 a N músculos secundarios
+  primary: string;             // 1 músculo primario (usar nombres SIMPLIFICADOS)
+  secondary: string[];         // 0 a N músculos secundarios (usar nombres SIMPLIFICADOS)
 }
 
 const MUSCLE_ASSIGNMENTS: MuscleAssignment[] = [
@@ -227,6 +248,7 @@ const MUSCLE_ASSIGNMENTS: MuscleAssignment[] = [
 export async function updateMuscles{Descripcion}(): Promise<{ updated: number; skipped: number }> {
   const db = await getDatabase();
 
+  // Cargar todos los músculos de la BD (pueden ser simplificados o granulares)
   const muscleRows = await db.query('SELECT id, name FROM muscle_group WHERE is_active = 1');
   const muscleMap = new Map(
     (muscleRows.values ?? []).map((r: any) => [r.name as string, r.id as string])
@@ -236,9 +258,9 @@ export async function updateMuscles{Descripcion}(): Promise<{ updated: number; s
   let skipped = 0;
 
   for (const assignment of MUSCLE_ASSIGNMENTS) {
-    // Buscar el ejercicio
+    // Buscar el ejercicio (case-insensitive con TRIM)
     const exRes = await db.query(
-      'SELECT id FROM exercise WHERE name = ? AND is_active = 1',
+      'SELECT id FROM exercise WHERE UPPER(TRIM(name)) = UPPER(TRIM(?)) AND is_active = 1',
       [assignment.exerciseName]
     );
     const exerciseId = exRes.values?.[0]?.id as string | undefined;
@@ -259,8 +281,9 @@ export async function updateMuscles{Descripcion}(): Promise<{ updated: number; s
       continue;
     }
 
-    // Insertar músculo primario
-    const primaryId = muscleMap.get(assignment.primary);
+    // ⚠️ CRÍTICO: Traducir nombre simplificado a granular antes de buscar en el mapa
+    const primaryDbName = toDbName(assignment.primary);
+    const primaryId = muscleMap.get(primaryDbName);
     if (primaryId) {
       await db.run(
         'INSERT INTO exercise_muscle_group (id, exercise_id, muscle_group_id, is_primary) VALUES (?, ?, ?, 1)',
@@ -271,16 +294,21 @@ export async function updateMuscles{Descripcion}(): Promise<{ updated: number; s
         'UPDATE exercise SET primary_muscle_group_id = ?, updated_at = ? WHERE id = ?',
         [primaryId, new Date().toISOString().replace('T', ' ').substring(0, 19), exerciseId]
       );
+    } else {
+      console.warn(`[MusclesUpdate] Músculo primario no encontrado en BD: "${primaryDbName}" (original: "${assignment.primary}")`);
     }
 
-    // Insertar músculos secundarios
+    // Insertar músculos secundarios (también traducidos)
     for (const secName of assignment.secondary) {
-      const secId = muscleMap.get(secName);
+      const secDbName = toDbName(secName);
+      const secId = muscleMap.get(secDbName);
       if (secId) {
         await db.run(
           'INSERT INTO exercise_muscle_group (id, exercise_id, muscle_group_id, is_primary) VALUES (?, ?, ?, 0)',
           [generateUUID(), exerciseId, secId]
         );
+      } else {
+        console.warn(`[MusclesUpdate] Músculo secundario no encontrado en BD: "${secDbName}" (original: "${secName}")`);
       }
     }
 
@@ -288,6 +316,7 @@ export async function updateMuscles{Descripcion}(): Promise<{ updated: number; s
     console.info(`[MusclesUpdate] Músculos asignados: ${assignment.exerciseName}`);
   }
 
+  await saveDatabase();
   markDone();
   return { updated, skipped };
 }
@@ -320,6 +349,8 @@ El botón muestra:
 ## 9. EJEMPLO RESUELTO — Clase GOAT 01/04/2026
 
 Servicio a crear: `src/services/musclesClase01042026UpdateService.ts`
+
+⚠️ **Importante:** En `MUSCLE_ASSIGNMENTS` siempre usar los nombres **simplificados** (columna izquierda de la tabla de la sección 3). La función `toDbName()` incluida en el template traduce automáticamente a los nombres granulares de la BD.
 
 ```typescript
 const MUSCLE_ASSIGNMENTS: MuscleAssignment[] = [

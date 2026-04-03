@@ -8,6 +8,7 @@ import {
   ClassTemplateWithSections,
   ClassSection,
   SectionExercise,
+  TemplateType,
 } from '../../models/ClassTemplate';
 
 // Retorna la marca de tiempo actual en formato SQLite
@@ -59,6 +60,11 @@ export async function getAll(filters?: ClassTemplateFilters): Promise<ClassTempl
 
   if (filters?.is_favorite) {
     query += ` AND ct.is_favorite = 1`;
+  }
+
+  if (filters?.template_type) {
+    query += ` AND ct.template_type = ?`;
+    params.push(filters.template_type);
   }
 
   // NULLS LAST simulado en SQLite
@@ -149,8 +155,8 @@ export async function create(
   // 1. Sentencia para la plantilla principal
   stmts.push({
     statement: `INSERT INTO class_template 
-      (id, date, name, objective, general_notes, estimated_duration_minutes, is_favorite, is_active, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      (id, date, name, objective, general_notes, estimated_duration_minutes, is_favorite, template_type, is_active, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     values: [
       templateId,
       template.date ?? null,
@@ -159,6 +165,7 @@ export async function create(
       template.general_notes ?? null,
       template.estimated_duration_minutes ?? null,
       template.is_favorite,
+      (template as any).template_type ?? 'my_classes',
       template.is_active,
       timestamp,
       timestamp,
@@ -250,6 +257,7 @@ export async function update(
     general_notes: template.general_notes ?? null,
     estimated_duration_minutes: template.estimated_duration_minutes ?? null,
     is_favorite: template.is_favorite,
+    template_type: (template as any).template_type,
     updated_at: timestamp,
   };
 
@@ -360,6 +368,15 @@ export async function toggleFavorite(id: string): Promise<void> {
   );
 }
 
+// Alterna el tipo de plantilla entre 'my_classes' y 'generic'
+export async function toggleTemplateType(id: string): Promise<void> {
+  const db = getDatabase();
+  await db.run(
+    `UPDATE class_template SET template_type = CASE WHEN template_type = 'my_classes' THEN 'generic' ELSE 'my_classes' END, updated_at = ? WHERE id = ?`,
+    [now(), id]
+  );
+}
+
 // Duplica una plantilla completa con nuevos UUIDs y agrega "(copia)" al nombre
 export async function duplicate(id: string): Promise<string> {
   const original = await getById(id);
@@ -374,8 +391,8 @@ export async function duplicate(id: string): Promise<string> {
   // Plantilla principal
   stmts.push({
     statement: `INSERT INTO class_template
-      (id, date, name, objective, general_notes, estimated_duration_minutes, is_favorite, is_active, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?, ?, 0, 1, ?, ?)`,
+      (id, date, name, objective, general_notes, estimated_duration_minutes, is_favorite, template_type, is_active, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, 0, 'my_classes', 1, ?, ?)`,
     values: [
       newTemplateId,
       original.date ?? null,

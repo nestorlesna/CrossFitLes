@@ -14,24 +14,26 @@ import {
   Info,
   Play,
   Flame,
+  Trash2,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
 import { Badge } from '../../components/ui/Badge';
 import { Modal } from '../../components/ui/Modal';
 import { ExerciseInfoModal } from '../../components/ui/ExerciseInfoModal';
-import { getById as getSessionById } from '../../db/repositories/trainingSessionRepo';
+import { getById as getSessionById, hardDelete } from '../../db/repositories/trainingSessionRepo';
 import { getById as getTemplateById } from '../../db/repositories/classTemplateRepo';
 import { SessionWithRelations } from '../../models/TrainingSession';
 import { ClassTemplateWithSections } from '../../models/ClassTemplate';
 import { formatDate } from '../../utils/formatters';
 import { getImageDisplayUrl } from '../../services/mediaService';
 
-// Helper para obtener el ID de YouTube
+// Helper para obtener el ID de YouTube (incluye Shorts)
 function getYoutubeId(url: string): string | null {
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-  const match = url.match(regExp);
-  return (match && match[2].length === 11) ? match[2] : null;
+  if (!url) return null;
+  // Soporta: youtu.be/ID, youtube.com/shorts/ID, youtube.com/watch?v=ID, youtube.com/v/ID, youtube.com/embed/ID
+  const m = url.match(/(?:youtube\.com\/(?:shorts\/|v\/|embed\/)|youtu\.be\/|watch\?v=)([^#&?]+)/);
+  return m ? m[1] : null;
 }
 
 // Helper para obtener el ID de Vimeo
@@ -135,6 +137,11 @@ export function SessionDetailPage() {
   const [infoExerciseId, setInfoExerciseId] = useState<string | null>(null);
   const [infoExerciseName, setInfoExerciseName] = useState('');
 
+  // Delete confirmation
+  const [showDeleteConfirm1, setShowDeleteConfirm1] = useState(false);
+  const [showDeleteConfirm2, setShowDeleteConfirm2] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
   const loadData = useCallback(async () => {
     if (!id) return;
     setLoading(true);
@@ -161,6 +168,23 @@ export function SessionDetailPage() {
   useEffect(() => {
     loadData();
   }, [loadData]);
+
+  // Eliminar sesión (borrado físico con doble confirmación)
+  async function handleDeleteSession() {
+    if (!id) return;
+    setDeleting(true);
+    try {
+      await hardDelete(id);
+      toast.success('Sesión eliminada');
+      navigate('/sesiones');
+    } catch (e) {
+      toast.error('Error al eliminar la sesión');
+    } finally {
+      setDeleting(false);
+      setShowDeleteConfirm1(false);
+      setShowDeleteConfirm2(false);
+    }
+  }
 
   if (loading) return (
     <div className="flex items-center justify-center h-screen bg-black">
@@ -199,6 +223,15 @@ export function SessionDetailPage() {
         leftAction={
           <button onClick={() => navigate('/sesiones')} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <ChevronLeft size={24} />
+          </button>
+        }
+        rightAction={
+          <button
+            onClick={() => setShowDeleteConfirm1(true)}
+            className="text-red-500 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
+            aria-label="Eliminar sesión"
+          >
+            <Trash2 size={20} />
           </button>
         }
       />
@@ -549,6 +582,87 @@ export function SessionDetailPage() {
         exerciseName={infoExerciseName}
         onClose={() => setInfoExerciseId(null)}
       />
+
+      {/* Primera confirmación de eliminación */}
+      <Modal
+        isOpen={showDeleteConfirm1}
+        onClose={() => setShowDeleteConfirm1(false)}
+        title="Eliminar sesión"
+        size="sm"
+      >
+        <div className="flex flex-col gap-4">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center shrink-0">
+              <Trash2 size={20} className="text-red-500" />
+            </div>
+            <div>
+              <p className="text-white text-sm font-medium mb-1">
+                ¿Querés eliminar esta sesión?
+              </p>
+              <p className="text-gray-400 text-xs leading-relaxed">
+                Esta acción eliminará la sesión, todos sus ejercicios y récords personales asociados. No se puede deshacer.
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-3 mt-2">
+            <button
+              onClick={() => setShowDeleteConfirm1(false)}
+              className="flex-1 bg-gray-800 text-white font-medium py-3 rounded-xl text-sm hover:bg-gray-700 transition-colors"
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={() => {
+                setShowDeleteConfirm1(false);
+                setShowDeleteConfirm2(true);
+              }}
+              className="flex-1 bg-red-500 text-white font-medium py-3 rounded-xl text-sm hover:bg-red-600 transition-colors"
+            >
+              Continuar
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Segunda confirmación de eliminación */}
+      <Modal
+        isOpen={showDeleteConfirm2}
+        onClose={() => setShowDeleteConfirm2(false)}
+        title="Confirmar eliminación"
+        size="sm"
+      >
+        <div className="flex flex-col gap-4">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center shrink-0">
+              <Flame size={20} className="text-red-500" />
+            </div>
+            <div>
+              <p className="text-white text-sm font-medium mb-1">
+                Última confirmación
+              </p>
+              <p className="text-gray-400 text-xs leading-relaxed">
+                ¿Estás completamente seguro? Se borrarán todos los datos de esta sesión permanentemente.
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-3 mt-2">
+            <button
+              onClick={() => setShowDeleteConfirm2(false)}
+              className="flex-1 bg-gray-800 text-white font-medium py-3 rounded-xl text-sm hover:bg-gray-700 transition-colors"
+              disabled={deleting}
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={handleDeleteSession}
+              disabled={deleting}
+              className="flex-1 bg-red-600 text-white font-medium py-3 rounded-xl text-sm hover:bg-red-700 transition-colors disabled:opacity-50"
+            >
+              {deleting ? 'Eliminando...' : 'Sí, eliminar'}
+            </button>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 }

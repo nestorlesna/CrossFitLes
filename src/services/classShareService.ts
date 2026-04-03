@@ -211,16 +211,39 @@ export async function exportClasses(classIds: string[]): Promise<void> {
   // 7. Incluir media de ejercicios (solo imágenes subidas por el usuario)
   const mediaFolder = zip.folder('media');
 
+  // Obtener imágenes de SQLite
+  const imgResult = await db.query(`SELECT id, data_url FROM exercise_image`);
+  const sqliteImages = (imgResult.values ?? []) as { id: string; data_url: string }[];
+
+  // Determinar qué paths de media necesitan los ejercicios
+  const exerciseMediaPaths = new Set<string>();
+  for (const ex of exercises) {
+    const path = (ex.image_url as string) || (ex.image_path as string) || '';
+    if (path && !path.startsWith('/img/') && !path.startsWith('http') && !path.startsWith('data:')) {
+      exerciseMediaPaths.add(path);
+    }
+  }
+
+  // Exportar desde SQLite primero
+  for (const img of sqliteImages) {
+    if (exerciseMediaPaths.has(img.id)) {
+      const base64 = img.data_url.split(',')[1];
+      if (base64 && mediaFolder) {
+        mediaFolder.file(img.id, base64, { base64: true });
+      }
+    }
+  }
+
+  // También incluir desde localStorage (legacy, para compatibilidad)
   if (Capacitor.getPlatform() === 'web') {
     const prefix = 'media_';
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       if (!key?.startsWith(`${prefix}exercises/`)) continue;
       const mediaPath = key.replace(prefix, '');
-      const isUsed = exercises.some(
-        ex => ex.image_url === mediaPath || ex.image_path === mediaPath
-      );
-      if (!isUsed) continue;
+      if (!exerciseMediaPaths.has(mediaPath)) continue;
+      // Si ya se incluyó desde SQLite, saltar
+      if (sqliteImages.some(img => img.id === mediaPath)) continue;
       const dataUrl = localStorage.getItem(key);
       if (dataUrl) {
         const base64 = dataUrl.split(',')[1];
@@ -229,9 +252,9 @@ export async function exportClasses(classIds: string[]): Promise<void> {
     }
   } else {
     const { Filesystem, Directory } = await import('@capacitor/filesystem');
-    for (const ex of exercises) {
-      const path = (ex.image_url as string) || (ex.image_path as string) || '';
-      if (!path || path.startsWith('/img/') || path.startsWith('http') || path.startsWith('data:')) continue;
+    for (const path of exerciseMediaPaths) {
+      // Si ya se incluyó desde SQLite, saltar
+      if (sqliteImages.some(img => img.id === path)) continue;
       try {
         const fileData = await Filesystem.readFile({
           path: `crossfit-tracker/media/${path}`,
@@ -371,11 +394,94 @@ export async function importClassFromZip(zipFile: Blob): Promise<ClassImportResu
   for (const ex of share.exercises) {
     const exportId = ex.id as string;
     const found = await db.query(
-      `SELECT id FROM exercise WHERE LOWER(name) = LOWER(?) AND is_active = 1 LIMIT 1`,
+      `SELECT id FROM exercise WHERE UPPER(TRIM(name)) = UPPER(TRIM(?)) AND is_active = 1 LIMIT 1`,
       [ex.name as string]
     );
     if (found.values && found.values.length > 0) {
-      idMap.set(exportId, found.values[0].id as string);
+      const localId = found.values[0].id as string;
+      idMap.set(exportId, localId);
+
+      // Actualizar datos del ejercicio existente (imagen, videos, descripción, etc.)
+      const updateFields: string[] = [];
+      const updateValues: unknown[] = [];
+
+      if (ex.description !== undefined) { updateFields.push('description = ?'); updateValues.push(ex.description ?? null); }
+      if (ex.technical_notes !== undefined) { updateFields.push('technical_notes = ?'); updateValues.push(ex.technical_notes ?? null); }
+      if (ex.difficulty_level_id) {
+        const mappedLevel = idMap.get(ex.difficulty_level_id as string);
+        updateFields.push('difficulty_level_id = ?'); updateValues.push(mappedLevel ?? null);
+      }
+      if (ex.primary_muscle_group_id) {
+        const mappedMuscle = idMap.get(ex.primary_muscle_group_id as string);
+        updateFields.push('primary_muscle_group_id = ?'); updateValues.push(mappedMuscle ?? null);
+      }
+      if (ex.image_url !== undefined) { updateFields.push('image_url = ?'); updateValues.push(ex.image_url ?? null); }
+      if (ex.image_path !== undefined) { updateFields.push('image_path = ?'); updateValues.push(ex.image_path ?? null); }
+      if (ex.video_path !== undefined) { updateFields.push('video_path = ?'); updateValues.push(ex.video_path ?? null); }
+      if (ex.video_long_path !== undefined) { updateFields.push('video_long_path = ?'); updateValues.push(ex.video_long_path ?? null); }
+      if (ex.is_compound !== undefined) { updateFields.push('is_compound = ?'); updateValues.push(ex.is_compound ?? 0); }
+      updateFields.push('updated_at = ?'); updateValues.push(timestamp);
+
+      if (updateFields.length > 0) {
+        stmts.push({
+          statement: `UPDATE exercise SET ${updateFields.join(', ')} WHERE id = ?`,
+          values: [...updateValues, localId],
+        });
+      }
+
+      // Actualizar relaciones (muscle groups, equipment, tags, etc.)
+      const rels = share.exercise_relations;
+
+      // Muscle groups: borrar existentes y reinsertar
+      const exMuscleGroups = rels.exercise_muscle_group.filter(r => r.exercise_id === exportId);
+      if (exMuscleGroups.length > 0) {
+        stmts.push({ statement: `DELETE FROM exercise_muscle_group WHERE exercise_id = ?`, values: [localId] });
+        for (const r of exMuscleGroups) {
+          const lid = idMap.get(r.muscle_group_id as string);
+          if (lid) stmts.push({ statement: `INSERT OR IGNORE INTO exercise_muscle_group (exercise_id, muscle_group_id, is_primary) VALUES (?, ?, ?)`, values: [localId, lid, r.is_primary ?? 0] });
+        }
+      }
+
+      // Equipment
+      const exEquipment = rels.exercise_equipment.filter(r => r.exercise_id === exportId);
+      if (exEquipment.length > 0) {
+        stmts.push({ statement: `DELETE FROM exercise_equipment WHERE exercise_id = ?`, values: [localId] });
+        for (const r of exEquipment) {
+          const lid = idMap.get(r.equipment_id as string);
+          if (lid) stmts.push({ statement: `INSERT OR IGNORE INTO exercise_equipment (exercise_id, equipment_id, is_required) VALUES (?, ?, ?)`, values: [localId, lid, r.is_required ?? 0] });
+        }
+      }
+
+      // Section types
+      const exSectionTypes = rels.exercise_section_type.filter(r => r.exercise_id === exportId);
+      if (exSectionTypes.length > 0) {
+        stmts.push({ statement: `DELETE FROM exercise_section_type WHERE exercise_id = ?`, values: [localId] });
+        for (const r of exSectionTypes) {
+          const lid = idMap.get(r.section_type_id as string);
+          if (lid) stmts.push({ statement: `INSERT OR IGNORE INTO exercise_section_type (exercise_id, section_type_id) VALUES (?, ?)`, values: [localId, lid] });
+        }
+      }
+
+      // Units
+      const exUnits = rels.exercise_unit.filter(r => r.exercise_id === exportId);
+      if (exUnits.length > 0) {
+        stmts.push({ statement: `DELETE FROM exercise_unit WHERE exercise_id = ?`, values: [localId] });
+        for (const r of exUnits) {
+          const lid = idMap.get(r.measurement_unit_id as string);
+          if (lid) stmts.push({ statement: `INSERT OR IGNORE INTO exercise_unit (exercise_id, measurement_unit_id, is_default) VALUES (?, ?, ?)`, values: [localId, lid, r.is_default ?? 0] });
+        }
+      }
+
+      // Tags
+      const exTags = rels.exercise_tag.filter(r => r.exercise_id === exportId);
+      if (exTags.length > 0) {
+        stmts.push({ statement: `DELETE FROM exercise_tag WHERE exercise_id = ?`, values: [localId] });
+        for (const r of exTags) {
+          const lid = idMap.get(r.tag_id as string);
+          if (lid) stmts.push({ statement: `INSERT OR IGNORE INTO exercise_tag (exercise_id, tag_id) VALUES (?, ?)`, values: [localId, lid] });
+        }
+      }
+
       exercisesReused++;
     } else {
       const newId = generateUUID();
@@ -428,8 +534,8 @@ export async function importClassFromZip(zipFile: Blob): Promise<ClassImportResu
     idMap.set(exportClassId, newClassId);
     stmts.push({
       statement: `INSERT INTO class_template
-        (id, date, name, objective, general_notes, estimated_duration_minutes, is_favorite, is_active, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, ?, 0, 1, ?, ?)`,
+        (id, date, name, objective, general_notes, estimated_duration_minutes, is_favorite, template_type, is_active, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, 0, 'my_classes', 1, ?, ?)`,
       values: [newClassId, cls.date ?? null, cls.name, cls.objective ?? null, cls.general_notes ?? null, cls.estimated_duration_minutes ?? null, timestamp, timestamp],
     });
 
@@ -625,14 +731,38 @@ export async function exportExercises(exerciseIds: string[]): Promise<void> {
   // 6. Incluir media de ejercicios (solo imágenes subidas por el usuario)
   const mediaFolder = zip.folder('media');
 
+  // Obtener imágenes de SQLite
+  const imgResult = await db.query(`SELECT id, data_url FROM exercise_image`);
+  const sqliteImages = (imgResult.values ?? []) as { id: string; data_url: string }[];
+
+  // Determinar qué paths de media necesitan los ejercicios
+  const exerciseMediaPaths = new Set<string>();
+  for (const ex of exercises) {
+    const path = (ex.image_url as string) || (ex.image_path as string) || '';
+    if (path && !path.startsWith('/img/') && !path.startsWith('http') && !path.startsWith('data:')) {
+      exerciseMediaPaths.add(path);
+    }
+  }
+
+  // Exportar desde SQLite primero
+  for (const img of sqliteImages) {
+    if (exerciseMediaPaths.has(img.id)) {
+      const base64 = img.data_url.split(',')[1];
+      if (base64 && mediaFolder) {
+        mediaFolder.file(img.id, base64, { base64: true });
+      }
+    }
+  }
+
+  // También incluir desde localStorage (legacy)
   if (Capacitor.getPlatform() === 'web') {
     const prefix = 'media_';
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       if (!key?.startsWith(`${prefix}exercises/`)) continue;
       const mediaPath = key.replace(prefix, '');
-      const isUsed = exercises.some(ex => ex.image_url === mediaPath || ex.image_path === mediaPath);
-      if (!isUsed) continue;
+      if (!exerciseMediaPaths.has(mediaPath)) continue;
+      if (sqliteImages.some(img => img.id === mediaPath)) continue;
       const dataUrl = localStorage.getItem(key);
       if (dataUrl) {
         const base64 = dataUrl.split(',')[1];
@@ -641,9 +771,8 @@ export async function exportExercises(exerciseIds: string[]): Promise<void> {
     }
   } else {
     const { Filesystem, Directory } = await import('@capacitor/filesystem');
-    for (const ex of exercises) {
-      const path = (ex.image_url as string) || (ex.image_path as string) || '';
-      if (!path || path.startsWith('/img/') || path.startsWith('http') || path.startsWith('data:')) continue;
+    for (const path of exerciseMediaPaths) {
+      if (sqliteImages.some(img => img.id === path)) continue;
       try {
         const fileData = await Filesystem.readFile({ path: `crossfit-tracker/media/${path}`, directory: Directory.Data });
         mediaFolder?.file(path, fileData.data as string, { base64: true });
@@ -753,7 +882,7 @@ export async function importExercisesFromZip(zipFile: Blob): Promise<ExerciseImp
   for (const ex of share.exercises) {
     const exportId = ex.id as string;
     const found = await db.query(
-      `SELECT id FROM exercise WHERE LOWER(name) = LOWER(?) AND is_active = 1 LIMIT 1`,
+      `SELECT id FROM exercise WHERE UPPER(TRIM(name)) = UPPER(TRIM(?)) AND is_active = 1 LIMIT 1`,
       [ex.name as string]
     );
     if (found.values && found.values.length > 0) {
@@ -847,7 +976,7 @@ export async function importFromZip(zipFile: Blob): Promise<ImportFromZipResult>
 
 // ─── Auxiliares ─────────────────────────────────────────────────────────────
 
-/** Restaura media del ZIP sin sobrescribir archivos ya existentes en el dispositivo. */
+/** Restaura media del ZIP, siempre sobrescribe con los datos del ZIP. */
 async function restoreMedia(zip: JSZip): Promise<void> {
   const mediaFolder = zip.folder('media');
   if (!mediaFolder) return;
@@ -857,32 +986,42 @@ async function restoreMedia(zip: JSZip): Promise<void> {
     if (!mediaFolder.file(relativePath)?.dir) mediaFiles.push(relativePath);
   });
 
-  if (Capacitor.getPlatform() === 'web') {
-    for (const relativePath of mediaFiles) {
-      const localKey = `media_${relativePath}`;
-      if (localStorage.getItem(localKey)) continue;
-      const file = mediaFolder.file(relativePath);
-      if (file) {
-        const base64 = await file.async('base64');
-        const ext = relativePath.split('.').pop() ?? 'jpeg';
-        localStorage.setItem(localKey, `data:image/${ext};base64,${base64}`);
-      }
-    }
-  } else {
-    const { Filesystem, Directory } = await import('@capacitor/filesystem');
-    for (const relativePath of mediaFiles) {
-      const fullPath = `crossfit-tracker/media/${relativePath}`;
+  if (mediaFiles.length === 0) return;
+
+  const db = await openDatabase();
+  const { saveDatabase } = await import('../db/database');
+
+  for (const relativePath of mediaFiles) {
+    const file = mediaFolder.file(relativePath);
+    if (!file) continue;
+
+    const base64 = await file.async('base64');
+    const ext = relativePath.split('.').pop() ?? 'jpeg';
+    const dataUrl = `data:image/${ext};base64,${base64}`;
+    const exerciseId = relativePath.includes('/') ? relativePath.split('/').slice(1).join('/') : relativePath;
+
+    // Siempre guardar en SQLite (sobrescribe si ya existe)
+    await db.run(
+      `INSERT OR REPLACE INTO exercise_image (id, exercise_id, data_url) VALUES (?, ?, ?)`,
+      [relativePath, exerciseId, dataUrl]
+    );
+
+    // También guardar en localStorage (web)
+    if (Capacitor.getPlatform() === 'web') {
+      localStorage.setItem(`media_${relativePath}`, dataUrl);
+    } else {
+      // También guardar en filesystem nativo (Android)
       try {
-        await Filesystem.stat({ path: fullPath, directory: Directory.Data });
-      } catch {
-        const file = mediaFolder.file(relativePath);
-        if (file) {
-          const base64 = await file.async('base64');
-          await Filesystem.writeFile({ path: fullPath, data: base64, directory: Directory.Data, recursive: true });
-        }
+        const { Filesystem, Directory } = await import('@capacitor/filesystem');
+        const fullPath = `crossfit-tracker/media/${relativePath}`;
+        await Filesystem.writeFile({ path: fullPath, data: base64, directory: Directory.Data, recursive: true });
+      } catch (e) {
+        console.warn(`[ClassShare] No se pudo guardar media en filesystem: ${relativePath}`, e);
       }
     }
   }
+
+  await saveDatabase();
 }
 
 function formatDateForFile(date: Date): string {

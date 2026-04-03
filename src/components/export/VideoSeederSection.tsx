@@ -4,14 +4,6 @@
 import { useState } from 'react';
 import { Video, Loader2, CheckCircle2 } from 'lucide-react';
 import { toast } from 'sonner';
-import {
-  updateVideosBatch001,
-  isVideosBatch001UpdateDone,
-} from '../../services/videosBatch001UpdateService';
-import {
-  updateVideosBatch002,
-  isVideosBatch002UpdateDone,
-} from '../../services/videosBatch002UpdateService';
 
 interface VideoEntry {
   label: string;
@@ -20,20 +12,7 @@ interface VideoEntry {
   run: () => Promise<{ updated: number; skippedNoExercise: number; skippedNoVideo: number }>;
 }
 
-const VIDEO_ENTRIES: VideoEntry[] = [
-  {
-    label: 'Batch 001 — Back Squat',
-    description: 'Back Squat — Catalyst Athletics tutorial',
-    isDone: isVideosBatch001UpdateDone,
-    run: updateVideosBatch001,
-  },
-  {
-    label: 'Batch 002 — 28 ejercicios principales',
-    description: 'Clean & Jerk · Deadlift · Front Squat · Box Jump · Wall Ball · Double Under · Ring Dip…',
-    isDone: isVideosBatch002UpdateDone,
-    run: updateVideosBatch002,
-  },
-];
+const VIDEO_ENTRIES: VideoEntry[] = [];
 
 export function VideoSeederSection() {
   const [loading, setLoading] = useState<string | null>(null);

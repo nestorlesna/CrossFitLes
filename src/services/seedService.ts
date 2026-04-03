@@ -649,9 +649,9 @@ async function seedTemplates(db: SQLiteDBConnection): Promise<void> {
     // 2. Crear Plantilla: "Metcon de Viernes"
     const templateId = generateUUID();
     await db.run(
-      `INSERT INTO class_template (id, name, objective, is_favorite, is_active, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      [templateId, 'Metcon de Viernes', 'Capacidad aeróbica y resistencia muscular', 1, 1, timestamp, timestamp]
+      `INSERT INTO class_template (id, name, objective, is_favorite, template_type, is_active, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [templateId, 'Metcon de Viernes', 'Capacidad aeróbica y resistencia muscular', 1, 'generic', 1, timestamp, timestamp]
     );
 
     // Sección 1: Warmup
@@ -1029,8 +1029,8 @@ async function seedGoatApr1(db: SQLiteDBConnection): Promise<void> {
 
   const classId = generateUUID();
   await db.run(
-    `INSERT INTO class_template (id, date, name, objective, estimated_duration_minutes, is_favorite, is_active, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, 0, 1, ?, ?)`,
+    `INSERT INTO class_template (id, date, name, objective, estimated_duration_minutes, is_favorite, template_type, is_active, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, 0, 'generic', 1, ?, ?)`,
     [classId, '2026-04-01',
      'Clase GOAT 01/04/2026',
      'Progresión técnica de arrancada (snatch): complejo de barbell en EMOM + WOD en parejas con mancuernas',

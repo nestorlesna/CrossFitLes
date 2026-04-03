@@ -520,7 +520,7 @@ export async function removeExerciseFromSession(resultId: string, sessionId: str
 }
 
 /**
- * Borrado lógico de sesión
+ * Borrado lógico de sesión (cancelar)
  */
 export async function softDelete(id: string): Promise<void> {
   const db = getDatabase();
@@ -528,5 +528,42 @@ export async function softDelete(id: string): Promise<void> {
     `UPDATE training_session SET status = 'cancelled', updated_at = ? WHERE id = ?`,
     [now(), id]
   );
+  await saveDatabase();
+}
+
+/**
+ * Borrado físico completo: elimina sesión, resultados y récords personales asociados
+ */
+export async function hardDelete(id: string): Promise<void> {
+  const db = getDatabase();
+
+  // 1. Obtener los IDs de resultados de la sesión
+  const resultsResult = await db.query(
+    `SELECT id FROM session_exercise_result WHERE training_session_id = ?`,
+    [id]
+  );
+  const resultIds = (resultsResult.values ?? []).map((r: any) => r.id);
+
+  // 2. Eliminar récords personales vinculados a estos resultados
+  if (resultIds.length > 0) {
+    const placeholders = resultIds.map(() => '?').join(',');
+    await db.run(
+      `DELETE FROM personal_record WHERE session_exercise_result_id IN (${placeholders})`,
+      resultIds
+    );
+  }
+
+  // 3. Eliminar resultados de la sesión
+  await db.run(
+    `DELETE FROM session_exercise_result WHERE training_session_id = ?`,
+    [id]
+  );
+
+  // 4. Eliminar la sesión
+  await db.run(
+    `DELETE FROM training_session WHERE id = ?`,
+    [id]
+  );
+
   await saveDatabase();
 }

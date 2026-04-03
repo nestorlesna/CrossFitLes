@@ -3,7 +3,7 @@
 
 import { getDatabase, saveDatabase } from '../db/database';
 
-const UPDATE_FLAG = 'videos_batch_001_done_v1';
+const UPDATE_FLAG = 'videos_batch_001_done_v2';
 
 export function isVideosBatch001UpdateDone(): boolean {
   return localStorage.getItem(UPDATE_FLAG) === 'true';
@@ -15,12 +15,17 @@ function markDone(): void {
 
 interface VideoAssignment {
   exerciseName: string;
-  videoLongPath: string;
+  videoShortPath: string | null;   // video_path — popup sesión
+  videoLongPath: string | null;    // video_long_path — tutorial explicativo
 }
 
 const VIDEO_ASSIGNMENTS: VideoAssignment[] = [
-  // Catalyst Athletics — Back Squat tutorial (Olympic weightlifting)
-  { exerciseName: 'Back Squat', videoLongPath: 'https://www.youtube.com/watch?v=6Ai-ne7Lh6M' },
+  // Catalyst Athletics: tutorial olímpico → explicativo
+  {
+    exerciseName: 'Back Squat',
+    videoShortPath: null,
+    videoLongPath: 'https://www.youtube.com/watch?v=6Ai-ne7Lh6M',
+  },
 ];
 
 export async function updateVideosBatch001(): Promise<{
@@ -36,7 +41,7 @@ export async function updateVideosBatch001(): Promise<{
   let skippedNoVideo = 0;
 
   for (const assignment of VIDEO_ASSIGNMENTS) {
-    if (!assignment.videoLongPath) {
+    if (!assignment.videoShortPath && !assignment.videoLongPath) {
       skippedNoVideo++;
       continue;
     }
@@ -53,8 +58,8 @@ export async function updateVideosBatch001(): Promise<{
     }
 
     await db.run(
-      'UPDATE exercise SET video_long_path = ?, updated_at = ? WHERE id = ?',
-      [assignment.videoLongPath, ts, exerciseId]
+      'UPDATE exercise SET video_path = ?, video_long_path = ?, updated_at = ? WHERE id = ?',
+      [assignment.videoShortPath ?? null, assignment.videoLongPath ?? null, ts, exerciseId]
     );
 
     console.log(`[VideosUpdate Batch001] OK: "${assignment.exerciseName}"`);

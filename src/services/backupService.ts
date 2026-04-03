@@ -21,6 +21,7 @@ const TABLE_ORDER = [
   'exercise_section_type',
   'exercise_unit',
   'exercise_tag',
+  'exercise_image',
   'class_template',
   'class_section',
   'section_exercise',
@@ -90,26 +91,41 @@ export async function exportData(): Promise<void> {
 
   zip.file('data.json', JSON.stringify(backupJson, null, 2));
 
-  // 2. Incluir archivos multimedia (Media)
+  // 2. Incluir archivos multimedia (Media) — ahora desde SQLite
   const mediaFolder = zip.folder('media');
   
+  // Exportar imágenes de usuario desde SQLite (tabla exercise_image)
+  const imgResult = await db.query(`SELECT id, data_url FROM exercise_image`);
+  const images = (imgResult.values ?? []) as { id: string; data_url: string }[];
+  
+  for (const img of images) {
+    // Extraer base64 pura del data URL
+    const base64 = img.data_url.split(',')[1];
+    if (base64 && mediaFolder) {
+      mediaFolder.file(img.id, base64, { base64: true });
+    }
+  }
+
+  // También incluir media legacy de localStorage (para compatibilidad con backups antiguos)
   if (Capacitor.getPlatform() === 'web') {
-    // Modo WEB: Leer de localStorage
     const prefix = 'media_';
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       if (key?.startsWith(prefix)) {
+        // Solo incluir si NO está ya en SQLite (evitar duplicados)
         const path = key.replace(prefix, '');
-        const dataUrl = localStorage.getItem(key);
-        if (dataUrl) {
-          // Extraer base64 pura
-          const base64 = dataUrl.split(',')[1];
-          mediaFolder?.file(path, base64, { base64: true });
+        const alreadyInSqlite = images.some(img => img.id === path);
+        if (!alreadyInSqlite) {
+          const dataUrl = localStorage.getItem(key);
+          if (dataUrl) {
+            const base64 = dataUrl.split(',')[1];
+            mediaFolder?.file(path, base64, { base64: true });
+          }
         }
       }
     }
   } else {
-    // Modo NATIVO: Leer de Filesystem
+    // Modo NATIVO: también incluir media del filesystem (legacy)
     const { Filesystem, Directory } = await import('@capacitor/filesystem');
     const subdirs = ['muscles', 'equipment', 'exercises', 'other'];
     const basePath = 'crossfit-tracker/media';
@@ -123,15 +139,18 @@ export async function exportData(): Promise<void> {
         });
 
         for (const file of dirContent.files) {
-          const fileData = await Filesystem.readFile({
-            path: `${fullDir}/${file.name}`,
-            directory: Directory.Data,
-          });
-          mediaFolder?.file(`${subdir}/${file.name}`, fileData.data, { base64: true });
+          const filePath = `${subdir}/${file.name}`;
+          const alreadyInSqlite = images.some(img => img.id === filePath);
+          if (!alreadyInSqlite) {
+            const fileData = await Filesystem.readFile({
+              path: `${fullDir}/${file.name}`,
+              directory: Directory.Data,
+            });
+            mediaFolder?.file(filePath, fileData.data, { base64: true });
+          }
         }
-      } catch (e) {
-        // El directorio puede no existir si no hay fotos allí
-        console.warn(`[Backup] No se pudo leer directorio ${subdir}:`, e);
+      } catch {
+        // El directorio puede no existir
       }
     }
   }
@@ -237,7 +256,37 @@ export async function importDataFromZip(zipFile: Blob): Promise<{ totalRecords: 
   const db = await openDatabase();
   let totalRecords = 0;
 
-  // 2. Limpiar media actual e importar media nueva
+  // 2. Limpiar media actual e importar media nueva desde el ZIP
+  // Primero limpiar la tabla exercise_image en SQLite
+  await db.execute(`DELETE FROM exercise_image`);
+
+  // Importar imágenes del ZIP a SQLite
+  const mediaFolder = zip.folder('media');
+  if (mediaFolder) {
+    const files: string[] = [];
+    mediaFolder.forEach((relativePath) => {
+      if (!mediaFolder.file(relativePath)?.dir) files.push(relativePath);
+    });
+
+    const { saveDatabase } = await import('../db/database');
+    for (const relativePath of files) {
+      const file = mediaFolder.file(relativePath);
+      if (file) {
+        const base64 = await file.async('base64');
+        const ext = relativePath.split('.').pop() ?? 'jpeg';
+        const dataUrl = `data:image/${ext};base64,${base64}`;
+        // Extraer exercise_id del path (ej: exercises/uuid.svg -> uuid.svg)
+        const exerciseId = relativePath.includes('/') ? relativePath.split('/').slice(1).join('/') : relativePath;
+        await db.run(
+          `INSERT OR REPLACE INTO exercise_image (id, exercise_id, data_url) VALUES (?, ?, ?)`,
+          [relativePath, exerciseId, dataUrl]
+        );
+      }
+    }
+    await saveDatabase();
+  }
+
+  // También restaurar en localStorage/filesystem para compatibilidad con código legacy
   if (Capacitor.getPlatform() === 'web') {
     // Borrar registros media en localStorage
     const prefix = 'media_';
@@ -248,8 +297,7 @@ export async function importDataFromZip(zipFile: Blob): Promise<{ totalRecords: 
     }
     keysToDelete.forEach(k => localStorage.removeItem(k));
 
-    // Importar del ZIP
-    const mediaFolder = zip.folder('media');
+    // Re-importar del ZIP a localStorage
     if (mediaFolder) {
       const files: string[] = [];
       mediaFolder.forEach((relativePath) => {
@@ -278,7 +326,6 @@ export async function importDataFromZip(zipFile: Blob): Promise<{ totalRecords: 
       });
     } catch { /* Ignorar si no existe */ }
 
-    const mediaFolder = zip.folder('media');
     if (mediaFolder) {
       const files: string[] = [];
       mediaFolder.forEach((relativePath) => {

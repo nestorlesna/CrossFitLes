@@ -18,11 +18,56 @@ El objetivo es producir:
 
 ---
 
-## 2. CÓMO OBTENER LAS URLs DE VIDEO
+## 2. CAMPOS DE VIDEO EN LA BD
+
+La tabla `exercise` tiene dos campos de video con propósitos distintos:
+
+| Campo | Descripción | Dónde se muestra |
+|-------|-------------|-----------------|
+| `video_path` | **Video corto** — demostración rápida del movimiento | Popup durante sesión (botón play en cada ejercicio), detalle de clase, detalle de sesión |
+| `video_long_path` | **Video explicativo** — tutorial completo con técnica, errores, etc. | Sección "Video explicativo" en la página de detalle del ejercicio |
+
+En los repos el campo se mapea como:
+```sql
+e.video_path as exercise_video_url   -- trainingSessionRepo.ts, classTemplateRepo.ts
+```
+
+**CRÍTICO:** Si `video_path` está vacío, el botón de video **no aparece** en el popup de sesión.
+
+---
+
+## 3. REGLA DE ASIGNACIÓN — DOS VIDEOS POR EJERCICIO
+
+Para cada ejercicio se deben buscar **dos videos diferentes**:
+
+### Video corto (`video_path`)
+- YouTube Shorts preferentemente, o video de < 2 minutos
+- Muestra el movimiento de forma directa y limpia
+- Sin introducción larga, sin publicidad, va al grano
+- Se ve en el popup durante la ejecución de la sesión → debe ser rápido de consultar
+
+### Video explicativo (`video_long_path`)
+- Video de > 2 minutos con explicación técnica
+- Incluye errores comunes, cues de coaching, progresiones
+- Canales como Alan Thrall, Jeff Nippard, Catalyst Athletics, WODprep
+- Se ve solo en la página de detalle del ejercicio
+
+### Reglas de decisión cuando hay incertidumbre
+
+1. **Si se sabe explícitamente** que un video es "explicativo/tutorial" → va a `video_long_path`
+2. **Si se sabe que es un Short** → va a `video_path` (corto)
+3. **Si solo hay una URL** (p.ej. viene de `Ejercicios.md`) → asignarla a `video_path` (corto) y dejar `video_long_path = null` hasta encontrar el explicativo
+4. **Si hay dos videos y no está claro cuál es cuál** → el más largo va a `video_long_path`, el más corto a `video_path`
+5. **Si ambos parecen igual de cortos** → el más técnico/detallado va a `video_long_path`
+
+---
+
+## 4. CÓMO OBTENER LAS URLs DE VIDEO
 
 **Opción A — Desde Ejercicios.md (más rápido):**
 Los ejercicios en `BKP/Ejercicios.md` ya tienen sus URLs de YouTube inline.
 Ejemplo: `- Band Pull-Apart - https://www.youtube.com/shorts/SuvO4TBwSu4`
+Esto es el video corto. Buscar por separado el explicativo si hace falta.
 
 **Opción B — El usuario las proporciona directamente.**
 
@@ -49,37 +94,23 @@ WebSearch rara vez devuelve URLs directas de YouTube. El flujo que funciona:
 
 ### Sitios confiables para hacer WebFetch
 
-| Sitio | Tipo de ejercicios |
-|-------|--------------------|
-| `catalystathletics.com/exercise/` | Halterofilia olímpica (snatch, clean, squat) |
-| `barbend.com/{exercise-name}/` | Fuerza general (deadlift, bench, press) |
-| `muscleandstrength.com/exercises/` | Hipertrofia y fuerza general |
-| `wodprep.com/blog/` | CrossFit específico |
+| Sitio | Tipo de ejercicios | Video típico |
+|-------|--------------------|--------------|
+| `catalystathletics.com/exercise/` | Halterofilia olímpica | Tutorial largo (explicativo) |
+| `barbend.com/{exercise-name}/` | Fuerza general | Tutorial largo (explicativo) |
+| `muscleandstrength.com/exercises/` | Hipertrofia y fuerza general | Tutorial largo |
+| `wodprep.com/blog/` | CrossFit específico | Puede ser corto o largo |
 
-### Ejemplo resuelto — Back Squat
+### Estrategia de búsqueda de dos videos
 
-```
-WebFetch: https://www.catalystathletics.com/exercise/77/Back-Squat/
-→ Encontrado: ID "6Ai-ne7Lh6M" (Back Squat tutorial Catalyst Athletics)
-→ URL final: https://www.youtube.com/watch?v=6Ai-ne7Lh6M
-```
-
----
-
-## 3. CAMPOS DE VIDEO EN LA BD
-
-La tabla `exercise` tiene dos campos de video:
-
-| Campo | Descripción | Ejemplo |
-|-------|-------------|---------|
-| `video_long_path` | URL completa de YouTube (Short o watch) | `https://www.youtube.com/shorts/SuvO4TBwSu4` |
-| `video_path` | URL corta opcional (sin uso actual en la UI) | `null` |
-
-**Regla:** siempre usar `video_long_path`. Solo actualizar `video_path` si se proporciona explícitamente.
+Para cada ejercicio:
+1. Buscar primero en `catalystathletics.com` o `barbend.com` → suele dar el **explicativo**
+2. Buscar en YouTube Shorts (`"{ejercicio}" shorts`) → da el **corto**
+3. Si solo se encuentra uno → usarlo como `video_path` (corto) y dejar `video_long_path = null`
 
 ---
 
-## 4. CÓMO EXTRAER EL ID DE YOUTUBE PARA THUMBNAIL
+## 5. CÓMO EXTRAER EL ID DE YOUTUBE PARA THUMBNAIL
 
 La app muestra thumbnails desde:
 `https://img.youtube.com/vi/{VIDEO_ID}/mqdefault.jpg`
@@ -90,33 +121,33 @@ Para extraer el ID:
 
 ---
 
-## 5. CONVENCIÓN DE NOMBRES
+## 6. CONVENCIÓN DE NOMBRES
 
 - Servicio: `src/services/videos{Descripcion}UpdateService.ts`
   - Ejemplo: `src/services/videosClase02042026UpdateService.ts`
-  - Si es lista manual: `src/services/videosBatch001UpdateService.ts`
+  - Si es lista manual: `src/services/videosBatch003UpdateService.ts`
 - Flag localStorage: `videos_{descripcion}_done_v1`
 - Label del botón: texto descriptivo
   - Ejemplo: `'Clase GOAT 02/04/2026 — videos'`
 
 ---
 
-## 6. PROCESO PASO A PASO
+## 7. PROCESO PASO A PASO
 
 ### PASO 1 — Obtener nombre exacto del ejercicio en BD
 Buscar en los servicios `src/services/class*ImportService.ts` existentes o en `seedService*.ts`.
 
-### PASO 2 — Obtener la URL de YouTube
-Ver sección 2. Si está en Ejercicios.md, extraerla de ahí directamente.
+### PASO 2 — Obtener las dos URLs de YouTube
+Ver sección 4. Buscar video corto + video explicativo por separado.
+Si solo hay una URL disponible, usarla como `videoShortPath` y dejar `videoLongPath: null`.
 
 ### PASO 3 — Crear el servicio TypeScript
-Copiar el template de la sección 7 y completar el array `VIDEO_ASSIGNMENTS`.
+Copiar el template de la sección 8 y completar el array `VIDEO_ASSIGNMENTS`.
 
 ### PASO 4 — Registrar en VideoSeederSection
 Editar `src/components/export/VideoSeederSection.tsx`:
 1. Importar las dos funciones del nuevo servicio
 2. Agregar una entrada al array `VIDEO_ENTRIES`
-3. Quitar el comentario del ejemplo si es la primera entrada
 
 ### PASO 5 — Verificar compilación
 ```bash
@@ -125,7 +156,7 @@ npx tsc --noEmit
 
 ---
 
-## 7. TEMPLATE DEL SERVICIO
+## 8. TEMPLATE DEL SERVICIO
 
 ```typescript
 // src/services/videos{Descripcion}UpdateService.ts
@@ -145,13 +176,17 @@ function markDone(): void {
 
 interface VideoAssignment {
   exerciseName: string;
-  videoLongPath: string;        // URL completa YouTube (Shorts o watch)
-  videoPath?: string | null;    // Opcional, normalmente null
+  videoShortPath: string | null;   // video_path — popup sesión (Shorts o video corto)
+  videoLongPath: string | null;    // video_long_path — explicativo (tutorial, > 2 min)
 }
 
 const VIDEO_ASSIGNMENTS: VideoAssignment[] = [
   // ─── Completar con los ejercicios ────────────────────────────────────────
-  // { exerciseName: 'Band Pull-Apart', videoLongPath: 'https://www.youtube.com/shorts/SuvO4TBwSu4' },
+  // {
+  //   exerciseName: 'Band Pull-Apart',
+  //   videoShortPath: 'https://www.youtube.com/shorts/SuvO4TBwSu4',  // Shorts = corto
+  //   videoLongPath:  'https://www.youtube.com/watch?v=XXXXXXX',     // Tutorial = explicativo
+  // },
 ];
 
 export async function updateVideos{Descripcion}(): Promise<{
@@ -167,7 +202,7 @@ export async function updateVideos{Descripcion}(): Promise<{
   let skippedNoVideo = 0;
 
   for (const assignment of VIDEO_ASSIGNMENTS) {
-    if (!assignment.videoLongPath) {
+    if (!assignment.videoShortPath && !assignment.videoLongPath) {
       skippedNoVideo++;
       continue;
     }
@@ -184,8 +219,8 @@ export async function updateVideos{Descripcion}(): Promise<{
     }
 
     await db.run(
-      'UPDATE exercise SET video_long_path = ?, video_path = ?, updated_at = ? WHERE id = ?',
-      [assignment.videoLongPath, assignment.videoPath ?? null, ts, exerciseId]
+      'UPDATE exercise SET video_path = ?, video_long_path = ?, updated_at = ? WHERE id = ?',
+      [assignment.videoShortPath ?? null, assignment.videoLongPath ?? null, ts, exerciseId]
     );
 
     console.log(`[VideosUpdate] OK: "${assignment.exerciseName}"`);
@@ -200,7 +235,7 @@ export async function updateVideos{Descripcion}(): Promise<{
 
 ---
 
-## 8. ESTRUCTURA DE VideoSeederSection
+## 9. ESTRUCTURA DE VideoSeederSection
 
 El componente `src/components/export/VideoSeederSection.tsx` sigue el mismo
 patrón que `MuscleSeederSection.tsx`. Se oculta automáticamente si no hay
@@ -221,42 +256,37 @@ Icono: `Video` de lucide-react, color azul (`text-blue-400`)
 
 ---
 
-## 9. EJEMPLO RESUELTO — Clase GOAT 01/04/2026
+## 10. EJEMPLO RESUELTO — Clase GOAT 01/04/2026
 
-Los videos ya están en `Ejercicios.md` líneas 34-81. Servicio a crear:
-`src/services/videosClase01042026UpdateService.ts`
+Los videos ya están en `Ejercicios.md` líneas 34-81 (todos son el video corto).
+Para el explicativo habría que buscar por separado; por ahora se dejan en `null`.
 
 ```typescript
 const VIDEO_ASSIGNMENTS: VideoAssignment[] = [
-  { exerciseName: 'Band Pull-Apart',               videoLongPath: 'https://www.youtube.com/shorts/SuvO4TBwSu4' },
-  { exerciseName: 'Band External Rotation',        videoLongPath: 'https://www.youtube.com/watch?v=wQdfeB80fqo' },
-  { exerciseName: '90/90 Hip Rotation',            videoLongPath: 'https://www.youtube.com/watch?v=f_7qIPxw6nE' },
-  { exerciseName: 'Lateral Raise to Overhead',     videoLongPath: 'https://www.youtube.com/watch?v=7mUqxKfg6zo' },
-  { exerciseName: 'Scapular Push-Up',              videoLongPath: 'https://www.youtube.com/watch?v=huGj4aBk9C4' },
-  { exerciseName: 'High Pull + External Rotation', videoLongPath: 'https://www.youtube.com/watch?v=-EZP2ynZchc' },
-  { exerciseName: 'Snatch Grip Deadlift',          videoLongPath: 'https://www.youtube.com/watch?v=E42_MZOKktU' },
-  { exerciseName: 'Snatch High Pull',              videoLongPath: 'https://www.youtube.com/watch?v=33jE3S5IMMo' },
-  { exerciseName: 'Barbell Muscle Snatch',         videoLongPath: 'https://www.youtube.com/watch?v=hFb3l16PI4U' },
-  { exerciseName: 'Snatch with Pause at Knee',     videoLongPath: 'https://www.youtube.com/watch?v=EOrFQ9O1Ng4' },
-  { exerciseName: 'Dumbbell Deadlift',             videoLongPath: 'https://www.youtube.com/shorts/ElCIiU1FWxg' },
-  { exerciseName: 'DB Lateral Step-Over',          videoLongPath: 'https://www.youtube.com/shorts/vs1813G1Q00' },
-  { exerciseName: 'Dumbbell Push Press',           videoLongPath: 'https://www.youtube.com/shorts/cQ67XoqcItE' },
+  // Los URLs de Ejercicios.md son el video corto (popup sesión)
+  // videoLongPath = null hasta que se busque un tutorial más extenso
+  { exerciseName: 'Band Pull-Apart',               videoShortPath: 'https://www.youtube.com/shorts/SuvO4TBwSu4',   videoLongPath: null },
+  { exerciseName: 'Band External Rotation',        videoShortPath: 'https://www.youtube.com/watch?v=wQdfeB80fqo',  videoLongPath: null },
+  { exerciseName: '90/90 Hip Rotation',            videoShortPath: 'https://www.youtube.com/watch?v=f_7qIPxw6nE',  videoLongPath: null },
+  { exerciseName: 'Lateral Raise to Overhead',     videoShortPath: 'https://www.youtube.com/watch?v=7mUqxKfg6zo',  videoLongPath: null },
+  { exerciseName: 'Scapular Push-Up',              videoShortPath: 'https://www.youtube.com/watch?v=huGj4aBk9C4',  videoLongPath: null },
+  { exerciseName: 'High Pull + External Rotation', videoShortPath: 'https://www.youtube.com/watch?v=-EZP2ynZchc',  videoLongPath: null },
+  // Catalyst Athletics: el video de su sitio es explicativo → va a videoLongPath
+  { exerciseName: 'Back Squat',                    videoShortPath: null,                                           videoLongPath: 'https://www.youtube.com/watch?v=6Ai-ne7Lh6M' },
+  { exerciseName: 'Snatch Grip Deadlift',          videoShortPath: null,                                           videoLongPath: 'https://www.youtube.com/watch?v=E42_MZOKktU' },
+  { exerciseName: 'Snatch High Pull',              videoShortPath: null,                                           videoLongPath: 'https://www.youtube.com/watch?v=33jE3S5IMMo' },
+  { exerciseName: 'Barbell Muscle Snatch',         videoShortPath: null,                                           videoLongPath: 'https://www.youtube.com/watch?v=hFb3l16PI4U' },
+  { exerciseName: 'Snatch with Pause at Knee',     videoShortPath: null,                                           videoLongPath: 'https://www.youtube.com/watch?v=EOrFQ9O1Ng4' },
+  // Shorts → video corto
+  { exerciseName: 'Dumbbell Deadlift',             videoShortPath: 'https://www.youtube.com/shorts/ElCIiU1FWxg',   videoLongPath: null },
+  { exerciseName: 'DB Lateral Step-Over',          videoShortPath: 'https://www.youtube.com/shorts/vs1813G1Q00',   videoLongPath: null },
+  { exerciseName: 'Dumbbell Push Press',           videoShortPath: 'https://www.youtube.com/shorts/cQ67XoqcItE',   videoLongPath: null },
 ];
-```
-
-Entrada en `VideoSeederSection`:
-```typescript
-{
-  label: 'Clase GOAT 01/04/2026 — videos',
-  description: 'Band Pull-Apart · Snatch Grip DL · Snatch High Pull · Dumbbell DL…',
-  isDone: isVideosClase01042026UpdateDone,
-  run: updateVideosClase01042026,
-}
 ```
 
 ---
 
-## 10. EJERCICIOS SIN VIDEO TODAVÍA (para buscar)
+## 11. EJERCICIOS SIN VIDEO TODAVÍA (para buscar)
 
 Usar el listado en Configuración → "Ejercicios con videos" → toggle "Sin"
 para ver qué ejercicios aún no tienen video cargado.
@@ -269,10 +299,12 @@ Canales recomendados: CrossFit, WODprep, Wodstar, Alan Thrall, Jeff Nippard, Ren
 
 ---
 
-## 11. CHECKLIST DE ENTREGA
+## 12. CHECKLIST DE ENTREGA
 
-- [ ] URL de YouTube verificada y accesible (abrir en browser)
-- [ ] Preferir YouTube Shorts cuando existan (más cortos y directos)
+- [ ] Cada ejercicio tiene al menos un video (`videoShortPath` o `videoLongPath`)
+- [ ] Los YouTube Shorts van siempre a `videoShortPath`
+- [ ] Los tutoriales de Catalyst Athletics / BarBend van a `videoLongPath`
+- [ ] Si solo hay un video y es de dudosa duración, va a `videoShortPath` (popup sesión)
 - [ ] El nombre del ejercicio coincide exactamente con `exercise.name` en la BD
 - [ ] El servicio tiene flag único (no colisiona con otros)
 - [ ] La entrada en `VideoSeederSection` tiene label descriptivo

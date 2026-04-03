@@ -34,7 +34,22 @@
       "WebFetch(domain:www.muscleandstrength.com)",
       "WebFetch(domain:barbend.com)",
       "WebFetch(domain:wodprep.com)",
-      "WebFetch(domain:www.crossfit.com)"
+      "WebFetch(domain:www.crossfit.com)",
+      "WebFetch(domain:www.barbend.com)",
+      "WebFetch(domain:catalystathletics.com)",
+      "WebFetch(domain:barbell-logic.com)",
+      "WebFetch(domain:wodwell.com)",
+      "WebFetch(domain:redefiningstrength.com)",
+      "WebFetch(domain:www.fitfatherproject.com)",
+      "WebFetch(domain:julielohre.com)",
+      "WebFetch(domain:www.liveleantv.com)",
+      "WebFetch(domain:gethealthyu.com)",
+      "WebFetch(domain:www.healthline.com)",
+      "WebFetch(domain:sweat.com)",
+      "WebFetch(domain:www.endomondo.com)",
+      "WebFetch(domain:fitbod.me)",
+      "WebFetch(domain:www.acefitness.org)",
+      "WebFetch(domain:www.hevyapp.com)"
     ]
   }
 }

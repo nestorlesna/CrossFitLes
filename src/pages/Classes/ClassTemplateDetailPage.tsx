@@ -58,11 +58,12 @@ function buildExerciseParams(exercise: SectionExercise): string {
   return parts.join(' · ');
 }
 
-// Helper para obtener el ID de YouTube
+// Helper para obtener el ID de YouTube (incluye Shorts)
 function getYoutubeId(url: string): string | null {
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-  const match = url.match(regExp);
-  return (match && match[2].length === 11) ? match[2] : null;
+  if (!url) return null;
+  // Soporta: youtu.be/ID, youtube.com/shorts/ID, youtube.com/watch?v=ID, youtube.com/v/ID, youtube.com/embed/ID
+  const m = url.match(/(?:youtube\.com\/(?:shorts\/|v\/|embed\/)|youtu\.be\/|watch\?v=)([^#&?]+)/);
+  return m ? m[1] : null;
 }
 
 // Helper para obtener el ID de Vimeo

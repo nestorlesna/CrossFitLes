@@ -3,11 +3,35 @@ import { useEffect, useState } from 'react';
 import { ImagePlay, Dumbbell, ChevronLeft } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { getDatabase } from '../../db/database';
+import { getImageDisplayUrl } from '../../services/mediaService';
 
 interface ExerciseImageRow {
   id: string;
   name: string;
   image_url: string;
+}
+
+// Miniatura que resuelve tanto rutas estáticas como persistentes
+function ExerciseImageThumb({ imageUrl, name }: { imageUrl: string; name: string }) {
+  const [resolvedUrl, setResolvedUrl] = useState<string | null>(null);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    getImageDisplayUrl(imageUrl).then(setResolvedUrl);
+  }, [imageUrl]);
+
+  if (!resolvedUrl || error) {
+    return <Dumbbell size={16} className="text-gray-700" />;
+  }
+
+  return (
+    <img
+      src={resolvedUrl}
+      alt={name}
+      className="w-full h-full object-contain"
+      onError={() => setError(true)}
+    />
+  );
 }
 
 export function ExerciseImagesPage() {
@@ -73,12 +97,7 @@ export function ExerciseImagesPage() {
                   className="shrink-0 rounded-lg overflow-hidden bg-gray-800 flex items-center justify-center"
                   style={{ width: 56, height: 56 }}
                 >
-                  <img
-                    src={row.image_url}
-                    alt={row.name}
-                    className="w-full h-full object-contain"
-                    onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
-                  />
+                  <ExerciseImageThumb imageUrl={row.image_url} name={row.name} />
                 </div>
 
                 {/* Nombre + ruta */}
@@ -86,9 +105,6 @@ export function ExerciseImagesPage() {
                   <p className="text-white text-sm font-medium truncate">{row.name}</p>
                   <p className="text-gray-500 text-xs truncate mt-0.5">{row.image_url}</p>
                 </div>
-
-                {/* Indicador de imagen rota si aplica */}
-                <Dumbbell size={16} className="text-gray-700 shrink-0" />
               </div>
             ))}
           </div>
