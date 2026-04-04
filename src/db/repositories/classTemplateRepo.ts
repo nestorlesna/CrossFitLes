@@ -514,3 +514,38 @@ export async function getByDateRange(from: string, to: string): Promise<ClassTem
   );
   return (result.values ?? []) as ClassTemplate[];
 }
+
+// Obtiene todas las clases inactivas
+export async function getInactiveClasses(): Promise<ClassTemplate[]> {
+  const db = getDatabase();
+  const result = await db.query(
+    `SELECT ct.*,
+      COUNT(DISTINCT cs.id) as section_count,
+      COUNT(DISTINCT se.id) as exercise_count
+    FROM class_template ct
+    LEFT JOIN class_section cs ON cs.class_template_id = ct.id
+    LEFT JOIN section_exercise se ON se.class_section_id = cs.id
+    WHERE ct.is_active = 0
+    GROUP BY ct.id
+    ORDER BY ct.updated_at DESC`
+  );
+  return (result.values ?? []) as ClassTemplate[];
+}
+
+// Verifica si una clase está asociada a alguna sesión de entrenamiento
+export async function isClassInSession(classId: string): Promise<boolean> {
+  const db = getDatabase();
+  const result = await db.query(
+    `SELECT 1 FROM training_session WHERE class_template_id = ? LIMIT 1`,
+    [classId]
+  );
+  return (result.values?.length ?? 0) > 0;
+}
+
+// Borrado físico: elimina la clase y sus secciones/ejercicios de sección
+export async function hardDeleteClass(id: string): Promise<void> {
+  const db = getDatabase();
+  // class_section tiene ON DELETE CASCADE, section_exercise también
+  await db.run(`DELETE FROM class_template WHERE id = ?`, [id]);
+  await saveDatabase();
+}

@@ -20,6 +20,7 @@ import {
   FileText,
   HardDrive,
   Copy,
+  Archive,
 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { BackupSection } from '../../components/export/BackupSection';
@@ -220,6 +221,19 @@ export function SettingsPage() {
                   <Copy size={16} className="text-red-400" />
                 </div>
                 <span className="flex-1 text-sm text-white">Ejercicios duplicados</span>
+                <ChevronRight size={16} className="text-gray-600" />
+              </button>
+              <button
+                onClick={() => navigate('/configuracion/clases-inactivas')}
+                className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
+              >
+                <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shrink-0">
+                  <Archive size={16} className="text-yellow-400" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-sm text-white block">Clases inactivas</span>
+                  <span className="text-xs text-gray-600">Revisar y eliminar clases archivadas</span>
+                </div>
                 <ChevronRight size={16} className="text-gray-600" />
               </button>
             </div>

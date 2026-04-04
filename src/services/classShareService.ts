@@ -530,14 +530,28 @@ export async function importClassFromZip(zipFile: Blob): Promise<ClassImportResu
   // 1c. Clases, secciones y ejercicios de sección
   for (const cls of share.classes) {
     const exportClassId = cls.id as string;
-    const newClassId = generateUUID();
+
+    // Buscar si ya existe una clase con el mismo nombre (case-insensitive, sin espacios extra)
+    const existingClass = await db.query(
+      `SELECT id FROM class_template WHERE UPPER(TRIM(name)) = UPPER(TRIM(?)) AND is_active = 1 LIMIT 1`,
+      [cls.name as string]
+    );
+
+    let newClassId: string;
+    if (existingClass.values && existingClass.values.length > 0) {
+      // Reutilizar clase existente
+      newClassId = existingClass.values[0].id as string;
+    } else {
+      // Crear clase nueva
+      newClassId = generateUUID();
+      stmts.push({
+        statement: `INSERT INTO class_template
+          (id, date, name, objective, general_notes, estimated_duration_minutes, is_favorite, template_type, is_active, created_at, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, 0, 'my_classes', 1, ?, ?)`,
+        values: [newClassId, cls.date ?? null, cls.name, cls.objective ?? null, cls.general_notes ?? null, cls.estimated_duration_minutes ?? null, timestamp, timestamp],
+      });
+    }
     idMap.set(exportClassId, newClassId);
-    stmts.push({
-      statement: `INSERT INTO class_template
-        (id, date, name, objective, general_notes, estimated_duration_minutes, is_favorite, template_type, is_active, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, ?, 0, 'my_classes', 1, ?, ?)`,
-      values: [newClassId, cls.date ?? null, cls.name, cls.objective ?? null, cls.general_notes ?? null, cls.estimated_duration_minutes ?? null, timestamp, timestamp],
-    });
 
     for (const section of share.class_sections.filter(s => s.class_template_id === exportClassId)) {
       const exportSectionId = section.id as string;
@@ -587,7 +601,9 @@ export async function importClassFromZip(zipFile: Blob): Promise<ClassImportResu
         });
       }
     }
-    classesImported++;
+    if (!existingClass.values || existingClass.values.length === 0) {
+      classesImported++;
+    }
   }
 
   // ── FASE 2: ESCRITURA — un único executeSet atómico ──────────────────────

@@ -4,7 +4,6 @@
 import { useState } from 'react';
 import { Video, Loader2, CheckCircle2 } from 'lucide-react';
 import { toast } from 'sonner';
-
 interface VideoEntry {
   label: string;
   description: string;
