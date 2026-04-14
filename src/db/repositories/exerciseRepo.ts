@@ -281,6 +281,37 @@ export async function update(
   await saveDatabase();
 }
 
+// Clona un ejercicio: copia todos sus datos y relaciones con un nuevo nombre
+export async function duplicate(id: string): Promise<string> {
+  const exercise = await getById(id);
+  if (!exercise) throw new Error('Ejercicio no encontrado');
+
+  // Busca un nombre único: "Nombre (copia)", luego "Nombre (copia 2)", etc.
+  let name = `${exercise.name} (copia)`;
+  let counter = 2;
+  while (await existsByName(name)) {
+    name = `${exercise.name} (copia ${counter})`;
+    counter++;
+  }
+
+  return create(
+    {
+      name,
+      description: exercise.description,
+      technical_notes: exercise.technical_notes,
+      difficulty_level_id: exercise.difficulty_level_id,
+      primary_muscle_group_id: exercise.primary_muscle_group_id,
+      image_path: exercise.image_path,
+      image_url: exercise.image_url,
+      video_path: exercise.video_path,
+      video_long_path: exercise.video_long_path,
+      is_compound: exercise.is_compound,
+      is_active: 1,
+    },
+    exercise.relations
+  );
+}
+
 // Borrado lógico: marca el ejercicio como inactivo
 export async function softDelete(id: string): Promise<void> {
   const db = getDatabase();

@@ -13,8 +13,6 @@
 ### COMO USAR
 
 ### TEMPLATE
-
-
 Clase GOAT XX/XX/2026
 
 Calentamiento
@@ -27,6 +25,57 @@ Fuerza
 WOD
 Estiramiento
 ### TEMPLATE
+
+
+
+
+
+Clase GOAT 13/04/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+- Scapular Push-Up
+- Scapular Push-ups dinámicos - https://www.youtube.com/shorts/Jl1AiCs8TUY
+- Half kneeling thoracic rotation  - https://www.youtube.com/shorts/NuDipJO6uck
+
+Activacion, todo seguido maximo 5 minutos
+- Squat press-out - 10 reps - 5kg - https://www.youtube.com/watch?v=_2qxnNd4M4g
+- Weighted hollow rocks - 12 reps - 5kg - https://www.youtube.com/shorts/pPIndrMEdDo
+- Weighted lunge - 12 reps - de 5kg - https://www.youtube.com/shorts/mJilHWIBWO8 
+- Plank up-down - 12 veces - https://www.youtube.com/watch?v=jF3wvzUUw7s
+
+Fuerza
+- 5 Back squat - 75% - 70kg
+- 5 Back squat - 75% - 70kg
+- 4 Back squat - 80% - 80kg
+- 4 Back squat - 80% - 80kg
+- 3 Back squat - 85% - 90kg
+
+WOD 12 mintos maximo de vueltas
+- correr 200 metros
+- 12 american kettlebell swings - 15 KG - https://www.youtube.com/watch?v=d94xX-AQZ0A
+- 12 Hanging Toes to Bar
+- 12 Kettlebell box step-over - 15 kg - https://www.youtube.com/shorts/wSnG4pwBNyE
+
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist - https://www.youtube.com/shorts/ElKoMMaTPCM
+- Seated forward fold - https://www.youtube.com/shorts/5njnlgYYdD4
+- Seated quad stretch - https://www.youtube.com/watch?v=aZnXCfGyvl8
+- Pigeon pose - https://www.youtube.com/shorts/pjmR5Kacu1w
+- Supine abdominal stretch - https://www.youtube.com/shorts/tQwHhKnJ1KU
+- Cobra pose - https://www.youtube.com/shorts/dRAibO71JCM
+- Child’s Pose - https://www.youtube.com/watch?v=kH12QrSGedM
+- Half kneeling hip flexor stretch - https://www.youtube.com/watch?v=VYItAZ1sLhA
+- Standing biceps stretch - https://www.youtube.com/shorts/j0rdJpN4B8Y
+- Overhead triceps stretch - https://www.youtube.com/watch?v=zzvDO56B0HE
+- Wrist extensor stretch - https://www.youtube.com/watch?v=cnuBSIWReSc
+
+
+
+
+
 
 Clase GOAT 02/04/2026
 

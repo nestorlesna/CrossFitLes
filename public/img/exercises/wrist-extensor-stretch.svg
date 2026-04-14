@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+<rect width="200" height="230" fill="#111827" rx="12"/>
+<style>
+.f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+@keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+@keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+@keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+</style>
+<!-- F1: Standing, arm extended forward, palm up/neutral -->
+<g class="f1">
+  <circle cx="100" cy="26" r="13" fill="#94a3b8"/>
+  <line x1="100" y1="39" x2="100" y2="108" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="53" x2="122" y2="65" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="122" y1="65" x2="148" y2="68" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="148" y1="68" x2="162" y2="68" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="53" x2="78" y2="75" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="78" y1="75" x2="70" y2="100" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="108" x2="86" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="86" y1="162" x2="82" y2="205" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="108" x2="114" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="114" y1="162" x2="118" y2="205" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="122" cy="65" r="5" fill="#64748b"/>
+</g>
+<!-- F2: Wrist bent downward (flexion) -->
+<g class="f2">
+  <circle cx="100" cy="26" r="13" fill="#94a3b8"/>
+  <line x1="100" y1="39" x2="100" y2="108" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="53" x2="122" y2="65" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="122" y1="65" x2="148" y2="68" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="148" y1="68" x2="158" y2="82" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="53" x2="78" y2="75" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="78" y1="75" x2="70" y2="100" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="108" x2="86" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="86" y1="162" x2="82" y2="205" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="108" x2="114" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="114" y1="162" x2="118" y2="205" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="122" cy="65" r="5" fill="#64748b"/>
+  <circle cx="148" cy="68" r="5" fill="#64748b"/>
+</g>
+<!-- F3: Other hand pressing fingers down for deeper stretch -->
+<g class="f3">
+  <circle cx="100" cy="26" r="13" fill="#94a3b8"/>
+  <line x1="100" y1="39" x2="100" y2="108" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="53" x2="122" y2="65" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="122" y1="65" x2="148" y2="68" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="148" y1="68" x2="158" y2="85" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="53" x2="76" y2="68" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="76" y1="68" x2="148" y2="80" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="122" cy="65" r="5" fill="#64748b"/>
+  <circle cx="148" cy="68" r="5" fill="#64748b"/>
+  <line x1="100" y1="108" x2="86" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="86" y1="162" x2="82" y2="205" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="108" x2="114" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="114" y1="162" x2="118" y2="205" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+</g>
+<line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+<text x="100" y="225" text-anchor="middle" font-family="monospace" font-size="9" fill="#475569">WRIST EXT STRETCH</text>
+</svg>

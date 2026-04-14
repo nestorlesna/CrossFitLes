@@ -133,10 +133,9 @@ function ExerciseImage({
   const [resolvedUrl, setResolvedUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    if (imageUrl) {
-      setResolvedUrl(imageUrl);
-    } else if (imagePath) {
-      getImageDisplayUrl(imagePath).then(setResolvedUrl);
+    const path = imageUrl || imagePath;
+    if (path) {
+      getImageDisplayUrl(path).then(setResolvedUrl);
     } else {
       setResolvedUrl(null);
     }

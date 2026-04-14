@@ -56,8 +56,8 @@ const FEELINGS: { value: GeneralFeeling; label: string; emoji: string }[] = [
 function ExerciseThumb({ imagePath, imageUrl, name }: { imagePath?: string | null; imageUrl?: string | null; name: string }) {
   const [src, setSrc] = useState<string | null>(null);
   useEffect(() => {
-    if (imageUrl) { setSrc(imageUrl); return; }
-    if (imagePath) getImageDisplayUrl(imagePath).then(setSrc);
+    const path = imageUrl || imagePath;
+    if (path) getImageDisplayUrl(path).then(setSrc);
   }, [imagePath, imageUrl]);
 
   return (

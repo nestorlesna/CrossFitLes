@@ -1,13 +1,13 @@
 // Pantalla de detalle de un ejercicio con historial de uso
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ChevronLeft, Edit2, Trash2, Dumbbell, Star, CheckCircle, Circle, Video, Youtube, CalendarDays } from 'lucide-react';
+import { ChevronLeft, Edit2, Trash2, Copy, Loader2, Dumbbell, Star, CheckCircle, Circle, Video, Youtube, CalendarDays } from 'lucide-react';
 import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
 import { Badge } from '../../components/ui/Badge';
 import { Modal } from '../../components/ui/Modal';
 import { ExerciseWithRelations } from '../../models/Exercise';
-import { getById, softDelete, getHistory, getClassesUsingExercise } from '../../db/repositories/exerciseRepo';
+import { getById, softDelete, duplicate, getHistory, getClassesUsingExercise } from '../../db/repositories/exerciseRepo';
 import { getImageDisplayUrl } from '../../services/mediaService';
 import { formatDate } from '../../utils/formatters';
 import { MuscleMap } from '../../components/exercises/MuscleMap';
@@ -100,6 +100,7 @@ export function ExerciseDetailPage() {
   const [loading, setLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [duplicating, setDuplicating] = useState(false);
 
   // Cargar datos del ejercicio e historial
   const loadData = useCallback(async () => {
@@ -147,6 +148,20 @@ export function ExerciseDetailPage() {
       toast.error('Error al eliminar el ejercicio');
       setDeleting(false);
       setShowDeleteModal(false);
+    }
+  }
+
+  // Clonar ejercicio y navegar al clon
+  async function handleDuplicate() {
+    if (!id) return;
+    setDuplicating(true);
+    try {
+      const newId = await duplicate(id);
+      toast.success(`Ejercicio clonado como "${exercise?.name} (copia)"`);
+      navigate(`/ejercicios/${newId}/editar`);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : 'Error al clonar el ejercicio');
+      setDuplicating(false);
     }
   }
 
@@ -451,6 +466,17 @@ export function ExerciseDetailPage() {
               </div>
             )}
           </div>
+
+          {/* ── Botón clonar ── */}
+          <button
+            type="button"
+            onClick={handleDuplicate}
+            disabled={duplicating}
+            className="w-full flex items-center justify-center gap-2 bg-sky-600/10 border border-sky-600/30 text-sky-400 hover:bg-sky-600/20 rounded-xl py-3.5 font-medium text-sm min-h-[52px] transition-colors disabled:opacity-50"
+          >
+            {duplicating ? <Loader2 size={18} className="animate-spin" /> : <Copy size={18} />}
+            {duplicating ? 'Clonando...' : 'Clonar ejercicio'}
+          </button>
 
           {/* ── Botón eliminar ── */}
           <button

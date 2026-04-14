@@ -3,7 +3,7 @@
 // Asume que "Cargar Datos Base" ya fue ejecutado (catálogos y ejercicios base presentes).
 
 import { SQLiteDBConnection } from '@capacitor-community/sqlite';
-import { getDatabase } from '../db/database';
+import { getDatabase, saveDatabase } from '../db/database';
 import { generateUUID } from '../utils/formatters';
 
 const IMPORT_FLAG = 'import_nestor_28_03_2026_done';
@@ -499,6 +499,7 @@ export async function importNestorSession(): Promise<{ exercises: number; create
     );
   }
 
+  await saveDatabase();
   markImportDone();
   return { exercises: exercisesCreated, created: true };
 }

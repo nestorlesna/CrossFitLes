@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+<rect width="200" height="230" fill="#111827" rx="12"/>
+<style>
+.f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+@keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+@keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+@keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+</style>
+<!-- F1: Standing upright, arms at sides -->
+<g class="f1">
+  <circle cx="100" cy="26" r="13" fill="#94a3b8"/>
+  <line x1="100" y1="39" x2="100" y2="108" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="53" x2="76" y2="75" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="76" y1="75" x2="68" y2="105" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="53" x2="124" y2="75" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="124" y1="75" x2="132" y2="105" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="108" x2="86" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="86" y1="162" x2="82" y2="205" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="108" x2="114" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="114" y1="162" x2="118" y2="205" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+</g>
+<!-- F2: Arms behind back, interlaced hands -->
+<g class="f2">
+  <circle cx="100" cy="26" r="13" fill="#94a3b8"/>
+  <line x1="100" y1="39" x2="100" y2="108" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="53" x2="76" y2="72" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="76" y1="72" x2="80" y2="100" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="80" y1="100" x2="100" y2="110" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="53" x2="124" y2="72" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="124" y1="72" x2="120" y2="100" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="120" y1="100" x2="100" y2="110" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="108" x2="86" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="86" y1="162" x2="82" y2="205" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="108" x2="114" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="114" y1="162" x2="118" y2="205" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+</g>
+<!-- F3: Arms raised behind and to side, shoulders back -->
+<g class="f3">
+  <circle cx="100" cy="26" r="13" fill="#94a3b8"/>
+  <line x1="100" y1="39" x2="100" y2="108" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="53" x2="72" y2="68" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="72" y1="68" x2="58" y2="88" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="53" x2="128" y2="68" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="128" y1="68" x2="142" y2="88" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="108" x2="86" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="86" y1="162" x2="82" y2="205" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="100" y1="108" x2="114" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="114" y1="162" x2="118" y2="205" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+</g>
+<line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+<text x="100" y="225" text-anchor="middle" font-family="monospace" font-size="10" fill="#475569">BICEPS STRETCH</text>
+</svg>

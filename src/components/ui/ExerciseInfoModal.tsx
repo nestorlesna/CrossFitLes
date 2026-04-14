@@ -37,14 +37,8 @@ export function ExerciseInfoModal({ exerciseId, exerciseName, onClose }: Props) 
     getById(exerciseId)
       .then(async ex => {
         setExercise(ex);
-        if (ex?.image_url) {
-          setImageSrc(ex.image_url);
-        } else if (ex?.image_path) {
-          const url = await getImageDisplayUrl(ex.image_path);
-          setImageSrc(url);
-        } else {
-          setImageSrc(null);
-        }
+        const url = await getImageDisplayUrl(ex?.image_url || ex?.image_path);
+        setImageSrc(url);
       })
       .catch(() => setExercise(null))
       .finally(() => setLoading(false));

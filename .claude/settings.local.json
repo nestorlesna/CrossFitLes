@@ -49,7 +49,16 @@
       "WebFetch(domain:www.endomondo.com)",
       "WebFetch(domain:fitbod.me)",
       "WebFetch(domain:www.acefitness.org)",
-      "WebFetch(domain:www.hevyapp.com)"
+      "WebFetch(domain:www.hevyapp.com)",
+      "WebFetch(domain:www.concept2.com)",
+      "WebFetch(domain:www.jtxfitness.com)",
+      "WebFetch(domain:asensei.com)",
+      "WebFetch(domain:www.zoarfitness.com)",
+      "WebFetch(domain:www.fitmediaplus.com)",
+      "WebFetch(domain:www.exercisedb.io)",
+      "WebFetch(domain:www.jefit.com)",
+      "WebFetch(domain:www.exrx.net)",
+      "WebFetch(domain:www.youtube.com)"
     ]
   }
 }
