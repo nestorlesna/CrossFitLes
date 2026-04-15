@@ -153,6 +153,33 @@ Los servicios incluyen esta tabla internamente (`CATALOG_NAME`):
 | DB Lateral Step-Over             | Cuádriceps        | Glúteos, Core/Abdominales                            |
 | Dumbbell Push Press              | Deltoides         | Tríceps, Cuádriceps, Core/Abdominales                |
 
+### Clase 13/04/2026
+
+| Ejercicio en BD                     | Primario          | Secundarios                                              |
+|-------------------------------------|-------------------|----------------------------------------------------------|
+| Scapular Push-Up                    | Dorsales          | Pectorales, Core/Abdominales                             |
+| Half Kneeling Thoracic Rotation     | Core/Abdominales  | Dorsales                                                 |
+| Squat Press-Out                     | Cuádriceps        | Glúteos, Deltoides, Core/Abdominales                     |
+| Weighted Hollow Rock                | Core/Abdominales  | —                                                        |
+| Weighted Lunge                      | Cuádriceps        | Glúteos, Isquiotibiales, Core/Abdominales                |
+| Plank Up-Down                       | Core/Abdominales  | Deltoides, Tríceps, Pectorales                           |
+| Back Squat                          | Cuádriceps        | Glúteos, Isquiotibiales, Core/Abdominales                |
+| Running                             | Cuádriceps        | Isquiotibiales, Glúteos, Pantorrillas                    |
+| American Kettlebell Swing           | Glúteos           | Isquiotibiales, Deltoides, Core/Abdominales, Trapecio    |
+| Hanging Toes-to-Bar                 | Core/Abdominales  | Dorsales, Bíceps                                         |
+| Kettlebell Box Step-Over            | Cuádriceps        | Glúteos, Isquiotibiales, Core/Abdominales                |
+| Supine Spinal Twist                 | Core/Abdominales  | Dorsales, Glúteos                                        |
+| Seated Forward Fold                 | Isquiotibiales    | Pantorrillas, Dorsales                                   |
+| Seated Quad Stretch                 | Cuádriceps        | Isquiotibiales                                           |
+| Pigeon Pose                         | Glúteos           | Cuádriceps, Isquiotibiales                               |
+| Supine Abdominal Stretch            | Core/Abdominales  | Pectorales, Bíceps                                       |
+| Cobra Pose                          | Core/Abdominales  | Dorsales, Pectorales                                     |
+| Child's Pose                        | Dorsales          | Glúteos, Core/Abdominales                                |
+| Half Kneeling Hip Flexor Stretch    | Cuádriceps        | Core/Abdominales                                         |
+| Standing Biceps Stretch             | Bíceps            | Pectorales, Deltoides                                    |
+| Overhead Triceps Stretch            | Tríceps           | Deltoides                                                |
+| Wrist Extensor Stretch              | Antebrazos        | —                                                        |
+
 ---
 
 ## 6. PROCESO PASO A PASO

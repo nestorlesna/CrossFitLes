@@ -30,6 +30,56 @@ Estiramiento
 
 
 
+
+
+Clase GOAT 15/04/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+
+- Spiderman con rotación -  https://www.youtube.com/watch?v=zzMZR0arjsc
+- Good morning con peso - https://www.youtube.com/shorts/xxumNC5zFfM
+- Reverse Snow Angels - https://www.youtube.com/shorts/MH3d544kvaM
+
+Activacion  challenge de sally up sally down
+ - Sally Up, Sally Down - https://www.youtube.com/watch?v=Jv5NML-_IOg - 
+
+Fuerza, 3 rondas de
+- 40 segundos - Wall Sit con mancuernas - 12.5kg - video corto - https://www.youtube.com/shorts/qxIEsb45MGA
+- 20 segundos dedescanso
+- 30 segundos - Hanging Knees to Elbows - https://www.youtube.com/shorts/i27Xj9VgQik
+- 30 segundos de descanso
+- 30 segundos - Curl de bíceps con barra - 20kg - video corto - https://www.youtube.com/shorts/yRMQoSLOl6g, video explicativo - https://www.youtube.com/shorts/Rr4UZ-xYfzg
+- 30 segundo de descando
+- 30 segundo Single-Leg V-Ups + V-Ups 
+- 30 segundo de descando
+
+WOD, 4 rondas de 3 minutos de ejercicios 1 de descanso, en parejas. Se termina cuando se llegan a los 120 Sit-ups
+- 110 saltos de cuerda, entre los 2 
+- 20 Alternating Single Arm Dumbbell Power Snatch, cada uno
+- Partner Wall Ball Sit-Ups, hasta terminar los 3 min,  video corto - https://www.youtube.com/shorts/_Jpx6xKMh5s- video explicativo - https://www.youtube.com/watch?v=XR2efvj-O5M
+- 1 minuto de descanso
+
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
+
+
+
+
+
+
 Clase GOAT 13/04/2026
 
 Calentamiento
@@ -56,7 +106,7 @@ Fuerza
 WOD 12 mintos maximo de vueltas
 - correr 200 metros
 - 12 american kettlebell swings - 15 KG - https://www.youtube.com/watch?v=d94xX-AQZ0A
-- 12 Hanging Toes to Bar
+- 12 Toes to Bar
 - 12 Kettlebell box step-over - 15 kg - https://www.youtube.com/shorts/wSnG4pwBNyE
 
 Estiramiento, cada ejercicio 20 - 30 segundos
@@ -71,10 +121,6 @@ Estiramiento, cada ejercicio 20 - 30 segundos
 - Standing biceps stretch - https://www.youtube.com/shorts/j0rdJpN4B8Y
 - Overhead triceps stretch - https://www.youtube.com/watch?v=zzvDO56B0HE
 - Wrist extensor stretch - https://www.youtube.com/watch?v=cnuBSIWReSc
-
-
-
-
 
 
 Clase GOAT 02/04/2026
