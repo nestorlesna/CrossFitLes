@@ -18,6 +18,7 @@ import { toast } from 'sonner';
 import { Modal } from '../ui/Modal';
 import * as classTemplateRepo from '../../db/repositories/classTemplateRepo';
 import * as exerciseRepo from '../../db/repositories/exerciseRepo';
+import { getDatabase } from '../../db/database';
 import {
   exportClasses,
   exportExercises,
@@ -31,6 +32,7 @@ import { formatDate } from '../../utils/formatters';
 // ─── Tipos ───────────────────────────────────────────────────────────────────
 
 type ZipType = 'class' | 'exercise' | null;
+type ExerciseFilter = 'all' | 'in_class' | 'with_image';
 
 // ─── Componente ──────────────────────────────────────────────────────────────
 
@@ -49,6 +51,8 @@ export function ClassShareSection() {
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [selectedExerciseIds, setSelectedExerciseIds] = useState<Set<string>>(new Set());
   const [exerciseSearch, setExerciseSearch] = useState('');
+  const [exerciseFilter, setExerciseFilter] = useState<ExerciseFilter>('all');
+  const [inClassIds, setInClassIds] = useState<Set<string>>(new Set());
 
   // Estado de operaciones
   const [exporting, setExporting] = useState(false);
@@ -111,11 +115,16 @@ export function ClassShareSection() {
   const handleOpenExerciseExport = async () => {
     setSelectedExerciseIds(new Set());
     setExerciseSearch('');
+    setExerciseFilter('all');
     setExerciseModalOpen(true);
     setLoadingExercises(true);
     try {
-      const all = await exerciseRepo.getAll();
+      const [all, classRes] = await Promise.all([
+        exerciseRepo.getAll(),
+        getDatabase().query(`SELECT DISTINCT exercise_id FROM section_exercise`),
+      ]);
       setExercises(all);
+      setInClassIds(new Set((classRes.values ?? []).map(r => r.exercise_id as string)));
     } catch {
       toast.error('Error al cargar los ejercicios');
       setExerciseModalOpen(false);
@@ -125,9 +134,12 @@ export function ClassShareSection() {
   };
 
   const filteredExercises = useMemo(() => {
+    let base = exercises;
+    if (exerciseFilter === 'in_class') base = base.filter(e => inClassIds.has(e.id));
+    else if (exerciseFilter === 'with_image') base = base.filter(e => e.image_url || e.image_path);
     const q = exerciseSearch.trim().toLowerCase();
-    return q ? exercises.filter(e => e.name.toLowerCase().includes(q)) : exercises;
-  }, [exercises, exerciseSearch]);
+    return q ? base.filter(e => e.name.toLowerCase().includes(q)) : base;
+  }, [exercises, exerciseSearch, exerciseFilter, inClassIds]);
 
   const toggleExercise = (id: string) =>
     setSelectedExerciseIds(prev => {
@@ -458,6 +470,23 @@ export function ClassShareSection() {
                   <X size={12} />
                 </button>
               )}
+            </div>
+
+            {/* Filtros de vista */}
+            <div className="flex gap-1.5">
+              {([ ['all', 'Todos'], ['in_class', 'En clases'], ['with_image', 'Con imagen'] ] as [ExerciseFilter, string][]).map(([value, label]) => (
+                <button
+                  key={value}
+                  onClick={() => setExerciseFilter(value)}
+                  className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                    exerciseFilter === value
+                      ? 'bg-sky-600 text-white'
+                      : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
             </div>
 
             {/* Seleccionar todo (respeta búsqueda activa) */}

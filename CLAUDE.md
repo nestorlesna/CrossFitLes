@@ -78,6 +78,19 @@ Todas bajo un `<Layout>` con `BottomNav` de 5 tabs:
 - `src/services/seedService.ts` — carga datos iniciales (64 registros) controlado por flag en localStorage (`seed_v1_done`).
 - `src/services/backupService.ts` — exportar/importar todos los datos como JSON respetando el orden de dependencias entre tablas.
 
+## Enfoque de Trabajo
+- Pensar antes de actuar. Leer los archivos existentes antes de escribir código.
+- Ser conciso en el output pero riguroso en el razonamiento.
+- Preferir editar sobre reescribir archivos completos.
+- No releer archivos ya leídos a menos que puedan haber cambiado.
+- Omitir archivos de más de 100KB salvo que sea explícitamente necesario.
+- Sugerir ejecutar /cost cuando la sesión se extiende para monitorear el ratio de caché.
+- Recomendar iniciar una nueva sesión al cambiar a una tarea no relacionada.
+- Verificar el código antes de declarar que está terminado.
+- Sin aperturas ni cierres sycofánticos.
+- Mantener las soluciones simples y directas.
+- Las instrucciones del usuario siempre tienen prioridad sobre este archivo.
+
 ## Estado del Proyecto
 - Fase 0 (Setup inicial): COMPLETADA (2026-03-10)
 - Fase 1 (Catálogos básicos): COMPLETADA (2026-03-10)

@@ -33,6 +33,7 @@ import { ExerciseMusclesPage } from './pages/Settings/ExerciseMusclesPage';
 import { ExerciseVideosPage } from './pages/Settings/ExerciseVideosPage';
 import { DuplicateExercisesPage } from './pages/Settings/DuplicateExercisesPage';
 import { InactiveClassesPage } from './pages/Settings/InactiveClassesPage';
+import { ClassesSectionsPage } from './pages/Settings/ClassesSectionsPage';
 import { DbProvider } from './components/DbProvider';
 
 export default function App() {
@@ -72,6 +73,7 @@ export default function App() {
             <Route path="configuracion/videos-ejercicios" element={<ExerciseVideosPage />} />
             <Route path="configuracion/ejercicios-duplicados" element={<DuplicateExercisesPage />} />
             <Route path="configuracion/clases-inactivas" element={<InactiveClassesPage />} />
+            <Route path="configuracion/clases" element={<ClassesSectionsPage />} />
             <Route path="configuracion/acerca-de" element={<AboutPage />} />
             <Route path="configuracion/perfil" element={<ProfilePage />} />
             <Route path="configuracion/medidas-corporales" element={<BodyMeasurementsPage />} />

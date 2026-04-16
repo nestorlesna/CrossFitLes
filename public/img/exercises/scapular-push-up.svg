@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <style>
+    .f1{animation:sh1 4s linear infinite}
+    .f2{animation:sh2 4s linear infinite}
+    .f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+
+  <!-- Frame 1: Plancha neutral — escápulas sin moverse, espalda plana -->
+  <g class="f1">
+    <circle cx="38" cy="105" r="12" fill="#94a3b8"/>
+    <!-- codo -->
+    <circle cx="56" cy="162" r="4" fill="#64748b"/>
+    <!-- cadera -->
+    <circle cx="150" cy="148" r="5" fill="#64748b"/>
+    <g stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+      <!-- cuello -->
+      <line x1="38" y1="93" x2="62" y2="112"/>
+      <!-- torso recto (hombro→cadera) -->
+      <line x1="62" y1="112" x2="150" y2="148"/>
+      <!-- brazo superior (hombro→codo) -->
+      <line x1="62" y1="112" x2="56" y2="162"/>
+      <!-- antebrazo (codo→mano) -->
+      <line x1="56" y1="162" x2="45" y2="200"/>
+      <!-- mano en el suelo -->
+      <line x1="35" y1="204" x2="55" y2="204"/>
+      <!-- pierna estirada (cadera→pie, una sola línea recta) -->
+      <line x1="150" y1="148" x2="168" y2="200"/>
+      <!-- pie en el suelo -->
+      <line x1="158" y1="204" x2="176" y2="204"/>
+    </g>
+  </g>
+
+  <!-- Frame 2: Protracción — omóplatos se separan, dorsal sube (gato) -->
+  <g class="f2">
+    <circle cx="38" cy="110" r="12" fill="#94a3b8"/>
+    <circle cx="54" cy="164" r="4" fill="#64748b"/>
+    <circle cx="150" cy="148" r="5" fill="#64748b"/>
+    <g stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+      <!-- cuello (cabeza baja, mira al suelo) -->
+      <line x1="38" y1="98" x2="61" y2="116"/>
+      <!-- torso arqueado arriba (espalda de gato) -->
+      <path d="M 61,116 Q 104,98 150,148" fill="none"/>
+      <!-- brazo superior -->
+      <line x1="61" y1="116" x2="54" y2="164"/>
+      <!-- antebrazo -->
+      <line x1="54" y1="164" x2="43" y2="200"/>
+      <!-- mano en el suelo -->
+      <line x1="33" y1="204" x2="53" y2="204"/>
+      <!-- pierna estirada -->
+      <line x1="150" y1="148" x2="168" y2="200"/>
+      <!-- pie en el suelo -->
+      <line x1="158" y1="204" x2="176" y2="204"/>
+    </g>
+  </g>
+
+  <!-- Frame 3: Retracción — omóplatos se juntan, pecho cae entre los brazos -->
+  <g class="f3">
+    <circle cx="38" cy="100" r="12" fill="#94a3b8"/>
+    <circle cx="58" cy="160" r="4" fill="#64748b"/>
+    <circle cx="150" cy="148" r="5" fill="#64748b"/>
+    <g stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+      <!-- cuello (cabeza erguida) -->
+      <line x1="38" y1="88" x2="63" y2="108"/>
+      <!-- torso cóncavo (pecho se hunde entre los brazos) -->
+      <path d="M 63,108 Q 104,124 150,148" fill="none"/>
+      <!-- brazo superior -->
+      <line x1="63" y1="108" x2="58" y2="160"/>
+      <!-- antebrazo -->
+      <line x1="58" y1="160" x2="47" y2="200"/>
+      <!-- mano en el suelo -->
+      <line x1="37" y1="204" x2="57" y2="204"/>
+      <!-- pierna estirada -->
+      <line x1="150" y1="148" x2="168" y2="200"/>
+      <!-- pie en el suelo -->
+      <line x1="158" y1="204" x2="176" y2="204"/>
+    </g>
+  </g>
+
+  <!-- Línea de suelo y etiqueta -->
+  <line x1="20" y1="208" x2="180" y2="208" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="223" font-family="sans-serif" font-size="9" fill="#475569" text-anchor="middle" letter-spacing="0.5">SCAPULAR PUSH-UP</text>
+</svg>
