@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+<rect width="200" height="230" fill="#111827" rx="12"/>
+<style>
+  .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+  @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+  @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+  @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+</style>
+<line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+<text x="100" y="225" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">SPIDERMAN ROTATION</text>
+
+<!-- F1: Standing -->
+<g class="f1" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" fill="none">
+  <circle cx="100" cy="26" r="12" fill="#94a3b8" stroke="none"/>
+  <line x1="100" y1="38" x2="100" y2="108"/>
+  <line x1="78" y1="55" x2="122" y2="55"/>
+  <line x1="100" y1="108" x2="87" y2="158"/>
+  <line x1="87" y1="158" x2="82" y2="200"/>
+  <line x1="100" y1="108" x2="113" y2="158"/>
+  <line x1="113" y1="158" x2="118" y2="200"/>
+  <line x1="76" y1="200" x2="90" y2="200"/>
+  <line x1="115" y1="200" x2="128" y2="200"/>
+  <circle cx="87" cy="158" r="4" fill="#64748b" stroke="none"/>
+  <circle cx="113" cy="158" r="4" fill="#64748b" stroke="none"/>
+</g>
+
+<!-- F2: Deep lunge, right leg forward, left arm on floor -->
+<g class="f2" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" fill="none">
+  <circle cx="80" cy="62" r="12" fill="#94a3b8" stroke="none"/>
+  <!-- Torso leaning forward -->
+  <line x1="83" y1="74" x2="100" y2="118"/>
+  <!-- Left arm reaching to floor near front foot -->
+  <line x1="83" y1="88" x2="128" y2="192"/>
+  <!-- Right arm going back -->
+  <line x1="83" y1="88" x2="60" y2="72"/>
+  <!-- Front (right) leg -->
+  <line x1="100" y1="118" x2="122" y2="162"/>
+  <line x1="122" y1="162" x2="130" y2="200"/>
+  <!-- Back (left) leg -->
+  <line x1="100" y1="118" x2="80" y2="158"/>
+  <line x1="80" y1="158" x2="65" y2="200"/>
+  <line x1="125" y1="200" x2="140" y2="200"/>
+  <line x1="58" y1="200" x2="73" y2="200"/>
+  <circle cx="83" cy="88" r="4" fill="#64748b" stroke="none"/>
+  <circle cx="122" cy="162" r="4" fill="#64748b" stroke="none"/>
+  <circle cx="80" cy="158" r="4" fill="#64748b" stroke="none"/>
+</g>
+
+<!-- F3: Same lunge, arm raised toward sky (rotation) -->
+<g class="f3" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" fill="none">
+  <circle cx="80" cy="58" r="12" fill="#94a3b8" stroke="none"/>
+  <!-- Torso -->
+  <line x1="83" y1="70" x2="100" y2="114"/>
+  <!-- Left arm still on floor -->
+  <line x1="83" y1="84" x2="128" y2="188"/>
+  <!-- Right arm RAISED toward sky -->
+  <line x1="83" y1="84" x2="52" y2="35"/>
+  <!-- Same legs -->
+  <line x1="100" y1="114" x2="122" y2="158"/>
+  <line x1="122" y1="158" x2="130" y2="200"/>
+  <line x1="100" y1="114" x2="80" y2="154"/>
+  <line x1="80" y1="154" x2="65" y2="200"/>
+  <line x1="125" y1="200" x2="140" y2="200"/>
+  <line x1="58" y1="200" x2="73" y2="200"/>
+  <circle cx="83" cy="84" r="4" fill="#64748b" stroke="none"/>
+  <circle cx="122" cy="158" r="4" fill="#64748b" stroke="none"/>
+  <circle cx="80" cy="154" r="4" fill="#64748b" stroke="none"/>
+</g>
+</svg>

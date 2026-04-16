@@ -13,8 +13,12 @@ Cuando el usuario agregue una clase nueva a `BKP/Ejercicios.md` y diga algo como
 
 El objetivo es producir:
 1. **SVG animados** (3 fotogramas) para cada ejercicio nuevo → en `public/img/exercises/`
-2. **Un servicio de importación TypeScript** que crea los ejercicios y la clase en la BD
+2. **Un servicio de importación TypeScript** que crea los ejercicios, asigna sus músculos y crea la clase en la BD
 3. **Un botón en Clases Predefinidas** (Configuración) para que el usuario ejecute la importación manualmente
+
+> ⚠️ **Músculo incluido en el mismo servicio:** NO se crea un servicio separado de músculos.
+> La asignación de `primary_muscle` y `secondary_muscles` ocurre dentro de `importClassDDMMYYYY()`
+> justo después de insertar cada ejercicio. Ver sección 10a para el template completo.
 
 ---
 
@@ -252,8 +256,8 @@ Para cada ejercicio (nuevo o existente), definir:
 | `description` | Descripción en español, 1-3 oraciones sobre cómo se ejecuta |
 | `technical_notes` | Notas técnicas: errores comunes, puntos clave de forma |
 | `difficulty` | Básico / Intermedio / Avanzado / Experto |
-| `primary_muscle` | Músculo principal (ver catálogo abajo) |
-| `secondary_muscles[]` | Músculos secundarios (ver catálogo abajo) |
+| `primary_muscle` | **1 músculo primario** — usar nombre **simplificado** del catálogo (ver §5.1) |
+| `secondary_muscles[]` | 0 a N **músculos secundarios** — misma convención simplificada (ver §5.1) |
 | `equipment[]` | Equipamiento necesario (ver catálogo abajo) |
 | `tags[]` | Tags relevantes (ver catálogo abajo) |
 | `section_types[]` | En qué tipos de sección suele aparecer |
@@ -333,6 +337,10 @@ Asignar un ID único fijo por entidad en el JSON generado.
 
 ### 5.1 muscle_group
 
+Estos son los **12 nombres simplificados** que se usan siempre en el código (`primary_muscle`, `secondary_muscles[]`).
+La función `toDbName()` del servicio los traduce automáticamente a los nombres granulares de la BD
+cuando el usuario tiene el catálogo extendido (post "Cargar Datos Base").
+
 ```json
 [
   {"name":"Pectorales",      "body_zone":"upper_body", "sort_order":1},
@@ -349,6 +357,47 @@ Asignar un ID único fijo por entidad en el JSON generado.
   {"name":"Core/Abdominales","body_zone":"core",       "sort_order":12}
 ]
 ```
+
+**Mapeo simplificado → granular** (usado por `toDbName()` en el servicio):
+
+| Nombre simplificado (en código) | Nombre granular (en BD post Cargar Datos) |
+|---------------------------------|-------------------------------------------|
+| `Deltoides`                     | `Deltoides anterior`                      |
+| `Cuádriceps`                    | `Recto femoral`                           |
+| `Isquiotibiales`                | `Bíceps femoral`                          |
+| `Glúteos`                       | `Glúteo mayor`                            |
+| `Dorsales`                      | `Dorsal ancho`                            |
+| `Trapecio`                      | `Trapecio (superior)`                     |
+| `Bíceps`                        | `Bíceps braquial`                         |
+| `Tríceps`                       | `Tríceps braquial`                        |
+| `Pantorrillas`                  | `Gastrocnemio (gemelos)`                  |
+| `Core/Abdominales`              | `Recto abdominal`                         |
+| `Antebrazos`                    | `Flexores antebrazo`                      |
+| `Pectorales`                    | `Pectoral mayor`                          |
+
+**Tabla de referencia — músculos por patrón de movimiento:**
+
+| Patrón de movimiento        | Primario           | Secundarios habituales                              |
+|-----------------------------|--------------------|-----------------------------------------------------|
+| Sentadilla (squat)          | Cuádriceps         | Glúteos, Isquiotibiales, Core/Abdominales           |
+| Peso muerto (DL)            | Isquiotibiales     | Glúteos, Cuádriceps, Dorsales, Trapecio             |
+| Press overhead              | Deltoides          | Tríceps, Core/Abdominales                           |
+| Pull vertical (pull-up)     | Dorsales           | Bíceps, Core/Abdominales                            |
+| Row / jalón horizontal      | Dorsales           | Bíceps, Trapecio, Core/Abdominales                  |
+| High pull / jalón explosivo | Trapecio           | Deltoides, Cuádriceps, Glúteos                      |
+| Olímpico (snatch/clean)     | Cuádriceps         | Glúteos, Deltoides, Trapecio, Core/Abdominales      |
+| Press horizontal (bench)    | Pectorales         | Tríceps, Deltoides                                  |
+| Cardio (correr/saltar)      | Cuádriceps         | Isquiotibiales, Glúteos, Pantorrillas               |
+| Core / plancha              | Core/Abdominales   | Deltoides (planchas), Glúteos (puentes)             |
+| Movilidad de hombro         | Deltoides          | Trapecio, Dorsales                                  |
+| Movilidad de cadera         | Glúteos            | Isquiotibiales, Core/Abdominales                    |
+| Carry / farmer              | Trapecio           | Antebrazos, Core/Abdominales, Cuádriceps            |
+| Lunge                       | Cuádriceps         | Glúteos, Isquiotibiales                             |
+| Curl / bíceps               | Bíceps             | Antebrazos                                          |
+| Extensión tríceps           | Tríceps            | —                                                   |
+| Estiramiento cadera/glúteo  | Glúteos            | Isquiotibiales, Core/Abdominales                    |
+| Estiramiento posterior      | Isquiotibiales     | Pantorrillas, Dorsales                              |
+| Estiramiento hombro/pecho   | Bíceps / Pectorales| Deltoides                                           |
 
 ### 5.2 equipment
 
@@ -800,7 +849,9 @@ Los siguientes ejercicios NO tienen SVG y deben crearse:
 Al finalizar la generación de una clase, verificar:
 
 - [ ] SVGs creados para todos los ejercicios nuevos (3 frames, 200x230, animación CSS)
-- [ ] Todos los ejercicios tienen: description, technical_notes, difficulty, primaryMuscle, secondaryMuscles, equipment, tags, sections, units, video_path (si hay video en el MD)
+- [ ] Todos los ejercicios tienen: description, technical_notes, difficulty, equipment, tags, sections, units, video_path (si hay video en el MD)
+- [ ] Cada ejercicio tiene exactamente 1 `primary_muscle` y 0-N `secondary_muscles` con nombres **simplificados** del catálogo (§5.1)
+- [ ] El servicio incluye `SIMPLIFIED_TO_GRANULAR`, `toDbName()` y la lógica de `exercise_muscle_group` (§10a)
 - [ ] Todas las secciones de la clase mapeadas a section_type y work_format correctos
 - [ ] Todos los section_exercise tienen planned_repetitions / planned_time_seconds / planned_weight_value según corresponda
 - [ ] El data.json sigue el orden de tablas obligatorio
@@ -817,30 +868,278 @@ La forma estándar de cargar una clase es mediante un **servicio de importación
 
 ### 10a. Crear el servicio de importación
 
-Crear `src/services/classDDMMYYYYImportService.ts` siguiendo el patrón de `class01042026ImportService.ts`:
+Crear `src/services/classDDMMYYYYImportService.ts`. El template completo incluye la asignación
+de músculos dentro del mismo servicio, sin necesitar un paso separado:
 
 ```typescript
-// Flag de control (único por clase)
+// src/services/classDDMMYYYYImportService.ts
+import { openDatabase, saveDatabase } from '../db/database';
+import { generateUUID } from '../utils/formatters';
+
 const IMPORT_FLAG = 'import_class_DD_MM_YYYY_done';
+
 export function isClassDDMMYYYYImportDone(): boolean {
   return localStorage.getItem(IMPORT_FLAG) === 'true';
 }
 
-// Función principal
+function markDone(): void {
+  localStorage.setItem(IMPORT_FLAG, 'true');
+}
+
+// ── Mapeo simplificado → granular (post "Cargar Datos Base") ──────────────────
+// Usar siempre los nombres simplificados (izquierda) en EXERCISES.
+// toDbName() los traduce automáticamente al buscar en muscle_group.
+const SIMPLIFIED_TO_GRANULAR: Record<string, string> = {
+  'Deltoides':        'Deltoides anterior',
+  'Cuádriceps':       'Recto femoral',
+  'Isquiotibiales':   'Bíceps femoral',
+  'Glúteos':          'Glúteo mayor',
+  'Dorsales':         'Dorsal ancho',
+  'Trapecio':         'Trapecio (superior)',
+  'Bíceps':           'Bíceps braquial',
+  'Tríceps':          'Tríceps braquial',
+  'Pantorrillas':     'Gastrocnemio (gemelos)',
+  'Core/Abdominales': 'Recto abdominal',
+  'Antebrazos':       'Flexores antebrazo',
+  'Pectorales':       'Pectoral mayor',
+};
+
+function toDbName(name: string): string {
+  return SIMPLIFIED_TO_GRANULAR[name] ?? name;
+}
+
+// ── Definición de ejercicios ─────────────────────────────────────────────────
+interface ExerciseDef {
+  name: string;
+  description: string;
+  technical_notes: string;
+  difficulty: string;           // 'Básico' | 'Intermedio' | 'Avanzado' | 'Experto'
+  primary_muscle: string;       // nombre simplificado (§5.1)
+  secondary_muscles: string[];  // nombres simplificados (§5.1)
+  equipment: string[];          // nombres exactos del catálogo equipment
+  tags: string[];               // nombres exactos del catálogo tag
+  section_types: string[];      // nombres exactos del catálogo section_type
+  units: string[];              // primer elemento = default
+  video_path?: string | null;
+  video_long_path?: string | null;
+  image_url: string;
+  is_compound: number;
+}
+
+const EXERCISES: ExerciseDef[] = [
+  // Completar con los ejercicios de la clase...
+  // Ejemplo:
+  // {
+  //   name: 'Band Pull-Apart',
+  //   description: 'De pie, separar los brazos con banda elástica...',
+  //   technical_notes: 'Codos extendidos, escápulas juntas al final.',
+  //   difficulty: 'Básico',
+  //   primary_muscle: 'Deltoides',
+  //   secondary_muscles: ['Trapecio', 'Dorsales'],
+  //   equipment: ['Banda elástica'],
+  //   tags: ['hombro', 'movilidad', 'pull'],
+  //   section_types: ['Entrada en calor', 'Activación'],
+  //   units: ['Repeticiones', 'Segundos'],
+  //   video_path: 'https://youtube.com/...',
+  //   image_url: '/img/exercises/band-pull-apart.svg',
+  //   is_compound: 0,
+  // },
+];
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+async function getOrCreate(
+  db: any,
+  exerciseDef: ExerciseDef,
+  maps: {
+    difficulty: Map<string, string>;
+    muscle: Map<string, string>;
+    equipment: Map<string, string>;
+    tag: Map<string, string>;
+    sectionType: Map<string, string>;
+    unit: Map<string, string>;
+  }
+): Promise<{ id: string; created: boolean }> {
+  const existing = await db.query(
+    'SELECT id FROM exercise WHERE UPPER(TRIM(name)) = UPPER(TRIM(?)) AND is_active = 1',
+    [exerciseDef.name]
+  );
+  if (existing.values?.length) {
+    return { id: existing.values[0].id, created: false };
+  }
+
+  const now = new Date().toISOString().replace('T', ' ').substring(0, 19);
+  const id = generateUUID();
+  const diffId = maps.difficulty.get(exerciseDef.difficulty) ?? null;
+  const primaryDbName = toDbName(exerciseDef.primary_muscle);
+  const primaryId = maps.muscle.get(primaryDbName) ?? null;
+
+  await db.run(
+    `INSERT INTO exercise
+       (id, name, description, technical_notes, difficulty_level_id,
+        primary_muscle_group_id, image_url, video_path, video_long_path,
+        is_compound, is_active, created_at, updated_at)
+     VALUES (?,?,?,?,?,?,?,?,?,?,1,?,?)`,
+    [id, exerciseDef.name, exerciseDef.description, exerciseDef.technical_notes,
+     diffId, primaryId, exerciseDef.image_url,
+     exerciseDef.video_path ?? null, exerciseDef.video_long_path ?? null,
+     exerciseDef.is_compound, now, now]
+  );
+
+  // Músculo primario
+  if (primaryId) {
+    await db.run(
+      'INSERT INTO exercise_muscle_group (id, exercise_id, muscle_group_id, is_primary) VALUES (?,?,?,1)',
+      [generateUUID(), id, primaryId]
+    );
+  }
+
+  // Músculos secundarios
+  for (const secName of exerciseDef.secondary_muscles) {
+    const secId = maps.muscle.get(toDbName(secName));
+    if (secId) {
+      await db.run(
+        'INSERT INTO exercise_muscle_group (id, exercise_id, muscle_group_id, is_primary) VALUES (?,?,?,0)',
+        [generateUUID(), id, secId]
+      );
+    }
+  }
+
+  // Equipamiento
+  for (const eqName of exerciseDef.equipment) {
+    const eqId = maps.equipment.get(eqName);
+    if (eqId) {
+      await db.run(
+        'INSERT INTO exercise_equipment (id, exercise_id, equipment_id, is_required) VALUES (?,?,?,1)',
+        [generateUUID(), id, eqId]
+      );
+    }
+  }
+
+  // Tags
+  for (const tagName of exerciseDef.tags) {
+    const tagId = maps.tag.get(tagName);
+    if (tagId) {
+      await db.run(
+        'INSERT INTO exercise_tag (id, exercise_id, tag_id) VALUES (?,?,?)',
+        [generateUUID(), id, tagId]
+      );
+    }
+  }
+
+  // Section types
+  for (const stName of exerciseDef.section_types) {
+    const stId = maps.sectionType.get(stName);
+    if (stId) {
+      await db.run(
+        'INSERT INTO exercise_section_type (id, exercise_id, section_type_id) VALUES (?,?,?)',
+        [generateUUID(), id, stId]
+      );
+    }
+  }
+
+  // Unidades (primera = default)
+  for (let i = 0; i < exerciseDef.units.length; i++) {
+    const uId = maps.unit.get(exerciseDef.units[i]);
+    if (uId) {
+      await db.run(
+        'INSERT INTO exercise_unit (id, exercise_id, measurement_unit_id, is_default) VALUES (?,?,?,?)',
+        [generateUUID(), id, uId, i === 0 ? 1 : 0]
+      );
+    }
+  }
+
+  return { id, created: true };
+}
+
+// ── Función principal ─────────────────────────────────────────────────────────
 export async function importClassDDMMYYYY(): Promise<{ exercises: number; created: boolean }> {
-  // 1. Verificar si la clase ya existe por nombre exacto
-  // 2. Cargar mapas de catálogos (difficulty, muscle, equipment, tag, section_type, work_format, unit)
-  // 3. Crear ejercicios nuevos (INSERT si no existen + todas las tablas de relación)
-  // 4. Crear class_template + class_section + section_exercise
-  // 5. markImportDone() y return { exercises, created: true }
+  const db = await openDatabase();
+
+  // Guardia: clase ya importada
+  const existing = await db.query(
+    "SELECT id FROM class_template WHERE name = 'Clase GOAT DD/MM/YYYY' AND is_active = 1"
+  );
+  if (existing.values?.length) {
+    markDone();
+    return { exercises: 0, created: false };
+  }
+
+  // Cargar mapas de catálogos
+  const rows = async (sql: string) => (await db.query(sql)).values ?? [];
+  const toMap = (arr: any[]) => new Map(arr.map((r) => [r.name as string, r.id as string]));
+
+  const maps = {
+    difficulty:  toMap(await rows('SELECT id, name FROM difficulty_level WHERE is_active = 1')),
+    muscle:      toMap(await rows('SELECT id, name FROM muscle_group WHERE is_active = 1')),
+    equipment:   toMap(await rows('SELECT id, name FROM equipment WHERE is_active = 1')),
+    tag:         toMap(await rows('SELECT id, name FROM tag WHERE is_active = 1')),
+    sectionType: toMap(await rows('SELECT id, name FROM section_type WHERE is_active = 1')),
+    workFormat:  toMap(await rows('SELECT id, name FROM work_format WHERE is_active = 1')),
+    unit:        toMap(await rows('SELECT id, name FROM measurement_unit WHERE is_active = 1')),
+  };
+
+  // Crear ejercicios (idempotente — getOrCreate no duplica)
+  let exercisesCreated = 0;
+  const exerciseIds: Record<string, string> = {};
+  for (const def of EXERCISES) {
+    const { id, created } = await getOrCreate(db, def, maps);
+    exerciseIds[def.name] = id;
+    if (created) exercisesCreated++;
+  }
+
+  // ── Crear la plantilla de clase ────────────────────────────────────────────
+  const now = new Date().toISOString().replace('T', ' ').substring(0, 19);
+  const classId = generateUUID();
+  await db.run(
+    `INSERT INTO class_template
+       (id, date, name, objective, general_notes, estimated_duration_minutes,
+        is_favorite, is_active, created_at, updated_at)
+     VALUES (?,?,?,?,?,?,0,1,?,?)`,
+    [classId, 'YYYY-MM-DD', 'Clase GOAT DD/MM/YYYY',
+     'Objetivo de la clase', null, 60, now, now]
+  );
+
+  // ── Secciones ──────────────────────────────────────────────────────────────
+  // Repetir este bloque por cada sección:
+  // const sec1Id = generateUUID();
+  // await db.run(
+  //   `INSERT INTO class_section
+  //      (id, class_template_id, section_type_id, work_format_id, sort_order,
+  //       visible_title, general_description, time_cap_seconds, total_rounds,
+  //       rest_between_rounds_seconds, notes, created_at, updated_at)
+  //    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+  //   [sec1Id, classId, maps.sectionType.get('Entrada en calor'),
+  //    maps.workFormat.get('Trabajo libre'), 1,
+  //    'Calentamiento', '6 minutos', 360, null, null, null, now, now]
+  // );
+
+  // ── Ejercicios de sección ──────────────────────────────────────────────────
+  // await db.run(
+  //   `INSERT INTO section_exercise
+  //      (id, class_section_id, exercise_id, sort_order, coach_notes,
+  //       planned_repetitions, planned_weight_value, planned_weight_unit_id,
+  //       planned_time_seconds, planned_distance_value, planned_distance_unit_id,
+  //       planned_calories, planned_rest_seconds, planned_rounds,
+  //       rm_percentage, suggested_scaling, notes, created_at, updated_at)
+  //    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+  //   [generateUUID(), sec1Id, exerciseIds['Nombre ejercicio'], 1,
+  //    'notas coach', 10, null, null, 30, null, null, null, null, null,
+  //    null, null, null, now, now]
+  // );
+
+  await saveDatabase();
+  markDone();
+  return { exercises: exercisesCreated, created: true };
 }
 ```
 
 **Reglas del servicio:**
 - Verificar la clase por `name` exacto antes de insertar (idempotente)
-- Usar `video_long_path` para las URLs de YouTube (campo de la migración v003)
-- Usar `image_url` para la ruta del SVG (campo de la migración v004)
-- Usar `INSERT OR IGNORE` para equipamiento nuevo
+- Los músculos se asignan dentro de `getOrCreate()` — **no se crea ningún servicio separado**
+- Usar siempre nombres **simplificados** en `primary_muscle` y `secondary_muscles`; `toDbName()` resuelve el nombre granular
+- `video_path` = video corto (popup en sesión); `video_long_path` = tutorial explicativo
+- `image_url` = ruta al SVG en `/img/exercises/`
+- `INSERT OR IGNORE` no aplica aquí — se usa `getOrCreate` que verifica primero por nombre
 - El flag en localStorage controla que no se ejecute dos veces
 
 ### 10b. Agregar el botón en ClassSeederSection
@@ -886,5 +1185,6 @@ npx tsc --noEmit
 
 ---
 
-*Última actualización: 2026-04-01*
+*Última actualización: 2026-04-15*
 *Versión del schema: 1 (v001_initial)*
+*Músculo integrado en el servicio — ya no se usa ACTUALIZO_MUSCULOS.md para clases nuevas*
