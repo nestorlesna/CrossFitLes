@@ -90,7 +90,8 @@
       "WebFetch(domain:www.sports-health.com)",
       "WebFetch(domain:jllfitness.co.uk)",
       "WebFetch(domain:bikestreak.com)",
-      "WebFetch(domain:www.surreyphysio.co.uk)"
+      "WebFetch(domain:www.surreyphysio.co.uk)",
+      "Bash(npx skills *)"
     ]
   }
 }
