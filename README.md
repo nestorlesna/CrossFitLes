@@ -55,6 +55,52 @@ npm run cap:sync
 npm run cap:android
 ```
 
+## 🚢 Release — Distribución de APK
+
+El APK se genera y publica automáticamente mediante **GitHub Actions** al crear un tag con prefijo `v`.
+
+### Requisitos previos (primera vez)
+
+1. Generar el keystore de firma (en PowerShell, desde la carpeta `KEY/`):
+   ```powershell
+   keytool -genkey -v -keystore release.keystore -alias crossfitles -keyalg RSA -keysize 2048 -validity 10000
+   ```
+
+2. Convertir el keystore a base64 y copiarlo al portapapeles:
+   ```powershell
+   [Convert]::ToBase64String([IO.File]::ReadAllBytes("C:\ruta\KEY\release.keystore")) | Set-Clipboard
+   ```
+
+3. Cargar los siguientes secrets en GitHub → **Settings → Secrets and variables → Actions**:
+
+   | Secret | Valor |
+   |--------|-------|
+   | `KEYSTORE_BASE64` | Output del paso anterior |
+   | `KEYSTORE_PASSWORD` | Password del keystore |
+   | `KEY_ALIAS` | `crossfitles` |
+   | `KEY_PASSWORD` | Password de la clave |
+
+4. Activar permisos del workflow: **Settings → Actions → General → Read and write permissions**
+
+### Publicar una nueva versión
+
+```powershell
+# Desde la raíz del proyecto
+.\scripts\release.ps1 1.0.1
+```
+
+El script actualiza `versionCode` y `versionName` en `build.gradle`, hace commit, crea el tag y hace push. GitHub Actions construye el APK firmado y lo publica como GitHub Release automáticamente.
+
+### Flujo resumido
+
+```
+git tag v1.0.1 → GitHub Actions → build web → cap sync → gradle assembleRelease → CrossFitLes.apk → GitHub Release
+```
+
+> El keystore vive en la carpeta `KEY/` (ignorada por git). No subir al repositorio.
+
+---
+
 ## 📁 Estructura del Proyecto
 
 ```
@@ -112,6 +158,7 @@ src/
 | `npm run lint` | Ejecuta ESLint |
 | `npm run cap:sync` | Compila y sincroniza con Capacitor |
 | `npm run cap:android` | Sincroniza y abre Android Studio |
+| `.\scripts\release.ps1 X.Y.Z` | Publica una nueva versión (bump + tag + push) |
 
 ## 🌐 Convenciones del Proyecto
 
