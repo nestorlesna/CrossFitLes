@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+<rect width="200" height="230" fill="#111827" rx="12"/>
+<style>
+.f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+@keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+@keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+@keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+</style>
+<!-- F1: Sitting on floor, one leg bent back at side -->
+<g class="f1">
+  <circle cx="85" cy="80" r="13" fill="#94a3b8"/>
+  <line x1="85" y1="93" x2="85" y2="152" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="85" y1="108" x2="65" y2="120" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="85" y1="108" x2="105" y2="120" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="85" y1="152" x2="50" y2="165" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="50" y1="165" x2="40" y2="185" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="85" y1="152" x2="130" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="130" y1="162" x2="150" y2="165" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="50" cy="165" r="5" fill="#64748b"/>
+  <circle cx="130" cy="162" r="5" fill="#64748b"/>
+</g>
+<!-- F2: Leaning back slightly, reaching for bent foot -->
+<g class="f2">
+  <circle cx="85" cy="90" r="13" fill="#94a3b8"/>
+  <line x1="85" y1="103" x2="85" y2="158" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="85" y1="118" x2="60" y2="148" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="60" y1="148" x2="140" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="85" y1="118" x2="110" y2="128" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="85" y1="158" x2="50" y2="168" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="50" y1="168" x2="40" y2="190" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="85" y1="158" x2="130" y2="165" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="130" y1="165" x2="152" y2="168" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+</g>
+<!-- F3: Leaning back more, feeling quad stretch -->
+<g class="f3">
+  <circle cx="95" cy="100" r="13" fill="#94a3b8"/>
+  <line x1="88" y1="112" x2="78" y2="160" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="85" y1="130" x2="55" y2="160" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="55" y1="160" x2="145" y2="165" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="85" y1="130" x2="115" y2="135" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="78" y1="160" x2="50" y2="175" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="50" y1="175" x2="40" y2="200" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="78" y1="160" x2="128" y2="168" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="128" y1="168" x2="152" y2="170" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+</g>
+<line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+<text x="100" y="225" text-anchor="middle" font-family="monospace" font-size="9" fill="#475569">SEATED QUAD STRETCH</text>
+</svg>

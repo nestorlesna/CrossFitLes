@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, Plus, Search, Calendar, Star, Dumbbell, Play } from 'lucide-react';
+import { ChevronLeft, Search, Calendar, Star, Dumbbell, Play, ClipboardList } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { Badge } from '../../components/ui/Badge';
 import { ClassTemplate } from '../../models/ClassTemplate';
@@ -57,7 +57,18 @@ export function NewSessionPage() {
       <div className="flex flex-col gap-6 p-4 pb-24">
         {/* ── Opción Sesión Libre ── */}
         <button
-          onClick={() => toast.info('Funcionalidad de sesión libre próximamente')}
+          onClick={() => navigate('/sesiones/registrar')}
+          className="bg-gray-800 hover:bg-gray-750 border border-gray-700 text-white rounded-2xl p-5 flex items-center justify-between transition-colors active:scale-[0.98]"
+        >
+          <div className="flex flex-col items-start text-left">
+            <span className="text-base font-bold">Registrar sesión pasada</span>
+            <span className="text-xs text-gray-400 mt-0.5">Anotá un entrenamiento que ya hiciste, sin reloj.</span>
+          </div>
+          <ClipboardList size={22} className="text-gray-400 shrink-0" />
+        </button>
+
+        <button
+          onClick={() => navigate('/sesiones/libre')}
           className="bg-primary-600 hover:bg-primary-700 text-white rounded-2xl p-5 flex items-center justify-between transition-colors shadow-lg shadow-primary-900/20 active:scale-[0.98]"
         >
           <div className="flex flex-col items-start text-left">

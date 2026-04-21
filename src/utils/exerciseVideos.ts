@@ -1,0 +1,93 @@
+/**
+ * Video assignments for exercise demonstrations.
+ * Short videos (< 2 min) shown during session popups.
+ */
+
+export interface VideoAssignment {
+  exerciseName: string;
+  videoShortPath: string | null;
+  videoLongPath: string | null;
+}
+
+export const VIDEO_ASSIGNMENTS: VideoAssignment[] = [
+  { exerciseName: 'Back Squat', videoShortPath: 'https://www.youtube.com/shorts/iZTxa8NJH2g', videoLongPath: null },
+  { exerciseName: 'Barbell Clean and Jerk', videoShortPath: 'https://www.youtube.com/shorts/dNJkR7Jkuqk', videoLongPath: null },
+  { exerciseName: 'Barbell Deadlift', videoShortPath: 'https://www.youtube.com/shorts/ZaTM37cfiDs', videoLongPath: null },
+  { exerciseName: 'Barbell Front Squat', videoShortPath: 'https://www.youtube.com/shorts/r6Z_h_WAX5o', videoLongPath: null },
+  { exerciseName: 'Barbell Hang Clean', videoShortPath: 'https://www.youtube.com/shorts/kGUx6-pXU-k', videoLongPath: null },
+  { exerciseName: 'Barbell Hang Clean and Jerk', videoShortPath: 'https://www.youtube.com/shorts/N7GBM34785A', videoLongPath: null },
+  { exerciseName: 'Barbell Hang Muscle Clean and Press', videoShortPath: 'https://www.youtube.com/watch?v=zePHyOjujUY', videoLongPath: null },
+  { exerciseName: 'Barbell Lunge', videoShortPath: 'https://www.youtube.com/shorts/mo-xrOhY_Fk', videoLongPath: null },
+  { exerciseName: 'Barbell Muscle Snatch', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=nJmtGVutszE' },
+  { exerciseName: 'Barbell Strict Press', videoShortPath: 'https://www.youtube.com/shorts/3RdVYQ8l_V8', videoLongPath: null },
+  { exerciseName: 'Barbell Upright Row', videoShortPath: 'https://www.youtube.com/shorts/DgyslsszCQ0', videoLongPath: null },
+  { exerciseName: 'Bent-Over Dumbbell Lateral Raise', videoShortPath: 'https://www.youtube.com/shorts/ZRK6-pdBpA4', videoLongPath: null },
+  { exerciseName: 'Box Jump', videoShortPath: 'https://www.youtube.com/watch?v=52r_Ul5k03g', videoLongPath: null },
+  { exerciseName: 'Box Jump-Over', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=T7HFJfD8YEw' },
+  { exerciseName: 'Burpee Over the Bar', videoShortPath: 'https://www.youtube.com/watch?v=Kv5goMENSsI', videoLongPath: null },
+  { exerciseName: 'Chest-to-Bar Pull-Up', videoShortPath: 'https://www.youtube.com/shorts/0M4snoj4vhM', videoLongPath: null },
+  { exerciseName: 'Cossack Squat', videoShortPath: 'https://www.youtube.com/shorts/z-tLGsMzO14', videoLongPath: null },
+  { exerciseName: 'Counterbalance Squat', videoShortPath: 'https://www.youtube.com/shorts/kvuUHFKSrJs', videoLongPath: null },
+  { exerciseName: 'DB Lateral Step-Over', videoShortPath: 'https://www.youtube.com/watch?v=PV8xakDlbrc', videoLongPath: null },
+  { exerciseName: 'Double Under', videoShortPath: 'https://www.youtube.com/shorts/mcpFApmH2F4', videoLongPath: null },
+  { exerciseName: 'Dumbbell Alternating Bent Over Row', videoShortPath: 'https://www.youtube.com/shorts/vN8xskk-7G8', videoLongPath: null },
+  { exerciseName: 'Dumbbell Bench Press', videoShortPath: 'https://www.youtube.com/shorts/1V3vpcaxRYQ', videoLongPath: null },
+  { exerciseName: 'Dumbbell Bicep Curl', videoShortPath: 'https://www.youtube.com/shorts/60VJ4_P3PpY', videoLongPath: null },
+  { exerciseName: 'Dumbbell Deadlift', videoShortPath: 'https://www.youtube.com/shorts/0xp2pgqcdlc', videoLongPath: null },
+  { exerciseName: 'Dumbbell Devil\'s Press', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=RkQqP4tP4lc' },
+  { exerciseName: 'Dumbbell Front Rack Lunge', videoShortPath: 'https://www.youtube.com/watch?v=7EmwtpAI8cM', videoLongPath: null },
+  { exerciseName: 'Dumbbell Front Raise', videoShortPath: 'https://www.youtube.com/shorts/m1hHC13jxuE', videoLongPath: null },
+  { exerciseName: 'Dumbbell One-Arm Overhead Lunge', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=b5LGhv3B2us' },
+  { exerciseName: 'Dumbbell Push Press', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=vuaYVK8xyqo' },
+  { exerciseName: 'Dumbbell Thruster', videoShortPath: 'https://www.youtube.com/watch?v=M5gEwLTtWbg', videoLongPath: null },
+  { exerciseName: 'Farmer\'s Carry', videoShortPath: 'https://www.youtube.com/shorts/LRRByjIBfDc', videoLongPath: null },
+  { exerciseName: 'GHD Back Extension', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=xMyFXMZ6Ch0' },
+  { exerciseName: 'GHD Sit-Up', videoShortPath: 'https://www.youtube.com/shorts/O9Lo-sAkvwg', videoLongPath: null },
+  { exerciseName: 'Hanging Toes to Bar', videoShortPath: 'https://www.youtube.com/shorts/wjYHzqJW2qI', videoLongPath: null },
+  { exerciseName: 'High Pull + External Rotation', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=X_ieFa3RTkE' },
+  { exerciseName: 'Hollow Body Rock', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=UDDen7SAdnk' },
+  { exerciseName: 'Hollow Rock', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=lsLbRLRi2Yk' },
+  { exerciseName: 'Hollow to Superman Roll', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=XZFwZcWCTOg' },
+  { exerciseName: 'Isometric Lunge', videoShortPath: 'https://www.youtube.com/shorts/FeX9_y_gOvc', videoLongPath: null },
+  { exerciseName: 'Kettlebell Ankle Mobility Drill', videoShortPath: 'https://www.youtube.com/shorts/R5NBqZcDh_Y', videoLongPath: null },
+  { exerciseName: 'Kettlebell Clean and Jerk', videoShortPath: 'https://www.youtube.com/shorts/xW3FwDQ59ms', videoLongPath: null },
+  { exerciseName: 'Kettlebell Front Squat', videoShortPath: 'https://www.youtube.com/watch?v=8ka6DLUJBKk', videoLongPath: null },
+  { exerciseName: 'Kettlebell Ground-to-Overhead', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=jEUGo80-yBY' },
+  { exerciseName: 'Kettlebell Snatch', videoShortPath: 'https://www.youtube.com/shorts/18KUpVeuouw', videoLongPath: null },
+  { exerciseName: 'Kettlebell Sumo Deadlift High Pull', videoShortPath: 'https://www.youtube.com/shorts/o9PWq8JrNdM', videoLongPath: null },
+  { exerciseName: 'Med-Ball Box Step-Over', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=SZBsZqWXilQ' },
+  { exerciseName: 'Nordic Hamstring Curl', videoShortPath: 'https://www.youtube.com/shorts/wwgtGMHhS8Y', videoLongPath: null },
+  { exerciseName: 'Overhead Squat', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=pn8mqlG0nkE' },
+  { exerciseName: 'Plank to Opposite Toe Touch', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=XprFkq1V9I0' },
+  { exerciseName: 'Ring Dip', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=EznLCDBAPIU' },
+  { exerciseName: 'Rope Climb', videoShortPath: 'https://www.youtube.com/shorts/pGCqQ-jcmZI', videoLongPath: null },
+  { exerciseName: 'Rowing', videoShortPath: 'https://www.youtube.com/shorts/h1vTd2xvuog', videoLongPath: null },
+  { exerciseName: 'Running', videoShortPath: 'https://www.youtube.com/shorts/L90_3Qoi-O4', videoLongPath: null },
+  { exerciseName: 'Russian Twist', videoShortPath: 'https://www.youtube.com/shorts/51Dw8c3wcPs', videoLongPath: null },
+  { exerciseName: 'Scapular Push-Up', videoShortPath: 'https://www.youtube.com/shorts/uTOKRtzvRtE', videoLongPath: null },
+  { exerciseName: 'Shuttle Run', videoShortPath: 'https://www.youtube.com/shorts/rDrw-W8no6c', videoLongPath: null },
+  { exerciseName: 'Side Plank con carga', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=r6VCY4U7JE0' },
+  { exerciseName: 'Single-Leg Dumbbell Romanian Deadlift', videoShortPath: 'https://www.youtube.com/shorts/MeV_WFmvBCU', videoLongPath: null },
+  { exerciseName: 'Snatch Grip Deadlift', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=BWPuQ4bFMh8' },
+  { exerciseName: 'Snatch High Pull', videoShortPath: 'https://www.youtube.com/shorts/MBe9EnHt6ac', videoLongPath: null },
+  { exerciseName: 'Snatch with Pause at Knee', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=2n5nlpwjRCM' },
+  { exerciseName: 'Stability Ball Plate Crunch', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=uKEYmOZMkRM' },
+  { exerciseName: 'Toe Touch Sit-Up', videoShortPath: 'https://www.youtube.com/shorts/E64rWJXwOu0', videoLongPath: null },
+  { exerciseName: 'Wall Ball Shot', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=EqjGKsiIMCE' },
+  { exerciseName: 'Wall Thoracic Extensions', videoShortPath: 'https://www.youtube.com/shorts/RSD3UijJK1o', videoLongPath: null },
+  { exerciseName: 'Weighted Box Step-Up', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=_ssBLVmbmPw' },
+  { exerciseName: 'Weighted Plank', videoShortPath: null, videoLongPath: 'https://www.youtube.com/watch?v=0Mwk0RRUCxE' },
+  { exerciseName: 'Yoga Push-Up', videoShortPath: 'https://www.youtube.com/shorts/_2aDj69aE9s', videoLongPath: null },
+];
+
+/** Exercises where no suitable video was found */
+export const NO_VIDEO_EXERCISES: string[] = [
+  'Barbell Hang Power Cluster',
+  'Barbell Sumo Deadlift High Pull',
+  'Bodyweight Handstand Push-Up',
+  'Dumbbell Split Clean',
+  'Hanging Knees to Elbows',
+  'Kettlebell Push-Up',
+  'Lateral Raise to Overhead',
+  'Ring Handstand Push-Up',
+];

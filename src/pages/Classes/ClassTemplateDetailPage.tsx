@@ -13,12 +13,14 @@ import {
   Play,
   AlertTriangle,
   Dumbbell,
+  Info,
 } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
 import { Modal } from '../../components/ui/Modal';
+import { ExerciseInfoModal } from '../../components/ui/ExerciseInfoModal';
 import { ClassTemplateWithSections, SectionExercise } from '../../models/ClassTemplate';
 import * as classTemplateRepo from '../../db/repositories/classTemplateRepo';
 import { getImageDisplayUrl } from '../../services/mediaService';
@@ -56,21 +58,93 @@ function buildExerciseParams(exercise: SectionExercise): string {
   return parts.join(' · ');
 }
 
-function ExerciseImage({ imagePath, name }: { imagePath?: string | null; name: string }) {
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+// Helper para obtener el ID de YouTube (incluye Shorts)
+function getYoutubeId(url: string): string | null {
+  if (!url) return null;
+  // Soporta: youtu.be/ID, youtube.com/shorts/ID, youtube.com/watch?v=ID, youtube.com/v/ID, youtube.com/embed/ID
+  const m = url.match(/(?:youtube\.com\/(?:shorts\/|v\/|embed\/)|youtu\.be\/|watch\?v=)([^#&?]+)/);
+  return m ? m[1] : null;
+}
+
+// Helper para obtener el ID de Vimeo
+function getVimeoId(url: string): string | null {
+  const regExp = /vimeo\.com\/(?:video\/|channels\/(?:\w+\/)?|groups\/(?:\w+\/)?|album\/(?:\w+\/)?|showcase\/(?:\w+\/)?|)(\d+)(?:$|\/|\?)/;
+  const match = url.match(regExp);
+  return (match && match[1]) ? match[1] : null;
+}
+
+// Componente para embeber video
+function VideoEmbed({ url }: { url: string }) {
+  const youtubeId = getYoutubeId(url);
+  const vimeoId = getVimeoId(url);
+
+  if (youtubeId) {
+    return (
+      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
+        <iframe
+          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="absolute top-0 left-0 w-full h-full"
+        />
+      </div>
+    );
+  }
+
+  if (vimeoId) {
+    return (
+      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
+        <iframe
+          src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1`}
+          title="Vimeo video player"
+          frameBorder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+          className="absolute top-0 left-0 w-full h-full"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center justify-between bg-gray-800 hover:bg-gray-700 p-3 rounded-lg transition-colors group"
+    >
+      <span className="text-sm text-gray-200 truncate max-w-[200px]">{url}</span>
+      <span className="text-xs text-primary-500 font-medium">Ver enlace</span>
+    </a>
+  );
+}
+
+function ExerciseImage({
+  imageUrl,
+  imagePath,
+  name,
+}: {
+  imageUrl?: string | null;
+  imagePath?: string | null;
+  name: string;
+}) {
+  const [resolvedUrl, setResolvedUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    if (imagePath) {
-      getImageDisplayUrl(imagePath).then(setImageUrl);
+    const path = imageUrl || imagePath;
+    if (path) {
+      getImageDisplayUrl(path).then(setResolvedUrl);
     } else {
-      setImageUrl(null);
+      setResolvedUrl(null);
     }
-  }, [imagePath]);
+  }, [imageUrl, imagePath]);
 
   return (
     <div className="w-16 h-16 rounded-lg bg-gray-800 flex items-center justify-center shrink-0 overflow-hidden">
-      {imageUrl ? (
-        <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
+      {resolvedUrl ? (
+        <img src={resolvedUrl} alt={name} className="w-full h-full object-cover" />
       ) : (
         <Dumbbell size={20} className="text-gray-600" />
       )}
@@ -86,6 +160,11 @@ export function ClassTemplateDetailPage() {
   const [loading, setLoading] = useState(true);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [sessionCounts, setSessionCounts] = useState<{ total: number; active: number } | null>(null);
+  const [selectedVideoUrl, setSelectedVideoUrl] = useState<string | null>(null);
+  const [exerciseNameForVideo, setExerciseNameForVideo] = useState('');
+  const [infoExerciseId, setInfoExerciseId] = useState<string | null>(null);
+  const [infoExerciseName, setInfoExerciseName] = useState('');
   const [duplicating, setDuplicating] = useState(false);
 
   // Carga la plantilla y sus secciones desde la base de datos
@@ -139,6 +218,19 @@ export function ClassTemplateDetailPage() {
       toast.error('Error al duplicar la plantilla');
     } finally {
       setDuplicating(false);
+    }
+  };
+
+  // Abre el modal de confirmación y pre-carga el conteo de sesiones vinculadas
+  const handleOpenDeleteConfirm = async () => {
+    if (!template) return;
+    setSessionCounts(null);
+    setShowDeleteConfirm(true);
+    try {
+      const counts = await classTemplateRepo.countLinkedSessions(template.id);
+      setSessionCounts(counts);
+    } catch {
+      // Si falla la consulta igual mostramos el modal, sin info de sesiones
     }
   };
 
@@ -203,7 +295,7 @@ export function ClassTemplateDetailPage() {
         }
       />
 
-      <div className="px-4 py-4 space-y-4 pb-36">
+      <div className="px-4 py-4 space-y-4 pb-52">
         {/* Tarjeta de datos generales */}
         <div className="bg-gray-900 border border-gray-800 rounded-xl p-4 space-y-3">
           {/* Meta información */}
@@ -313,15 +405,48 @@ export function ClassTemplateDetailPage() {
                             <span className="text-xs text-gray-600 mt-1 w-4 shrink-0 text-right">
                               {idx + 1}.
                             </span>
-                            {/* Imagen del ejercicio */}
+                            {/* Imagen del ejercicio limpia */}
                             <ExerciseImage
+                              imageUrl={exercise.exercise_image_url}
                               imagePath={exercise.exercise_image_path}
                               name={exercise.exercise_name ?? ''}
                             />
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-white">
-                                {exercise.exercise_name}
-                              </p>
+                              <div className="flex items-center gap-2">
+                                <button
+                                  onClick={() => {
+                                    setInfoExerciseId(exercise.exercise_id);
+                                    setInfoExerciseName(exercise.exercise_name ?? '');
+                                  }}
+                                  className="text-sm font-medium text-white truncate text-left hover:text-primary-400 transition-colors"
+                                >
+                                  {exercise.exercise_name}
+                                </button>
+                                <button
+                                  onClick={() => {
+                                    setInfoExerciseId(exercise.exercise_id);
+                                    setInfoExerciseName(exercise.exercise_name ?? '');
+                                  }}
+                                  className="p-1 rounded-full text-gray-600 hover:text-gray-300 transition-colors shrink-0"
+                                  aria-label="Ver información del ejercicio"
+                                >
+                                  <Info size={13} />
+                                </button>
+                                {exercise.exercise_video_url && (
+                                  <button
+                                    onClick={() => {
+                                      if (exercise.exercise_video_url) {
+                                        setSelectedVideoUrl(exercise.exercise_video_url);
+                                        setExerciseNameForVideo(exercise.exercise_name ?? '');
+                                      }
+                                    }}
+                                    className="p-1 rounded-full bg-primary-500/20 text-primary-500 hover:bg-primary-500 hover:text-white transition-colors shrink-0"
+                                    aria-label="Ver video"
+                                  >
+                                    <Play size={10} fill="currentColor" />
+                                  </button>
+                                )}
+                              </div>
                               {params && (
                                 <p className="text-xs text-primary-400 mt-0.5">{params}</p>
                               )}
@@ -360,8 +485,8 @@ export function ClassTemplateDetailPage() {
         )}
       </div>
 
-      {/* Barra de acciones fija al pie */}
-      <div className="fixed bottom-0 left-0 right-0 bg-gray-950 border-t border-gray-800 px-4 py-3 safe-bottom z-30">
+      {/* Barra de acciones fija al pie — encima del BottomNav (bottom-16 = 64px) */}
+      <div className="fixed bottom-16 left-0 right-0 bg-gray-950 border-t border-gray-800 px-4 py-3 z-40">
         {/* Botón iniciar sesión */}
         <button
           onClick={() => navigate(`/sesiones/nueva?templateId=${template.id}`)}
@@ -400,7 +525,7 @@ export function ClassTemplateDetailPage() {
 
           {/* Eliminar */}
           <button
-            onClick={() => setShowDeleteConfirm(true)}
+            onClick={handleOpenDeleteConfirm}
             className="flex-1 py-2.5 rounded-xl text-sm font-medium flex items-center justify-center gap-1.5 min-h-[44px] bg-gray-900 border border-gray-800 text-red-500 hover:text-red-400 hover:border-red-900 transition-colors"
           >
             <Trash2 size={15} />
@@ -412,36 +537,90 @@ export function ClassTemplateDetailPage() {
       {/* Modal de confirmación de eliminación */}
       <Modal
         isOpen={showDeleteConfirm}
-        onClose={() => setShowDeleteConfirm(false)}
+        onClose={() => !deleting && setShowDeleteConfirm(false)}
         title="Eliminar clase"
         footer={
           <div className="flex gap-3">
             <button
               onClick={() => setShowDeleteConfirm(false)}
-              className="flex-1 py-2.5 rounded-xl border border-gray-700 text-gray-300 hover:text-white text-sm font-medium min-h-[44px]"
+              disabled={deleting}
+              className="flex-1 py-2.5 rounded-xl border border-gray-700 text-gray-300 hover:text-white text-sm font-medium min-h-[44px] disabled:opacity-50"
             >
               Cancelar
             </button>
             <button
               onClick={handleDelete}
-              disabled={deleting}
-              className="flex-1 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-sm font-medium min-h-[44px] disabled:opacity-50 transition-colors"
+              disabled={deleting || (sessionCounts?.active ?? 0) > 0}
+              className="flex-1 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-sm font-medium min-h-[44px] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {deleting ? 'Eliminando...' : 'Eliminar'}
             </button>
           </div>
         }
       >
-        <div className="flex items-start gap-3 py-2">
-          <AlertTriangle size={20} className="text-red-500 shrink-0 mt-0.5" />
-          <div>
-            <p className="text-white text-sm font-medium mb-1">{template.name}</p>
-            <p className="text-gray-400 text-sm">
-              ¿Estás seguro de que querés eliminar esta plantilla? La acción no se puede deshacer.
-            </p>
+        <div className="space-y-3 py-1">
+          <div className="flex items-start gap-3">
+            <AlertTriangle size={20} className="text-red-500 shrink-0 mt-0.5" />
+            <div>
+              <p className="text-white text-sm font-medium">{template.name}</p>
+              <p className="text-gray-400 text-sm mt-0.5">
+                Esta acción no se puede deshacer.
+              </p>
+            </div>
           </div>
+
+          {/* Info de sesiones vinculadas */}
+          {sessionCounts === null ? (
+            <div className="h-10 bg-gray-800/50 rounded-lg animate-pulse" />
+          ) : sessionCounts.active > 0 ? (
+            <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-3 space-y-1">
+              <p className="text-red-400 text-xs font-semibold flex items-center gap-1.5">
+                <AlertTriangle size={13} />
+                No se puede eliminar — hay sesiones activas
+              </p>
+              <p className="text-gray-400 text-xs">
+                Tenés {sessionCounts.active} sesión{sessionCounts.active !== 1 ? 'es' : ''} planificada{sessionCounts.active !== 1 ? 's' : ''} o en curso vinculada{sessionCounts.active !== 1 ? 's' : ''} a esta clase.
+                Finalizalas o cancelalas antes de eliminar.
+              </p>
+            </div>
+          ) : sessionCounts.total > 0 ? (
+            <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-3 space-y-1">
+              <p className="text-gray-300 text-xs font-semibold">
+                {sessionCounts.total} sesión{sessionCounts.total !== 1 ? 'es' : ''} registrada{sessionCounts.total !== 1 ? 's' : ''} con esta clase
+              </p>
+              <p className="text-gray-500 text-xs">
+                El historial de esas sesiones se conserva. Solo se elimina la plantilla.
+              </p>
+            </div>
+          ) : (
+            <div className="bg-gray-800/40 border border-gray-800 rounded-xl p-3">
+              <p className="text-gray-500 text-xs">Esta clase no tiene sesiones registradas.</p>
+            </div>
+          )}
         </div>
       </Modal>
+
+      {/* Modal de Video */}
+      <Modal
+        isOpen={Boolean(selectedVideoUrl)}
+        onClose={() => setSelectedVideoUrl(null)}
+        title={exerciseNameForVideo}
+        size="md"
+      >
+        <div className="flex flex-col gap-4">
+          {selectedVideoUrl && <VideoEmbed url={selectedVideoUrl} />}
+          <p className="text-xs text-gray-500 text-center">
+            Podes cerrar este video para volver a la clase.
+          </p>
+        </div>
+      </Modal>
+
+      {/* Modal de Información del Ejercicio */}
+      <ExerciseInfoModal
+        exerciseId={infoExerciseId}
+        exerciseName={infoExerciseName}
+        onClose={() => setInfoExerciseId(null)}
+      />
     </>
   );
 }

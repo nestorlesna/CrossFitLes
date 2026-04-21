@@ -57,7 +57,8 @@ interface TemplateDef {
 
 // Busca un ejercicio por nombre; devuelve su ID o null
 async function findExercise(db: SQLiteDBConnection, name: string): Promise<string | null> {
-  const r = await db.query('SELECT id FROM exercise WHERE name = ? AND is_active = 1', [name]);
+  const norm = name.trim().toUpperCase();
+  const r = await db.query('SELECT id FROM exercise WHERE UPPER(TRIM(name)) = ? AND is_active = 1', [norm]);
   return (r.values?.[0]?.id as string) ?? null;
 }
 
@@ -145,8 +146,8 @@ async function createTemplate(
   const templateId = generateUUID();
 
   await db.run(
-    `INSERT INTO class_template (id, name, objective, general_notes, estimated_duration_minutes, is_favorite, is_active, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, 1, 1, ?, ?)`,
+    `INSERT INTO class_template (id, name, objective, general_notes, estimated_duration_minutes, is_favorite, template_type, is_active, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, 1, 'generic', 1, ?, ?)`,
     [templateId, def.name, def.objective, def.general_notes, def.estimated_duration_minutes, ts, ts]
   );
 

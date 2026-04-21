@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 180">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="260" height="180" fill="#111827" rx="12"/>
+  <line x1="20" y1="148" x2="240" y2="148" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="130" y="167" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" fill="#475569" letter-spacing="1">ANKLE MOBILITY DRILL</text>
+  <!-- Kettlebell on ground (constant) -->
+  <rect x="178" y="132" width="16" height="14" rx="3" fill="#374151" stroke="#4b5563" stroke-width="2"/>
+  <path d="M183,132 Q186,126 189,132" stroke="#4b5563" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Frame 1: Half-kneeling upright, front foot near KB -->
+  <g class="f1">
+    <circle cx="128" cy="52" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso upright -->
+      <line x1="128" y1="64" x2="128" y2="104"/>
+      <!-- Arms relaxed -->
+      <line x1="128" y1="78" x2="112" y2="96"/>
+      <line x1="128" y1="78" x2="144" y2="96"/>
+      <!-- Front leg (right): from hip to knee to foot forward -->
+      <line x1="128" y1="104" x2="152" y2="130"/>
+      <line x1="152" y1="130" x2="175" y2="148"/>
+      <!-- Back leg: kneeling (left knee on ground) -->
+      <line x1="128" y1="104" x2="105" y2="148"/>
+    </g>
+    <circle cx="152" cy="130" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: Leaning forward, driving knee over toe -->
+  <g class="f2">
+    <circle cx="135" cy="60" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso leaning forward -->
+      <line x1="135" y1="72" x2="132" y2="110"/>
+      <line x1="133" y1="87" x2="118" y2="106"/>
+      <line x1="133" y1="87" x2="150" y2="100"/>
+      <!-- Front leg: knee pushing forward over toe -->
+      <line x1="132" y1="110" x2="165" y2="128"/>
+      <line x1="165" y1="128" x2="178" y2="148"/>
+      <!-- Back leg kneeling -->
+      <line x1="132" y1="110" x2="110" y2="148"/>
+    </g>
+    <circle cx="165" cy="128" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: Maximum dorsiflexion — knee far forward over toe -->
+  <g class="f3">
+    <circle cx="140" cy="68" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso more forward lean -->
+      <line x1="140" y1="80" x2="136" y2="116"/>
+      <line x1="138" y1="94" x2="122" y2="112"/>
+      <line x1="138" y1="94" x2="155" y2="105"/>
+      <!-- Front leg: knee well past toe, ankle stretched -->
+      <line x1="136" y1="116" x2="178" y2="126"/>
+      <line x1="178" y1="126" x2="180" y2="148"/>
+      <!-- Back leg kneeling -->
+      <line x1="136" y1="116" x2="114" y2="148"/>
+    </g>
+    <circle cx="178" cy="126" r="5" fill="#64748b"/>
+  </g>
+</svg>

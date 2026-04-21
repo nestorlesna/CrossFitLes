@@ -58,3 +58,8 @@ coverage/
 # PLAN.md
 # CLAUDE.md
 node_modules
+
+# Keystore y credenciales de firma (nunca subir al repo)
+KEY/
+*.keystore
+*.jks

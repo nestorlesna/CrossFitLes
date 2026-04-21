@@ -106,6 +106,39 @@ const EXERCISE_IMAGES: [string, string][] = [
   ['Ring Strict Muscle Up',                        '/img/exercises/ring-strict-muscle-up.svg'],
   ['Superband Shoulder Dislocates',                '/img/exercises/superband-shoulder-dislocates.svg'],
 
+  // Ejercicios del entrenamiento de Nestor 28/03/2026
+  ['Toe Touch Sit-Up',                   '/img/exercises/toe-touch-sit-up.svg'],
+  ['Hollow to Superman Roll',            '/img/exercises/hollow-to-superman-roll.svg'],
+  ['Plank to Opposite Toe Touch',        '/img/exercises/plank-to-opposite-toe-touch.svg'],
+  ['Dumbbell Front Raise',               '/img/exercises/dumbbell-front-raise.svg'],
+  ['Bent-Over Dumbbell Lateral Raise',   '/img/exercises/bent-over-dumbbell-lateral-raise.svg'],
+  ['Stability Ball Plate Crunch',        '/img/exercises/stability-ball-plate-crunch.svg'],
+  ["Farmer's Carry",                     '/img/exercises/farmers-carry.svg'],
+  ['Kettlebell Sumo Deadlift High Pull', '/img/exercises/kettlebell-sumo-deadlift-high-pull.svg'],
+
+  // ── seedService7.ts — Clase GOAT 15/04/2026 (20 ejercicios) ──────────────
+  ['Spiderman Stretch Rotation',          '/img/exercises/spiderman-stretch-rotation.svg'],
+  ['Barbell Good Morning',                '/img/exercises/barbell-good-morning.svg'],
+  ['Reverse Snow Angels',                 '/img/exercises/reverse-snow-angels.svg'],
+  ['Sally Up Sally Down',                 '/img/exercises/sally-up-sally-down.svg'],
+  ['Dumbbell Wall Sit',                   '/img/exercises/dumbbell-wall-sit.svg'],
+  ['Barbell Bicep Curl',                  '/img/exercises/barbell-bicep-curl.svg'],
+  ['Single-Leg V-Up',                     '/img/exercises/single-leg-v-up.svg'],
+  ['Jump Rope',                           '/img/exercises/jump-rope.svg'],
+  ['Partner Wall Ball Sit-Up',            '/img/exercises/partner-wall-ball-sit-up.svg'],
+  // Estiramientos (SVGs existentes, ejercicios creados en GOAT 13/04 y 15/04)
+  ['Supine Spinal Twist',                 '/img/exercises/supine-spinal-twist.svg'],
+  ['Seated Forward Fold',                 '/img/exercises/seated-forward-fold.svg'],
+  ['Seated Quad Stretch',                 '/img/exercises/seated-quad-stretch.svg'],
+  ['Pigeon Pose',                         '/img/exercises/pigeon-pose.svg'],
+  ['Supine Abdominal Stretch',            '/img/exercises/supine-abdominal-stretch.svg'],
+  ['Cobra Pose',                          '/img/exercises/cobra-pose.svg'],
+  ["Child's Pose",                        '/img/exercises/childs-pose.svg'],
+  ['Half Kneeling Hip Flexor Stretch',    '/img/exercises/half-kneeling-hip-flexor-stretch.svg'],
+  ['Standing Biceps Stretch',             '/img/exercises/standing-biceps-stretch.svg'],
+  ['Overhead Triceps Stretch',            '/img/exercises/overhead-triceps-stretch.svg'],
+  ['Wrist Extensor Stretch',              '/img/exercises/wrist-extensor-stretch.svg'],
+
   // 8 reusan SVG de ejercicio equivalente
   ['Bar Pull Up',                '/img/exercises/pullup.svg'],
   ['Barbell Back Squat',         '/img/exercises/back-squat.svg'],
@@ -133,5 +166,17 @@ export async function updateExerciseImages(db: SQLiteDBConnection): Promise<numb
     if ((result.changes?.changes ?? 0) > 0) updated++;
   }
 
+  return updated;
+}
+
+/**
+ * Versión standalone: abre su propia conexión DB y actualiza los SVGs.
+ * Idempotente — se puede ejecutar varias veces sin problema.
+ */
+export async function runImageUpdate(): Promise<number> {
+  const { openDatabase, saveDatabase } = await import('../db/database');
+  const db = await openDatabase();
+  const updated = await updateExerciseImages(db);
+  await saveDatabase();
   return updated;
 }

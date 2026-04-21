@@ -3,6 +3,7 @@ import { getDatabase, saveDatabase } from '../database';
 import { generateUUID } from '../../utils/formatters';
 import { TrainingSession, SessionExerciseResult, SessionWithRelations } from '../../models/TrainingSession';
 import { SessionStatus, RecordType } from '../../types';
+import { calculateSessionCalories, resolveWeightKg } from '../../services/calorieService';
 
 // Retorna la marca de tiempo actual en formato SQLite
 function now(): string {
@@ -42,6 +43,23 @@ export async function getAll(filters?: { status?: SessionStatus; fromDate?: stri
 }
 
 /**
+ * Obtiene la sesión activa (si existe)
+ */
+export async function getActiveSession(): Promise<TrainingSession | null> {
+  const db = getDatabase();
+  const query = `
+    SELECT ts.*, ct.name as template_name
+    FROM training_session ts
+    LEFT JOIN class_template ct ON ts.class_template_id = ct.id
+    WHERE ts.status IN ('planned', 'in_progress')
+    ORDER BY ts.updated_at DESC
+    LIMIT 1
+  `;
+  const result = await db.query(query);
+  return (result.values?.[0] as TrainingSession) || null;
+}
+
+/**
  * Obtiene una sesión completa con sus resultados
  */
 export async function getById(id: string): Promise<SessionWithRelations | null> {
@@ -59,7 +77,10 @@ export async function getById(id: string): Promise<SessionWithRelations | null> 
   const session = sessionResult.values[0] as TrainingSession;
 
   const resultsQuery = `
-    SELECT ser.*, e.name as exercise_name, 
+    SELECT ser.*, e.name as exercise_name,
+           e.image_path as exercise_image_path,
+           e.image_url as exercise_image_url,
+           e.video_path as exercise_video_url,
            wu.abbreviation as weight_unit_abbreviation, 
            du.abbreviation as distance_unit_abbreviation
     FROM session_exercise_result ser
@@ -85,48 +106,47 @@ export async function createFromTemplate(templateId: string, date?: string): Pro
   const timestamp = now();
   const sessionDate = date || new Date().toISOString().split('T')[0];
 
-  await db.beginTransaction();
-  try {
-    // 1. Insertar la sesión
-    await db.run(
-      `INSERT INTO training_session (id, class_template_id, session_date, status, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?)`,
-      [sessionId, templateId, sessionDate, 'planned', timestamp, timestamp]
-    );
+  // 1. Traer todos los ejercicios de la plantilla para inicializar los resultados
+  const templateExercisesQuery = `
+    SELECT se.*, cs.section_type_id, cs.sort_order as section_order
+    FROM section_exercise se
+    JOIN class_section cs ON se.class_section_id = cs.id
+    WHERE cs.class_template_id = ?
+    ORDER BY cs.sort_order ASC, se.sort_order ASC
+  `;
+  const templateExercises = await db.query(templateExercisesQuery, [templateId]);
+  
+  const stmts: { statement: string; values: unknown[] }[] = [];
 
-    // 2. Traer todos los ejercicios de la plantilla para inicializar los resultados
-    const templateExercisesQuery = `
-      SELECT se.*, cs.section_type_id, cs.sort_order as section_order
-      FROM section_exercise se
-      JOIN class_section cs ON se.class_section_id = cs.id
-      WHERE cs.class_template_id = ?
-      ORDER BY cs.sort_order ASC, se.sort_order ASC
-    `;
-    const templateExercises = await db.query(templateExercisesQuery, [templateId]);
-    
-    if (templateExercises.values) {
-      for (let i = 0; i < templateExercises.values.length; i++) {
-        const te = templateExercises.values[i];
-        await db.run(
-          `INSERT INTO session_exercise_result (
+  // Agregar sentencia para la sesión
+  stmts.push({
+    statement: `INSERT INTO training_session (id, class_template_id, session_date, status, created_at, updated_at)
+                VALUES (?, ?, ?, ?, ?, ?)`,
+    values: [sessionId, templateId, sessionDate, 'planned', timestamp, timestamp]
+  });
+
+  // Agregar sentencias para cada ejercicio
+  if (templateExercises.values) {
+    for (let i = 0; i < templateExercises.values.length; i++) {
+      const te = templateExercises.values[i];
+      stmts.push({
+        statement: `INSERT INTO session_exercise_result (
             id, training_session_id, section_exercise_id, exercise_id, section_type_id, sort_order,
             rx_or_scaled, is_completed, is_personal_record, created_at, updated_at
           ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-          [
-            generateUUID(), sessionId, te.id, te.exercise_id, te.section_type_id, i + 1,
-            'rx', 0, 0, timestamp, timestamp
-          ]
-        );
-      }
+        values: [
+          generateUUID(), sessionId, te.id, te.exercise_id, te.section_type_id, i + 1,
+          'rx', 1, 0, timestamp, timestamp
+        ]
+      });
     }
-
-    await db.commitTransaction();
-    await saveDatabase();
-    return sessionId;
-  } catch (err) {
-    await db.rollbackTransaction();
-    throw err;
   }
+
+  // Ejecutar todo en una sola transacción atómica
+  await db.executeSet(stmts, true);
+  await saveDatabase();
+  
+  return sessionId;
 }
 
 /**
@@ -136,40 +156,53 @@ export async function saveResults(sessionId: string, results: Partial<SessionExe
   const db = getDatabase();
   const timestamp = now();
 
-  await db.beginTransaction();
-  try {
-    for (const result of results) {
-      if (!result.id) continue;
+  const stmts: { statement: string; values: unknown[] }[] = [];
 
-      const fields = { ...result, updated_at: timestamp };
-      delete fields.id;
-      delete fields.training_session_id;
+  // Definir columnas válidas de la tabla (evitar campos enriquecidos de JOIN)
+  const validColumns = [
+    'actual_repetitions', 'actual_weight_value', 'actual_weight_unit_id',
+    'actual_time_seconds', 'actual_distance_value', 'actual_distance_unit_id',
+    'actual_calories', 'actual_rounds', 'actual_rest_seconds',
+    'rx_or_scaled', 'result_text', 'notes', 'is_completed', 
+    'is_personal_record', 'updated_at'
+  ];
 
-      const keys = Object.keys(fields);
-      const values = Object.values(fields);
-      const setClause = keys.map(k => `${k} = ?`).join(', ');
+  for (const result of results) {
+    if (!result.id) continue;
 
-      await db.run(
-        `UPDATE session_exercise_result SET ${setClause} WHERE id = ? AND training_session_id = ?`,
-        [...values, result.id, sessionId]
-      );
-    }
+    const updateFields: Record<string, any> = { updated_at: timestamp };
     
-    // Actualizar timestamp de la sesión también
-    await db.run(`UPDATE training_session SET updated_at = ? WHERE id = ?`, [timestamp, sessionId]);
-
-    await db.commitTransaction();
-
-    // ── Detección de PRs tras la transacción ──
-    for (const result of results) {
-      if (result.id && result.is_completed) {
-        await checkAndSavePR(result as SessionExerciseResult);
+    // Solo copiar campos que pertenecen a la tabla y existen en el objeto result
+    validColumns.forEach(col => {
+      if (col in result) {
+        updateFields[col] = (result as any)[col];
       }
+    });
+
+    const keys = Object.keys(updateFields);
+    const values = Object.values(updateFields);
+    const setClause = keys.map(k => `${k} = ?`).join(', ');
+
+    stmts.push({
+      statement: `UPDATE session_exercise_result SET ${setClause} WHERE id = ? AND training_session_id = ?`,
+      values: [...values, result.id, sessionId]
+    });
+  }
+  
+  // Actualizar timestamp de la sesión
+  stmts.push({
+    statement: `UPDATE training_session SET updated_at = ? WHERE id = ?`,
+    values: [timestamp, sessionId]
+  });
+
+  await db.executeSet(stmts, false);
+  await saveDatabase();
+
+  // ── Detección de PRs tras persistir ──
+  for (const result of results) {
+    if (result.id && result.is_completed && result.exercise_id) {
+      await checkAndSavePR(result as SessionExerciseResult);
     }
-    await saveDatabase();
-  } catch (err) {
-    await db.rollbackTransaction();
-    throw err;
   }
 }
 
@@ -177,11 +210,11 @@ export async function saveResults(sessionId: string, results: Partial<SessionExe
  * Finaliza una sesión con resumen
  */
 export async function finalize(
-  id: string, 
-  summary: { 
-    durationMinutes: number; 
-    feeling: string; 
-    effort: number; 
+  id: string,
+  summary: {
+    durationMinutes: number;
+    feeling: string;
+    effort: number;
     notes?: string;
     bodyWeight?: number;
     bodyWeightUnitId?: string;
@@ -190,24 +223,32 @@ export async function finalize(
   const db = getDatabase();
   const timestamp = now();
 
+  // Calcular calorías estimadas
+  const weightKg = await resolveWeightKg(summary.bodyWeight);
+  const estimatedCalories = await calculateSessionCalories(
+    id, weightKg, summary.durationMinutes, summary.effort
+  );
+
   await db.run(
-    `UPDATE training_session 
-     SET status = 'completed', 
-         actual_duration_minutes = ?, 
-         general_feeling = ?, 
-         perceived_effort = ?, 
-         final_notes = ?, 
+    `UPDATE training_session
+     SET status = 'completed',
+         actual_duration_minutes = ?,
+         general_feeling = ?,
+         perceived_effort = ?,
+         final_notes = ?,
          body_weight = ?,
          body_weight_unit_id = ?,
+         estimated_calories = ?,
          updated_at = ?
      WHERE id = ?`,
     [
-      summary.durationMinutes, 
-      summary.feeling, 
-      summary.effort, 
-      summary.notes || null, 
+      summary.durationMinutes,
+      summary.feeling,
+      summary.effort,
+      summary.notes || null,
       summary.bodyWeight || null,
       summary.bodyWeightUnitId || null,
+      estimatedCalories,
       timestamp, id
     ]
   );
@@ -215,9 +256,22 @@ export async function finalize(
 }
 
 /**
+ * Actualiza solo la duración acumulada de la sesión (útil para auto-guardado en pausa)
+ */
+export async function updateSessionDuration(id: string, durationMinutes: number): Promise<void> {
+  const db = getDatabase();
+  const timestamp = now();
+  await db.run(
+    `UPDATE training_session SET actual_duration_minutes = ?, updated_at = ? WHERE id = ?`,
+    [durationMinutes, timestamp, id]
+  );
+  await saveDatabase();
+}
+
+/**
  * Lógica interna para detectar y guardar un PR
  */
-async function checkAndSavePR(result: SessionExerciseResult): Promise<void> {
+async function checkAndSavePR(result: SessionExerciseResult, achievedDate?: string): Promise<void> {
   const db = getDatabase();
   
   // 1. Identificar tipos de récords potenciales según los datos ingresados
@@ -261,22 +315,22 @@ async function checkAndSavePR(result: SessionExerciseResult): Promise<void> {
 
     if (isNewPR) {
       const timestamp = now();
-      const achievedDate = new Date().toISOString().split('T')[0];
+      const resolvedAchievedDate = achievedDate ?? new Date().toISOString().split('T')[0];
       
       if (!currentPR) {
         // Nuevo registro de PR
         await db.run(
           `INSERT INTO personal_record (id, exercise_id, record_type, record_value, record_unit_id, session_exercise_result_id, achieved_date, created_at, updated_at)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-          [generateUUID(), result.exercise_id, p.type, p.value, p.unit || null, result.id, achievedDate, timestamp, timestamp]
+          [generateUUID(), result.exercise_id, p.type, p.value, p.unit || null, result.id, resolvedAchievedDate, timestamp, timestamp]
         );
       } else {
         // Actualizar PR existente
         await db.run(
-          `UPDATE personal_record 
+          `UPDATE personal_record
            SET record_value = ?, record_unit_id = ?, session_exercise_result_id = ?, achieved_date = ?, updated_at = ?
            WHERE id = ?`,
-          [p.value, p.unit || null, result.id, achievedDate, timestamp, currentPR.id]
+          [p.value, p.unit || null, result.id, resolvedAchievedDate, timestamp, currentPR.id]
         );
       }
 
@@ -291,7 +345,182 @@ async function checkAndSavePR(result: SessionExerciseResult): Promise<void> {
 }
 
 /**
- * Borrado lógico de sesión
+ * Crea y finaliza una sesión pasada directamente como completada.
+ * No requiere ejecutor ni temporizador — el usuario ingresa todo manualmente.
+ */
+export async function createAndFinalizeManual(
+  sessionDate: string,
+  templateId: string | null,
+  summary: {
+    durationMinutes?: number;
+    feeling?: string;
+    effort?: number;
+    notes?: string;
+  },
+  results: Array<{
+    exercise_id: string;
+    section_exercise_id?: string;
+    section_type_id?: string;
+    sort_order: number;
+    rx_or_scaled: 'rx' | 'scaled' | 'rx+';
+    result_text?: string;
+    actual_repetitions?: number;
+    actual_weight_value?: number;
+    actual_weight_unit_id?: string;
+    actual_time_seconds?: number;
+    actual_distance_value?: number;
+    actual_distance_unit_id?: string;
+    actual_calories?: number;
+    actual_rounds?: number;
+    notes?: string;
+    is_completed: number;
+  }>
+): Promise<string> {
+  const db = getDatabase();
+  const sessionId = generateUUID();
+  const timestamp = now();
+
+  const stmts: { statement: string; values: unknown[] }[] = [];
+
+  // Insertar la sesión ya como completada
+  stmts.push({
+    statement: `INSERT INTO training_session (
+      id, class_template_id, session_date, status,
+      actual_duration_minutes, general_feeling, perceived_effort, final_notes,
+      created_at, updated_at
+    ) VALUES (?, ?, ?, 'completed', ?, ?, ?, ?, ?, ?)`,
+    values: [
+      sessionId,
+      templateId,
+      sessionDate,
+      summary.durationMinutes ?? null,
+      summary.feeling ?? null,
+      summary.effort ?? null,
+      summary.notes ?? null,
+      timestamp,
+      timestamp
+    ]
+  });
+
+  // Insertar cada resultado
+  const resultIds: string[] = [];
+  for (const r of results) {
+    const resultId = generateUUID();
+    resultIds.push(resultId);
+    stmts.push({
+      statement: `INSERT INTO session_exercise_result (
+        id, training_session_id, section_exercise_id, exercise_id, section_type_id, sort_order,
+        rx_or_scaled, result_text,
+        actual_repetitions, actual_weight_value, actual_weight_unit_id,
+        actual_time_seconds, actual_distance_value, actual_distance_unit_id,
+        actual_calories, actual_rounds,
+        notes, is_completed, is_personal_record, created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)`,
+      values: [
+        resultId, sessionId,
+        r.section_exercise_id ?? null,
+        r.exercise_id,
+        r.section_type_id ?? null,
+        r.sort_order,
+        r.rx_or_scaled,
+        r.result_text ?? null,
+        r.actual_repetitions ?? null,
+        r.actual_weight_value ?? null,
+        r.actual_weight_unit_id ?? null,
+        r.actual_time_seconds ?? null,
+        r.actual_distance_value ?? null,
+        r.actual_distance_unit_id ?? null,
+        r.actual_calories ?? null,
+        r.actual_rounds ?? null,
+        r.notes ?? null,
+        r.is_completed,
+        timestamp, timestamp
+      ]
+    });
+  }
+
+  await db.executeSet(stmts, true);
+  await saveDatabase();
+
+  // Calcular calorías estimadas y actualizar la sesión
+  if (summary.durationMinutes && summary.durationMinutes > 0) {
+    const weightKg = await resolveWeightKg(null);
+    const estimatedCalories = await calculateSessionCalories(
+      sessionId, weightKg, summary.durationMinutes, summary.effort ?? 5
+    );
+    await db.run(
+      `UPDATE training_session SET estimated_calories = ?, updated_at = ? WHERE id = ?`,
+      [estimatedCalories, now(), sessionId]
+    );
+    await saveDatabase();
+  }
+
+  // Detección de PRs para los resultados completados
+  const savedResults = await db.query(
+    `SELECT * FROM session_exercise_result WHERE training_session_id = ?`,
+    [sessionId]
+  );
+  for (const row of (savedResults.values ?? [])) {
+    const r = row as SessionExerciseResult;
+    if (r.is_completed) {
+      await checkAndSavePR(r, sessionDate);
+    }
+  }
+
+  return sessionId;
+}
+
+/**
+ * Crea una sesión libre (sin plantilla) con estado in_progress
+ */
+export async function createFreeSession(date: string): Promise<string> {
+  const db = getDatabase();
+  const sessionId = generateUUID();
+  const timestamp = now();
+  await db.executeSet([{
+    statement: `INSERT INTO training_session (id, class_template_id, session_date, status, created_at, updated_at)
+                VALUES (?, NULL, ?, 'in_progress', ?, ?)`,
+    values: [sessionId, date, timestamp, timestamp]
+  }], false);
+  await saveDatabase();
+  return sessionId;
+}
+
+/**
+ * Agrega un ejercicio a una sesión libre creando un result row vacío
+ */
+export async function addExerciseToSession(
+  sessionId: string,
+  exerciseId: string,
+  sortOrder: number
+): Promise<string> {
+  const db = getDatabase();
+  const resultId = generateUUID();
+  const timestamp = now();
+  await db.executeSet([{
+    statement: `INSERT INTO session_exercise_result
+                  (id, training_session_id, exercise_id, sort_order, rx_or_scaled, is_completed, is_personal_record, created_at, updated_at)
+                VALUES (?, ?, ?, ?, 'rx', 1, 0, ?, ?)`,
+    values: [resultId, sessionId, exerciseId, sortOrder, timestamp, timestamp]
+  }], false);
+  await saveDatabase();
+  return resultId;
+}
+
+/**
+ * Elimina un resultado de ejercicio de una sesión libre
+ */
+export async function removeExerciseFromSession(resultId: string, sessionId: string): Promise<void> {
+  const db = getDatabase();
+  await db.executeSet([{
+    statement: `DELETE FROM session_exercise_result WHERE id = ? AND training_session_id = ?`,
+    values: [resultId, sessionId]
+  }], false);
+  await saveDatabase();
+}
+
+/**
+ * Borrado lógico de sesión (cancelar)
  */
 export async function softDelete(id: string): Promise<void> {
   const db = getDatabase();
@@ -299,5 +528,42 @@ export async function softDelete(id: string): Promise<void> {
     `UPDATE training_session SET status = 'cancelled', updated_at = ? WHERE id = ?`,
     [now(), id]
   );
+  await saveDatabase();
+}
+
+/**
+ * Borrado físico completo: elimina sesión, resultados y récords personales asociados
+ */
+export async function hardDelete(id: string): Promise<void> {
+  const db = getDatabase();
+
+  // 1. Obtener los IDs de resultados de la sesión
+  const resultsResult = await db.query(
+    `SELECT id FROM session_exercise_result WHERE training_session_id = ?`,
+    [id]
+  );
+  const resultIds = (resultsResult.values ?? []).map((r: any) => r.id);
+
+  // 2. Eliminar récords personales vinculados a estos resultados
+  if (resultIds.length > 0) {
+    const placeholders = resultIds.map(() => '?').join(',');
+    await db.run(
+      `DELETE FROM personal_record WHERE session_exercise_result_id IN (${placeholders})`,
+      resultIds
+    );
+  }
+
+  // 3. Eliminar resultados de la sesión
+  await db.run(
+    `DELETE FROM session_exercise_result WHERE training_session_id = ?`,
+    [id]
+  );
+
+  // 4. Eliminar la sesión
+  await db.run(
+    `DELETE FROM training_session WHERE id = ?`,
+    [id]
+  );
+
   await saveDatabase();
 }

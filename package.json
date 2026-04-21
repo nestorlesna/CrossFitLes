@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@capacitor-community/sqlite": "^6.0.2",
+    "@capacitor/android": "^6.2.1",
     "@capacitor/camera": "^6.1.3",
     "@capacitor/cli": "^6.2.1",
     "@capacitor/core": "^6.2.1",
@@ -30,10 +31,12 @@
     "@capacitor/share": "^6.0.4",
     "date-fns": "^3.6.0",
     "jeep-sqlite": "^2.8.0",
+    "jszip": "^3.10.1",
     "lucide-react": "^0.577.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.30.3",
+    "recharts": "^3.8.0",
     "sonner": "^2.0.7",
     "sql.js": "1.11.0"
   }

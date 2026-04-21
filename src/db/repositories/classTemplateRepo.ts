@@ -8,6 +8,7 @@ import {
   ClassTemplateWithSections,
   ClassSection,
   SectionExercise,
+  TemplateType,
 } from '../../models/ClassTemplate';
 
 // Retorna la marca de tiempo actual en formato SQLite
@@ -18,7 +19,7 @@ function now(): string {
 // Tipos internos para las operaciones de creación (sin campos generados automáticamente)
 type SectionExerciseDraftForInsert = Omit<
   SectionExercise,
-  'id' | 'created_at' | 'updated_at' | 'exercise_name' | 'exercise_image_path' | 'weight_unit_abbreviation' | 'distance_unit_abbreviation'
+  'id' | 'created_at' | 'updated_at' | 'exercise_name' | 'exercise_image_path' | 'exercise_image_url' | 'weight_unit_abbreviation' | 'distance_unit_abbreviation'
 >;
 
 type SectionDraftForInsert = Omit<
@@ -59,6 +60,11 @@ export async function getAll(filters?: ClassTemplateFilters): Promise<ClassTempl
 
   if (filters?.is_favorite) {
     query += ` AND ct.is_favorite = 1`;
+  }
+
+  if (filters?.template_type) {
+    query += ` AND ct.template_type = ?`;
+    params.push(filters.template_type);
   }
 
   // NULLS LAST simulado en SQLite
@@ -113,6 +119,8 @@ export async function getById(id: string): Promise<ClassTemplateWithSections | n
       `SELECT se.*,
         e.name as exercise_name,
         e.image_path as exercise_image_path,
+        e.image_url as exercise_image_url,
+        e.video_path as exercise_video_url,
         wu.abbreviation as weight_unit_abbreviation,
         du.abbreviation as distance_unit_abbreviation
       FROM section_exercise se
@@ -142,104 +150,93 @@ export async function create(
   const templateId = generateUUID();
   const timestamp = now();
 
-  await db.beginTransaction();
-  try {
-    // Insertar la plantilla principal
-    await db.run(
-      `INSERT INTO class_template
-        (id, date, name, objective, general_notes, estimated_duration_minutes, is_favorite, is_active, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
+  const stmts: { statement: string; values: unknown[] }[] = [];
+
+  // 1. Sentencia para la plantilla principal
+  stmts.push({
+    statement: `INSERT INTO class_template 
+      (id, date, name, objective, general_notes, estimated_duration_minutes, is_favorite, template_type, is_active, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    values: [
+      templateId,
+      template.date ?? null,
+      template.name,
+      template.objective ?? null,
+      template.general_notes ?? null,
+      template.estimated_duration_minutes ?? null,
+      template.is_favorite,
+      (template as any).template_type ?? 'my_classes',
+      template.is_active,
+      timestamp,
+      timestamp,
+    ]
+  });
+
+  // 2. Sentencias para secciones y ejercicios
+  for (const section of sections) {
+    const sectionId = generateUUID();
+
+    stmts.push({
+      statement: `INSERT INTO class_section
+        (id, class_template_id, section_type_id, work_format_id, sort_order,
+         visible_title, general_description, time_cap_seconds, total_rounds,
+         rest_between_rounds_seconds, notes, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      values: [
+        sectionId,
         templateId,
-        template.date ?? null,
-        template.name,
-        template.objective ?? null,
-        template.general_notes ?? null,
-        template.estimated_duration_minutes ?? null,
-        template.is_favorite,
-        template.is_active,
+        section.section_type_id,
+        section.work_format_id ?? null,
+        section.sort_order,
+        section.visible_title ?? null,
+        section.general_description ?? null,
+        section.time_cap_seconds ?? null,
+        section.total_rounds ?? null,
+        section.rest_between_rounds_seconds ?? null,
+        section.notes ?? null,
         timestamp,
         timestamp,
       ]
-    );
+    });
 
-    // Insertar secciones y ejercicios
-    for (const section of sections) {
-      const sectionId = generateUUID();
-
-      await db.run(
-        `INSERT INTO class_section
-          (id, class_template_id, section_type_id, work_format_id, sort_order,
-           visible_title, general_description, time_cap_seconds, total_rounds,
-           rest_between_rounds_seconds, notes, created_at, updated_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        [
+    for (const exercise of section.exercises) {
+      stmts.push({
+        statement: `INSERT INTO section_exercise
+          (id, class_section_id, exercise_id, sort_order, coach_notes,
+           planned_repetitions, planned_weight_value, planned_weight_unit_id,
+           planned_time_seconds, planned_distance_value, planned_distance_unit_id,
+           planned_calories, planned_rest_seconds, planned_rounds, rm_percentage,
+           suggested_scaling, notes, created_at, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        values: [
+          generateUUID(),
           sectionId,
-          templateId,
-          section.section_type_id,
-          section.work_format_id ?? null,
-          section.sort_order,
-          section.visible_title ?? null,
-          section.general_description ?? null,
-          section.time_cap_seconds ?? null,
-          section.total_rounds ?? null,
-          section.rest_between_rounds_seconds ?? null,
-          section.notes ?? null,
+          exercise.exercise_id,
+          exercise.sort_order,
+          exercise.coach_notes ?? null,
+          exercise.planned_repetitions ?? null,
+          exercise.planned_weight_value ?? null,
+          exercise.planned_weight_unit_id ?? null,
+          exercise.planned_time_seconds ?? null,
+          exercise.planned_distance_value ?? null,
+          exercise.planned_distance_unit_id ?? null,
+          exercise.planned_calories ?? null,
+          exercise.planned_rest_seconds ?? null,
+          exercise.planned_rounds ?? null,
+          exercise.rm_percentage ?? null,
+          exercise.suggested_scaling ?? null,
+          exercise.notes ?? null,
           timestamp,
           timestamp,
         ]
-      );
-
-      // Insertar ejercicios de la sección
-      for (const exercise of section.exercises) {
-        await db.run(
-          `INSERT INTO section_exercise
-            (id, class_section_id, exercise_id, sort_order, coach_notes,
-             planned_repetitions, planned_weight_value, planned_weight_unit_id,
-             planned_time_seconds, planned_distance_value, planned_distance_unit_id,
-             planned_calories, planned_rest_seconds, planned_rounds, rm_percentage,
-             suggested_scaling, notes, created_at, updated_at)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-          [
-            generateUUID(),
-            sectionId,
-            exercise.exercise_id,
-            exercise.sort_order,
-            exercise.coach_notes ?? null,
-            exercise.planned_repetitions ?? null,
-            exercise.planned_weight_value ?? null,
-            exercise.planned_weight_unit_id ?? null,
-            exercise.planned_time_seconds ?? null,
-            exercise.planned_distance_value ?? null,
-            exercise.planned_distance_unit_id ?? null,
-            exercise.planned_calories ?? null,
-            exercise.planned_rest_seconds ?? null,
-            exercise.planned_rounds ?? null,
-            exercise.rm_percentage ?? null,
-            exercise.suggested_scaling ?? null,
-            exercise.notes ?? null,
-            timestamp,
-            timestamp,
-          ]
-        );
-      }
+      });
     }
-
-    await db.commitTransaction();
-    await saveDatabase();
-    return templateId;
-  } catch (err) {
-    // Solo intentar rollback si hay una transacción activa
-    try {
-      const isTransResult = await db.isTransactionActive();
-      if (isTransResult.result) {
-        await db.rollbackTransaction();
-      }
-    } catch (rollbackErr) {
-      console.error('Error al intentar rollback:', rollbackErr);
-    }
-    throw err;
   }
+
+  // Ejecutar todo el lote de forma atómica
+  await db.executeSet(stmts, true);
+  await saveDatabase();
+  return templateId;
 }
 
 // Actualiza una plantilla reemplazando todas sus secciones y ejercicios en una transacción
@@ -251,119 +248,115 @@ export async function update(
   const db = getDatabase();
   const timestamp = now();
 
-  await db.beginTransaction();
-  try {
-    // Actualizar los campos de la plantilla principal
-    const fields: Record<string, unknown> = {
-      date: template.date ?? null,
-      name: template.name,
-      objective: template.objective ?? null,
-      general_notes: template.general_notes ?? null,
-      estimated_duration_minutes: template.estimated_duration_minutes ?? null,
-      is_favorite: template.is_favorite,
-      updated_at: timestamp,
-    };
+  const stmts: { statement: string; values: unknown[] }[] = [];
 
-    // Remover campos undefined para no escribir null donde no aplica
-    const definedFields: Record<string, unknown> = {};
-    for (const [key, value] of Object.entries(fields)) {
-      if (value !== undefined) {
-        definedFields[key] = value;
-      }
+  const fields = {
+    date: template.date,
+    name: template.name,
+    objective: template.objective ?? null,
+    general_notes: template.general_notes ?? null,
+    estimated_duration_minutes: template.estimated_duration_minutes ?? null,
+    is_favorite: template.is_favorite,
+    template_type: (template as any).template_type,
+    updated_at: timestamp,
+  };
+
+  // Remover campos undefined para no escribir null donde no aplica
+  const definedFields: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(fields)) {
+    if (value !== undefined) {
+      definedFields[key] = value;
     }
+  }
 
-    const sets = Object.keys(definedFields)
-      .map((k) => `${k} = ?`)
-      .join(', ');
-    const values = [...Object.values(definedFields), id];
+  const sets = Object.keys(definedFields)
+    .map((k) => `${k} = ?`)
+    .join(', ');
+  const values = [...Object.values(definedFields), id];
 
-    await db.run(`UPDATE class_template SET ${sets} WHERE id = ?`, values);
+  // 1. Actualizar la plantilla
+  stmts.push({
+    statement: `UPDATE class_template SET ${sets} WHERE id = ?`,
+    values: values,
+  });
 
-    // Eliminar todos los ejercicios de todas las secciones de esta plantilla
-    await db.run(
-      `DELETE FROM section_exercise WHERE class_section_id IN (
-        SELECT id FROM class_section WHERE class_template_id = ?
-      )`,
-      [id]
-    );
+  // 2. Eliminar secciones y ejercicios existentes
+  stmts.push({
+    statement: `DELETE FROM section_exercise WHERE class_section_id IN (
+      SELECT id FROM class_section WHERE class_template_id = ?
+    )`,
+    values: [id],
+  });
 
-    // Eliminar todas las secciones
-    await db.run(`DELETE FROM class_section WHERE class_template_id = ?`, [id]);
+  stmts.push({
+    statement: `DELETE FROM class_section WHERE class_template_id = ?`,
+    values: [id],
+  });
 
-    // Reinsertar secciones y ejercicios
-    for (const section of sections) {
-      const sectionId = generateUUID();
+  // 3. Reinsertar secciones y ejercicios
+  for (const section of sections) {
+    const sectionId = generateUUID();
 
-      await db.run(
-        `INSERT INTO class_section
-          (id, class_template_id, section_type_id, work_format_id, sort_order,
-           visible_title, general_description, time_cap_seconds, total_rounds,
-           rest_between_rounds_seconds, notes, created_at, updated_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        [
+    stmts.push({
+      statement: `INSERT INTO class_section
+        (id, class_template_id, section_type_id, work_format_id, sort_order,
+         visible_title, general_description, time_cap_seconds, total_rounds,
+         rest_between_rounds_seconds, notes, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      values: [
+        sectionId,
+        id,
+        section.section_type_id,
+        section.work_format_id ?? null,
+        section.sort_order,
+        section.visible_title ?? null,
+        section.general_description ?? null,
+        section.time_cap_seconds ?? null,
+        section.total_rounds ?? null,
+        section.rest_between_rounds_seconds ?? null,
+        section.notes ?? null,
+        timestamp,
+        timestamp,
+      ]
+    });
+
+    for (const exercise of section.exercises) {
+      stmts.push({
+        statement: `INSERT INTO section_exercise
+          (id, class_section_id, exercise_id, sort_order, coach_notes,
+           planned_repetitions, planned_weight_value, planned_weight_unit_id,
+           planned_time_seconds, planned_distance_value, planned_distance_unit_id,
+           planned_calories, planned_rest_seconds, planned_rounds, rm_percentage,
+           suggested_scaling, notes, created_at, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        values: [
+          generateUUID(),
           sectionId,
-          id,
-          section.section_type_id,
-          section.work_format_id ?? null,
-          section.sort_order,
-          section.visible_title ?? null,
-          section.general_description ?? null,
-          section.time_cap_seconds ?? null,
-          section.total_rounds ?? null,
-          section.rest_between_rounds_seconds ?? null,
-          section.notes ?? null,
+          exercise.exercise_id,
+          exercise.sort_order,
+          exercise.coach_notes ?? null,
+          exercise.planned_repetitions ?? null,
+          exercise.planned_weight_value ?? null,
+          exercise.planned_weight_unit_id ?? null,
+          exercise.planned_time_seconds ?? null,
+          exercise.planned_distance_value ?? null,
+          exercise.planned_distance_unit_id ?? null,
+          exercise.planned_calories ?? null,
+          exercise.planned_rest_seconds ?? null,
+          exercise.planned_rounds ?? null,
+          exercise.rm_percentage ?? null,
+          exercise.suggested_scaling ?? null,
+          exercise.notes ?? null,
           timestamp,
           timestamp,
         ]
-      );
-
-      for (const exercise of section.exercises) {
-        await db.run(
-          `INSERT INTO section_exercise
-            (id, class_section_id, exercise_id, sort_order, coach_notes,
-             planned_repetitions, planned_weight_value, planned_weight_unit_id,
-             planned_time_seconds, planned_distance_value, planned_distance_unit_id,
-             planned_calories, planned_rest_seconds, planned_rounds, rm_percentage,
-             suggested_scaling, notes, created_at, updated_at)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-          [
-            generateUUID(),
-            sectionId,
-            exercise.exercise_id,
-            exercise.sort_order,
-            exercise.coach_notes ?? null,
-            exercise.planned_repetitions ?? null,
-            exercise.planned_weight_value ?? null,
-            exercise.planned_weight_unit_id ?? null,
-            exercise.planned_time_seconds ?? null,
-            exercise.planned_distance_value ?? null,
-            exercise.planned_distance_unit_id ?? null,
-            exercise.planned_calories ?? null,
-            exercise.planned_rest_seconds ?? null,
-            exercise.planned_rounds ?? null,
-            exercise.rm_percentage ?? null,
-            exercise.suggested_scaling ?? null,
-            exercise.notes ?? null,
-            timestamp,
-            timestamp,
-          ]
-        );
-      }
+      });
     }
-
-    await db.commitTransaction();
-    await saveDatabase();
-  } catch (err) {
-    try {
-      const isTransResult = await db.isTransactionActive();
-      if (isTransResult.result) {
-        await db.rollbackTransaction();
-      }
-    } catch (rollbackErr) {
-      console.error('Error al intentar rollback:', rollbackErr);
-    }
-    throw err;
   }
+
+  // Ejecutar todo de forma atómica
+  await db.executeSet(stmts, true);
+  await saveDatabase();
 }
 
 // Alterna el estado de favorita de una plantilla
@@ -371,6 +364,15 @@ export async function toggleFavorite(id: string): Promise<void> {
   const db = getDatabase();
   await db.run(
     `UPDATE class_template SET is_favorite = (1 - is_favorite), updated_at = ? WHERE id = ?`,
+    [now(), id]
+  );
+}
+
+// Alterna el tipo de plantilla entre 'my_classes' y 'generic'
+export async function toggleTemplateType(id: string): Promise<void> {
+  const db = getDatabase();
+  await db.run(
+    `UPDATE class_template SET template_type = CASE WHEN template_type = 'my_classes' THEN 'generic' ELSE 'my_classes' END, updated_at = ? WHERE id = ?`,
     [now(), id]
   );
 }
@@ -384,103 +386,103 @@ export async function duplicate(id: string): Promise<string> {
   const newTemplateId = generateUUID();
   const timestamp = now();
 
-  await db.beginTransaction();
-  try {
-    // Insertar copia de la plantilla con nombre modificado
-    await db.run(
-      `INSERT INTO class_template
-        (id, date, name, objective, general_notes, estimated_duration_minutes, is_favorite, is_active, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
+  const stmts: { statement: string; values: unknown[] }[] = [];
+
+  // Plantilla principal
+  stmts.push({
+    statement: `INSERT INTO class_template
+      (id, date, name, objective, general_notes, estimated_duration_minutes, is_favorite, template_type, is_active, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, 0, 'my_classes', 1, ?, ?)`,
+    values: [
+      newTemplateId,
+      original.date ?? null,
+      `${original.name} (copia)`,
+      original.objective ?? null,
+      original.general_notes ?? null,
+      original.estimated_duration_minutes ?? null,
+      timestamp,
+      timestamp,
+    ],
+  });
+
+  // Secciones y ejercicios
+  for (const section of original.sections) {
+    const newSectionId = generateUUID();
+    stmts.push({
+      statement: `INSERT INTO class_section
+        (id, class_template_id, section_type_id, work_format_id, sort_order,
+         visible_title, general_description, time_cap_seconds, total_rounds,
+         rest_between_rounds_seconds, notes, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      values: [
+        newSectionId,
         newTemplateId,
-        original.date ?? null,
-        `${original.name} (copia)`,
-        original.objective ?? null,
-        original.general_notes ?? null,
-        original.estimated_duration_minutes ?? null,
-        0,  // la copia no hereda el estado de favorita
-        1,
+        section.section_type_id,
+        section.work_format_id ?? null,
+        section.sort_order,
+        section.visible_title ?? null,
+        section.general_description ?? null,
+        section.time_cap_seconds ?? null,
+        section.total_rounds ?? null,
+        section.rest_between_rounds_seconds ?? null,
+        section.notes ?? null,
         timestamp,
         timestamp,
-      ]
-    );
+      ],
+    });
 
-    // Duplicar secciones con nuevos UUIDs
-    for (const section of original.sections) {
-      const newSectionId = generateUUID();
-
-      await db.run(
-        `INSERT INTO class_section
-          (id, class_template_id, section_type_id, work_format_id, sort_order,
-           visible_title, general_description, time_cap_seconds, total_rounds,
-           rest_between_rounds_seconds, notes, created_at, updated_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        [
+    for (const exercise of section.exercises) {
+      stmts.push({
+        statement: `INSERT INTO section_exercise
+          (id, class_section_id, exercise_id, sort_order, coach_notes,
+           planned_repetitions, planned_weight_value, planned_weight_unit_id,
+           planned_time_seconds, planned_distance_value, planned_distance_unit_id,
+           planned_calories, planned_rest_seconds, planned_rounds, rm_percentage,
+           suggested_scaling, notes, created_at, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        values: [
+          generateUUID(),
           newSectionId,
-          newTemplateId,
-          section.section_type_id,
-          section.work_format_id ?? null,
-          section.sort_order,
-          section.visible_title ?? null,
-          section.general_description ?? null,
-          section.time_cap_seconds ?? null,
-          section.total_rounds ?? null,
-          section.rest_between_rounds_seconds ?? null,
-          section.notes ?? null,
+          exercise.exercise_id,
+          exercise.sort_order,
+          exercise.coach_notes ?? null,
+          exercise.planned_repetitions ?? null,
+          exercise.planned_weight_value ?? null,
+          exercise.planned_weight_unit_id ?? null,
+          exercise.planned_time_seconds ?? null,
+          exercise.planned_distance_value ?? null,
+          exercise.planned_distance_unit_id ?? null,
+          exercise.planned_calories ?? null,
+          exercise.planned_rest_seconds ?? null,
+          exercise.planned_rounds ?? null,
+          exercise.rm_percentage ?? null,
+          exercise.suggested_scaling ?? null,
+          exercise.notes ?? null,
           timestamp,
           timestamp,
-        ]
-      );
-
-      // Duplicar ejercicios de la sección
-      for (const exercise of section.exercises) {
-        await db.run(
-          `INSERT INTO section_exercise
-            (id, class_section_id, exercise_id, sort_order, coach_notes,
-             planned_repetitions, planned_weight_value, planned_weight_unit_id,
-             planned_time_seconds, planned_distance_value, planned_distance_unit_id,
-             planned_calories, planned_rest_seconds, planned_rounds, rm_percentage,
-             suggested_scaling, notes, created_at, updated_at)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-          [
-            generateUUID(),
-            newSectionId,
-            exercise.exercise_id,
-            exercise.sort_order,
-            exercise.coach_notes ?? null,
-            exercise.planned_repetitions ?? null,
-            exercise.planned_weight_value ?? null,
-            exercise.planned_weight_unit_id ?? null,
-            exercise.planned_time_seconds ?? null,
-            exercise.planned_distance_value ?? null,
-            exercise.planned_distance_unit_id ?? null,
-            exercise.planned_calories ?? null,
-            exercise.planned_rest_seconds ?? null,
-            exercise.planned_rounds ?? null,
-            exercise.rm_percentage ?? null,
-            exercise.suggested_scaling ?? null,
-            exercise.notes ?? null,
-            timestamp,
-            timestamp,
-          ]
-        );
-      }
+        ],
+      });
     }
-
-    await db.commitTransaction();
-    await saveDatabase();
-    return newTemplateId;
-  } catch (err) {
-    try {
-      const isTransResult = await db.isTransactionActive();
-      if (isTransResult.result) {
-        await db.rollbackTransaction();
-      }
-    } catch (rollbackErr) {
-      console.error('Error al intentar rollback:', rollbackErr);
-    }
-    throw err;
   }
+
+  await db.executeSet(stmts, true);
+  await saveDatabase();
+  return newTemplateId;
+}
+
+// Cuenta las sesiones vinculadas a una plantilla, separando activas de completadas
+export async function countLinkedSessions(id: string): Promise<{ total: number; active: number }> {
+  const db = getDatabase();
+  const result = await db.query(
+    `SELECT
+       COUNT(*) as total,
+       SUM(CASE WHEN status IN ('planned', 'in_progress') THEN 1 ELSE 0 END) as active
+     FROM training_session
+     WHERE class_template_id = ?`,
+    [id]
+  );
+  const row = result.values?.[0] as { total: number; active: number } | undefined;
+  return { total: row?.total ?? 0, active: row?.active ?? 0 };
 }
 
 // Borrado lógico: marca la plantilla como inactiva
@@ -511,4 +513,39 @@ export async function getByDateRange(from: string, to: string): Promise<ClassTem
     [from, to]
   );
   return (result.values ?? []) as ClassTemplate[];
+}
+
+// Obtiene todas las clases inactivas
+export async function getInactiveClasses(): Promise<ClassTemplate[]> {
+  const db = getDatabase();
+  const result = await db.query(
+    `SELECT ct.*,
+      COUNT(DISTINCT cs.id) as section_count,
+      COUNT(DISTINCT se.id) as exercise_count
+    FROM class_template ct
+    LEFT JOIN class_section cs ON cs.class_template_id = ct.id
+    LEFT JOIN section_exercise se ON se.class_section_id = cs.id
+    WHERE ct.is_active = 0
+    GROUP BY ct.id
+    ORDER BY ct.updated_at DESC`
+  );
+  return (result.values ?? []) as ClassTemplate[];
+}
+
+// Verifica si una clase está asociada a alguna sesión de entrenamiento
+export async function isClassInSession(classId: string): Promise<boolean> {
+  const db = getDatabase();
+  const result = await db.query(
+    `SELECT 1 FROM training_session WHERE class_template_id = ? LIMIT 1`,
+    [classId]
+  );
+  return (result.values?.length ?? 0) > 0;
+}
+
+// Borrado físico: elimina la clase y sus secciones/ejercicios de sección
+export async function hardDeleteClass(id: string): Promise<void> {
+  const db = getDatabase();
+  // class_section tiene ON DELETE CASCADE, section_exercise también
+  await db.run(`DELETE FROM class_template WHERE id = ?`, [id]);
+  await saveDatabase();
 }

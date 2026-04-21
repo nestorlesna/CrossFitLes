@@ -522,7 +522,7 @@ Tareas:
 
 ---
 
-### FASE 1: Catálogos y datos base (Prioridad: ALTA)
+### FASE 1: Catálogos y datos base (Estado: ✅ COMPLETADA)
 
 **Objetivo**: CRUD completo de todas las tablas de lookup y datos semilla.
 
@@ -557,7 +557,7 @@ Tareas:
 
 ---
 
-### FASE 2: Biblioteca de Ejercicios (Prioridad: ALTA)
+### FASE 2: Biblioteca de Ejercicios (Estado: ✅ COMPLETADA)
 
 **Objetivo**: CRUD completo de ejercicios con todas sus relaciones.
 
@@ -603,7 +603,7 @@ Tareas:
 
 ---
 
-### FASE 3: Plantillas de Clase (Prioridad: ALTA)
+### FASE 3: Plantillas de Clase (Estado: ✅ COMPLETADA)
 
 **Objetivo**: Crear, editar y gestionar plantillas de clase con secciones y ejercicios.
 
@@ -658,7 +658,7 @@ Tareas:
 
 ---
 
-### FASE 4: Sesiones de Entrenamiento - Ejecución y Registro (Prioridad: ALTA)
+### FASE 4: Sesiones de Entrenamiento (Estado: ✅ COMPLETADA)
 
 **Objetivo**: Registrar la ejecución real de un entrenamiento, comparando plan vs resultado.
 
@@ -715,7 +715,7 @@ Tareas:
 
 ---
 
-### FASE 5: Estadísticas y Progresión (Prioridad: MEDIA)
+### FASE 5: Estadísticas y Progresión (Estado: 🚧 EN PROGRESO)
 
 **Objetivo**: Visualizar el progreso histórico.
 
@@ -890,6 +890,10 @@ crossfit-tracker-export-YYYYMMDD-HHmmss.zip
    - Paso 3: Selector de estrategia de conflicto: "Sobrescribir existentes" / "Omitir existentes" / "Crear duplicados"
    - Paso 4: Barra de progreso de la importación con log de acciones
    - Paso 5: Resumen final (insertados, actualizados, omitidos, errores)
+
+- [x] **Tarea 1: Exportar datos en formato JSON/ZIP para backup** ✅
+- [x] **Tarea 2: Sincronización básica (importar archivo de backup)** ✅
+- [x] **Tarea 3: Limpieza de datos (reset app)** ✅
 
 **Criterio de aceptación**: Se puede exportar toda la app (datos + media) a un ZIP, compartirlo, recibirlo en otro dispositivo e importarlo recuperando todos los datos y archivos multimedia.
 

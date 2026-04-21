@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ChevronLeft, Camera, Star, Check } from 'lucide-react';
 import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
+import { Badge } from '../../components/ui/Badge';
 import { ExerciseRelations } from '../../models/Exercise';
 import { create, update, getById } from '../../db/repositories/exerciseRepo';
 import { getAll as getCatalog } from '../../db/repositories/catalogRepo';
@@ -16,6 +17,59 @@ import {
   Tag,
   SectionType,
 } from '../../models/catalogs';
+import { MuscleMap } from '../../components/exercises/MuscleMap';
+import { Video } from 'lucide-react';
+
+// Helper para obtener el ID de YouTube (incluye Shorts)
+function getYoutubeId(url: string): string | null {
+  if (!url) return null;
+  // Soporta: youtu.be/ID, youtube.com/shorts/ID, youtube.com/watch?v=ID, youtube.com/v/ID, youtube.com/embed/ID
+  const m = url.match(/(?:youtube\.com\/(?:shorts\/|v\/|embed\/)|youtu\.be\/|watch\?v=)([^#&?]+)/);
+  return m ? m[1] : null;
+}
+
+// Helper para obtener el ID de Vimeo
+function getVimeoId(url: string): string | null {
+  const regExp = /vimeo\.com\/(?:video\/|channels\/(?:\w+\/)?|groups\/(?:\w+\/)?|album\/(?:\w+\/)?|showcase\/(?:\w+\/)?|)(\d+)(?:$|\/|\?)/;
+  const match = url.match(regExp);
+  return (match && match[1]) ? match[1] : null;
+}
+
+// Componente para embeber video (versión reducida para formulario)
+function VideoEmbed({ url }: { url: string }) {
+  const youtubeId = getYoutubeId(url);
+  const vimeoId = getVimeoId(url);
+
+  if (!youtubeId && !vimeoId) return null;
+
+  return (
+    <div className="mt-3 w-full max-w-[260px] aspect-video rounded-xl overflow-hidden border border-gray-800 bg-black shadow-lg">
+      <div className="absolute inset-0 flex items-center justify-center -z-10">
+        <Video size={24} className="text-gray-800 animate-pulse" />
+      </div>
+      {youtubeId && (
+        <iframe
+          src={`https://www.youtube.com/embed/${youtubeId}`}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="w-full h-full"
+        />
+      )}
+      {vimeoId && (
+        <iframe
+          src={`https://player.vimeo.com/video/${vimeoId}`}
+          title="Vimeo video player"
+          frameBorder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+          className="w-full h-full"
+        />
+      )}
+    </div>
+  );
+}
 
 export function ExerciseFormPage() {
   const navigate = useNavigate();
@@ -53,6 +107,32 @@ export function ExerciseFormPage() {
   const [saving, setSaving] = useState(false);
   const [loadingData, setLoadingData] = useState(isEditing);
 
+  // Toggle para el mapa visual
+  const handleMuscleMapClick = (muscleName: string) => {
+    const muscle = muscleGroups.find(m => m.name.toLowerCase() === muscleName.toLowerCase());
+    if (!muscle) return;
+
+    const mid = muscle.id;
+
+    if (primaryMuscleId === mid) {
+      // Si es primario, pasa a secundario
+      setPrimaryMuscleId('');
+      setSecondaryMuscleIds(prev => [...prev, mid]);
+    } else if (secondaryMuscleIds.includes(mid)) {
+      // Si es secundario, se quita
+      setSecondaryMuscleIds(prev => prev.filter(id => id !== mid));
+    } else {
+      // Si no está seleccionado:
+      if (!primaryMuscleId) {
+        // Si no hay primario, este lo es
+        setPrimaryMuscleId(mid);
+      } else {
+        // Si ya hay primario, este es secundario
+        setSecondaryMuscleIds(prev => [...prev, mid]);
+      }
+    }
+  };
+
   // Cargar catálogos al montar
   useEffect(() => {
     getCatalog('difficulty_level').then((d) => setDifficulties(d as unknown as DifficultyLevel[]));
@@ -81,9 +161,11 @@ export function ExerciseFormPage() {
       setPrimaryMuscleId(data.primary_muscle_group_id ?? '');
       setIsCompound(data.is_compound);
 
-      if (data.image_path) {
-        setImagePath(data.image_path);
-        const url = await getImageDisplayUrl(data.image_path);
+      // Cargar imagen: priorizar image_url (para el nuevo flujo unificado)
+      const currentImageUrl = data.image_url || data.image_path;
+      if (currentImageUrl) {
+        setImagePath(currentImageUrl);
+        const url = await getImageDisplayUrl(currentImageUrl);
         setImagePreview(url);
       }
       setVideoLink(data.video_path ?? '');
@@ -264,7 +346,7 @@ export function ExerciseFormPage() {
         technical_notes: technicalNotes.trim() || undefined,
         difficulty_level_id: difficultyId || undefined,
         primary_muscle_group_id: primaryMuscleId || undefined,
-        image_path: imagePath || undefined,
+        image_url: imagePath.trim() || undefined,
         video_path: videoLink.trim() || undefined,
         video_long_path: videoLongLink.trim() || undefined,
         is_compound: isCompound,
@@ -369,6 +451,7 @@ export function ExerciseFormPage() {
             placeholder="Ej: https://www.youtube.com/watch?v=..."
             className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 min-h-[44px]"
           />
+          {videoLink && <VideoEmbed url={videoLink} />}
         </div>
 
         {/* ── 2c. Video explicativo ── */}
@@ -381,6 +464,7 @@ export function ExerciseFormPage() {
             placeholder="Ej: https://www.youtube.com/watch?v=..."
             className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 min-h-[44px]"
           />
+          {videoLongLink && <VideoEmbed url={videoLongLink} />}
         </div>
 
         {/* ── 3. Dificultad ── */}
@@ -398,47 +482,72 @@ export function ExerciseFormPage() {
           </select>
         </div>
 
-        {/* ── 4. Grupo muscular principal ── */}
-        <div>
-          <label className="block text-sm text-gray-400 mb-1.5">Grupo muscular principal</label>
-          <select
-            value={primaryMuscleId}
-            onChange={(e) => handlePrimaryMuscleChange(e.target.value)}
-            className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 appearance-none min-h-[44px]"
-          >
-            <option value="">Sin especificar</option>
-            {muscleGroups.map((mg) => (
-              <option key={mg.id} value={mg.id}>{mg.name}</option>
-            ))}
-          </select>
-        </div>
+        {/* ── 4 & 5. Grupos musculares (Mapa Visual) ── */}
+        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4">
+          <label className="block text-sm text-gray-400 mb-4">Selección de músculos</label>
+          
+          <div className="flex flex-col md:flex-row gap-6 items-center mb-6">
+            <div className="w-full max-w-[500px] bg-gray-950/50 rounded-xl p-4 border border-gray-800/50">
+              <MuscleMap
+                interactive
+                onMuscleClick={handleMuscleMapClick}
+                primaryMuscles={muscleGroups.filter(m => m.id === primaryMuscleId).map(m => m.name)}
+                secondaryMuscles={muscleGroups.filter(m => secondaryMuscleIds.includes(m.id)).map(m => m.name)}
+              />
+            </div>
+            
+            <div className="flex-1 space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded-full bg-[#ef4444]" />
+                <span className="text-sm text-gray-300">Primario (Click 1)</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded-full bg-[#f59e0b]" />
+                <span className="text-sm text-gray-300">Secundario (Click 2)</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded-full bg-gray-700" />
+                <span className="text-sm text-gray-500">Sin seleccionar (Click 3)</span>
+              </div>
+              <p className="text-xs text-gray-500 mt-4 leading-relaxed italic">
+                Podes tocar directamente el mapa o usar los desplegables de abajo.
+              </p>
+            </div>
+          </div>
 
-        {/* ── 5. Músculos secundarios ── */}
-        <div>
-          <label className="block text-sm text-gray-400 mb-2">Músculos secundarios</label>
-          <div className="flex flex-wrap gap-2">
-            {muscleGroups
-              .filter((mg) => mg.id !== primaryMuscleId)
-              .map((mg) => {
-                const selected = secondaryMuscleIds.includes(mg.id);
-                return (
-                  <button
-                    key={mg.id}
-                    type="button"
-                    onClick={() => toggleSecondaryMuscle(mg.id)}
-                    className={`px-3 py-1.5 rounded-full text-sm border transition-all min-h-[36px] ${
-                      selected
-                        ? 'border-primary-500 bg-primary-500/20 text-primary-400'
-                        : 'border-gray-600 text-gray-400 bg-transparent'
-                    }`}
-                  >
-                    {mg.name}
-                  </button>
-                );
-              })}
-            {muscleGroups.filter((mg) => mg.id !== primaryMuscleId).length === 0 && (
-              <p className="text-gray-600 text-sm">Seleccioná primero un músculo principal</p>
-            )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs text-gray-500 mb-1.5 ml-1">Músculo Principal</label>
+              <select
+                value={primaryMuscleId}
+                onChange={(e) => handlePrimaryMuscleChange(e.target.value)}
+                className="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 appearance-none min-h-[44px]"
+              >
+                <option value="">Sin especificar</option>
+                {muscleGroups.map((mg) => (
+                  <option key={mg.id} value={mg.id}>{mg.name}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs text-gray-500 mb-1.5 ml-1">Músculos Secundarios</label>
+              <div className="flex flex-wrap gap-1.5 p-2 bg-gray-800/30 rounded-xl border border-gray-700/50 min-h-[46px]">
+                {muscleGroups
+                  .filter((mg) => secondaryMuscleIds.includes(mg.id))
+                  .map((mg) => (
+                    <Badge 
+                      key={mg.id} 
+                      label={mg.name} 
+                      color="#f59e0b" 
+                      size="sm" 
+                    />
+                  ))}
+                {secondaryMuscleIds.length === 0 && (
+                  <span className="text-xs text-gray-600 self-center ml-1">Ninguno</span>
+                )}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -588,35 +697,28 @@ export function ExerciseFormPage() {
           </button>
         </div>
 
-        {/* ── 12. Imagen ── */}
-        <div>
-          <label className="block text-sm text-gray-400 mb-2">Imagen</label>
-          {imagePreview ? (
-            <div className="relative">
-              <img
-                src={imagePreview}
-                alt="Preview"
-                className="w-full h-48 object-cover rounded-xl border border-gray-700"
-              />
-              <button
-                type="button"
-                onClick={handlePickImage}
-                className="absolute bottom-2 right-2 bg-gray-900/80 text-white px-3 py-1.5 rounded-lg text-sm flex items-center gap-1.5 min-h-[36px]"
-              >
-                <Camera size={14} />
-                Cambiar
-              </button>
-            </div>
-          ) : (
+        {/* ── 12. Imagen (Minimalista) ── */}
+        <div className="flex items-center gap-4 bg-gray-900 border border-gray-800 rounded-2xl p-4">
+          <div className="w-24 h-24 rounded-xl bg-gray-950 border border-gray-700 flex items-center justify-center shrink-0 overflow-hidden shadow-inner">
+            {imagePreview ? (
+              <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+            ) : (
+              <Camera size={32} className="text-gray-800" />
+            )}
+          </div>
+          <div className="flex-1 flex flex-col gap-2">
+            <h4 className="text-white text-sm font-bold">Imagen del ejercicio</h4>
+            <p className="text-xs text-gray-500 leading-tight">
+              {imagePreview ? 'Mostrando mapa muscular o foto personalizada.' : 'Elegí una foto o dejá que el sistema genere el mapa muscular.'}
+            </p>
             <button
               type="button"
               onClick={handlePickImage}
-              className="w-full h-32 border border-dashed border-gray-700 rounded-xl flex flex-col items-center justify-center gap-2 text-gray-500 hover:text-gray-400 hover:border-gray-600 transition-colors"
+              className="mt-1 self-start bg-primary-500/10 text-primary-500 border border-primary-500/20 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-primary-500 hover:text-white transition-all min-h-[36px]"
             >
-              <Camera size={24} />
-              <span className="text-sm">Seleccionar imagen</span>
+              {imagePreview ? 'Cambiar imagen' : 'Seleccionar foto'}
             </button>
-          )}
+          </div>
         </div>
 
         {/* Botón guardar al final del formulario */}

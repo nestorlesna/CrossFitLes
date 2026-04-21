@@ -1,5 +1,7 @@
 // Modelos de datos para plantillas de clase, secciones y ejercicios de sección
 
+export type TemplateType = 'my_classes' | 'generic';
+
 export interface ClassTemplate {
   id: string
   date?: string          // Fecha ISO YYYY-MM-DD o null
@@ -8,6 +10,7 @@ export interface ClassTemplate {
   general_notes?: string
   estimated_duration_minutes?: number
   is_favorite: number    // 0 | 1
+  template_type: TemplateType  // 'my_classes' | 'generic'
   is_active: number      // 0 | 1
   created_at: string
   updated_at: string
@@ -61,6 +64,8 @@ export interface SectionExercise {
   // Campos enriquecidos (JOIN)
   exercise_name?: string
   exercise_image_path?: string
+  exercise_image_url?: string
+  exercise_video_url?: string
   weight_unit_abbreviation?: string
   distance_unit_abbreviation?: string
 }
@@ -74,4 +79,5 @@ export interface ClassTemplateFilters {
   from_date?: string
   to_date?: string
   is_favorite?: boolean
+  template_type?: TemplateType
 }

@@ -1,6 +1,6 @@
 // Constantes globales de la aplicación
 
-export const DB_NAME = 'crossfit_tracker.db';
+export const DB_NAME = 'crossfit_tracker';
 export const DB_VERSION = 1;
 export const APP_VERSION = '1.0.0';
 export const MEDIA_BASE_DIR = 'crossfit-tracker/media';

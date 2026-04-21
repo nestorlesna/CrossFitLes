@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <!-- Wall -->
+  <rect x="155" y="30" width="8" height="180" fill="#374151" rx="2"/>
+
+  <!-- Frame 1: de pie junto a la pared, manos apoyadas -->
+  <g class="f1" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+    <circle cx="90" cy="38" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="90" y1="51" x2="90" y2="115"/>
+    <!-- Brazo derecho extendido hacia la pared -->
+    <line x1="90" y1="65" x2="148" y2="72"/>
+    <!-- Brazo izquierdo -->
+    <line x1="90" y1="65" x2="68" y2="85"/>
+    <!-- Piernas -->
+    <line x1="90" y1="115" x2="78" y2="162"/>
+    <line x1="90" y1="115" x2="102" y2="162"/>
+    <line x1="78" y1="162" x2="72" y2="200"/>
+    <line x1="102" y1="162" x2="108" y2="200"/>
+    <!-- Pies -->
+    <line x1="65" y1="200" x2="79" y2="200"/>
+    <line x1="101" y1="200" x2="115" y2="200"/>
+    <!-- Mano en pared -->
+    <circle cx="150" cy="72" r="4" fill="#64748b" stroke="none"/>
+  </g>
+
+  <!-- Frame 2: inclinado hacia la pared, extensión torácica -->
+  <g class="f2" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+    <circle cx="100" cy="42" r="13" fill="#94a3b8" stroke="none"/>
+    <!-- Torso inclinado hacia adelante -->
+    <line x1="100" y1="55" x2="110" y2="110"/>
+    <!-- Brazos apoyados en la pared arriba -->
+    <line x1="105" y1="70" x2="148" y2="58"/>
+    <line x1="105" y1="70" x2="148" y2="80"/>
+    <!-- Piernas más separadas -->
+    <line x1="110" y1="110" x2="90" y2="162"/>
+    <line x1="110" y1="110" x2="125" y2="162"/>
+    <line x1="90" y1="162" x2="82" y2="200"/>
+    <line x1="125" y1="162" x2="130" y2="200"/>
+    <line x1="75" y1="200" x2="89" y2="200"/>
+    <line x1="123" y1="200" x2="137" y2="200"/>
+    <!-- Manos en pared -->
+    <circle cx="150" cy="58" r="4" fill="#64748b" stroke="none"/>
+    <circle cx="150" cy="80" r="4" fill="#64748b" stroke="none"/>
+  </g>
+
+  <!-- Frame 3: extensión máxima torácica, cabeza hacia abajo -->
+  <g class="f3" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+    <circle cx="105" cy="52" r="13" fill="#94a3b8" stroke="none"/>
+    <!-- Torso muy inclinado, extensión torácica máxima -->
+    <line x1="103" y1="65" x2="112" y2="112"/>
+    <!-- Brazos arriba en la pared -->
+    <line x1="106" y1="72" x2="148" y2="52"/>
+    <line x1="106" y1="72" x2="148" y2="72"/>
+    <!-- Piernas flexionadas -->
+    <line x1="112" y1="112" x2="88" y2="160"/>
+    <line x1="112" y1="112" x2="128" y2="160"/>
+    <line x1="88" y1="160" x2="80" y2="200"/>
+    <line x1="128" y1="160" x2="132" y2="200"/>
+    <line x1="73" y1="200" x2="87" y2="200"/>
+    <line x1="125" y1="200" x2="139" y2="200"/>
+    <circle cx="150" cy="52" r="4" fill="#64748b" stroke="none"/>
+    <circle cx="150" cy="72" r="4" fill="#64748b" stroke="none"/>
+  </g>
+
+  <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="225" font-family="sans-serif" font-size="9" fill="#475569" text-anchor="middle" letter-spacing="0.5">WALL THORACIC EXT</text>
+</svg>

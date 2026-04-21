@@ -1,15 +1,16 @@
 // Pantalla de detalle de un ejercicio con historial de uso
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ChevronLeft, Edit2, Trash2, Dumbbell, Star, CheckCircle, Circle, Video, Youtube } from 'lucide-react';
+import { ChevronLeft, Edit2, Trash2, Copy, Loader2, Dumbbell, Star, CheckCircle, Circle, Video, Youtube, CalendarDays } from 'lucide-react';
 import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
 import { Badge } from '../../components/ui/Badge';
 import { Modal } from '../../components/ui/Modal';
 import { ExerciseWithRelations } from '../../models/Exercise';
-import { getById, softDelete, getHistory } from '../../db/repositories/exerciseRepo';
+import { getById, softDelete, duplicate, getHistory, getClassesUsingExercise } from '../../db/repositories/exerciseRepo';
 import { getImageDisplayUrl } from '../../services/mediaService';
 import { formatDate } from '../../utils/formatters';
+import { MuscleMap } from '../../components/exercises/MuscleMap';
 
 // Tipo mínimo para una entrada del historial
 interface HistoryEntry {
@@ -22,11 +23,12 @@ interface HistoryEntry {
   distance_unit?: string;
 }
 
-// Función helper para obtener el ID de YouTube
+// Función helper para obtener el ID de YouTube (incluye Shorts)
 function getYoutubeId(url: string): string | null {
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-  const match = url.match(regExp);
-  return (match && match[2].length === 11) ? match[2] : null;
+  if (!url) return null;
+  // Soporta: youtu.be/ID, youtube.com/shorts/ID, youtube.com/watch?v=ID, youtube.com/v/ID, youtube.com/embed/ID
+  const m = url.match(/(?:youtube\.com\/(?:shorts\/|v\/|embed\/)|youtu\.be\/|watch\?v=)([^#&?]+)/);
+  return m ? m[1] : null;
 }
 
 // Función helper para obtener el ID de Vimeo
@@ -43,14 +45,14 @@ function VideoEmbed({ url }: { url: string }) {
 
   if (youtubeId) {
     return (
-      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
+      <div className="relative w-full max-w-[260px] aspect-video rounded-xl overflow-hidden border border-gray-800 bg-black shadow-lg">
         <iframe
           src={`https://www.youtube.com/embed/${youtubeId}`}
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-          className="absolute top-0 left-0 w-full h-full"
+          className="w-full h-full"
         />
       </div>
     );
@@ -58,14 +60,14 @@ function VideoEmbed({ url }: { url: string }) {
 
   if (vimeoId) {
     return (
-      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
+      <div className="relative w-full max-w-[260px] aspect-video rounded-xl overflow-hidden border border-gray-800 bg-black shadow-lg">
         <iframe
           src={`https://player.vimeo.com/video/${vimeoId}`}
           title="Vimeo video player"
           frameBorder="0"
           allow="autoplay; fullscreen; picture-in-picture"
           allowFullScreen
-          className="absolute top-0 left-0 w-full h-full"
+          className="w-full h-full"
         />
       </div>
     );
@@ -94,9 +96,11 @@ export function ExerciseDetailPage() {
   const [exercise, setExercise] = useState<ExerciseWithRelations | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const [classesUsing, setClassesUsing] = useState<{ id: string; name: string; date: string | null; section_title: string | null }[]>([]);
   const [loading, setLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [duplicating, setDuplicating] = useState(false);
 
   // Cargar datos del ejercicio e historial
   const loadData = useCallback(async () => {
@@ -110,16 +114,17 @@ export function ExerciseDetailPage() {
         return;
       }
       setExercise(data);
-
-      // Cargar imagen si existe
-      if (data.image_path) {
-        const url = await getImageDisplayUrl(data.image_path);
-        setImageUrl(url);
-      }
+      // Resolver imagen (el servicio decide si es estática o persistente)
+      const url = await getImageDisplayUrl(data.image_url || data.image_path);
+      setImageUrl(url);
 
       // Cargar historial (últimas 10 entradas)
       const hist = (await getHistory(id)) as HistoryEntry[];
       setHistory(hist.slice(0, 10));
+
+      // Cargar clases que usan este ejercicio
+      const classes = await getClassesUsingExercise(id);
+      setClassesUsing(classes);
     } catch (e) {
       toast.error('Error al cargar el ejercicio');
     } finally {
@@ -143,6 +148,20 @@ export function ExerciseDetailPage() {
       toast.error('Error al eliminar el ejercicio');
       setDeleting(false);
       setShowDeleteModal(false);
+    }
+  }
+
+  // Clonar ejercicio y navegar al clon
+  async function handleDuplicate() {
+    if (!id) return;
+    setDuplicating(true);
+    try {
+      const newId = await duplicate(id);
+      toast.success(`Ejercicio clonado como "${exercise?.name} (copia)"`);
+      navigate(`/ejercicios/${newId}/editar`);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : 'Error al clonar el ejercicio');
+      setDuplicating(false);
     }
   }
 
@@ -209,16 +228,16 @@ export function ExerciseDetailPage() {
       />
 
       <div className="flex flex-col gap-0 pb-10">
-        {/* Imagen grande */}
-        {imageUrl ? (
-          <div className="w-full h-52 bg-gray-900">
-            <img src={imageUrl} alt={exercise.name} className="w-full h-full object-cover" />
+        {/* Thumbnail minimalista */}
+        <div className="flex justify-center pt-6 pb-2 bg-black/20">
+          <div className="w-24 h-24 rounded-2xl bg-gray-900 border border-gray-800 flex items-center justify-center shrink-0 overflow-hidden shadow-xl">
+            {imageUrl ? (
+              <img src={imageUrl} alt={exercise.name} className="w-full h-full object-cover" />
+            ) : (
+              <Dumbbell size={32} className="text-gray-700" />
+            )}
           </div>
-        ) : (
-          <div className="w-full h-36 bg-gray-900 flex items-center justify-center border-b border-gray-800">
-            <Dumbbell size={48} className="text-gray-700" />
-          </div>
-        )}
+        </div>
 
         <div className="flex flex-col gap-5 p-4">
           {/* ── Información general ── */}
@@ -251,26 +270,51 @@ export function ExerciseDetailPage() {
             )}
           </div>
 
-          {/* ── Grupos musculares ── */}
-          {relations.muscleGroups.length > 0 && (
-            <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
-              <h2 className="text-white font-semibold text-base mb-3">Músculos trabajados</h2>
-              <div className="flex flex-wrap gap-2">
-                {relations.muscleGroups.map((mg) => (
-                  <div key={mg.id} className="flex items-center gap-1.5">
-                    <Badge
-                      label={mg.name}
-                      color={mg.is_primary ? '#f97316' : undefined}
-                      size="sm"
-                    />
-                    {mg.is_primary ? (
-                      <Star size={10} className="text-primary-500" fill="currentColor" />
-                    ) : null}
+          {/* ── Grupos musculares (Mapa Anatómico) ── */}
+          <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
+            <h2 className="text-white font-semibold text-base mb-4">Músculos trabajados</h2>
+            
+            <div className="flex flex-col md:flex-row gap-6 items-center">
+              {/* Mapa SVG */}
+              <div className="w-full max-w-[500px] bg-gray-950/50 rounded-xl p-4 border border-gray-800/50">
+                <MuscleMap
+                  primaryMuscles={relations.muscleGroups.filter(mg => mg.is_primary).map(mg => mg.name)}
+                  secondaryMuscles={relations.muscleGroups.filter(mg => !mg.is_primary).map(mg => mg.name)}
+                  size="100%"
+                />
+              </div>
+
+              {/* Leyenda y Lista */}
+              <div className="flex-1 w-full space-y-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-[#ef4444]" />
+                    <span className="text-xs text-gray-300">Primario</span>
                   </div>
-                ))}
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-[#f59e0b]" />
+                    <span className="text-xs text-gray-300">Secundario</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {relations.muscleGroups.map((mg) => (
+                    <div key={mg.id} className="flex items-center gap-1.5">
+                      <Badge
+                        label={mg.name}
+                        color={mg.is_primary ? '#ef4444' : '#f59e0b'}
+                        size="sm"
+                      />
+                    </div>
+                  ))}
+                </div>
+                
+                {relations.muscleGroups.length === 0 && (
+                  <p className="text-gray-500 text-xs italic">No hay músculos asignados</p>
+                )}
               </div>
             </div>
-          )}
+          </div>
 
           {/* ── Equipamiento ── */}
           {relations.equipment.length > 0 && (
@@ -377,6 +421,35 @@ export function ExerciseDetailPage() {
             </div>
           )}
 
+          {/* ── Clases que usan este ejercicio ── */}
+          {classesUsing.length > 0 && (
+            <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
+              <h2 className="text-white font-semibold text-base mb-3 flex items-center gap-2">
+                <CalendarDays size={18} className="text-primary-500" />
+                Usado en {classesUsing.length} clase{classesUsing.length !== 1 ? 's' : ''}
+              </h2>
+              <div className="flex flex-col divide-y divide-gray-800">
+                {classesUsing.map((cls) => (
+                  <button
+                    key={cls.id}
+                    onClick={() => navigate(`/clases/${cls.id}`)}
+                    className="py-2.5 flex items-center justify-between hover:bg-gray-800/50 rounded-lg px-2 -mx-2 transition-colors"
+                  >
+                    <div className="flex-1 min-w-0">
+                      <span className="text-white text-sm truncate block">{cls.name}</span>
+                      {cls.section_title && (
+                        <span className="text-gray-500 text-xs">{cls.section_title}</span>
+                      )}
+                    </div>
+                    {cls.date && (
+                      <span className="text-gray-500 text-xs shrink-0 ml-3">{formatDate(cls.date)}</span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* ── Historial de uso ── */}
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
             <h2 className="text-white font-semibold text-base mb-3">Historial reciente</h2>
@@ -393,6 +466,17 @@ export function ExerciseDetailPage() {
               </div>
             )}
           </div>
+
+          {/* ── Botón clonar ── */}
+          <button
+            type="button"
+            onClick={handleDuplicate}
+            disabled={duplicating}
+            className="w-full flex items-center justify-center gap-2 bg-sky-600/10 border border-sky-600/30 text-sky-400 hover:bg-sky-600/20 rounded-xl py-3.5 font-medium text-sm min-h-[52px] transition-colors disabled:opacity-50"
+          >
+            {duplicating ? <Loader2 size={18} className="animate-spin" /> : <Copy size={18} />}
+            {duplicating ? 'Clonando...' : 'Clonar ejercicio'}
+          </button>
 
           {/* ── Botón eliminar ── */}
           <button

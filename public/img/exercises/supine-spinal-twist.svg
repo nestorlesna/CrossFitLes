@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+<rect width="200" height="230" fill="#111827" rx="12"/>
+<style>
+.f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+@keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+@keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+@keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+</style>
+<!-- F1: Lying on back, arms out (T), knees bent and centered -->
+<g class="f1">
+  <circle cx="38" cy="135" r="12" fill="#94a3b8"/>
+  <line x1="50" y1="133" x2="148" y2="130" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="90" y1="131" x2="90" y2="112" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="90" y1="112" x2="52" y2="110" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="90" y1="112" x2="128" y2="110" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="148" y1="130" x2="158" y2="133" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="158" y1="133" x2="168" y2="138" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="148" y1="130" x2="150" y2="152" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="150" y1="152" x2="148" y2="172" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="150" cy="152" r="5" fill="#64748b"/>
+</g>
+<!-- F2: Knees falling left, arms still wide, head turning right -->
+<g class="f2">
+  <circle cx="38" cy="135" r="12" fill="#94a3b8"/>
+  <line x1="50" y1="133" x2="148" y2="130" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="90" y1="131" x2="90" y2="112" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="90" y1="112" x2="52" y2="110" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="90" y1="112" x2="128" y2="110" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="148" y1="130" x2="158" y2="133" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="158" y1="133" x2="168" y2="138" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="148" y1="130" x2="135" y2="155" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="135" y1="155" x2="108" y2="168" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="135" cy="155" r="5" fill="#64748b"/>
+</g>
+<!-- F3: Knees touching ground (full twist) -->
+<g class="f3">
+  <circle cx="38" cy="135" r="12" fill="#94a3b8"/>
+  <line x1="50" y1="133" x2="148" y2="130" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="90" y1="131" x2="90" y2="112" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="90" y1="112" x2="52" y2="110" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="90" y1="112" x2="128" y2="110" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="148" y1="130" x2="158" y2="135" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="158" y1="135" x2="168" y2="140" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="148" y1="130" x2="128" y2="160" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="128" y1="160" x2="98" y2="175" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="128" cy="160" r="5" fill="#64748b"/>
+</g>
+<line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+<text x="100" y="225" text-anchor="middle" font-family="monospace" font-size="9" fill="#475569">SUPINE SPINAL TWIST</text>
+</svg>

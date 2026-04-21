@@ -6,6 +6,9 @@ import { SQLiteDBConnection } from '@capacitor-community/sqlite';
 import { generateUUID } from '../utils/formatters';
 import { resetDatabase } from './seedService';
 
+// ── Helper ────────────────────────────────────────────────────────────────────
+const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+
 // ── Tipos ─────────────────────────────────────────────────────────────────────
 
 interface Seed2Exercise {
@@ -50,18 +53,44 @@ async function seedCatalogs(db: SQLiteDBConnection): Promise<void> {
   };
 
   await seedCatalog('muscle_group', [
-    { name: 'Pectorales',       body_zone: 'upper_body', sort_order: 1,  is_active: 1 },
-    { name: 'Dorsales',         body_zone: 'upper_body', sort_order: 2,  is_active: 1 },
-    { name: 'Deltoides',        body_zone: 'upper_body', sort_order: 3,  is_active: 1 },
-    { name: 'Bíceps',           body_zone: 'upper_body', sort_order: 4,  is_active: 1 },
-    { name: 'Tríceps',          body_zone: 'upper_body', sort_order: 5,  is_active: 1 },
-    { name: 'Trapecio',         body_zone: 'upper_body', sort_order: 6,  is_active: 1 },
-    { name: 'Antebrazos',       body_zone: 'upper_body', sort_order: 7,  is_active: 1 },
-    { name: 'Cuádriceps',       body_zone: 'lower_body', sort_order: 8,  is_active: 1 },
-    { name: 'Isquiotibiales',   body_zone: 'lower_body', sort_order: 9,  is_active: 1 },
-    { name: 'Glúteos',          body_zone: 'lower_body', sort_order: 10, is_active: 1 },
-    { name: 'Pantorrillas',     body_zone: 'lower_body', sort_order: 11, is_active: 1 },
-    { name: 'Core/Abdominales', body_zone: 'core',       sort_order: 12, is_active: 1 },
+    // --- Vista FRONTAL (Anterior) ---
+    { name: 'Cabeza y cuello',           body_zone: 'anterior', sort_order: 1,  is_active: 1 },
+    { name: 'Esternocleidomastoideo',   body_zone: 'anterior', sort_order: 2,  is_active: 1 },
+    { name: 'Pectoral mayor',            body_zone: 'anterior', sort_order: 3,  is_active: 1 },
+    { name: 'Pectoral menor',            body_zone: 'anterior', sort_order: 4,  is_active: 1 },
+    { name: 'Deltoides anterior',        body_zone: 'anterior', sort_order: 5,  is_active: 1 },
+    { name: 'Deltoides lateral',         body_zone: 'anterior', sort_order: 6,  is_active: 1 },
+    { name: 'Bíceps braquial',           body_zone: 'anterior', sort_order: 7,  is_active: 1 },
+    { name: 'Braquial anterior',         body_zone: 'anterior', sort_order: 8,  is_active: 1 },
+    { name: 'Braquiorradial',            body_zone: 'anterior', sort_order: 9,  is_active: 1 },
+    { name: 'Flexores antebrazo',        body_zone: 'anterior', sort_order: 10, is_active: 1 },
+    { name: 'Recto abdominal',           body_zone: 'anterior', sort_order: 11, is_active: 1 },
+    { name: 'Oblicuo externo',           body_zone: 'anterior', sort_order: 12, is_active: 1 },
+    { name: 'Oblicuo interno',           body_zone: 'anterior', sort_order: 13, is_active: 1 },
+    { name: 'Recto femoral',             body_zone: 'anterior', sort_order: 14, is_active: 1 },
+    { name: 'Vasto lateral',             body_zone: 'anterior', sort_order: 15, is_active: 1 },
+    { name: 'Vasto medial',              body_zone: 'anterior', sort_order: 16, is_active: 1 },
+    { name: 'Vasto intermedio',          body_zone: 'anterior', sort_order: 17, is_active: 1 },
+    { name: 'Aductores',                 body_zone: 'anterior', sort_order: 18, is_active: 1 },
+    { name: 'Tibial anterior',           body_zone: 'anterior', sort_order: 19, is_active: 1 },
+
+    // --- Vista POSTERIOR (Trasera) ---
+    { name: 'Trapecio (superior)',       body_zone: 'posterior', sort_order: 20, is_active: 1 },
+    { name: 'Trapecio (medio)',          body_zone: 'posterior', sort_order: 21, is_active: 1 },
+    { name: 'Trapecio (inferior)',       body_zone: 'posterior', sort_order: 22, is_active: 1 },
+    { name: 'Dorsal ancho',              body_zone: 'posterior', sort_order: 23, is_active: 1 },
+    { name: 'Romboides',                 body_zone: 'posterior', sort_order: 24, is_active: 1 },
+    { name: 'Erectores espinales',       body_zone: 'posterior', sort_order: 25, is_active: 1 },
+    { name: 'Deltoides posterior',       body_zone: 'posterior', sort_order: 26, is_active: 1 },
+    { name: 'Tríceps braquial',          body_zone: 'posterior', sort_order: 27, is_active: 1 },
+    { name: 'Extensores antebrazo',      body_zone: 'posterior', sort_order: 28, is_active: 1 },
+    { name: 'Glúteo mayor',             body_zone: 'posterior', sort_order: 29, is_active: 1 },
+    { name: 'Glúteo medio',              body_zone: 'posterior', sort_order: 30, is_active: 1 },
+    { name: 'Bíceps femoral',            body_zone: 'posterior', sort_order: 31, is_active: 1 },
+    { name: 'Semitendinoso',             body_zone: 'posterior', sort_order: 32, is_active: 1 },
+    { name: 'Semimembranoso',            body_zone: 'posterior', sort_order: 33, is_active: 1 },
+    { name: 'Gastrocnemio (gemelos)',    body_zone: 'posterior', sort_order: 34, is_active: 1 },
+    { name: 'Sóleo',                     body_zone: 'posterior', sort_order: 35, is_active: 1 },
   ]);
 
   await seedCatalog('equipment', [
@@ -166,7 +195,7 @@ async function seedExercisesFromJson(
   const sectionMap = new Map((sectionRows.values ?? []).map((r: any) => [r.name, r.id] as [string, string]));
   const unitMap    = new Map((unitRows.values    ?? []).map((r: any) => [r.name, r.id] as [string, string]));
 
-  const BATCH = 50;
+  const BATCH = 1000;
   for (let i = 0; i < exercises.length; i += BATCH) {
     const batch = exercises.slice(i, i + BATCH);
     const stmts: { statement: string; values: unknown[] }[] = [];
@@ -174,7 +203,23 @@ async function seedExercisesFromJson(
     for (const ex of batch) {
       const exId = generateUUID();
       const diffId    = ex.difficulty    ? diffMap.get(ex.difficulty)    ?? null : null;
-      const muscleId  = ex.primaryMuscle ? muscleMap.get(ex.primaryMuscle) ?? null : null;
+      
+      // Mapeo de compatibilidad para grupos musculares antiguos
+      let muscleName = ex.primaryMuscle;
+      if (muscleName === 'Pectorales') muscleName = 'Pectoral mayor';
+      else if (muscleName === 'Dorsales') muscleName = 'Dorsal ancho';
+      else if (muscleName === 'Deltoides') muscleName = 'Deltoides anterior';
+      else if (muscleName === 'Bíceps') muscleName = 'Bíceps braquial';
+      else if (muscleName === 'Tríceps') muscleName = 'Tríceps braquial';
+      else if (muscleName === 'Trapecio') muscleName = 'Trapecio (superior)';
+      else if (muscleName === 'Antebrazos') muscleName = 'Flexores antebrazo';
+      else if (muscleName === 'Cuádriceps') muscleName = 'Recto femoral';
+      else if (muscleName === 'Isquiotibiales') muscleName = 'Bíceps femoral';
+      else if (muscleName === 'Glúteos') muscleName = 'Glúteo mayor';
+      else if (muscleName === 'Pantorrillas') muscleName = 'Gastrocnemio (gemelos)';
+      else if (muscleName === 'Core/Abdominales') muscleName = 'Recto abdominal';
+
+      const muscleId  = muscleName ? muscleMap.get(muscleName) ?? null : null;
 
       stmts.push({
         statement: `INSERT OR IGNORE INTO exercise
@@ -219,58 +264,114 @@ async function seedExercisesFromJson(
     await db.executeSet(stmts, true);
     const loaded = Math.min(i + BATCH, exercises.length);
     onProgress?.(loaded, exercises.length);
-    console.log(`[Seed] Ejercicios insertados: ${loaded} / ${exercises.length}`);
+    console.log(`[Seed] Batch insertado (${loaded} / ${exercises.length}).`);
   }
+
+  // Persistir cambios intermedios para asegurar que los ejercicios estén "visibles" para las plantillas
+  const { saveDatabase } = await import('../db/database');
+  await saveDatabase();
+  console.log('[Seed] Flush intermedio completado. Ejercicios persistidos.');
 }
 
 // ── Punto de entrada unificado ────────────────────────────────────────────────
 
-/**
- * Inicialización unificada (solo manual desde la UI):
- *  1. Borra toda la base de datos
- *  2. Re-abre la conexión (vuelve a correr las migraciones)
- *  3. Inserta los catálogos base
- *  4. Inserta los 3.242 ejercicios del JSON
- *
- * onProgress(loaded, total) se llama tras cada lote de ejercicios.
- */
-export async function resetAndReSeedAll(
-  onProgress?: (loaded: number, total: number) => void
-): Promise<void> {
-  console.log('[Seed] Iniciando inicialización unificada...');
+export interface SeedResult {
+  exercises: number;
+  updatedImages: number;
+  mappedMuscles: number;
+  finished: boolean;
+}
 
-  // 1. Obtener la conexión activa y borrar todas las tablas
-  const { getDatabase } = await import('../db/database');
+/**
+ * Borra absolutamente todas las tablas y persiste el cambio.
+ */
+export async function cleanDatabase(): Promise<void> {
+  console.log('[Seed] Iniciando borrado total...');
+  const { getDatabase, closeDatabase } = await import('../db/database');
   const db = getDatabase();
   await resetDatabase(db);
-  console.log('[Seed] Tablas borradas.');
+  await delay(1000);
+  await closeDatabase();
+  console.log('[Seed] Base de datos limpia y conexión cerrada.');
+}
 
-  // 2. Re-crear las tablas ejecutando las migraciones en la MISMA conexión.
-  //    No cerrar/reabrir: en jeep-sqlite (web) el singleton no puede reconectar
-  //    limpiamente dentro de la misma sesión.
+/**
+ * Inicialización unificada (solo manual desde la UI):
+ * 1. Re-ejecuta las migraciones (crea tablas si no existen tras un clean)
+ * 2. Inserta catálogos base
+ * 3. Inserta los 3.242 ejercicios del JSON
+ * ...
+ */
+export async function reSeedAll(
+  onProgress?: (loaded: number, total: number) => void
+): Promise<SeedResult> {
+  console.log('[Seed] Iniciando carga masiva de datos...');
+
+  const result: SeedResult = {
+    exercises: 0,
+    updatedImages: 0,
+    mappedMuscles: 0,
+    finished: false
+  };
+
+  const { openDatabase } = await import('../db/database');
+  const db = await openDatabase();
+
+  // 1. Re-crear las tablas ejecutando las migraciones
   const { runMigrations } = await import('../services/migrationService');
   const { migrations } = await import('../db/migrations');
   await db.execute('PRAGMA foreign_keys = ON;');
   await runMigrations(db, migrations);
-  console.log('[Seed] Migraciones re-ejecutadas.');
+  console.log('[Seed] Esquema de base de datos verificado/creado.');
 
-  // 3. Insertar catálogos
-  console.log('[Seed] Insertando catálogos...');
+  // 2. Insertar catálogos
+  await delay(500);
   await seedCatalogs(db);
   console.log('[Seed] Catálogos insertados.');
 
-  // 4. Cargar y insertar ejercicios
-  console.log('[Seed] Cargando ejercicios del JSON...');
+  // 3. Cargar e insertar ejercicios
+  await delay(500);
   const exercises = await loadExercisesJson();
+  result.exercises = exercises.length;
   console.log(`[Seed] Insertando ${exercises.length} ejercicios...`);
   await seedExercisesFromJson(db, exercises, onProgress);
 
-  // 5. Cerrar la conexión para que jeep-sqlite persista a IndexedDB antes del reload
+  // 4. Plantillas del Open 26, Girls, Heroes, WODs
+  await delay(500);
+  const { addOpenTemplates } = await import('./seedService3');
+  await addOpenTemplates(db);
+
+  await delay(200);
+  const { addGirlsTemplates, addHeroesTemplates } = await import('./seedService4');
+  await addGirlsTemplates(db);
+  await addHeroesTemplates(db);
+
+  await delay(200);
+  const { addDailyWodsMarch2026 } = await import('./seedService5');
+  await addDailyWodsMarch2026(db);
+
+  await delay(200);
+  const { addDailyWodsFebMar2026 } = await import('./seedService6');
+  await addDailyWodsFebMar2026(db);
+
+  // 10. Asignar imágenes SVG
+  await delay(500);
+  const { updateExerciseImages } = await import('./imageUpdateService');
+  result.updatedImages = await updateExerciseImages(db);
+
+  // 11. Asignar grupos musculares detallados (Mapa Corporal)
+  await delay(500);
+  const { seedExerciseMuscleGroups } = await import('./muscleSeedService');
+  result.mappedMuscles = await seedExerciseMuscleGroups(db);
+
+  // 12. Cerrar la conexión para persistir
+  await delay(500);
   const { closeDatabase } = await import('../db/database');
   await closeDatabase();
-  console.log('[Seed] Conexión cerrada — datos persistidos al store.');
+  console.log('[Seed] Datos persistidos y conexión cerrada.');
 
-  console.log('[Seed] Inicialización completada.');
+  result.finished = true;
+  return result;
 }
 
 // Exportada para uso en seedService3 (addOpenTemplates puede usarla como fallback)

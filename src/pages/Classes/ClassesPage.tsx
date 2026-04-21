@@ -14,6 +14,9 @@ import {
   Dumbbell,
   Filter,
   X,
+  FolderOpen,
+  Globe,
+  ArrowRightLeft,
 } from 'lucide-react';
 import {
   format,
@@ -29,7 +32,7 @@ import { es } from 'date-fns/locale';
 import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
 import { SearchBar } from '../../components/ui/SearchBar';
-import { ClassTemplate, ClassTemplateFilters } from '../../models/ClassTemplate';
+import { ClassTemplate, ClassTemplateFilters, TemplateType } from '../../models/ClassTemplate';
 import * as classTemplateRepo from '../../db/repositories/classTemplateRepo';
 
 // Modo de vista: lista o calendario
@@ -44,11 +47,105 @@ function formatShortDate(dateStr: string): string {
   }
 }
 
+// Tarjeta reutilizable para una clase
+function ClassCard({
+  template,
+  onNavigate,
+  onToggleFavorite,
+  onDuplicate,
+  onToggleType,
+}: {
+  template: ClassTemplate;
+  onNavigate: () => void;
+  onToggleFavorite: (e: React.MouseEvent, template: ClassTemplate) => void;
+  onDuplicate: (e: React.MouseEvent, id: string) => void;
+  onToggleType: (e: React.MouseEvent, template: ClassTemplate) => void;
+}) {
+  return (
+    <div
+      onClick={onNavigate}
+      className="bg-gray-900 border border-gray-800 rounded-xl p-4 cursor-pointer hover:border-gray-700 active:bg-gray-800 transition-colors"
+    >
+      <div className="flex items-start justify-between gap-2">
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1">
+            <button
+              onClick={(e) => onToggleFavorite(e, template)}
+              className="shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center -ml-2 -my-2"
+              aria-label={template.is_favorite ? 'Quitar favorita' : 'Marcar como favorita'}
+            >
+              <Star
+                size={18}
+                className={
+                  template.is_favorite === 1
+                    ? 'fill-yellow-400 text-yellow-400'
+                    : 'text-gray-600'
+                }
+              />
+            </button>
+            <h3 className="text-white font-semibold truncate">{template.name}</h3>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500 ml-8">
+            {template.date && (
+              <span className="text-gray-400">{formatShortDate(template.date)}</span>
+            )}
+            {template.estimated_duration_minutes && (
+              <span className="flex items-center gap-1">
+                <Clock size={11} />
+                {template.estimated_duration_minutes} min
+              </span>
+            )}
+            {(template.section_count ?? 0) > 0 && (
+              <span className="flex items-center gap-1">
+                <Layers size={11} />
+                {template.section_count} secc.
+              </span>
+            )}
+            {(template.exercise_count ?? 0) > 0 && (
+              <span className="flex items-center gap-1">
+                <Dumbbell size={11} />
+                {template.exercise_count} ej.
+              </span>
+            )}
+          </div>
+
+          {template.objective && (
+            <p className="text-xs text-gray-500 mt-1.5 ml-8 line-clamp-1">
+              {template.objective}
+            </p>
+          )}
+        </div>
+
+        <div className="flex shrink-0">
+          <button
+            onClick={(e) => onToggleType(e, template)}
+            className="p-2 text-gray-600 hover:text-primary-400 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+            aria-label={template.template_type === 'my_classes' ? 'Mover a genéricas' : 'Mover a mis clases'}
+            title={template.template_type === 'my_classes' ? 'Mover a genéricas' : 'Mover a mis clases'}
+          >
+            <ArrowRightLeft size={16} />
+          </button>
+          <button
+            onClick={(e) => onDuplicate(e, template.id)}
+            className="p-2 text-gray-500 hover:text-gray-300 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+            aria-label="Duplicar plantilla"
+          >
+            <Copy size={16} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function ClassesPage() {
   const navigate = useNavigate();
-  const [templates, setTemplates] = useState<ClassTemplate[]>([]);
+  const [myClasses, setMyClasses] = useState<ClassTemplate[]>([]);
+  const [genericClasses, setGenericClasses] = useState<ClassTemplate[]>([]);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>('list');
+  const [genericExpanded, setGenericExpanded] = useState(false);
 
   // Estado de filtros
   const [searchInput, setSearchInput] = useState('');
@@ -82,8 +179,13 @@ export function ClassesPage() {
         filters.from_date = selectedCalendarDate;
         filters.to_date = selectedCalendarDate;
       }
-      const data = await classTemplateRepo.getAll(filters);
-      setTemplates(data);
+
+      const [myData, genericData] = await Promise.all([
+        classTemplateRepo.getAll({ ...filters, template_type: 'my_classes' }),
+        classTemplateRepo.getAll({ ...filters, template_type: 'generic' }),
+      ]);
+      setMyClasses(myData);
+      setGenericClasses(genericData);
     } catch (err) {
       toast.error('Error al cargar las clases');
       console.error(err);
@@ -108,17 +210,17 @@ export function ClassesPage() {
   const handleToggleFavorite = async (e: React.MouseEvent, template: ClassTemplate) => {
     e.stopPropagation();
     const newValue = template.is_favorite === 1 ? 0 : 1;
-    // Actualización optimista
-    setTemplates((prev) =>
-      prev.map((t) => (t.id === template.id ? { ...t, is_favorite: newValue } : t))
-    );
+    const updater = (prev: ClassTemplate[]) =>
+      prev.map((t) => (t.id === template.id ? { ...t, is_favorite: newValue } : t));
+    setMyClasses(updater);
+    setGenericClasses(updater);
     try {
       await classTemplateRepo.toggleFavorite(template.id);
     } catch {
-      // Revertir en caso de error
-      setTemplates((prev) =>
-        prev.map((t) => (t.id === template.id ? { ...t, is_favorite: template.is_favorite } : t))
-      );
+      const revert = (prev: ClassTemplate[]) =>
+        prev.map((t) => (t.id === template.id ? { ...t, is_favorite: template.is_favorite } : t));
+      setMyClasses(revert);
+      setGenericClasses(revert);
       toast.error('Error al actualizar favorito');
     }
   };
@@ -133,6 +235,27 @@ export function ClassesPage() {
       navigate(`/clases/${newId}`);
     } catch {
       toast.error('Error al duplicar la plantilla');
+    }
+  };
+
+  // Mueve una clase entre Mis Clases y Genéricas
+  const handleToggleType = async (e: React.MouseEvent, template: ClassTemplate) => {
+    e.stopPropagation();
+    const newType: TemplateType = template.template_type === 'my_classes' ? 'generic' : 'my_classes';
+    const label = newType === 'my_classes' ? 'Mis Clases' : 'Genéricas';
+    // Actualización optimista
+    const moveFrom = template.template_type === 'my_classes' ? setMyClasses : setGenericClasses;
+    const moveTo = template.template_type === 'my_classes' ? setGenericClasses : setMyClasses;
+    moveFrom((prev) => prev.filter((t) => t.id !== template.id));
+    moveTo((prev) => [...prev, { ...template, template_type: newType }]);
+    try {
+      await classTemplateRepo.toggleTemplateType(template.id);
+      toast.success(`Movida a ${label}`);
+    } catch {
+      // Revertir
+      moveFrom((prev) => [...prev, template]);
+      moveTo((prev) => prev.filter((t) => t.id !== template.id));
+      toast.error('Error al mover la clase');
     }
   };
 
@@ -377,7 +500,7 @@ export function ClassesPage() {
               </div>
             ))}
           </div>
-        ) : templates.length === 0 ? (
+        ) : myClasses.length === 0 && genericClasses.length === 0 ? (
           // Estado vacío
           <div className="flex flex-col items-center justify-center py-16 text-center">
             <CalendarDays size={48} className="text-gray-600 mb-4" />
@@ -397,78 +520,63 @@ export function ClassesPage() {
             )}
           </div>
         ) : (
-          <div className="space-y-3">
-            {templates.map((template) => (
-              <div
-                key={template.id}
-                onClick={() => navigate(`/clases/${template.id}`)}
-                className="bg-gray-900 border border-gray-800 rounded-xl p-4 cursor-pointer hover:border-gray-700 active:bg-gray-800 transition-colors"
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      {/* Indicador de favorita */}
-                      <button
-                        onClick={(e) => handleToggleFavorite(e, template)}
-                        className="shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center -ml-2 -my-2"
-                        aria-label={template.is_favorite ? 'Quitar favorita' : 'Marcar como favorita'}
-                      >
-                        <Star
-                          size={18}
-                          className={
-                            template.is_favorite === 1
-                              ? 'fill-yellow-400 text-yellow-400'
-                              : 'text-gray-600'
-                          }
-                        />
-                      </button>
-                      <h3 className="text-white font-semibold truncate">{template.name}</h3>
-                    </div>
-
-                    {/* Meta información */}
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500 ml-8">
-                      {template.date && (
-                        <span className="text-gray-400">{formatShortDate(template.date)}</span>
-                      )}
-                      {template.estimated_duration_minutes && (
-                        <span className="flex items-center gap-1">
-                          <Clock size={11} />
-                          {template.estimated_duration_minutes} min
-                        </span>
-                      )}
-                      {(template.section_count ?? 0) > 0 && (
-                        <span className="flex items-center gap-1">
-                          <Layers size={11} />
-                          {template.section_count} secc.
-                        </span>
-                      )}
-                      {(template.exercise_count ?? 0) > 0 && (
-                        <span className="flex items-center gap-1">
-                          <Dumbbell size={11} />
-                          {template.exercise_count} ej.
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Objetivo */}
-                    {template.objective && (
-                      <p className="text-xs text-gray-500 mt-1.5 ml-8 line-clamp-1">
-                        {template.objective}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Botón duplicar */}
-                  <button
-                    onClick={(e) => handleDuplicate(e, template.id)}
-                    className="shrink-0 p-2 text-gray-500 hover:text-gray-300 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
-                    aria-label="Duplicar plantilla"
-                  >
-                    <Copy size={16} />
-                  </button>
-                </div>
+          <div className="space-y-6">
+            {/* ── Mis Clases ── */}
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <FolderOpen size={16} className="text-primary-400" />
+                <h2 className="text-sm font-bold text-white uppercase tracking-wider">Mis Clases</h2>
+                <span className="text-xs text-gray-500">({myClasses.length})</span>
               </div>
-            ))}
+              {myClasses.length === 0 ? (
+                <p className="text-sm text-gray-600 text-center py-4">No hay clases en esta sección</p>
+              ) : (
+                <div className="space-y-3">
+                  {myClasses.map((template) => (
+                    <ClassCard
+                      key={template.id}
+                      template={template}
+                      onNavigate={() => navigate(`/clases/${template.id}`)}
+                      onToggleFavorite={handleToggleFavorite}
+                      onDuplicate={handleDuplicate}
+                      onToggleType={handleToggleType}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* ── Clases Genéricas (colapsable) ── */}
+            {genericClasses.length > 0 && (
+              <div>
+                <button
+                  onClick={() => setGenericExpanded(!genericExpanded)}
+                  className="w-full flex items-center gap-2 mb-3 py-1"
+                >
+                  <Globe size={16} className="text-gray-500" />
+                  <h2 className="text-sm font-bold text-gray-400 uppercase tracking-wider">Clases Genéricas</h2>
+                  <span className="text-xs text-gray-600">({genericClasses.length})</span>
+                  <ChevronRight
+                    size={16}
+                    className={`text-gray-600 ml-auto transition-transform ${genericExpanded ? 'rotate-90' : ''}`}
+                  />
+                </button>
+                {genericExpanded && (
+                  <div className="space-y-3">
+                    {genericClasses.map((template) => (
+                      <ClassCard
+                        key={template.id}
+                        template={template}
+                        onNavigate={() => navigate(`/clases/${template.id}`)}
+                        onToggleFavorite={handleToggleFavorite}
+                        onDuplicate={handleDuplicate}
+                        onToggleType={handleToggleType}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         )}
       </div>

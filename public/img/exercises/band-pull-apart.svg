@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="240" height="230" fill="#111827" rx="12"/>
+  <line x1="20" y1="210" x2="220" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="120" y="225" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" fill="#475569" letter-spacing="2">BAND PULL-APART</text>
+  <!-- Frame 1: Hands close in front, band short -->
+  <g class="f1">
+    <circle cx="120" cy="26" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="120" y1="38" x2="120" y2="110"/>
+      <line x1="98" y1="50" x2="142" y2="50"/>
+      <line x1="98" y1="50" x2="112" y2="38"/>
+      <line x1="142" y1="50" x2="128" y2="38"/>
+      <line x1="120" y1="110" x2="113" y2="162"/><line x1="113" y1="162" x2="113" y2="205"/>
+      <line x1="120" y1="110" x2="127" y2="162"/><line x1="127" y1="162" x2="127" y2="205"/>
+      <line x1="98" y1="205" x2="126" y2="205"/>
+      <line x1="114" y1="205" x2="142" y2="205"/>
+    </g>
+    <circle cx="113" cy="162" r="4" fill="#64748b"/>
+    <circle cx="127" cy="162" r="4" fill="#64748b"/>
+    <line x1="112" y1="38" x2="128" y2="38" stroke="#a78bfa" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <!-- Frame 2: Arms at 45° outward, band stretching -->
+  <g class="f2">
+    <circle cx="120" cy="26" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="120" y1="38" x2="120" y2="110"/>
+      <line x1="98" y1="50" x2="142" y2="50"/>
+      <line x1="98" y1="50" x2="64" y2="26"/>
+      <line x1="142" y1="50" x2="176" y2="26"/>
+      <line x1="120" y1="110" x2="113" y2="162"/><line x1="113" y1="162" x2="113" y2="205"/>
+      <line x1="120" y1="110" x2="127" y2="162"/><line x1="127" y1="162" x2="127" y2="205"/>
+      <line x1="98" y1="205" x2="126" y2="205"/>
+      <line x1="114" y1="205" x2="142" y2="205"/>
+    </g>
+    <circle cx="113" cy="162" r="4" fill="#64748b"/>
+    <circle cx="127" cy="162" r="4" fill="#64748b"/>
+    <line x1="64" y1="26" x2="176" y2="26" stroke="#a78bfa" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <!-- Frame 3: Arms fully horizontal (T), band fully stretched -->
+  <g class="f3">
+    <circle cx="120" cy="26" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="120" y1="38" x2="120" y2="110"/>
+      <line x1="98" y1="50" x2="142" y2="50"/>
+      <line x1="98" y1="50" x2="28" y2="50"/>
+      <line x1="142" y1="50" x2="212" y2="50"/>
+      <line x1="120" y1="110" x2="113" y2="162"/><line x1="113" y1="162" x2="113" y2="205"/>
+      <line x1="120" y1="110" x2="127" y2="162"/><line x1="127" y1="162" x2="127" y2="205"/>
+      <line x1="98" y1="205" x2="126" y2="205"/>
+      <line x1="114" y1="205" x2="142" y2="205"/>
+    </g>
+    <circle cx="113" cy="162" r="4" fill="#64748b"/>
+    <circle cx="127" cy="162" r="4" fill="#64748b"/>
+    <line x1="28" y1="50" x2="212" y2="50" stroke="#a78bfa" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>

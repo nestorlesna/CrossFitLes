@@ -16,10 +16,10 @@ export function ExerciseCard({ exercise, tags = [] }: ExerciseCardProps) {
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-  // Cargar imagen: primero SVG estático (image_url), luego foto del usuario (image_path)
+  // Cargar imagen: resolver tanto rutas estáticas como persistentes
   useEffect(() => {
     if (exercise.image_url) {
-      setImageUrl(exercise.image_url);
+      getImageDisplayUrl(exercise.image_url).then(setImageUrl);
     } else if (exercise.image_path) {
       getImageDisplayUrl(exercise.image_path).then(setImageUrl);
     }

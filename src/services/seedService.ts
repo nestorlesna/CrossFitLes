@@ -24,6 +24,8 @@ function markFlag(flag: string): void {
 export function clearSeedFlags(): void {
   localStorage.removeItem(SEED_FLAG);
   localStorage.removeItem(SEED_EXERCISES_FLAG);
+  localStorage.removeItem('seed_v3_templates_done');
+  localStorage.removeItem('seed_v4_goat_apr1_done');
 }
 
 // Inserta un registro de catálogo con manejo de errores individual
@@ -214,6 +216,15 @@ export async function runSeed(db: SQLiteDBConnection): Promise<void> {
       await seedTemplates(db);
       markFlag(SEED_TEMPLATES_FLAG);
       console.log('[Seed v3] Plantillas cargadas.');
+    }
+
+    // ─── Seed v4: Clase GOAT 01/04/2026 ────────────────────────────────────
+    const SEED_GOAT_APR1_FLAG = 'seed_v4_goat_apr1_done';
+    if (!isFlagDone(SEED_GOAT_APR1_FLAG)) {
+      console.log('[Seed v4] Iniciando carga de Clase GOAT 01/04/2026...');
+      await seedGoatApr1(db);
+      markFlag(SEED_GOAT_APR1_FLAG);
+      console.log('[Seed v4] Clase GOAT 01/04/2026 cargada.');
     }
   } catch (error) {
     console.error('[Seed] Error critico en runSeed:', error);
@@ -638,9 +649,9 @@ async function seedTemplates(db: SQLiteDBConnection): Promise<void> {
     // 2. Crear Plantilla: "Metcon de Viernes"
     const templateId = generateUUID();
     await db.run(
-      `INSERT INTO class_template (id, name, objective, is_favorite, is_active, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      [templateId, 'Metcon de Viernes', 'Capacidad aeróbica y resistencia muscular', 1, 1, timestamp, timestamp]
+      `INSERT INTO class_template (id, name, objective, is_favorite, template_type, is_active, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [templateId, 'Metcon de Viernes', 'Capacidad aeróbica y resistencia muscular', 1, 'generic', 1, timestamp, timestamp]
     );
 
     // Sección 1: Warmup
@@ -684,38 +695,512 @@ async function seedTemplates(db: SQLiteDBConnection): Promise<void> {
   }
 }
 
+// ─── Seed v4: Clase GOAT 01/04/2026 ─────────────────────────────────────────
+
+async function seedGoatApr1(db: SQLiteDBConnection): Promise<void> {
+  const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 19);
+
+  // Función auxiliar: inserta si no existe, devuelve el ID resultante
+  async function upsertByName(table: string, name: string, extraFields: Record<string, unknown>): Promise<string> {
+    const existing = await findIdByName(db, table, name);
+    if (existing) return existing;
+    const id = generateUUID();
+    const fields = { id, name, ...extraFields };
+    const keys = Object.keys(fields);
+    const vals = Object.values(fields);
+    const placeholders = keys.map(() => '?').join(', ');
+    await db.run(`INSERT OR IGNORE INTO ${table} (${keys.join(', ')}) VALUES (${placeholders})`, vals);
+    return id;
+  }
+
+  // ─── 1. Equipamiento nuevo ──────────────────────────────────────────────
+  await upsertByName('equipment', 'Disco', {
+    category: 'other', sort_order: 16, is_active: 1,
+    description: 'Disco de peso para barra o ejercicios de movilidad',
+    created_at: timestamp, updated_at: timestamp,
+  });
+
+  // ─── 2. Mapas de IDs ────────────────────────────────────────────────────
+  const diffMap = new Map((await db.query('SELECT id, name FROM difficulty_level')).values?.map((r: any) => [r.name, r.id]) ?? []);
+  const muscMap = new Map((await db.query('SELECT id, name FROM muscle_group')).values?.map((r: any) => [r.name, r.id]) ?? []);
+  const equipMap = new Map((await db.query('SELECT id, name FROM equipment')).values?.map((r: any) => [r.name, r.id]) ?? []);
+  const tagMap = new Map((await db.query('SELECT id, name FROM tag')).values?.map((r: any) => [r.name, r.id]) ?? []);
+  const sectMap = new Map((await db.query('SELECT id, name FROM section_type')).values?.map((r: any) => [r.name, r.id]) ?? []);
+  const unitMap = new Map((await db.query('SELECT id, name FROM measurement_unit')).values?.map((r: any) => [r.name, r.id]) ?? []);
+
+  // ─── 3. Ejercicios nuevos ────────────────────────────────────────────────
+  interface GoatExercise {
+    name: string;
+    description: string;
+    technical_notes: string;
+    difficulty: string;
+    primaryMuscle: string;
+    is_compound: number;
+    image_url: string;
+    video_path: string;
+    secondaryMuscles: string[];
+    equipment: string[];
+    tags: string[];
+    sections: string[];
+    units: string[];
+  }
+
+  const GOAT_EXERCISES: GoatExercise[] = [
+    {
+      name: 'Band Pull-Apart',
+      description: 'De pie, sostener una banda elástica con ambas manos al frente. Separar los brazos horizontalmente hasta que la banda toque el pecho, luego volver. Trabaja la apertura posterior del hombro.',
+      technical_notes: 'Mantener los codos extendidos. No elevar los hombros. Las escápulas se juntan al final del movimiento.',
+      difficulty: 'Básico', primaryMuscle: 'Deltoides', is_compound: 0,
+      image_url: '/img/exercises/band-pull-apart.svg',
+      video_path: 'https://www.youtube.com/shorts/SuvO4TBwSu4',
+      secondaryMuscles: ['Trapecio', 'Dorsales'],
+      equipment: ['Banda elástica'],
+      tags: ['hombro', 'pull', 'movilidad'],
+      sections: ['Entrada en calor', 'Activación'],
+      units: ['Repeticiones', 'Segundos'],
+    },
+    {
+      name: 'Band External Rotation',
+      description: 'De pie junto a un ancla, codo a 90° contra el cuerpo. Rotar el antebrazo hacia afuera contra la resistencia de la banda, luego volver.',
+      technical_notes: 'El codo no debe separarse del cuerpo. Rango de movimiento controlado. Ejecutar cada lado por separado.',
+      difficulty: 'Básico', primaryMuscle: 'Deltoides', is_compound: 0,
+      image_url: '/img/exercises/band-external-rotation.svg',
+      video_path: 'https://www.youtube.com/watch?v=wQdfeB80fqo',
+      secondaryMuscles: ['Trapecio'],
+      equipment: ['Banda elástica'],
+      tags: ['hombro', 'movilidad', 'unilateral'],
+      sections: ['Entrada en calor', 'Activación'],
+      units: ['Repeticiones', 'Segundos'],
+    },
+    {
+      name: '90/90 Hip Rotation',
+      description: 'Sentado en el suelo con ambas piernas en 90°, una adelante y una al costado. Rotar el torso y la cadera hacia el lado contrario, volviendo a la posición original.',
+      technical_notes: 'Mantener la espalda recta durante toda la rotación. Las rodillas permanecen en 90°. Movimiento activo, sin forzar el rango.',
+      difficulty: 'Básico', primaryMuscle: 'Glúteos', is_compound: 0,
+      image_url: '/img/exercises/hip-90-90-rotation.svg',
+      video_path: 'https://www.youtube.com/watch?v=f_7qIPxw6nE',
+      secondaryMuscles: ['Core/Abdominales', 'Isquiotibiales'],
+      equipment: [],
+      tags: ['movilidad', 'unilateral'],
+      sections: ['Entrada en calor'],
+      units: ['Repeticiones', 'Segundos'],
+    },
+    {
+      name: 'Lateral Raise to Overhead',
+      description: 'De pie con discos livianos. Elevar los brazos lateralmente (lateral raise) y continuar el movimiento hasta overhead. Bajar por el mismo camino.',
+      technical_notes: 'Usar pesos muy livianos (2.5 kg). Movimiento continuo sin pausa. Core activo. No elevar los hombros durante el lateral raise.',
+      difficulty: 'Básico', primaryMuscle: 'Deltoides', is_compound: 0,
+      image_url: '/img/exercises/lateral-raise-to-overhead.svg',
+      video_path: 'https://www.youtube.com/watch?v=7mUqxKfg6zo',
+      secondaryMuscles: ['Trapecio'],
+      equipment: ['Disco'],
+      tags: ['hombro', 'monoarticular', 'bilateral'],
+      sections: ['Activación'],
+      units: ['Repeticiones', 'Kilogramos'],
+    },
+    {
+      name: 'Scapular Push-Up',
+      description: 'En plancha alta (push-up), sin doblar los codos, hacer protracción y retracción escapular. Las escápulas se juntan y separan moviendo el torso verticalmente pocos centímetros.',
+      technical_notes: 'Los codos permanecen extendidos siempre. Es un movimiento puro de las escápulas, no de los brazos. Core activo durante todo el ejercicio.',
+      difficulty: 'Básico', primaryMuscle: 'Dorsales', is_compound: 0,
+      image_url: '/img/exercises/scapular-push-up.svg',
+      video_path: 'https://www.youtube.com/watch?v=huGj4aBk9C4',
+      secondaryMuscles: ['Pectorales', 'Core/Abdominales'],
+      equipment: [],
+      tags: ['movilidad', 'activación', 'bilateral'],
+      sections: ['Activación', 'Entrada en calor'],
+      units: ['Repeticiones', 'Segundos'],
+    },
+    {
+      name: 'High Pull + External Rotation',
+      description: 'Con discos livianos, realizar un high pull (codos por encima de los hombros) y en el punto más alto, rotar los antebrazos hacia arriba y afuera como el inicio de una arrancada.',
+      technical_notes: 'Movimiento de preparación para la arrancada. Pesos muy livianos (2.5 kg). Los codos lideran el tirón hacia arriba. La rotación es controlada.',
+      difficulty: 'Intermedio', primaryMuscle: 'Deltoides', is_compound: 1,
+      image_url: '/img/exercises/high-pull-external-rotation.svg',
+      video_path: 'https://www.youtube.com/watch?v=-EZP2ynZchc',
+      secondaryMuscles: ['Trapecio', 'Bíceps'],
+      equipment: ['Disco'],
+      tags: ['hombro', 'olímpico', 'bilateral'],
+      sections: ['Activación', 'Fuerza'],
+      units: ['Repeticiones', 'Kilogramos'],
+    },
+    {
+      name: 'Snatch Grip Deadlift',
+      description: 'Peso muerto con agarre amplio de arrancada. Desde el suelo, elevar la barra con agarre ancho manteniendo la espalda neutra, terminando de pie con la cadera extendida.',
+      technical_notes: 'El agarre es más ancho que el deadlift convencional. Mantener la espalda plana y los hombros delante de la barra al inicio. La barra debe rozar las piernas durante el jalón.',
+      difficulty: 'Intermedio', primaryMuscle: 'Isquiotibiales', is_compound: 1,
+      image_url: '/img/exercises/barbell-snatch-grip-deadlift.svg',
+      video_path: 'https://www.youtube.com/watch?v=E42_MZOKktU',
+      secondaryMuscles: ['Glúteos', 'Cuádriceps', 'Dorsales', 'Trapecio'],
+      equipment: ['Barra olímpica'],
+      tags: ['olímpico', 'pull', 'bilateral'],
+      sections: ['Fuerza'],
+      units: ['Kilogramos', 'Libras', 'Repeticiones'],
+    },
+    {
+      name: 'Snatch High Pull',
+      description: 'Desde la cadera, tirar la barra con agarre de arrancada hasta la altura del pecho llevando los codos altos y hacia afuera. El jalón termina en puntillas.',
+      technical_notes: 'La extensión de cadera inicia el movimiento. Los codos salen hacia afuera y hacia arriba, nunca hacia atrás. La barra sube pegada al cuerpo.',
+      difficulty: 'Intermedio', primaryMuscle: 'Trapecio', is_compound: 1,
+      image_url: '/img/exercises/barbell-snatch-high-pull.svg',
+      video_path: 'https://www.youtube.com/watch?v=33jE3S5IMMo',
+      secondaryMuscles: ['Deltoides', 'Cuádriceps', 'Glúteos'],
+      equipment: ['Barra olímpica'],
+      tags: ['olímpico', 'pull', 'bilateral'],
+      sections: ['Fuerza', 'Habilidad'],
+      units: ['Kilogramos', 'Libras', 'Repeticiones'],
+    },
+    {
+      name: 'Barbell Muscle Snatch',
+      description: 'Arrancada muscular: levantar la barra desde la cadera hasta overhead en un solo movimiento fluido sin recibir con sentadilla. Requiere fuerza de hombros y coordinación.',
+      technical_notes: 'A diferencia del snatch olímpico, no hay sentadilla de recepción. Los codos suben alto y luego el antebrazo rota para lockear overhead. La barra no debe alejarse del cuerpo.',
+      difficulty: 'Intermedio', primaryMuscle: 'Deltoides', is_compound: 1,
+      image_url: '/img/exercises/barbell-muscle-snatch.svg',
+      video_path: 'https://www.youtube.com/watch?v=hFb3l16PI4U',
+      secondaryMuscles: ['Trapecio', 'Cuádriceps', 'Glúteos', 'Core/Abdominales'],
+      equipment: ['Barra olímpica'],
+      tags: ['olímpico', 'push', 'bilateral'],
+      sections: ['Fuerza', 'Habilidad'],
+      units: ['Kilogramos', 'Libras', 'Repeticiones'],
+    },
+    {
+      name: 'Snatch with Pause at Knee',
+      description: 'Arrancada completa con una pausa de 2 segundos cuando la barra cruza la altura de las rodillas. Permite trabajar la posición crítica de la primera y segunda tracción.',
+      technical_notes: 'Durante la pausa: espalda plana, hombros delante de la barra, rodillas ligeramente abiertas. Reanudar la extensión de cadera con potencia. Peso más liviano que el snatch normal.',
+      difficulty: 'Avanzado', primaryMuscle: 'Cuádriceps', is_compound: 1,
+      image_url: '/img/exercises/barbell-snatch-pause-at-knee.svg',
+      video_path: 'https://www.youtube.com/watch?v=EOrFQ9O1Ng4',
+      secondaryMuscles: ['Glúteos', 'Deltoides', 'Trapecio', 'Core/Abdominales'],
+      equipment: ['Barra olímpica'],
+      tags: ['olímpico', 'bilateral'],
+      sections: ['Fuerza', 'Habilidad'],
+      units: ['Kilogramos', 'Libras', 'Repeticiones'],
+    },
+    {
+      name: 'Dumbbell Deadlift',
+      description: 'Peso muerto con mancuernas. Desde el suelo, flexionar caderas y rodillas para bajar y subir las mancuernas manteniendo la espalda neutra.',
+      technical_notes: 'Igual al deadlift con barra pero las mancuernas van al costado del cuerpo. Mantener el core activo y la espalda recta. El movimiento inicia con la cadera, no con los brazos.',
+      difficulty: 'Básico', primaryMuscle: 'Isquiotibiales', is_compound: 1,
+      image_url: '/img/exercises/dumbbell-deadlift.svg',
+      video_path: 'https://www.youtube.com/shorts/ElCIiU1FWxg',
+      secondaryMuscles: ['Glúteos', 'Cuádriceps', 'Core/Abdominales'],
+      equipment: ['Mancuernas'],
+      tags: ['pull', 'bilateral'],
+      sections: ['Fuerza', 'WOD'],
+      units: ['Kilogramos', 'Repeticiones'],
+    },
+    {
+      name: 'DB Lateral Step-Over',
+      description: 'Con una mancuerna en cada mano, pasar lateralmente por encima de un objeto (barra, cono) dando un paso con cada pierna. También llamado Crossover.',
+      technical_notes: 'Mantener el torso erguido. El movimiento es lateral, no hacia adelante. Core activo durante todo el ejercicio. Las mancuernas no se apoyan en el objeto.',
+      difficulty: 'Básico', primaryMuscle: 'Cuádriceps', is_compound: 1,
+      image_url: '/img/exercises/dumbbell-lateral-step-over.svg',
+      video_path: 'https://www.youtube.com/shorts/vs1813G1Q00',
+      secondaryMuscles: ['Glúteos', 'Core/Abdominales'],
+      equipment: ['Mancuernas'],
+      tags: ['cardio', 'unilateral', 'pliométrico'],
+      sections: ['WOD'],
+      units: ['Repeticiones', 'Kilogramos'],
+    },
+    {
+      name: 'Dumbbell Push Press',
+      description: 'Con mancuernas en rack position, hacer un pequeño dip de rodillas y usar el impulso de piernas para empujar las mancuernas hasta overhead.',
+      technical_notes: 'El dip es pequeño y controlado (no más de 10-15 cm). La extensión de rodillas genera el impulso. Terminar con brazos completamente extendidos y biceps junto a las orejas.',
+      difficulty: 'Intermedio', primaryMuscle: 'Deltoides', is_compound: 1,
+      image_url: '/img/exercises/dumbbell-push-press.svg',
+      video_path: 'https://www.youtube.com/shorts/cQ67XoqcItE',
+      secondaryMuscles: ['Tríceps', 'Cuádriceps', 'Core/Abdominales'],
+      equipment: ['Mancuernas'],
+      tags: ['push', 'press', 'bilateral'],
+      sections: ['Fuerza', 'WOD'],
+      units: ['Kilogramos', 'Repeticiones'],
+    },
+  ];
+
+  // Obtener ejercicios existentes para no duplicar
+  const existingNames = new Set(
+    ((await db.query('SELECT name FROM exercise WHERE is_active = 1')).values ?? []).map((r: any) => r.name as string)
+  );
+
+  const exerciseIdMap = new Map<string, string>(); // name → id
+
+  for (const ex of GOAT_EXERCISES) {
+    if (existingNames.has(ex.name)) {
+      // Ya existe: obtener su ID
+      const existingId = await findIdByName(db, 'exercise', ex.name);
+      if (existingId) exerciseIdMap.set(ex.name, existingId);
+      console.debug(`[Seed v4] Ejercicio ya existe: ${ex.name}`);
+      continue;
+    }
+
+    const id = generateUUID();
+    await db.run(
+      `INSERT INTO exercise (id, name, description, technical_notes, difficulty_level_id, primary_muscle_group_id,
+        image_url, video_path, is_compound, is_active, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)`,
+      [id, ex.name, ex.description, ex.technical_notes,
+       diffMap.get(ex.difficulty) ?? null,
+       muscMap.get(ex.primaryMuscle) ?? null,
+       ex.image_url, ex.video_path, ex.is_compound,
+       timestamp, timestamp]
+    );
+
+    // Músculos secundarios
+    for (const m of ex.secondaryMuscles) {
+      const mId = muscMap.get(m);
+      if (mId) await db.run(
+        'INSERT INTO exercise_muscle_group (id, exercise_id, muscle_group_id, is_primary) VALUES (?, ?, ?, 0)',
+        [generateUUID(), id, mId]
+      );
+    }
+    // Equipamiento
+    for (const e of ex.equipment) {
+      const eId = equipMap.get(e);
+      if (eId) await db.run(
+        'INSERT INTO exercise_equipment (id, exercise_id, equipment_id) VALUES (?, ?, ?)',
+        [generateUUID(), id, eId]
+      );
+    }
+    // Tags
+    for (const t of ex.tags) {
+      const tId = tagMap.get(t);
+      if (tId) await db.run(
+        'INSERT INTO exercise_tag (id, exercise_id, tag_id) VALUES (?, ?, ?)',
+        [generateUUID(), id, tId]
+      );
+    }
+    // Secciones
+    for (const s of ex.sections) {
+      const sId = sectMap.get(s);
+      if (sId) await db.run(
+        'INSERT INTO exercise_section_type (id, exercise_id, section_type_id) VALUES (?, ?, ?)',
+        [generateUUID(), id, sId]
+      );
+    }
+    // Unidades
+    for (let i = 0; i < ex.units.length; i++) {
+      const uId = unitMap.get(ex.units[i]);
+      if (uId) await db.run(
+        'INSERT INTO exercise_unit (id, exercise_id, measurement_unit_id, is_default) VALUES (?, ?, ?, ?)',
+        [generateUUID(), id, uId, i === 0 ? 1 : 0]
+      );
+    }
+
+    exerciseIdMap.set(ex.name, id);
+    console.info(`[Seed v4] Ejercicio creado: ${ex.name}`);
+  }
+
+  // ─── 4. IDs de catálogos para la clase ──────────────────────────────────
+  const warmupType   = await findIdByName(db, 'section_type', 'Entrada en calor');
+  const activType    = await findIdByName(db, 'section_type', 'Activación');
+  const fuerzaType   = await findIdByName(db, 'section_type', 'Fuerza');
+  const wodType      = await findIdByName(db, 'section_type', 'WOD');
+  const porRondasFmt = await findIdByName(db, 'work_format', 'Por rondas');
+  const e2momFmt     = await findIdByName(db, 'work_format', 'E2MOM');
+  const trabLibreFmt = await findIdByName(db, 'work_format', 'Trabajo libre');
+  const emomFmt      = await findIdByName(db, 'work_format', 'EMOM');
+  const kgUnit       = await findIdByName(db, 'measurement_unit', 'Kilogramos');
+
+  // IDs de ejercicios (existentes o recién creados)
+  async function exId(name: string): Promise<string | null> {
+    return exerciseIdMap.get(name) ?? await findIdByName(db, 'exercise', name);
+  }
+
+  const idBandPullApart       = await exId('Band Pull-Apart');
+  const idBandExtRot          = await exId('Band External Rotation');
+  const id9090Hip             = await exId('90/90 Hip Rotation');
+  const idLateralRaise        = await exId('Lateral Raise to Overhead');
+  const idScapularPushup      = await exId('Scapular Push-Up');
+  const idHighPullExtRot      = await exId('High Pull + External Rotation');
+  const idSnatGripDL          = await exId('Snatch Grip Deadlift');
+  const idSnatHighPull        = await exId('Snatch High Pull');
+  const idMuscleSnatch        = await exId('Barbell Muscle Snatch');
+  const idSnatPauseKnee       = await exId('Snatch with Pause at Knee');
+  const idDBDeadlift          = await exId('Dumbbell Deadlift');
+  const idDBStepOver          = await exId('DB Lateral Step-Over');
+  const idDBPushPress         = await exId('Dumbbell Push Press');
+
+  // ─── 5. Clase GOAT 01/04/2026 ───────────────────────────────────────────
+  const existingClass = await findIdByName(db, 'class_template', 'Clase GOAT 01/04/2026');
+  if (existingClass) {
+    console.debug('[Seed v4] La clase GOAT 01/04/2026 ya existe, se omite.');
+    return;
+  }
+
+  const classId = generateUUID();
+  await db.run(
+    `INSERT INTO class_template (id, date, name, objective, estimated_duration_minutes, is_favorite, template_type, is_active, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, 0, 'generic', 1, ?, ?)`,
+    [classId, '2026-04-01',
+     'Clase GOAT 01/04/2026',
+     'Progresión técnica de arrancada (snatch): complejo de barbell en EMOM + WOD en parejas con mancuernas',
+     60, timestamp, timestamp]
+  );
+
+  // Sección 1: Calentamiento
+  const s1 = generateUUID();
+  await db.run(
+    `INSERT INTO class_section (id, class_template_id, section_type_id, work_format_id, sort_order,
+      visible_title, general_description, time_cap_seconds, created_at, updated_at)
+     VALUES (?, ?, ?, ?, 1, ?, ?, 360, ?, ?)`,
+    [s1, classId, warmupType, trabLibreFmt, 'Calentamiento', '6 minutos de calentamiento general', timestamp, timestamp]
+  );
+
+  // Sección 2: Movilidad (2 rondas x 30 seg)
+  const s2 = generateUUID();
+  await db.run(
+    `INSERT INTO class_section (id, class_template_id, section_type_id, work_format_id, sort_order,
+      visible_title, general_description, total_rounds, created_at, updated_at)
+     VALUES (?, ?, ?, ?, 2, ?, ?, 2, ?, ?)`,
+    [s2, classId, warmupType, porRondasFmt, 'Movilidad', '2 rondas, todo 30 segundos', timestamp, timestamp]
+  );
+  if (idBandPullApart) await db.run(
+    `INSERT INTO section_exercise (id, class_section_id, exercise_id, sort_order, planned_time_seconds, created_at, updated_at)
+     VALUES (?, ?, ?, 1, 30, ?, ?)`, [generateUUID(), s2, idBandPullApart, timestamp, timestamp]);
+  if (idBandExtRot) await db.run(
+    `INSERT INTO section_exercise (id, class_section_id, exercise_id, sort_order, planned_time_seconds,
+      coach_notes, created_at, updated_at)
+     VALUES (?, ?, ?, 2, 30, ?, ?, ?)`, [generateUUID(), s2, idBandExtRot, 'Cada lado', timestamp, timestamp]);
+  if (id9090Hip) await db.run(
+    `INSERT INTO section_exercise (id, class_section_id, exercise_id, sort_order, planned_time_seconds, created_at, updated_at)
+     VALUES (?, ?, ?, 3, 30, ?, ?)`, [generateUUID(), s2, id9090Hip, timestamp, timestamp]);
+
+  // Sección 3: Activación (5 min EMOM, 10 reps)
+  const s3 = generateUUID();
+  await db.run(
+    `INSERT INTO class_section (id, class_template_id, section_type_id, work_format_id, sort_order,
+      visible_title, general_description, time_cap_seconds, created_at, updated_at)
+     VALUES (?, ?, ?, ?, 3, ?, ?, 300, ?, ?)`,
+    [s3, classId, activType, emomFmt, 'Activación', 'todo 10 repeticiones en 5 minutos', timestamp, timestamp]
+  );
+  if (idLateralRaise) await db.run(
+    `INSERT INTO section_exercise (id, class_section_id, exercise_id, sort_order, planned_repetitions,
+      planned_weight_value, planned_weight_unit_id, coach_notes, created_at, updated_at)
+     VALUES (?, ?, ?, 1, 10, 2.5, ?, ?, ?, ?)`,
+    [generateUUID(), s3, idLateralRaise, kgUnit, '2 discos de 2.5 kg', timestamp, timestamp]);
+  if (idScapularPushup) await db.run(
+    `INSERT INTO section_exercise (id, class_section_id, exercise_id, sort_order, planned_repetitions, created_at, updated_at)
+     VALUES (?, ?, ?, 2, 10, ?, ?)`, [generateUUID(), s3, idScapularPushup, timestamp, timestamp]);
+  if (idHighPullExtRot) await db.run(
+    `INSERT INTO section_exercise (id, class_section_id, exercise_id, sort_order, planned_repetitions,
+      planned_weight_value, planned_weight_unit_id, coach_notes, created_at, updated_at)
+     VALUES (?, ?, ?, 3, 10, 2.5, ?, ?, ?, ?)`,
+    [generateUUID(), s3, idHighPullExtRot, kgUnit, '2 discos de 2.5 kg', timestamp, timestamp]);
+
+  // Sección 4: Fuerza A – Complejo Snatch (E2MOM, 3 rondas)
+  const s4 = generateUUID();
+  await db.run(
+    `INSERT INTO class_section (id, class_template_id, section_type_id, work_format_id, sort_order,
+      visible_title, general_description, total_rounds, time_cap_seconds, created_at, updated_at)
+     VALUES (?, ?, ?, ?, 4, ?, ?, 3, 180, ?, ?)`,
+    [s4, classId, fuerzaType, e2momFmt, 'Fuerza - Complejo', '3 rondas, 5 repeticiones por 1 minuto', timestamp, timestamp]
+  );
+  if (idSnatGripDL) await db.run(
+    `INSERT INTO section_exercise (id, class_section_id, exercise_id, sort_order, planned_repetitions,
+      planned_weight_value, planned_weight_unit_id, coach_notes, created_at, updated_at)
+     VALUES (?, ?, ?, 1, 5, 20, ?, ?, ?, ?)`,
+    [generateUUID(), s4, idSnatGripDL, kgUnit, 'a', timestamp, timestamp]);
+  if (idSnatHighPull) await db.run(
+    `INSERT INTO section_exercise (id, class_section_id, exercise_id, sort_order, planned_repetitions,
+      planned_weight_value, planned_weight_unit_id, coach_notes, created_at, updated_at)
+     VALUES (?, ?, ?, 2, 5, 20, ?, ?, ?, ?)`,
+    [generateUUID(), s4, idSnatHighPull, kgUnit, 'b', timestamp, timestamp]);
+  if (idMuscleSnatch) await db.run(
+    `INSERT INTO section_exercise (id, class_section_id, exercise_id, sort_order, planned_repetitions,
+      planned_weight_value, planned_weight_unit_id, coach_notes, created_at, updated_at)
+     VALUES (?, ?, ?, 3, 5, 20, ?, ?, ?, ?)`,
+    [generateUUID(), s4, idMuscleSnatch, kgUnit, 'c', timestamp, timestamp]);
+
+  // Sección 5: Fuerza B – Snatch con pausa (E2MOM, 6 rondas x 1.5 min)
+  const s5 = generateUUID();
+  await db.run(
+    `INSERT INTO class_section (id, class_template_id, section_type_id, work_format_id, sort_order,
+      visible_title, general_description, total_rounds, time_cap_seconds, created_at, updated_at)
+     VALUES (?, ?, ?, ?, 5, ?, ?, 6, 540, ?, ?)`,
+    [s5, classId, fuerzaType, e2momFmt, 'Fuerza - Snatch', '6 rondas, 3 repeticiones por 1.5 minutos', timestamp, timestamp]
+  );
+  if (idSnatPauseKnee) await db.run(
+    `INSERT INTO section_exercise (id, class_section_id, exercise_id, sort_order, planned_repetitions,
+      coach_notes, created_at, updated_at)
+     VALUES (?, ?, ?, 1, 3, ?, ?, ?)`,
+    [generateUUID(), s5, idSnatPauseKnee, '2 segundos de pausa en rodilla', timestamp, timestamp]);
+
+  // Sección 6: WOD (10 rondas, máx 16 min, en parejas)
+  const s6 = generateUUID();
+  await db.run(
+    `INSERT INTO class_section (id, class_template_id, section_type_id, work_format_id, sort_order,
+      visible_title, general_description, total_rounds, time_cap_seconds, created_at, updated_at)
+     VALUES (?, ?, ?, ?, 6, ?, ?, 10, 960, ?, ?)`,
+    [s6, classId, wodType, porRondasFmt, 'WOD',
+     '10 rondas máximo 16 minutos, en parejas: uno trabaja el otro descansa', timestamp, timestamp]
+  );
+  if (idDBDeadlift) await db.run(
+    `INSERT INTO section_exercise (id, class_section_id, exercise_id, sort_order, planned_repetitions,
+      planned_weight_value, planned_weight_unit_id, created_at, updated_at)
+     VALUES (?, ?, ?, 1, 6, 10, ?, ?, ?)`,
+    [generateUUID(), s6, idDBDeadlift, kgUnit, timestamp, timestamp]);
+  if (idDBStepOver) await db.run(
+    `INSERT INTO section_exercise (id, class_section_id, exercise_id, sort_order, planned_repetitions,
+      planned_weight_value, planned_weight_unit_id, created_at, updated_at)
+     VALUES (?, ?, ?, 2, 4, 10, ?, ?, ?)`,
+    [generateUUID(), s6, idDBStepOver, kgUnit, timestamp, timestamp]);
+  if (idDBPushPress) await db.run(
+    `INSERT INTO section_exercise (id, class_section_id, exercise_id, sort_order, planned_repetitions, created_at, updated_at)
+     VALUES (?, ?, ?, 3, 2, ?, ?)`, [generateUUID(), s6, idDBPushPress, timestamp, timestamp]);
+
+  console.info('[Seed v4] Clase GOAT 01/04/2026 creada con 6 secciones y 13 ejercicios.');
+}
+
 /**
  * Borra todas las tablas de la base de datos para un reset total
  */
 export async function resetDatabase(db: SQLiteDBConnection): Promise<void> {
   try {
-    console.warn('[Seed] Iniciando borrado total de la base de datos...');
+    console.warn('[Seed] Iniciando borrado total de la base de datos (ciclo de 10 veces para seguridad)...');
     
-    // Desactivar FKs para evitar errores de restricción al borrar
-    await db.execute('PRAGMA foreign_keys = OFF;');
+    for (let i = 1; i <= 10; i++) {
+      console.log(`[Seed] Ciclo de borrado #${i}`);
+      
+      // Desactivar FKs
+      await db.execute('PRAGMA foreign_keys = OFF;');
 
-    // Obtener todas las tablas del usuario
-    const tablesRes = await db.query(
-      "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';"
-    );
-    const tables = (tablesRes.values ?? []).map((t: any) => t.name);
+      // Obtener todas las tablas
+      const tablesRes = await db.query(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';"
+      );
+      const tables = (tablesRes.values ?? []).map((t: any) => t.name);
 
-    console.info('[Seed] Tablas encontradas para borrar:', tables);
+      if (tables.length === 0) {
+        console.log('[Seed] Ya no quedan tablas por borrar.');
+        break;
+      }
 
-    // Borrar cada tabla
-    for (const table of tables) {
-      try {
-        await db.execute(`DROP TABLE IF EXISTS ${table};`);
-        console.info(`[Seed] Tabla ${table} borrada.`);
-      } catch (e) {
-        console.warn(`[Seed] Error al borrar tabla ${table}:`, e);
+      for (const table of tables) {
+        try {
+          await db.execute(`DROP TABLE IF EXISTS ${table};`);
+        } catch (e) {
+          console.warn(`[Seed] Error al borrar tabla ${table} en ciclo ${i}:`, e);
+        }
       }
     }
 
-    // Reactivar FKs
+    // Vaciar sequence por si acaso (sin VACUUM para evitar errores de transaccion)
+    try {
+      await db.execute('DELETE FROM sqlite_sequence;');
+    } catch {}
+
+    // Reactivar FKs e invalidar versión de migraciones
     await db.execute('PRAGMA foreign_keys = ON;');
+    await db.execute('PRAGMA user_version = 0;');
     
-    console.log('[Seed] Todas las tablas han sido borradas.');
+    // PERSISTIR EL ESTADO VACÍO EN DISCO (IndexedDB)
+    try {
+      const { saveDatabase } = await import('../db/database');
+      await saveDatabase();
+      console.log('[Seed] Estado de base de datos vacía persistido en disco.');
+    } catch {}
+    
+    console.log('[Seed] Todas las tablas han sido borradas definitivamente.');
   } catch (err) {
     console.error('[Seed] Error critico en resetDatabase:', err);
     throw err;

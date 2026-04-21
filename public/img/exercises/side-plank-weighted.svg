@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 180">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="260" height="180" fill="#111827" rx="12"/>
+  <line x1="20" y1="148" x2="240" y2="148" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="130" y="167" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="2">SIDE PLANK</text>
+  <!-- Frame 1: Hip dipped — getting into position -->
+  <g class="f1">
+    <circle cx="65" cy="108" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Body diagonal, hips low -->
+      <line x1="65" y1="120" x2="185" y2="140"/>
+      <!-- Support arm (right) from shoulder down to elbow on ground -->
+      <line x1="65" y1="120" x2="72" y2="148"/>
+      <!-- Top arm (left) at side -->
+      <line x1="110" y1="128" x2="118" y2="148"/>
+    </g>
+    <circle cx="72" cy="148" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: Full side plank, body straight, top arm at side -->
+  <g class="f2">
+    <circle cx="62" cy="96" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Body in straight line from head to feet -->
+      <line x1="62" y1="108" x2="195" y2="138"/>
+      <!-- Support arm down to ground (forearm plank) -->
+      <line x1="62" y1="108" x2="68" y2="140"/>
+      <line x1="68" y1="140" x2="88" y2="148"/>
+      <!-- Top arm pointing up slightly -->
+      <line x1="115" y1="122" x2="120" y2="104"/>
+    </g>
+    <circle cx="88" cy="148" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: Full side plank, top arm raised overhead holding weight (plate) -->
+  <g class="f3">
+    <circle cx="62" cy="96" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Body in straight line -->
+      <line x1="62" y1="108" x2="195" y2="138"/>
+      <!-- Support arm (forearm plank) -->
+      <line x1="62" y1="108" x2="68" y2="140"/>
+      <line x1="68" y1="140" x2="88" y2="148"/>
+      <!-- Top arm raised overhead with weight -->
+      <line x1="115" y1="122" x2="108" y2="90"/>
+    </g>
+    <!-- Weight (plate) at top of raised arm -->
+    <rect x="100" y="80" width="16" height="10" rx="2" fill="#4b5563" stroke="#64748b" stroke-width="2"/>
+    <circle cx="88" cy="148" r="5" fill="#64748b"/>
+  </g>
+</svg>
