@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { 
   TrendingUp, 
   Award, 
@@ -38,8 +38,8 @@ import {
   getSectionDistribution,
   getExerciseProgression,
   getCaloriesHistory,
+  getExercisesWithProgression,
 } from '../../db/repositories/statsRepo';
-import { getAll as getAllExercises } from '../../db/repositories/exerciseRepo';
 import {
   PersonalRecord,
   ExerciseProgressionPoint,
@@ -47,7 +47,6 @@ import {
   SectionDistribution,
   CaloriesDataPoint,
 } from '../../models/Stats';
-import { Exercise } from '../../models/Exercise';
 import { RecordType } from '../../types';
 
 type TabType = 'summary' | 'records' | 'progression';
@@ -65,7 +64,7 @@ export function StatsPage() {
   const [calories, setCalories] = useState<CaloriesDataPoint[]>([]);
 
   // Datos para Progresión
-  const [exercises, setExercises] = useState<Exercise[]>([]);
+  const [progressionExercises, setProgressionExercises] = useState<{ id: string; name: string }[]>([]);
   const [selectedExerciseId, setSelectedExerciseId] = useState<string>('');
   const [selectedRecordType, setSelectedRecordType] = useState<RecordType>('max_weight');
   const [progressionData, setProgressionData] = useState<ExerciseProgressionPoint[]>([]);
@@ -75,22 +74,16 @@ export function StatsPage() {
   const loadInitialData = useCallback(async () => {
     setLoading(true);
     try {
-      const [prsRes, activityRes, distRes, exercisesRes, calRes] = await Promise.all([
+      const [prsRes, activityRes, distRes, calRes] = await Promise.all([
         getPersonalRecords(),
         getWeeklyActivity(12), // Últimos 3 meses
         getSectionDistribution(),
-        getAllExercises(),
         getCaloriesHistory(12),
       ]);
       setPrs(prsRes);
       setActivity(activityRes);
       setDistribution(distRes);
-      setExercises(exercisesRes);
       setCalories(calRes);
-      
-      if (exercisesRes.length > 0) {
-        setSelectedExerciseId(exercisesRes[0].id);
-      }
     } catch (error) {
       console.error('Error al cargar estadísticas:', error);
       toast.error('Error al cargar datos estadísticos');
@@ -103,7 +96,19 @@ export function StatsPage() {
     loadInitialData();
   }, [loadInitialData]);
 
-  // 2. Cargar progresión cuando cambia el ejercicio o tipo
+  // 2. Cargar ejercicios con datos suficientes al entrar al tab o cambiar tipo
+  useEffect(() => {
+    if (activeTab !== 'progression') return;
+
+    const loadExercises = async () => {
+      const exs = await getExercisesWithProgression(selectedRecordType);
+      setProgressionExercises(exs);
+      setSelectedExerciseId(prev => exs.find(e => e.id === prev) ? prev : (exs[0]?.id ?? ''));
+    };
+    loadExercises();
+  }, [activeTab, selectedRecordType]);
+
+  // 3. Cargar progresión cuando cambia el ejercicio o tipo
   useEffect(() => {
     if (!selectedExerciseId || activeTab !== 'progression') return;
 
@@ -121,7 +126,7 @@ export function StatsPage() {
     loadProgression();
   }, [selectedExerciseId, selectedRecordType, activeTab]);
 
-  // 3. Colores para el PieChart
+  // 4. Colores para el PieChart
   const COLORS = ['#primary-500', '#8b5cf6', '#ef4444', '#10b981', '#f59e0b', '#3b82f6'];
   const chartColors = ['#C1FF00', '#8B5CF6', '#EF4444', '#10B981', '#F59E0B', '#3B82F6'];
 
@@ -372,8 +377,12 @@ export function StatsPage() {
                 {prs.map((record) => (
                   <div key={record.id} className="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex items-center justify-between group active:scale-[0.98] transition-transform">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-primary-500/10 rounded-xl flex items-center justify-center text-primary-500">
-                        {getRecordIcon(record.record_type)}
+                      <div className="w-10 h-10 bg-primary-500/10 rounded-xl flex items-center justify-center text-primary-500 overflow-hidden">
+                        {record.exercise_image_url ? (
+                          <img src={record.exercise_image_url} alt={record.exercise_name} className="w-full h-full object-contain" />
+                        ) : (
+                          getRecordIcon(record.record_type)
+                        )}
                       </div>
                       <div>
                         <p className="text-sm font-bold text-white mb-0.5">{record.exercise_name}</p>
@@ -411,11 +420,16 @@ export function StatsPage() {
                     <select
                       value={selectedExerciseId}
                       onChange={(e) => setSelectedExerciseId(e.target.value)}
-                      className="w-full bg-gray-950 border border-gray-800 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-primary-500 appearance-none"
+                      disabled={progressionExercises.length === 0}
+                      className="w-full bg-gray-950 border border-gray-800 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-primary-500 appearance-none disabled:opacity-50"
                     >
-                      {exercises.map(ex => (
-                        <option key={ex.id} value={ex.id}>{ex.name}</option>
-                      ))}
+                      {progressionExercises.length === 0 ? (
+                        <option value="">Sin datos suficientes</option>
+                      ) : (
+                        progressionExercises.map(ex => (
+                          <option key={ex.id} value={ex.id}>{ex.name}</option>
+                        ))
+                      )}
                     </select>
                   </div>
                 </div>

@@ -14,7 +14,7 @@ import { format, subDays, startOfWeek, endOfWeek } from 'date-fns';
 export async function getPersonalRecords(): Promise<PersonalRecord[]> {
   const db = getDatabase();
   const query = `
-    SELECT pr.*, e.name as exercise_name, mu.abbreviation as record_unit_abbreviation
+    SELECT pr.*, e.name as exercise_name, e.image_url as exercise_image_url, mu.abbreviation as record_unit_abbreviation
     FROM personal_record pr
     JOIN exercise e ON pr.exercise_id = e.id
     LEFT JOIN measurement_unit mu ON pr.record_unit_id = mu.id
@@ -22,6 +22,42 @@ export async function getPersonalRecords(): Promise<PersonalRecord[]> {
   `;
   const result = await db.query(query);
   return result.values || [];
+}
+
+/**
+ * Ejercicios con al menos minCount registros completados para el tipo de récord dado.
+ * Usado para filtrar el selector del tab Progresión.
+ */
+export async function getExercisesWithProgression(
+  recordType: string,
+  minCount: number = 2
+): Promise<{ id: string; name: string }[]> {
+  const db = getDatabase();
+
+  const columnMap: Record<string, string> = {
+    max_weight:    'actual_weight_value',
+    max_reps:      'actual_repetitions',
+    min_time:      'actual_time_seconds',
+    max_distance:  'actual_distance_value',
+    max_calories:  'actual_calories',
+  };
+  const col = columnMap[recordType];
+  if (!col) return [];
+
+  const result = await db.query(
+    `SELECT ser.exercise_id as id, e.name
+     FROM session_exercise_result ser
+     JOIN training_session ts ON ser.training_session_id = ts.id
+     JOIN exercise e ON ser.exercise_id = e.id
+     WHERE ser.is_completed = 1
+       AND ts.status = 'completed'
+       AND ser.${col} IS NOT NULL
+     GROUP BY ser.exercise_id
+     HAVING COUNT(*) >= ?
+     ORDER BY e.name`,
+    [minCount]
+  );
+  return result.values ?? [];
 }
 
 /**
@@ -173,7 +209,7 @@ export async function getHomeStats(): Promise<{
 
   // 2. PRs recientes (últimos 3)
   const recentPRs = await db.query(`
-    SELECT pr.*, e.name as exercise_name, mu.abbreviation as record_unit_abbreviation
+    SELECT pr.*, e.name as exercise_name, e.image_url as exercise_image_url, mu.abbreviation as record_unit_abbreviation
     FROM personal_record pr
     JOIN exercise e ON pr.exercise_id = e.id
     LEFT JOIN measurement_unit mu ON pr.record_unit_id = mu.id

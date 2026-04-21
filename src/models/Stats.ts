@@ -4,6 +4,7 @@ export interface PersonalRecord {
   id: string;
   exercise_id: string;
   exercise_name?: string; // JOIN
+  exercise_image_url?: string; // JOIN
   record_type: RecordType;
   record_value: number;
   record_unit_id?: string;

@@ -30,6 +30,51 @@ Estiramiento
 
 
 
+Clase GOAT 20/04/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+- couch stretch rodilla derecha - video explicativo - https://www.youtube.com/watch?v=Fg-lwNBzVV8&t=8s
+- couch stretch rodilla izquierda
+- banded ankle dorsiflexion stretch - video corto https://www.youtube.com/shorts/5jgUBrI-CpM
+
+Activacion - todo 30 segundos sin parar por 3 rondas
+- Hollow Rock
+- bird dog con peso - video explicativo https://www.youtube.com/shorts/HF4eJtPEVkA
+- hollow hold pass - video explicativo https://www.youtube.com/shorts/xzk3CnEZcMI
+- inchworm - https://www.youtube.com/shorts/7jeW4v_oaes 
+
+
+Fuerza, 5 sets, de 2 minutos cada uno
+- Barbell Front Squat, 50kg, 3 repeticiones de 3 segundos cada una
+- Barbell Front Squat, 50kg, 3 repeticiones de 3 segundos cada una
+- Barbell Front Squat, 60kg, 3 repeticiones de 3 segundos cada una
+- Barbell Front Squat, 65kg, 3 repeticiones 
+- Barbell Front Squat, 70kg, 3 repeticiones 
+
+
+WOD, 4 sets en maximo 15 mnutos
+- Barbell Thruster, 30kg, 12 repeticiones
+- burpee to bar, 10 repeticiones
+- Barbell Power Clean, 30 kg, 8 repeticiones
+- 200 m carrera
+
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
+
+
 
 
 Clase GOAT 15/04/2026

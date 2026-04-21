@@ -152,11 +152,18 @@ export function HomePage() {
 
             <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
               {stats.recentPRs.map((pr) => (
-                <div 
-                  key={pr.id} 
+                <div
+                  key={pr.id}
                   className="min-w-[200px] bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col gap-2 hover:border-gray-700 transition-colors"
                 >
-                  <span className="text-[10px] text-gray-500 font-bold uppercase">{pr.exercise_name}</span>
+                  <div className="flex items-center gap-2">
+                    {pr.exercise_image_url && (
+                      <div className="w-8 h-8 rounded-lg overflow-hidden shrink-0 bg-primary-500/10">
+                        <img src={pr.exercise_image_url} alt={pr.exercise_name} className="w-full h-full object-contain" />
+                      </div>
+                    )}
+                    <span className="text-[10px] text-gray-500 font-bold uppercase">{pr.exercise_name}</span>
+                  </div>
                   <div className="flex items-end justify-between">
                     <span className="text-xl font-mono font-bold text-white leading-none">
                       {pr.record_value}
