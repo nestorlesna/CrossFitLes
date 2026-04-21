@@ -67,9 +67,11 @@ jobs:
       - name: Find and rename APK
         id: find_apk
         run: |
-          APK_SOURCE=$(find android/app/build/outputs/apk/release/ -name "*.apk" | head -1)
           APK_DEST="android/app/build/outputs/apk/release/CrossFitLes.apk"
-          mv "$APK_SOURCE" "$APK_DEST"
+          APK_SOURCE=$(find android/app/build/outputs/apk/release/ -name "*.apk" ! -name "CrossFitLes.apk" | head -1)
+          if [ -n "$APK_SOURCE" ]; then
+            mv "$APK_SOURCE" "$APK_DEST"
+          fi
           echo "apk_path=$APK_DEST" >> $GITHUB_OUTPUT
 
       - name: Extract version
