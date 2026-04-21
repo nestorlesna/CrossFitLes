@@ -45,59 +45,69 @@ npm run dev
 
 La aplicación estará disponible en `http://localhost:5173`.
 
-### Compilar para Android
+### Compilar para Android (manual)
+
+El flujo normal es sincronizar con Capacitor y luego usar Android Studio directamente:
 
 ```bash
-# Compilar y sincronizar con Capacitor
+# 1. Compilar el bundle web y sincronizar assets al proyecto Android
 npm run cap:sync
-
-# Abrir en Android Studio
-npm run cap:android
 ```
 
-## 🚢 Release — Distribución de APK
+Luego, en **Android Studio**:
+
+1. Abrir la carpeta `android/` como proyecto
+2. Esperar que Gradle sincronice
+3. Menú **Build → Generate Signed Bundle / APK**
+4. Elegir **APK** → Next
+5. En *Key store path* apuntar a `KEY/release.keystore`
+6. Completar alias (`crossfitles`), contraseña del keystore y contraseña de la clave
+7. Elegir variante **release** → Next → **Finish**
+
+El APK firmado queda en `android/app/release/CrossFitLes.apk`.
+
+> `npm run cap:android` intenta abrir Android Studio automáticamente; si no funciona, abrir Android Studio manualmente desde la carpeta `android/`.
+
+## 🚢 Release — Distribución automática (GitHub Actions)
 
 El APK se genera y publica automáticamente mediante **GitHub Actions** al crear un tag con prefijo `v`.
 
-### Requisitos previos (primera vez)
+### Secrets de GitHub (ya configurados)
 
-1. Generar el keystore de firma (en PowerShell, desde la carpeta `KEY/`):
-   ```powershell
-   keytool -genkey -v -keystore release.keystore -alias crossfitles -keyalg RSA -keysize 2048 -validity 10000
-   ```
+Los siguientes secrets están cargados en **Settings → Secrets and variables → Actions**:
 
-2. Convertir el keystore a base64 y copiarlo al portapapeles:
-   ```powershell
-   [Convert]::ToBase64String([IO.File]::ReadAllBytes("C:\ruta\KEY\release.keystore")) | Set-Clipboard
-   ```
+| Secret | Descripción |
+|--------|-------------|
+| `KEYSTORE_BASE64` | Keystore en base64 (`KEY/release.keystore`) |
+| `KEYSTORE_PASSWORD` | Contraseña del keystore |
+| `KEY_ALIAS` | `crossfitles` |
+| `KEY_PASSWORD` | Contraseña de la clave |
 
-3. Cargar los siguientes secrets en GitHub → **Settings → Secrets and variables → Actions**:
-
-   | Secret | Valor |
-   |--------|-------|
-   | `KEYSTORE_BASE64` | Output del paso anterior |
-   | `KEYSTORE_PASSWORD` | Password del keystore |
-   | `KEY_ALIAS` | `crossfitles` |
-   | `KEY_PASSWORD` | Password de la clave |
-
-4. Activar permisos del workflow: **Settings → Actions → General → Read and write permissions**
+Para regenerar `KEYSTORE_BASE64` si fuera necesario:
+```powershell
+[Convert]::ToBase64String([IO.File]::ReadAllBytes("KEY\release.keystore")) | Set-Clipboard
+```
 
 ### Publicar una nueva versión
 
 ```powershell
-# Desde la raíz del proyecto
+# Desde la raíz del proyecto — actualiza build.gradle, hace commit, tag y push
 .\scripts\release.ps1 1.0.1
 ```
 
-El script actualiza `versionCode` y `versionName` en `build.gradle`, hace commit, crea el tag y hace push. GitHub Actions construye el APK firmado y lo publica como GitHub Release automáticamente.
+GitHub Actions construye el APK firmado y lo publica como GitHub Release automáticamente.
 
 ### Flujo resumido
 
 ```
-git tag v1.0.1 → GitHub Actions → build web → cap sync → gradle assembleRelease → CrossFitLes.apk → GitHub Release
+.\scripts\release.ps1 X.Y.Z
+  → bump versionCode/versionName en build.gradle
+  → git commit + tag vX.Y.Z + push
+  → GitHub Actions: build web → cap sync → gradle assembleRelease → firma APK
+  → GitHub Release con CrossFitLes.apk adjunto
 ```
 
-> El keystore vive en la carpeta `KEY/` (ignorada por git). No subir al repositorio.
+> El keystore vive en `KEY/` (ignorado por git). No subir al repositorio.
 
 ---
 
@@ -157,7 +167,7 @@ src/
 | `npm run preview` | Previsualiza el build de producción |
 | `npm run lint` | Ejecuta ESLint |
 | `npm run cap:sync` | Compila y sincroniza con Capacitor |
-| `npm run cap:android` | Sincroniza y abre Android Studio |
+| `npm run cap:android` | Sincroniza y abre Android Studio (opcional) |
 | `.\scripts\release.ps1 X.Y.Z` | Publica una nueva versión (bump + tag + push) |
 
 ## 🌐 Convenciones del Proyecto

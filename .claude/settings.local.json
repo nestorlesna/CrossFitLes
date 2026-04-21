@@ -91,7 +91,11 @@
       "WebFetch(domain:jllfitness.co.uk)",
       "WebFetch(domain:bikestreak.com)",
       "WebFetch(domain:www.surreyphysio.co.uk)",
-      "Bash(npx skills *)"
+      "Bash(npx skills *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git commit *)"
     ]
   }
 }
