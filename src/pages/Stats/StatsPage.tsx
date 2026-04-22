@@ -32,6 +32,7 @@ import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
+import { ResolvedImage } from '../../components/ui/ResolvedImage';
 import {
   getPersonalRecords,
   getWeeklyActivity,
@@ -378,11 +379,12 @@ export function StatsPage() {
                   <div key={record.id} className="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex items-center justify-between group active:scale-[0.98] transition-transform">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-primary-500/10 rounded-xl flex items-center justify-center text-primary-500 overflow-hidden">
-                        {record.exercise_image_url ? (
-                          <img src={record.exercise_image_url} alt={record.exercise_name} className="w-full h-full object-contain" />
-                        ) : (
-                          getRecordIcon(record.record_type)
-                        )}
+                        <ResolvedImage
+                          path={record.exercise_image_url}
+                          alt={record.exercise_name}
+                          className="w-full h-full object-contain"
+                          fallback={getRecordIcon(record.record_type)}
+                        />
                       </div>
                       <div>
                         <p className="text-sm font-bold text-white mb-0.5">{record.exercise_name}</p>
