@@ -1,5 +1,5 @@
 // Versión actual — mantener sincronizada con versionName en android/app/build.gradle
-export const APP_VERSION = '1.0.8';
+export const APP_VERSION = '1.0.9';
 
 // Repositorio GitHub donde se publican las releases con la APK
 // TODO: reemplazar con tu usuario y repo de GitHub
