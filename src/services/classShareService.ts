@@ -215,12 +215,15 @@ export async function exportClasses(classIds: string[]): Promise<void> {
   const imgResult = await db.query(`SELECT id, data_url FROM exercise_image`);
   const sqliteImages = (imgResult.values ?? []) as { id: string; data_url: string }[];
 
-  // Determinar qué paths de media necesitan los ejercicios
+  // Recolectar paths de media de ambos campos (image_url e image_path) de forma independiente.
+  // Usar || descartaría image_path cuando image_url ya está definido (aunque sea ruta estática).
   const exerciseMediaPaths = new Set<string>();
   for (const ex of exercises) {
-    const path = (ex.image_url as string) || (ex.image_path as string) || '';
-    if (path && !path.startsWith('/img/') && !path.startsWith('http') && !path.startsWith('data:')) {
-      exerciseMediaPaths.add(path);
+    for (const raw of [ex.image_path, ex.image_url]) {
+      const path = (raw as string) || '';
+      if (path && !path.startsWith('/img/') && !path.startsWith('http') && !path.startsWith('data:')) {
+        exerciseMediaPaths.add(path);
+      }
     }
   }
 
@@ -751,12 +754,14 @@ export async function exportExercises(exerciseIds: string[]): Promise<void> {
   const imgResult = await db.query(`SELECT id, data_url FROM exercise_image`);
   const sqliteImages = (imgResult.values ?? []) as { id: string; data_url: string }[];
 
-  // Determinar qué paths de media necesitan los ejercicios
+  // Recolectar paths de media de ambos campos (image_url e image_path) de forma independiente.
   const exerciseMediaPaths = new Set<string>();
   for (const ex of exercises) {
-    const path = (ex.image_url as string) || (ex.image_path as string) || '';
-    if (path && !path.startsWith('/img/') && !path.startsWith('http') && !path.startsWith('data:')) {
-      exerciseMediaPaths.add(path);
+    for (const raw of [ex.image_path, ex.image_url]) {
+      const path = (raw as string) || '';
+      if (path && !path.startsWith('/img/') && !path.startsWith('http') && !path.startsWith('data:')) {
+        exerciseMediaPaths.add(path);
+      }
     }
   }
 

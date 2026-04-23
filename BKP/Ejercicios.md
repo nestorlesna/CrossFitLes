@@ -26,7 +26,53 @@ WOD
 Estiramiento
 ### TEMPLATE
 
+GOAT 22/04/2026
 
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - Band Pull-Apart
+ - Wall shoulder external rotation - video corto https://www.youtube.com/shorts/qbGtz6Ec9es
+ - 90/90 hip internal rotation lift-offs - video corto https://www.youtube.com/shorts/f1wOPnBDQ6A
+
+Activacion 3 rondas todo 30 segundos
+ - Dumbbell overhead hold, 17.5 kg - video corto https://www.youtube.com/shorts/brDgWSYumFU, 
+ - Plank Hold,  video corto https://www.youtube.com/shorts/O83fmDwTYpg
+ - Dead bug hold con mancuerna, 17.5 kg- video coarto https://www.youtube.com/shorts/454lLOM9vhc
+ - Farmer’s carry, 17.5 kg, video explicativo https://www.youtube.com/shorts/1uOs1hP3u4A
+
+Fuerza
+ - 7 rep, Barbell Power Snatch, 30kg
+ - 5 rep, Barbell Power Snatch, 35kg
+ - 3 rep, Barbell Power Snatch, 40kg
+ - 7 rep, Barbell Power Snatch, 35kg
+ - 5 rep, Barbell Power Snatch, 40kg
+ - 3 rep, Barbell Power Snatch, 45kg
+
+WOD maximo 10 minutos en parejas
+- 20 rep cada uno Alternating Single Arm Dumbbell Power Snatch 15kg
+- 30 Box Jump-Over, 15 cada uno
+- 200 metros Running
+- 20 rep 30kg, Barbell Push Press
+- 1.5 minutos de descanso
+- 20 rep, 15kg, Single-arm dumbbell push press - video explicativo https://www.youtube.com/watch?v=g2WQWjWrLZ0, video corto - https://www.youtube.com/shorts/yFgmgtnWP_0
+- 200 metros Runnin
+- 30 Box Jump-Over, 15 cada uno
+- 20 rep cada uno Alternating Single Arm Dumbbell Power Snatch 15kg
+
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
 
 
 
