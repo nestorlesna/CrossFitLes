@@ -1,6 +1,8 @@
 // Componente Header - barra superior de la app
 
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { House } from 'lucide-react';
 
 interface HeaderProps {
   title: string;
@@ -10,12 +12,26 @@ interface HeaderProps {
 }
 
 export function Header({ title, subtitle, rightAction, leftAction }: HeaderProps) {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const isHome = pathname === '/inicio';
+
+  const defaultLeft = !isHome && !leftAction ? (
+    <button
+      onClick={() => navigate('/inicio')}
+      className="w-9 h-9 flex items-center justify-center rounded-xl text-gray-400 hover:text-white hover:bg-gray-800 transition-colors active:scale-90"
+      aria-label="Ir al inicio"
+    >
+      <House size={20} />
+    </button>
+  ) : leftAction;
+
   return (
     <header className="bg-gray-900 border-b border-gray-800 safe-top sticky top-0 z-40">
       <div className="flex items-center justify-between px-4 h-14">
-        {/* Acción izquierda (ej: botón de volver) */}
+        {/* Acción izquierda (ej: botón de volver o casa) */}
         <div className="w-10">
-          {leftAction}
+          {defaultLeft}
         </div>
 
         {/* Título centrado */}

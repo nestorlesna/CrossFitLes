@@ -69,7 +69,7 @@ export function HomePage() {
 
   return (
     <>
-      <Header title="CrossFit Tracker" />
+      <Header title="CrossFitLes Tracker" />
 
       <div className="p-4 space-y-6 pb-24">
         
