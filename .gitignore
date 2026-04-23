@@ -30,13 +30,17 @@ Desktop.ini
 .DS_Store?
 ._*
 
-# Capacitor - plataformas nativas (se regeneran con cap sync)
-android/
+# Capacitor - plataformas nativas
 ios/
 
 # Archivos de Capacitor generados
 capacitor-cordova-android-plugins/
 capacitor-cordova-ios-plugins/
+
+# Builds de Android (generados)
+android/app/build/
+android/.gradle/
+android/build/
 
 # TypeScript
 *.tsbuildinfo

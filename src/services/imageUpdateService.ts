@@ -139,6 +139,15 @@ const EXERCISE_IMAGES: [string, string][] = [
   ['Overhead Triceps Stretch',            '/img/exercises/overhead-triceps-stretch.svg'],
   ['Wrist Extensor Stretch',              '/img/exercises/wrist-extensor-stretch.svg'],
 
+  // ── class22042026ImportService.ts — Clase GOAT 22/04/2026 ────────────────────
+  ['Band Pull-Apart',                        '/img/exercises/band-pull-apart.svg'],
+  ['Wall Shoulder External Rotation',        '/img/exercises/wall-shoulder-external-rotation.svg'],
+  ['90/90 Hip Internal Rotation Lift-Off',   '/img/exercises/hip-90-90-internal-rotation-liftoff.svg'],
+  ['Dumbbell Overhead Hold',                 '/img/exercises/dumbbell-overhead-hold.svg'],
+  ['Plank Hold',                             '/img/exercises/plank-hold.svg'],
+  ['Dead Bug Hold with Dumbbell',            '/img/exercises/dead-bug-hold-dumbbell.svg'],
+  ['Single-Arm Dumbbell Push Press',         '/img/exercises/single-arm-dumbbell-push-press.svg'],
+
   // 8 reusan SVG de ejercicio equivalente
   ['Bar Pull Up',                '/img/exercises/pullup.svg'],
   ['Barbell Back Squat',         '/img/exercises/back-squat.svg'],

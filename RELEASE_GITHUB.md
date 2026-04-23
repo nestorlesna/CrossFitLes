@@ -87,7 +87,31 @@ En el repositorio: **Settings → Secrets and variables → Actions → New repo
 | `KEY_ALIAS` | Alias de la clave dentro del keystore |
 | `KEY_PASSWORD` | Password de la clave (puede ser igual al del keystore) |
 
-### 2.3 Permisos del workflow
+### 2.3 Carpeta `android/` en el repositorio
+
+La carpeta `android/` generada por Capacitor **debe estar commiteada** en el repositorio. GitHub Actions hace checkout del repo y luego ejecuta `npx cap sync android` para copiar los assets web, pero no puede crear la carpeta desde cero.
+
+Verificar que `.gitignore` **no excluya** la raíz de `android/`. Solo deben ignorarse los artefactos de build:
+
+```
+# Correcto — solo ignorar outputs de build
+android/app/build/
+android/.gradle/
+android/build/
+
+# Incorrecto — esto rompe el workflow
+android/
+```
+
+Commitear la carpeta si aún no está en el repo:
+
+```bash
+git add android/
+git commit -m "feat: add android native project"
+git push
+```
+
+### 2.4 Permisos del workflow
 
 En **Settings → Actions → General → Workflow permissions**: activar **"Read and write permissions"** para que el workflow pueda crear releases.
 
@@ -205,13 +229,17 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: ./gradlew assembleRelease --no-daemon
 
-      # 11. Encontrar el APK generado (nombre puede variar)
-      - name: Find APK
+      # 11. Encontrar el APK generado y renombrar si hace falta
+      #     Se excluye el nombre destino del find para evitar "same file" error
+      - name: Find and rename APK
         id: find_apk
         run: |
-          APK_PATH=$(find android/app/build/outputs/apk/release/ -name "*.apk" | head -1)
-          echo "apk_path=$APK_PATH" >> $GITHUB_OUTPUT
-          echo "APK found at: $APK_PATH"
+          APK_DEST="android/app/build/outputs/apk/release/CrossFitLes.apk"
+          APK_SOURCE=$(find android/app/build/outputs/apk/release/ -name "*.apk" ! -name "CrossFitLes.apk" | head -1)
+          if [ -n "$APK_SOURCE" ]; then
+            mv "$APK_SOURCE" "$APK_DEST"
+          fi
+          echo "apk_path=$APK_DEST" >> $GITHUB_OUTPUT
 
       # 12. Extraer versión del tag (quita el prefijo "v")
       - name: Extract version
@@ -424,6 +452,7 @@ function App() {
 [ ] Secrets de variables de entorno cargados (VITE_SUPABASE_URL, etc.)
 [ ] Permisos del workflow configurados (Read and write)
 [ ] signingConfigs agregado a android/app/build.gradle
+[ ] Carpeta android/ commiteada en el repositorio (verificar .gitignore — ver sección 2.3)
 [ ] Archivo .github/workflows/release-apk.yml creado
 [ ] Primer release de prueba ejecutado (git tag v0.0.1 && git push --tags)
 [ ] APK verificado: descargado e instalado en Android físico
@@ -435,6 +464,27 @@ function App() {
 ---
 
 ## 10. Troubleshooting frecuente
+
+### "cannot access 'android/gradlew': No such file or directory"
+
+La carpeta `android/` no está commiteada en el repositorio. El workflow hace checkout del repo y si `android/` no existe, `chmod +x android/gradlew` falla.
+
+Solución: ver sección 2.3 — commitear la carpeta `android/` completa.
+
+### "'CrossFitLes.apk' and 'CrossFitLes.apk' are the same file"
+
+El APK ya salió del build con ese nombre exacto, por lo que el `mv` intenta renombrarlo a sí mismo. La solución es excluir el nombre destino del `find`:
+
+```bash
+# En lugar de:
+APK_SOURCE=$(find ... -name "*.apk" | head -1)
+
+# Usar:
+APK_SOURCE=$(find ... -name "*.apk" ! -name "CrossFitLes.apk" | head -1)
+if [ -n "$APK_SOURCE" ]; then mv "$APK_SOURCE" "$APK_DEST"; fi
+```
+
+El workflow del paso 4 ya incluye esta versión corregida.
 
 ### El APK no se instala ("App no instalada")
 - El `versionCode` del APK nuevo debe ser **mayor** al instalado

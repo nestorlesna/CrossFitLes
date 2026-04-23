@@ -35,6 +35,23 @@ import { DuplicateExercisesPage } from './pages/Settings/DuplicateExercisesPage'
 import { InactiveClassesPage } from './pages/Settings/InactiveClassesPage';
 import { ClassesSectionsPage } from './pages/Settings/ClassesSectionsPage';
 import { DbProvider } from './components/DbProvider';
+import { UpdateModal } from './components/UpdateModal';
+import { useUpdateCheck } from './hooks/useUpdateCheck';
+
+function UpdateChecker() {
+  const { updateInfo, downloading, progress, installError, startDownload, dismiss } = useUpdateCheck();
+  if (!updateInfo) return null;
+  return (
+    <UpdateModal
+      version={updateInfo.version}
+      downloading={downloading}
+      progress={progress}
+      installError={installError}
+      onUpdate={startDownload}
+      onDismiss={dismiss}
+    />
+  );
+}
 
 export default function App() {
   return (
@@ -81,6 +98,7 @@ export default function App() {
           </Route>
         </Routes>
       </DbProvider>
+      <UpdateChecker />
       {/* Toast notifications */}
       <Toaster
         position="top-center"

@@ -14,6 +14,7 @@ import {
   Play
 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
+import { ResolvedImage } from '../../components/ui/ResolvedImage';
 import { getHomeStats } from '../../db/repositories/statsRepo';
 import { getActiveSession } from '../../db/repositories/trainingSessionRepo';
 import { PersonalRecord } from '../../models/Stats';
@@ -159,7 +160,7 @@ export function HomePage() {
                   <div className="flex items-center gap-2">
                     {pr.exercise_image_url && (
                       <div className="w-8 h-8 rounded-lg overflow-hidden shrink-0 bg-primary-500/10">
-                        <img src={pr.exercise_image_url} alt={pr.exercise_name} className="w-full h-full object-contain" />
+                        <ResolvedImage path={pr.exercise_image_url} alt={pr.exercise_name} className="w-full h-full object-contain" />
                       </div>
                     )}
                     <span className="text-[10px] text-gray-500 font-bold uppercase">{pr.exercise_name}</span>
