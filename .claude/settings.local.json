@@ -96,7 +96,9 @@
       "Bash(git commit -m ' *)",
       "Bash(git push *)",
       "Bash(git commit *)",
-      "Bash(npx eslint *)"
+      "Bash(npx eslint *)",
+      "Bash(npm show *)",
+      "PowerShell(npm show *)"
     ]
   }
 }

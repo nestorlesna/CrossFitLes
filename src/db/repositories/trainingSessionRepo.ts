@@ -520,6 +520,36 @@ export async function removeExerciseFromSession(resultId: string, sessionId: str
 }
 
 /**
+ * Actualiza los campos editables de una sesión completada
+ */
+export async function updateSession(
+  id: string,
+  fields: {
+    actual_duration_minutes?: number | null;
+    general_feeling?: string | null;
+    perceived_effort?: number | null;
+    final_notes?: string | null;
+    body_weight?: number | null;
+  }
+): Promise<void> {
+  const db = getDatabase();
+  const timestamp = now();
+
+  const updateFields: Record<string, any> = { updated_at: timestamp };
+  const validKeys = ['actual_duration_minutes', 'general_feeling', 'perceived_effort', 'final_notes', 'body_weight'];
+  validKeys.forEach(k => {
+    if (k in fields) updateFields[k] = (fields as any)[k];
+  });
+
+  const keys = Object.keys(updateFields);
+  const values = Object.values(updateFields);
+  const setClause = keys.map(k => `${k} = ?`).join(', ');
+
+  await db.run(`UPDATE training_session SET ${setClause} WHERE id = ?`, [...values, id]);
+  await saveDatabase();
+}
+
+/**
  * Borrado lógico de sesión (cancelar)
  */
 export async function softDelete(id: string): Promise<void> {

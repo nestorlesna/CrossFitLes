@@ -34,6 +34,8 @@ import { ExerciseVideosPage } from './pages/Settings/ExerciseVideosPage';
 import { DuplicateExercisesPage } from './pages/Settings/DuplicateExercisesPage';
 import { InactiveClassesPage } from './pages/Settings/InactiveClassesPage';
 import { ClassesSectionsPage } from './pages/Settings/ClassesSectionsPage';
+import { SessionsListPage } from './pages/Settings/SessionsListPage';
+import { SessionEditPage } from './pages/Settings/SessionEditPage';
 import { DbProvider } from './components/DbProvider';
 import { UpdateModal } from './components/UpdateModal';
 import { useUpdateCheck } from './hooks/useUpdateCheck';
@@ -95,6 +97,8 @@ export default function App() {
             <Route path="configuracion/perfil" element={<ProfilePage />} />
             <Route path="configuracion/medidas-corporales" element={<BodyMeasurementsPage />} />
             <Route path="configuracion/fotos-progreso" element={<ProgressPhotosPage />} />
+            <Route path="configuracion/sesiones" element={<SessionsListPage />} />
+            <Route path="configuracion/sesiones/:id/editar" element={<SessionEditPage />} />
           </Route>
         </Routes>
       </DbProvider>

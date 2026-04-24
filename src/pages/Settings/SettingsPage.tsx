@@ -22,6 +22,7 @@ import {
   Copy,
   Archive,
   LayoutList,
+  ClipboardList,
 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { BackupSection } from '../../components/export/BackupSection';
@@ -246,6 +247,19 @@ export function SettingsPage() {
                 <div className="flex-1 min-w-0">
                   <span className="text-sm text-white block">Clases inactivas</span>
                   <span className="text-xs text-gray-600">Revisar y eliminar clases archivadas</span>
+                </div>
+                <ChevronRight size={16} className="text-gray-600" />
+              </button>
+              <button
+                onClick={() => navigate('/configuracion/sesiones')}
+                className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
+              >
+                <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shrink-0">
+                  <ClipboardList size={16} className="text-primary-400" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-sm text-white block">Sesiones</span>
+                  <span className="text-xs text-gray-600">Corregir duración, sensación y valores</span>
                 </div>
                 <ChevronRight size={16} className="text-gray-600" />
               </button>
