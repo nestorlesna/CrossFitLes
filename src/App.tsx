@@ -31,6 +31,8 @@ import { WorkFormatsPage } from './pages/Settings/catalogs/WorkFormatsPage';
 import { ExerciseImagesPage } from './pages/Settings/ExerciseImagesPage';
 import { ExerciseMusclesPage } from './pages/Settings/ExerciseMusclesPage';
 import { ExerciseVideosPage } from './pages/Settings/ExerciseVideosPage';
+import { VideoBatch003Page } from './pages/Settings/VideoBatch003Page';
+import { VideoBatch004Page } from './pages/Settings/VideoBatch004Page';
 import { DuplicateExercisesPage } from './pages/Settings/DuplicateExercisesPage';
 import { InactiveClassesPage } from './pages/Settings/InactiveClassesPage';
 import { ClassesSectionsPage } from './pages/Settings/ClassesSectionsPage';
@@ -90,6 +92,8 @@ export default function App() {
             <Route path="configuracion/imagenes-ejercicios" element={<ExerciseImagesPage />} />
             <Route path="configuracion/musculos-ejercicios" element={<ExerciseMusclesPage />} />
             <Route path="configuracion/videos-ejercicios" element={<ExerciseVideosPage />} />
+            <Route path="configuracion/seleccionar-videos-003" element={<VideoBatch003Page />} />
+            <Route path="configuracion/seleccionar-videos-004" element={<VideoBatch004Page />} />
             <Route path="configuracion/ejercicios-duplicados" element={<DuplicateExercisesPage />} />
             <Route path="configuracion/clases-inactivas" element={<InactiveClassesPage />} />
             <Route path="configuracion/clases" element={<ClassesSectionsPage />} />

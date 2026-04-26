@@ -23,8 +23,65 @@ Movilidad - 2 rondas todo 30 segundos
 Activacion
 Fuerza
 WOD
-Estiramiento
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
 ### TEMPLATE
+
+
+GOAT 25/04/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+- wall lat stretch - video corto https://www.youtube.com/shorts/KndXFCRPnCQ
+- Wall shoulder CAR, brazo izquierdo, video explicativo https://www.youtube.com/watch?v=eY_fHyJKIdU, video corto https://www.youtube.com/shorts/LpWU3-teVfk
+- Goblet squat hold press, 5kg, video corto https://www.youtube.com/shorts/yN-mSJbkIOw 
+- wall lat stretch
+- Wall shoulder CAR, brazo derecho
+- Goblet squat hold press
+
+Activacion
+- Core overhead hold with side bend, brazo derecho 15 kg, video explicativo https://www.youtube.com/watch?v=cTa2T2tDVEA, video corto https://www.youtube.com/watch?v=sT51n0DqpOE
+- Core overhead hold with side bend, brazo izquierdo 15 kg
+- Wall sit with leg extension, video corto https://www.youtube.com/shorts/aLA0hhYWIyU, video explicativo https://www.youtube.com/watch?v=2UriWezknJs
+
+
+Fuerza, 4 rondas de 2 mintuos cada una
+- 40kg, 4 reps Barbell Overhead Squat
+- 40kg, 4 reps Barbell Overhead Squat
+- 50kg, 4 reps Barbell Overhead Squat
+- 50kg, 4 reps Barbell Overhead Squat
+
+
+WOD, 4 rondas de 2 minutos, cada una de 2 series cada una con 2 ejercicios
+- 10 calorias Rowing, y 15 Wall Ball Shot
+- 8 Bar Pull Up, y 8 Dual dumbell Snatch with Burpee video corto https://www.youtube.com/shorts/4AncjPXCDhA
+
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
+
+
 
 GOAT 22/04/2026
 

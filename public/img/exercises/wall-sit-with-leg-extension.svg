@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+
+  <!-- Frame 1: Wall sit posición inicial (90°), ambos pies en el suelo -->
+  <g class="f1" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+    <!-- Pared -->
+    <line x1="155" y1="20" x2="155" y2="210" stroke="#374151" stroke-width="4"/>
+    <!-- Cabeza apoyada en pared -->
+    <circle cx="130" cy="55" r="13" fill="#94a3b8" stroke="none"/>
+    <!-- Torso vertical apoyado -->
+    <line x1="130" y1="68" x2="130" y2="135"/>
+    <!-- Brazos cruzados o al costado -->
+    <line x1="130" y1="85" x2="112" y2="100"/>
+    <line x1="130" y1="85" x2="148" y2="100"/>
+    <!-- Muslos horizontales (90°) -->
+    <line x1="130" y1="135" x2="90" y2="138"/>
+    <line x1="130" y1="135" x2="93" y2="138"/>
+    <!-- Piernas verticales desde rodilla al suelo -->
+    <line x1="90" y1="138" x2="88" y2="205"/>
+    <line x1="93" y1="138" x2="95" y2="205"/>
+    <circle cx="90" cy="138" r="4" fill="#64748b" stroke="none"/>
+    <circle cx="93" cy="138" r="4" fill="#64748b" stroke="none"/>
+  </g>
+
+  <!-- Frame 2: Un pie levantado, pierna comenzando a extenderse -->
+  <g class="f2" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+    <line x1="155" y1="20" x2="155" y2="210" stroke="#374151" stroke-width="4"/>
+    <circle cx="130" cy="55" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="130" y1="68" x2="130" y2="135"/>
+    <line x1="130" y1="85" x2="112" y2="100"/>
+    <line x1="130" y1="85" x2="148" y2="100"/>
+    <!-- Muslos -->
+    <line x1="130" y1="135" x2="90" y2="138"/>
+    <line x1="130" y1="135" x2="93" y2="138"/>
+    <!-- Pierna derecha en el suelo -->
+    <line x1="93" y1="138" x2="95" y2="205"/>
+    <circle cx="93" cy="138" r="4" fill="#64748b" stroke="none"/>
+    <!-- Pierna izquierda en extensión media -->
+    <line x1="90" y1="138" x2="68" y2="160"/>
+    <circle cx="90" cy="138" r="4" fill="#64748b" stroke="none"/>
+  </g>
+
+  <!-- Frame 3: Pierna completamente extendida horizontal -->
+  <g class="f3" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+    <line x1="155" y1="20" x2="155" y2="210" stroke="#374151" stroke-width="4"/>
+    <circle cx="130" cy="55" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="130" y1="68" x2="130" y2="135"/>
+    <line x1="130" y1="85" x2="112" y2="100"/>
+    <line x1="130" y1="85" x2="148" y2="100"/>
+    <!-- Muslos -->
+    <line x1="130" y1="135" x2="90" y2="138"/>
+    <line x1="130" y1="135" x2="93" y2="138"/>
+    <!-- Pierna derecha en el suelo -->
+    <line x1="93" y1="138" x2="95" y2="205"/>
+    <circle cx="93" cy="138" r="4" fill="#64748b" stroke="none"/>
+    <!-- Pierna izquierda completamente extendida -->
+    <line x1="90" y1="138" x2="50" y2="138"/>
+    <circle cx="90" cy="138" r="4" fill="#64748b" stroke="none"/>
+    <!-- Pie en extensión -->
+    <line x1="50" y1="134" x2="50" y2="142"/>
+  </g>
+
+  <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="225" font-family="sans-serif" font-size="7.5" fill="#475569" text-anchor="middle" letter-spacing="0.5">WALL SIT LEG EXTENSION</text>
+</svg>
