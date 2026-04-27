@@ -22,10 +22,14 @@ import {
   Copy,
   Archive,
   LayoutList,
+  ClipboardList,
 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { BackupSection } from '../../components/export/BackupSection';
 import { ClassShareSection } from '../../components/export/ClassShareSection';
+import { ClassSeederSection } from '../../components/export/ClassSeederSection';
+import { MuscleSeederSection } from '../../components/export/MuscleSeederSection';
+import { ImageSeederSection } from '../../components/export/ImageSeederSection';
 import { ResetSection } from '../../components/export/ResetSection';
 
 const catalogItems = [
@@ -237,6 +241,32 @@ export function SettingsPage() {
                 <ChevronRight size={16} className="text-gray-600" />
               </button>
               <button
+                onClick={() => navigate('/configuracion/seleccionar-videos-003')}
+                className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
+              >
+                <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shrink-0">
+                  <Video size={16} className="text-primary-400" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-sm text-white block">Videos cortos — GOAT 25/04</span>
+                  <span className="text-xs text-gray-600">Batch 003 · 6 ejercicios · video_path</span>
+                </div>
+                <ChevronRight size={16} className="text-gray-600" />
+              </button>
+              <button
+                onClick={() => navigate('/configuracion/seleccionar-videos-004')}
+                className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
+              >
+                <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shrink-0">
+                  <Video size={16} className="text-primary-400" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-sm text-white block">Videos explicativos — GOAT 25/04</span>
+                  <span className="text-xs text-gray-600">Batch 004 · 3 ejercicios · video_long_path</span>
+                </div>
+                <ChevronRight size={16} className="text-gray-600" />
+              </button>
+              <button
                 onClick={() => navigate('/configuracion/clases-inactivas')}
                 className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
               >
@@ -249,6 +279,19 @@ export function SettingsPage() {
                 </div>
                 <ChevronRight size={16} className="text-gray-600" />
               </button>
+              <button
+                onClick={() => navigate('/configuracion/sesiones')}
+                className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
+              >
+                <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shrink-0">
+                  <ClipboardList size={16} className="text-primary-400" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-sm text-white block">Sesiones</span>
+                  <span className="text-xs text-gray-600">Corregir duración, sensación y valores</span>
+                </div>
+                <ChevronRight size={16} className="text-gray-600" />
+              </button>
             </div>
           )}
         </div>
@@ -258,6 +301,9 @@ export function SettingsPage() {
           <SectionHeader icon={HardDrive} title="Gestión de datos" expanded={dataMgmtOpen} onToggle={() => setDataMgmtOpen(!dataMgmtOpen)} />
           {dataMgmtOpen && (
             <div className="space-y-4 mt-2">
+              <ClassSeederSection />
+              <MuscleSeederSection />
+              <ImageSeederSection />
               <ClassShareSection />
               <BackupSection />
               <ResetSection />

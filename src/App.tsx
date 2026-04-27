@@ -31,9 +31,13 @@ import { WorkFormatsPage } from './pages/Settings/catalogs/WorkFormatsPage';
 import { ExerciseImagesPage } from './pages/Settings/ExerciseImagesPage';
 import { ExerciseMusclesPage } from './pages/Settings/ExerciseMusclesPage';
 import { ExerciseVideosPage } from './pages/Settings/ExerciseVideosPage';
+import { VideoBatch003Page } from './pages/Settings/VideoBatch003Page';
+import { VideoBatch004Page } from './pages/Settings/VideoBatch004Page';
 import { DuplicateExercisesPage } from './pages/Settings/DuplicateExercisesPage';
 import { InactiveClassesPage } from './pages/Settings/InactiveClassesPage';
 import { ClassesSectionsPage } from './pages/Settings/ClassesSectionsPage';
+import { SessionsListPage } from './pages/Settings/SessionsListPage';
+import { SessionEditPage } from './pages/Settings/SessionEditPage';
 import { DbProvider } from './components/DbProvider';
 import { UpdateModal } from './components/UpdateModal';
 import { useUpdateCheck } from './hooks/useUpdateCheck';
@@ -88,6 +92,8 @@ export default function App() {
             <Route path="configuracion/imagenes-ejercicios" element={<ExerciseImagesPage />} />
             <Route path="configuracion/musculos-ejercicios" element={<ExerciseMusclesPage />} />
             <Route path="configuracion/videos-ejercicios" element={<ExerciseVideosPage />} />
+            <Route path="configuracion/seleccionar-videos-003" element={<VideoBatch003Page />} />
+            <Route path="configuracion/seleccionar-videos-004" element={<VideoBatch004Page />} />
             <Route path="configuracion/ejercicios-duplicados" element={<DuplicateExercisesPage />} />
             <Route path="configuracion/clases-inactivas" element={<InactiveClassesPage />} />
             <Route path="configuracion/clases" element={<ClassesSectionsPage />} />
@@ -95,6 +101,8 @@ export default function App() {
             <Route path="configuracion/perfil" element={<ProfilePage />} />
             <Route path="configuracion/medidas-corporales" element={<BodyMeasurementsPage />} />
             <Route path="configuracion/fotos-progreso" element={<ProgressPhotosPage />} />
+            <Route path="configuracion/sesiones" element={<SessionsListPage />} />
+            <Route path="configuracion/sesiones/:id/editar" element={<SessionEditPage />} />
           </Route>
         </Routes>
       </DbProvider>

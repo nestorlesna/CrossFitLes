@@ -6,6 +6,10 @@ import {
   isMusclesClase22042026UpdateDone,
   updateMusclesClase22042026,
 } from '../../services/musclesClase22042026UpdateService';
+import {
+  isMusclesClase25042026UpdateDone,
+  updateMusclesClase25042026,
+} from '../../services/musclesClase25042026UpdateService';
 
 interface MuscleEntry {
   label: string;
@@ -15,6 +19,12 @@ interface MuscleEntry {
 }
 
 const MUSCLE_ENTRIES: MuscleEntry[] = [
+  {
+    label: 'Clase GOAT 25/04/2026 — músculos',
+    description: 'Wall Lat Stretch · Wall Shoulder CAR · Goblet Squat · Overhead Squat · Dual DB Snatch…',
+    isDone: isMusclesClase25042026UpdateDone,
+    run: updateMusclesClase25042026,
+  },
   {
     label: 'Clase GOAT 22/04/2026 — músculos',
     description: 'Band Pull-Apart · Plank Hold · Barbell Power Snatch · Box Jump-Over · estiramientos…',

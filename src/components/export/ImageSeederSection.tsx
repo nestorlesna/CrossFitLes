@@ -6,6 +6,10 @@ import {
   isImagesClase22042026UpdateDone,
   updateImagesClase22042026,
 } from '../../services/imagesClase22042026UpdateService';
+import {
+  isImagesClase25042026UpdateDone,
+  updateImagesClase25042026,
+} from '../../services/imagesClase25042026UpdateService';
 
 interface ImageEntry {
   label: string;
@@ -15,6 +19,12 @@ interface ImageEntry {
 }
 
 const IMAGE_ENTRIES: ImageEntry[] = [
+  {
+    label: 'Clase GOAT 25/04/2026 — imágenes',
+    description: '6 ejercicios: Wall Lat Stretch, Wall Shoulder CAR, Goblet Squat, Core Side Bend, Wall Sit, Dual DB Snatch',
+    isDone: isImagesClase25042026UpdateDone,
+    run: updateImagesClase25042026,
+  },
   {
     label: 'Clase GOAT 22/04/2026 — imágenes',
     description: '18 ejercicios: movilidad hombro/cadera, activación isométrica, estiramientos',
