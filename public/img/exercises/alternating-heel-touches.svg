@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+<defs><style>
+.f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+@keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+@keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+@keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+</style></defs>
+<rect width="200" height="230" fill="#111827" rx="12"/>
+<!-- Floor (horizontal) -->
+<line x1="25" y1="185" x2="175" y2="185" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+
+<!-- f1: Lying on back, knees bent, shoulders slightly elevated -->
+<!-- Person lying head-left, feet-right -->
+<g class="f1" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+  <circle cx="38" cy="155" r="13" fill="#94a3b8" stroke="none"/>
+  <!-- Torso horizontal -->
+  <line x1="51" y1="155" x2="118" y2="158"/>
+  <!-- Arms at sides -->
+  <line x1="75" y1="155" x2="72" y2="170"/>
+  <line x1="95" y1="157" x2="100" y2="172"/>
+  <!-- Right leg: bent knee up -->
+  <line x1="118" y1="158" x2="138" y2="140"/>
+  <line x1="138" y1="140" x2="155" y2="162"/>
+  <line x1="145" y1="162" x2="165" y2="162"/>
+  <!-- Left leg: bent knee up (slightly different) -->
+  <line x1="114" y1="160" x2="132" y2="144"/>
+  <line x1="132" y1="144" x2="150" y2="165"/>
+  <line x1="140" y1="165" x2="160" y2="165"/>
+</g>
+
+<!-- f2: Shoulders up, reaching RIGHT hand to RIGHT heel -->
+<g class="f2" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+  <circle cx="48" cy="144" r="13" fill="#94a3b8" stroke="none"/>
+  <!-- Torso lifted at 30° angle -->
+  <line x1="60" y1="148" x2="118" y2="162"/>
+  <!-- Left arm bent across chest -->
+  <line x1="75" y1="150" x2="68" y2="162"/>
+  <!-- RIGHT arm reaching far right toward heel -->
+  <line x1="90" y1="156" x2="148" y2="166"/>
+  <!-- Right leg: bent knee up -->
+  <line x1="118" y1="162" x2="138" y2="144"/>
+  <line x1="138" y1="144" x2="155" y2="166"/>
+  <line x1="145" y1="166" x2="165" y2="166"/>
+  <!-- Left leg: bent -->
+  <line x1="114" y1="163" x2="132" y2="148"/>
+  <line x1="132" y1="148" x2="148" y2="168"/>
+  <!-- Touch indicator dot -->
+  <circle cx="148" cy="166" r="5" fill="#64748b" stroke="none"/>
+</g>
+
+<!-- f3: Reaching LEFT hand to LEFT heel -->
+<g class="f3" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+  <circle cx="48" cy="144" r="13" fill="#94a3b8" stroke="none"/>
+  <line x1="60" y1="148" x2="118" y2="162"/>
+  <!-- RIGHT arm bent across -->
+  <line x1="95" y1="156" x2="102" y2="168"/>
+  <!-- LEFT arm reaching right toward left heel -->
+  <line x1="75" y1="150" x2="140" y2="170"/>
+  <!-- Legs: same bent position -->
+  <line x1="118" y1="162" x2="138" y2="144"/>
+  <line x1="138" y1="144" x2="155" y2="166"/>
+  <line x1="145" y1="166" x2="165" y2="166"/>
+  <line x1="114" y1="163" x2="132" y2="148"/>
+  <line x1="132" y1="148" x2="148" y2="168"/>
+  <circle cx="140" cy="170" r="5" fill="#64748b" stroke="none"/>
+</g>
+
+<text x="100" y="212" text-anchor="middle" font-size="9" fill="#475569" font-family="sans-serif">ALTERNATING HEEL TOUCHES</text>
+</svg>
