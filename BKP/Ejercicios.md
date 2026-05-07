@@ -37,6 +37,54 @@ Estiramiento, cada ejercicio 20 - 30 segundos
 - Wrist extensor stretch 
 ### TEMPLATE
 
+Clase GOAT 06/05/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+- lateral lunge - 12,5 kg
+- quadruped rock back - video corto https://www.youtube.com/shorts/lcEa1HJ81y0 , video explicativo https://www.youtube.com/watch?v=aKZGoeHtJ0o
+- Scapular Wall Slides - video corto https://www.youtube.com/shorts/OtgQDv7u1TM, video explicativo https://www.youtube.com/watch?v=gr3i4mU5kBc
+
+Activacion, 3 rondas todo 30 segundos
+ - mountain climbers - video corto https://www.youtube.com/shorts/tQkpdUWK8KU, video explicativo https://www.youtube.com/shorts/jIzWec7cSyc
+ - Cross Body Mountain Climbers - video corto , video explicativo https://www.youtube.com/watch?v=1cwZ8VZvRjc
+ - alternating heel touches - video corto https://www.youtube.com/shorts/G5riYVf_c9k, video explicativo, https://www.youtube.com/watch?v=IVppNiu0hvw
+ - Giros rusos con disco, video corto https://www.youtube.com/shorts/tdLyOE9z8L4, video explicativo https://www.youtube.com/watch?v=DJQGX2J4IVw
+
+Fuerza, 6 series cada 1.5 mintous, con 2 segundos abajo
+ - Barbell Front Squat, 3 rep, 40 kg
+ - Barbell Front Squat, 3 rep, 50 kg
+ - Barbell Front Squat, 3 rep, 50 kg
+ - Barbell Front Squat, 3 rep, 50 kg
+ - Barbell Front Squat, 3 rep, 60 kg
+ - Barbell Front Squat, 3 rep, 60 kg
+ 
+WOD maximo 10 minutos
+- 15 Alternating Single Arm Dumbbell Power Snatch
+- 50 partner wall ball over bar, 6kg, video corto https://www.youtube.com/watch?v=Pc24d9iKsII
+- 12 sit-up con peso, video corto https://www.youtube.com/watch?v=qVRdlNFe1r0
+- 25 Alternating Single Arm Dumbbell Power Snatch
+- 40 partner wall ball over bar, 6kg
+- 22 sit-up con peso
+- 35 Alternating Single Arm Dumbbell Power Snatch
+- 30 partner wall ball over bar, 6kg
+- 32 sit-up con peso
+
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
+
 
 GOAT 25/04/2026
 
