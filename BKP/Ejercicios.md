@@ -13,6 +13,50 @@
 ### COMO USAR
 
 ### TEMPLATE
+Clase GOAT 16/05/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - Scapular Wall Slides
+ - Hip Rotations in Squat - Video corto https://www.youtube.com/shorts/uVhMR5r9NF8, video explicativo https://www.youtube.com/watch?v=BWdOO8bxk34
+ - Y raises - video corto https://www.youtube.com/shorts/qLN4BoglYv4
+
+Activacion, 3 rondas, cada serie de 1 minuto, el 4to es descanso
+ - bulgarian split squat, 2 kettelbell 10kg, video explicativo https://www.youtube.com/shorts/or1frhkjBDc, video corto https://www.youtube.com/shorts/_HukgYk7lTw, 
+ - Weighted Plank - 1 pesa 10kg , 40 segundo, descanso 20
+ - Wall Squat Hold, 2 ketelbel 10kg  1 Minutos, video corto https://www.youtube.com/shorts/UZp11A98yyU, video explicativo https://www.youtube.com/watch?v=qERN5CZz3us
+ - 1 minuto de descanso
+
+WOD maximo 18 miutos
+ - Running 200 m
+ - 12 Burpee Broad Jump, video explicativo https://www.youtube.com/shorts/xaBTCkqiUKo, video corto https://www.youtube.com/shorts/VnDbhYDmuLo
+ - Kettlebell Farmer Carry 200m, 2 kettelbell 10kg
+ - 12 Box Jump-Over
+ - Running 200 m
+ - 12 Burpee Broad Jump
+ - Kettlebell Farmer Carry 200m, 2 kettelbell 10kg
+ - 12 Box Jump-Over
+ - Running 200 m
+ - 12 Burpee Broad Jump
+ - Kettlebell Farmer Carry 200m, 2 kettelbell 10kg
+ - 12 Box Jump-Over
+
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
+### TEMPLATE
+
 Clase GOAT XX/XX/2026
 
 Calentamiento
@@ -35,9 +79,8 @@ Estiramiento, cada ejercicio 20 - 30 segundos
 - Standing biceps stretch 
 - Overhead triceps stretch 
 - Wrist extensor stretch 
-### TEMPLATE
 
-Clase GOAT 06/05/2026
+GOAT 06/05/2026
 
 Calentamiento
 - 6 minutos de calentamiento

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+<defs><style>
+.f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+@keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+@keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+@keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+</style></defs>
+<rect width="200" height="230" fill="#111827" rx="12"/>
+<line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+
+<!-- f1: Plancha abajo (push-up del burpee) -->
+<g class="f1" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+  <circle cx="50" cy="170" r="12" fill="#94a3b8" stroke="none"/>
+  <!-- Torso horizontal -->
+  <line x1="50" y1="180" x2="155" y2="190"/>
+  <!-- Brazos extendidos al piso -->
+  <line x1="50" y1="180" x2="40" y2="205"/>
+  <line x1="65" y1="183" x2="58" y2="205"/>
+  <!-- Piernas extendidas -->
+  <line x1="155" y1="190" x2="165" y2="205"/>
+  <line x1="145" y1="190" x2="155" y2="205"/>
+  <circle cx="40" cy="205" r="4" fill="#64748b" stroke="none"/>
+  <circle cx="58" cy="205" r="4" fill="#64748b" stroke="none"/>
+</g>
+
+<!-- f2: De pie, brazos atrás preparando salto -->
+<g class="f2" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+  <circle cx="80" cy="60" r="13" fill="#94a3b8" stroke="none"/>
+  <!-- Torso inclinado adelante -->
+  <line x1="80" y1="73" x2="90" y2="130"/>
+  <!-- Brazos atrás listos para impulsar -->
+  <line x1="82" y1="85" x2="55" y2="118"/>
+  <line x1="82" y1="85" x2="55" y2="98"/>
+  <!-- Piernas en sentadilla parcial -->
+  <line x1="90" y1="130" x2="78" y2="170"/>
+  <line x1="78" y1="170" x2="85" y2="205"/>
+  <line x1="90" y1="130" x2="105" y2="170"/>
+  <line x1="105" y1="170" x2="98" y2="205"/>
+  <circle cx="78" cy="170" r="5" fill="#64748b" stroke="none"/>
+  <circle cx="105" cy="170" r="5" fill="#64748b" stroke="none"/>
+</g>
+
+<!-- f3: Salto al frente, brazos extendidos hacia adelante/arriba -->
+<g class="f3" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+  <circle cx="130" cy="50" r="13" fill="#94a3b8" stroke="none"/>
+  <line x1="130" y1="63" x2="140" y2="120"/>
+  <!-- Brazos al frente extendidos -->
+  <line x1="130" y1="73" x2="170" y2="55"/>
+  <line x1="130" y1="73" x2="170" y2="80"/>
+  <!-- Piernas flexionadas en vuelo -->
+  <line x1="140" y1="120" x2="115" y2="145"/>
+  <line x1="115" y1="145" x2="125" y2="170"/>
+  <line x1="140" y1="120" x2="155" y2="150"/>
+  <line x1="155" y1="150" x2="148" y2="180"/>
+  <circle cx="115" cy="145" r="5" fill="#64748b" stroke="none"/>
+  <circle cx="155" cy="150" r="5" fill="#64748b" stroke="none"/>
+  <!-- Líneas de impulso (movimiento) -->
+  <line x1="50" y1="195" x2="65" y2="195" stroke="#64748b" stroke-width="2" stroke-dasharray="3,3"/>
+  <line x1="50" y1="180" x2="70" y2="180" stroke="#64748b" stroke-width="2" stroke-dasharray="3,3"/>
+</g>
+
+<text x="100" y="225" text-anchor="middle" font-size="10" fill="#475569" font-family="sans-serif">BURPEE BROAD JUMP</text>
+</svg>
