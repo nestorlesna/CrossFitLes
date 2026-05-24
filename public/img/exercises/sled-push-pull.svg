@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+<defs><style>
+.f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+@keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+@keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+@keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+</style></defs>
+<rect width="200" height="230" fill="#111827" rx="12"/>
+<line x1="20" y1="210" x2="180" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+<text x="100" y="225" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">SLED PUSH &amp; PULL</text>
+
+<!-- F1: Pushing sled (leaning forward, sled in front) -->
+<g class="f1" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" fill="none">
+  <!-- Sled (in front, right side) -->
+  <rect x="135" y="180" width="40" height="20" stroke="#64748b" fill="none"/>
+  <line x1="135" y1="190" x2="115" y2="155" stroke="#64748b"/>
+  <line x1="135" y1="190" x2="115" y2="155" stroke="#64748b"/>
+  <circle cx="143" cy="205" r="3" fill="#64748b" stroke="none"/>
+  <circle cx="167" cy="205" r="3" fill="#64748b" stroke="none"/>
+  <!-- Person leaning forward, hands on sled handles -->
+  <circle cx="60" cy="80" r="11" fill="#94a3b8" stroke="none"/>
+  <!-- Torso leaning forward -->
+  <line x1="64" y1="90" x2="90" y2="135"/>
+  <!-- Arms reaching to sled -->
+  <line x1="90" y1="135" x2="115" y2="155"/>
+  <!-- Hip/Legs in drive position -->
+  <line x1="90" y1="135" x2="75" y2="170"/>
+  <line x1="75" y1="170" x2="50" y2="200"/>
+  <line x1="90" y1="135" x2="105" y2="175"/>
+  <line x1="105" y1="175" x2="95" y2="205"/>
+  <circle cx="75" cy="170" r="4" fill="#64748b" stroke="none"/>
+  <circle cx="105" cy="175" r="4" fill="#64748b" stroke="none"/>
+</g>
+
+<!-- F2: Standing between push and pull (transition) -->
+<g class="f2" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" fill="none">
+  <!-- Sled (centered) -->
+  <rect x="80" y="190" width="40" height="20" stroke="#64748b" fill="none"/>
+  <!-- Person upright -->
+  <circle cx="100" cy="40" r="12" fill="#94a3b8" stroke="none"/>
+  <line x1="100" y1="52" x2="100" y2="125"/>
+  <!-- Arms forward holding rope/handle -->
+  <line x1="100" y1="80" x2="85" y2="120"/>
+  <line x1="100" y1="80" x2="115" y2="120"/>
+  <!-- Rope from hands to sled -->
+  <line x1="85" y1="120" x2="88" y2="190" stroke="#64748b" stroke-width="2" stroke-dasharray="3,2"/>
+  <line x1="115" y1="120" x2="112" y2="190" stroke="#64748b" stroke-width="2" stroke-dasharray="3,2"/>
+  <!-- Legs -->
+  <line x1="100" y1="125" x2="88" y2="170"/>
+  <line x1="88" y1="170" x2="85" y2="200"/>
+  <line x1="100" y1="125" x2="112" y2="170"/>
+  <line x1="112" y1="170" x2="115" y2="200"/>
+</g>
+
+<!-- F3: Pulling sled backward (leaning back, sled behind) -->
+<g class="f3" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" fill="none">
+  <!-- Sled behind (right side) -->
+  <rect x="135" y="190" width="40" height="15" stroke="#64748b" fill="none"/>
+  <!-- Person leaning back, pulling rope -->
+  <circle cx="65" cy="58" r="11" fill="#94a3b8" stroke="none"/>
+  <line x1="68" y1="68" x2="78" y2="135"/>
+  <!-- Arms pulling back -->
+  <line x1="78" y1="100" x2="100" y2="130"/>
+  <line x1="78" y1="100" x2="95" y2="135"/>
+  <!-- Rope from hands going behind to sled -->
+  <line x1="100" y1="130" x2="135" y2="195" stroke="#64748b" stroke-width="2" stroke-dasharray="3,2"/>
+  <line x1="95" y1="135" x2="138" y2="198" stroke="#64748b" stroke-width="2" stroke-dasharray="3,2"/>
+  <!-- Legs in pull stance -->
+  <line x1="78" y1="135" x2="62" y2="170"/>
+  <line x1="62" y1="170" x2="55" y2="205"/>
+  <line x1="78" y1="135" x2="92" y2="175"/>
+  <line x1="92" y1="175" x2="100" y2="205"/>
+  <circle cx="62" cy="170" r="4" fill="#64748b" stroke="none"/>
+  <circle cx="92" cy="175" r="4" fill="#64748b" stroke="none"/>
+</g>
+</svg>
