@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+<defs><style>
+.f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+@keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+@keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+@keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+</style></defs>
+<rect width="200" height="230" fill="#111827" rx="12"/>
+<line x1="20" y1="210" x2="180" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+<text x="100" y="225" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#475569">SANDBAG WALKING LUNGES</text>
+
+<!-- F1: Standing step start (front foot forward, back foot behind) -->
+<g class="f1" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" fill="none">
+  <circle cx="80" cy="40" r="12" fill="#94a3b8" stroke="none"/>
+  <!-- Torso upright -->
+  <line x1="80" y1="52" x2="80" y2="120"/>
+  <!-- Sandbag on shoulders -->
+  <rect x="60" y="38" width="40" height="14" rx="4" stroke="#64748b" fill="none"/>
+  <!-- Arms holding sandbag -->
+  <line x1="80" y1="60" x2="62" y2="50"/>
+  <line x1="80" y1="60" x2="98" y2="50"/>
+  <!-- Front leg stepping (right) -->
+  <line x1="80" y1="120" x2="110" y2="155"/>
+  <line x1="110" y1="155" x2="115" y2="200"/>
+  <line x1="107" y1="200" x2="125" y2="200"/>
+  <!-- Back leg (left) -->
+  <line x1="80" y1="120" x2="60" y2="160"/>
+  <line x1="60" y1="160" x2="55" y2="200"/>
+  <line x1="47" y1="200" x2="65" y2="200"/>
+  <circle cx="110" cy="155" r="4" fill="#64748b" stroke="none"/>
+  <circle cx="60" cy="160" r="4" fill="#64748b" stroke="none"/>
+</g>
+
+<!-- F2: Deep lunge (both knees at ~90°) -->
+<g class="f2" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" fill="none">
+  <circle cx="90" cy="60" r="12" fill="#94a3b8" stroke="none"/>
+  <line x1="90" y1="72" x2="90" y2="140"/>
+  <!-- Sandbag on shoulders -->
+  <rect x="70" y="58" width="40" height="14" rx="4" stroke="#64748b" fill="none"/>
+  <line x1="90" y1="80" x2="72" y2="70"/>
+  <line x1="90" y1="80" x2="108" y2="70"/>
+  <!-- Front leg deep lunge (90°) -->
+  <line x1="90" y1="140" x2="120" y2="170"/>
+  <line x1="120" y1="170" x2="120" y2="205"/>
+  <line x1="112" y1="205" x2="130" y2="205"/>
+  <!-- Back knee touching ground -->
+  <line x1="90" y1="140" x2="62" y2="175"/>
+  <line x1="62" y1="175" x2="55" y2="205"/>
+  <line x1="47" y1="205" x2="65" y2="205"/>
+  <circle cx="120" cy="170" r="4" fill="#64748b" stroke="none"/>
+  <circle cx="62" cy="175" r="4" fill="#64748b" stroke="none"/>
+</g>
+
+<!-- F3: Pushing up to next step (transitioning) -->
+<g class="f3" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" fill="none">
+  <circle cx="110" cy="45" r="12" fill="#94a3b8" stroke="none"/>
+  <line x1="110" y1="57" x2="110" y2="125"/>
+  <!-- Sandbag -->
+  <rect x="90" y="43" width="40" height="14" rx="4" stroke="#64748b" fill="none"/>
+  <line x1="110" y1="65" x2="92" y2="55"/>
+  <line x1="110" y1="65" x2="128" y2="55"/>
+  <!-- Front leg (now pushing through to extend) -->
+  <line x1="110" y1="125" x2="130" y2="170"/>
+  <line x1="130" y1="170" x2="135" y2="205"/>
+  <line x1="125" y1="205" x2="145" y2="205"/>
+  <!-- Back leg swinging forward -->
+  <line x1="110" y1="125" x2="95" y2="170"/>
+  <line x1="95" y1="170" x2="80" y2="195"/>
+  <line x1="72" y1="195" x2="88" y2="195"/>
+  <circle cx="130" cy="170" r="4" fill="#64748b" stroke="none"/>
+  <circle cx="95" cy="170" r="4" fill="#64748b" stroke="none"/>
+</g>
+</svg>

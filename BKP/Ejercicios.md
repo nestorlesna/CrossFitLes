@@ -13,6 +13,72 @@
 ### COMO USAR
 
 ### TEMPLATE
+Clase GOAT XX/XX/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+
+Activacion
+Fuerza
+WOD
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
+
+### TEMPLATE
+
+
+Clase GOAT 23/05/2026
+
+Calentamiento
+- 2 minutos en bicileta fija
+
+Activacion - 2 rondas todo 30 segundos
+- Scapular Push-Up
+- Scapular Wall Slides
+- Half Kneel Banded Lat Stretch, video corto https://www.youtube.com/shorts/nqmTcLSTmDc, video explicativo https://www.youtube.com/watch?v=xeCLID42G1w
+
+Fuerza, 3 rondas, cada serie de 1.5 minuto
+ - Sled Push & Pull, 60 kg, 10 metros ida y vuelta, 2 veces, video corto https://www.youtube.com/shorts/04Pyk-8mOK8, video explicativo , video explicativo https://www.youtube.com/shorts/_EZcK45OucE
+ - Kettlebell Farmer Carry, 2 * 24kg,  15 metros * 2
+ - 10 Barbell Bicep Curl y 12 Banded Triceps Extensions video corto https://www.youtube.com/watch?v=_udhCHi3ZpA, video explicativo https://www.youtube.com/watch?v=HXia-KuaBu4
+
+WOD maximo 15 minutos
+ - Sandbag Walking Lunges, 5kg, camino 15m, ida y vuelta, video corto https://www.youtube.com/shorts/vxI_losa-tw, video explicativo  https://www.youtube.com/watch?v=MdbmUltyo5I
+ - Rowing 200 m
+ - Burpee Broad Jump 20 m
+ - running 400 m 
+ - Sandbag Walking Lunges, 5kg, camino 15m, ida y vuelta
+ - Rowing 200 m
+ - Burpee Broad Jump 20 m
+ - running 400 m 
+
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
+
+
+
 Clase GOAT 16/05/2026
 
 Calentamiento
@@ -55,30 +121,7 @@ Estiramiento, cada ejercicio 20 - 30 segundos
 - Standing biceps stretch 
 - Overhead triceps stretch 
 - Wrist extensor stretch 
-### TEMPLATE
 
-Clase GOAT XX/XX/2026
-
-Calentamiento
-- 6 minutos de calentamiento
-
-Movilidad - 2 rondas todo 30 segundos
-
-Activacion
-Fuerza
-WOD
-Estiramiento, cada ejercicio 20 - 30 segundos
-- Supine spinal twist
-- Seated forward fold 
-- Seated quad stretch 
-- Pigeon pose 
-- Supine abdominal stretch 
-- Cobra pose 
-- Child’s Pose 
-- Half kneeling hip flexor stretch 
-- Standing biceps stretch 
-- Overhead triceps stretch 
-- Wrist extensor stretch 
 
 GOAT 06/05/2026
 
