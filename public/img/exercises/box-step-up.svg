@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 230">
+<rect width="220" height="230" fill="#111827" rx="12"/>
+<style>
+  .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+  @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+  @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+  @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+</style>
+<!-- Box -->
+<rect x="110" y="158" width="90" height="52" rx="4" fill="#374151"/>
+<line x1="20" y1="210" x2="220" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+<text x="110" y="225" text-anchor="middle" font-family="monospace" font-size="10" fill="#475569">BOX STEP-UP</text>
+
+<!-- Frame 1: Standing beside box, one foot on ground, planting -->
+<g class="f1">
+  <circle cx="75" cy="50" r="12" fill="#94a3b8"/>
+  <g stroke="#94a3b8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <line x1="75" y1="62" x2="75" y2="120"/>
+    <!-- Arms at sides -->
+    <line x1="75" y1="76" x2="58" y2="110"/>
+    <line x1="75" y1="76" x2="92" y2="110"/>
+    <!-- Both legs on ground -->
+    <line x1="68" y1="120" x2="62" y2="165"/><line x1="62" y1="165" x2="58" y2="210"/>
+    <line x1="82" y1="120" x2="88" y2="165"/><line x1="88" y1="165" x2="92" y2="210"/>
+  </g>
+  <circle cx="62" cy="165" r="5" fill="#64748b"/>
+  <circle cx="88" cy="165" r="5" fill="#64748b"/>
+</g>
+
+<!-- Frame 2: Stepping up with right leg on box -->
+<g class="f2">
+  <circle cx="100" cy="62" r="12" fill="#94a3b8"/>
+  <g stroke="#94a3b8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <line x1="100" y1="74" x2="100" y2="130"/>
+    <line x1="100" y1="86" x2="82" y2="118"/>
+    <line x1="100" y1="86" x2="118" y2="118"/>
+    <!-- Trail leg still on ground -->
+    <line x1="94" y1="130" x2="84" y2="175"/><line x1="84" y1="175" x2="76" y2="210"/>
+    <!-- Lead leg planted on box -->
+    <line x1="106" y1="130" x2="124" y2="150"/><line x1="124" y1="150" x2="130" y2="158"/>
+  </g>
+  <circle cx="84" cy="175" r="5" fill="#64748b"/>
+  <circle cx="124" cy="150" r="5" fill="#64748b"/>
+</g>
+
+<!-- Frame 3: Standing on top of box, both feet -->
+<g class="f3">
+  <circle cx="150" cy="82" r="12" fill="#94a3b8"/>
+  <g stroke="#94a3b8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <line x1="150" y1="94" x2="150" y2="148"/>
+    <line x1="150" y1="106" x2="132" y2="138"/>
+    <line x1="150" y1="106" x2="168" y2="138"/>
+    <!-- Both legs on box -->
+    <line x1="144" y1="148" x2="138" y2="175"/><line x1="138" y1="175" x2="134" y2="208"/>
+    <line x1="156" y1="148" x2="162" y2="175"/><line x1="162" y1="175" x2="166" y2="208"/>
+  </g>
+  <circle cx="138" cy="175" r="5" fill="#64748b"/>
+  <circle cx="162" cy="175" r="5" fill="#64748b"/>
+</g>
+</svg>

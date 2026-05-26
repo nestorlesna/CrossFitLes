@@ -104,7 +104,8 @@
       "Bash(git -C \"C:/DATOS/DESARROLLOS/React/CrossFitLes\" add RELEASE_GITHUB.md)",
       "Bash(git -C C:/DATOS/DESARROLLOS/React/CrossFitLes commit -m ' *)",
       "Bash(git -C \"C:/DATOS/DESARROLLOS/React/CrossFitLes\" push origin develop)",
-      "Bash(findstr -i class)"
+      "Bash(findstr -i class)",
+      "Bash(echo \"Exit: $?\")"
     ]
   }
 }

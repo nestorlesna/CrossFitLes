@@ -38,6 +38,47 @@ Estiramiento, cada ejercicio 20 - 30 segundos
 
 ### TEMPLATE
 
+GOAT 25/05/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos  
+ - Kettlebell Good Morning to Squat 10k, video corto https://www.youtube.com/watch?v=jyV_TwPdbKM, video explicativo 
+ - Ankle Mobility Rock pie derecho , video corto https://www.youtube.com/watch?v=QmqVoWqXe8w, video explicativo https://www.youtube.com/shorts/sFAv_qdQUAE
+ - Ankle Mobility Rock pie izquierdo
+
+Activacion maximo en 6 minutos
+ - 10 Squat Press-Out 10kg 
+ - 6 Box Step-Up con cada pierana - video corto https://www.youtube.com/shorts/j8KN0jwWaRA, video explicativo https://www.youtube.com/shorts/mw6iqu9K8DY
+ - Toe Touch Crunch video corto https://www.youtube.com/shorts/WShPlCySyfk, video explicativo https://www.youtube.com/watch?v=wekvo3XXTzI
+ - Split Squat Calf Raise, 6 con cada pie, video corto https://www.youtube.com/shorts/27zsxZxgUd0, video explicativo https://www.youtube.com/shorts/to95AIOmdbY
+
+Fuerza 5 rondas de 2 ejercicios, cada uno de 1 minuto
+ - 5 Box Jump
+ - 4 Barbell Front Squat 60kg  
+ 
+WOD todos los ejercicios en 3 minutos y 1.5 de descanso al final, 3 rondas
+ - 110 Jump Rope - video explicativo https://www.youtube.com/shorts/y2RrklqngKs, video corto https://www.youtube.com/shorts/BCkR1R6lPcc
+ - 6 Barbell Power Clean
+ - 12 Hanging Toes to Bar
+ - 8 Burpee Over the Bar
+
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
+
+
+
 
 Clase GOAT 23/05/2026
 
