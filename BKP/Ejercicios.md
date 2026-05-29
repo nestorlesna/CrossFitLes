@@ -38,6 +38,60 @@ Estiramiento, cada ejercicio 20 - 30 segundos
 
 ### TEMPLATE
 
+
+
+Clase GOAT 28/05/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+- Wall Lat Stretch
+- Squat Thoracic Rotation, video corto https://www.youtube.com/watch?v=M0ftGdILi78, video explicativo https://www.youtube.com/watch?v=w4IdAUSHJUU
+- 90/90 Hip Rotation
+
+Activacion 3 rondas, 30 segundos de cada ejercicio
+ - Hollow Hold, video corto https://www.youtube.com/shorts/pN_YFk4Lx8Q, video explicativo https://www.youtube.com/shorts/_wBPcny-7Hc
+ - superman hold, video corto https://www.youtube.com/shorts/eKB5rv5c7FQ, video explicativo https://www.youtube.com/watch?v=tYMHYWVvFjs
+ - Bodyweight Hollow Body Hold
+ - Cossack Squat
+
+Fuerza 6 rondas cada 1.5 minutos
+- 10 Front Rack Reverse Lunge, 50 kg, video corto https://www.youtube.com/shorts/jHlSseDK_yw, video explicativo https://www.youtube.com/watch?v=lFGb0qk8tzw
+
+WOD maximo 16 minutos, 4 rondas, cada ejercicio dentro del minuto, 3 ejercicio y el 4to minuto descanso
+- 10 Dumbbell Burpee Snatch, 12.5 con mano derecha, video corto https://www.youtube.com/watch?v=L3-uJuDYaqY, video explicativo https://www.youtube.com/watch?v=XlG8kN3pfFc
+- 15 Wall Ball Box Overs, 9kg, video corto https://www.youtube.com/shorts/9AoebWXADkM, video explicativo https://www.youtube.com/watch?v=fQH0n0yiLRQ
+- 1 minuto Assault Bike
+- 1 minuto de descanso
+- 10 Dumbbell Burpee Snatch, 12.5 con mano izquierda
+- 15 Wall Ball Box Overs, 9kg
+- 1 minuto rowing
+- 1 minuto de descanso
+- 10 Dumbbell Burpee Snatch, 12.5 con mano derecho
+- 15 Wall Ball Box Overs, 9kg
+- 1 minuto Assault Bike
+- 1 minuto de descanso
+- 10 Dumbbell Burpee Snatch, 12.5 con mano izquierda
+- 15 Wall Ball Box Overs, 9kg
+- 1 minuto rowing
+
+
+
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
+
+
 GOAT 25/05/2026
 
 Calentamiento
