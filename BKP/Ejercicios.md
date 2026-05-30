@@ -12,6 +12,9 @@
   asigná los videos de X x x x usando ACTUALIZO_VIDEO.md
 ### COMO USAR
 
+
+
+
 ### TEMPLATE
 Clase GOAT XX/XX/2026
 
@@ -35,8 +38,47 @@ Estiramiento, cada ejercicio 20 - 30 segundos
 - Standing biceps stretch 
 - Overhead triceps stretch 
 - Wrist extensor stretch 
-
 ### TEMPLATE
+
+
+
+Clase GOAT 30/05/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Activacion 6 minutos
+ - Barbell Good Morning 15 kg
+ - 10 V-Up video corto https://www.youtube.com/watch?v=iP2fjvG0g3w, video explicativo https://www.youtube.com/watch?v=7UVgs18Y1P4
+ - 6 y 6 Single-Leg Romanian Deadlift con 15 kg, video corto https://www.youtube.com/shorts/s32cCgmRV3I, video explicativo https://www.youtube.com/watch?v=lI8-igvsnVQ
+ - 10 Plank Shoulder Taps
+ - 30 running
+
+Fuerza 3 rondas cada ejercicio en 1 minuto
+ - 10 Bent-Over Dumbbell Reverse Fly 10kg, video corto https://www.youtube.com/shorts/62IAwMoHawI, video explicativo https://www.youtube.com/shorts/xvEkgGUrGPM
+ - 12 Alternating Kettlebell Row 15 kg, video corto https://www.youtube.com/watch?v=doPA462HS9Y, https://www.youtube.com/shorts/Jht218U7ENw
+ - 12 Barbell Shrug 50kg, video corto https://www.youtube.com/watch?v=larn3Asl6oM video explicativo https://www.youtube.com/watch?v=M_MjF5Nm_h4
+
+WOD 4 rondas, 6 ejercicio de 1 minuto el ultimo es de descanso
+ - Running 200 m
+ - 6 Burpee Broad Jump, video corto https://www.youtube.com/shorts/VnDbhYDmuLo, video explicativo https://www.youtube.com/shorts/lgONqLbf7cE
+ - kettlebell farmer carry march 20m con 30 kg  y  10 Goblet Squat Hold Press con 15kg
+ - 40 Assault Bike (1 y 4), Rowing (2), SkiErg (3), de SkiErg video corto https://www.youtube.com/shorts/a7jTvJLNN0w
+ - Sled Push & Pull 20 m, 60kg
+ - 1 minuto de descanso
+
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
 
 
 
