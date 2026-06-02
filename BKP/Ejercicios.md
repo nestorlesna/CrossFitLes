@@ -14,7 +14,6 @@
 
 
 
-
 ### TEMPLATE
 Clase GOAT XX/XX/2026
 
@@ -39,6 +38,46 @@ Estiramiento, cada ejercicio 20 - 30 segundos
 - Overhead triceps stretch 
 - Wrist extensor stretch 
 ### TEMPLATE
+
+
+Clase GOAT 01/06/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - Kettlebell Good Morning to Squat 16kg, video corto https://www.youtube.com/watch?v=jyV_TwPdbKM
+ - half-kneeling ankle dorsiflexion stretching pie derecho, video corto https://www.youtube.com/shorts/ODDP2EomsWs, video explicativo https://www.youtube.com/shorts/7jOwuwNk8OM
+ - half-kneeling ankle dorsiflexion stretching pie izquierdo
+
+Activacion 6 minutos mayor cantidad de vueltas
+ - 10 Bird Dog Crunch, video explicativo https://www.youtube.com/watch?v=hgB5ftP-JOg, video corto https://www.youtube.com/watch?v=A3HGdX53U0s
+ - 10 V-up, video corto https://www.youtube.com/watch?v=iP2fjvG0g3w, video explicativo https://www.youtube.com/watch?v=7UVgs18Y1P4
+ - 8 Scapular Push-Up
+ - 10 Toe Touch Sit-Up 
+
+Fuerza 6 rondas de 2 minutos, minuto par 2 ejercicios, minuto impar otro ejercicio
+ - 24 Hanging Flutter Kicks video corto https://www.youtube.com/shorts/7HX_lw25_0U, video explicativo https://www.youtube.com/shorts/_eyZ-5dP5qU, y dentro de los 2 minutos, 10 de cada lado, video corto https://www.youtube.com/shorts/F4b8x2vyUG8, video explicativo https://www.youtube.com/shorts/pZPS6LeP8oc
+ - 10 con cada brazo Dumbbell Row 20 kg, video corto https://www.youtube.com/shorts/i9BJwVCK5VQ, video explicativo https://www.youtube.com/shorts/H127qnBvFrM
+
+WOD 7 minutos mayor cantida de vueltas, 2 de descanso y 7 mayor cantidad de vueltas
+ - 8 Barbell Thruster (1 y 3 en primera ronda, 2 en segudna ronda), 8 Barbell Power Clean (2 en primera ronda, 1 y 3 en segunda ronda )
+ - 12 Alternating Single Arm Dumbbell Power Snatch
+ - 15 Box Jump-Over
+
+
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
 
 
 

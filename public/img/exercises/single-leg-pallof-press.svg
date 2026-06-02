@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <style>
+    .f1{animation:sh1 4s linear infinite}
+    .f2{animation:sh2 4s linear infinite}
+    .f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+
+  <!-- Ancla de la banda (lateral) -->
+  <rect x="170" y="96" width="8" height="40" fill="#475569" rx="2"/>
+
+  <!-- Frame 1: Manos en el pecho, equilibrio en una pierna -->
+  <g class="f1">
+    <circle cx="86" cy="40" r="12" fill="#94a3b8"/>
+    <circle cx="86" cy="120" r="4" fill="#64748b"/>
+    <g stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+      <!-- torso -->
+      <line x1="86" y1="52" x2="86" y2="120"/>
+      <!-- brazos flexionados al pecho -->
+      <line x1="86" y1="66" x2="104" y2="78"/>
+      <!-- pierna de apoyo -->
+      <line x1="86" y1="120" x2="84" y2="205"/>
+      <!-- pierna libre flexionada -->
+      <line x1="86" y1="120" x2="108" y2="150"/>
+      <line x1="108" y1="150" x2="100" y2="178"/>
+    </g>
+    <!-- banda tensa hacia el pecho -->
+    <line x1="104" y1="78" x2="170" y2="116" stroke="#f97316" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Frame 2: Brazos extendidos al frente (press) -->
+  <g class="f2">
+    <circle cx="86" cy="40" r="12" fill="#94a3b8"/>
+    <circle cx="86" cy="120" r="4" fill="#64748b"/>
+    <g stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+      <line x1="86" y1="52" x2="86" y2="120"/>
+      <!-- brazos extendidos al frente, resistiendo rotacion -->
+      <line x1="86" y1="66" x2="50" y2="74"/>
+      <line x1="86" y1="120" x2="84" y2="205"/>
+      <line x1="86" y1="120" x2="108" y2="150"/>
+      <line x1="108" y1="150" x2="100" y2="178"/>
+    </g>
+    <!-- banda estirada -->
+    <line x1="50" y1="74" x2="170" y2="116" stroke="#f97316" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Frame 3: Vuelta al pecho -->
+  <g class="f3">
+    <circle cx="86" cy="40" r="12" fill="#94a3b8"/>
+    <circle cx="86" cy="120" r="4" fill="#64748b"/>
+    <g stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+      <line x1="86" y1="52" x2="86" y2="120"/>
+      <line x1="86" y1="66" x2="104" y2="78"/>
+      <line x1="86" y1="120" x2="84" y2="205"/>
+      <line x1="86" y1="120" x2="108" y2="150"/>
+      <line x1="108" y1="150" x2="100" y2="178"/>
+    </g>
+    <line x1="104" y1="78" x2="170" y2="116" stroke="#f97316" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+
+  <line x1="20" y1="208" x2="180" y2="208" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="223" font-family="sans-serif" font-size="8" fill="#475569" text-anchor="middle" letter-spacing="0.3">SINGLE-LEG PALLOF PRESS</text>
+</svg>

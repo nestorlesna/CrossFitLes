@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <style>
+    .f1{animation:sh1 4s linear infinite}
+    .f2{animation:sh2 4s linear infinite}
+    .f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+
+  <!-- Barra de dominadas -->
+  <line x1="40" y1="26" x2="160" y2="26" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Frame 1: Pierna derecha arriba, izquierda abajo -->
+  <g class="f1">
+    <circle cx="100" cy="64" r="12" fill="#94a3b8"/>
+    <circle cx="100" cy="120" r="4" fill="#64748b"/>
+    <g stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+      <!-- brazos a la barra -->
+      <line x1="100" y1="54" x2="86" y2="28"/>
+      <line x1="100" y1="54" x2="114" y2="28"/>
+      <!-- torso -->
+      <line x1="100" y1="76" x2="100" y2="120"/>
+      <!-- pierna derecha elevada -->
+      <line x1="100" y1="120" x2="150" y2="112"/>
+      <!-- pierna izquierda baja -->
+      <line x1="100" y1="120" x2="138" y2="150"/>
+    </g>
+  </g>
+
+  <!-- Frame 2: Piernas niveladas al frente -->
+  <g class="f2">
+    <circle cx="100" cy="64" r="12" fill="#94a3b8"/>
+    <circle cx="100" cy="120" r="4" fill="#64748b"/>
+    <g stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+      <line x1="100" y1="54" x2="86" y2="28"/>
+      <line x1="100" y1="54" x2="114" y2="28"/>
+      <line x1="100" y1="76" x2="100" y2="120"/>
+      <line x1="100" y1="120" x2="148" y2="124"/>
+      <line x1="100" y1="120" x2="146" y2="134"/>
+    </g>
+  </g>
+
+  <!-- Frame 3: Pierna izquierda arriba, derecha abajo -->
+  <g class="f3">
+    <circle cx="100" cy="64" r="12" fill="#94a3b8"/>
+    <circle cx="100" cy="120" r="4" fill="#64748b"/>
+    <g stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+      <line x1="100" y1="54" x2="86" y2="28"/>
+      <line x1="100" y1="54" x2="114" y2="28"/>
+      <line x1="100" y1="76" x2="100" y2="120"/>
+      <!-- pierna izquierda elevada -->
+      <line x1="100" y1="120" x2="150" y2="112"/>
+      <!-- pierna derecha baja -->
+      <line x1="100" y1="120" x2="138" y2="150"/>
+    </g>
+  </g>
+
+  <text x="100" y="223" font-family="sans-serif" font-size="8" fill="#475569" text-anchor="middle" letter-spacing="0.3">HANGING FLUTTER KICKS</text>
+</svg>

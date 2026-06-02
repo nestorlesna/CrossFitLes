@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <style>
+    .f1{animation:sh1 4s linear infinite}
+    .f2{animation:sh2 4s linear infinite}
+    .f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+
+  <!-- Frame 1: Medio arrodillado, rodilla delantera vertical sobre el tobillo -->
+  <g class="f1">
+    <circle cx="92" cy="44" r="12" fill="#94a3b8"/>
+    <circle cx="118" cy="172" r="4" fill="#64748b"/>
+    <circle cx="78" cy="200" r="4" fill="#64748b"/>
+    <g stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+      <!-- torso -->
+      <line x1="92" y1="56" x2="100" y2="150"/>
+      <!-- brazo apoyado en rodilla delantera -->
+      <line x1="98" y1="92" x2="118" y2="170"/>
+      <!-- muslo trasero (cadera -> rodilla en suelo) -->
+      <line x1="100" y1="150" x2="78" y2="200"/>
+      <!-- pierna trasera apoyada en el suelo -->
+      <line x1="78" y1="200" x2="60" y2="205"/>
+      <!-- muslo delantero (cadera -> rodilla) -->
+      <line x1="100" y1="150" x2="118" y2="172"/>
+      <!-- tibia delantera vertical -->
+      <line x1="118" y1="172" x2="124" y2="205"/>
+      <!-- pie delantero plano -->
+      <line x1="118" y1="205" x2="142" y2="205"/>
+    </g>
+  </g>
+
+  <!-- Frame 2: Rodilla delantera avanza sobre los dedos (dorsiflexion) -->
+  <g class="f2">
+    <circle cx="96" cy="46" r="12" fill="#94a3b8"/>
+    <circle cx="132" cy="176" r="4" fill="#64748b"/>
+    <circle cx="78" cy="200" r="4" fill="#64748b"/>
+    <g stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+      <line x1="96" y1="58" x2="102" y2="150"/>
+      <line x1="101" y1="94" x2="132" y2="174"/>
+      <line x1="102" y1="150" x2="78" y2="200"/>
+      <line x1="78" y1="200" x2="60" y2="205"/>
+      <!-- rodilla desplazada hacia adelante -->
+      <line x1="102" y1="150" x2="132" y2="176"/>
+      <!-- tibia inclinada al frente, talon fijo -->
+      <line x1="132" y1="176" x2="126" y2="205"/>
+      <line x1="118" y1="205" x2="142" y2="205"/>
+    </g>
+  </g>
+
+  <!-- Frame 3: Vuelta a posicion vertical -->
+  <g class="f3">
+    <circle cx="92" cy="44" r="12" fill="#94a3b8"/>
+    <circle cx="118" cy="172" r="4" fill="#64748b"/>
+    <circle cx="78" cy="200" r="4" fill="#64748b"/>
+    <g stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+      <line x1="92" y1="56" x2="100" y2="150"/>
+      <line x1="98" y1="92" x2="118" y2="170"/>
+      <line x1="100" y1="150" x2="78" y2="200"/>
+      <line x1="78" y1="200" x2="60" y2="205"/>
+      <line x1="100" y1="150" x2="118" y2="172"/>
+      <line x1="118" y1="172" x2="124" y2="205"/>
+      <line x1="118" y1="205" x2="142" y2="205"/>
+    </g>
+  </g>
+
+  <line x1="20" y1="208" x2="180" y2="208" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="223" font-family="sans-serif" font-size="8" fill="#475569" text-anchor="middle" letter-spacing="0.3">ANKLE DORSIFLEXION</text>
+</svg>
