@@ -12,6 +12,7 @@
   asigná los videos de X x x x usando ACTUALIZO_VIDEO.md
 ### COMO USAR
 
+
 ### TEMPLATE
 Clase GOAT XX/XX/2026
 
@@ -35,8 +36,227 @@ Estiramiento, cada ejercicio 20 - 30 segundos
 - Standing biceps stretch 
 - Overhead triceps stretch 
 - Wrist extensor stretch 
-
 ### TEMPLATE
+
+
+
+Clase GOAT 08/06/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - 90/90 Hip Rotation
+ - Cuban Press, discos 2.5, video explicativo https://www.youtube.com/shorts/-H4duASwnBs, video corto https://www.youtube.com/watch?v=XpcOM9Np9LQ
+ - Yoga Push-Up
+
+Activacion 6 rondas todo cada 1 minuto, intercalo ejecicio A y B
+ - A.1 - 5 Snatch High Pull, 20 kg
+ - A.2 - 5 Barbell Muscle Snatch, 20 kg
+ - A.3 - 5 Push Press Behind the Neck, 20 kg, video corto https://www.youtube.com/shorts/ECQxCyXg-ik, video explicativo https://www.youtube.com/watch?v=eAkalDSMcbo
+ - B - 10 Snatch
+
+Fuerza 6 rondas todo cada 1.5 minutos
+ - 4 Barbell Muscle Snatch 30 kg
+ - 4 Barbell Muscle Snatch 34 kg
+ - 3 Barbell Muscle Snatch 36 kg
+ - 3 Barbell Muscle Snatch 36 kg
+ - 1 Barbell Muscle Snatch 40 kg
+ - 1 Barbell Muscle Snatch 44 kg
+WOD 4 rondas de 4 ejercicios cada 1 minuto, en 16 minutos
+ - 10 Barbell Muscle Snatch - 30 kg
+ - 16 Wall Ball Shot 6kg
+ - 10 Bar Pull Up
+ - 16 Kettlebell Front Squat 12 kg
+ 
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
+### TEMPLATE
+
+
+Clase GOAT 01/06/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - Kettlebell Good Morning to Squat 16kg, video corto https://www.youtube.com/watch?v=jyV_TwPdbKM
+ - half-kneeling ankle dorsiflexion stretching pie derecho, video corto https://www.youtube.com/shorts/ODDP2EomsWs, video explicativo https://www.youtube.com/shorts/7jOwuwNk8OM
+ - half-kneeling ankle dorsiflexion stretching pie izquierdo
+
+Activacion 6 minutos mayor cantidad de vueltas
+ - 10 Bird Dog Crunch, video explicativo https://www.youtube.com/watch?v=hgB5ftP-JOg, video corto https://www.youtube.com/watch?v=A3HGdX53U0s
+ - 10 V-up, video corto https://www.youtube.com/watch?v=iP2fjvG0g3w, video explicativo https://www.youtube.com/watch?v=7UVgs18Y1P4
+ - 8 Scapular Push-Up
+ - 10 Toe Touch Sit-Up 
+
+Fuerza 6 rondas de 2 minutos, minuto par 2 ejercicios, minuto impar otro ejercicio
+ - 24 Hanging Flutter Kicks video corto https://www.youtube.com/shorts/7HX_lw25_0U, video explicativo https://www.youtube.com/shorts/_eyZ-5dP5qU, y dentro de los 2 minutos, 10 de cada lado, video corto https://www.youtube.com/shorts/F4b8x2vyUG8, video explicativo https://www.youtube.com/shorts/pZPS6LeP8oc
+ - 10 con cada brazo Dumbbell Row 20 kg, video corto https://www.youtube.com/shorts/i9BJwVCK5VQ, video explicativo https://www.youtube.com/shorts/H127qnBvFrM
+
+WOD 7 minutos mayor cantida de vueltas, 2 de descanso y 7 mayor cantidad de vueltas
+ - 8 Barbell Thruster (1 y 3 en primera ronda, 2 en segudna ronda), 8 Barbell Power Clean (2 en primera ronda, 1 y 3 en segunda ronda )
+ - 12 Alternating Single Arm Dumbbell Power Snatch
+ - 15 Box Jump-Over
+
+
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
+
+
+
+Clase GOAT 30/05/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Activacion 6 minutos
+ - Barbell Good Morning 15 kg
+ - 10 V-Up video corto https://www.youtube.com/watch?v=iP2fjvG0g3w, video explicativo https://www.youtube.com/watch?v=7UVgs18Y1P4
+ - 6 y 6 Single-Leg Romanian Deadlift con 15 kg, video corto https://www.youtube.com/shorts/s32cCgmRV3I, video explicativo https://www.youtube.com/watch?v=lI8-igvsnVQ
+ - 10 Plank Shoulder Taps
+ - 30 running
+
+Fuerza 3 rondas cada ejercicio en 1 minuto
+ - 10 Bent-Over Dumbbell Reverse Fly 10kg, video corto https://www.youtube.com/shorts/62IAwMoHawI, video explicativo https://www.youtube.com/shorts/xvEkgGUrGPM
+ - 12 Alternating Kettlebell Row 15 kg, video corto https://www.youtube.com/watch?v=doPA462HS9Y, https://www.youtube.com/shorts/Jht218U7ENw
+ - 12 Barbell Shrug 50kg, video corto https://www.youtube.com/watch?v=larn3Asl6oM video explicativo https://www.youtube.com/watch?v=M_MjF5Nm_h4
+
+WOD 4 rondas, 6 ejercicio de 1 minuto el ultimo es de descanso
+ - Running 200 m
+ - 6 Burpee Broad Jump, video corto https://www.youtube.com/shorts/VnDbhYDmuLo, video explicativo https://www.youtube.com/shorts/lgONqLbf7cE
+ - kettlebell farmer carry march 20m con 30 kg  y  10 Goblet Squat Hold Press con 15kg
+ - 40 Assault Bike (1 y 4), Rowing (2), SkiErg (3), de SkiErg video corto https://www.youtube.com/shorts/a7jTvJLNN0w
+ - Sled Push & Pull 20 m, 60kg
+ - 1 minuto de descanso
+
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
+
+
+
+Clase GOAT 28/05/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+- Wall Lat Stretch
+- Squat Thoracic Rotation, video corto https://www.youtube.com/watch?v=M0ftGdILi78, video explicativo https://www.youtube.com/watch?v=w4IdAUSHJUU
+- 90/90 Hip Rotation
+
+Activacion 3 rondas, 30 segundos de cada ejercicio
+ - Hollow Hold, video corto https://www.youtube.com/shorts/pN_YFk4Lx8Q, video explicativo https://www.youtube.com/shorts/_wBPcny-7Hc
+ - superman hold, video corto https://www.youtube.com/shorts/eKB5rv5c7FQ, video explicativo https://www.youtube.com/watch?v=tYMHYWVvFjs
+ - Bodyweight Hollow Body Hold
+ - Cossack Squat
+
+Fuerza 6 rondas cada 1.5 minutos
+- 10 Front Rack Reverse Lunge, 50 kg, video corto https://www.youtube.com/shorts/jHlSseDK_yw, video explicativo https://www.youtube.com/watch?v=lFGb0qk8tzw
+
+WOD maximo 16 minutos, 4 rondas, cada ejercicio dentro del minuto, 3 ejercicio y el 4to minuto descanso
+- 10 Dumbbell Burpee Snatch, 12.5 con mano derecha, video corto https://www.youtube.com/watch?v=L3-uJuDYaqY, video explicativo https://www.youtube.com/watch?v=XlG8kN3pfFc
+- 15 Wall Ball Box Overs, 9kg, video corto https://www.youtube.com/shorts/9AoebWXADkM, video explicativo https://www.youtube.com/watch?v=fQH0n0yiLRQ
+- 1 minuto Assault Bike
+- 1 minuto de descanso
+- 10 Dumbbell Burpee Snatch, 12.5 con mano izquierda
+- 15 Wall Ball Box Overs, 9kg
+- 1 minuto rowing
+- 1 minuto de descanso
+- 10 Dumbbell Burpee Snatch, 12.5 con mano derecho
+- 15 Wall Ball Box Overs, 9kg
+- 1 minuto Assault Bike
+- 1 minuto de descanso
+- 10 Dumbbell Burpee Snatch, 12.5 con mano izquierda
+- 15 Wall Ball Box Overs, 9kg
+- 1 minuto rowing
+
+
+
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
+
+
+GOAT 25/05/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos  
+ - Kettlebell Good Morning to Squat 10k, video corto https://www.youtube.com/watch?v=jyV_TwPdbKM, video explicativo 
+ - Ankle Mobility Rock pie derecho , video corto https://www.youtube.com/watch?v=QmqVoWqXe8w, video explicativo https://www.youtube.com/shorts/sFAv_qdQUAE
+ - Ankle Mobility Rock pie izquierdo
+
+Activacion maximo en 6 minutos
+ - 10 Squat Press-Out 10kg 
+ - 6 Box Step-Up con cada pierana - video corto https://www.youtube.com/shorts/j8KN0jwWaRA, video explicativo https://www.youtube.com/shorts/mw6iqu9K8DY
+ - Toe Touch Crunch video corto https://www.youtube.com/shorts/WShPlCySyfk, video explicativo https://www.youtube.com/watch?v=wekvo3XXTzI
+ - Split Squat Calf Raise, 6 con cada pie, video corto https://www.youtube.com/shorts/27zsxZxgUd0, video explicativo https://www.youtube.com/shorts/to95AIOmdbY
+
+Fuerza 5 rondas de 2 ejercicios, cada uno de 1 minuto
+ - 5 Box Jump
+ - 4 Barbell Front Squat 60kg  
+ 
+WOD todos los ejercicios en 3 minutos y 1.5 de descanso al final, 3 rondas
+ - 110 Jump Rope - video explicativo https://www.youtube.com/shorts/y2RrklqngKs, video corto https://www.youtube.com/shorts/BCkR1R6lPcc
+ - 6 Barbell Power Clean
+ - 12 Hanging Toes to Bar
+ - 8 Burpee Over the Bar
+
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
+
+
 
 
 Clase GOAT 23/05/2026
