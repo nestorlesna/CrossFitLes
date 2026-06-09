@@ -13,7 +13,6 @@
 ### COMO USAR
 
 
-
 ### TEMPLATE
 Clase GOAT XX/XX/2026
 
@@ -25,6 +24,51 @@ Movilidad - 2 rondas todo 30 segundos
 Activacion
 Fuerza
 WOD
+Estiramiento, cada ejercicio 20 - 30 segundos
+- Supine spinal twist
+- Seated forward fold 
+- Seated quad stretch 
+- Pigeon pose 
+- Supine abdominal stretch 
+- Cobra pose 
+- Child’s Pose 
+- Half kneeling hip flexor stretch 
+- Standing biceps stretch 
+- Overhead triceps stretch 
+- Wrist extensor stretch 
+### TEMPLATE
+
+
+
+Clase GOAT 08/06/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - 90/90 Hip Rotation
+ - Cuban Press, discos 2.5, video explicativo https://www.youtube.com/shorts/-H4duASwnBs, video corto https://www.youtube.com/watch?v=XpcOM9Np9LQ
+ - Yoga Push-Up
+
+Activacion 6 rondas todo cada 1 minuto, intercalo ejecicio A y B
+ - A.1 - 5 Snatch High Pull, 20 kg
+ - A.2 - 5 Barbell Muscle Snatch, 20 kg
+ - A.3 - 5 Push Press Behind the Neck, 20 kg, video corto https://www.youtube.com/shorts/ECQxCyXg-ik, video explicativo https://www.youtube.com/watch?v=eAkalDSMcbo
+ - B - 10 Snatch
+
+Fuerza 6 rondas todo cada 1.5 minutos
+ - 4 Barbell Muscle Snatch 30 kg
+ - 4 Barbell Muscle Snatch 34 kg
+ - 3 Barbell Muscle Snatch 36 kg
+ - 3 Barbell Muscle Snatch 36 kg
+ - 1 Barbell Muscle Snatch 40 kg
+ - 1 Barbell Muscle Snatch 44 kg
+WOD 4 rondas de 4 ejercicios cada 1 minuto, en 16 minutos
+ - 10 Barbell Muscle Snatch - 30 kg
+ - 16 Wall Ball Shot 6kg
+ - 10 Bar Pull Up
+ - 16 Kettlebell Front Squat 12 kg
+ 
 Estiramiento, cada ejercicio 20 - 30 segundos
 - Supine spinal twist
 - Seated forward fold 
