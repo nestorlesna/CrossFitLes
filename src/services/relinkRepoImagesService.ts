@@ -45,6 +45,11 @@ const RELINK_ENTRIES: RelinkEntry[] = [
     oldPath: 'exercises/508640b7-e311-4235-9eb5-027bfa987202.svg',
     newPath: '/img/exercises/scapular-push-up-dina.svg',
   },
+  {
+    label: 'Barbell Front Rack Reverse Lunge',
+    oldPath: 'exercises/a19762dd-1e83-4c42-8bdc-687967972ef7.svg',
+    newPath: '/img/exercises/barbell-front-rack-reverse-lunge.svg',
+  },
 ];
 
 export interface RelinkResult {
