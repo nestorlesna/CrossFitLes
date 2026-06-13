@@ -12,6 +12,10 @@ import {
   importClass08062026,
   isClass08062026ImportDone,
 } from '../../services/class08062026ImportService';
+import {
+  importClass13062026,
+  isClass13062026ImportDone,
+} from '../../services/class13062026ImportService';
 
 interface ClassEntry {
   label: string;
@@ -22,6 +26,12 @@ interface ClassEntry {
 
 // Más reciente primero
 const CLASS_ENTRIES: ClassEntry[] = [
+  {
+    label: 'Clase GOAT 13/06/2026',
+    date: 'Calentamiento · Movilidad · Activación (Tabata) · WOD Bloque A · WOD Bloque B',
+    isDone: isClass13062026ImportDone,
+    run: importClass13062026,
+  },
   {
     label: 'Clase GOAT 08/06/2026',
     date: 'Calentamiento · Movilidad · Activación · Fuerza · WOD',

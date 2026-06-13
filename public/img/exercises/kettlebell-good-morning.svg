@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+<rect width="200" height="230" fill="#111827" rx="12"/>
+<style>
+  .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+  @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+  @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+  @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+</style>
+<line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+<text x="100" y="225" text-anchor="middle" font-family="monospace" font-size="9" fill="#475569">KB GOOD MORNING</text>
+
+<!-- F1: Standing upright, KB at chest (goblet position) -->
+<g class="f1" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+  <circle cx="100" cy="26" r="13" fill="#94a3b8" stroke="none"/>
+  <line x1="100" y1="39" x2="100" y2="108"/>
+  <!-- Arms bent holding KB at chest -->
+  <line x1="100" y1="55" x2="86" y2="78"/>
+  <line x1="86" y1="78" x2="92" y2="92"/>
+  <line x1="100" y1="55" x2="114" y2="78"/>
+  <line x1="114" y1="78" x2="108" y2="92"/>
+  <!-- KB at chest -->
+  <circle cx="100" cy="94" r="9" fill="#64748b" stroke="none"/>
+  <rect x="95" y="82" width="10" height="6" rx="2" fill="#475569" stroke="none"/>
+  <!-- Legs slightly apart -->
+  <line x1="100" y1="108" x2="88" y2="162"/>
+  <line x1="88" y1="162" x2="84" y2="205"/>
+  <line x1="100" y1="108" x2="112" y2="162"/>
+  <line x1="112" y1="162" x2="116" y2="205"/>
+  <circle cx="88" cy="162" r="5" fill="#64748b" stroke="none"/>
+  <circle cx="112" cy="162" r="5" fill="#64748b" stroke="none"/>
+</g>
+
+<!-- F2: ~45° hip hinge, KB hanging forward -->
+<g class="f2" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+  <!-- Head and torso at 45° from hip at (110,110) -->
+  <circle cx="63" cy="55" r="13" fill="#94a3b8" stroke="none"/>
+  <!-- Torso line at 45° -->
+  <line x1="75" y1="65" x2="110" y2="110"/>
+  <!-- Arms hanging forward and down from mid-torso -->
+  <line x1="88" y1="86" x2="74" y2="112"/>
+  <line x1="88" y1="86" x2="82" y2="116"/>
+  <!-- KB hanging below torso -->
+  <circle cx="78" cy="126" r="9" fill="#64748b" stroke="none"/>
+  <rect x="73" y="114" width="10" height="6" rx="2" fill="#475569" stroke="none"/>
+  <!-- Legs: slightly bent, behind hip pivot -->
+  <line x1="110" y1="110" x2="100" y2="165"/>
+  <line x1="100" y1="165" x2="96" y2="205"/>
+  <line x1="110" y1="110" x2="120" y2="165"/>
+  <line x1="120" y1="165" x2="126" y2="205"/>
+  <circle cx="100" cy="165" r="5" fill="#64748b" stroke="none"/>
+  <circle cx="120" cy="165" r="5" fill="#64748b" stroke="none"/>
+</g>
+
+<!-- F3: Full hip hinge, torso nearly horizontal -->
+<g class="f3" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+  <circle cx="48" cy="108" r="13" fill="#94a3b8" stroke="none"/>
+  <!-- Horizontal torso -->
+  <line x1="60" y1="108" x2="115" y2="108"/>
+  <!-- Arms hanging straight down -->
+  <line x1="78" y1="108" x2="78" y2="138"/>
+  <line x1="92" y1="108" x2="92" y2="138"/>
+  <!-- KB hanging below -->
+  <circle cx="85" cy="148" r="9" fill="#64748b" stroke="none"/>
+  <rect x="80" y="138" width="10" height="6" rx="2" fill="#475569" stroke="none"/>
+  <!-- Legs with slight knee bend -->
+  <line x1="115" y1="108" x2="108" y2="162"/>
+  <line x1="108" y1="162" x2="100" y2="205"/>
+  <line x1="115" y1="108" x2="122" y2="162"/>
+  <line x1="122" y1="162" x2="130" y2="205"/>
+  <circle cx="108" cy="162" r="5" fill="#64748b" stroke="none"/>
+  <circle cx="122" cy="162" r="5" fill="#64748b" stroke="none"/>
+</g>
+</svg>

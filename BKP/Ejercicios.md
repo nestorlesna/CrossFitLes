@@ -24,19 +24,40 @@ Movilidad - 2 rondas todo 30 segundos
 Activacion
 Fuerza
 WOD
-Estiramiento, cada ejercicio 20 - 30 segundos
-- Supine spinal twist
-- Seated forward fold 
-- Seated quad stretch 
-- Pigeon pose 
-- Supine abdominal stretch 
-- Cobra pose 
-- Child’s Pose 
-- Half kneeling hip flexor stretch 
-- Standing biceps stretch 
-- Overhead triceps stretch 
-- Wrist extensor stretch 
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ### TEMPLATE
+
+
+
+
+
+
+Clase GOAT 13/06/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - Wall Lat Stretch
+ - Kettlebell Good Morning 10kg, video corto https://www.youtube.com/shorts/FkvZv75xPkw, video explicativo https://www.youtube.com/watch?v=0lcPSo2gRoY
+ - Single-Leg Calf Raise 10 kg, primera ronda pie derecho, segunda pie izquierdo, video corto https://www.youtube.com/watch?v=qPd73snQfUs, video explicativo https://www.youtube.com/watch?v=QEILIo9Kzlw
+
+Activacion 2 tabata 20-10, cada uno de 8 ejercicios
+ - Hollow to Superman Roll 20 segundos, 10 de descanso
+ - Bodyweight Push Up  20 segundos, 10 de descanso
+
+WOD, estilo hirux, 12 minutos por minuto ejecicios A, y 12 minutos por minutos ejercicos B
+ - A.1 - Sled Push & Pull 20 m, 80kg
+ - A.2 - Kettlebell Jumping Lunge 10kg, video corto https://www.youtube.com/shorts/jJu2SnYJeK4, video explicativo https://www.youtube.com/watch?v=Sms79i9O3gU
+ - A.3 - running, 200 m
+ - A.4 - descanso
+ - B.1 - 45 segundos Rowing
+ - B.2 - 45 segundos Assault Bike
+ - B.3 - 45 segundos SkiErg
+ - B.4 - 10 m Burpee Broad Jump
+ 
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
 
 
 
