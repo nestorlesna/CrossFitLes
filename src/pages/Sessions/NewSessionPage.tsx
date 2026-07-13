@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, Search, Calendar, Star, Dumbbell, Play, ClipboardList } from 'lucide-react';
+import { ChevronLeft, Search, Calendar, Star, Dumbbell, Play, ClipboardList, Timer, ListChecks } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { Badge } from '../../components/ui/Badge';
 import { ClassTemplate } from '../../models/ClassTemplate';
@@ -8,11 +8,15 @@ import { getAll as getAllTemplates } from '../../db/repositories/classTemplateRe
 import { createFromTemplate } from '../../db/repositories/trainingSessionRepo';
 import { toast } from 'sonner';
 
+// Cómo se ejecuta la plantilla elegida
+type StartMode = 'timer' | 'manual';
+
 export function NewSessionPage() {
   const navigate = useNavigate();
   const [templates, setTemplates] = useState<ClassTemplate[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [mode, setMode] = useState<StartMode>('timer');
 
   useEffect(() => {
     async function loadTemplates() {
@@ -32,7 +36,7 @@ export function NewSessionPage() {
     try {
       const sessionId = await createFromTemplate(templateId);
       toast.success('Sesión iniciada');
-      navigate(`/sesiones/${sessionId}/ejecutar`);
+      navigate(mode === 'timer' ? `/sesiones/${sessionId}/cronometro` : `/sesiones/${sessionId}/ejecutar`);
     } catch (e) {
       toast.error('Error al iniciar sesión');
     }
@@ -82,6 +86,34 @@ export function NewSessionPage() {
           <div className="flex items-center justify-between">
             <h2 className="text-white font-bold text-lg">Usar Plantilla</h2>
             <Badge label={`${templates.length} disponibles`} size="sm" />
+          </div>
+
+          {/* ── Cómo se ejecuta la clase elegida ── */}
+          <div className="grid grid-cols-2 gap-2 bg-gray-900 border border-gray-800 rounded-2xl p-2">
+            <button
+              onClick={() => setMode('timer')}
+              className={`flex flex-col items-center gap-1 rounded-xl px-3 py-3 transition-colors ${
+                mode === 'timer' ? 'bg-primary-600 text-white' : 'text-gray-400 hover:bg-gray-800'
+              }`}
+            >
+              <Timer size={18} />
+              <span className="text-xs font-bold">Clase guiada</span>
+              <span className={`text-[10px] leading-tight text-center ${mode === 'timer' ? 'text-white/70' : 'text-gray-600'}`}>
+                El cronómetro avanza solo
+              </span>
+            </button>
+            <button
+              onClick={() => setMode('manual')}
+              className={`flex flex-col items-center gap-1 rounded-xl px-3 py-3 transition-colors ${
+                mode === 'manual' ? 'bg-primary-600 text-white' : 'text-gray-400 hover:bg-gray-800'
+              }`}
+            >
+              <ListChecks size={18} />
+              <span className="text-xs font-bold">Manual</span>
+              <span className={`text-[10px] leading-tight text-center ${mode === 'manual' ? 'text-white/70' : 'text-gray-600'}`}>
+                Cargás vos los resultados
+              </span>
+            </button>
           </div>
 
           <div className="relative">

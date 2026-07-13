@@ -75,6 +75,9 @@ export interface WorkFormat {
   description?: string;
   has_time_cap: number;
   has_rounds: number;
+  /** 1 = el cronómetro usa ventanas fijas por ejercicio (EMOM, Tabata, etc.) */
+  is_interval: number;
+  default_interval_seconds?: number;
   sort_order: number;
   is_active: number;
   created_at: string;
