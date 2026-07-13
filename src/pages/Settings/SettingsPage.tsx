@@ -26,6 +26,8 @@ import {
 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { BackupSection } from '../../components/export/BackupSection';
+import { ClassSeederSection } from '../../components/export/ClassSeederSection';
+import { VideoSeederSection } from '../../components/export/VideoSeederSection';
 import { ClassShareSection } from '../../components/export/ClassShareSection';
 import { RelinkRepoImagesSection } from '../../components/export/RelinkRepoImagesSection';
 import { ResetSection } from '../../components/export/ResetSection';
@@ -274,6 +276,8 @@ export function SettingsPage() {
           <SectionHeader icon={HardDrive} title="Gestión de datos" expanded={dataMgmtOpen} onToggle={() => setDataMgmtOpen(!dataMgmtOpen)} />
           {dataMgmtOpen && (
             <div className="space-y-4 mt-2">
+              <ClassSeederSection />
+              <VideoSeederSection />
               <ClassShareSection />
               <RelinkRepoImagesSection />
               <BackupSection />

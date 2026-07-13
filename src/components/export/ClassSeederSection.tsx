@@ -16,6 +16,10 @@ import {
   importClass13062026,
   isClass13062026ImportDone,
 } from '../../services/class13062026ImportService';
+import {
+  importIsometricPlan,
+  isIsometricPlanImportDone,
+} from '../../services/isometricPlanImportService';
 
 interface ClassEntry {
   label: string;
@@ -26,6 +30,12 @@ interface ClassEntry {
 
 // Más reciente primero
 const CLASS_ENTRIES: ClassEntry[] = [
+  {
+    label: 'Plan Isométrico (Isometrico-1 a 4)',
+    date: 'Core · Piernas · Tren superior · Cardio suave — 12 semanas, dosis F1 (F2/F3 en notas)',
+    isDone: isIsometricPlanImportDone,
+    run: importIsometricPlan,
+  },
   {
     label: 'Clase GOAT 13/06/2026',
     date: 'Calentamiento · Movilidad · Activación (Tabata) · WOD Bloque A · WOD Bloque B',

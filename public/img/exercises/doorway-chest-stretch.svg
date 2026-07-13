@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="20" y1="207" x2="180" y2="207" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <line x1="158" y1="18" x2="158" y2="207" stroke="#374151" stroke-width="5" stroke-linecap="round"/>
+  <text x="100" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" fill="#475569" letter-spacing="2">DOORWAY CHEST STRETCH</text>
+
+  <!-- Frame 1: antebrazo apoyado en el marco -->
+  <g class="f1" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <circle cx="104" cy="36" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="104" y1="49" x2="104" y2="120"/>
+    <polyline points="104,120 96,164 96,204"/>
+    <polyline points="104,120 112,164 112,204"/>
+    <line x1="86" y1="204" x2="102" y2="204"/>
+    <line x1="104" y1="204" x2="122" y2="204"/>
+    <polyline points="104,64 150,64 152,32"/>
+    <circle cx="150" cy="64" r="4" fill="#64748b" stroke="none"/>
+  </g>
+
+  <!-- Frame 2: paso adelante, tronco empezando a rotar -->
+  <g class="f2" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <circle cx="94" cy="36" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="94" y1="49" x2="96" y2="120"/>
+    <polyline points="96,120 72,162 66,204"/>
+    <polyline points="96,120 108,164 110,204"/>
+    <line x1="56" y1="204" x2="74" y2="204"/>
+    <line x1="102" y1="204" x2="120" y2="204"/>
+    <polyline points="96,64 150,68 152,34"/>
+    <circle cx="150" cy="68" r="4" fill="#64748b" stroke="none"/>
+  </g>
+
+  <!-- Frame 3: rotación completa, pecho abierto -->
+  <g class="f3" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <circle cx="80" cy="38" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="80" y1="51" x2="86" y2="122"/>
+    <polyline points="86,122 58,160 48,204"/>
+    <polyline points="86,122 102,164 106,204"/>
+    <line x1="38" y1="204" x2="58" y2="204"/>
+    <line x1="98" y1="204" x2="118" y2="204"/>
+    <polyline points="84,66 150,72 152,36"/>
+    <circle cx="150" cy="72" r="4" fill="#64748b" stroke="none"/>
+    <circle cx="112" cy="96" r="3" fill="#6ee7b7" stroke="none"/>
+    <circle cx="124" cy="94" r="3" fill="#6ee7b7" stroke="none"/>
+    <circle cx="136" cy="92" r="3" fill="#6ee7b7" stroke="none"/>
+  </g>
+</svg>
