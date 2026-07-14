@@ -9,9 +9,11 @@ import { ExerciseDetailPage } from './pages/Exercises/ExerciseDetailPage';
 import { ClassesPage } from './pages/Classes/ClassesPage';
 import { ClassTemplateFormPage } from './pages/Classes/ClassTemplateFormPage';
 import { ClassTemplateDetailPage } from './pages/Classes/ClassTemplateDetailPage';
+import { ClassTimerSetupPage } from './pages/Classes/ClassTimerSetupPage';
 import { SessionsPage } from './pages/Sessions/SessionsPage';
 import { NewSessionPage } from './pages/Sessions/NewSessionPage';
 import { SessionExecutorPage } from './pages/Sessions/SessionExecutorPage';
+import { SessionTimerPage } from './pages/Sessions/SessionTimerPage';
 import { SessionDetailPage } from './pages/Sessions/SessionDetailPage';
 import { ManualSessionPage } from './pages/Sessions/ManualSessionPage';
 import { FreeSessionPage } from './pages/Sessions/FreeSessionPage';
@@ -36,6 +38,7 @@ import { InactiveClassesPage } from './pages/Settings/InactiveClassesPage';
 import { ClassesSectionsPage } from './pages/Settings/ClassesSectionsPage';
 import { SessionsListPage } from './pages/Settings/SessionsListPage';
 import { SessionEditPage } from './pages/Settings/SessionEditPage';
+import { TimerSettingsPage } from './pages/Settings/TimerSettingsPage';
 import { DbProvider } from './components/DbProvider';
 import { UpdateModal } from './components/UpdateModal';
 import { useUpdateCheck } from './hooks/useUpdateCheck';
@@ -71,11 +74,13 @@ export default function App() {
             <Route path="clases/nueva" element={<ClassTemplateFormPage />} />
             <Route path="clases/:id" element={<ClassTemplateDetailPage />} />
             <Route path="clases/:id/editar" element={<ClassTemplateFormPage />} />
+            <Route path="clases/:id/tiempos" element={<ClassTimerSetupPage />} />
             <Route path="sesiones" element={<SessionsPage />} />
             <Route path="sesiones/nueva" element={<NewSessionPage />} />
             <Route path="sesiones/registrar" element={<ManualSessionPage />} />
             <Route path="sesiones/libre" element={<FreeSessionPage />} />
             <Route path="sesiones/:id/ejecutar" element={<SessionExecutorPage />} />
+            <Route path="sesiones/:id/cronometro" element={<SessionTimerPage />} />
             <Route path="sesiones/:id" element={<SessionDetailPage />} />
             <Route path="estadisticas" element={<StatsPage />} />
             {/* Configuración y catálogos */}
@@ -93,6 +98,7 @@ export default function App() {
             <Route path="configuracion/ejercicios-duplicados" element={<DuplicateExercisesPage />} />
             <Route path="configuracion/clases-inactivas" element={<InactiveClassesPage />} />
             <Route path="configuracion/clases" element={<ClassesSectionsPage />} />
+            <Route path="configuracion/cronometro" element={<TimerSettingsPage />} />
             <Route path="configuracion/acerca-de" element={<AboutPage />} />
             <Route path="configuracion/perfil" element={<ProfilePage />} />
             <Route path="configuracion/medidas-corporales" element={<BodyMeasurementsPage />} />

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="16" y1="192" x2="184" y2="192" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" fill="#475569" letter-spacing="2">PIKE HOLD</text>
+
+  <!-- Frame 1: plancha alta -->
+  <g class="f1" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <circle cx="34" cy="118" r="12" fill="#94a3b8" stroke="none"/>
+    <line x1="48" y1="126" x2="170" y2="140"/>
+    <line x1="50" y1="126" x2="44" y2="190"/>
+    <line x1="170" y1="140" x2="174" y2="190"/>
+    <line x1="158" y1="190" x2="180" y2="190"/>
+    <circle cx="44" cy="190" r="4" fill="#64748b" stroke="none"/>
+  </g>
+
+  <!-- Frame 2: caminando los pies hacia las manos -->
+  <g class="f2" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <circle cx="36" cy="132" r="12" fill="#94a3b8" stroke="none"/>
+    <line x1="50" y1="130" x2="118" y2="96"/>
+    <line x1="50" y1="130" x2="44" y2="190"/>
+    <polyline points="118,96 146,148 152,190"/>
+    <line x1="140" y1="190" x2="164" y2="190"/>
+    <circle cx="44" cy="190" r="4" fill="#64748b" stroke="none"/>
+    <circle cx="146" cy="148" r="4" fill="#64748b" stroke="none"/>
+  </g>
+
+  <!-- Frame 3: V invertida sostenida -->
+  <g class="f3" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <circle cx="52" cy="126" r="12" fill="#94a3b8" stroke="none"/>
+    <line x1="62" y1="116" x2="106" y2="62"/>
+    <line x1="62" y1="116" x2="46" y2="190"/>
+    <polyline points="106,62 134,130 142,190"/>
+    <line x1="132" y1="190" x2="156" y2="190"/>
+    <circle cx="46" cy="190" r="4" fill="#64748b" stroke="none"/>
+    <circle cx="134" cy="130" r="4" fill="#64748b" stroke="none"/>
+    <circle cx="106" cy="40" r="3" fill="#6ee7b7" stroke="none"/>
+    <circle cx="118" cy="44" r="3" fill="#6ee7b7" stroke="none"/>
+    <circle cx="94" cy="44" r="3" fill="#6ee7b7" stroke="none"/>
+  </g>
+</svg>

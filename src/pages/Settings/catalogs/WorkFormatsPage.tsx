@@ -38,6 +38,21 @@ export function WorkFormatsPage() {
             { value: '0', label: 'No' },
           ],
         },
+        {
+          key: 'is_interval',
+          label: 'Ventana fija (cronómetro)',
+          type: 'select',
+          options: [
+            { value: '1', label: 'Intervalo fijo' },
+            { value: '0', label: 'Sin intervalo' },
+          ],
+        },
+        {
+          key: 'default_interval_seconds',
+          label: 'Segundos por ventana',
+          type: 'number',
+          placeholder: 'Ej: 60 para un EMOM',
+        },
       ]}
     />
   );

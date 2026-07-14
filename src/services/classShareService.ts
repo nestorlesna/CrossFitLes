@@ -379,7 +379,22 @@ export async function importClassFromZip(zipFile: Blob): Promise<ClassImportResu
         [row.name as string]
       );
       if (found.values && found.values.length > 0) {
-        idMap.set(exportId, found.values[0].id as string);
+        const localId = found.values[0].id as string;
+        idMap.set(exportId, localId);
+
+        // El cronómetro depende de is_interval para dar ventanas fijas (EMOM, Tabata...).
+        // Si el formato exportado es de intervalo y el local todavía no lo sabe, completarlo.
+        // Sólo se agrega la marca, nunca se quita: no se pisa la configuración del destinatario.
+        if (table === 'work_format' && Number(row.is_interval) === 1) {
+          stmts.push({
+            statement: `UPDATE work_format
+                        SET is_interval = 1,
+                            default_interval_seconds = COALESCE(default_interval_seconds, ?),
+                            updated_at = ?
+                        WHERE id = ? AND (is_interval IS NULL OR is_interval = 0)`,
+            values: [row.default_interval_seconds ?? null, timestamp, localId],
+          });
+        }
       } else {
         const newId = generateUUID();
         idMap.set(exportId, newId);
@@ -564,8 +579,9 @@ export async function importClassFromZip(zipFile: Blob): Promise<ClassImportResu
         statement: `INSERT INTO class_section
           (id, class_template_id, section_type_id, work_format_id, sort_order,
            visible_title, general_description, time_cap_seconds, total_rounds,
-           rest_between_rounds_seconds, notes, created_at, updated_at)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+           rest_between_rounds_seconds, notes, rest_between_exercises_seconds,
+           rest_after_section_seconds, interval_seconds, created_at, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         values: [
           newSectionId, newClassId,
           section.section_type_id ? (idMap.get(section.section_type_id as string) ?? null) : null,
@@ -574,6 +590,9 @@ export async function importClassFromZip(zipFile: Blob): Promise<ClassImportResu
           section.visible_title ?? null, section.general_description ?? null,
           section.time_cap_seconds ?? null, section.total_rounds ?? null,
           section.rest_between_rounds_seconds ?? null, section.notes ?? null,
+          section.rest_between_exercises_seconds ?? null,
+          section.rest_after_section_seconds ?? null,
+          section.interval_seconds ?? null,
           timestamp, timestamp,
         ],
       });
@@ -586,9 +605,9 @@ export async function importClassFromZip(zipFile: Blob): Promise<ClassImportResu
             (id, class_section_id, exercise_id, sort_order, coach_notes,
              planned_repetitions, planned_weight_value, planned_weight_unit_id,
              planned_time_seconds, planned_distance_value, planned_distance_unit_id,
-             planned_calories, planned_rest_seconds, planned_rounds, rm_percentage,
-             suggested_scaling, notes, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+             planned_calories, planned_rest_seconds, planned_rounds, suggested_timer_seconds,
+             rm_percentage, suggested_scaling, notes, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
           values: [
             generateUUID(), newSectionId, localExId, se.sort_order,
             se.coach_notes ?? null, se.planned_repetitions ?? null,
@@ -597,7 +616,8 @@ export async function importClassFromZip(zipFile: Blob): Promise<ClassImportResu
             se.planned_time_seconds ?? null, se.planned_distance_value ?? null,
             se.planned_distance_unit_id ? (idMap.get(se.planned_distance_unit_id as string) ?? null) : null,
             se.planned_calories ?? null, se.planned_rest_seconds ?? null,
-            se.planned_rounds ?? null, se.rm_percentage ?? null,
+            se.planned_rounds ?? null, se.suggested_timer_seconds ?? null,
+            se.rm_percentage ?? null,
             se.suggested_scaling ?? null, se.notes ?? null,
             timestamp, timestamp,
           ],
@@ -907,7 +927,83 @@ export async function importExercisesFromZip(zipFile: Blob): Promise<ExerciseImp
       [ex.name as string]
     );
     if (found.values && found.values.length > 0) {
-      idMap.set(exportId, found.values[0].id as string);
+      const localId = found.values[0].id as string;
+      idMap.set(exportId, localId);
+
+      // Actualizar datos del ejercicio existente (imagen, videos, descripción, etc.)
+      // Solo se actualizan los campos presentes en el export para no pisar con null
+      // valores que el archivo no traía.
+      const updateFields: string[] = [];
+      const updateValues: unknown[] = [];
+
+      if (ex.description !== undefined) { updateFields.push('description = ?'); updateValues.push(ex.description ?? null); }
+      if (ex.technical_notes !== undefined) { updateFields.push('technical_notes = ?'); updateValues.push(ex.technical_notes ?? null); }
+      if (ex.difficulty_level_id) {
+        updateFields.push('difficulty_level_id = ?'); updateValues.push(idMap.get(ex.difficulty_level_id as string) ?? null);
+      }
+      if (ex.primary_muscle_group_id) {
+        updateFields.push('primary_muscle_group_id = ?'); updateValues.push(idMap.get(ex.primary_muscle_group_id as string) ?? null);
+      }
+      if (ex.image_url !== undefined) { updateFields.push('image_url = ?'); updateValues.push(ex.image_url ?? null); }
+      if (ex.image_path !== undefined) { updateFields.push('image_path = ?'); updateValues.push(ex.image_path ?? null); }
+      if (ex.video_path !== undefined) { updateFields.push('video_path = ?'); updateValues.push(ex.video_path ?? null); }
+      if (ex.video_long_path !== undefined) { updateFields.push('video_long_path = ?'); updateValues.push(ex.video_long_path ?? null); }
+      if (ex.is_compound !== undefined) { updateFields.push('is_compound = ?'); updateValues.push(ex.is_compound ?? 0); }
+      updateFields.push('updated_at = ?'); updateValues.push(timestamp);
+
+      stmts.push({
+        statement: `UPDATE exercise SET ${updateFields.join(', ')} WHERE id = ?`,
+        values: [...updateValues, localId],
+      });
+
+      // Actualizar relaciones: borrar las existentes y reinsertar las del export.
+      const rels = share.exercise_relations;
+
+      const upMuscleGroups = rels.exercise_muscle_group.filter(r => r.exercise_id === exportId);
+      if (upMuscleGroups.length > 0) {
+        stmts.push({ statement: `DELETE FROM exercise_muscle_group WHERE exercise_id = ?`, values: [localId] });
+        for (const r of upMuscleGroups) {
+          const lid = idMap.get(r.muscle_group_id as string);
+          if (lid) stmts.push({ statement: `INSERT OR IGNORE INTO exercise_muscle_group (exercise_id, muscle_group_id, is_primary) VALUES (?, ?, ?)`, values: [localId, lid, r.is_primary ?? 0] });
+        }
+      }
+
+      const upEquipment = rels.exercise_equipment.filter(r => r.exercise_id === exportId);
+      if (upEquipment.length > 0) {
+        stmts.push({ statement: `DELETE FROM exercise_equipment WHERE exercise_id = ?`, values: [localId] });
+        for (const r of upEquipment) {
+          const lid = idMap.get(r.equipment_id as string);
+          if (lid) stmts.push({ statement: `INSERT OR IGNORE INTO exercise_equipment (exercise_id, equipment_id, is_required) VALUES (?, ?, ?)`, values: [localId, lid, r.is_required ?? 0] });
+        }
+      }
+
+      const upSectionTypes = rels.exercise_section_type.filter(r => r.exercise_id === exportId);
+      if (upSectionTypes.length > 0) {
+        stmts.push({ statement: `DELETE FROM exercise_section_type WHERE exercise_id = ?`, values: [localId] });
+        for (const r of upSectionTypes) {
+          const lid = idMap.get(r.section_type_id as string);
+          if (lid) stmts.push({ statement: `INSERT OR IGNORE INTO exercise_section_type (exercise_id, section_type_id) VALUES (?, ?)`, values: [localId, lid] });
+        }
+      }
+
+      const upUnits = rels.exercise_unit.filter(r => r.exercise_id === exportId);
+      if (upUnits.length > 0) {
+        stmts.push({ statement: `DELETE FROM exercise_unit WHERE exercise_id = ?`, values: [localId] });
+        for (const r of upUnits) {
+          const lid = idMap.get(r.measurement_unit_id as string);
+          if (lid) stmts.push({ statement: `INSERT OR IGNORE INTO exercise_unit (exercise_id, measurement_unit_id, is_default) VALUES (?, ?, ?)`, values: [localId, lid, r.is_default ?? 0] });
+        }
+      }
+
+      const upTags = rels.exercise_tag.filter(r => r.exercise_id === exportId);
+      if (upTags.length > 0) {
+        stmts.push({ statement: `DELETE FROM exercise_tag WHERE exercise_id = ?`, values: [localId] });
+        for (const r of upTags) {
+          const lid = idMap.get(r.tag_id as string);
+          if (lid) stmts.push({ statement: `INSERT OR IGNORE INTO exercise_tag (exercise_id, tag_id) VALUES (?, ?)`, values: [localId, lid] });
+        }
+      }
+
       exercisesReused++;
     } else {
       const newId = generateUUID();

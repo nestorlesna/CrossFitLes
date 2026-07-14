@@ -8,6 +8,7 @@ import { APP_VERSION } from '../utils/constants';
 
 // Orden de tablas respetando dependencias (padres primero)
 const TABLE_ORDER = [
+  'timer_config',
   'muscle_group',
   'equipment',
   'measurement_unit',
@@ -397,6 +398,17 @@ export async function importDataFromZip(zipFile: Blob): Promise<{ totalRecords: 
       console.log(`[Backup] Tabla ${table} persistida.`);
       
       totalRecords += rows.length;
+    }
+
+    // Los backups anteriores a v011 no traen timer_config: restaurar el singleton
+    // con los valores por defecto para no dejar la tabla vacía.
+    if (!backup.data.timer_config?.length) {
+      await db.run(
+        `INSERT INTO timer_config (id, created_at, updated_at)
+         SELECT 'timer-config-singleton', datetime('now'), datetime('now')
+         WHERE NOT EXISTS (SELECT 1 FROM timer_config)`
+      );
+      await saveDatabase();
     }
   } finally {
     await db.execute('PRAGMA foreign_keys = ON;');

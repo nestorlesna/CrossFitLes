@@ -31,6 +31,11 @@ export interface ClassSection {
   total_rounds?: number
   rest_between_rounds_seconds?: number
   notes?: string
+  // ── Cronómetro (overrides de la config global) ──
+  rest_between_exercises_seconds?: number
+  rest_after_section_seconds?: number
+  /** Ventana fija para formatos de intervalo (EMOM, Tabata, etc.) */
+  interval_seconds?: number
   created_at: string
   updated_at: string
   // Campos enriquecidos (JOIN)
@@ -38,6 +43,8 @@ export interface ClassSection {
   section_type_color?: string
   section_type_icon?: string
   work_format_name?: string
+  work_format_is_interval?: number
+  work_format_default_interval_seconds?: number
   exercises: SectionExercise[]
 }
 
@@ -56,6 +63,8 @@ export interface SectionExercise {
   planned_calories?: number
   planned_rest_seconds?: number
   planned_rounds?: number
+  /** Segundos sugeridos para el cronómetro cuando el ejercicio no es por tiempo */
+  suggested_timer_seconds?: number
   rm_percentage?: number
   suggested_scaling?: string
   notes?: string

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="20" y1="207" x2="180" y2="207" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" fill="#475569" letter-spacing="2">SHADOW BOXING</text>
+
+  <!-- Frame 1: guardia -->
+  <g class="f1" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <circle cx="88" cy="34" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="88" y1="47" x2="92" y2="118"/>
+    <polyline points="92,118 74,162 66,204"/>
+    <polyline points="92,118 116,162 124,204"/>
+    <line x1="56" y1="204" x2="74" y2="204"/>
+    <line x1="116" y1="204" x2="134" y2="204"/>
+    <polyline points="90,62 112,72 104,44"/>
+    <polyline points="90,64 68,76 76,48"/>
+    <circle cx="104" cy="44" r="5" fill="#64748b" stroke="none"/>
+    <circle cx="76" cy="48" r="5" fill="#64748b" stroke="none"/>
+  </g>
+
+  <!-- Frame 2: jab (brazo adelantado extendido) -->
+  <g class="f2" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <circle cx="88" cy="34" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="88" y1="47" x2="92" y2="118"/>
+    <polyline points="92,118 74,162 66,204"/>
+    <polyline points="92,118 116,162 124,204"/>
+    <line x1="56" y1="204" x2="74" y2="204"/>
+    <line x1="116" y1="204" x2="134" y2="204"/>
+    <line x1="90" y1="62" x2="154" y2="52"/>
+    <polyline points="90,64 68,76 76,48"/>
+    <circle cx="156" cy="52" r="6" fill="#64748b" stroke="none"/>
+    <circle cx="76" cy="48" r="5" fill="#64748b" stroke="none"/>
+  </g>
+
+  <!-- Frame 3: cross (brazo trasero extendido, rotación de cadera) -->
+  <g class="f3" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <circle cx="92" cy="34" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="92" y1="47" x2="94" y2="118"/>
+    <polyline points="94,118 72,160 62,204"/>
+    <polyline points="94,118 118,160 128,204"/>
+    <line x1="52" y1="204" x2="70" y2="204"/>
+    <line x1="120" y1="204" x2="138" y2="204"/>
+    <polyline points="94,62 114,74 106,46"/>
+    <line x1="92" y1="64" x2="158" y2="66"/>
+    <circle cx="160" cy="66" r="6" fill="#64748b" stroke="none"/>
+    <circle cx="106" cy="46" r="5" fill="#64748b" stroke="none"/>
+  </g>
+</svg>

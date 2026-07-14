@@ -10,6 +10,7 @@ import { v007_met_calories } from './v007_met_calories';
 import { v008_class_template_type } from './v008_class_template_type';
 import { v009_exercise_images } from './v009_exercise_images';
 import { v010_fix_exercise_image_fk } from './v010_fix_exercise_image_fk';
+import { v011_timer_mode } from './v011_timer_mode';
 
 export const migrations: Migration[] = [
   v001_initial,
@@ -22,4 +23,5 @@ export const migrations: Migration[] = [
   v008_class_template_type,
   v009_exercise_images,
   v010_fix_exercise_image_fk,
+  v011_timer_mode,
 ];

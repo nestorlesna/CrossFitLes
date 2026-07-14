@@ -5,7 +5,7 @@ import { Header } from '../../components/layout/Header';
 import { getDatabase } from '../../db/database';
 import { getImageDisplayUrl } from '../../services/mediaService';
 
-type FilterMode = 'with_photo' | 'in_class_no_photo' | 'photo_no_class';
+type FilterMode = 'with_photo' | 'in_class_no_photo' | 'photo_no_class' | 'photo_not_in_repo';
 
 interface ExerciseImageRow {
   id: string;
@@ -56,18 +56,28 @@ const QUERIES: Record<FilterMode, string> = {
         SELECT DISTINCT exercise_id FROM section_exercise
       )
     ORDER BY name ASC`,
+  // Imágenes que NO están en el repositorio: la ruta no es estática (/img/...),
+  // sino una imagen de usuario guardada en SQLite (ej: exercises/uuid.svg).
+  photo_not_in_repo: `
+    SELECT id, name, image_url
+    FROM exercise
+    WHERE (image_url IS NOT NULL AND image_url != '')
+      AND image_url NOT LIKE '/img/%'
+    ORDER BY name ASC`,
 };
 
 const FILTER_LABELS: Record<FilterMode, string> = {
   with_photo: 'Eje. con Fotos',
   in_class_no_photo: 'Eje. en Clase sin Foto',
   photo_no_class: 'Eje con F sin Clase',
+  photo_not_in_repo: 'Fotos no en repo',
 };
 
 const EMPTY_MESSAGES: Record<FilterMode, string> = {
   with_photo: 'Ningún ejercicio tiene imagen asignada aún.',
   in_class_no_photo: 'Todos los ejercicios usados en clases tienen foto.',
   photo_no_class: 'Todos los ejercicios con foto están asignados a al menos una clase.',
+  photo_not_in_repo: 'Todas las imágenes asignadas están en el repositorio (/img/...).',
 };
 
 export function ExerciseImagesPage() {

@@ -24,19 +24,72 @@ Movilidad - 2 rondas todo 30 segundos
 Activacion
 Fuerza
 WOD
-Estiramiento, cada ejercicio 20 - 30 segundos
-- Supine spinal twist
-- Seated forward fold 
-- Seated quad stretch 
-- Pigeon pose 
-- Supine abdominal stretch 
-- Cobra pose 
-- Child’s Pose 
-- Half kneeling hip flexor stretch 
-- Standing biceps stretch 
-- Overhead triceps stretch 
-- Wrist extensor stretch 
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ### TEMPLATE
+
+
+
+Clase GOAT 13/07/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - Cossack Squat
+ - 90/90 Hip Rotation
+ - Band Pass-Throughs, video corto https://www.youtube.com/shorts/07lFW_Ulz6E, video explicativo https://www.youtube.com/shorts/ErTGd0_Mpzo
+
+Activacion 3 rondas todo 30 segundos
+ - Hollow Hold
+ - hollow hold dinamico, video corto https://www.youtube.com/watch?v=h-beMdJ1CVo, video explicativo https://www.youtube.com/shorts/vhru5daVb6M
+ - Kettlebell Deadlift 12.5kg, video corto https://www.youtube.com/watch?v=l6gDwf3xC6s, video explicativo https://www.youtube.com/shorts/1KY_4fs1yns
+ - Kettlebell Swing 12.5kg
+
+Fuerza 6 rondas cada 1.5 mintos, complex de los 3 ejercicios en cada ronda peso, 30, 40, 40, 50, 50, 40 kg
+ - Barbell High Hang Power Clean, 30kg, video corto https://www.youtube.com/watch?v=g3fj757-XSA, video explicativo https://www.youtube.com/shorts/SLtiLAexbTc
+ - Barbell Hang Power Clean, 30 kg
+ - Barbell Low Hang Power Clean, 30 kg, video corto https://www.youtube.com/shorts/7jfezrErG1Q, video explicativo https://www.youtube.com/shorts/pxUhO2kZM38
+
+WOD, 10 mintuos AMRAP (aprox 3 rondas)
+ - running 200m
+ - 3 repeticiones de (peso 40kg):
+  3 Barbell Deadlift 
+  2 Barbell Hang Power Clea
+  1 Shoulder Press, video corto https://www.youtube.com/shorts/Xur1K3Z8q0U , video explicativo https://www.youtube.com/watch?v=5yWaNOvgFCM
+ - 5 Burpee Over the Bar
+ 
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
+
+
+Clase GOAT 13/06/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - Wall Lat Stretch
+ - Kettlebell Good Morning 10kg, video corto https://www.youtube.com/shorts/FkvZv75xPkw, video explicativo https://www.youtube.com/watch?v=0lcPSo2gRoY
+ - Single-Leg Calf Raise 10 kg, primera ronda pie derecho, segunda pie izquierdo, video corto https://www.youtube.com/watch?v=qPd73snQfUs, video explicativo https://www.youtube.com/watch?v=QEILIo9Kzlw
+
+Activacion 2 tabata 20-10, cada uno de 8 ejercicios
+ - Hollow to Superman Roll 20 segundos, 10 de descanso
+ - Bodyweight Push Up  20 segundos, 10 de descanso
+
+WOD, estilo hirux, 12 minutos por minuto ejecicios A, y 12 minutos por minutos ejercicos B
+ - A.1 - Sled Push & Pull 20 m, 80kg
+ - A.2 - Kettlebell Jumping Lunge 10kg, video corto https://www.youtube.com/shorts/jJu2SnYJeK4, video explicativo https://www.youtube.com/watch?v=Sms79i9O3gU
+ - A.3 - running, 200 m
+ - A.4 - descanso
+ - B.1 - 45 segundos Rowing
+ - B.2 - 45 segundos Assault Bike
+ - B.3 - 45 segundos SkiErg
+ - B.4 - 10 m Burpee Broad Jump
+ 
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
 
 
 

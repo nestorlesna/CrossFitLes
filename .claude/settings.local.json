@@ -105,7 +105,11 @@
       "Bash(git -C C:/DATOS/DESARROLLOS/React/CrossFitLes commit -m ' *)",
       "Bash(git -C \"C:/DATOS/DESARROLLOS/React/CrossFitLes\" push origin develop)",
       "Bash(findstr -i class)",
-      "Bash(echo \"Exit: $?\")"
+      "Bash(echo \"Exit: $?\")",
+      "Bash(git -C C:/DATOS/DESARROLLOS/React/CrossFitLes status --short)",
+      "Bash(git -C C:/DATOS/DESARROLLOS/React/CrossFitLes branch --show-current)",
+      "Bash(git -C C:/DATOS/DESARROLLOS/React/CrossFitLes status)",
+      "Bash(git -C C:/DATOS/DESARROLLOS/React/CrossFitLes log --oneline -5)"
     ]
   }
 }

@@ -20,6 +20,7 @@ import { Header } from '../../components/layout/Header';
 import { Badge } from '../../components/ui/Badge';
 import { Modal } from '../../components/ui/Modal';
 import { ExerciseInfoModal } from '../../components/ui/ExerciseInfoModal';
+import { VideoEmbed } from '../../components/ui/VideoEmbed';
 import { getById as getSessionById, saveResults, finalize, updateSessionDuration } from '../../db/repositories/trainingSessionRepo';
 import { getById as getTemplateById } from '../../db/repositories/classTemplateRepo';
 import { SessionWithRelations, SessionExerciseResult } from '../../models/TrainingSession';
@@ -27,70 +28,7 @@ import { ClassTemplateWithSections, SectionExercise } from '../../models/ClassTe
 import { RxScaled, GeneralFeeling } from '../../types';
 import { getImageDisplayUrl } from '../../services/mediaService';
 
-// Helper para obtener el ID de YouTube (incluye Shorts)
-function getYoutubeId(url: string): string | null {
-  if (!url) return null;
-  // Soporta: youtu.be/ID, youtube.com/shorts/ID, youtube.com/watch?v=ID, youtube.com/v/ID, youtube.com/embed/ID
-  const m = url.match(/(?:youtube\.com\/(?:shorts\/|v\/|embed\/)|youtu\.be\/|watch\?v=)([^#&?]+)/);
-  return m ? m[1] : null;
-}
-
-// Helper para obtener el ID de Vimeo
-function getVimeoId(url: string): string | null {
-  const regExp = /vimeo\.com\/(?:video\/|channels\/(?:\w+\/)?|groups\/(?:\w+\/)?|album\/(?:\w+\/)?|showcase\/(?:\w+\/)?|)(\d+)(?:$|\/|\?)/;
-  const match = url.match(regExp);
-  return (match && match[1]) ? match[1] : null;
-}
-
-// Componente para embeber video
-function VideoEmbed({ url }: { url: string }) {
-  const youtubeId = getYoutubeId(url);
-  const vimeoId = getVimeoId(url);
-
-  if (youtubeId) {
-    return (
-      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
-        <iframe
-          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="absolute top-0 left-0 w-full h-full"
-        />
-      </div>
-    );
-  }
-
-  if (vimeoId) {
-    return (
-      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
-        <iframe
-          src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1`}
-          title="Vimeo video player"
-          frameBorder="0"
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowFullScreen
-          className="absolute top-0 left-0 w-full h-full"
-        />
-      </div>
-    );
-  }
-
-  return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex items-center justify-between bg-gray-800 hover:bg-gray-700 p-3 rounded-lg transition-colors group"
-    >
-      <span className="text-sm text-gray-200 truncate max-w-[200px]">{url}</span>
-      <span className="text-xs text-primary-500 font-medium">Ver enlace</span>
-    </a>
-  );
-}
-
-function ExerciseImage({ 
+function ExerciseImage({
   imagePath, 
   imageUrl: initialImageUrl, 
   name 

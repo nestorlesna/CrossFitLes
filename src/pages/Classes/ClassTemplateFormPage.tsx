@@ -76,6 +76,7 @@ interface SectionExerciseDraft {
   planned_calories?: number
   planned_rest_seconds?: number
   planned_rounds?: number
+  suggested_timer_seconds?: number
   rm_percentage?: number
   suggested_scaling?: string
   notes?: string
@@ -92,6 +93,9 @@ interface SectionDraft {
   time_cap_seconds?: number
   total_rounds?: number
   rest_between_rounds_seconds?: number
+  rest_between_exercises_seconds?: number
+  rest_after_section_seconds?: number
+  interval_seconds?: number
   notes?: string
   isExpanded: boolean
   exercises: SectionExerciseDraft[]
@@ -168,6 +172,9 @@ export function ClassTemplateFormPage() {
       time_cap_seconds: s.time_cap_seconds,
       total_rounds: s.total_rounds,
       rest_between_rounds_seconds: s.rest_between_rounds_seconds,
+      rest_between_exercises_seconds: s.rest_between_exercises_seconds,
+      rest_after_section_seconds: s.rest_after_section_seconds,
+      interval_seconds: s.interval_seconds,
       notes: s.notes,
       isExpanded: false,
       exercises: s.exercises.map((e) => ({
@@ -184,6 +191,7 @@ export function ClassTemplateFormPage() {
         planned_calories: e.planned_calories,
         planned_rest_seconds: e.planned_rest_seconds,
         planned_rounds: e.planned_rounds,
+        suggested_timer_seconds: e.suggested_timer_seconds,
         rm_percentage: e.rm_percentage,
         suggested_scaling: e.suggested_scaling,
         notes: e.notes,
@@ -381,6 +389,9 @@ export function ClassTemplateFormPage() {
         time_cap_seconds: s.time_cap_seconds,
         total_rounds: s.total_rounds,
         rest_between_rounds_seconds: s.rest_between_rounds_seconds,
+        rest_between_exercises_seconds: s.rest_between_exercises_seconds,
+        rest_after_section_seconds: s.rest_after_section_seconds,
+        interval_seconds: s.interval_seconds,
         notes: s.notes,
         exercises: s.exercises.map((e, eIdx) => ({
           class_section_id: '',
@@ -396,6 +407,7 @@ export function ClassTemplateFormPage() {
           planned_calories: e.planned_calories,
           planned_rest_seconds: e.planned_rest_seconds,
           planned_rounds: e.planned_rounds,
+          suggested_timer_seconds: e.suggested_timer_seconds,
           rm_percentage: e.rm_percentage,
           suggested_scaling: e.suggested_scaling,
           notes: e.notes,
@@ -757,6 +769,84 @@ export function ClassTemplateFormPage() {
                       />
                     </div>
 
+                    {/* ── Cronómetro: overrides de esta sección ── */}
+                    <div className="border border-gray-800 rounded-xl p-3 flex flex-col gap-3">
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-primary-500">
+                        Cronómetro
+                      </p>
+                      <p className="text-[11px] text-gray-600 -mt-2">
+                        Vacío = usa el valor de Configuración → Cronómetro.
+                      </p>
+
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <label className="block text-xs text-gray-400 mb-1.5">
+                            Descanso entre ejercicios (seg)
+                          </label>
+                          <input
+                            type="number"
+                            value={section.rest_between_exercises_seconds ?? ''}
+                            onChange={(e) =>
+                              updateSection(section.tempId, {
+                                rest_between_exercises_seconds: e.target.value
+                                  ? parseInt(e.target.value, 10)
+                                  : undefined,
+                              })
+                            }
+                            placeholder="Global"
+                            min="0"
+                            className="w-full bg-gray-800 text-white placeholder-gray-600 rounded-xl px-4 py-3 text-sm border border-gray-700 focus:outline-none focus:border-primary-500"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-xs text-gray-400 mb-1.5">
+                            Descanso al terminar (seg)
+                          </label>
+                          <input
+                            type="number"
+                            value={section.rest_after_section_seconds ?? ''}
+                            onChange={(e) =>
+                              updateSection(section.tempId, {
+                                rest_after_section_seconds: e.target.value
+                                  ? parseInt(e.target.value, 10)
+                                  : undefined,
+                              })
+                            }
+                            placeholder="Global"
+                            min="0"
+                            className="w-full bg-gray-800 text-white placeholder-gray-600 rounded-xl px-4 py-3 text-sm border border-gray-700 focus:outline-none focus:border-primary-500"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Ventana fija: solo en formatos de intervalo (EMOM, Tabata, etc.) */}
+                      {wf?.is_interval === 1 && (
+                        <div>
+                          <label className="block text-xs text-gray-400 mb-1.5">
+                            Ventana de {wf.name} (seg)
+                          </label>
+                          <input
+                            type="number"
+                            value={section.interval_seconds ?? ''}
+                            onChange={(e) =>
+                              updateSection(section.tempId, {
+                                interval_seconds: e.target.value
+                                  ? parseInt(e.target.value, 10)
+                                  : undefined,
+                              })
+                            }
+                            placeholder={`Por defecto: ${wf.default_interval_seconds ?? 60}`}
+                            min="5"
+                            className="w-full bg-gray-800 text-white placeholder-gray-600 rounded-xl px-4 py-3 text-sm border border-gray-700 focus:outline-none focus:border-primary-500"
+                          />
+                          <p className="text-[11px] text-gray-600 mt-1">
+                            Cada ejercicio ocupa una ventana; lo que sobra del trabajo es descanso.
+                          </p>
+                        </div>
+                      )}
+                    </div>
+
                     {/* Notas de la sección */}
                     <div>
                       <label className="block text-xs text-gray-400 mb-1.5">Notas</label>
@@ -941,6 +1031,28 @@ export function ClassTemplateFormPage() {
                                   placeholder="—"
                                   min="0"
                                   className="w-full bg-gray-700 text-white placeholder-gray-600 rounded-lg px-3 py-2 text-sm border border-gray-600 focus:outline-none focus:border-primary-500"
+                                />
+                              </div>
+
+                              {/* Segundos sugeridos: guían al cronómetro cuando el ejercicio es por reps */}
+                              <div>
+                                <label className="block text-xs text-gray-500 mb-1">
+                                  Sugerido cronómetro (seg)
+                                </label>
+                                <input
+                                  type="number"
+                                  value={exercise.suggested_timer_seconds ?? ''}
+                                  onChange={(e) =>
+                                    updateExercise(section.tempId, exercise.tempId, {
+                                      suggested_timer_seconds: e.target.value
+                                        ? parseInt(e.target.value, 10)
+                                        : undefined,
+                                    })
+                                  }
+                                  placeholder="Global"
+                                  min="0"
+                                  disabled={Boolean(exercise.planned_time_seconds)}
+                                  className="w-full bg-gray-700 text-white placeholder-gray-600 rounded-lg px-3 py-2 text-sm border border-gray-600 focus:outline-none focus:border-primary-500 disabled:opacity-40"
                                 />
                               </div>
 

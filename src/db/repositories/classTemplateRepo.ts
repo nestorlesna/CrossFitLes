@@ -24,7 +24,7 @@ type SectionExerciseDraftForInsert = Omit<
 
 type SectionDraftForInsert = Omit<
   ClassSection,
-  'id' | 'created_at' | 'updated_at' | 'exercises' | 'section_type_name' | 'section_type_color' | 'section_type_icon' | 'work_format_name'
+  'id' | 'created_at' | 'updated_at' | 'exercises' | 'section_type_name' | 'section_type_color' | 'section_type_icon' | 'work_format_name' | 'work_format_is_interval' | 'work_format_default_interval_seconds'
 > & { exercises: SectionExerciseDraftForInsert[] };
 
 // Obtiene todas las plantillas activas con conteo de secciones y ejercicios
@@ -101,7 +101,9 @@ export async function getById(id: string): Promise<ClassTemplateWithSections | n
       st.name as section_type_name,
       st.color as section_type_color,
       st.icon as section_type_icon,
-      wf.name as work_format_name
+      wf.name as work_format_name,
+      wf.is_interval as work_format_is_interval,
+      wf.default_interval_seconds as work_format_default_interval_seconds
     FROM class_section cs
     LEFT JOIN section_type st ON cs.section_type_id = st.id
     LEFT JOIN work_format wf ON cs.work_format_id = wf.id
@@ -180,8 +182,9 @@ export async function create(
       statement: `INSERT INTO class_section
         (id, class_template_id, section_type_id, work_format_id, sort_order,
          visible_title, general_description, time_cap_seconds, total_rounds,
-         rest_between_rounds_seconds, notes, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+         rest_between_rounds_seconds, notes, rest_between_exercises_seconds,
+         rest_after_section_seconds, interval_seconds, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       values: [
         sectionId,
         templateId,
@@ -194,6 +197,9 @@ export async function create(
         section.total_rounds ?? null,
         section.rest_between_rounds_seconds ?? null,
         section.notes ?? null,
+        section.rest_between_exercises_seconds ?? null,
+        section.rest_after_section_seconds ?? null,
+        section.interval_seconds ?? null,
         timestamp,
         timestamp,
       ]
@@ -205,9 +211,9 @@ export async function create(
           (id, class_section_id, exercise_id, sort_order, coach_notes,
            planned_repetitions, planned_weight_value, planned_weight_unit_id,
            planned_time_seconds, planned_distance_value, planned_distance_unit_id,
-           planned_calories, planned_rest_seconds, planned_rounds, rm_percentage,
-           suggested_scaling, notes, created_at, updated_at)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+           planned_calories, planned_rest_seconds, planned_rounds, suggested_timer_seconds,
+           rm_percentage, suggested_scaling, notes, created_at, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         values: [
           generateUUID(),
           sectionId,
@@ -223,6 +229,7 @@ export async function create(
           exercise.planned_calories ?? null,
           exercise.planned_rest_seconds ?? null,
           exercise.planned_rounds ?? null,
+          exercise.suggested_timer_seconds ?? null,
           exercise.rm_percentage ?? null,
           exercise.suggested_scaling ?? null,
           exercise.notes ?? null,
@@ -301,8 +308,9 @@ export async function update(
       statement: `INSERT INTO class_section
         (id, class_template_id, section_type_id, work_format_id, sort_order,
          visible_title, general_description, time_cap_seconds, total_rounds,
-         rest_between_rounds_seconds, notes, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+         rest_between_rounds_seconds, notes, rest_between_exercises_seconds,
+         rest_after_section_seconds, interval_seconds, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       values: [
         sectionId,
         id,
@@ -315,6 +323,9 @@ export async function update(
         section.total_rounds ?? null,
         section.rest_between_rounds_seconds ?? null,
         section.notes ?? null,
+        section.rest_between_exercises_seconds ?? null,
+        section.rest_after_section_seconds ?? null,
+        section.interval_seconds ?? null,
         timestamp,
         timestamp,
       ]
@@ -326,9 +337,9 @@ export async function update(
           (id, class_section_id, exercise_id, sort_order, coach_notes,
            planned_repetitions, planned_weight_value, planned_weight_unit_id,
            planned_time_seconds, planned_distance_value, planned_distance_unit_id,
-           planned_calories, planned_rest_seconds, planned_rounds, rm_percentage,
-           suggested_scaling, notes, created_at, updated_at)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+           planned_calories, planned_rest_seconds, planned_rounds, suggested_timer_seconds,
+           rm_percentage, suggested_scaling, notes, created_at, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         values: [
           generateUUID(),
           sectionId,
@@ -344,6 +355,7 @@ export async function update(
           exercise.planned_calories ?? null,
           exercise.planned_rest_seconds ?? null,
           exercise.planned_rounds ?? null,
+          exercise.suggested_timer_seconds ?? null,
           exercise.rm_percentage ?? null,
           exercise.suggested_scaling ?? null,
           exercise.notes ?? null,
@@ -412,8 +424,9 @@ export async function duplicate(id: string): Promise<string> {
       statement: `INSERT INTO class_section
         (id, class_template_id, section_type_id, work_format_id, sort_order,
          visible_title, general_description, time_cap_seconds, total_rounds,
-         rest_between_rounds_seconds, notes, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+         rest_between_rounds_seconds, notes, rest_between_exercises_seconds,
+         rest_after_section_seconds, interval_seconds, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       values: [
         newSectionId,
         newTemplateId,
@@ -426,6 +439,9 @@ export async function duplicate(id: string): Promise<string> {
         section.total_rounds ?? null,
         section.rest_between_rounds_seconds ?? null,
         section.notes ?? null,
+        section.rest_between_exercises_seconds ?? null,
+        section.rest_after_section_seconds ?? null,
+        section.interval_seconds ?? null,
         timestamp,
         timestamp,
       ],
@@ -437,9 +453,9 @@ export async function duplicate(id: string): Promise<string> {
           (id, class_section_id, exercise_id, sort_order, coach_notes,
            planned_repetitions, planned_weight_value, planned_weight_unit_id,
            planned_time_seconds, planned_distance_value, planned_distance_unit_id,
-           planned_calories, planned_rest_seconds, planned_rounds, rm_percentage,
-           suggested_scaling, notes, created_at, updated_at)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+           planned_calories, planned_rest_seconds, planned_rounds, suggested_timer_seconds,
+           rm_percentage, suggested_scaling, notes, created_at, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         values: [
           generateUUID(),
           newSectionId,
@@ -455,6 +471,7 @@ export async function duplicate(id: string): Promise<string> {
           exercise.planned_calories ?? null,
           exercise.planned_rest_seconds ?? null,
           exercise.planned_rounds ?? null,
+          exercise.suggested_timer_seconds ?? null,
           exercise.rm_percentage ?? null,
           exercise.suggested_scaling ?? null,
           exercise.notes ?? null,
@@ -547,5 +564,72 @@ export async function hardDeleteClass(id: string): Promise<void> {
   const db = getDatabase();
   // class_section tiene ON DELETE CASCADE, section_exercise también
   await db.run(`DELETE FROM class_template WHERE id = ?`, [id]);
+  await saveDatabase();
+}
+
+// ── Cronómetro ──────────────────────────────────────────────────────────────
+// Edición acotada a los tiempos: a diferencia de update(), no borra ni recrea
+// secciones ni ejercicios, sólo actualiza las columnas que usa el cronómetro.
+
+export interface TimerSectionPatch {
+  id: string;
+  rest_between_exercises_seconds?: number | null;
+  rest_between_rounds_seconds?: number | null;
+  rest_after_section_seconds?: number | null;
+  interval_seconds?: number | null;
+}
+
+export interface TimerExercisePatch {
+  id: string;
+  planned_time_seconds?: number | null;
+  suggested_timer_seconds?: number | null;
+  planned_rest_seconds?: number | null;
+}
+
+export async function updateTimerSettings(
+  sections: TimerSectionPatch[],
+  exercises: TimerExercisePatch[]
+): Promise<void> {
+  const db = getDatabase();
+  const timestamp = now();
+
+  const statements = [
+    ...sections.map((section) => ({
+      statement: `UPDATE class_section SET
+        rest_between_exercises_seconds = ?,
+        rest_between_rounds_seconds = ?,
+        rest_after_section_seconds = ?,
+        interval_seconds = ?,
+        updated_at = ?
+        WHERE id = ?`,
+      values: [
+        section.rest_between_exercises_seconds ?? null,
+        section.rest_between_rounds_seconds ?? null,
+        section.rest_after_section_seconds ?? null,
+        section.interval_seconds ?? null,
+        timestamp,
+        section.id,
+      ],
+    })),
+    ...exercises.map((exercise) => ({
+      statement: `UPDATE section_exercise SET
+        planned_time_seconds = ?,
+        suggested_timer_seconds = ?,
+        planned_rest_seconds = ?,
+        updated_at = ?
+        WHERE id = ?`,
+      values: [
+        exercise.planned_time_seconds ?? null,
+        exercise.suggested_timer_seconds ?? null,
+        exercise.planned_rest_seconds ?? null,
+        timestamp,
+        exercise.id,
+      ],
+    })),
+  ];
+
+  if (statements.length === 0) return;
+
+  await db.executeSet(statements, true);
   await saveDatabase();
 }

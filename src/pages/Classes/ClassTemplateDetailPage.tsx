@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
   ChevronLeft,
   Pencil,
+  TimerReset,
   Star,
   Copy,
   Trash2,
@@ -285,13 +286,22 @@ export function ClassTemplateDetailPage() {
           </button>
         }
         rightAction={
-          <button
-            onClick={() => navigate(`/clases/${template.id}/editar`)}
-            className="text-primary-500 hover:text-primary-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
-            aria-label="Editar"
-          >
-            <Pencil size={20} />
-          </button>
+          <div className="flex items-center">
+            <button
+              onClick={() => navigate(`/clases/${template.id}/tiempos`)}
+              className="text-gray-400 hover:text-primary-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
+              aria-label="Editar tiempos del cronómetro"
+            >
+              <TimerReset size={20} />
+            </button>
+            <button
+              onClick={() => navigate(`/clases/${template.id}/editar`)}
+              className="text-primary-500 hover:text-primary-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
+              aria-label="Editar"
+            >
+              <Pencil size={20} />
+            </button>
+          </div>
         }
       />
 
@@ -367,19 +377,20 @@ export function ClassTemplateDetailPage() {
                     </div>
                     {/* Info rondas y time cap */}
                     <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1">
-                      {section.total_rounds && (
+                      {/* Los guardas comparan contra 0: con `valor && ...`, un 0 se renderiza como "0" */}
+                      {!!section.total_rounds && section.total_rounds > 0 && (
                         <span className="text-xs text-gray-500">
                           {section.total_rounds} rondas
                         </span>
                       )}
-                      {section.time_cap_seconds && (
+                      {!!section.time_cap_seconds && section.time_cap_seconds > 0 && (
                         <span className="text-xs text-gray-500">
                           Time cap: {formatSeconds(section.time_cap_seconds)}
                         </span>
                       )}
-                      {section.rest_between_rounds_seconds && (
+                      {!!section.rest_between_rounds_seconds && section.rest_between_rounds_seconds > 0 && (
                         <span className="text-xs text-gray-500">
-                          Desc: {formatSeconds(section.rest_between_rounds_seconds)}
+                          Desc. entre rondas: {formatSeconds(section.rest_between_rounds_seconds)}
                         </span>
                       )}
                     </div>
