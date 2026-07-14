@@ -81,6 +81,7 @@ export function SessionTimerPage() {
   const [hasStarted, setHasStarted] = useState(false);
 
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [videoTitle, setVideoTitle] = useState<string>('Video');
   const [showFinishModal, setShowFinishModal] = useState(false);
   const [saving, setSaving] = useState(false);
 
@@ -97,6 +98,16 @@ export function SessionTimerPage() {
 
   const runner = useTimerRunner(steps, config);
   const { step, stepIndex, remaining, openElapsed, isOpenStep, isRunning, isFinished, totalElapsed } = runner;
+
+  // Ejercicio del próximo paso de trabajo: durante la cuenta regresiva y los descansos
+  // permite ver de antemano el video de lo que viene.
+  const upcomingExercise = useMemo(() => {
+    if (!step || step.kind === 'work') return undefined;
+    for (let i = stepIndex + 1; i < steps.length; i++) {
+      if (steps[i].kind === 'work') return steps[i].exercise;
+    }
+    return undefined;
+  }, [steps, stepIndex, step]);
 
   // ── Carga de datos ────────────────────────────────────────────────────────
   useEffect(() => {
@@ -175,9 +186,10 @@ export function SessionTimerPage() {
   };
 
   const handleWatchVideo = useCallback(
-    (url: string) => {
+    (url: string, title: string) => {
       runner.pause();
       setVideoUrl(url);
+      setVideoTitle(title);
     },
     [runner]
   );
@@ -383,11 +395,29 @@ export function SessionTimerPage() {
       <div className="shrink-0 px-4 pb-4 pt-2 flex flex-col gap-2 safe-bottom">
         {isWork && exercise?.exercise_video_url && (
           <button
-            onClick={() => handleWatchVideo(exercise.exercise_video_url!)}
+            onClick={() =>
+              handleWatchVideo(exercise.exercise_video_url!, exercise.exercise_name ?? 'Video')
+            }
             className="self-center flex items-center gap-2 text-xs font-bold text-gray-400 bg-gray-900 border border-gray-800 rounded-full px-4 py-2 active:scale-95 transition-transform"
           >
             <Video size={14} />
             Ver video (pausa el reloj)
+          </button>
+        )}
+
+        {/* En el descanso: adelantar el video de lo que viene */}
+        {!isWork && upcomingExercise?.exercise_video_url && (
+          <button
+            onClick={() =>
+              handleWatchVideo(
+                upcomingExercise.exercise_video_url!,
+                upcomingExercise.exercise_name ?? 'Video'
+              )
+            }
+            className="self-center flex items-center gap-2 text-xs font-bold text-gray-300 bg-gray-900 border border-gray-700 rounded-full px-4 py-2 max-w-full active:scale-95 transition-transform"
+          >
+            <Video size={14} className="shrink-0" />
+            <span className="truncate">Ver qué sigue: {upcomingExercise.exercise_name}</span>
           </button>
         )}
 
@@ -447,7 +477,7 @@ export function SessionTimerPage() {
       <Modal
         isOpen={Boolean(videoUrl)}
         onClose={() => setVideoUrl(null)}
-        title={exercise?.exercise_name ?? 'Video'}
+        title={videoTitle}
         size="md"
       >
         <div className="flex flex-col gap-4">

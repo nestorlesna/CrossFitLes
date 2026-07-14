@@ -35,28 +35,28 @@ Calentamiento
 - 6 minutos de calentamiento
 
 Movilidad - 2 rondas todo 30 segundos
- - sentarme sobre una rodilla para un lado y otro
- - movilidad de cadera rodilla a un lado y otro sentado
- - banda de adelante para atras
+ - Cossack Squat
+ - 90/90 Hip Rotation
+ - Band Pass-Throughs, video corto https://www.youtube.com/shorts/07lFW_Ulz6E, video explicativo https://www.youtube.com/shorts/ErTGd0_Mpzo
 
 Activacion 3 rondas todo 30 segundos
- - hollow
- - hollow dinamico
- - peso muerto
- - bamboleo
+ - Hollow Hold
+ - hollow hold dinamico, video corto https://www.youtube.com/watch?v=h-beMdJ1CVo, video explicativo https://www.youtube.com/shorts/vhru5daVb6M
+ - Kettlebell Deadlift 12.5kg, video corto https://www.youtube.com/watch?v=l6gDwf3xC6s, video explicativo https://www.youtube.com/shorts/1KY_4fs1yns
+ - Kettlebell Swing 12.5kg
 
 Fuerza 6 rondas cada 1.5 mintos, complex de los 3 ejercicios en cada ronda peso, 30, 40, 40, 50, 50, 40 kg
- - un clean desde la cadera, 30kg
- - un clean desde rodilla, 30 kg
- - un clean desde pantorrilla, 30 kg
+ - Barbell High Hang Power Clean, 30kg, video corto https://www.youtube.com/watch?v=g3fj757-XSA, video explicativo https://www.youtube.com/shorts/SLtiLAexbTc
+ - Barbell Hang Power Clean, 30 kg
+ - Barbell Low Hang Power Clean, 30 kg, video corto https://www.youtube.com/shorts/7jfezrErG1Q, video explicativo https://www.youtube.com/shorts/pxUhO2kZM38
 
 WOD, 10 mintuos AMRAP (aprox 3 rondas)
- - runnirn 200m
+ - running 200m
  - 3 repeticiones de (peso 40kg):
-  3 peso muerto
-  2 power clean
-  1 hacia arriba
- - 5 burpee over de barr
+  3 Barbell Deadlift 
+  2 Barbell Hang Power Clea
+  1 Shoulder Press, video corto https://www.youtube.com/shorts/Xur1K3Z8q0U , video explicativo https://www.youtube.com/watch?v=5yWaNOvgFCM
+ - 5 Burpee Over the Bar
  
 Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 
