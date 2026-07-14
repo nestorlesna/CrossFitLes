@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
   ChevronLeft,
   Pencil,
+  TimerReset,
   Star,
   Copy,
   Trash2,
@@ -285,13 +286,22 @@ export function ClassTemplateDetailPage() {
           </button>
         }
         rightAction={
-          <button
-            onClick={() => navigate(`/clases/${template.id}/editar`)}
-            className="text-primary-500 hover:text-primary-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
-            aria-label="Editar"
-          >
-            <Pencil size={20} />
-          </button>
+          <div className="flex items-center">
+            <button
+              onClick={() => navigate(`/clases/${template.id}/tiempos`)}
+              className="text-gray-400 hover:text-primary-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
+              aria-label="Editar tiempos del cronómetro"
+            >
+              <TimerReset size={20} />
+            </button>
+            <button
+              onClick={() => navigate(`/clases/${template.id}/editar`)}
+              className="text-primary-500 hover:text-primary-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
+              aria-label="Editar"
+            >
+              <Pencil size={20} />
+            </button>
+          </div>
         }
       />
 

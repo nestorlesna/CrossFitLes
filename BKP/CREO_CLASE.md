@@ -18,7 +18,12 @@ El objetivo es producir:
 
 > ⚠️ **Músculo incluido en el mismo servicio:** NO se crea un servicio separado de músculos.
 > La asignación de `primary_muscle` y `secondary_muscles` ocurre dentro de `importClassDDMMYYYY()`
-> justo después de insertar cada ejercicio. Ver sección 10a para el template completo.
+> justo después de insertar cada ejercicio. Ver sección 11a para el template completo.
+
+> ⏱️ **Cronómetro obligatorio:** la clase también tiene que quedar ejecutable en modo
+> **Clase guiada**, donde el cronómetro avanza solo. Eso implica cargar tiempos de trabajo,
+> descansos y ventanas de intervalo en `class_section` y `section_exercise`. Cuando el MD no
+> dice cuánto dura un ejercicio, se estima con las tablas de la **sección 7**.
 
 ---
 
@@ -95,6 +100,11 @@ Leer la clase del archivo `BKP/Ejercicios.md` e identificar:
 | "series fijas" / rondas con descanso fijo          | Series fijas           |
 | "trabajo libre" / movilidad sin estructura          | Trabajo libre          |
 | Intervalos alternados (A/B)                         | Intervalos             |
+
+> **Formatos de ventana fija (`is_interval = 1`):** EMOM (60s), E2MOM (120s), Tabata (30s),
+> Intervalos (60s). En estos formatos el cronómetro le da a cada ejercicio una ventana completa:
+> lo que sobra del trabajo se convierte automáticamente en descanso. Si el MD indica otra ventana
+> ("cada 1.5 minutos"), cargar `class_section.interval_seconds` con ese valor (90). Ver sección 7.
 
 ### PASO 4 – Verificar ejercicios existentes
 
@@ -448,18 +458,21 @@ cuando el usuario tiene el catálogo extendido (post "Cargar Datos Base").
 
 ### 5.5 work_format
 
-| name         | has_time_cap | has_rounds |
-|--------------|:------------:|:----------:|
-| Por rondas   | 0            | 1          |
-| EMOM         | 1            | 1          |
-| AMRAP        | 1            | 0          |
-| For Time     | 1            | 0          |
-| Series fijas | 0            | 1          |
-| Trabajo libre| 0            | 0          |
-| Intervalos   | 1            | 1          |
-| Tabata       | 1            | 1          |
-| E2MOM        | 1            | 1          |
-| Escalera     | 0            | 0          |
+| name         | has_time_cap | has_rounds | is_interval | default_interval_seconds |
+|--------------|:------------:|:----------:|:-----------:|:------------------------:|
+| Por rondas   | 0            | 1          | 0           | —                        |
+| EMOM         | 1            | 1          | 1           | 60                       |
+| AMRAP        | 1            | 0          | 0           | —                        |
+| For Time     | 1            | 0          | 0           | —                        |
+| Series fijas | 0            | 1          | 0           | —                        |
+| Trabajo libre| 0            | 0          | 0           | —                        |
+| Intervalos   | 1            | 1          | 1           | 60                       |
+| Tabata       | 1            | 1          | 1           | 30                       |
+| E2MOM        | 1            | 1          | 1           | 120                      |
+| Escalera     | 0            | 0          | 0           | —                        |
+
+> `is_interval` y `default_interval_seconds` los agrega la migración v011 y los consume el
+> cronómetro. Son editables desde Configuración → Formatos de trabajo.
 
 ### 5.6 measurement_unit
 
@@ -581,10 +594,16 @@ cuando el usuario tiene el catálogo extendido (post "Cargar Datos Base").
   "total_rounds": 2,
   "rest_between_rounds_seconds": null,
   "notes": null,
+  "rest_between_exercises_seconds": 10,
+  "rest_after_section_seconds": 60,
+  "interval_seconds": null,
   "created_at": "2026-04-01 00:00:00",
   "updated_at": "2026-04-01 00:00:00"
 }
 ```
+> Los tres campos nuevos (`rest_between_exercises_seconds`, `rest_after_section_seconds`,
+> `interval_seconds`) son overrides del cronómetro: si van en `null`, el motor usa el valor global
+> de `timer_config`. Ver sección 7.
 
 ### section_exercise
 ```json
@@ -603,6 +622,7 @@ cuando el usuario tiene el catálogo extendido (post "Cargar Datos Base").
   "planned_calories": null,
   "planned_rest_seconds": null,
   "planned_rounds": null,
+  "suggested_timer_seconds": null,
   "rm_percentage": 80,
   "suggested_scaling": null,
   "notes": null,
@@ -610,10 +630,118 @@ cuando el usuario tiene el catálogo extendido (post "Cargar Datos Base").
   "updated_at": "2026-04-01 00:00:00"
 }
 ```
+> `suggested_timer_seconds` es la **duración estimada** del ejercicio cuando el MD no dice cuánto
+> dura (típicamente ejercicios por repeticiones). Sólo se carga si `planned_time_seconds` es `null`.
+> Ver sección 7.
 
 ---
 
-## 7. REGLAS PARA IMPORTAR SIN PERDER DATOS EXISTENTES
+## 7. CRONÓMETRO: CÓMO CARGAR LOS TIEMPOS
+
+La clase tiene que poder ejecutarse en **modo Clase guiada** (`/sesiones/:id/cronometro`), donde el
+cronómetro avanza solo. El motor (`src/services/timerEngine.ts`) aplana la clase en una secuencia
+lineal de pasos:
+
+```
+cuenta regresiva → trabajo → descanso → ... → descanso de ronda → ... → descanso de sección → ...
+```
+
+Para que esa secuencia sea coherente, **cada ejercicio necesita una duración**. Si el MD la dice, se
+usa tal cual; si no, se estima.
+
+### 7.1 Cascada de resolución (qué campo gana)
+
+| Concepto                    | 1º — ejercicio            | 2º — ejercicio (estimado)   | 3º — sección                     | 4º — global (`timer_config`)      |
+|-----------------------------|---------------------------|-----------------------------|----------------------------------|-----------------------------------|
+| Duración del trabajo        | `planned_time_seconds`    | `suggested_timer_seconds`   | —                                | `default_exercise_seconds` (45)   |
+| Descanso entre ejercicios   | `planned_rest_seconds`    | —                           | `rest_between_exercises_seconds` | `rest_between_exercises_seconds` (15) |
+| Descanso entre vueltas      | —                         | —                           | `rest_between_rounds_seconds`    | `rest_between_rounds_seconds` (60) |
+| Descanso al cerrar sección  | —                         | —                           | `rest_after_section_seconds`     | `rest_between_sections_seconds` (90) |
+| Ventana de intervalo        | —                         | —                           | `interval_seconds`               | `work_format.default_interval_seconds` → `default_interval_seconds` (60) |
+
+Regla de oro: **dejar en `null` lo que el default global ya resuelve bien**, y cargar valor explícito
+sólo cuando la clase pide algo distinto. Lo único que casi siempre hay que completar es
+`suggested_timer_seconds` en los ejercicios por repeticiones.
+
+### 7.2 Estimar la duración de un ejercicio por repeticiones
+
+`suggested_timer_seconds ≈ repeticiones × segundos_por_rep`, redondeado a múltiplo de 5,
+con un mínimo de 15 s.
+
+| Tipo de movimiento                                                        | seg/rep | Ej. 10 reps |
+|---------------------------------------------------------------------------|:-------:|:-----------:|
+| Olímpico pesado o complejo (snatch, clean & jerk, con pausa)               | 8       | 80 s        |
+| Fuerza con barra (deadlift, squat, press, thruster)                        | 5       | 50 s        |
+| Gimnástico avanzado (muscle-up, HSPU, chest-to-bar, wall walk, pistol)     | 5       | 50 s        |
+| Mancuerna / kettlebell (swing, snatch, push press, devil's press, wall ball)| 3      | 30 s        |
+| Gimnástico básico (push-up, sit-up, air squat, burpee, box jump)           | 3       | 30 s        |
+| Lunge / step-over / step-up (por paso)                                     | 2.5     | 25 s        |
+| Movilidad y activación con reps (band pull-apart, scapular push-up)        | 2       | 20 s        |
+| Saltos de soga (single-under / double-under)                               | 0.8     | 10 s        |
+
+**Ejercicios que no son por repeticiones:**
+
+| Caso                                    | Estimación                                              |
+|-----------------------------------------|---------------------------------------------------------|
+| Correr / shuttle run                    | 25 s cada 100 m                                         |
+| Remo / assault bike (distancia)         | 25 s cada 100 m                                         |
+| Remo / assault bike (calorías)          | 4 s por caloría                                         |
+| Carry (farmer's, overhead)              | 10 s cada 20 m                                          |
+| Rope climb                              | 30 s por subida                                         |
+| Isométricos (plancha, hollow hold)      | el tiempo del MD; si no dice, 30 s                      |
+| Estiramiento sin tiempo indicado        | 30 s por posición                                       |
+
+**Ajustes:**
+- Si el ejercicio es "cada lado" / "por lado", **duplicar** la estimación (y dejarlo en `coach_notes`).
+- Si el MD dice el tiempo (ej. "todo 30 segundos"), va en `planned_time_seconds` y
+  `suggested_timer_seconds` queda en `null`. **Nunca cargar los dos.**
+- Peso alto o % de RM alto (≥85%): sumar ~30% al tiempo estimado.
+
+### 7.3 Secciones de intervalo (EMOM, E2MOM, Tabata, Intervalos)
+
+En estas secciones cada ejercicio recibe una **ventana fija**: el motor recorta el trabajo al tamaño
+de la ventana y convierte el sobrante en descanso automáticamente.
+
+- La ventana sale de `interval_seconds` de la sección; si va en `null`, del `default_interval_seconds`
+  del formato (EMOM 60 / E2MOM 120 / Tabata 30 / Intervalos 60).
+- Cargar `interval_seconds` cuando el MD indica una ventana distinta a la del formato
+  (ej. "5 reps por 1.5 minutos" → `interval_seconds: 90`).
+- La estimación de trabajo debe **entrar en la ventana con aire**: apuntar a que quede al menos un
+  15-20 % de descanso. Si la estimación iguala o supera la ventana, recortarla a `ventana − 10`.
+- Si la sección tiene `time_cap_seconds` y no tiene `total_rounds`, el motor deduce las vueltas
+  (`floor(time_cap / (ventana × ventanas_por_vuelta))`). Aun así, **cargar `total_rounds` explícito**
+  siempre que el MD lo permita.
+
+### 7.4 Descansos por tipo de sección (valores sugeridos)
+
+| Sección                                | `rest_between_exercises_seconds` | `rest_after_section_seconds` |
+|----------------------------------------|:--------------------------------:|:----------------------------:|
+| Entrada en calor / Movilidad           | 10                               | 60                           |
+| Activación                             | 10                               | 60                           |
+| Fuerza (series pesadas)                | 60–90                            | 120                          |
+| WOD (For Time / AMRAP / Por rondas)    | **0** (circuito continuo)        | 60                           |
+| Vuelta a la calma                      | 10                               | `null` (es la última)        |
+| Secciones de intervalo                 | ignorado (manda la ventana)      | 60–120                       |
+
+`rest_between_rounds_seconds`: sólo si el MD lo dice ("1 minuto entre rondas" → 60). En un WOD
+continuo va en 0; si va en `null` el motor mete 60 s por default, que casi nunca es lo que se quiere
+en un metcon.
+
+### 7.5 Trampas conocidas
+
+- **Una sección sin ejercicios el cronómetro la salta por completo.** Un "Calentamiento – 6 minutos"
+  sin ejercicios cargados desaparece de la línea de tiempo. Si el MD no detalla movimientos, cargar
+  igual un ejercicio representativo (ej. Running) con `planned_time_seconds` = el time cap.
+- `planned_rounds` en `section_exercise` = series del **mismo** ejercicio dentro de una vuelta
+  (el motor las anida). `total_rounds` en `class_section` = vueltas al circuito completo.
+- Un ejercicio por reps sin `planned_time_seconds` ni `suggested_timer_seconds` cae al default global
+  de 45 s, que casi nunca es correcto. Por eso el paso de estimación es obligatorio.
+- La suma de la línea de tiempo debería quedar cerca de `estimated_duration_minutes` de la clase.
+  Si difiere mucho, revisar rondas y descansos.
+
+---
+
+## 8. REGLAS PARA IMPORTAR SIN PERDER DATOS EXISTENTES
 
 El `importDataFromZip` BORRA todos los datos existentes antes de importar.
 
@@ -633,9 +761,9 @@ El JSON debe incluir todos los catálogos del seed y todos los ejercicios del se
 
 ---
 
-## 8. EJEMPLO COMPLETO RESUELTO: Clase GOAT 01/04/2026
+## 9. EJEMPLO COMPLETO RESUELTO: Clase GOAT 01/04/2026
 
-### 8a. Análisis del MD
+### 9a. Análisis del MD
 
 ```
 Clase GOAT 01/04/2026
@@ -656,7 +784,7 @@ duración estimada: 60 minutos
 | 5 | Fuerza B                 | Fuerza          | E2MOM          | 6      | —        | 6 rondas 3 reps por 1.5 min (snatch con pausa)       |
 | 6 | WOD                      | WOD             | Por rondas     | 10     | 16 min   | 10 rondas máx 16 min en parejas                      |
 
-### 8b. Ejercicios nuevos de esta clase (sin SVG previo)
+### 9b. Ejercicios nuevos de esta clase (sin SVG previo)
 
 Los siguientes ejercicios NO tienen SVG y deben crearse:
 
@@ -792,68 +920,91 @@ Los siguientes ejercicios NO tienen SVG y deben crearse:
     - Frame 2: Piernas extendiéndose, mancuernas comenzando a subir
     - Frame 3: Mancuernas overhead, brazos extendidos, de puntillas
 
-### 8c. Ejercicios ya existentes en esta clase
+### 9c. Ejercicios ya existentes en esta clase
 
 | Ejercicio en MD         | Nombre en BD          | SVG existente              |
 |-------------------------|-----------------------|----------------------------|
 | Muscle Snatch           | Barbell Muscle Snatch | barbell-muscle-snatch.svg  |
 
-### 8d. Secciones y section_exercises de la Clase GOAT 01/04/2026
+### 9d. Secciones y section_exercises de la Clase GOAT 01/04/2026
 
 **Sección 1: Calentamiento**
 - section_type: Entrada en calor | work_format: Trabajo libre | time_cap: 360 seg | visible_title: "Calentamiento"
-- Ejercicios: Ninguno específico (general_description: "6 minutos de calentamiento general")
+- general_description: "6 minutos de calentamiento general"
+- rest_after_section_seconds: 60
+- Ejercicios: el MD no detalla movimientos, pero **una sección vacía el cronómetro la saltea** (§7.5),
+  así que se carga un ejercicio representativo:
+  1. Running → planned_time_seconds: 360 | coach_notes: "Calentamiento general, ritmo suave"
 
 **Sección 2: Movilidad**
 - section_type: Entrada en calor | work_format: Por rondas | total_rounds: 2 | visible_title: "Movilidad"
 - general_description: "2 rondas todo 30 segundos"
-- Ejercicios:
+- rest_between_exercises_seconds: 10 | rest_between_rounds_seconds: 0 | rest_after_section_seconds: 60
+- Ejercicios (el MD da el tiempo → va en `planned_time_seconds`, sin estimar):
   1. Band Pull-Apart → planned_time_seconds: 30
   2. Band External Rotation → planned_time_seconds: 30 | coach_notes: "Cada lado"
   3. 90/90 Hip Rotation → planned_time_seconds: 30
 
 **Sección 3: Activación**
-- section_type: Activación | work_format: EMOM | time_cap: 300 seg | visible_title: "Activación"
+- section_type: Activación | work_format: EMOM | time_cap: 300 seg | total_rounds: 1 | visible_title: "Activación"
 - general_description: "todo 10 repeticiones en 5 minutos"
-- Ejercicios:
-  1. Lateral Raise to Overhead → planned_repetitions: 10 | planned_weight_value: 2.5 | planned_weight_unit_id: kg | coach_notes: "2 discos de 2.5"
-  2. Scapular Push-Up → planned_repetitions: 10
-  3. High Pull + External Rotation → planned_repetitions: 10 | planned_weight_value: 2.5 | planned_weight_unit_id: kg | coach_notes: "2 discos de 2.5"
+- interval_seconds: null → usa la ventana del EMOM (60 s) | rest_after_section_seconds: 90
+- Ejercicios (por reps → se **estima** `suggested_timer_seconds`, §7.2):
+  1. Lateral Raise to Overhead → planned_repetitions: 10 | planned_weight_value: 2.5 kg | **suggested_timer_seconds: 30** (10 × 3 s) | coach_notes: "2 discos de 2.5"
+  2. Scapular Push-Up → planned_repetitions: 10 | **suggested_timer_seconds: 20** (10 × 2 s, movilidad)
+  3. High Pull + External Rotation → planned_repetitions: 10 | planned_weight_value: 2.5 kg | **suggested_timer_seconds: 30** | coach_notes: "2 discos de 2.5"
+- Las tres estimaciones entran cómodas en la ventana de 60 s: el resto se vuelve descanso solo.
 
 **Sección 4: Fuerza A – Complejo de snatch**
 - section_type: Fuerza | work_format: E2MOM | total_rounds: 3 | visible_title: "Fuerza - Complejo"
 - general_description: "3 rondas, todo 5 repeticiones por 1 minuto"
-- Ejercicios (en cada ronda, en orden):
-  1. Snatch Grip Deadlift → planned_repetitions: 5 | planned_weight_value: 20 | sort_order: 1 | coach_notes: "a"
-  2. Snatch High Pull → planned_repetitions: 5 | planned_weight_value: 20 | sort_order: 2 | coach_notes: "b"
-  3. Barbell Muscle Snatch → planned_repetitions: 5 | planned_weight_value: 20 | sort_order: 3 | coach_notes: "c"
+- **interval_seconds: 60** — el MD dice "por 1 minuto", no los 120 s por default del E2MOM
+- rest_after_section_seconds: 120
+- Ejercicios (olímpico: 5 reps × 8 s = 40 s, entra en la ventana de 60):
+  1. Snatch Grip Deadlift → planned_repetitions: 5 | planned_weight_value: 20 | **suggested_timer_seconds: 40** | sort_order: 1 | coach_notes: "a"
+  2. Snatch High Pull → planned_repetitions: 5 | planned_weight_value: 20 | **suggested_timer_seconds: 40** | sort_order: 2 | coach_notes: "b"
+  3. Barbell Muscle Snatch → planned_repetitions: 5 | planned_weight_value: 20 | **suggested_timer_seconds: 40** | sort_order: 3 | coach_notes: "c"
 
 **Sección 5: Fuerza B – Snatch con pausa**
 - section_type: Fuerza | work_format: E2MOM | total_rounds: 6 | visible_title: "Fuerza - Snatch"
 - time_cap_seconds: 540 (6 x 1.5 min) | general_description: "6 rondas, 3 repeticiones por 1.5 minutos"
+- **interval_seconds: 90** ("por 1.5 minutos") | rest_after_section_seconds: 120
 - Ejercicios:
-  1. Snatch with Pause at Knee → planned_repetitions: 3 | coach_notes: "2s de pausa en rodilla"
+  1. Snatch with Pause at Knee → planned_repetitions: 3 | **suggested_timer_seconds: 30** (3 × 8 s + pausa) | coach_notes: "2s de pausa en rodilla"
 
 **Sección 6: WOD**
 - section_type: WOD | work_format: Por rondas | total_rounds: 10 | time_cap_seconds: 960 | visible_title: "WOD"
 - general_description: "10 rondas máximo 16 minutos en parejas, uno trabaja el otro descansa"
+- **rest_between_exercises_seconds: 0** (circuito continuo) | **rest_between_rounds_seconds: 30**
+  (en parejas: la ronda del compañero) | rest_after_section_seconds: null (última sección con ejercicios)
 - Ejercicios:
-  1. Dumbbell Deadlift → planned_repetitions: 6 | planned_weight_value: 10 | sort_order: 1
-  2. DB Lateral Step-Over → planned_repetitions: 4 | planned_weight_value: 10 | sort_order: 2
-  3. Dumbbell Push Press → planned_repetitions: 2 | sort_order: 3
+  1. Dumbbell Deadlift → planned_repetitions: 6 | planned_weight_value: 10 | **suggested_timer_seconds: 20** (6 × 3 s) | sort_order: 1
+  2. DB Lateral Step-Over → planned_repetitions: 4 | planned_weight_value: 10 | **suggested_timer_seconds: 10** (4 × 2.5 s) | sort_order: 2
+  3. Dumbbell Push Press → planned_repetitions: 2 | **suggested_timer_seconds: 15** (mínimo) | sort_order: 3
+
+**Control final:** la línea de tiempo suma ≈ 6' + 4' + 5' + 9' + 9' + 16' ≈ 49' de trabajo + descansos
+de sección → coherente con `estimated_duration_minutes: 60`.
 
 ---
 
-## 9. CHECKLIST DE ENTREGA
+## 10. CHECKLIST DE ENTREGA
 
 Al finalizar la generación de una clase, verificar:
 
 - [ ] SVGs creados para todos los ejercicios nuevos (3 frames, 200x230, animación CSS)
 - [ ] Todos los ejercicios tienen: description, technical_notes, difficulty, equipment, tags, sections, units, video_path (si hay video en el MD)
 - [ ] Cada ejercicio tiene exactamente 1 `primary_muscle` y 0-N `secondary_muscles` con nombres **simplificados** del catálogo (§5.1)
-- [ ] El servicio incluye `SIMPLIFIED_TO_GRANULAR`, `toDbName()` y la lógica de `exercise_muscle_group` (§10a)
+- [ ] El servicio incluye `SIMPLIFIED_TO_GRANULAR`, `toDbName()` y la lógica de `exercise_muscle_group` (§11a)
 - [ ] Todas las secciones de la clase mapeadas a section_type y work_format correctos
 - [ ] Todos los section_exercise tienen planned_repetitions / planned_time_seconds / planned_weight_value según corresponda
+
+**Cronómetro (§7):**
+- [ ] Todo ejercicio tiene duración resoluble: `planned_time_seconds` (si el MD lo dice) **o** `suggested_timer_seconds` (estimado) — nunca los dos
+- [ ] Ninguna sección quedó sin ejercicios (el cronómetro la saltearía)
+- [ ] Secciones de intervalo: `interval_seconds` cargado si la ventana difiere del default del formato, y el trabajo estimado entra en la ventana
+- [ ] `rest_between_exercises_seconds` = 0 en los WOD continuos; `rest_between_rounds_seconds` cargado donde el MD lo indica
+- [ ] `rest_after_section_seconds` definido en las secciones intermedias
+- [ ] La suma estimada de la línea de tiempo es coherente con `estimated_duration_minutes`
 - [ ] El data.json sigue el orden de tablas obligatorio
 - [ ] Los IDs son UUID v4 válidos y no se repiten
 - [ ] Las fechas están en formato `YYYY-MM-DD HH:MM:SS` (campos created_at/updated_at) o `YYYY-MM-DD` (campo date de class_template)
@@ -862,11 +1013,11 @@ Al finalizar la generación de una clase, verificar:
 
 ---
 
-## 10. CÓMO INTEGRAR LA CLASE EN LA APP
+## 11. CÓMO INTEGRAR LA CLASE EN LA APP
 
 La forma estándar de cargar una clase es mediante un **servicio de importación TypeScript** y un **botón en Clases Predefinidas**. Este es el flujo completo:
 
-### 10a. Crear el servicio de importación
+### 11a. Crear el servicio de importación
 
 Crear `src/services/classDDMMYYYYImportService.ts`. El template completo incluye la asignación
 de músculos dentro del mismo servicio, sin necesitar un paso separado:
@@ -1100,30 +1251,37 @@ export async function importClassDDMMYYYY(): Promise<{ exercises: number; create
   );
 
   // ── Secciones ──────────────────────────────────────────────────────────────
+  // Las 3 últimas columnas antes de las fechas son los overrides del cronómetro (§7).
   // Repetir este bloque por cada sección:
   // const sec1Id = generateUUID();
   // await db.run(
   //   `INSERT INTO class_section
   //      (id, class_template_id, section_type_id, work_format_id, sort_order,
   //       visible_title, general_description, time_cap_seconds, total_rounds,
-  //       rest_between_rounds_seconds, notes, created_at, updated_at)
-  //    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+  //       rest_between_rounds_seconds, notes,
+  //       rest_between_exercises_seconds, rest_after_section_seconds, interval_seconds,
+  //       created_at, updated_at)
+  //    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
   //   [sec1Id, classId, maps.sectionType.get('Entrada en calor'),
   //    maps.workFormat.get('Trabajo libre'), 1,
-  //    'Calentamiento', '6 minutos', 360, null, null, null, now, now]
+  //    'Calentamiento', '6 minutos', 360, null, null, null,
+  //    10, 60, null,   // ← descanso entre ejercicios / al cerrar sección / ventana de intervalo
+  //    now, now]
   // );
 
   // ── Ejercicios de sección ──────────────────────────────────────────────────
+  // suggested_timer_seconds = duración estimada (§7.2). Va SOLO si planned_time_seconds es null.
   // await db.run(
   //   `INSERT INTO section_exercise
   //      (id, class_section_id, exercise_id, sort_order, coach_notes,
   //       planned_repetitions, planned_weight_value, planned_weight_unit_id,
   //       planned_time_seconds, planned_distance_value, planned_distance_unit_id,
-  //       planned_calories, planned_rest_seconds, planned_rounds,
+  //       planned_calories, planned_rest_seconds, planned_rounds, suggested_timer_seconds,
   //       rm_percentage, suggested_scaling, notes, created_at, updated_at)
-  //    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+  //    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
   //   [generateUUID(), sec1Id, exerciseIds['Nombre ejercicio'], 1,
-  //    'notas coach', 10, null, null, 30, null, null, null, null, null,
+  //    'notas coach', 10, null, null, null, null, null, null, null, null,
+  //    30,             // ← suggested_timer_seconds: 10 reps × 3 s
   //    null, null, null, now, now]
   // );
 
@@ -1141,8 +1299,10 @@ export async function importClassDDMMYYYY(): Promise<{ exercises: number; create
 - `image_url` = ruta al SVG en `/img/exercises/`
 - `INSERT OR IGNORE` no aplica aquí — se usa `getOrCreate` que verifica primero por nombre
 - El flag en localStorage controla que no se ejecute dos veces
+- **Cronómetro:** cada `section_exercise` tiene que salir con `planned_time_seconds` **o**
+  `suggested_timer_seconds` cargado; ninguna sección puede quedar sin ejercicios (§7)
 
-### 10b. Agregar el botón en ClassSeederSection
+### 11b. Agregar el botón en ClassSeederSection
 
 Editar `src/components/export/ClassSeederSection.tsx`:
 
@@ -1170,21 +1330,30 @@ El botón aparece automáticamente en **Configuración → Clases predefinidas**
 - Icono verde con `CheckCircle2` → ya importada (deshabilitado)
 - El texto debajo del nombre describe las secciones de la clase
 
-### 10c. Verificar compilación
+### 11c. Verificar compilación
 
 ```bash
 npx tsc --noEmit
 ```
 
-### 10d. Usar la clase
+### 11d. Usar la clase
 
 1. Abrir la app (`npm run dev` → `localhost:5173`)
 2. Ir a **Configuración** → sección **Clases predefinidas**
 3. Tocar el botón de la clase nueva
 4. La clase aparece en `/clases` con todos sus ejercicios y secciones listos
 
+### 11e. Verificar el cronómetro
+
+1. Ir a **Sesiones → Nueva**, dejar seleccionado **Clase guiada** y elegir la clase recién importada
+2. El cronómetro debe recorrer la clase entera sin pasos de 0 segundos inesperados ni secciones ausentes
+3. Contrastar la duración total que muestra con `estimated_duration_minutes` de la plantilla
+4. Los tiempos globales (cuenta regresiva, pips, vibración) se ajustan en
+   **Configuración → Cronómetro**; los de la clase, editando la plantilla
+
 ---
 
-*Última actualización: 2026-04-15*
-*Versión del schema: 1 (v001_initial)*
+*Última actualización: 2026-07-13*
+*Versión del schema: 11 (v011_timer_mode — campos del cronómetro)*
 *Músculo integrado en el servicio — ya no se usa ACTUALIZO_MUSCULOS.md para clases nuevas*
+*Cronómetro: toda clase nueva debe traer tiempos cargados o estimados (§7)*

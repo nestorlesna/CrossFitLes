@@ -29,6 +29,38 @@ Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 
 
 
+Clase GOAT 13/07/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - sentarme sobre una rodilla para un lado y otro
+ - movilidad de cadera rodilla a un lado y otro sentado
+ - banda de adelante para atras
+
+Activacion 3 rondas todo 30 segundos
+ - hollow
+ - hollow dinamico
+ - peso muerto
+ - bamboleo
+
+Fuerza 6 rondas cada 1.5 mintos, complex de los 3 ejercicios en cada ronda peso, 30, 40, 40, 50, 50, 40 kg
+ - un clean desde la cadera, 30kg
+ - un clean desde rodilla, 30 kg
+ - un clean desde pantorrilla, 30 kg
+
+WOD, 10 mintuos AMRAP (aprox 3 rondas)
+ - runnirn 200m
+ - 3 repeticiones de (peso 40kg):
+  3 peso muerto
+  2 power clean
+  1 hacia arriba
+ - 5 burpee over de barr
+ 
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
 
 
 

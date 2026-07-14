@@ -379,7 +379,22 @@ export async function importClassFromZip(zipFile: Blob): Promise<ClassImportResu
         [row.name as string]
       );
       if (found.values && found.values.length > 0) {
-        idMap.set(exportId, found.values[0].id as string);
+        const localId = found.values[0].id as string;
+        idMap.set(exportId, localId);
+
+        // El cronómetro depende de is_interval para dar ventanas fijas (EMOM, Tabata...).
+        // Si el formato exportado es de intervalo y el local todavía no lo sabe, completarlo.
+        // Sólo se agrega la marca, nunca se quita: no se pisa la configuración del destinatario.
+        if (table === 'work_format' && Number(row.is_interval) === 1) {
+          stmts.push({
+            statement: `UPDATE work_format
+                        SET is_interval = 1,
+                            default_interval_seconds = COALESCE(default_interval_seconds, ?),
+                            updated_at = ?
+                        WHERE id = ? AND (is_interval IS NULL OR is_interval = 0)`,
+            values: [row.default_interval_seconds ?? null, timestamp, localId],
+          });
+        }
       } else {
         const newId = generateUUID();
         idMap.set(exportId, newId);
@@ -564,8 +579,9 @@ export async function importClassFromZip(zipFile: Blob): Promise<ClassImportResu
         statement: `INSERT INTO class_section
           (id, class_template_id, section_type_id, work_format_id, sort_order,
            visible_title, general_description, time_cap_seconds, total_rounds,
-           rest_between_rounds_seconds, notes, created_at, updated_at)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+           rest_between_rounds_seconds, notes, rest_between_exercises_seconds,
+           rest_after_section_seconds, interval_seconds, created_at, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         values: [
           newSectionId, newClassId,
           section.section_type_id ? (idMap.get(section.section_type_id as string) ?? null) : null,
@@ -574,6 +590,9 @@ export async function importClassFromZip(zipFile: Blob): Promise<ClassImportResu
           section.visible_title ?? null, section.general_description ?? null,
           section.time_cap_seconds ?? null, section.total_rounds ?? null,
           section.rest_between_rounds_seconds ?? null, section.notes ?? null,
+          section.rest_between_exercises_seconds ?? null,
+          section.rest_after_section_seconds ?? null,
+          section.interval_seconds ?? null,
           timestamp, timestamp,
         ],
       });
@@ -586,9 +605,9 @@ export async function importClassFromZip(zipFile: Blob): Promise<ClassImportResu
             (id, class_section_id, exercise_id, sort_order, coach_notes,
              planned_repetitions, planned_weight_value, planned_weight_unit_id,
              planned_time_seconds, planned_distance_value, planned_distance_unit_id,
-             planned_calories, planned_rest_seconds, planned_rounds, rm_percentage,
-             suggested_scaling, notes, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+             planned_calories, planned_rest_seconds, planned_rounds, suggested_timer_seconds,
+             rm_percentage, suggested_scaling, notes, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
           values: [
             generateUUID(), newSectionId, localExId, se.sort_order,
             se.coach_notes ?? null, se.planned_repetitions ?? null,
@@ -597,7 +616,8 @@ export async function importClassFromZip(zipFile: Blob): Promise<ClassImportResu
             se.planned_time_seconds ?? null, se.planned_distance_value ?? null,
             se.planned_distance_unit_id ? (idMap.get(se.planned_distance_unit_id as string) ?? null) : null,
             se.planned_calories ?? null, se.planned_rest_seconds ?? null,
-            se.planned_rounds ?? null, se.rm_percentage ?? null,
+            se.planned_rounds ?? null, se.suggested_timer_seconds ?? null,
+            se.rm_percentage ?? null,
             se.suggested_scaling ?? null, se.notes ?? null,
             timestamp, timestamp,
           ],

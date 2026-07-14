@@ -566,3 +566,70 @@ export async function hardDeleteClass(id: string): Promise<void> {
   await db.run(`DELETE FROM class_template WHERE id = ?`, [id]);
   await saveDatabase();
 }
+
+// ── Cronómetro ──────────────────────────────────────────────────────────────
+// Edición acotada a los tiempos: a diferencia de update(), no borra ni recrea
+// secciones ni ejercicios, sólo actualiza las columnas que usa el cronómetro.
+
+export interface TimerSectionPatch {
+  id: string;
+  rest_between_exercises_seconds?: number | null;
+  rest_between_rounds_seconds?: number | null;
+  rest_after_section_seconds?: number | null;
+  interval_seconds?: number | null;
+}
+
+export interface TimerExercisePatch {
+  id: string;
+  planned_time_seconds?: number | null;
+  suggested_timer_seconds?: number | null;
+  planned_rest_seconds?: number | null;
+}
+
+export async function updateTimerSettings(
+  sections: TimerSectionPatch[],
+  exercises: TimerExercisePatch[]
+): Promise<void> {
+  const db = getDatabase();
+  const timestamp = now();
+
+  const statements = [
+    ...sections.map((section) => ({
+      statement: `UPDATE class_section SET
+        rest_between_exercises_seconds = ?,
+        rest_between_rounds_seconds = ?,
+        rest_after_section_seconds = ?,
+        interval_seconds = ?,
+        updated_at = ?
+        WHERE id = ?`,
+      values: [
+        section.rest_between_exercises_seconds ?? null,
+        section.rest_between_rounds_seconds ?? null,
+        section.rest_after_section_seconds ?? null,
+        section.interval_seconds ?? null,
+        timestamp,
+        section.id,
+      ],
+    })),
+    ...exercises.map((exercise) => ({
+      statement: `UPDATE section_exercise SET
+        planned_time_seconds = ?,
+        suggested_timer_seconds = ?,
+        planned_rest_seconds = ?,
+        updated_at = ?
+        WHERE id = ?`,
+      values: [
+        exercise.planned_time_seconds ?? null,
+        exercise.suggested_timer_seconds ?? null,
+        exercise.planned_rest_seconds ?? null,
+        timestamp,
+        exercise.id,
+      ],
+    })),
+  ];
+
+  if (statements.length === 0) return;
+
+  await db.executeSet(statements, true);
+  await saveDatabase();
+}

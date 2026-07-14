@@ -9,6 +9,7 @@ import { ExerciseDetailPage } from './pages/Exercises/ExerciseDetailPage';
 import { ClassesPage } from './pages/Classes/ClassesPage';
 import { ClassTemplateFormPage } from './pages/Classes/ClassTemplateFormPage';
 import { ClassTemplateDetailPage } from './pages/Classes/ClassTemplateDetailPage';
+import { ClassTimerSetupPage } from './pages/Classes/ClassTimerSetupPage';
 import { SessionsPage } from './pages/Sessions/SessionsPage';
 import { NewSessionPage } from './pages/Sessions/NewSessionPage';
 import { SessionExecutorPage } from './pages/Sessions/SessionExecutorPage';
@@ -73,6 +74,7 @@ export default function App() {
             <Route path="clases/nueva" element={<ClassTemplateFormPage />} />
             <Route path="clases/:id" element={<ClassTemplateDetailPage />} />
             <Route path="clases/:id/editar" element={<ClassTemplateFormPage />} />
+            <Route path="clases/:id/tiempos" element={<ClassTimerSetupPage />} />
             <Route path="sesiones" element={<SessionsPage />} />
             <Route path="sesiones/nueva" element={<NewSessionPage />} />
             <Route path="sesiones/registrar" element={<ManualSessionPage />} />
