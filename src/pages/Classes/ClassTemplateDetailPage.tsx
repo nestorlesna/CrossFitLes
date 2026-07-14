@@ -377,19 +377,20 @@ export function ClassTemplateDetailPage() {
                     </div>
                     {/* Info rondas y time cap */}
                     <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1">
-                      {section.total_rounds && (
+                      {/* Los guardas comparan contra 0: con `valor && ...`, un 0 se renderiza como "0" */}
+                      {!!section.total_rounds && section.total_rounds > 0 && (
                         <span className="text-xs text-gray-500">
                           {section.total_rounds} rondas
                         </span>
                       )}
-                      {section.time_cap_seconds && (
+                      {!!section.time_cap_seconds && section.time_cap_seconds > 0 && (
                         <span className="text-xs text-gray-500">
                           Time cap: {formatSeconds(section.time_cap_seconds)}
                         </span>
                       )}
-                      {section.rest_between_rounds_seconds && (
+                      {!!section.rest_between_rounds_seconds && section.rest_between_rounds_seconds > 0 && (
                         <span className="text-xs text-gray-500">
-                          Desc: {formatSeconds(section.rest_between_rounds_seconds)}
+                          Desc. entre rondas: {formatSeconds(section.rest_between_rounds_seconds)}
                         </span>
                       )}
                     </div>
