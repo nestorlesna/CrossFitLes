@@ -285,7 +285,8 @@ export function SessionTimerPage() {
 
   // ── Pantalla del cronómetro ──
   return (
-    <div className={`fixed inset-0 flex flex-col z-50 transition-colors duration-500 ${palette.bg} bg-gray-950`}>
+    // z-[60]: el BottomNav es fixed en z-50, así que el cronómetro tiene que taparlo
+    <div className={`fixed inset-0 flex flex-col z-[60] transition-colors duration-500 ${palette.bg} bg-gray-950`}>
       {/* Encabezado mínimo: sección, ronda y progreso general */}
       <div className="flex items-center justify-between px-4 pt-4 pb-2 shrink-0">
         <button
@@ -324,8 +325,8 @@ export function SessionTimerPage() {
       </div>
 
       {/* Cuerpo: imagen grande + reloj + descripción */}
-      <div className="flex-1 flex flex-col items-center justify-center gap-4 px-5 min-h-0">
-        <div className="relative w-full max-w-[280px] aspect-square shrink-0">
+      <div className="flex-1 flex flex-col items-center justify-center gap-3 px-5 py-2 min-h-0">
+        <div className="relative w-full max-w-[min(52vh,240px)] aspect-square shrink">
           <ProgressRing progress={stepProgress} className={palette.ring} />
 
           <div className="absolute inset-[10%] rounded-full overflow-hidden bg-gray-900 flex items-center justify-center">
@@ -356,17 +357,17 @@ export function SessionTimerPage() {
           className={`font-mono font-bold leading-none tabular-nums transition-transform ${palette.text} ${
             isUrgent ? 'scale-110 text-red-400' : ''
           }`}
-          style={{ fontSize: 'clamp(3.5rem, 18vw, 6rem)' }}
+          style={{ fontSize: 'clamp(2.75rem, 13vw, 4.5rem)' }}
         >
           {isOpenStep ? formatClock(displaySeconds) : formatClock(displaySeconds)}
         </div>
 
         {/* Ejercicio */}
         <div className="text-center px-2">
-          <h2 className="text-2xl font-bold text-white leading-tight">
+          <h2 className="text-xl font-bold text-white leading-tight">
             {step?.label ?? 'Clase terminada'}
           </h2>
-          {step?.detail && <p className="text-base text-primary-400 font-semibold mt-1">{step.detail}</p>}
+          {step?.detail && <p className="text-sm text-primary-400 font-semibold mt-1">{step.detail}</p>}
           {isOpenStep && (
             <p className="text-xs text-amber-500 mt-2 font-bold uppercase tracking-wider">
               Avanzá cuando termines
@@ -379,7 +380,7 @@ export function SessionTimerPage() {
       </div>
 
       {/* Controles */}
-      <div className="shrink-0 px-4 pb-6 pt-2 flex flex-col gap-3">
+      <div className="shrink-0 px-4 pb-4 pt-2 flex flex-col gap-2 safe-bottom">
         {isWork && exercise?.exercise_video_url && (
           <button
             onClick={() => handleWatchVideo(exercise.exercise_video_url!)}
