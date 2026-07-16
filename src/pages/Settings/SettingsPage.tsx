@@ -26,7 +26,6 @@ import {
 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { BackupSection } from '../../components/export/BackupSection';
-import { ClassSeederSection } from '../../components/export/ClassSeederSection';
 import { ClassShareSection } from '../../components/export/ClassShareSection';
 import { TimerEstimationSection } from '../../components/export/TimerEstimationSection';
 import { ResetSection } from '../../components/export/ResetSection';
@@ -159,26 +158,24 @@ export function SettingsPage() {
           )}
         </div>
 
-        {/* ── Cronómetro ── */}
-        <button
-          onClick={() => navigate('/configuracion/cronometro')}
-          className="w-full bg-gray-900 border border-gray-800 rounded-2xl flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
-        >
-          <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shrink-0">
-            <Timer size={16} className="text-primary-400" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <span className="text-sm text-white block">Cronómetro</span>
-            <span className="text-xs text-gray-600">Tiempos por defecto, pips y vibración de la clase guiada</span>
-          </div>
-          <ChevronRight size={16} className="text-gray-600" />
-        </button>
-
         {/* ── Catálogos ── */}
         <div>
           <SectionHeader icon={Database} title="Catálogos" expanded={catalogsOpen} onToggle={() => setCatalogsOpen(!catalogsOpen)} />
           {catalogsOpen && (
             <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden divide-y divide-gray-800 mt-2">
+              <button
+                onClick={() => navigate('/configuracion/cronometro')}
+                className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
+              >
+                <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shrink-0">
+                  <Timer size={16} className="text-primary-400" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-sm text-white block">Cronómetro</span>
+                  <span className="text-xs text-gray-600">Tiempos por defecto, pips y vibración de la clase guiada</span>
+                </div>
+                <ChevronRight size={16} className="text-gray-600" />
+              </button>
               {catalogItems.map(({ label, icon: Icon, path }) => (
                 <button
                   key={path}
@@ -290,10 +287,9 @@ export function SettingsPage() {
           <SectionHeader icon={HardDrive} title="Gestión de datos" expanded={dataMgmtOpen} onToggle={() => setDataMgmtOpen(!dataMgmtOpen)} />
           {dataMgmtOpen && (
             <div className="space-y-4 mt-2">
-              <ClassSeederSection />
-              <TimerEstimationSection />
               <ClassShareSection />
               <BackupSection />
+              <TimerEstimationSection />
               <ResetSection />
             </div>
           )}

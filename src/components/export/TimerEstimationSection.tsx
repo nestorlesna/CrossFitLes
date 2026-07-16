@@ -40,37 +40,53 @@ export function TimerEstimationSection() {
 
   return (
     <>
-      <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 space-y-3">
-        <div className="flex items-center gap-2">
-          <TimerReset size={16} className="text-primary-400" />
-          <h3 className="text-sm font-bold text-white">Tiempos del cronómetro</h3>
-        </div>
-        <p className="text-xs text-gray-500">
+      <section>
+        <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 px-1">
+          Tiempos del cronómetro
+        </h2>
+        <p className="text-[11px] text-gray-600 mb-3 px-1">
           Completa los tiempos que faltan en las clases cargadas, estimándolos a partir de las
-          repeticiones, la distancia o las calorías de cada ejercicio y del tipo de sección. No pisa
-          los valores que ya cargaste.
+          repeticiones, la distancia o las calorías de cada ejercicio y del tipo de sección.
         </p>
 
-        <button
-          onClick={() => run(false)}
-          disabled={busy}
-          className="w-full bg-primary-600 hover:bg-primary-500 disabled:opacity-60 text-white text-sm font-bold rounded-xl py-3 flex items-center justify-center gap-2 transition-colors"
-        >
-          {busy ? <Loader2 size={16} className="animate-spin" /> : <TimerReset size={16} />}
-          Completar tiempos faltantes
-        </button>
+        <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden divide-y divide-gray-800 shadow-lg">
+          {/* Completar tiempos faltantes */}
+          <button
+            onClick={() => run(false)}
+            disabled={busy}
+            className="w-full flex items-center gap-3 px-4 py-4 hover:bg-gray-800/60 transition-colors text-left disabled:opacity-50 disabled:cursor-not-allowed group"
+          >
+            <div className="w-10 h-10 bg-primary-500/10 rounded-xl flex items-center justify-center shrink-0 border border-primary-500/20 group-hover:border-primary-500/50 transition-colors">
+              {busy ? (
+                <Loader2 size={18} className="text-primary-500 animate-spin" />
+              ) : (
+                <TimerReset size={18} className="text-primary-500" />
+              )}
+            </div>
+            <div className="flex-1">
+              <span className="text-sm text-white font-bold block">Completar tiempos faltantes</span>
+              <span className="text-[11px] text-gray-500">No pisa los valores que ya cargaste</span>
+            </div>
+          </button>
 
-        <button
-          onClick={() => setConfirmOverwrite(true)}
-          disabled={busy}
-          className="w-full text-xs text-gray-500 hover:text-gray-300 disabled:opacity-60 flex items-center justify-center gap-1.5 py-1 transition-colors"
-        >
-          <RefreshCw size={12} />
-          Recalcular todo (pisa los tiempos cargados)
-        </button>
+          {/* Recalcular todo */}
+          <button
+            onClick={() => setConfirmOverwrite(true)}
+            disabled={busy}
+            className="w-full flex items-center gap-3 px-4 py-4 hover:bg-gray-800/60 transition-colors text-left disabled:opacity-50 disabled:cursor-not-allowed group"
+          >
+            <div className="w-10 h-10 bg-amber-500/10 rounded-xl flex items-center justify-center shrink-0 border border-amber-500/20 group-hover:border-amber-500/50 transition-colors">
+              <RefreshCw size={18} className="text-amber-400" />
+            </div>
+            <div className="flex-1">
+              <span className="text-sm text-white font-bold block">Recalcular todo</span>
+              <span className="text-[11px] text-gray-500">Pisa todos los tiempos cargados, incluidos los ajustados a mano</span>
+            </div>
+          </button>
+        </div>
 
         {result && result.classes > 0 && (
-          <div className="bg-gray-950 border border-gray-800 rounded-xl p-3">
+          <div className="bg-gray-950 border border-gray-800 rounded-xl p-3 mt-3">
             <p className="text-xs text-gray-400">
               {result.sections} secciones y {result.exercises} ejercicios actualizados en:
             </p>
@@ -83,7 +99,7 @@ export function TimerEstimationSection() {
             </ul>
           </div>
         )}
-      </div>
+      </section>
 
       <Modal
         isOpen={confirmOverwrite}
