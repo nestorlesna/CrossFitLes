@@ -27,6 +27,42 @@ WOD
 Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ### TEMPLATE
 
+Clase GOAT 15/07/2026
+
+Activacion - mayor cantidad de vueltas en 5 minutos
+ - Scapular Push-Up, 10 rep
+ - Cuban Press, 8 rep
+ - Yoga Push-Up, 6 rep
+ - Banded Triceps Extensions, 10 rep
+
+Fuerza por minuto, 9 minutos, los primeros 3 minutos un ejercicio 30 segundo y descanso 30, los segundos 3 minutos otro ejercicio 30 segundo y 30 de descanso, los ultimos 3 mintuos 10 segundos de ejercicio 2 veces en el minuto y descanso el resto
+ - Hanging Leg Raise with Rotation Over Box, video corto  https://www.youtube.com/shorts/rDtBVY3DBNg, video descriptivo https://www.youtube.com/watch?v=5RHbtTO2aWM
+ - Strict Knees to Elbows, vidoe corto https://www.youtube.com/watch?v=_DUlB4YpZRw, video explicativo https://www.youtube.com/watch?v=GjngdQYQhj8
+ - Hanging Toes to Bar
+
+WOD 15 minutos como maximo, en parejas
+ - individuo 1, 15 Alternating Single Arm Dumbbell Power Snatch, individuo 2 espera con Dumbbell Overhead Hold
+ - individuo 2, Dumbbell Overhead Hold, individuo 1 15 Alternating Single Arm Dumbbell Power Snatch
+ - individuo 1, 15 Alternating Single Arm Dumbbell Power Snatch, individuo 2 espera con Dumbbell Overhead Hold
+ - individuo 2, Dumbbell Overhead Hold, individuo 1 15 Alternating Single Arm Dumbbell Power Snatch
+ - indivuduo 1, 10 Hanging Hanging Toes to Bar, indivuduo 2 en Wall Sit
+ - individuo 2, en Wall Sit, individuo 1 10 Hanging Toes to Bar
+ - indivuduo 1, 10 Hanging Toes to Bar, indivuduo 2 en Wall Sit
+ - individuo 2, en Wall Sit, individuo 1 10 Hanging Toes to Bar
+ - ambos, 30 Kettlebell Swing 12.5kg
+ - 400 m running
+ - ambos, 30 Kettlebell Swing 12.5kg
+ - indivuduo 1, 10 Hanging Toes to Bar, indivuduo 2 en Wall Sit
+ - individuo 2, en Wall Sit, individuo 1 10 Hanging Toes to Bar
+ - indivuduo 1, 10 Hanging Toes to Bar, indivuduo 2 en Wall Sit
+ - individuo 2, en Wall Sit, individuo 1 10 Hanging Toes to Bar
+ - individuo 1, 15 Alternating Single Arm Dumbbell Power Snatch, individuo 2 espera con Dumbbell Overhead Hold
+ - individuo 2, Dumbbell Overhead Hold, individuo 1 15 Alternating Single Arm Dumbbell Power Snatch
+ - individuo 1, 15 Alternating Single Arm Dumbbell Power Snatch, individuo 2 espera con Dumbbell Overhead Hold
+ - individuo 2, Dumbbell Overhead Hold, individuo 1 15 Alternating Single Arm Dumbbell Power Snatch
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
 
 
 Clase GOAT 13/07/2026

@@ -6,6 +6,10 @@ import { useState } from 'react';
 import { CalendarPlus, CheckCircle2, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import {
+  importClass15072026,
+  isClass15072026ImportDone,
+} from '../../services/class15072026ImportService';
+import {
   importClass13072026,
   isClass13072026ImportDone,
 } from '../../services/class13072026ImportService';
@@ -19,6 +23,12 @@ interface ClassEntry {
 
 // Más reciente primero
 const CLASS_ENTRIES: ClassEntry[] = [
+  {
+    label: 'Clase GOAT 15/07/2026',
+    date: 'Activación AMRAP 5\' · Fuerza core colgado 9\' · WOD en parejas 15\' · Estiramiento',
+    isDone: isClass15072026ImportDone,
+    run: importClass15072026,
+  },
   {
     label: 'Clase GOAT 13/07/2026',
     date: 'Calentamiento · Movilidad · Activación · Complex de cargadas · AMRAP 10\' · Estiramiento',

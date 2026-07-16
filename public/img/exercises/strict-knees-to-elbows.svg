@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="240" fill="#111827" rx="12"/>
+  <!-- Bar -->
+  <line x1="30" y1="22" x2="170" y2="22" stroke="#475569" stroke-width="6" stroke-linecap="round"/>
+  <line x1="30" y1="14" x2="30" y2="30" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+  <line x1="170" y1="14" x2="170" y2="30" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+  <text x="100" y="237" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="8" font-weight="700" fill="#475569" letter-spacing="1">STRICT KNEES TO ELBOWS</text>
+  <!-- Frame 1: Dead hang, legs straight down -->
+  <g class="f1">
+    <circle cx="100" cy="55" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="88" y1="45" x2="76" y2="22"/><line x1="112" y1="45" x2="124" y2="22"/>
+      <line x1="88" y1="45" x2="112" y2="45"/>
+      <line x1="100" y1="67" x2="100" y2="128"/>
+      <line x1="95" y1="128" x2="90" y2="180"/><line x1="90" y1="180" x2="88" y2="222"/>
+      <line x1="105" y1="128" x2="110" y2="180"/><line x1="110" y1="180" x2="112" y2="222"/>
+    </g>
+    <circle cx="76" cy="22" r="5" fill="#64748b"/>
+    <circle cx="124" cy="22" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: Knees rising, hips tucking -->
+  <g class="f2">
+    <circle cx="100" cy="53" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="88" y1="43" x2="76" y2="22"/><line x1="112" y1="43" x2="124" y2="22"/>
+      <line x1="88" y1="43" x2="112" y2="43"/>
+      <line x1="100" y1="65" x2="100" y2="120"/>
+      <line x1="96" y1="120" x2="80" y2="150"/><line x1="80" y1="150" x2="94" y2="132"/>
+      <line x1="104" y1="120" x2="120" y2="150"/><line x1="120" y1="150" x2="106" y2="132"/>
+    </g>
+    <circle cx="76" cy="22" r="5" fill="#64748b"/>
+    <circle cx="124" cy="22" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: Knees pinned to elbows (tight tuck) -->
+  <g class="f3">
+    <circle cx="100" cy="56" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="88" y1="46" x2="78" y2="22"/><line x1="112" y1="46" x2="122" y2="22"/>
+      <line x1="88" y1="46" x2="112" y2="46"/>
+      <line x1="100" y1="68" x2="100" y2="96"/>
+      <line x1="96" y1="96" x2="84" y2="60"/><line x1="84" y1="60" x2="88" y2="46"/>
+      <line x1="104" y1="96" x2="116" y2="60"/><line x1="116" y1="60" x2="112" y2="46"/>
+    </g>
+    <circle cx="78" cy="22" r="5" fill="#64748b"/>
+    <circle cx="122" cy="22" r="5" fill="#64748b"/>
+  </g>
+</svg>
