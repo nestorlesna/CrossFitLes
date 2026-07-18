@@ -17,6 +17,12 @@ El objetivo es producir:
 1. **Un servicio TypeScript** que asigna músculos a cada ejercicio en la BD
 2. **Un botón en la sección "Actualizar músculos"** de Configuración para que el usuario lo ejecute
 
+> 📚 **Referencia opcional (`BKP/exercises-dataset-main/`):** ante la duda de qué músculos trabaja un
+> ejercicio, el dataset externo trae por ejercicio los campos `target`, `muscle_group` y
+> `secondary_muscles` (`data/exercises.json`). Es **sólo consulta** para orientar el mapeo al catálogo
+> de la app (§3); no se copian sus datos tal cual ni se versiona esa carpeta (está en `.gitignore`).
+> Ver "Dataset de referencia externo" en `CLAUDE.md`.
+
 ---
 
 ## 2. CÓMO OBTENER LA LISTA DE EJERCICIOS

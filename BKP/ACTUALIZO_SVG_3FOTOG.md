@@ -18,6 +18,12 @@ El objetivo es:
 2. **Crear un servicio TypeScript** que registra la `image_url` en la BD para cada ejercicio
 3. **Agregar un botón** en `ImageSeederSection` (sección "Registrar imágenes" en Configuración)
 
+> 📚 **Referencia visual opcional (`BKP/exercises-dataset-main/`):** el dataset externo trae un GIF
+> animado por ejercicio (`videos/`) que sirve para entender las 3 posiciones clave del movimiento
+> antes de dibujar el SVG. Es **sólo consulta**: los SVG se dibujan a mano con el patrón de abajo;
+> **no** se copian los GIF a la app (media © Gym visual, licencia aparte) ni se versiona esa carpeta
+> (está en `.gitignore`). Ver "Dataset de referencia externo" en `CLAUDE.md`.
+
 ---
 
 ## 2. ESTRUCTURA DEL SVG — PATRÓN DE 3 FOTOGRAMAS
