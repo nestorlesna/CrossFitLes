@@ -11,6 +11,7 @@ import {
   Dumbbell,
   Video,
   CheckCircle2,
+  ArrowRight,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Modal } from '../../components/ui/Modal';
@@ -336,59 +337,114 @@ export function SessionTimerPage() {
         />
       </div>
 
-      {/* Cuerpo: imagen grande + reloj + descripción */}
+      {/* Cuerpo: en trabajo, imagen grande + reloj centrado; en las transiciones
+          (descanso / cambio de sección) el reloj se achica a la derecha y a la
+          izquierda aparece el próximo ejercicio para anticiparlo sin confundirlo
+          con lo que hay que hacer ahora. */}
       <div className="flex-1 flex flex-col items-center justify-center gap-3 px-5 py-2 min-h-0">
-        <div className="relative w-full max-w-[min(52vh,240px)] aspect-square shrink">
-          <ProgressRing progress={stepProgress} className={palette.ring} />
+        {isWork ? (
+          <>
+            <div className="relative w-full max-w-[min(52vh,240px)] aspect-square shrink">
+              <ProgressRing progress={stepProgress} className={palette.ring} />
 
-          <div className="absolute inset-[10%] rounded-full overflow-hidden bg-gray-900 flex items-center justify-center">
-            {isWork && exercise ? (
-              <ResolvedImage
-                path={exercise.exercise_image_url || exercise.exercise_image_path}
-                alt={exercise.exercise_name ?? ''}
-                className="w-full h-full object-contain p-2"
-                fallback={<Dumbbell size={72} className="text-gray-700" />}
-              />
-            ) : (
-              <div className="flex flex-col items-center gap-2 px-4 text-center">
-                <p className={`text-sm font-bold uppercase tracking-widest ${palette.text}`}>
-                  {palette.title}
+              <div className="absolute inset-[10%] rounded-full overflow-hidden bg-gray-900 flex items-center justify-center">
+                {exercise ? (
+                  <ResolvedImage
+                    path={exercise.exercise_image_url || exercise.exercise_image_path}
+                    alt={exercise.exercise_name ?? ''}
+                    className="w-full h-full object-contain p-2"
+                    fallback={<Dumbbell size={72} className="text-gray-700" />}
+                  />
+                ) : (
+                  <Dumbbell size={72} className="text-gray-700" />
+                )}
+              </div>
+            </div>
+
+            {/* Reloj */}
+            <div
+              className={`font-mono font-bold leading-none tabular-nums transition-transform ${palette.text} ${
+                isUrgent ? 'scale-110 text-red-400' : ''
+              }`}
+              style={{ fontSize: 'clamp(2.75rem, 13vw, 4.5rem)' }}
+            >
+              {formatClock(displaySeconds)}
+            </div>
+
+            {/* Ejercicio */}
+            <div className="text-center px-2">
+              <h2 className="text-xl font-bold text-white leading-tight">
+                {step?.label ?? 'Clase terminada'}
+              </h2>
+              {step?.detail && <p className="text-sm text-primary-400 font-semibold mt-1">{step.detail}</p>}
+              {isOpenStep && (
+                <p className="text-xs text-amber-500 mt-2 font-bold uppercase tracking-wider">
+                  Avanzá cuando termines
                 </p>
-                {step?.nextExerciseName && (
-                  <p className="text-xs text-gray-500 leading-tight">
-                    Sigue: <span className="text-gray-300">{step.nextExerciseName}</span>
-                  </p>
+              )}
+              {exercise?.coach_notes && (
+                <p className="text-xs text-gray-500 mt-2 italic">{exercise.coach_notes}</p>
+              )}
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="w-full max-w-md flex items-center justify-center gap-4">
+              {/* Izquierda: el ejercicio que se viene, atenuado y con borde punteado
+                  para que quede claro que todavía no hay que hacerlo */}
+              <div className="flex-1 flex flex-col items-center gap-2 min-w-0">
+                <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-gray-500">
+                  <ArrowRight size={12} /> Próximo
+                </span>
+                <div className="relative w-full aspect-square max-w-[190px] rounded-3xl overflow-hidden bg-gray-900/60 border border-dashed border-gray-700 flex items-center justify-center opacity-60">
+                  {upcomingExercise ? (
+                    <ResolvedImage
+                      path={upcomingExercise.exercise_image_url || upcomingExercise.exercise_image_path}
+                      alt={upcomingExercise.exercise_name ?? ''}
+                      className="w-full h-full object-contain p-3"
+                      fallback={<Dumbbell size={56} className="text-gray-700" />}
+                    />
+                  ) : (
+                    <Flag size={44} className="text-gray-700" />
+                  )}
+                </div>
+                <p className="text-sm font-bold text-gray-300 text-center leading-tight line-clamp-2">
+                  {upcomingExercise?.exercise_name ?? step?.nextExerciseName ?? 'Fin de la clase'}
+                </p>
+              </div>
+
+              {/* Derecha: reloj chico de la transición */}
+              <div className="shrink-0 flex flex-col items-center gap-2">
+                <div className="relative w-[34vw] max-w-[150px] aspect-square">
+                  <ProgressRing progress={stepProgress} className={palette.ring} />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span
+                      className={`font-mono font-bold tabular-nums leading-none ${palette.text} ${
+                        isUrgent ? 'text-red-400' : ''
+                      }`}
+                      style={{ fontSize: 'clamp(1.5rem, 8vw, 2.5rem)' }}
+                    >
+                      {formatClock(displaySeconds)}
+                    </span>
+                  </div>
+                </div>
+                <span className={`text-xs font-bold uppercase tracking-widest ${palette.text}`}>
+                  {palette.title}
+                </span>
+              </div>
+            </div>
+
+            {/* Detalle de la transición: vuelta, sección de destino o ventana */}
+            {(step?.label || step?.detail) && (
+              <div className="text-center px-2">
+                <h2 className="text-lg font-bold text-white leading-tight">{step?.label}</h2>
+                {step?.detail && (
+                  <p className="text-sm text-primary-400 font-semibold mt-1">{step.detail}</p>
                 )}
               </div>
             )}
-          </div>
-        </div>
-
-        {/* Reloj */}
-        <div
-          className={`font-mono font-bold leading-none tabular-nums transition-transform ${palette.text} ${
-            isUrgent ? 'scale-110 text-red-400' : ''
-          }`}
-          style={{ fontSize: 'clamp(2.75rem, 13vw, 4.5rem)' }}
-        >
-          {isOpenStep ? formatClock(displaySeconds) : formatClock(displaySeconds)}
-        </div>
-
-        {/* Ejercicio */}
-        <div className="text-center px-2">
-          <h2 className="text-xl font-bold text-white leading-tight">
-            {step?.label ?? 'Clase terminada'}
-          </h2>
-          {step?.detail && <p className="text-sm text-primary-400 font-semibold mt-1">{step.detail}</p>}
-          {isOpenStep && (
-            <p className="text-xs text-amber-500 mt-2 font-bold uppercase tracking-wider">
-              Avanzá cuando termines
-            </p>
-          )}
-          {exercise?.coach_notes && isWork && (
-            <p className="text-xs text-gray-500 mt-2 italic">{exercise.coach_notes}</p>
-          )}
-        </div>
+          </>
+        )}
       </div>
 
       {/* Controles */}
