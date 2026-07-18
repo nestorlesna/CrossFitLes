@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="240" height="200" fill="#111827" rx="12"/>
+  <line x1="20" y1="170" x2="220" y2="170" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="120" y="188" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="2">SEATED LEG TUCKS</text>
+  <!-- Frame 1: legs extended out, torso leaned back -->
+  <g class="f1">
+    <circle cx="86" cy="88" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- torso leaned back -->
+      <line x1="94" y1="96" x2="120" y2="120"/>
+      <!-- hands propped behind -->
+      <line x1="98" y1="100" x2="84" y2="130"/>
+      <!-- legs extended low -->
+      <line x1="120" y1="120" x2="156" y2="130"/><line x1="156" y1="130" x2="188" y2="140"/>
+    </g>
+    <circle cx="120" cy="120" r="5" fill="#64748b"/>
+    <circle cx="156" cy="130" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: mid tuck -->
+  <g class="f2">
+    <circle cx="88" cy="86" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="96" y1="94" x2="120" y2="118"/>
+      <line x1="100" y1="98" x2="86" y2="128"/>
+      <line x1="120" y1="118" x2="146" y2="108"/><line x1="146" y1="108" x2="160" y2="132"/>
+    </g>
+    <circle cx="120" cy="118" r="5" fill="#64748b"/>
+    <circle cx="146" cy="108" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: knees tucked to chest -->
+  <g class="f3">
+    <circle cx="92" cy="82" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="90" x2="120" y2="116"/>
+      <line x1="104" y1="94" x2="90" y2="126"/>
+      <!-- knees tucked in tight -->
+      <line x1="120" y1="116" x2="128" y2="90"/><line x1="128" y1="90" x2="112" y2="100"/>
+    </g>
+    <circle cx="120" cy="116" r="5" fill="#64748b"/>
+    <circle cx="128" cy="90" r="5" fill="#64748b"/>
+  </g>
+</svg>
