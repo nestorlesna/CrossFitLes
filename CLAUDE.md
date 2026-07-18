@@ -78,6 +78,20 @@ Todas bajo un `<Layout>` con `BottomNav` de 5 tabs:
 - `src/services/seedService.ts` — carga datos iniciales (64 registros) controlado por flag en localStorage (`seed_v1_done`).
 - `src/services/backupService.ts` — exportar/importar todos los datos como JSON respetando el orden de dependencias entre tablas.
 
+## Dataset de referencia externo (`BKP/exercises-dataset-main/`)
+Repositorio de terceros ("Exercises Dataset": 1.324 ejercicios con GIF animado, thumbnail
+180×180, categoría, body-part, equipamiento, target, grupos musculares e instrucciones en 10
+idiomas). Los **datos** son MIT; los **medios (imágenes/GIF) son © Gym visual** con términos propios.
+
+- **Uso:** SÓLO material de consulta al diseñar ejercicios nuevos (nombres, músculos, equipamiento,
+  instrucciones paso a paso) o al verificar datos de un ejercicio que ya figure ahí. Sirve de
+  referencia visual para dibujar nuestros SVG animados y para asignar músculos.
+- **NO** es código del proyecto: no compilar, ejecutar, arreglar, mejorar ni tocar sus archivos.
+- **NO** versionar: está en `.gitignore` (es una copia local de referencia). Tampoco crear
+  migraciones, imports ni dependencias que apunten a esta carpeta.
+- **NO** copiar sus imágenes/GIF a la app: la app usa SVG propios hechos a mano. La media de Gym
+  visual tiene licencia y atribución aparte; no se redistribuye dentro del proyecto.
+
 ## Enfoque de Trabajo
 - Pensar antes de actuar. Leer los archivos existentes antes de escribir código.
 - Ser conciso en el output pero riguroso en el razonamiento.

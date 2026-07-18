@@ -25,6 +25,15 @@ El objetivo es producir:
 > descansos y ventanas de intervalo en `class_section` y `section_exercise`. Cuando el MD no
 > dice cuánto dura un ejercicio, se estima con las tablas de la **sección 7**.
 
+> 📚 **Dataset de referencia (`BKP/exercises-dataset-main/`):** para diseñar ejercicios nuevos
+> podés consultar este dataset externo de 1.324 ejercicios (`data/exercises.json`: nombres,
+> músculos, equipamiento, instrucciones en 10 idiomas + GIF animado por ejercicio). Úsalo **sólo
+> como consulta** para nombrar el ejercicio, deducir músculos/equipamiento y apoyarte en su
+> animación al dibujar el SVG. **NO** se compila ni se toca ese repo, **NO** se versiona (está en
+> `.gitignore`) y **NO** se copian sus imágenes/GIF a la app (media © Gym visual, licencia aparte;
+> los SVG de la app se dibujan a mano según PASO 5). Ver la sección "Dataset de referencia externo"
+> en `CLAUDE.md`.
+
 ---
 
 ## 2. ARQUITECTURA DEL SISTEMA (resumen)

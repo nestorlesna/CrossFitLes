@@ -27,6 +27,8 @@ WOD
 Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ### TEMPLATE
 
+
+
 Clase GOAT 15/07/2026
 
 Activacion - mayor cantidad de vueltas en 5 minutos
