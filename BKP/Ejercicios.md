@@ -29,6 +29,39 @@ Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 
 
 
+Clase Cardio sin saltos - 1 19/07/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Circuito · Cardio parado - 4 rondas
+ - Standing Knees To Elbow, 30 de ejercicio 30 de descanso, video corto https://www.youtube.com/shorts/5ww4xOMRYtU
+ - Bodyweight Squat, 45 de ejercicio, 15 de descanso
+ - Move of the week: high knee clap, 30 de ejercicio, 30 de descanso, video corto https://www.youtube.com/shorts/B6sXiaW3BSc
+ - Standing Cross Crunch, 30 de ejercicio, 30 de descanso, video corto https://www.youtube.com/shorts/PAYKVg-j1NU
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
+
+
+Clase Abdomilase intenso- 1  18/07/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Circuito · Core - 2 rondas todo 30 segundos
+todos son , 3 series, 20 segundos, descanso 30 segundos entre serie y 45 al finalizar
+ - Mountain Climbers
+ - seated leg tucks
+ - Bicycle Crunch
+ - Russian Twist
+ - Kettlebell Leg Overs
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
 Clase GOAT 15/07/2026
 
 Activacion - mayor cantidad de vueltas en 5 minutos
