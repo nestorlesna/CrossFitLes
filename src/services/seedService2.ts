@@ -359,6 +359,11 @@ export async function reSeedAll(
   const { updateExerciseImages } = await import('./imageUpdateService');
   result.updatedImages = await updateExerciseImages(db);
 
+  // 10.5. Asignar videos explicativos (video_long_path)
+  await delay(300);
+  const { updateExerciseVideoLong } = await import('./videoUpdateService');
+  await updateExerciseVideoLong(db);
+
   // 11. Asignar grupos musculares detallados (Mapa Corporal)
   await delay(500);
   const { seedExerciseMuscleGroups } = await import('./muscleSeedService');
