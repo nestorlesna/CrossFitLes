@@ -28,6 +28,50 @@ Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ### TEMPLATE
 
 
+Clase GOAT 20/07/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - Spiderman Lunge with Rotation, video corto https://www.youtube.com/shorts/e-x2qZAuOWQ, video explicativo https://www.youtube.com/watch?v=qCDFp8cPrqw
+ - Kettlebell Good Morning to Squat, 12,5
+ - Yoga Push-Up
+
+Activacion, 2 rondas de 3 ejercicios, 40 segundos de ejercico y 20 de descanso
+ - Bird Dog Crunch, 2.5kg
+ - Dead Bug, 10kg
+ - Dynamic Hollow Hold
+
+Fuerza AMRAP 90 segundos
+ - 4 Barbell Back Squat 80 kg
+ - 4 Barbell Back Squat 90 kg
+ - 4 Barbell Back Squat 90 kg
+ - 4 Barbell Back Squat 90 kg
+ - 4 Barbell Back Squat 100 kg
+ 
+WOD maximo 15 mintos, por minuto, minuto impar running, minuto para total 30 Barbell Clean and Jerk, 40 Hanging Toes to Bar
+ - running 120 m
+ - 10 Barbell Clean and Jerk, con 40kg
+ - running 120 m
+ - 10 Barbell Clean and Jerk, con 40kg
+ - running 120 m
+ - 8 Barbell Clean and Jerk, con 40kg
+ - running 120 m
+ - 2 Barbell Clean and Jerk, con 40kg, 10 Hanging Toes to Bar
+ - running 120 m
+ - 15 Hanging Toes to Bar
+ - running 120 m
+ - 13 Hanging Toes to Bar
+ - running 120 m
+ - 12 Hanging Toes to Bar
+  
+ 
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
+
 
 Clase Cardio sin saltos - 1 19/07/2026
 
