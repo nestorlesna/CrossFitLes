@@ -28,6 +28,46 @@ Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ### TEMPLATE
 
 
+
+
+Clase GOAT 22/07/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Activacion - 5 mintuos
+ - 10 Scapular Push-Up
+ - 10 Cuban Press
+ - 20 Band External Rotation, video corto https://www.youtube.com/shorts/FeCio_IImxc, video explicativo https://www.youtube.com/watch?v=4tpl-huz060
+ - 20 Band Pass-Through
+ 
+WOD maximo 11 minutos
+ - 21 Dumbbell Hang Clean and push Jerk 10kg, video corto https://www.youtube.com/shorts/xwtEyX8p1Hk, video explicativo https://www.youtube.com/shorts/pshSsV1ZjdY
+ - 21 Band Triceps Pushdown , video corto https://www.youtube.com/shorts/2c5oyCYILNg, video explicativo https://www.youtube.com/watch?v=Y3CDzx-oj3k
+ - 2 subida a cuerda
+ - 15 Dumbbell Hang Clean and push Jerk 10kg
+ - 15 Band Triceps Pushdown 
+ - 1 subida a cuerda
+ - 9 Dumbbell Hang Clean and push Jerk 10kg
+ - 9 Band Triceps Pushdown 
+ - 1 subida a cuerda
+ 
+WOD, en parejas, maximo 16m, running 1/2 camino cada uno con la wall ball, y las repeticiones cada uno hace el numero que se indican, en total son el doble
+ - Wall Ball Run. 400M
+ - 20 Partner Wall Ball Toss, video corto https://www.youtube.com/watch?v=fKUEKtx_dF0, video explicativo https://www.youtube.com/shorts/tbbgIA6KZ9E
+ - 20 Partner Wall Ball Sit-Up Pass., viedo corto https://www.youtube.com/watch?v=XR2efvj-O5M, video explicativo https://www.youtube.com/shorts/_Jpx6xKMh5s
+  - Wall Ball Run. 300M
+ - 15 Partner Wall Ball Toss
+ - 15 Partner Wall Ball Sit-Up Pass
+  - Wall Ball Run. 400M
+ - 10 Partner Wall Ball Toss
+ - 10 Partner Wall Ball Sit-Up Pass
+ 
+ 
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+### TEMPLATE
+
+
 Clase GOAT 20/07/2026
 
 Calentamiento

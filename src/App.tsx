@@ -18,6 +18,7 @@ import { SessionDetailPage } from './pages/Sessions/SessionDetailPage';
 import { ManualSessionPage } from './pages/Sessions/ManualSessionPage';
 import { FreeSessionPage } from './pages/Sessions/FreeSessionPage';
 import { AboutPage } from './pages/Settings/AboutPage';
+import { HelpPage } from './pages/Settings/HelpPage';
 import { ProfilePage } from './pages/Settings/ProfilePage';
 import { BodyMeasurementsPage } from './pages/Settings/BodyMeasurementsPage';
 import { ProgressPhotosPage } from './pages/Settings/ProgressPhotosPage';
@@ -39,6 +40,9 @@ import { ClassesSectionsPage } from './pages/Settings/ClassesSectionsPage';
 import { SessionsListPage } from './pages/Settings/SessionsListPage';
 import { SessionEditPage } from './pages/Settings/SessionEditPage';
 import { TimerSettingsPage } from './pages/Settings/TimerSettingsPage';
+import { TimerHomePage } from './pages/Timer/TimerHomePage';
+import { TimerBuilderPage } from './pages/Timer/TimerBuilderPage';
+import { TimerRunPage } from './pages/Timer/TimerRunPage';
 import { DbProvider } from './components/DbProvider';
 import { UpdateModal } from './components/UpdateModal';
 import { useUpdateCheck } from './hooks/useUpdateCheck';
@@ -82,6 +86,10 @@ export default function App() {
             <Route path="sesiones/:id/ejecutar" element={<SessionExecutorPage />} />
             <Route path="sesiones/:id/cronometro" element={<SessionTimerPage />} />
             <Route path="sesiones/:id" element={<SessionDetailPage />} />
+            <Route path="timer" element={<TimerHomePage />} />
+            <Route path="timer/nueva" element={<TimerBuilderPage />} />
+            <Route path="timer/:id/editar" element={<TimerBuilderPage />} />
+            <Route path="timer/:id/correr" element={<TimerRunPage />} />
             <Route path="estadisticas" element={<StatsPage />} />
             {/* Configuración y catálogos */}
             <Route path="configuracion" element={<SettingsPage />} />
@@ -100,6 +108,7 @@ export default function App() {
             <Route path="configuracion/clases" element={<ClassesSectionsPage />} />
             <Route path="configuracion/cronometro" element={<TimerSettingsPage />} />
             <Route path="configuracion/acerca-de" element={<AboutPage />} />
+            <Route path="configuracion/ayuda" element={<HelpPage />} />
             <Route path="configuracion/perfil" element={<ProfilePage />} />
             <Route path="configuracion/medidas-corporales" element={<BodyMeasurementsPage />} />
             <Route path="configuracion/fotos-progreso" element={<ProgressPhotosPage />} />

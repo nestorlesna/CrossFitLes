@@ -12,6 +12,7 @@ import {
   ChevronRight,
   ImagePlay,
   Info,
+  HelpCircle,
   User,
   Scale,
   Camera,
@@ -295,11 +296,24 @@ export function SettingsPage() {
           )}
         </div>
 
-        {/* ── Acerca de ── */}
+        {/* ── Acerca de y Ayuda ── */}
         <div>
-          <SectionHeader icon={Info} title="Acerca de" expanded={aboutOpen} onToggle={() => setAboutOpen(!aboutOpen)} />
+          <SectionHeader icon={Info} title="Acerca de y Ayuda" expanded={aboutOpen} onToggle={() => setAboutOpen(!aboutOpen)} />
           {aboutOpen && (
-            <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden mt-2">
+            <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden divide-y divide-gray-800 mt-2">
+              <button
+                onClick={() => navigate('/configuracion/ayuda')}
+                className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
+              >
+                <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shrink-0">
+                  <HelpCircle size={16} className="text-primary-400" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-sm text-white block">Ayuda</span>
+                  <span className="text-xs text-gray-600">Guía completa de la app, paso a paso</span>
+                </div>
+                <ChevronRight size={16} className="text-gray-600" />
+              </button>
               <button
                 onClick={() => navigate('/configuracion/acerca-de')}
                 className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
