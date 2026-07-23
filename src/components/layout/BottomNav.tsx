@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Dumbbell, CalendarDays, Timer, BarChart2, Settings } from 'lucide-react';
+import { Dumbbell, CalendarDays, Timer, AlarmClock, BarChart2, Settings } from 'lucide-react';
 
 interface NavItem {
   to: string;
@@ -14,6 +14,7 @@ const navItems: NavItem[] = [
   { to: '/ejercicios', icon: <Dumbbell size={22} />, label: 'Ejercicios' },
   { to: '/clases', icon: <CalendarDays size={22} />, label: 'Clases' },
   { to: '/sesiones', icon: <Timer size={22} />, label: 'Sesiones' },
+  { to: '/timer', icon: <AlarmClock size={22} />, label: 'Timer' },
   { to: '/estadisticas', icon: <BarChart2 size={22} />, label: 'Stats' },
   { to: '/configuracion', icon: <Settings size={22} />, label: 'Config' },
 ];
