@@ -145,24 +145,23 @@ export function ExerciseImagesPage() {
         )}
 
         {!loading && rows.length > 0 && (
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-3">
             {rows.map(row => (
               <div
                 key={row.id}
-                className="bg-gray-900 border border-gray-800 rounded-xl flex items-center gap-3 p-3"
+                className="bg-gray-900 border border-gray-800 rounded-xl flex items-center gap-3 p-3 md:flex-col md:items-stretch md:text-center md:p-4"
               >
                 {/* Miniatura */}
                 {showImage && (
                   <div
-                    className="shrink-0 rounded-lg overflow-hidden bg-gray-800 flex items-center justify-center"
-                    style={{ width: 56, height: 56 }}
+                    className="shrink-0 rounded-lg overflow-hidden bg-gray-800 flex items-center justify-center w-14 h-14 md:w-24 md:h-24 md:mx-auto lg:w-28 lg:h-28"
                   >
                     <ExerciseImageThumb imageUrl={row.image_url} name={row.name} />
                   </div>
                 )}
 
                 {/* Nombre + ruta */}
-                <div className="flex-1 min-w-0">
+                <div className="flex-1 min-w-0 md:flex-none md:mt-2">
                   <p className="text-white text-sm font-medium truncate">{row.name}</p>
                   {showImage && (
                     <p className="text-gray-500 text-xs truncate mt-0.5">{row.image_url}</p>

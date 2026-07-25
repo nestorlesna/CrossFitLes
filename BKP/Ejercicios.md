@@ -30,6 +30,81 @@ Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 
 
 
+Clase GOAT 25/07/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+- Wall Shoulder Stretch, video explicativo https://www.youtube.com/watch?v=KSGiEQzNwgk, video corto https://www.youtube.com/shorts/u1yB7Fx0BNQ
+- Alternating 90/90 Into Shin Box, video corto https://www.youtube.com/shorts/9nhhZIpIZ7A, video explicativo  https://www.youtube.com/watch?v=MQbBqrdhjW8
+- Kettlebell Good Morning to Squat 10kg
+Activacion, 40 de ejericio 20 de descanso
+ - Dead Bug with Band Resistance, video corto https://www.youtube.com/shorts/iW_CtYtzbeU, video explicativo https://www.youtube.com/watch?v=wCwn7-Z-XjE
+ - Strict Knees to Elbows
+ - Shuttle Run, video corto https://www.youtube.com/watch?v=9pb6JX2ulDU, video explicativo https://www.youtube.com/shorts/8xEPRtiG7yk
+Fuerza, 5 rondas de 2 minutos, aumentar peso
+ - 4 Barbell Front Squat, 60kg
+ - 4 Barbell Front Squat, 60kg
+ - 4 Barbell Front Squat, 70kg
+ - 4 Barbell Front Squat, 70kg
+ - 4 Barbell Front Squat, 75kg
+ 
+WOD en parejas, uno hace ejercicio el otro espera, maximo 20 minutos
+ - 1 minuto de Assault Bike
+ - 10 Sandbag Carry (video corto https://www.youtube.com/shorts/QQ0beWNWnGQ, video explicativo https://www.youtube.com/shorts/TeHfb--MwPI ), compañero camina
+ - 10 walk, compañero Sandbag Carry
+ - 1 minuto de Rowing
+ - 10 Sandbag Carry, compañero camina
+ - 10 walk, compañero Sandbag Carry
+ - 200 m running
+ - 100 m Kettlebell Farmer Carry, 10kg compañero camina
+ - 100 m Walk, Kettlebell Farmer Carry 10kg
+ - 200 m running
+ - 100 m Kettlebell Farmer Carry, 10kg compañero camina
+ - 100 m Walk, Kettlebell Farmer Carry 10kg
+ - 10 m, 100kg, Sled Push & Pull, compañero camina
+ - 10 m walk,  10 m, 100kg, Sled Push & Pull
+ - 10 mBurpee Broad Jump, compañeor camina
+ - 10 walk,Burpee Broad Jump
+ - 10 m, 100kg, Sled Push & Pull, compañero camina
+ - 10 m walk,  10 m, 100kg, Sled Push & Pull
+ - 10 mBurpee Broad Jump, compañeor camina
+ - 10 walk,Burpee Broad Jump
+  - 1 minuto de Rowing
+ - 10 Sandbag Carry, compañero camina
+ - 10 walk, compañero Sandbag Carry
+ - 1 minuto de Assault Bike
+ - 10 Sandbag Carry, compañero camina
+ - 10 walk, compañero Sandbag Carry
+ - 200 m running
+ - 100 m Kettlebell Farmer Carry, 10kg compañero camina
+ - 100 m Walk, Kettlebell Farmer Carry 10kg
+ - 200 m running
+ - 100 m Kettlebell Farmer Carry, 10kg compañero camina
+ - 100 m Walk, Kettlebell Farmer Carry 10kg
+ - 10 m, 100kg, Sled Push & Pull, compañero camina
+ - 10 m walk,  10 m, 100kg, Sled Push & Pull
+ - 10 mBurpee Broad Jump, compañeor camina
+ - 10 walk,Burpee Broad Jump
+ - 10 m, 100kg, Sled Push & Pull, compañero camina
+ - 10 m walk,  10 m, 100kg, Sled Push & Pull
+ - 10 mBurpee Broad Jump, compañeor camina
+ - 10 walk,Burpee Broad Jump
+ - 1 minuto de Rowing
+ - 10 Sandbag Carry, compañero camina
+ - 10 walk, compañero Sandbag Carry
+ - 1 minuto de Assault Bike
+ - 10 Sandbag Carry, compañero camina
+ - 10 walk, compañero Sandbag Carry
+ - 200 m running
+ - 100 m Kettlebell Farmer Carry, 10kg compañero camina
+ - 100 m Walk, Kettlebell Farmer Carry 10kg
+ - 200 m running
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+### TEMPLATE
+
 Clase GOAT 22/07/2026
 
 Calentamiento
