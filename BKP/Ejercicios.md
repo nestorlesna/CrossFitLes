@@ -13,6 +13,8 @@
 ### COMO USAR
 
 
+
+
 ### TEMPLATE
 Clase GOAT XX/XX/2026
 
@@ -26,6 +28,49 @@ Fuerza
 WOD
 Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ### TEMPLATE
+
+
+Clase GOAT 27/07/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - Kettlebell Good Morning to Squat
+ - Couch Stretch pie derecho, video corto https://www.youtube.com/shorts/s81vNuwucZk, video explicativo https://www.youtube.com/watch?v=Fg-lwNBzVV8
+ -  - Couch Stretch pie izquierda
+ 
+
+Activacion, mayor cantidad de ejercicios en maximo 6 minutos
+ - Box Step-Up 6, pie derecho
+ - Box Step-Up 6, pie izquierdo
+ - V-Up 10
+ - Jumping Lunge 10, video corto https://www.youtube.com/shorts/sR1tV08BZBo, video explicativo https://www.youtube.com/watch?v=cIkkHg8YZQU
+ - Bear Crawl Hold 30 segundos, video corto https://www.youtube.com/shorts/M1LgdyUDLsc, video explicativo https://www.youtube.com/shorts/x_3iUp8HGl4
+
+Fuerza 6 rep cada 2 minutos
+ - 6 Barbell Back Squat, 70 kg
+ - 6 Barbell Back Squat, 80 kg
+ - 6 Barbell Back Squat, 80 kg
+ - 6 Barbell Back Squat, 90 kg
+ - 6 Barbell Back Squat, 90 kg
+
+WOD 4 rondas maximo 12 minutos
+ - 10 Barbell Front Rack Reverse Lunge
+ - 12 Single-Leg Toes-to-Bar, video corto https://www.youtube.com/shorts/qWiM2aMFrzc, video explicativo https://www.youtube.com/shorts/lfTcFxeKKnU
+ - 14 Dumbbell Push Press
+ - 10 Barbell Front Rack Reverse Lunge
+ - 12 Single-Leg Toes-to-Bar
+ - 14 Dumbbell Push Press
+ - 8 Barbell Front Rack Reverse Lunge
+ - 10 Single-Leg Toes-to-Bar
+ - 12 Dumbbell Push Press
+ - 8 Barbell Front Rack Reverse Lunge
+ - 10 Single-Leg Toes-to-Bar
+ - 12 Dumbbell Push Press
+ 
+ 
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 
 
 

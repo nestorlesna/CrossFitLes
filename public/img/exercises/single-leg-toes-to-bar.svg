@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <line x1="60" y1="18" x2="140" y2="18" stroke="#374151" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Frame 1: colgado, cuerpo extendido -->
+  <g class="f1">
+    <line x1="78" y1="18" x2="90" y2="30" stroke="#64748b" stroke-width="3"/>
+    <line x1="122" y1="18" x2="110" y2="30" stroke="#64748b" stroke-width="3"/>
+    <circle cx="100" cy="44" r="14" fill="#94a3b8"/>
+    <line x1="90" y1="30" x2="100" y2="58" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+    <line x1="110" y1="30" x2="100" y2="58" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+    <line x1="100" y1="58" x2="100" y2="130" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
+    <line x1="100" y1="130" x2="90" y2="175" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
+    <line x1="90" y1="175" x2="86" y2="205" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
+    <line x1="100" y1="130" x2="110" y2="175" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
+    <line x1="110" y1="175" x2="114" y2="205" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <!-- Frame 2: una pierna sube extendida hacia la barra, la otra queda abajo -->
+  <g class="f2">
+    <line x1="78" y1="18" x2="90" y2="30" stroke="#64748b" stroke-width="3"/>
+    <line x1="122" y1="18" x2="110" y2="30" stroke="#64748b" stroke-width="3"/>
+    <circle cx="100" cy="44" r="14" fill="#94a3b8"/>
+    <line x1="90" y1="30" x2="100" y2="58" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+    <line x1="110" y1="30" x2="100" y2="58" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+    <line x1="100" y1="58" x2="98" y2="115" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
+    <line x1="98" y1="115" x2="122" y2="24" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
+    <line x1="98" y1="115" x2="90" y2="175" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
+    <line x1="90" y1="175" x2="86" y2="205" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <!-- Frame 3: pierna toca la barra, la otra desciende -->
+  <g class="f3">
+    <line x1="78" y1="18" x2="90" y2="30" stroke="#64748b" stroke-width="3"/>
+    <line x1="122" y1="18" x2="110" y2="30" stroke="#64748b" stroke-width="3"/>
+    <circle cx="100" cy="46" r="14" fill="#94a3b8"/>
+    <line x1="90" y1="30" x2="102" y2="60" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+    <line x1="110" y1="30" x2="102" y2="60" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+    <line x1="102" y1="60" x2="100" y2="100" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="125" y2="20" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="94" y2="155" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
+    <line x1="94" y1="155" x2="90" y2="200" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <text x="100" y="222" font-size="9" fill="#475569" text-anchor="middle" font-family="sans-serif">SINGLE-LEG TOES-TO-BAR</text>
+</svg>
