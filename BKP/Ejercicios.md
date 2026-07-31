@@ -30,6 +30,38 @@ Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ### TEMPLATE
 
 
+
+Clase GOAT 30/07/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - Wall Shoulder Stretch
+ - Squat Thoracic Rotation
+ - Kettlebell Good Morning
+
+Activacion, 3 rondas
+ - Banded Dead Bug, 40 seg, 20 descanso, video corto https://www.youtube.com/shorts/iW_CtYtzbeU, video explicativo https://www.youtube.com/shorts/UTkKdH4XDKk
+ - Kettlebell Windmill 20 seg con cada braso, 20 descanso, video corto https://www.youtube.com/shorts/v2bQSl57z2o, video explicativo https://www.youtube.com/shorts/k1g44y2PsPY
+ - Russian Twist 40 segundos, 20 descanso
+
+Fuerza 5 rondas cada 2 minutos
+ - 5 Barbell Deadlift, 90kg
+ - 12 Band Triceps Pushdown
+
+WOD 3 vueltas y meda, maximo 12 minutos
+ - 14 Shuttle Run
+ - 9 Power Clean
+ - 14 Wall Ball Shot
+ - 9 Barbell Hang Power Snatch
+
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
+
 Clase GOAT 27/07/2026
 
 Calentamiento
