@@ -13,12 +13,21 @@ Cuando el usuario agregue una clase nueva a `BKP/Ejercicios.md` y diga algo como
 
 El objetivo es producir:
 1. **SVG animados** (3 fotogramas) para cada ejercicio nuevo → en `public/img/exercises/`
-2. **Un servicio de importación TypeScript** que crea los ejercicios, asigna sus músculos y crea la clase en la BD
-3. **Un botón en Clases Predefinidas** (Configuración) para que el usuario ejecute la importación manualmente
+2. **Un ZIP `clase-<nombre>-<fecha>.zip`** con un `class-share.json` adentro — el mismo formato
+   que genera el botón "Exportar Clase(s)" de la app (`src/services/classShareService.ts`) —
+   listo para importarse desde **Configuración → Importar** sin perder datos existentes
+3. Guardar el ZIP en `BKP/` (mismo lugar que los ZIP ya generados a mano, ej. `clase-GOAT-30-07-2026.zip`)
 
-> ⚠️ **Músculo incluido en el mismo servicio:** NO se crea un servicio separado de músculos.
-> La asignación de `primary_muscle` y `secondary_muscles` ocurre dentro de `importClassDDMMYYYY()`
-> justo después de insertar cada ejercicio. Ver sección 11a para el template completo.
+> ⚠️ **NO se escribe código TypeScript por clase.** No existe (ni hace falta crear) un servicio
+> `classDDMMYYYYImportService.ts` ni un botón en Configuración por cada clase nueva. Eso quedó
+> descartado: desde 2026-08 el mecanismo vigente es generar el ZIP `class-share.json` a mano
+> (ver sección 11) y que el usuario lo importe con el importador que YA existe en la app
+> (`importClassFromZip` / `importFromZip`, `src/services/classShareService.ts`). Ese importador
+> ya resuelve catálogos y ejercicios por nombre (case-insensitive) y crea la clase como nueva —
+> es idempotente y aditivo, no hace falta programar nada más.
+>
+> Músculos, equipamiento, tags, etc. van directo en el JSON del ZIP (ver sección 11), no en un
+> servicio aparte.
 
 > ⏱️ **Cronómetro obligatorio:** la clase también tiene que quedar ejecutable en modo
 > **Clase guiada**, donde el cronómetro avanza solo. Eso implica cargar tiempos de trabajo,
@@ -40,8 +49,14 @@ El objetivo es producir:
 
 - **App**: React + TypeScript + Vite
 - **Base de datos**: SQLite (via `@capacitor-community/sqlite`)
-- **Formato de importación**: ZIP con un `data.json` dentro
-- **Importación**: Menú Configuración → Importar backup (reemplaza TODOS los datos)
+- **Formato de importación de una clase nueva**: ZIP con un `class-share.json` adentro (formato
+  "compartir clase", ver `src/services/classShareService.ts`) — **NO** es el mismo formato que el
+  backup completo (`data.json` de `backupService.ts`)
+- **Importación**: Menú Configuración → Importar → seleccionar el ZIP. `importFromZip()` detecta
+  que es una clase (`class-share.json`) y llama a `importClassFromZip()`: hace **merge aditivo**
+  (reutiliza catálogos/ejercicios existentes por nombre, crea la clase como nueva) — **NO** borra
+  nada de lo que el usuario ya tiene cargado. Muy distinto del backup completo, que si reemplaza
+  todos los datos.
 - **Repositorios**: `src/db/repositories/` (solo referencia, no hace falta modificarlos para crear una clase)
 
 ---
@@ -305,50 +320,87 @@ Al describir músculos trabajados, indicar:
 
 ### PASO 7 – Construir el JSON de salida
 
-El archivo `data.json` dentro del ZIP tiene esta estructura:
+El archivo dentro del ZIP se llama **`class-share.json`** (NO `data.json` — ese nombre es del
+backup completo, un formato distinto). Es el mismo formato que exporta el botón "Exportar
+Clase(s)" de la app (`exportClasses()` en `src/services/classShareService.ts`), y lo consume el
+importador ya existente `importClassFromZip()` (aditivo, resuelve todo por nombre). Estructura:
 
 ```json
 {
   "meta": {
     "app": "CrossFit Session Tracker",
-    "version": "1.0.0",
-    "exportDate": "2026-04-01T00:00:00.000Z",
-    "schemaVersion": 1,
-    "tables": 19,
-    "totalRecords": <total>
+    "type": "class-share",
+    "version": "<APP_VERSION actual, ver src/utils/constants.ts>",
+    "exportDate": "2026-08-01T09:00:00.000Z",
+    "classCount": 1
   },
-  "data": {
-    "muscle_group": [ ... ],
-    "equipment": [ ... ],
-    "measurement_unit": [ ... ],
-    "difficulty_level": [ ... ],
-    "tag": [ ... ],
-    "section_type": [ ... ],
-    "work_format": [ ... ],
-    "exercise": [ ... ],
-    "exercise_muscle_group": [ ... ],
-    "exercise_equipment": [ ... ],
-    "exercise_section_type": [ ... ],
-    "exercise_unit": [ ... ],
-    "exercise_tag": [ ... ],
-    "class_template": [ ... ],
-    "class_section": [ ... ],
-    "section_exercise": [ ... ],
-    "training_session": [],
-    "session_exercise_result": [],
-    "personal_record": []
-  }
+  "catalogs": {
+    "muscle_group":       [ { "id": "...", "name": "..." }, ... ],
+    "equipment":          [ { "id": "...", "name": "...", "category": "..." }, ... ],
+    "measurement_unit":   [ { "id": "...", "name": "..." }, ... ],
+    "difficulty_level":   [ { "id": "...", "name": "..." }, ... ],
+    "tag":                [ { "id": "...", "name": "..." }, ... ],
+    "section_type":       [ { "id": "...", "name": "..." }, ... ],
+    "work_format":        [ { "id": "...", "name": "...", "is_interval": 0, "default_interval_seconds": null }, ... ]
+  },
+  "exercises": [ { "id": "...", "name": "..." /* ejercicio existente: SOLO id+name, ver nota */ },
+                 { "id": "...", "name": "...", "description": "...", "technical_notes": "...",
+                   "difficulty_level_id": "...", "primary_muscle_group_id": "...",
+                   "image_url": "/img/exercises/....svg", "video_path": "...", "video_long_path": "...",
+                   "is_compound": 0, "is_active": 1, "created_at": "...", "updated_at": "..." } ],
+  "exercise_relations": {
+    "exercise_muscle_group":  [ { "exercise_id": "...", "muscle_group_id": "...", "is_primary": 1 }, ... ],
+    "exercise_equipment":     [ { "exercise_id": "...", "equipment_id": "...", "is_required": 1 }, ... ],
+    "exercise_section_type":  [ { "exercise_id": "...", "section_type_id": "..." }, ... ],
+    "exercise_unit":          [ { "exercise_id": "...", "measurement_unit_id": "...", "is_default": 1 }, ... ],
+    "exercise_tag":           [ { "exercise_id": "...", "tag_id": "..." }, ... ]
+  },
+  "classes": [ { "id": "...", "date": "2026-08-01", "name": "Clase GOAT 01/08/2026",
+                 "objective": "...", "general_notes": null, "estimated_duration_minutes": 55,
+                 "is_favorite": 0, "is_active": 1, "created_at": "...", "updated_at": "..." } ],
+  "class_sections": [ { "id": "...", "class_template_id": "...", "section_type_id": "...",
+                         "work_format_id": "...", "sort_order": 1, "visible_title": "...",
+                         "general_description": "...", "time_cap_seconds": null, "total_rounds": null,
+                         "rest_between_rounds_seconds": null, "notes": null,
+                         "rest_between_exercises_seconds": null, "rest_after_section_seconds": null,
+                         "interval_seconds": null, "created_at": "...", "updated_at": "..." } ],
+  "section_exercises": [ { "id": "...", "class_section_id": "...", "exercise_id": "...", "sort_order": 1,
+                            "coach_notes": null, "planned_repetitions": null, "planned_weight_value": null,
+                            "planned_weight_unit_id": null, "planned_time_seconds": null,
+                            "planned_distance_value": null, "planned_distance_unit_id": null,
+                            "planned_calories": null, "planned_rest_seconds": null, "planned_rounds": null,
+                            "suggested_timer_seconds": null, "rm_percentage": null, "suggested_scaling": null,
+                            "notes": null, "created_at": "...", "updated_at": "..." } ]
 }
 ```
 
-**IMPORTANTE:** El orden de las tablas en `data` es obligatorio (respeta dependencias FK).
+**Notas clave (diferentes al viejo formato `data.json`):**
+- **Ejercicios reutilizados** (ya existen en la BD, se los detecta por nombre exacto en la lista de
+  SVGs de §4a o porque ya se usaron en una clase anterior — ver `videoUpdateService.ts` y los ZIP en
+  `BKP/` para chequear qué nombres ya están cargados): incluir **sólo `id` y `name`**. El importador
+  los resuelve por nombre (`UPPER(TRIM(name))`) y no pisa ningún dato existente del ejercicio.
+- **Ejercicios nuevos**: incluir todos los campos de `exercise` (ver PASO 6). El importador los crea
+  si no encuentra el nombre.
+- Los `id` de catálogos/ejercicios/secciones son sólo identificadores **internos del JSON** para
+  enlazar filas entre sí (no tienen que coincidir con nada de la BD real) — el importador los
+  resuelve a los IDs locales del usuario por nombre al importar.
+- No hace falta incluir `training_session`, `session_exercise_result` ni `personal_record`: este
+  formato es sólo de la clase, nunca toca el progreso del usuario.
+- Media (imágenes subidas por el usuario, no SVG estáticos): sólo si algún ejercicio nuevo usa una
+  imagen que no es un SVG de `/img/exercises/`, agregar carpeta `media/` al ZIP (ver
+  `classShareService.ts` → `restoreMedia`). Para ejercicios con SVG en `public/img/exercises/`
+  (el caso normal, PASO 5) **no hace falta** carpeta `media/`: `image_url` ya apunta a un path
+  estático servido por la app.
 
-### PASO 8 – Generar IDs
+### PASO 8 – Generar IDs y armar el ZIP
 
-Todos los IDs son UUID v4. Generarlos con el formato estándar:
-`xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx`
-
-Asignar un ID único fijo por entidad en el JSON generado.
+Todos los IDs son UUID v4 (`crypto.randomUUID()` o equivalente). Asignar un ID único por entidad en
+el JSON. Para armar el ZIP, el camino más simple y menos propenso a errores es un script Node de un
+solo uso (usando el paquete `jszip` ya instalado en `node_modules`) que arma el objeto JS con la
+estructura de PASO 7 y lo escribe a `BKP/clase-<nombre-clase>-<fecha>.zip` con
+`zip.file('class-share.json', JSON.stringify(shareJson, null, 2))` +
+`zip.generateAsync({ type: 'nodebuffer' })`. No hace falta ejecutar nada dentro de la app para
+generarlo — sólo para importarlo (PASO 11).
 
 ---
 
@@ -750,23 +802,24 @@ en un metcon.
 
 ---
 
-## 8. REGLAS PARA IMPORTAR SIN PERDER DATOS EXISTENTES
+## 8. IMPORTAR SIN PERDER DATOS EXISTENTES
 
-El `importDataFromZip` BORRA todos los datos existentes antes de importar.
+**Esto ya no es un problema a resolver a mano.** `importDataFromZip` (el backup completo, con
+`data.json`) sí borra todo antes de importar — pero el ZIP de clase de este documento usa
+`class-share.json`, que entra por `importClassFromZip()` (vía el detector automático
+`importFromZip()`), y ese importador es **aditivo por diseño**:
 
-**Para agregar una clase a un sistema con datos existentes:**
+- Ejercicios y catálogos se resuelven por nombre: si ya existen, se reutilizan (y de paso se
+  actualizan sus datos con lo que traiga el ZIP — ver excepción de "sólo id+name" en PASO 7); si no
+  existen, se crean.
+- La clase se crea siempre como nueva (salvo que ya exista una con el mismo nombre exacto, en cuyo
+  caso se reutiliza esa).
+- **Nunca** toca `training_session`, `session_exercise_result` ni `personal_record` — el progreso
+  del usuario no se ve afectado.
 
-**Opción A – Exportar + Merge (recomendada):**
-1. El usuario exporta su backup actual desde Configuración → Exportar
-2. Claude descomprime el ZIP, lee el `data.json`
-3. Claude agrega los nuevos registros (ejercicios + clase) al JSON existente
-4. Claude genera nuevo ZIP con el JSON enriquecido
-5. El usuario importa el nuevo ZIP
-
-**Opción B – ZIP completo desde cero:**
-Generar un ZIP con TODOS los registros (catálogos seed + ejercicios seed + los nuevos + la clase nueva).
-Sirve para enviar a un usuario nuevo que no tiene datos.
-El JSON debe incluir todos los catálogos del seed y todos los ejercicios del seed más los nuevos.
+Por eso no hace falta pedirle al usuario su backup actual ni hacer merge manual: Claude arma el ZIP
+de la clase nueva de forma aislada (PASO 7/8) y el usuario lo importa directamente desde
+**Configuración → Importar**, sea cual sea el estado de su base de datos.
 
 ---
 
@@ -1000,12 +1053,12 @@ de sección → coherente con `estimated_duration_minutes: 60`.
 
 Al finalizar la generación de una clase, verificar:
 
-- [ ] SVGs creados para todos los ejercicios nuevos (3 frames, 200x230, animación CSS)
-- [ ] Todos los ejercicios tienen: description, technical_notes, difficulty, equipment, tags, sections, units, video_path (si hay video en el MD)
-- [ ] Cada ejercicio tiene exactamente 1 `primary_muscle` y 0-N `secondary_muscles` con nombres **simplificados** del catálogo (§5.1)
-- [ ] El servicio incluye `SIMPLIFIED_TO_GRANULAR`, `toDbName()` y la lógica de `exercise_muscle_group` (§11a)
-- [ ] Todas las secciones de la clase mapeadas a section_type y work_format correctos
-- [ ] Todos los section_exercise tienen planned_repetitions / planned_time_seconds / planned_weight_value según corresponda
+- [ ] SVGs creados para todos los ejercicios nuevos (3 frames, 200x230, animación CSS) y guardados en `public/img/exercises/`
+- [ ] Ejercicios **nuevos** en el JSON traen todos los campos: description, technical_notes, difficulty_level_id, primary_muscle_group_id, image_url, video_path/video_long_path (si hay video en el MD), is_compound, is_active, created_at, updated_at
+- [ ] Ejercicios **reutilizados** (ya existían) sólo llevan `{ id, name }` — no se pisan sus datos existentes
+- [ ] Cada ejercicio nuevo tiene exactamente 1 `primary_muscle_group_id` y 0-N filas en `exercise_muscle_group` con `is_primary: 0` para secundarios, usando IDs del catálogo `muscle_group` del propio JSON (§5.1)
+- [ ] Todas las secciones de la clase mapeadas a `section_type` y `work_format` correctos (§2/§3)
+- [ ] Todos los `section_exercises` tienen `planned_repetitions` / `planned_time_seconds` / `planned_weight_value` según corresponda
 
 **Cronómetro (§7):**
 - [ ] Todo ejercicio tiene duración resoluble: `planned_time_seconds` (si el MD lo dice) **o** `suggested_timer_seconds` (estimado) — nunca los dos
@@ -1014,355 +1067,99 @@ Al finalizar la generación de una clase, verificar:
 - [ ] `rest_between_exercises_seconds` = 0 en los WOD continuos; `rest_between_rounds_seconds` cargado donde el MD lo indica
 - [ ] `rest_after_section_seconds` definido en las secciones intermedias
 - [ ] La suma estimada de la línea de tiempo es coherente con `estimated_duration_minutes`
-- [ ] El data.json sigue el orden de tablas obligatorio
-- [ ] Los IDs son UUID v4 válidos y no se repiten
-- [ ] Las fechas están en formato `YYYY-MM-DD HH:MM:SS` (campos created_at/updated_at) o `YYYY-MM-DD` (campo date de class_template)
-- [ ] El campo `meta.totalRecords` suma correctamente todos los registros del JSON
-- [ ] Los SVGs nuevos están guardados en `public/img/exercises/`
+
+**ZIP (§11b):**
+- [ ] El ZIP contiene `class-share.json` (no `data.json`) y parsea como JSON válido
+- [ ] Todo `exercise_id` / `class_section_id` / `class_template_id` referenciado existe en su tabla correspondiente del mismo JSON
+- [ ] Los IDs son UUID v4 válidos y no se repiten dentro del JSON
+- [ ] Las fechas están en formato `YYYY-MM-DD HH:MM:SS` (created_at/updated_at) o `YYYY-MM-DD` (campo `date` de la clase)
+- [ ] El ZIP quedó guardado en `BKP/clase-<nombre>-<fecha>.zip`
 
 ---
 
 ## 11. CÓMO INTEGRAR LA CLASE EN LA APP
 
-La forma estándar de cargar una clase es mediante un **servicio de importación TypeScript** y un **botón en Clases Predefinidas**. Este es el flujo completo:
+La forma estándar de cargar una clase es generar el **ZIP `class-share.json`** (PASO 7/8) y que el
+usuario lo importe desde la UI. No se escribe ningún archivo TypeScript nuevo por clase — el
+importador ya existe (`src/services/classShareService.ts`) y es el mismo que usa el botón
+"Exportar Clase(s)" / "Importar" de la app.
 
-### 11a. Crear el servicio de importación
+### 11a. Generar el ZIP con un script Node de un solo uso
 
-Crear `src/services/classDDMMYYYYImportService.ts`. El template completo incluye la asignación
-de músculos dentro del mismo servicio, sin necesitar un paso separado:
+Escribir un script temporal (por ejemplo en el directorio de scratch de la sesión, no versionado)
+que arme el objeto `class-share.json` descripto en PASO 7 y lo comprima con `jszip` (ya está en
+`node_modules`, no hace falta instalar nada):
 
-```typescript
-// src/services/classDDMMYYYYImportService.ts
-import { openDatabase, saveDatabase } from '../db/database';
-import { generateUUID } from '../utils/formatters';
+```javascript
+// build_zip.js (script temporal, no se commitea)
+const JSZip = require('<ruta al repo>/node_modules/jszip');
+const fs = require('fs');
+const crypto = require('crypto');
+const uuid = () => crypto.randomUUID();
 
-const IMPORT_FLAG = 'import_class_DD_MM_YYYY_done';
+// 1. Catálogos usados (id interno + name; el importador los resuelve por nombre)
+const muscle = {}; ['Deltoides', 'Trapecio', /* ... */].forEach(n => muscle[n] = uuid());
+// ... equipment, unit, difficulty, tag, sectionType, workFormat, igual patrón
 
-export function isClassDDMMYYYYImportDone(): boolean {
-  return localStorage.getItem(IMPORT_FLAG) === 'true';
-}
+// 2. Ejercicios: EXISTENTES sólo { id, name } — NUEVOS con todos los campos de PASO 6
+const exId = {};
+const exercises = [];
+// reutilizados:
+['Running', 'Rowing' /* ... */].forEach(n => { exId[n] = uuid(); exercises.push({ id: exId[n], name: n }); });
+// nuevos: id, name, description, technical_notes, difficulty_level_id, primary_muscle_group_id,
+//         image_url, video_path, video_long_path, is_compound, is_active, created_at, updated_at
+//         + entradas correspondientes en exercise_muscle_group / equipment / section_type / unit / tag
 
-function markDone(): void {
-  localStorage.setItem(IMPORT_FLAG, 'true');
-}
+// 3. Clase, class_sections (una por sección del MD, PASO 2/3) y section_exercises
+//    (una por ejercicio de cada sección, con planned_* / suggested_timer_seconds del PASO 7)
 
-// ── Mapeo simplificado → granular (post "Cargar Datos Base") ──────────────────
-// Usar siempre los nombres simplificados (izquierda) en EXERCISES.
-// toDbName() los traduce automáticamente al buscar en muscle_group.
-const SIMPLIFIED_TO_GRANULAR: Record<string, string> = {
-  'Deltoides':        'Deltoides anterior',
-  'Cuádriceps':       'Recto femoral',
-  'Isquiotibiales':   'Bíceps femoral',
-  'Glúteos':          'Glúteo mayor',
-  'Dorsales':         'Dorsal ancho',
-  'Trapecio':         'Trapecio (superior)',
-  'Bíceps':           'Bíceps braquial',
-  'Tríceps':          'Tríceps braquial',
-  'Pantorrillas':     'Gastrocnemio (gemelos)',
-  'Core/Abdominales': 'Recto abdominal',
-  'Antebrazos':       'Flexores antebrazo',
-  'Pectorales':       'Pectoral mayor',
-};
-
-function toDbName(name: string): string {
-  return SIMPLIFIED_TO_GRANULAR[name] ?? name;
-}
-
-// ── Definición de ejercicios ─────────────────────────────────────────────────
-interface ExerciseDef {
-  name: string;
-  description: string;
-  technical_notes: string;
-  difficulty: string;           // 'Básico' | 'Intermedio' | 'Avanzado' | 'Experto'
-  primary_muscle: string;       // nombre simplificado (§5.1)
-  secondary_muscles: string[];  // nombres simplificados (§5.1)
-  equipment: string[];          // nombres exactos del catálogo equipment
-  tags: string[];               // nombres exactos del catálogo tag
-  section_types: string[];      // nombres exactos del catálogo section_type
-  units: string[];              // primer elemento = default
-  video_path?: string | null;
-  video_long_path?: string | null;
-  image_url: string;
-  is_compound: number;
-}
-
-const EXERCISES: ExerciseDef[] = [
-  // Completar con los ejercicios de la clase...
-  // Ejemplo:
-  // {
-  //   name: 'Band Pull-Apart',
-  //   description: 'De pie, separar los brazos con banda elástica...',
-  //   technical_notes: 'Codos extendidos, escápulas juntas al final.',
-  //   difficulty: 'Básico',
-  //   primary_muscle: 'Deltoides',
-  //   secondary_muscles: ['Trapecio', 'Dorsales'],
-  //   equipment: ['Banda elástica'],
-  //   tags: ['hombro', 'movilidad', 'pull'],
-  //   section_types: ['Entrada en calor', 'Activación'],
-  //   units: ['Repeticiones', 'Segundos'],
-  //   video_path: 'https://youtube.com/...',
-  //   image_url: '/img/exercises/band-pull-apart.svg',
-  //   is_compound: 0,
-  // },
-];
-
-// ── Helpers ──────────────────────────────────────────────────────────────────
-async function getOrCreate(
-  db: any,
-  exerciseDef: ExerciseDef,
-  maps: {
-    difficulty: Map<string, string>;
-    muscle: Map<string, string>;
-    equipment: Map<string, string>;
-    tag: Map<string, string>;
-    sectionType: Map<string, string>;
-    unit: Map<string, string>;
-  }
-): Promise<{ id: string; created: boolean }> {
-  const existing = await db.query(
-    'SELECT id FROM exercise WHERE UPPER(TRIM(name)) = UPPER(TRIM(?)) AND is_active = 1',
-    [exerciseDef.name]
-  );
-  if (existing.values?.length) {
-    return { id: existing.values[0].id, created: false };
-  }
-
-  const now = new Date().toISOString().replace('T', ' ').substring(0, 19);
-  const id = generateUUID();
-  const diffId = maps.difficulty.get(exerciseDef.difficulty) ?? null;
-  const primaryDbName = toDbName(exerciseDef.primary_muscle);
-  const primaryId = maps.muscle.get(primaryDbName) ?? null;
-
-  await db.run(
-    `INSERT INTO exercise
-       (id, name, description, technical_notes, difficulty_level_id,
-        primary_muscle_group_id, image_url, video_path, video_long_path,
-        is_compound, is_active, created_at, updated_at)
-     VALUES (?,?,?,?,?,?,?,?,?,?,1,?,?)`,
-    [id, exerciseDef.name, exerciseDef.description, exerciseDef.technical_notes,
-     diffId, primaryId, exerciseDef.image_url,
-     exerciseDef.video_path ?? null, exerciseDef.video_long_path ?? null,
-     exerciseDef.is_compound, now, now]
-  );
-
-  // Músculo primario
-  if (primaryId) {
-    await db.run(
-      'INSERT INTO exercise_muscle_group (id, exercise_id, muscle_group_id, is_primary) VALUES (?,?,?,1)',
-      [generateUUID(), id, primaryId]
-    );
-  }
-
-  // Músculos secundarios
-  for (const secName of exerciseDef.secondary_muscles) {
-    const secId = maps.muscle.get(toDbName(secName));
-    if (secId) {
-      await db.run(
-        'INSERT INTO exercise_muscle_group (id, exercise_id, muscle_group_id, is_primary) VALUES (?,?,?,0)',
-        [generateUUID(), id, secId]
-      );
-    }
-  }
-
-  // Equipamiento
-  for (const eqName of exerciseDef.equipment) {
-    const eqId = maps.equipment.get(eqName);
-    if (eqId) {
-      await db.run(
-        'INSERT INTO exercise_equipment (id, exercise_id, equipment_id, is_required) VALUES (?,?,?,1)',
-        [generateUUID(), id, eqId]
-      );
-    }
-  }
-
-  // Tags
-  for (const tagName of exerciseDef.tags) {
-    const tagId = maps.tag.get(tagName);
-    if (tagId) {
-      await db.run(
-        'INSERT INTO exercise_tag (id, exercise_id, tag_id) VALUES (?,?,?)',
-        [generateUUID(), id, tagId]
-      );
-    }
-  }
-
-  // Section types
-  for (const stName of exerciseDef.section_types) {
-    const stId = maps.sectionType.get(stName);
-    if (stId) {
-      await db.run(
-        'INSERT INTO exercise_section_type (id, exercise_id, section_type_id) VALUES (?,?,?)',
-        [generateUUID(), id, stId]
-      );
-    }
-  }
-
-  // Unidades (primera = default)
-  for (let i = 0; i < exerciseDef.units.length; i++) {
-    const uId = maps.unit.get(exerciseDef.units[i]);
-    if (uId) {
-      await db.run(
-        'INSERT INTO exercise_unit (id, exercise_id, measurement_unit_id, is_default) VALUES (?,?,?,?)',
-        [generateUUID(), id, uId, i === 0 ? 1 : 0]
-      );
-    }
-  }
-
-  return { id, created: true };
-}
-
-// ── Función principal ─────────────────────────────────────────────────────────
-export async function importClassDDMMYYYY(): Promise<{ exercises: number; created: boolean }> {
-  const db = await openDatabase();
-
-  // Guardia: clase ya importada
-  const existing = await db.query(
-    "SELECT id FROM class_template WHERE name = 'Clase GOAT DD/MM/YYYY' AND is_active = 1"
-  );
-  if (existing.values?.length) {
-    markDone();
-    return { exercises: 0, created: false };
-  }
-
-  // Cargar mapas de catálogos
-  const rows = async (sql: string) => (await db.query(sql)).values ?? [];
-  const toMap = (arr: any[]) => new Map(arr.map((r) => [r.name as string, r.id as string]));
-
-  const maps = {
-    difficulty:  toMap(await rows('SELECT id, name FROM difficulty_level WHERE is_active = 1')),
-    muscle:      toMap(await rows('SELECT id, name FROM muscle_group WHERE is_active = 1')),
-    equipment:   toMap(await rows('SELECT id, name FROM equipment WHERE is_active = 1')),
-    tag:         toMap(await rows('SELECT id, name FROM tag WHERE is_active = 1')),
-    sectionType: toMap(await rows('SELECT id, name FROM section_type WHERE is_active = 1')),
-    workFormat:  toMap(await rows('SELECT id, name FROM work_format WHERE is_active = 1')),
-    unit:        toMap(await rows('SELECT id, name FROM measurement_unit WHERE is_active = 1')),
-  };
-
-  // Crear ejercicios (idempotente — getOrCreate no duplica)
-  let exercisesCreated = 0;
-  const exerciseIds: Record<string, string> = {};
-  for (const def of EXERCISES) {
-    const { id, created } = await getOrCreate(db, def, maps);
-    exerciseIds[def.name] = id;
-    if (created) exercisesCreated++;
-  }
-
-  // ── Crear la plantilla de clase ────────────────────────────────────────────
-  const now = new Date().toISOString().replace('T', ' ').substring(0, 19);
-  const classId = generateUUID();
-  await db.run(
-    `INSERT INTO class_template
-       (id, date, name, objective, general_notes, estimated_duration_minutes,
-        is_favorite, is_active, created_at, updated_at)
-     VALUES (?,?,?,?,?,?,0,1,?,?)`,
-    [classId, 'YYYY-MM-DD', 'Clase GOAT DD/MM/YYYY',
-     'Objetivo de la clase', null, 60, now, now]
-  );
-
-  // ── Secciones ──────────────────────────────────────────────────────────────
-  // Las 3 últimas columnas antes de las fechas son los overrides del cronómetro (§7).
-  // Repetir este bloque por cada sección:
-  // const sec1Id = generateUUID();
-  // await db.run(
-  //   `INSERT INTO class_section
-  //      (id, class_template_id, section_type_id, work_format_id, sort_order,
-  //       visible_title, general_description, time_cap_seconds, total_rounds,
-  //       rest_between_rounds_seconds, notes,
-  //       rest_between_exercises_seconds, rest_after_section_seconds, interval_seconds,
-  //       created_at, updated_at)
-  //    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
-  //   [sec1Id, classId, maps.sectionType.get('Entrada en calor'),
-  //    maps.workFormat.get('Trabajo libre'), 1,
-  //    'Calentamiento', '6 minutos', 360, null, null, null,
-  //    10, 60, null,   // ← descanso entre ejercicios / al cerrar sección / ventana de intervalo
-  //    now, now]
-  // );
-
-  // ── Ejercicios de sección ──────────────────────────────────────────────────
-  // suggested_timer_seconds = duración estimada (§7.2). Va SOLO si planned_time_seconds es null.
-  // await db.run(
-  //   `INSERT INTO section_exercise
-  //      (id, class_section_id, exercise_id, sort_order, coach_notes,
-  //       planned_repetitions, planned_weight_value, planned_weight_unit_id,
-  //       planned_time_seconds, planned_distance_value, planned_distance_unit_id,
-  //       planned_calories, planned_rest_seconds, planned_rounds, suggested_timer_seconds,
-  //       rm_percentage, suggested_scaling, notes, created_at, updated_at)
-  //    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
-  //   [generateUUID(), sec1Id, exerciseIds['Nombre ejercicio'], 1,
-  //    'notas coach', 10, null, null, null, null, null, null, null, null,
-  //    30,             // ← suggested_timer_seconds: 10 reps × 3 s
-  //    null, null, null, now, now]
-  // );
-
-  await saveDatabase();
-  markDone();
-  return { exercises: exercisesCreated, created: true };
-}
+// 4. Ensamblar shareJson = { meta, catalogs, exercises, exercise_relations, classes,
+//                             class_sections, section_exercises } y escribir el ZIP:
+const zip = new JSZip();
+zip.file('class-share.json', JSON.stringify(shareJson, null, 2));
+zip.generateAsync({ type: 'nodebuffer' }).then(buf =>
+  fs.writeFileSync('BKP/clase-<nombre>-<fecha>.zip', buf)
+);
 ```
 
-**Reglas del servicio:**
-- Verificar la clase por `name` exacto antes de insertar (idempotente)
-- Los músculos se asignan dentro de `getOrCreate()` — **no se crea ningún servicio separado**
-- Usar siempre nombres **simplificados** en `primary_muscle` y `secondary_muscles`; `toDbName()` resuelve el nombre granular
-- `video_path` = video corto (popup en sesión); `video_long_path` = tutorial explicativo
-- `image_url` = ruta al SVG en `/img/exercises/`
-- `INSERT OR IGNORE` no aplica aquí — se usa `getOrCreate` que verifica primero por nombre
-- El flag en localStorage controla que no se ejecute dos veces
-- **Cronómetro:** cada `section_exercise` tiene que salir con `planned_time_seconds` **o**
-  `suggested_timer_seconds` cargado; ninguna sección puede quedar sin ejercicios (§7)
+Ejecutar con `node build_zip.js` desde la raíz del repo. El resultado es un único archivo
+`BKP/clase-<nombre-clase>-<DD-MM-YYYY>.zip` — mismo naming que los ZIP ya existentes en `BKP/`
+(ej. `clase-GOAT-30-07-2026.zip`, generado a mano de la misma forma).
 
-### 11b. Agregar el botón en ClassSeederSection
+### 11b. Verificar el ZIP antes de entregarlo
 
-Editar `src/components/export/ClassSeederSection.tsx`:
+Antes de darlo por terminado, chequear con un script Node corto (usando el mismo `jszip`) que:
+- El ZIP contiene `class-share.json` y parsea como JSON válido.
+- Todo `section_exercises[].exercise_id` existe en `exercises[].id`.
+- Todo `section_exercises[].class_section_id` existe en `class_sections[].id`.
+- Todo `class_sections[].class_template_id` coincide con el `id` de la clase en `classes[]`.
 
-```typescript
-// 1. Importar el nuevo servicio
-import {
-  importClassDDMMYYYY,
-  isClassDDMMYYYYImportDone,
-} from '../../services/classDDMMYYYYImportService';
+### 11c. Guardar el ZIP en `BKP/` y explicarle al usuario cómo importarlo
 
-// 2. Agregar entrada al array CLASS_ENTRIES (más reciente primero)
-const CLASS_ENTRIES: ClassEntry[] = [
-  {
-    label: 'Clase GOAT DD/MM/YYYY',
-    date: 'Sección 1 · Sección 2 · Sección 3 · ...',
-    isDone: isClassDDMMYYYYImportDone,
-    run: importClassDDMMYYYY,
-  },
-  // ... entradas anteriores
-];
-```
+1. Copiar el ZIP a `BKP/clase-<nombre>-<fecha>.zip` (se versiona junto a `Ejercicios.md`, sirve de
+   historial — igual que los ZIP de clases anteriores).
+2. Indicarle al usuario: abrir la app (`npm run dev` si es local) → **Configuración → Importar** →
+   elegir ese ZIP. `importFromZip()` detecta que es una clase y hace el merge aditivo — no hace
+   falta backup previo ni hay riesgo de perder sesiones/PRs existentes (§8).
+3. La clase aparece en `/clases` con todas sus secciones y ejercicios listos.
 
-El botón aparece automáticamente en **Configuración → Clases predefinidas**.
-- Icono violeta con `CalendarPlus` → pendiente
-- Icono verde con `CheckCircle2` → ya importada (deshabilitado)
-- El texto debajo del nombre describe las secciones de la clase
+### 11d. Verificar el cronómetro (después de que el usuario importe)
 
-### 11c. Verificar compilación
-
-```bash
-npx tsc --noEmit
-```
-
-### 11d. Usar la clase
-
-1. Abrir la app (`npm run dev` → `localhost:5173`)
-2. Ir a **Configuración** → sección **Clases predefinidas**
-3. Tocar el botón de la clase nueva
-4. La clase aparece en `/clases` con todos sus ejercicios y secciones listos
-
-### 11e. Verificar el cronómetro
-
-1. Ir a **Sesiones → Nueva**, dejar seleccionado **Clase guiada** y elegir la clase recién importada
-2. El cronómetro debe recorrer la clase entera sin pasos de 0 segundos inesperados ni secciones ausentes
-3. Contrastar la duración total que muestra con `estimated_duration_minutes` de la plantilla
+1. En **Sesiones → Nueva**, dejar seleccionado **Clase guiada** y elegir la clase recién importada.
+2. El cronómetro debe recorrer la clase entera sin pasos de 0 segundos inesperados ni secciones
+   ausentes.
+3. Contrastar la duración total que muestra con `estimated_duration_minutes` de la plantilla.
 4. Los tiempos globales (cuenta regresiva, pips, vibración) se ajustan en
-   **Configuración → Cronómetro**; los de la clase, editando la plantilla
+   **Configuración → Cronómetro**; los de la clase, editando la plantilla.
 
 ---
 
-*Última actualización: 2026-07-13*
-*Versión del schema: 11 (v011_timer_mode — campos del cronómetro)*
-*Músculo integrado en el servicio — ya no se usa ACTUALIZO_MUSCULOS.md para clases nuevas*
+*Última actualización: 2026-08-01*
+*Versión del schema: 12 (v012_free_timer_templates)*
+*Mecanismo de carga vigente: ZIP `class-share.json` (§11) generado a mano con un script Node +
+`jszip`, importado desde Configuración → Importar. Reemplaza el viejo mecanismo de
+`classDDMMYYYYImportService.ts` + botón en "Clases Predefinidas" — ese patrón nunca se usó en la
+práctica para las clases semanales y quedó descartado.*
+*Músculo integrado en el JSON del ZIP — ya no se usa ACTUALIZO_MUSCULOS.md para clases nuevas*
 *Cronómetro: toda clase nueva debe traer tiempos cargados o estimados (§7)*
+*Ejemplo real de referencia: `BKP/clase-GOAT-01-08-2026.zip` (y los ZIP de clases anteriores en `BKP/`)*
