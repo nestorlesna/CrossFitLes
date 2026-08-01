@@ -109,7 +109,8 @@
       "Bash(git -C C:/DATOS/DESARROLLOS/React/CrossFitLes status --short)",
       "Bash(git -C C:/DATOS/DESARROLLOS/React/CrossFitLes branch --show-current)",
       "Bash(git -C C:/DATOS/DESARROLLOS/React/CrossFitLes status)",
-      "Bash(git -C C:/DATOS/DESARROLLOS/React/CrossFitLes log --oneline -5)"
+      "Bash(git -C C:/DATOS/DESARROLLOS/React/CrossFitLes log --oneline -5)",
+      "Bash(unzip -l clase-GOAT-25-07-2026.zip)"
     ]
   }
 }

@@ -30,6 +30,67 @@ Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ### TEMPLATE
 
 
+
+Clase GOAT 01/08/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Activacion - 3 rondas 
+ - 30 segundos de maquina, Rowing, SkiErg, running
+ - 10 Kettlebell Good Morning to Squat
+ - 12 Alternating Spiderman Stretch, video corto https://www.youtube.com/shorts/hXeejiw03uk , video explicativo https://www.youtube.com/watch?v=RDzdLzdR7MQ  
+ - 10 Quadruped Thoracic Rotation brazo derecho, video crto https://www.youtube.com/shorts/mlFeVRgXoag, video explicativo https://www.youtube.com/watch?v=4dE4KmmfKiI
+ - 10 Quadruped Thoracic Rotation brazo izquierdo
+
+Fuerza - 4 rondas de 2 mintuos para lo 3 ejercicios
+ - 5 Barbell Front Squat 70 kg, video 
+ - 20 Single-Leg Wall Sit izquierda, video corto https://www.youtube.com/shorts/1V1QeQNfruk , video explicativo https://www.youtube.com/watch?v=7jNA-3RbnEc
+ - 20 Single-Leg Wall Sit derecha
+ 
+WOD - maximo 25 minutos
+ - Running 800 m
+ - 40 Wall Ball Shot
+ - Sled pull 40 m, 20 kg, video corto https://www.youtube.com/shorts/_UUGiHlumgQ, video explicativo https://www.youtube.com/watch?v=BSJIKV7h5po
+ - 200 m Kettlebell Farmer Carry 15 kg
+ - Running 800m
+ - 300 m Rowing
+ - Sled Push 30 m, 60kg, video corto https://www.youtube.com/watch?v=QwscR2BhdEg, video explicativo https://www.youtube.com/shorts/DrBawxjH3eU
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+Clase GOAT 30/07/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - Wall Shoulder Stretch
+ - Squat Thoracic Rotation
+ - Kettlebell Good Morning
+
+Activacion, 3 rondas
+ - Banded Dead Bug, 40 seg, 20 descanso, video corto https://www.youtube.com/shorts/iW_CtYtzbeU, video explicativo https://www.youtube.com/shorts/UTkKdH4XDKk
+ - Kettlebell Windmill 20 seg con cada braso, 20 descanso, video corto https://www.youtube.com/shorts/v2bQSl57z2o, video explicativo https://www.youtube.com/shorts/k1g44y2PsPY
+ - Russian Twist 40 segundos, 20 descanso
+
+Fuerza 5 rondas cada 2 minutos
+ - 5 Barbell Deadlift, 90kg
+ - 12 Band Triceps Pushdown
+
+WOD 3 vueltas y meda, maximo 12 minutos
+ - 14 Shuttle Run
+ - 9 Power Clean
+ - 14 Wall Ball Shot
+ - 9 Barbell Hang Power Snatch
+
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
+
 Clase GOAT 27/07/2026
 
 Calentamiento
