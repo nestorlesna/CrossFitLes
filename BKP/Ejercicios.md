@@ -31,6 +31,44 @@ Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 
 
 
+
+Clase GOAT 10/08/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - Half Kneeling Hip Flexor & Hamstring Dynamic Stretc, video corto https://www.youtube.com/shorts/KmsAgBeaDnQ, video explicativo https://www.youtube.com/watch?v=HUxyBCMplLI
+ - Half Kneeling Hip Flexor & Hamstring Dynamic Stretc
+ - Spiderman Stretch Rotation 
+
+Activacion, 20 de ejercicio 10 de descanso 5 rondas
+ - Box Jump
+ - Weighted Lunge 20kg
+
+Fuerza 5 rondas cada 2 minutos
+ - 3 + 2 + 1 Barbell Back Squat 80kg con 10 segundos de descanso entre cada repeticion
+
+WOD 14 minutos como maximo
+ - 7 Barbell Thruster 30kg
+ - running 200 m
+ - 10 Barbell Sumo Deadlift High Pull  30kg
+ - 7 Barbell Thruster  30kg
+ - running 200 m
+ - 10 Barbell Sumo Deadlift High Pull 30kg
+ - 7 Barbell Thruster 30kg
+ - running 200 m
+ - 10 Barbell Sumo Deadlift High Pull 30kg
+ - 90 segundos de descanso
+ - 30 Barbell Sumo Deadlift High Pull  30kg
+ - running 400 m
+ - 21 Barbell Thruster 30 kg
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+### TEMPLATE
+
+
+
 Clase GOAT 01/08/2026
 
 Calentamiento
