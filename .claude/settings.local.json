@@ -111,7 +111,11 @@
       "Bash(git -C C:/DATOS/DESARROLLOS/React/CrossFitLes status)",
       "Bash(git -C C:/DATOS/DESARROLLOS/React/CrossFitLes log --oneline -5)",
       "Bash(unzip -l clase-GOAT-25-07-2026.zip)",
-      "Bash(git -C \"C:/DATOS/DESARROLLOS/React/CrossFitLes\" status --short)"
+      "Bash(git -C \"C:/DATOS/DESARROLLOS/React/CrossFitLes\" status --short)",
+      "Bash(unzip -l \"BKP/crossfit-backup-20260810-205051.zip\")",
+      "Bash(mkdir -p /tmp_extract_bkp)",
+      "Bash(unzip -p \"BKP/crossfit-backup-20260810-205051.zip\" data.json)",
+      "Bash(python3 -c ' *)"
     ]
   }
 }

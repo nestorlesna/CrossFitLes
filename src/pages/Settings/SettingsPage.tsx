@@ -29,6 +29,7 @@ import { Header } from '../../components/layout/Header';
 import { BackupSection } from '../../components/export/BackupSection';
 import { ClassShareSection } from '../../components/export/ClassShareSection';
 import { TimerEstimationSection } from '../../components/export/TimerEstimationSection';
+import { ExerciseMigrationSection } from '../../components/export/ExerciseMigrationSection';
 import { ResetSection } from '../../components/export/ResetSection';
 
 const catalogItems = [
@@ -291,6 +292,7 @@ export function SettingsPage() {
               <ClassShareSection />
               <BackupSection />
               <TimerEstimationSection />
+              <ExerciseMigrationSection />
               <ResetSection />
             </div>
           )}
