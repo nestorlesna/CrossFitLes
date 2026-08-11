@@ -415,6 +415,104 @@ export async function getClassesUsingExercise(exerciseId: string): Promise<{
   return (result.values ?? []) as { id: string; name: string; date: string | null; section_title: string | null }[];
 }
 
+// Obtiene el conteo de uso de un ejercicio (clases, sesiones y récords) para mostrar antes de migrar/eliminar
+export async function getUsageCounts(exerciseId: string): Promise<{
+  sectionExerciseCount: number;
+  sessionResultCount: number;
+  personalRecordCount: number;
+}> {
+  const db = getDatabase();
+
+  async function countRows(table: string): Promise<number> {
+    const result = await db.query(`SELECT COUNT(*) as cnt FROM ${table} WHERE exercise_id = ?`, [exerciseId]);
+    const row = result.values?.[0];
+    return Number(row?.cnt ?? row?.CNT ?? Object.values(row ?? {})[0] ?? 0);
+  }
+
+  const [sectionExerciseCount, sessionResultCount, personalRecordCount] = await Promise.all([
+    countRows('section_exercise'),
+    countRows('session_exercise_result'),
+    countRows('personal_record'),
+  ]);
+
+  return { sectionExerciseCount, sessionResultCount, personalRecordCount };
+}
+
+// Detecta secciones de clase y sesiones donde YA coexisten origen y destino: al migrar, esa
+// sección/sesión quedaría con el ejercicio duplicado (dos filas apuntando al mismo destino).
+export async function getSharedUsage(sourceId: string, targetId: string): Promise<{
+  sharedSections: number;
+  sharedSessions: number;
+}> {
+  const db = getDatabase();
+
+  const sectionsResult = await db.query(
+    `SELECT COUNT(DISTINCT cs.id) as cnt
+     FROM class_section cs
+     WHERE cs.id IN (SELECT class_section_id FROM section_exercise WHERE exercise_id = ?)
+       AND cs.id IN (SELECT class_section_id FROM section_exercise WHERE exercise_id = ?)`,
+    [sourceId, targetId]
+  );
+  const sessionsResult = await db.query(
+    `SELECT COUNT(DISTINCT ts.id) as cnt
+     FROM training_session ts
+     WHERE ts.id IN (SELECT training_session_id FROM session_exercise_result WHERE exercise_id = ?)
+       AND ts.id IN (SELECT training_session_id FROM session_exercise_result WHERE exercise_id = ?)`,
+    [sourceId, targetId]
+  );
+
+  const sectionsRow = sectionsResult.values?.[0];
+  const sessionsRow = sessionsResult.values?.[0];
+
+  return {
+    sharedSections: Number(sectionsRow?.cnt ?? sectionsRow?.CNT ?? Object.values(sectionsRow ?? {})[0] ?? 0),
+    sharedSessions: Number(sessionsRow?.cnt ?? sessionsRow?.CNT ?? Object.values(sessionsRow ?? {})[0] ?? 0),
+  };
+}
+
+// Migra todo el uso de un ejercicio origen hacia un ejercicio destino y elimina el origen.
+// Reasigna section_exercise (clases), session_exercise_result (sesiones) y personal_record (récords),
+// y borra las relaciones propias del origen (músculos, equipamiento, tags, etc.) antes de eliminarlo.
+export async function migrateExercise(sourceId: string, targetId: string): Promise<{
+  sectionExerciseCount: number;
+  sessionResultCount: number;
+  personalRecordCount: number;
+}> {
+  if (sourceId === targetId) {
+    throw new Error('El ejercicio de origen y destino no pueden ser el mismo');
+  }
+
+  const db = getDatabase();
+
+  const [sourceResult, targetResult] = await Promise.all([
+    db.query('SELECT id FROM exercise WHERE id = ?', [sourceId]),
+    db.query('SELECT id FROM exercise WHERE id = ?', [targetId]),
+  ]);
+  if (!sourceResult.values?.length) throw new Error('El ejercicio de origen no existe');
+  if (!targetResult.values?.length) throw new Error('El ejercicio de destino no existe');
+
+  const usage = await getUsageCounts(sourceId);
+  const timestamp = now();
+
+  const stmts: { statement: string; values: unknown[] }[] = [
+    { statement: `UPDATE section_exercise SET exercise_id = ?, updated_at = ? WHERE exercise_id = ?`, values: [targetId, timestamp, sourceId] },
+    { statement: `UPDATE session_exercise_result SET exercise_id = ?, updated_at = ? WHERE exercise_id = ?`, values: [targetId, timestamp, sourceId] },
+    { statement: `UPDATE personal_record SET exercise_id = ?, updated_at = ? WHERE exercise_id = ?`, values: [targetId, timestamp, sourceId] },
+    { statement: `DELETE FROM exercise_muscle_group WHERE exercise_id = ?`, values: [sourceId] },
+    { statement: `DELETE FROM exercise_equipment WHERE exercise_id = ?`, values: [sourceId] },
+    { statement: `DELETE FROM exercise_section_type WHERE exercise_id = ?`, values: [sourceId] },
+    { statement: `DELETE FROM exercise_unit WHERE exercise_id = ?`, values: [sourceId] },
+    { statement: `DELETE FROM exercise_tag WHERE exercise_id = ?`, values: [sourceId] },
+    { statement: `DELETE FROM exercise_image WHERE exercise_id = ?`, values: [sourceId] },
+    { statement: `DELETE FROM exercise WHERE id = ?`, values: [sourceId] },
+  ];
+
+  await db.executeSet(stmts, true);
+  await saveDatabase();
+
+  return usage;
+}
+
 // Obtiene ejercicios duplicados (mismo nombre normalizado con LOWER(TRIM(name)))
 export async function getDuplicateExercises(): Promise<{
   normalized_name: string;
