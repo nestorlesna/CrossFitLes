@@ -12,6 +12,8 @@ import { v009_exercise_images } from './v009_exercise_images';
 import { v010_fix_exercise_image_fk } from './v010_fix_exercise_image_fk';
 import { v011_timer_mode } from './v011_timer_mode';
 import { v012_free_timer_templates } from './v012_free_timer_templates';
+import { v013_session_result_class_section } from './v013_session_result_class_section';
+import { v014_movilidad_section_type } from './v014_movilidad_section_type';
 
 export const migrations: Migration[] = [
   v001_initial,
@@ -26,4 +28,6 @@ export const migrations: Migration[] = [
   v010_fix_exercise_image_fk,
   v011_timer_mode,
   v012_free_timer_templates,
+  v013_session_result_class_section,
+  v014_movilidad_section_type,
 ];

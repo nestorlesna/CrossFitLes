@@ -131,11 +131,13 @@ export async function createFromTemplate(templateId: string, date?: string): Pro
       const te = templateExercises.values[i];
       stmts.push({
         statement: `INSERT INTO session_exercise_result (
-            id, training_session_id, section_exercise_id, exercise_id, section_type_id, sort_order,
+            id, training_session_id, section_exercise_id, exercise_id,
+            class_section_id, section_type_id, sort_order,
             rx_or_scaled, is_completed, is_personal_record, created_at, updated_at
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         values: [
-          generateUUID(), sessionId, te.id, te.exercise_id, te.section_type_id, i + 1,
+          generateUUID(), sessionId, te.id, te.exercise_id,
+          te.class_section_id, te.section_type_id, i + 1,
           'rx', 1, 0, timestamp, timestamp
         ]
       });
@@ -360,6 +362,7 @@ export async function createAndFinalizeManual(
   results: Array<{
     exercise_id: string;
     section_exercise_id?: string;
+    class_section_id?: string;
     section_type_id?: string;
     sort_order: number;
     rx_or_scaled: 'rx' | 'scaled' | 'rx+';
@@ -409,17 +412,19 @@ export async function createAndFinalizeManual(
     resultIds.push(resultId);
     stmts.push({
       statement: `INSERT INTO session_exercise_result (
-        id, training_session_id, section_exercise_id, exercise_id, section_type_id, sort_order,
+        id, training_session_id, section_exercise_id, exercise_id,
+        class_section_id, section_type_id, sort_order,
         rx_or_scaled, result_text,
         actual_repetitions, actual_weight_value, actual_weight_unit_id,
         actual_time_seconds, actual_distance_value, actual_distance_unit_id,
         actual_calories, actual_rounds,
         notes, is_completed, is_personal_record, created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)`,
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)`,
       values: [
         resultId, sessionId,
         r.section_exercise_id ?? null,
         r.exercise_id,
+        r.class_section_id ?? null,
         r.section_type_id ?? null,
         r.sort_order,
         r.rx_or_scaled,

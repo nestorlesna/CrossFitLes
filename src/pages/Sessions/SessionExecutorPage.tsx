@@ -26,6 +26,7 @@ import { getById as getTemplateById } from '../../db/repositories/classTemplateR
 import { SessionWithRelations, SessionExerciseResult } from '../../models/TrainingSession';
 import { ClassTemplateWithSections, SectionExercise } from '../../models/ClassTemplate';
 import { RxScaled, GeneralFeeling } from '../../types';
+import { getSectionResults } from '../../utils/sessionSections';
 import { getImageDisplayUrl } from '../../services/mediaService';
 
 function ExerciseImage({
@@ -223,9 +224,9 @@ export function SessionExecutorPage() {
   if (!session) return null;
 
   const currentSection = template?.sections[activeSectionIdx];
-  const sectionResults = results.filter(r => 
-    currentSection ? r.section_type_id === currentSection.section_type_id : true
-  );
+  const sectionResults = currentSection
+    ? getSectionResults(results, currentSection)
+    : results;
 
   return (
     <>

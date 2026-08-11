@@ -6,27 +6,6 @@ Análisis generado a partir del backup `BKP/crossfit-backup-20260810-205051.zip`
 
 Para fusionar dos ejercicios: **Configuración → Gestión de datos → Migrar / fusionar ejercicios**. Reasigna automáticamente las clases, sesiones y récords del ejercicio origen al destino, y elimina el origen.
 
-## 1. Duplicado exacto (mismo nombre normalizado)
-
-| Ejercicio | Clases donde aparece |
-|---|---|
-| Hanging Toes to Bar | GOAT 02/04/2026, GOAT 13/04/2026, GOAT 15/07/2026, GOAT 20/07/2026, WOD 03 Mar 2026, WOD 11 Mar 2026, WOD 18 Mar 2026 — C&J Ladder, WOD 19 Feb 2026 — Legs & Lungs, WOD 20 Mar 2026 — Luke, WOD 24 Feb 2026 — Cold Fusion |
-| Hanging Toes-to-Bar | GOAT 25/05/2026 |
-| | |
-
-## 2. Candidatos con alta probabilidad de ser el mismo ejercicio
-
-Selección manual sobre el listado de similitud (sección 3), filtrando las variantes de técnica que son ejercicios legítimamente distintos.
-
-| Ejercicio A | Ejercicio B | Motivo |
-|---|---|---|
-| Bodyweight Push Up | Push-up | Mismo ejercicio, nombre genérico vs. con calificador |
-| Hollow Rock | Hollow Body Rock | Mismo movimiento, nombre abreviado vs. completo |
-| Scapular Push-Up | Scapular Push-ups dinámicos | Mismo ejercicio; el segundo nombre está en español |
-| Side Plank | Side Plank con carga | Variante con peso del mismo ejercicio; nombre en español |
-
-**Nota de idioma:** "Side Plank con carga" y "Scapular Push-ups dinámicos" son las únicas dos entradas con texto en español — el resto de los nombres de ejercicio está en inglés. Conviene unificar el idioma al fusionar o renombrar.
-
 ## 3. Candidatos a revisar manualmente (familias de variantes con nombre parecido)
 
 Estos grupos comparten prefijo/palabras pero suelen ser variantes técnicas distintas (distinta altura de "hang", con/sin barra, etc.). Fusionarlos o no depende del criterio del catálogo:

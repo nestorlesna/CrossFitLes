@@ -26,6 +26,7 @@ interface MeasurementUnit {
 interface ResultDraft {
   exercise_id: string;
   section_exercise_id?: string;
+  class_section_id?: string;
   section_type_id?: string;
   sort_order: number;
   exercise_name: string;
@@ -311,7 +312,7 @@ export function ManualSessionPage() {
           let order = 1;
           for (const section of tpl.sections) {
             for (const se of (section.exercises ?? [])) {
-              drafts.push(makeDraft(se, section.section_type_id, order++));
+              drafts.push(makeDraft(se, section.id, section.section_type_id, order++));
             }
           }
           setResults(drafts);
@@ -321,10 +322,16 @@ export function ManualSessionPage() {
       .finally(() => setLoadingTemplate(false));
   }, [selectedTemplateId]);
 
-  function makeDraft(se: SectionExercise, sectionTypeId: string | undefined, order: number): ResultDraft {
+  function makeDraft(
+    se: SectionExercise,
+    classSectionId: string | undefined,
+    sectionTypeId: string | undefined,
+    order: number
+  ): ResultDraft {
     return {
       exercise_id: se.exercise_id,
       section_exercise_id: se.id,
+      class_section_id: classSectionId,
       section_type_id: sectionTypeId,
       sort_order: order,
       exercise_name: (se as any).exercise_name ?? '',
@@ -351,6 +358,7 @@ export function ManualSessionPage() {
       const payload = results.map(r => ({
         exercise_id: r.exercise_id,
         section_exercise_id: r.section_exercise_id,
+        class_section_id: r.class_section_id,
         section_type_id: r.section_type_id,
         sort_order: r.sort_order,
         rx_or_scaled: r.rx_or_scaled,

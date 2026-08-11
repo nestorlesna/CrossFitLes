@@ -374,6 +374,15 @@ export async function getHistory(exerciseId: string): Promise<unknown[]> {
      LEFT JOIN measurement_unit mu_w ON ser.actual_weight_unit_id = mu_w.id
      LEFT JOIN measurement_unit mu_d ON ser.actual_distance_unit_id = mu_d.id
      WHERE ser.exercise_id = ? AND ts.status = 'completed'
+       AND (
+         ser.actual_repetitions IS NOT NULL OR
+         ser.actual_weight_value IS NOT NULL OR
+         ser.actual_time_seconds IS NOT NULL OR
+         ser.actual_distance_value IS NOT NULL OR
+         ser.actual_calories IS NOT NULL OR
+         ser.actual_rounds IS NOT NULL OR
+         TRIM(COALESCE(ser.result_text, '')) <> ''
+       )
      ORDER BY ts.session_date DESC
      LIMIT 50`,
     [exerciseId]
