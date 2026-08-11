@@ -7,6 +7,8 @@ export interface SessionExerciseResult {
   training_session_id: string;
   section_exercise_id?: string;
   exercise_id: string;
+  /** Sección concreta de la plantilla; distingue dos secciones del mismo tipo */
+  class_section_id?: string;
   section_type_id?: string;
   sort_order: number;
   actual_repetitions?: number;

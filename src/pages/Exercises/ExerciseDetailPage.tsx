@@ -12,15 +12,40 @@ import { getImageDisplayUrl } from '../../services/mediaService';
 import { formatDate } from '../../utils/formatters';
 import { MuscleMap } from '../../components/exercises/MuscleMap';
 
-// Tipo mínimo para una entrada del historial
+// Tipo mínimo para una entrada del historial (nombres reales de session_exercise_result)
 interface HistoryEntry {
   session_date: string;
-  actual_reps?: number;
-  actual_weight?: number;
-  actual_time?: number;
-  actual_distance?: number;
-  weight_unit?: string;
-  distance_unit?: string;
+  actual_repetitions?: number | null;
+  actual_weight_value?: number | null;
+  actual_time_seconds?: number | null;
+  actual_distance_value?: number | null;
+  actual_calories?: number | null;
+  actual_rounds?: number | null;
+  result_text?: string | null;
+  weight_unit?: string | null;
+  distance_unit?: string | null;
+}
+
+// Indica si una entrada del historial tiene algún dato cargado
+function hasHistoryData(entry: HistoryEntry): boolean {
+  return Boolean(
+    entry.actual_repetitions ||
+    entry.actual_weight_value ||
+    entry.actual_time_seconds ||
+    entry.actual_distance_value ||
+    entry.actual_calories ||
+    entry.actual_rounds ||
+    entry.result_text?.trim()
+  );
+}
+
+// Formatea segundos como mm:ss (o hh:mm:ss si supera la hora)
+function formatSeconds(totalSeconds: number): string {
+  const h = Math.floor(totalSeconds / 3600);
+  const m = Math.floor((totalSeconds % 3600) / 60);
+  const s = totalSeconds % 60;
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
 }
 
 // Función helper para obtener el ID de YouTube (incluye Shorts)
@@ -118,9 +143,9 @@ export function ExerciseDetailPage() {
       const url = await getImageDisplayUrl(data.image_url || data.image_path);
       setImageUrl(url);
 
-      // Cargar historial (últimas 10 entradas)
+      // Cargar historial: sólo entradas con datos cargados (últimas 10)
       const hist = (await getHistory(id)) as HistoryEntry[];
-      setHistory(hist.slice(0, 10));
+      setHistory(hist.filter(hasHistoryData).slice(0, 10));
 
       // Cargar clases que usan este ejercicio
       const classes = await getClassesUsingExercise(id);
@@ -168,15 +193,18 @@ export function ExerciseDetailPage() {
   // Formatear el resumen de una entrada del historial
   function formatHistoryEntry(entry: HistoryEntry): string {
     const parts: string[] = [];
-    if (entry.actual_reps) parts.push(`${entry.actual_reps} reps`);
-    if (entry.actual_weight) {
-      parts.push(`${entry.actual_weight} ${entry.weight_unit ?? 'kg'}`);
+    if (entry.actual_rounds) parts.push(`${entry.actual_rounds} rondas`);
+    if (entry.actual_repetitions) parts.push(`${entry.actual_repetitions} reps`);
+    if (entry.actual_weight_value) {
+      parts.push(`${entry.actual_weight_value} ${entry.weight_unit ?? 'kg'}`);
     }
-    if (entry.actual_time) parts.push(`${entry.actual_time}s`);
-    if (entry.actual_distance) {
-      parts.push(`${entry.actual_distance} ${entry.distance_unit ?? 'm'}`);
+    if (entry.actual_time_seconds) parts.push(formatSeconds(entry.actual_time_seconds));
+    if (entry.actual_distance_value) {
+      parts.push(`${entry.actual_distance_value} ${entry.distance_unit ?? 'm'}`);
     }
-    return parts.length > 0 ? parts.join(' · ') : 'Sin datos registrados';
+    if (entry.actual_calories) parts.push(`${entry.actual_calories} cal`);
+    if (parts.length === 0 && entry.result_text?.trim()) return entry.result_text.trim();
+    return parts.join(' · ');
   }
 
   // ── Render ─────────────────────────────────────────────────────────────────
@@ -454,7 +482,9 @@ export function ExerciseDetailPage() {
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
             <h2 className="text-white font-semibold text-base mb-3">Historial reciente</h2>
             {history.length === 0 ? (
-              <p className="text-gray-500 text-sm text-center py-4">Sin historial de uso</p>
+              <p className="text-gray-500 text-sm text-center py-4">
+                Todavía no registraste resultados para este ejercicio
+              </p>
             ) : (
               <div className="flex flex-col divide-y divide-gray-800">
                 {history.map((entry, idx) => (

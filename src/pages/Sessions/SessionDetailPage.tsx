@@ -26,6 +26,7 @@ import { getById as getTemplateById } from '../../db/repositories/classTemplateR
 import { SessionWithRelations } from '../../models/TrainingSession';
 import { ClassTemplateWithSections } from '../../models/ClassTemplate';
 import { formatDate } from '../../utils/formatters';
+import { getSectionResults } from '../../utils/sessionSections';
 import { getImageDisplayUrl } from '../../services/mediaService';
 
 // Helper para obtener el ID de YouTube (incluye Shorts)
@@ -415,7 +416,7 @@ export function SessionDetailPage() {
 
           {/* Sesión con plantilla: agrupar por sección */}
           {template?.sections.map((section) => {
-            const sectionResults = session.results.filter(r => r.section_type_id === section.section_type_id);
+            const sectionResults = getSectionResults(session.results, section);
             if (sectionResults.length === 0) return null;
 
             return (
