@@ -115,7 +115,8 @@
       "Bash(unzip -l \"BKP/crossfit-backup-20260810-205051.zip\")",
       "Bash(mkdir -p /tmp_extract_bkp)",
       "Bash(unzip -p \"BKP/crossfit-backup-20260810-205051.zip\" data.json)",
-      "Bash(python3 -c ' *)"
+      "Bash(python3 -c ' *)",
+      "Bash(cd *)"
     ]
   }
 }
