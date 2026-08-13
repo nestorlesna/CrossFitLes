@@ -14,7 +14,6 @@
 
 
 
-
 ### TEMPLATE
 Clase GOAT XX/XX/2026
 
@@ -28,6 +27,35 @@ Fuerza
 WOD
 Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ### TEMPLATE
+
+EMPLATE
+Clase GOAT 13/08/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - De frente apoyado en la pared, bajo cabeza
+ - en cunclillas, roto y subo el brazo
+ - good morningn 10kg
+
+Activacion mayor cantidad de vueltas en 6 minutos
+ - bird con 2.4 kg
+ - remo con banda
+ - parado en un pie, kettelbell 12.5 kg, toco el suelo
+ - boca arriba, con pesa 12.5, pierna de 90 a el suelo, bicho muerto
+
+Fuerza 5 series de 2.5 mintuos
+ - 6 peso muerto, de 3, 2, 1 con descanso de 8 segundo 90kg
+ - seguido, boca abajo, banda en el rack, talon a la cola
+
+WOD 3 vueltas en maximo 12 minutos
+ - 12 pies a la barra
+ - 6 paro de mano subo el cuerpo
+ - 12 front squart 40kg
+ 
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
 
 
 

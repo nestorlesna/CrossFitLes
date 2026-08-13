@@ -222,6 +222,10 @@ const EXERCISE_MUSCLES: Record<string, { primary: string[], secondary?: string[]
   'Superband Shoulder Dislocates': {
     primary: ['Deltoides anterior', 'Pectoral mayor', 'Trapecio (superior)'],
     secondary: ['Deltoides posterior', 'Romboides']
+  },
+  'Dead Bug Hold with Dumbbell': {
+    primary: ['Recto abdominal'],
+    secondary: ['Oblicuo interno', 'Oblicuo externo', 'Deltoides anterior', 'Recto femoral']
   }
 };
 
