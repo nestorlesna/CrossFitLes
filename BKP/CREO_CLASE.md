@@ -16,7 +16,14 @@ El objetivo es producir:
 2. **Un ZIP `clase-<nombre>-<fecha>.zip`** con un `class-share.json` adentro — el mismo formato
    que genera el botón "Exportar Clase(s)" de la app (`src/services/classShareService.ts`) —
    listo para importarse desde **Configuración → Importar** sin perder datos existentes
-3. Guardar el ZIP en `BKP/` (mismo lugar que los ZIP ya generados a mano, ej. `clase-GOAT-30-07-2026.zip`)
+3. Guardar el ZIP en `BKP/` (mismo naming que los ZIP generados antes, ej. `clase-GOAT-13-08-2026.zip`)
+
+> 💪 **Músculos obligatorios:** *todos* los ejercicios de la clase — nuevos **y reutilizados** —
+> tienen que salir del ZIP con su músculo primario y sus secundarios cargados (§6 PASO 6 y §5.1).
+> El importador reemplaza las relaciones musculares del ejercicio cuando el ZIP las trae, así que
+> este es el mecanismo vigente para completar/corregir músculos: **ya no se usa
+> `ACTUALIZO_MUSCULOS.md` como paso aparte para clases nuevas**. Sin músculos, el mapa muscular de
+> la ficha del ejercicio y el gráfico de Estadísticas quedan vacíos.
 
 > ⚠️ **NO se escribe código TypeScript por clase.** No existe (ni hace falta crear) un servicio
 > `classDDMMYYYYImportService.ts` ni un botón en Configuración por cada clase nueva. Eso quedó
@@ -48,44 +55,79 @@ El objetivo es producir:
 ## 2. ARQUITECTURA DEL SISTEMA (resumen)
 
 - **App**: React + TypeScript + Vite
-- **Base de datos**: SQLite (via `@capacitor-community/sqlite`)
+- **Base de datos**: SQLite (via `@capacitor-community/sqlite`) — **schema v014** (última migración:
+  `v014_movilidad_section_type`)
 - **Formato de importación de una clase nueva**: ZIP con un `class-share.json` adentro (formato
   "compartir clase", ver `src/services/classShareService.ts`) — **NO** es el mismo formato que el
   backup completo (`data.json` de `backupService.ts`)
-- **Importación**: Menú Configuración → Importar → seleccionar el ZIP. `importFromZip()` detecta
-  que es una clase (`class-share.json`) y llama a `importClassFromZip()`: hace **merge aditivo**
-  (reutiliza catálogos/ejercicios existentes por nombre, crea la clase como nueva) — **NO** borra
-  nada de lo que el usuario ya tiene cargado. Muy distinto del backup completo, que si reemplaza
-  todos los datos.
+- **Importación**: Menú Configuración → **Gestión de datos → Importar** → seleccionar el ZIP.
+  `importFromZip()` detecta que es una clase (`class-share.json`) y llama a `importClassFromZip()`:
+  hace **merge aditivo** (reutiliza catálogos/ejercicios existentes por nombre, crea la clase como
+  nueva) — **NO** borra nada de lo que el usuario ya tiene cargado. Muy distinto del backup completo,
+  que sí reemplaza todos los datos.
 - **Repositorios**: `src/db/repositories/` (solo referencia, no hace falta modificarlos para crear una clase)
+
+**Qué hace exactamente el importador con cada tabla** (`importClassFromZip`, líneas 360-600 de
+`classShareService.ts`) — esto define qué conviene mandar en el JSON:
+
+| Entidad | Si ya existe (match por nombre) | Si no existe |
+|---------|--------------------------------|--------------|
+| Catálogos (7 tablas) | Reutiliza el id local. En `work_format` sólo **agrega** `is_interval`/`default_interval_seconds` si el local no los tenía; nunca los quita | Lo crea con todos los campos del JSON |
+| `exercise` | **Actualiza campo por campo, sólo los que vengan en el JSON** (`description`, `technical_notes`, `difficulty_level_id`, `primary_muscle_group_id`, `image_url`, `image_path`, `video_path`, `video_long_path`, `is_compound`). Un campo ausente no se toca | Lo crea |
+| Relaciones del ejercicio (músculos, equipamiento, tags, section_type, unidades) | Si el ZIP trae filas de esa relación: **DELETE + INSERT** (reemplazo total de esa relación). Si no trae ninguna: la deja intacta | Inserta las que traiga |
+| `class_template` | Reutiliza la clase con el mismo nombre exacto (¡y le cuelga las secciones nuevas!) | La crea con `template_type = 'my_classes'` fijo (el campo del JSON se ignora) |
+| `class_section` / `section_exercise` | Siempre se insertan como filas nuevas | Idem |
+| Sesiones, resultados, récords | **Nunca se tocan** | — |
+
+> ⚠️ **Consecuencia práctica:** el nombre de la clase tiene que ser único. Si ya existe una clase con
+> ese nombre exacto, el importador NO crea otra: le agrega las secciones al final de la existente y
+> quedan duplicadas. Antes de importar dos veces, borrar la clase anterior desde `/clases`.
 
 ---
 
 ## 3. FORMATO DEL ARCHIVO Ejercicios.md
 
-Cada clase sigue esta estructura:
+La plantilla vigente está al principio de `BKP/Ejercicios.md` (bloque `### TEMPLATE`). Las clases
+nuevas se escriben así:
 
 ```
 Clase GOAT DD/MM/YYYY
 
 Calentamiento
-- descripcion
+- 6 minutos de calentamiento
 
-Movilidad - [instrucciones de rondas/tiempo]
-- Nombre del ejercicio - [parámetros] - URL_video (opcional)
+Movilidad - 2 rondas todo 30 segundos
+ - Nombre o descripción del movimiento
 
-Activacion - [instrucciones]
-- Nombre del ejercicio - [parámetros] - URL_video
+Activacion [instrucciones de rondas/tiempo]
+ - [reps o tiempo] Nombre del ejercicio video corto URL, video explicativo URL
 
-Fuerza
-- [rondas/sets/reps]
-  - Nombre del ejercicio - [peso] - URL_video
+Fuerza [N series/rondas cada X minutos]
+ - [reps] Nombre del ejercicio [peso] video corto URL, video explicativo URL
 
 WOD [formato y tiempo]
-- [reps] repeticiones - Nombre del ejercicio - [peso] - URL_video
+ - [reps | metros | calorías] Nombre del ejercicio [peso]
 
-Estiramiento
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ```
+
+**Particularidades del MD real** (mirar clases recientes: 15/08, 13/08, 10/08):
+
+- La cantidad va **antes** del nombre (`12 Calf Raises`, `600 m running`, `20 Wall Ball Shot`), no
+  después. También aparece como tiempo (`60 seg Assault Bike`) o distancia (`12 metros Burpee Broad Jump`).
+- **Dos videos por ejercicio**: `video corto <URL>` → `video_path` (el popup de la ficha) y
+  `video explicativo <URL>` → `video_long_path` (el tutorial largo). Si sólo hay una URL, va a
+  `video_path`. Los videos suelen citarse una sola vez, en la primera aparición del ejercicio.
+- En Movilidad y Estiramiento muchas veces no hay nombre de ejercicio sino una **descripción en
+  español** ("en cuclillas, roto y subo el brazo"). Hay que traducirla a un nombre de ejercicio en
+  inglés — reutilizando uno existente si el movimiento ya está (§4a) — y dejar la frase original del
+  MD en `coach_notes` de ese `section_exercise`.
+- Las rondas de un circuito a veces vienen **desenrolladas** (la lista repite los mismos ejercicios
+  4 veces). En ese caso cargar el circuito **una sola vez** y poner `total_rounds` en la sección.
+- El encabezado de la sección trae el formato y el tiempo (`Fuerza 5 rondas cada 3 minutos`,
+  `WOD 25 minutos maximo`, `Activacion mayor cantidad de vueltas en 6 minutos`) → de ahí salen
+  `work_format`, `total_rounds`, `time_cap_seconds` e `interval_seconds` (PASO 3).
+- El MD tiene erratas y falta de tildes ("Activacion", "mintuos"). Se interpreta, no se copia literal.
 
 ---
 
@@ -95,152 +137,135 @@ Estiramiento
 
 Leer la clase del archivo `BKP/Ejercicios.md` e identificar:
 - Fecha de la clase (formato DD/MM/YYYY → convertir a YYYY-MM-DD para la BD)
-- Nombre: "Clase GOAT DD/MM/YYYY"
+- Nombre: **"GOAT DD/MM/YYYY"** — es el naming que usan las clases desde 2026-05 (las viejas
+  "Clase GOAT DD/MM/YYYY" quedaron así por historia). Tiene que ser único (§2).
 - Secciones y sus ejercicios
-- Para cada ejercicio: nombre, repeticiones/tiempo/distancia, peso, URL de video
+- Para cada ejercicio: nombre, repeticiones/tiempo/distancia/calorías, peso, video corto y explicativo
 
 ### PASO 2 – Mapear secciones a `section_type`
 
-| Término en Ejercicios.md | `section_type.name` en BD | Icono |
-|--------------------------|---------------------------|-------|
-| Calentamiento            | Entrada en calor          | Flame |
-| Movilidad                | Entrada en calor          | Flame |
-| Activacion / Activación  | Activación                | Zap   |
-| Fuerza                   | Fuerza                    | Dumbbell |
-| WOD                      | WOD                       | Timer |
-| Estiramiento             | Vuelta a la calma         | Wind  |
+**Actualizado (migración v014):** "Movilidad" ya **no** se carga como "Entrada en calor". Tiene su
+propio tipo, creado desde Configuración → Tipos de sección. La v014 reasignó retroactivamente las
+secciones tituladas "Movilidad" que estaban colgando de "Entrada en calor".
 
-> Si Calentamiento y Movilidad aparecen separados, crear DOS secciones de tipo "Entrada en calor".
+| Término en Ejercicios.md          | `section_type.name` en BD | Icono    | Color   |
+|-----------------------------------|---------------------------|----------|---------|
+| Calentamiento                     | Entrada en calor          | Flame    | #22c55e |
+| Movilidad                         | **Movilidad**             | Activity | #14b8a6 |
+| Activacion / Activación           | Activación                | Zap      | #f59e0b |
+| Fuerza                            | Fuerza                    | Dumbbell | #ef4444 |
+| Técnica / progresión de un lift   | Habilidad                 | Star     | #8b5cf6 |
+| WOD / MetCon                      | WOD                       | Timer    | #f97316 |
+| Estiramiento / vuelta a la calma  | Vuelta a la calma         | Wind     | #06b6d4 |
+| Accesorio / trabajo complementario| Accesorio                 | Plus     | #64748b |
+
+> "Movilidad" **no** está en el seed de catálogos (`seedService.ts` / `seedService2.ts`): existe
+> porque el usuario la creó a mano. Igual hay que incluirla en `catalogs.section_type` del ZIP con
+> su color e icono: si el destino ya la tiene, se reutiliza por nombre; si no, el importador la crea.
+> Mismo criterio para cualquier tipo que no esté en el seed.
+
+> Si la clase trae Calentamiento **y** Movilidad, son dos secciones **de tipo distinto** — ya no dos
+> del mismo tipo. Eso es justamente lo que arreglaron v013/v014: dos secciones del mismo tipo en una
+> clase rompían la agrupación de resultados de sesión y el gráfico de distribución de Estadísticas.
+> Si por lo que sea hacen falta dos secciones del mismo tipo, distinguirlas siempre con
+> `visible_title` distinto (ej. "Fuerza A" / "Fuerza B").
 
 ### PASO 3 – Identificar formato de trabajo (`work_format`)
 
-| Descripción en MD                                   | `work_format.name`     |
-|-----------------------------------------------------|------------------------|
-| "X rondas de Y repeticiones por Z minutos" / EMOM  | EMOM                   |
-| "X rondas" sin tiempo fijo                          | Por rondas             |
-| "series cada N minutos"                             | E2MOM                  |
-| "máximo N minutos" / contra el reloj               | For Time               |
-| "AMRAP"                                             | AMRAP                  |
-| "series fijas" / rondas con descanso fijo          | Series fijas           |
-| "trabajo libre" / movilidad sin estructura          | Trabajo libre          |
-| Intervalos alternados (A/B)                         | Intervalos             |
+| Descripción en MD                                        | `work_format.name` | Campos a cargar                                |
+|----------------------------------------------------------|--------------------|------------------------------------------------|
+| "X rondas de Y repeticiones por 1 minuto" / EMOM         | EMOM               | `total_rounds`, `interval_seconds` si ≠ 60      |
+| "X rondas" sin tiempo fijo                                | Por rondas         | `total_rounds`                                 |
+| "N series/rondas **cada X minutos**"                      | E2MOM              | `total_rounds` + `interval_seconds = X × 60`   |
+| "máximo N minutos" / contra el reloj                     | For Time           | `time_cap_seconds`                             |
+| "**mayor cantidad de vueltas** en N minutos" / "AMRAP"    | AMRAP              | `time_cap_seconds` (sin `total_rounds`)        |
+| "series fijas" / rondas con descanso fijo                | Series fijas       | `total_rounds`, `rest_between_rounds_seconds`  |
+| "trabajo libre" / calentamiento sin estructura            | Trabajo libre      | `time_cap_seconds`                             |
+| Intervalos alternados (A/B)                               | Intervalos         | `total_rounds`, `interval_seconds`             |
+| "N segundos de trabajo / N de descanso"                   | Tabata             | `total_rounds`, `interval_seconds` si ≠ 30     |
+| Reps que suben o bajan cada ronda (21-15-9, escalera)     | Escalera           | `time_cap_seconds`; reps por ronda en `coach_notes` |
+
+> **Ojo con E2MOM:** el nombre dice "cada 2 minutos" pero en la práctica se usa para *cualquier*
+> ventana distinta de 60 s. "5 rondas cada 3 minutos" → `E2MOM` + `interval_seconds: 180`. La
+> ventana explícita de la sección siempre le gana al `default_interval_seconds` del formato.
 
 > **Formatos de ventana fija (`is_interval = 1`):** EMOM (60s), E2MOM (120s), Tabata (30s),
 > Intervalos (60s). En estos formatos el cronómetro le da a cada ejercicio una ventana completa:
 > lo que sobra del trabajo se convierte automáticamente en descanso. Si el MD indica otra ventana
 > ("cada 1.5 minutos"), cargar `class_section.interval_seconds` con ese valor (90). Ver sección 7.
 
-### PASO 4 – Verificar ejercicios existentes
+### PASO 4 – Verificar qué ejercicios ya existen
 
-Comparar cada ejercicio del MD con los SVGs existentes en `public/img/exercises/`.
-Usar la siguiente lista de **ejercicios ya presentes** (con su SVG y nombre en la BD si existe):
+Antes de inventar un ejercicio nuevo hay que agotar la búsqueda del que ya está. Hoy hay
+**275 SVG** en `public/img/exercises/` y más de 250 ejercicios usados en clases, así que lo normal
+es que el movimiento ya exista con otro nombre.
 
-#### 4a. Lista de SVGs disponibles (102 ejercicios)
+**Orden de búsqueda:**
 
-| Nombre sugerido en BD                   | Archivo SVG                                      |
-|-----------------------------------------|--------------------------------------------------|
-| Air Squat                               | air-squat.svg                                    |
-| Alternating Single-Arm DB Power Snatch  | alternating-single-arm-dumbbell-power-snatch.svg |
-| Assault Bike                            | assault-bike.svg                                 |
-| Back Squat                              | back-squat.svg                                   |
-| Bar Muscle-Up                           | bar-muscle-up.svg                                |
-| Barbell Bench Press                     | barbell-bench-press.svg                          |
-| Barbell Bent-Over Row                   | barbell-bent-over-row.svg                        |
-| Barbell Clean & Jerk                    | barbell-clean-and-jerk.svg                       |
-| Barbell Deadlift                        | barbell-deadlift.svg                             |
-| Barbell Front Squat                     | barbell-front-squat.svg                          |
-| Barbell Hang Clean & Jerk               | barbell-hang-clean-and-jerk.svg                  |
-| Barbell Hang Clean                      | barbell-hang-clean.svg                           |
-| Barbell Hang Muscle Clean & Press       | barbell-hang-muscle-clean-and-press.svg          |
-| Barbell Hang Power Clean                | barbell-hang-power-clean.svg                     |
-| Barbell Hang Power Cluster              | barbell-hang-power-cluster.svg                   |
-| Barbell Hang Power Snatch               | barbell-hang-power-snatch.svg                    |
-| Barbell Lunge                           | barbell-lunge.svg                                |
-| Barbell Muscle Snatch                   | barbell-muscle-snatch.svg                        |
-| Barbell Overhead Squat                  | barbell-overhead-squat.svg                       |
-| Barbell Power Snatch                    | barbell-power-snatch.svg                         |
-| Barbell Push Jerk                       | barbell-push-jerk.svg                            |
-| Barbell Push Press                      | barbell-push-press.svg                           |
-| Barbell Romanian Deadlift               | barbell-romanian-deadlift.svg                    |
-| Barbell Squat Clean                     | barbell-squat-clean.svg                          |
-| Barbell Strict Press                    | barbell-strict-press.svg                         |
-| Barbell Sumo Deadlift High Pull         | barbell-sumo-deadlift-high-pull.svg              |
-| Barbell Upright Row                     | barbell-upright-row.svg                          |
-| Bent-Over Dumbbell Lateral Raise        | bent-over-dumbbell-lateral-raise.svg             |
-| Bodyweight Glute Bridge                 | bodyweight-glute-bridge.svg                      |
-| Handstand Push-Up                       | bodyweight-handstand-push-up.svg                 |
-| Pistol Squat                            | bodyweight-pistol-squat.svg                      |
-| Push-Up                                 | bodyweight-push-up.svg                           |
-| Sit-Up                                  | bodyweight-sit-up.svg                            |
-| Box Jump Over                           | box-jump-over.svg                                |
-| Box Jump                                | box-jump.svg                                     |
-| Burpee Over the Bar                     | burpee-over-the-bar.svg                          |
-| Burpee                                  | burpee.svg                                       |
-| Chest-to-Bar Pull-Up                    | chest-to-bar-pull-up.svg                         |
-| Clean & Jerk                            | clean-and-jerk.svg                               |
-| Cossack Squat                           | cossack-squat.svg                                |
-| Counterbalance Squat                    | counterbalance-squat.svg                         |
-| Deadlift                                | deadlift.svg                                     |
-| Dips                                    | dips.svg                                         |
-| Double Dumbbell Overhead Walking Lunge  | double-dumbbell-overhead-walking-lunge.svg       |
-| Double-Under                            | double-under.svg                                 |
-| Dumbbell Alternating Bent-Over Row      | dumbbell-alternating-bent-over-row.svg           |
-| Dumbbell Bench Press                    | dumbbell-bench-press.svg                         |
-| Dumbbell Bicep Curl                     | dumbbell-bicep-curl.svg                          |
-| Dumbbell Devil's Press                  | dumbbell-devils-press.svg                        |
-| Dumbbell Front Rack Lunge               | dumbbell-front-rack-lunge.svg                    |
-| Dumbbell Front Raise                    | dumbbell-front-raise.svg                         |
-| Dumbbell One-Arm Overhead Lunge         | dumbbell-one-arm-overhead-lunge.svg              |
-| Dumbbell Split Clean                    | dumbbell-split-clean.svg                         |
-| Dumbbell Thruster                       | dumbbell-thruster.svg                            |
-| Farmer's Carry                          | farmers-carry.svg                                |
-| Front Squat                             | front-squat.svg                                  |
-| GHD Back Extension                      | ghd-back-extension.svg                           |
-| GHD Sit-Up                              | ghd-sit-up.svg                                   |
-| Hanging Knees-to-Elbows                 | hanging-knees-to-elbows.svg                      |
-| Hanging Toes-to-Bar                     | hanging-toes-to-bar.svg                          |
-| Hollow Hold                             | hollow-hold.svg                                  |
-| Hollow Rock                             | hollow-rock.svg                                  |
-| Hollow to Superman Roll                 | hollow-to-superman-roll.svg                      |
-| Kettlebell Ankle Mobility Drill         | kettlebell-ankle-mobility-drill.svg              |
-| Kettlebell Clean & Jerk                 | kettlebell-clean-and-jerk.svg                    |
-| Kettlebell Front Squat                  | kettlebell-front-squat.svg                       |
-| Kettlebell Ground-to-Overhead           | kettlebell-ground-to-overhead.svg                |
-| Kettlebell Push-Up                      | kettlebell-push-up.svg                           |
-| Kettlebell Snatch                       | kettlebell-snatch.svg                            |
-| Kettlebell Sumo Deadlift High Pull      | kettlebell-sumo-deadlift-high-pull.svg           |
-| Kettlebell Swing                        | kettlebell-swing.svg                             |
-| Med-Ball Box Step-Over                  | med-ball-box-step-over.svg                       |
-| Nordic Hamstring Curl                   | nordic-hamstring-curl.svg                        |
-| Overhead Squat                          | overhead-squat.svg                               |
-| Plank to Opposite Toe Touch             | plank-to-opposite-toe-touch.svg                  |
-| Power Clean                             | power-clean.svg                                  |
-| Pull-Up                                 | pullup.svg                                       |
-| Push Press                              | push-press.svg                                   |
-| Push-Up                                 | pushup.svg                                       |
-| Ring Dip                                | ring-dip.svg                                     |
-| Ring Handstand Push-Up                  | ring-handstand-push-up.svg                       |
-| Ring Row                                | ring-row.svg                                     |
-| Ring Strict Muscle-Up                   | ring-strict-muscle-up.svg                        |
-| Rope Climb                              | rope-climb.svg                                   |
-| Rowing                                  | rowing.svg                                       |
-| Running                                 | running.svg                                      |
-| Russian Twist                           | russian-twist.svg                                |
-| Shoulder Press                          | shoulder-press.svg                               |
-| Shuttle Run                             | shuttle-run.svg                                  |
-| Side Plank with Weight                  | side-plank-weighted.svg                          |
-| Single-Leg Dumbbell Romanian Deadlift   | single-leg-dumbbell-romanian-deadlift.svg        |
-| Snatch                                  | snatch.svg                                       |
-| Squat                                   | squat.svg                                        |
-| Stability Ball Plate Crunch             | stability-ball-plate-crunch.svg                  |
-| Superband Shoulder Dislocates           | superband-shoulder-dislocates.svg                |
-| Thruster                                | thruster.svg                                     |
-| Toe Touch Sit-Up                        | toe-touch-sit-up.svg                             |
-| Toes-to-Bar                             | toes-to-bar.svg                                  |
-| Walking Lunge                           | walking-lunge.svg                                |
-| Wall Ball Shot                          | wall-ball-shot.svg                               |
-| Wall Walk                               | wall-walk.svg                                    |
-| Weighted Box Step-Up                    | weighted-box-step-up.svg                         |
+1. `ls public/img/exercises/` — es la **fuente de la verdad** del inventario de SVG (la lista de §4a
+   es una foto al 2026-08-15 y envejece con cada clase).
+2. `src/services/imageUpdateService.ts` — array `EXERCISE_IMAGES` con pares
+   `nombre exacto en BD → /img/exercises/x.svg`. Sirve para saber **con qué nombre está cargado en
+   la BD** un SVG determinado.
+3. `PosiblesEjerciciosRepetidos.md` (raíz del repo) — lista de nombres duplicados/parecidos que ya
+   se usaron en clases, con las clases donde aparece cada uno. Es el mejor índice de nombres reales.
+4. `src/services/videoUpdateService.ts` y los `seedService*.ts` — más nombres reales de la BD.
+
+#### 4a. Convención de nombres (importante)
+
+El importador matchea por `UPPER(TRIM(name))`: **un nombre distinto = un ejercicio nuevo**. Para no
+seguir generando duplicados:
+
+- Nombre en **inglés, Title Case**, prefijado por el implemento cuando corresponde:
+  `Barbell …`, `Dumbbell …`, `Kettlebell …`, `Bodyweight …`, `Ring …`, `Band …`, `Sandbag …`.
+- **`and`, no `&`**: en la BD está `Barbell Clean and Jerk`, `Kettlebell Good Morning to Squat`.
+- Guiones como los usa CrossFit: `Push-Up`, `Pull-Up`, `Sit-Up`, `Toes-to-Bar`, `Knees-to-Elbows`,
+  `Muscle-Up`, `Step-Up`, `Step-Over`, `Chest-to-Bar`.
+- Archivo SVG = kebab-case del nombre: `Barbell Snatch Grip Deadlift` → `barbell-snatch-grip-deadlift.svg`.
+- **Antes de crear un nombre nuevo**, buscar la variante sin prefijo y con prefijo (`Snatch High Pull`
+  vs `Barbell Snatch High Pull`): las dos existen como SVG y ese es exactamente el tipo de duplicado
+  que hubo que fusionar después.
+- Si igual quedan dos ejercicios que son el mismo movimiento, se arreglan desde
+  **Configuración → Gestión de datos → Migrar / fusionar ejercicios**, que reasigna clases, sesiones
+  y récords al ejercicio destino y borra el origen.
+
+#### 4b. SVG existentes al 2026-08-15 (275 archivos, sin la extensión `.svg`)
+
+- **A** — ab-wheel-kneeling-rollout, ab-wheel-standing-rollout, air-squat, alternating-90-90-into-shin-box, alternating-double-clubbell-front-flag-press, alternating-heel-touches, alternating-kettlebell-row, alternating-single-arm-dumbbell-power-snatch, alternating-spiderman-stretch, american-kettlebell-swing, ankle-mobility-rock, arm-circles, assault-bike
+- **B** — back-squat, banded-ankle-dorsiflexion-stretch, banded-prone-leg-curl, banded-triceps-extensions, band-external-rotation, band-pass-through, band-pull-apart, band-row, band-triceps-pushdown, barbell-bench-press, barbell-bent-over-row, barbell-bicep-curl, barbell-clean-and-jerk, barbell-deadlift, barbell-front-rack-reverse-lunge, barbell-front-squat, barbell-good-morning, barbell-hang-clean, barbell-hang-clean-and-jerk, barbell-hang-muscle-clean-and-press, barbell-hang-muscle-clean-press, barbell-hang-power-clean, barbell-hang-power-cluster, barbell-hang-power-snatch, barbell-high-hang-power-clean, barbell-low-hang-power-clean, barbell-lunge, barbell-muscle-snatch, barbell-overhead-squat, barbell-power-snatch, barbell-push-jerk, barbell-push-press, barbell-romanian-deadlift, barbell-shrug, barbell-snatch-grip-deadlift, barbell-snatch-high-pull, barbell-snatch-pause-at-knee, barbell-squat-clean, barbell-strict-press, barbell-sumo-deadlift-high-pull, barbell-thruster, barbell-upright-row, bar-kip-swing, bar-muscle-up, bear-crawl-hold, bent-over-dumbbell-lateral-raise, bicycle-crunch, bird-dog-crunch, bird-dog-hold, bodyweight-glute-bridge, bodyweight-handstand-push-up, bodyweight-hollow-body-hold, bodyweight-pistol-squat, bodyweight-push-up, bodyweight-sit-up, box-jump, box-jump-over, box-step-up, breathing-4-6, bulgarian-split-squat, burpee, burpee-broad-jump, burpee-over-the-bar, burpee-to-bar
+- **C** — calf-raise-hold, cat-cow, chest-to-bar-pull-up, childs-pose, clamshell-hold, clean-and-jerk, cobra-pose, cool-down-stretch, core-overhead-hold-side-bend, cossack-squat, couch-stretch, counterbalance-squat, cross-body-mountain-climbers, cuban-press
+- **D** — dead-bug, dead-bug-hold-dumbbell, deadlift, dips, doorway-chest-stretch, double-dumbbell-overhead-walking-lunge, double-under, dual-dumbbell-snatch-with-burpee, dumbbell-alternating-bent-over-row, dumbbell-bench-press, dumbbell-bicep-curl, dumbbell-burpee-snatch, dumbbell-deadlift, dumbbell-devils-press, dumbbell-front-rack-lunge, dumbbell-front-raise, dumbbell-hang-clean-and-push-jerk, dumbbell-lateral-step-over, dumbbell-one-arm-overhead-lunge, dumbbell-overhead-hold, dumbbell-push-press, dumbbell-row, dumbbell-split-clean, dumbbell-thruster, dumbbell-wall-sit, dynamic-warm-up
+- **F** — farmers-carry, front-squat
+- **G** — general-stretching, ghd-back-extension, ghd-sit-up, goblet-squat-hold-press
+- **H** — half-kneel-banded-lat-stretch, half-kneeling-ankle-dorsiflexion-stretch, half-kneeling-hip-flexor-hamstring-dynamic-stretch, half-kneeling-hip-flexor-stretch, half-kneeling-thoracic-rotation, hanging-flutter-kicks, hanging-knees-to-elbows, hanging-leg-raise-rotation-over-box, hanging-toes-to-bar, high-knee-clap, high-pull-external-rotation, hip-90-90-internal-rotation-liftoff, hip-90-90-rotation, hip-rotations-in-squat, hollow-body-rock, hollow-hold, hollow-hold-pass, hollow-rock, hollow-to-superman-roll
+- **I** — inchworm, isometric-lunge, isometric-push-up-hold
+- **J** — jumping-lunge, jump-rope
+- **K** — kettlebell-ankle-mobility-drill, kettlebell-box-step-over, kettlebell-clean-and-jerk, kettlebell-deadlift, kettlebell-farmer-carry, kettlebell-front-squat, kettlebell-good-morning, kettlebell-good-morning-to-squat, kettlebell-ground-to-overhead, kettlebell-jumping-lunge, kettlebell-leg-overs, kettlebell-push-up, kettlebell-single-leg-romanian-deadlift, kettlebell-snatch, kettlebell-sumo-deadlift-high-pull, kettlebell-swing, kettlebell-windmill
+- **L** — lateral-lunge, lateral-raise-to-overhead
+- **M** — march-in-place, med-ball-box-step-over, mountain-climbers
+- **N** — nordic-hamstring-curl
+- **O** — overhead-squat, overhead-triceps-stretch
+- **P** — partner-wall-ball-over-bar, partner-wall-ball-sit-up, pigeon-pose, pike-hold, plank-hold, plank-shoulder-taps, plank-to-opposite-toe-touch, plank-up-down, power-clean, pullup, push-press, push-press-behind-the-neck, pushup
+- **Q** — quadruped-rock-back, quadruped-thoracic-rotation
+- **R** — reverse-snow-angels, ring-dip, ring-handstand-push-up, ring-row, ring-strict-muscle-up, rope-climb, rowing, running, russian-twist
+- **S** — sally-up-sally-down, sandbag-carry, sandbag-walking-lunges, scapular-plank-hold, scapular-push-up, scapular-push-up-dina, scapular-wall-slides, seated-forward-fold, seated-leg-tucks, seated-quad-stretch, shadow-boxing, shoulder-press, shuttle-run, side-plank, side-plank-con-carga, side-plank-weighted, single-arm-dumbbell-push-press, single-leg-calf-raise, single-leg-dumbbell-romanian-deadlift, single-leg-pallof-press, single-leg-toes-to-bar, single-leg-v-up, single-leg-wall-sit, skierg, sled-push-pull, snatch, snatch-grip-deadlift, snatch-high-pull, snatch-pause-at-knee, spiderman-stretch-rotation, split-squat-calf-raise, squat, squat-press-out, squat-thoracic-rotation, stability-ball-plate-crunch, standing-biceps-stretch, standing-cross-crunch, standing-hamstring-stretch, standing-knees-to-elbow, standing-quad-stretch, step-jack, strict-knees-to-elbows, superband-shoulder-dislocates, superman-hold, supine-abdominal-stretch, supine-figure-4-stretch, supine-spinal-twist
+- **T** — tempo-push-up, tempo-squat, thruster, toes-to-bar, toe-touch-crunch, toe-touch-sit-up, towel-isometric-curl, towel-isometric-row
+- **V** — v-up
+- **W** — walking, walking-lunge, wall-ball-box-over, wall-ball-run, wall-ball-shot, wall-lat-stretch, wall-shoulder-car, wall-shoulder-external-rotation, wall-shoulder-stretch, wall-sit, wall-sit-with-leg-extension, wall-squat-hold, wall-thoracic-extensions, wall-walk, weighted-bird-dog, weighted-box-step-up, weighted-hollow-rock, weighted-lunge, weighted-plank, weighted-sit-up, wrist-extensor-stretch
+- **Y** — yoga-push-up, y-raises
+
+> **Pares duplicados o casi-duplicados ya detectados en esta carpeta** (elegir uno, no crear un
+> tercero):
+> `barbell-hang-muscle-clean-and-press` / `barbell-hang-muscle-clean-press`,
+> `scapular-push-up` / `scapular-push-up-dina`,
+> `side-plank-weighted` / `side-plank-con-carga`,
+> `snatch-grip-deadlift` / `barbell-snatch-grip-deadlift`,
+> `snatch-high-pull` / `barbell-snatch-high-pull`,
+> `snatch-pause-at-knee` / `barbell-snatch-pause-at-knee`,
+> `pushup` / `bodyweight-push-up`, `hollow-rock` / `hollow-body-rock`,
+> `farmers-carry` / `kettlebell-farmer-carry`, `walking-lunge` / `weighted-lunge` (revisar cuál
+> corresponde antes de reusar).
+> La versión **con prefijo de implemento** es la preferida para ejercicios nuevos.
 
 ### PASO 5 – Para cada ejercicio NUEVO (sin SVG), crear el SVG
 
@@ -280,43 +305,65 @@ Ejemplo: "Band Pull-Apart" → `band-pull-apart.svg`
 
 **Guardar en:** `public/img/exercises/`
 
-### PASO 6 – Determinar datos de cada ejercicio
+> 📐 **Guía completa del SVG:** `BKP/ACTUALIZO_SVG_3FOTOG.md` tiene el patrón detallado (paleta,
+> timing, anatomía por tipo de movimiento, ejemplos). Lo de arriba es el resumen.
+> **Salvedad:** ese documento pide además crear un service TypeScript + un botón en
+> "Registrar imágenes" para grabar la `image_url` en la BD. **Para una clase eso no hace falta**:
+> la `image_url` viaja en el `class-share.json` del ZIP y el importador la escribe sola, tanto en
+> los ejercicios nuevos como en los que ya existían. El service/botón sólo se usa cuando se dibujan
+> SVG sueltos, fuera del flujo de una clase.
 
-Para cada ejercicio (nuevo o existente), definir:
+### PASO 6 – Determinar datos de cada ejercicio (incluidos los músculos)
 
-| Campo | Descripción |
-|-------|-------------|
-| `name` | Nombre en inglés (igual al usado en el SVG, Title Case) |
-| `description` | Descripción en español, 1-3 oraciones sobre cómo se ejecuta |
-| `technical_notes` | Notas técnicas: errores comunes, puntos clave de forma |
-| `difficulty` | Básico / Intermedio / Avanzado / Experto |
-| `primary_muscle` | **1 músculo primario** — usar nombre **simplificado** del catálogo (ver §5.1) |
-| `secondary_muscles[]` | 0 a N **músculos secundarios** — misma convención simplificada (ver §5.1) |
-| `equipment[]` | Equipamiento necesario (ver catálogo abajo) |
-| `tags[]` | Tags relevantes (ver catálogo abajo) |
-| `section_types[]` | En qué tipos de sección suele aparecer |
-| `units[]` | Unidades de medida (primera = default) |
-| `video_path` | URL del video de YouTube si está en Ejercicios.md |
-| `is_compound` | 1 si trabaja múltiples articulaciones, 0 si es monoarticular |
-| `image_url` | `/img/exercises/nombre-del-archivo.svg` |
+Para cada ejercicio de la clase — **nuevo o reutilizado** — definir:
 
-**Vista frontal y posterior de músculos:**
-Al describir músculos trabajados, indicar:
+| Campo | Descripción | ¿También para reutilizados? |
+|-------|-------------|-----------------------------|
+| `name` | Nombre en inglés, Title Case, según la convención de §4a | sí (es la clave de match) |
+| `description` | Descripción en español, 1-3 oraciones sobre cómo se ejecuta | sólo si el existente no la tiene |
+| `technical_notes` | Notas técnicas: errores comunes, puntos clave de forma | sólo si falta |
+| `difficulty` | Básico / Intermedio / Avanzado / Experto | opcional |
+| `primary_muscle` | **1 músculo primario** — nombre exacto del catálogo (§5.1) | **SÍ, siempre** |
+| `secondary_muscles[]` | 1 a N **músculos secundarios** — mismo catálogo (§5.1) | **SÍ, siempre** |
+| `equipment[]` | Equipamiento necesario (§5.2) | sí |
+| `tags[]` | Tags relevantes (§5.7) | sí |
+| `section_types[]` | En qué tipos de sección suele aparecer | sí |
+| `units[]` | Unidades de medida (la primera es `is_default: 1`) | sí |
+| `video_path` | Video **corto** (el del popup de la ficha) — "video corto" del MD | si el MD lo trae |
+| `video_long_path` | Video **explicativo/tutorial** — "video explicativo" del MD | si el MD lo trae |
+| `is_compound` | 1 si trabaja múltiples articulaciones, 0 si es monoarticular | sí |
+| `image_url` | `/img/exercises/nombre-del-archivo.svg` | sí (repara fichas sin imagen) |
 
-| Músculo en BD         | Vista       | Zona          |
-|-----------------------|-------------|---------------|
-| Pectorales            | Frontal     | upper_body    |
-| Deltoides             | Frontal     | upper_body    |
-| Bíceps                | Frontal     | upper_body    |
-| Cuádriceps            | Frontal     | lower_body    |
-| Core/Abdominales      | Frontal     | core          |
-| Dorsales              | Posterior   | upper_body    |
-| Trapecio              | Posterior   | upper_body    |
-| Tríceps               | Posterior   | upper_body    |
-| Antebrazos            | Posterior   | upper_body    |
-| Glúteos               | Posterior   | lower_body    |
-| Isquiotibiales        | Posterior   | lower_body    |
-| Pantorrillas          | Posterior   | lower_body    |
+#### 6.1 Músculos: cómo asignarlos (paso obligatorio)
+
+Cada ejercicio necesita **1 primario + al menos 2 secundarios** (salvo monoarticulares puros, donde
+puede haber 1 solo secundario). Se cargan en dos lugares del JSON, y hay que poner los dos:
+
+1. `exercise.primary_muscle_group_id` → el músculo primario.
+2. `exercise_relations.exercise_muscle_group` → **una fila por músculo**, incluido el primario
+   (con `is_primary: 1`) y una por cada secundario (`is_primary: 0`).
+
+> El primario va **repetido** en los dos lados: el campo alimenta el filtro y el badge de la lista de
+> ejercicios; las filas de `exercise_muscle_group` alimentan el mapa muscular
+> (`MuscleMapSVG.tsx`) y el gráfico de músculos de Estadísticas. Si falta la fila, el mapa no pinta
+> nada aunque el campo esté cargado.
+
+**Fuentes para decidir los músculos**, en orden:
+
+1. `src/services/muscleSeedService.ts` — mapa `EXERCISE_MUSCLES` con primarios/secundarios de ~90
+   ejercicios base ya curados. Si el movimiento está ahí (o es una variante directa), copiar de ahí.
+2. La tabla de patrones de movimiento de §5.1.
+3. `BKP/exercises-dataset-main/data/exercises.json` — el dataset externo trae `targetMuscles` y
+   `secondaryMuscles` por ejercicio (en inglés) para los 1.324 movimientos que cubre. Sólo consulta.
+
+**Reglas prácticas:**
+- El primario es el músculo que **limita** el movimiento, no el que más se siente.
+- En los levantamientos olímpicos completos el primario es de pierna/cadera (`Glúteo mayor` o
+  `Recto femoral`), y hombro/trapecio van de secundarios.
+- Todo lo que se sostiene con brazos extendidos overhead suma `Deltoides anterior` y
+  `Recto abdominal` como secundarios.
+- Todo lo que se hace colgado de la barra suma `Flexores antebrazo`.
+- Los estiramientos también llevan músculos: el que se estira es el primario.
 
 ### PASO 7 – Construir el JSON de salida
 
@@ -330,7 +377,7 @@ importador ya existente `importClassFromZip()` (aditivo, resuelve todo por nombr
   "meta": {
     "app": "CrossFit Session Tracker",
     "type": "class-share",
-    "version": "<APP_VERSION actual, ver src/utils/constants.ts>",
+    "version": "<versión de la app, ver src/config/version.ts — OJO: el APP_VERSION de src/utils/constants.ts quedó en 1.0.0 y no se usa para esto>",
     "exportDate": "2026-08-01T09:00:00.000Z",
     "classCount": 1
   },
@@ -343,7 +390,8 @@ importador ya existente `importClassFromZip()` (aditivo, resuelve todo por nombr
     "section_type":       [ { "id": "...", "name": "..." }, ... ],
     "work_format":        [ { "id": "...", "name": "...", "is_interval": 0, "default_interval_seconds": null }, ... ]
   },
-  "exercises": [ { "id": "...", "name": "..." /* ejercicio existente: SOLO id+name, ver nota */ },
+  "exercises": [ { "id": "...", "name": "...", "primary_muscle_group_id": "...",
+                   "image_url": "/img/exercises/....svg" /* reutilizado: ver nota */ },
                  { "id": "...", "name": "...", "description": "...", "technical_notes": "...",
                    "difficulty_level_id": "...", "primary_muscle_group_id": "...",
                    "image_url": "/img/exercises/....svg", "video_path": "...", "video_long_path": "...",
@@ -355,7 +403,7 @@ importador ya existente `importClassFromZip()` (aditivo, resuelve todo por nombr
     "exercise_unit":          [ { "exercise_id": "...", "measurement_unit_id": "...", "is_default": 1 }, ... ],
     "exercise_tag":           [ { "exercise_id": "...", "tag_id": "..." }, ... ]
   },
-  "classes": [ { "id": "...", "date": "2026-08-01", "name": "Clase GOAT 01/08/2026",
+  "classes": [ { "id": "...", "date": "2026-08-15", "name": "GOAT 15/08/2026",
                  "objective": "...", "general_notes": null, "estimated_duration_minutes": 55,
                  "is_favorite": 0, "is_active": 1, "created_at": "...", "updated_at": "..." } ],
   "class_sections": [ { "id": "...", "class_template_id": "...", "section_type_id": "...",
@@ -375,12 +423,25 @@ importador ya existente `importClassFromZip()` (aditivo, resuelve todo por nombr
 ```
 
 **Notas clave (diferentes al viejo formato `data.json`):**
-- **Ejercicios reutilizados** (ya existen en la BD, se los detecta por nombre exacto en la lista de
-  SVGs de §4a o porque ya se usaron en una clase anterior — ver `videoUpdateService.ts` y los ZIP en
-  `BKP/` para chequear qué nombres ya están cargados): incluir **sólo `id` y `name`**. El importador
-  los resuelve por nombre (`UPPER(TRIM(name))`) y no pisa ningún dato existente del ejercicio.
-- **Ejercicios nuevos**: incluir todos los campos de `exercise` (ver PASO 6). El importador los crea
+
+- **Ejercicios nuevos**: incluir todos los campos de `exercise` (PASO 6) + sus 5 relaciones
+  (`exercise_muscle_group`, `_equipment`, `_section_type`, `_unit`, `_tag`). El importador los crea
   si no encuentra el nombre.
+- **Ejercicios reutilizados** (ya existen en la BD — §4a): la regla vieja de mandar *sólo `id` +
+  `name`* **quedó obsoleta**. Se manda:
+  - `id`, `name` (clave de match, `UPPER(TRIM(name))`),
+  - `primary_muscle_group_id` **siempre**,
+  - `image_url` si el SVG existe (así se repara la ficha si estaba sin imagen),
+  - `video_path` / `video_long_path` **sólo si el MD trae URLs nuevas** para ese ejercicio,
+  - `description` / `technical_notes` **sólo si el ejercicio no las tenía** (mandarlas las pisa),
+  - filas de `exercise_muscle_group` (primario + secundarios) **siempre**.
+
+  Lo que **no** se manda, no se toca: la actualización es campo por campo (§2). Lo que sí se manda
+  **pisa** el valor anterior, y en las relaciones (músculos, equipamiento, tags, unidades,
+  section_types) el reemplazo es total (DELETE + INSERT). Por eso: si se mandan músculos, mandarlos
+  **completos**; si se manda una sola relación (ej. tags), esa relación queda sólo con lo del ZIP.
+- **Nunca mandar una relación a medias.** Un `exercise_equipment` con una sola fila borra el resto
+  del equipamiento que el ejercicio ya tenía.
 - Los `id` de catálogos/ejercicios/secciones son sólo identificadores **internos del JSON** para
   enlazar filas entre sí (no tienen que coincidir con nada de la BD real) — el importador los
   resuelve a los IDs locales del usuario por nombre al importar.
@@ -406,69 +467,96 @@ generarlo — sólo para importarlo (PASO 11).
 
 ## 5. CATÁLOGOS DE LA BASE DE DATOS (valores exactos del seed)
 
-### 5.1 muscle_group
+### 5.1 muscle_group — **catálogo granular de 35 músculos (vigente)**
 
-Estos son los **12 nombres simplificados** que se usan siempre en el código (`primary_muscle`, `secondary_muscles[]`).
-La función `toDbName()` del servicio los traduce automáticamente a los nombres granulares de la BD
-cuando el usuario tiene el catálogo extendido (post "Cargar Datos Base").
+El catálogo de músculos cambió: la app ya no usa los 12 nombres simplificados, sino los **35
+músculos anatómicos** que carga `seedService2.ts` ("Inicialización unificada") y que dibuja el mapa
+muscular `src/components/ui/MuscleMapSVG.tsx`. **Usar estos nombres exactos** en el ZIP.
 
-```json
-[
-  {"name":"Pectorales",      "body_zone":"upper_body", "sort_order":1},
-  {"name":"Dorsales",        "body_zone":"upper_body", "sort_order":2},
-  {"name":"Deltoides",       "body_zone":"upper_body", "sort_order":3},
-  {"name":"Bíceps",          "body_zone":"upper_body", "sort_order":4},
-  {"name":"Tríceps",         "body_zone":"upper_body", "sort_order":5},
-  {"name":"Trapecio",        "body_zone":"upper_body", "sort_order":6},
-  {"name":"Antebrazos",      "body_zone":"upper_body", "sort_order":7},
-  {"name":"Cuádriceps",      "body_zone":"lower_body", "sort_order":8},
-  {"name":"Isquiotibiales",  "body_zone":"lower_body", "sort_order":9},
-  {"name":"Glúteos",         "body_zone":"lower_body", "sort_order":10},
-  {"name":"Pantorrillas",    "body_zone":"lower_body", "sort_order":11},
-  {"name":"Core/Abdominales","body_zone":"core",       "sort_order":12}
-]
-```
+`body_zone` es `anterior` o `posterior` (así se decide en qué vista del mapa se pinta el músculo).
 
-**Mapeo simplificado → granular** (usado por `toDbName()` en el servicio):
+**Vista ANTERIOR (frontal)**
 
-| Nombre simplificado (en código) | Nombre granular (en BD post Cargar Datos) |
-|---------------------------------|-------------------------------------------|
-| `Deltoides`                     | `Deltoides anterior`                      |
-| `Cuádriceps`                    | `Recto femoral`                           |
-| `Isquiotibiales`                | `Bíceps femoral`                          |
-| `Glúteos`                       | `Glúteo mayor`                            |
-| `Dorsales`                      | `Dorsal ancho`                            |
-| `Trapecio`                      | `Trapecio (superior)`                     |
-| `Bíceps`                        | `Bíceps braquial`                         |
-| `Tríceps`                       | `Tríceps braquial`                        |
-| `Pantorrillas`                  | `Gastrocnemio (gemelos)`                  |
-| `Core/Abdominales`              | `Recto abdominal`                         |
-| `Antebrazos`                    | `Flexores antebrazo`                      |
-| `Pectorales`                    | `Pectoral mayor`                          |
+| # | name | # | name |
+|---|------|---|------|
+| 1 | Cabeza y cuello | 11 | Recto abdominal |
+| 2 | Esternocleidomastoideo | 12 | Oblicuo externo |
+| 3 | Pectoral mayor | 13 | Oblicuo interno |
+| 4 | Pectoral menor | 14 | Recto femoral |
+| 5 | Deltoides anterior | 15 | Vasto lateral |
+| 6 | Deltoides lateral | 16 | Vasto medial |
+| 7 | Bíceps braquial | 17 | Vasto intermedio |
+| 8 | Braquial anterior | 18 | Aductores |
+| 9 | Braquiorradial | 19 | Tibial anterior |
+| 10 | Flexores antebrazo | | |
 
-**Tabla de referencia — músculos por patrón de movimiento:**
+**Vista POSTERIOR**
 
-| Patrón de movimiento        | Primario           | Secundarios habituales                              |
-|-----------------------------|--------------------|-----------------------------------------------------|
-| Sentadilla (squat)          | Cuádriceps         | Glúteos, Isquiotibiales, Core/Abdominales           |
-| Peso muerto (DL)            | Isquiotibiales     | Glúteos, Cuádriceps, Dorsales, Trapecio             |
-| Press overhead              | Deltoides          | Tríceps, Core/Abdominales                           |
-| Pull vertical (pull-up)     | Dorsales           | Bíceps, Core/Abdominales                            |
-| Row / jalón horizontal      | Dorsales           | Bíceps, Trapecio, Core/Abdominales                  |
-| High pull / jalón explosivo | Trapecio           | Deltoides, Cuádriceps, Glúteos                      |
-| Olímpico (snatch/clean)     | Cuádriceps         | Glúteos, Deltoides, Trapecio, Core/Abdominales      |
-| Press horizontal (bench)    | Pectorales         | Tríceps, Deltoides                                  |
-| Cardio (correr/saltar)      | Cuádriceps         | Isquiotibiales, Glúteos, Pantorrillas               |
-| Core / plancha              | Core/Abdominales   | Deltoides (planchas), Glúteos (puentes)             |
-| Movilidad de hombro         | Deltoides          | Trapecio, Dorsales                                  |
-| Movilidad de cadera         | Glúteos            | Isquiotibiales, Core/Abdominales                    |
-| Carry / farmer              | Trapecio           | Antebrazos, Core/Abdominales, Cuádriceps            |
-| Lunge                       | Cuádriceps         | Glúteos, Isquiotibiales                             |
-| Curl / bíceps               | Bíceps             | Antebrazos                                          |
-| Extensión tríceps           | Tríceps            | —                                                   |
-| Estiramiento cadera/glúteo  | Glúteos            | Isquiotibiales, Core/Abdominales                    |
-| Estiramiento posterior      | Isquiotibiales     | Pantorrillas, Dorsales                              |
-| Estiramiento hombro/pecho   | Bíceps / Pectorales| Deltoides                                           |
+| # | name | # | name |
+|---|------|---|------|
+| 20 | Trapecio (superior) | 28 | Extensores antebrazo |
+| 21 | Trapecio (medio) | 29 | Glúteo mayor |
+| 22 | Trapecio (inferior) | 30 | Glúteo medio |
+| 23 | Dorsal ancho | 31 | Bíceps femoral |
+| 24 | Romboides | 32 | Semitendinoso |
+| 25 | Erectores espinales | 33 | Semimembranoso |
+| 26 | Deltoides posterior | 34 | Gastrocnemio (gemelos) |
+| 27 | Tríceps braquial | 35 | Sóleo |
+
+> `Cabeza y cuello` y `Esternocleidomastoideo` existen en el catálogo pero **no tienen zona pintable
+> en el mapa** (`MuscleMapSVG` los mapea a `[]`). No usarlos como primario.
+
+**Equivalencia con los 12 nombres simplificados viejos.** El mapa muscular todavía entiende los dos
+juegos de nombres, así que un ZIP viejo no rompe nada; pero para clases nuevas se usa la columna de
+la derecha. La función `toDbName()` que hacía esta traducción **ya no existe**.
+
+| Nombre viejo (simplificado) | Nombre a usar hoy (granular)                               |
+|-----------------------------|------------------------------------------------------------|
+| Pectorales                  | `Pectoral mayor` (+ `Pectoral menor` si aplica)            |
+| Dorsales                    | `Dorsal ancho`                                             |
+| Deltoides                   | `Deltoides anterior` / `lateral` / `posterior` (el que corresponda) |
+| Bíceps                      | `Bíceps braquial`                                          |
+| Tríceps                     | `Tríceps braquial`                                         |
+| Trapecio                    | `Trapecio (superior)` / `(medio)` / `(inferior)`           |
+| Antebrazos                  | `Flexores antebrazo` (agarre) / `Extensores antebrazo`     |
+| Cuádriceps                  | `Recto femoral` + `Vasto lateral` / `Vasto medial`         |
+| Isquiotibiales              | `Bíceps femoral` + `Semitendinoso`                         |
+| Glúteos                     | `Glúteo mayor` (+ `Glúteo medio` en unilaterales)          |
+| Pantorrillas                | `Gastrocnemio (gemelos)` + `Sóleo`                         |
+| Core/Abdominales            | `Recto abdominal` + `Oblicuo externo` / `interno`          |
+| (espalda baja)              | `Erectores espinales`                                      |
+
+**Tabla de referencia — músculos por patrón de movimiento** (nombres granulares, alineada con
+`muscleSeedService.ts`):
+
+| Patrón de movimiento          | Primario            | Secundarios habituales                                              |
+|-------------------------------|---------------------|---------------------------------------------------------------------|
+| Sentadilla (squat)            | Recto femoral       | Vasto lateral, Vasto medial, Glúteo mayor, Erectores espinales      |
+| Peso muerto (DL / RDL)        | Glúteo mayor        | Bíceps femoral, Semitendinoso, Erectores espinales, Dorsal ancho, Flexores antebrazo |
+| Press overhead                | Deltoides anterior  | Deltoides lateral, Tríceps braquial, Recto abdominal, Trapecio (superior) |
+| Pull vertical (pull-up)       | Dorsal ancho        | Bíceps braquial, Trapecio (medio/inferior), Romboides, Braquiorradial |
+| Row / jalón horizontal        | Dorsal ancho        | Trapecio (medio), Bíceps braquial, Romboides, Deltoides posterior   |
+| High pull / jalón explosivo   | Trapecio (superior) | Deltoides lateral, Recto femoral, Glúteo mayor, Braquiorradial      |
+| Olímpico (snatch / clean)     | Glúteo mayor        | Recto femoral, Deltoides anterior, Trapecio (superior), Erectores espinales, Bíceps femoral |
+| Press horizontal (bench / push-up) | Pectoral mayor | Tríceps braquial, Deltoides anterior, Pectoral menor                |
+| Cardio (correr / bike / remo) | Recto femoral       | Glúteo mayor, Gastrocnemio (gemelos), Sóleo, Bíceps femoral         |
+| Saltos (box jump, soga)       | Gastrocnemio (gemelos) | Sóleo, Glúteo mayor, Vasto lateral, Tibial anterior              |
+| Core / plancha                | Recto abdominal     | Oblicuo externo, Oblicuo interno, Deltoides anterior (planchas)     |
+| Core rotacional (russian twist, windmill) | Oblicuo externo | Oblicuo interno, Recto abdominal                          |
+| Puente de glúteo / bird dog   | Glúteo mayor        | Erectores espinales, Bíceps femoral, Recto abdominal                |
+| Movilidad de hombro (band, wall slides) | Deltoides posterior | Trapecio (medio), Romboides, Deltoides lateral           |
+| Movilidad torácica (cat-cow, rotaciones) | Erectores espinales | Oblicuo externo, Dorsal ancho                          |
+| Movilidad de cadera (90/90, couch) | Glúteo mayor   | Glúteo medio, Bíceps femoral, Recto femoral                         |
+| Movilidad de tobillo          | Sóleo               | Gastrocnemio (gemelos), Tibial anterior                             |
+| Carry (farmer, sandbag)       | Trapecio (superior) | Flexores antebrazo, Recto abdominal, Erectores espinales            |
+| Lunge / step-up / step-over   | Recto femoral       | Glúteo mayor, Glúteo medio, Vasto lateral, Bíceps femoral           |
+| Curl de bíceps                | Bíceps braquial     | Braquial anterior, Braquiorradial                                   |
+| Extensión de tríceps          | Tríceps braquial    | Extensores antebrazo                                                |
+| Calf raise                    | Gastrocnemio (gemelos) | Sóleo, Tibial anterior                                           |
+| Estiramiento de isquios       | Bíceps femoral      | Semitendinoso, Gastrocnemio (gemelos)                               |
+| Estiramiento de cuádriceps    | Recto femoral       | Vasto lateral, Vasto medial                                         |
+| Estiramiento de pecho/hombro  | Pectoral mayor      | Deltoides anterior, Pectoral menor                                  |
+| Estiramiento de cadera/glúteo | Glúteo mayor        | Glúteo medio, Aductores                                             |
 
 ### 5.2 equipment
 
@@ -494,7 +582,17 @@ cuando el usuario tiene el catálogo extendido (post "Cargar Datos Base").
 ]
 ```
 
-> Si un ejercicio usa un equipamiento que no está en la lista, agregarlo como registro nuevo en la tabla `equipment` con category apropiada.
+> Los últimos dos (`Disco`, `Stability Ball`) están en `seedService.ts` pero **no** en
+> `seedService2.ts` (la inicialización unificada). Si el usuario inicializó con la 2, no los tiene:
+> igual se los incluye en `catalogs.equipment` del ZIP y el importador los crea.
+>
+> Equipamiento que aparece en clases recientes y **no** está en ningún seed — incluirlo en el ZIP
+> con su `category` para que se cree: `SkiErg` (cardio), `Sandbag` (other), `Cuerda` / soga de trepa
+> (other), `Toalla` (other), `Silla / banco` (other), `Superband` (other, distinto de la banda
+> elástica común), `Clubbell` (other), `Ab wheel` (other), `Pared` (other, para wall sit / wall
+> walk / wall slides).
+>
+> Los ejercicios de peso corporal puro **no llevan ninguna fila** en `exercise_equipment`.
 
 ### 5.3 difficulty_level
 
@@ -507,15 +605,16 @@ cuando el usuario tiene el catálogo extendido (post "Cargar Datos Base").
 
 ### 5.4 section_type
 
-| name             | color   | icon     | default_order |
-|------------------|---------|----------|---------------|
-| Entrada en calor | #22c55e | Flame    | 1             |
-| Activación       | #f59e0b | Zap      | 2             |
-| Fuerza           | #ef4444 | Dumbbell | 3             |
-| Habilidad        | #8b5cf6 | Star     | 4             |
-| WOD              | #f97316 | Timer    | 5             |
-| Vuelta a la calma| #06b6d4 | Wind     | 6             |
-| Accesorio        | #64748b | Plus     | 7             |
+| name             | color   | icon     | default_order | ¿en el seed? |
+|------------------|---------|----------|---------------|--------------|
+| Entrada en calor | #22c55e | Flame    | 1             | sí           |
+| Activación       | #f59e0b | Zap      | 2             | sí           |
+| Fuerza           | #ef4444 | Dumbbell | 3             | sí           |
+| Habilidad        | #8b5cf6 | Star     | 4             | sí           |
+| WOD              | #f97316 | Timer    | 5             | sí           |
+| Vuelta a la calma| #06b6d4 | Wind     | 6             | sí           |
+| Accesorio        | #64748b | Plus     | 7             | sí           |
+| **Movilidad**    | #14b8a6 | Activity | 8             | **no** — creado a mano, ver PASO 2 y migración v014 |
 
 ### 5.5 work_format
 
@@ -551,7 +650,11 @@ cuando el usuario tiene el catálogo extendido (post "Cargar Datos Base").
 
 ### 5.7 tag
 
-`hombro`, `sentadilla`, `core`, `olímpico`, `gimnástico`, `cardio`, `monoarticular`, `press`, `pull`, `push`, `bilateral`, `unilateral`, `isométrico`, `pliométrico`, `movilidad`, `activación`
+Los 14 del seed: `hombro`, `sentadilla`, `core`, `olímpico`, `gimnástico`, `cardio`,
+`monoarticular`, `press`, `pull`, `push`, `bilateral`, `unilateral`, `isométrico`, `pliométrico`.
+
+`movilidad` y `activación` **no** están en el seed pero se usan desde clases anteriores: incluirlos
+en `catalogs.tag` del ZIP (con un color) y el importador los crea si faltan.
 
 ---
 
@@ -567,13 +670,22 @@ cuando el usuario tiene el catálogo extendido (post "Cargar Datos Base").
   "difficulty_level_id": "id del difficulty_level",
   "primary_muscle_group_id": "id del muscle_group principal",
   "image_url": "/img/exercises/nombre.svg",
-  "video_path": "https://www.youtube.com/...",
+  "image_path": null,
+  "video_path": "https://www.youtube.com/shorts/...",
+  "video_long_path": "https://www.youtube.com/watch?v=...",
   "is_compound": 1,
   "is_active": 1,
-  "created_at": "2026-04-01 00:00:00",
-  "updated_at": "2026-04-01 00:00:00"
+  "created_at": "2026-08-15 00:00:00",
+  "updated_at": "2026-08-15 00:00:00"
 }
 ```
+> - `video_path` = video **corto** (popup de la ficha). `video_long_path` = video **explicativo**.
+>   En el MD vienen etiquetados así ("video corto" / "video explicativo").
+> - `image_url` = SVG estático servido por la app. `image_path` = imagen subida por el usuario
+>   (queda en `null` en este flujo).
+> - Verificar que el ID de YouTube exista antes de cargarlo:
+>   `https://www.youtube.com/oembed?url=<URL>&format=json` → HTTP 200 significa que existe y es
+>   embebible.
 
 ### exercise_muscle_group
 ```json
@@ -584,7 +696,8 @@ cuando el usuario tiene el catálogo extendido (post "Cargar Datos Base").
   "is_primary": 1
 }
 ```
-> `is_primary: 1` para el músculo principal, `0` para los secundarios.
+> `is_primary: 1` para el músculo principal, `0` para los secundarios. **Tiene que haber una fila
+> con `is_primary: 1`** que apunte al mismo músculo que `exercise.primary_muscle_group_id` (§6.1).
 
 ### exercise_equipment
 ```json
@@ -629,17 +742,22 @@ cuando el usuario tiene el catálogo extendido (post "Cargar Datos Base").
 ```json
 {
   "id": "uuid-v4",
-  "date": "2026-04-01",
-  "name": "Clase GOAT 01/04/2026",
+  "date": "2026-08-15",
+  "name": "GOAT 15/08/2026",
   "objective": "Descripción del objetivo de la clase",
   "general_notes": null,
   "estimated_duration_minutes": 60,
   "is_favorite": 0,
+  "template_type": "my_classes",
   "is_active": 1,
-  "created_at": "2026-04-01 00:00:00",
-  "updated_at": "2026-04-01 00:00:00"
+  "created_at": "2026-08-15 00:00:00",
+  "updated_at": "2026-08-15 00:00:00"
 }
 ```
+> `template_type` (migración v008) separa **"Mis clases"** (`my_classes`) de las plantillas
+> genéricas (`generic`: Girls, Heroes, Open). El importador de clases lo fuerza a `'my_classes'`
+> ignorando lo que venga en el JSON, así que el campo es informativo — pero conviene dejarlo escrito
+> para que el JSON refleje la tabla real.
 
 ### class_section
 ```json
@@ -710,6 +828,16 @@ cuenta regresiva → trabajo → descanso → ... → descanso de ronda → ... 
 Para que esa secuencia sea coherente, **cada ejercicio necesita una duración**. Si el MD la dice, se
 usa tal cual; si no, se estima.
 
+> 🤖 **Estas reglas ya están implementadas en código:** `src/services/timerEstimationService.ts`
+> aplica exactamente lo de §7.2/§7.4 sobre las clases que ya están en la BD, y se dispara desde
+> **Configuración → Gestión de datos → Estimación de tiempos** (`TimerEstimationSection`). Por
+> defecto sólo rellena lo que está vacío; con "recalcular todo" pisa los valores existentes.
+>
+> Sirve como red de seguridad, **no reemplaza** cargar los tiempos en el ZIP: el service estima por
+> palabras clave del nombre en inglés y no sabe lo que dice el MD (pausas, "cada lado", ventanas
+> raras). Lo que sí conviene es que las estimaciones del ZIP **coincidan** con lo que produciría el
+> service, para que un "recalcular todo" no cambie la clase.
+
 ### 7.1 Cascada de resolución (qué campo gana)
 
 | Concepto                    | 1º — ejercicio            | 2º — ejercicio (estimado)   | 3º — sección                     | 4º — global (`timer_config`)      |
@@ -727,33 +855,47 @@ sólo cuando la clase pide algo distinto. Lo único que casi siempre hay que com
 ### 7.2 Estimar la duración de un ejercicio por repeticiones
 
 `suggested_timer_seconds ≈ repeticiones × segundos_por_rep`, redondeado a múltiplo de 5,
-con un mínimo de 15 s.
+con un **mínimo de 15 s y un máximo de 180 s**.
 
-| Tipo de movimiento                                                        | seg/rep | Ej. 10 reps |
-|---------------------------------------------------------------------------|:-------:|:-----------:|
-| Olímpico pesado o complejo (snatch, clean & jerk, con pausa)               | 8       | 80 s        |
-| Fuerza con barra (deadlift, squat, press, thruster)                        | 5       | 50 s        |
-| Gimnástico avanzado (muscle-up, HSPU, chest-to-bar, wall walk, pistol)     | 5       | 50 s        |
-| Mancuerna / kettlebell (swing, snatch, push press, devil's press, wall ball)| 3      | 30 s        |
-| Gimnástico básico (push-up, sit-up, air squat, burpee, box jump)           | 3       | 30 s        |
-| Lunge / step-over / step-up (por paso)                                     | 2.5     | 25 s        |
-| Movilidad y activación con reps (band pull-apart, scapular push-up)        | 2       | 20 s        |
-| Saltos de soga (single-under / double-under)                               | 0.8     | 10 s        |
+Los seg/rep de abajo son los mismos que usa `timerEstimationService.ts` (constante
+`SECONDS_PER_REP`), evaluados **de arriba hacia abajo por palabra clave del nombre en inglés: la
+primera fila que matchea gana**. Por eso "Barbell Hang Power Clean" cae en la fila olímpica (8 s) y
+no en la de barra (5 s).
+
+| # | Tipo de movimiento | Palabras clave que lo disparan | seg/rep | Ej. 10 reps |
+|---|--------------------|--------------------------------|:-------:|:-----------:|
+| 1 | Olímpico y muscle-ups | `snatch`, `clean`, `jerk`, `muscle-up` | 8 | 80 s |
+| 2 | Gimnástico avanzado | `handstand`, `pistol`, `wall walk`, `chest-to-bar`, `toes-to-bar`, `knees-to-elbows`, `rope climb`, `ring dip` | 5 | 50 s |
+| 3 | Fuerza con barra | `barbell`, `deadlift`, `back/front/overhead squat`, `thruster`, `push press`, `push jerk`, `strict press`, `bench press`, `bent-over row` | 5 | 50 s |
+| 4 | Saltos de soga | `double-under`, `single-under`, `jump rope` | 1 | 15 s (mínimo) |
+| 5 | Lunges y pasos (por paso) | `lunge`, `step-over`, `step-up` | 3 | 30 s |
+| 6 | Movilidad y activación | `band`, `scapular`, `rotation`, `stretch`, `mobility`, `dislocate`, `pull-apart`, `glute bridge` | 2 | 20 s |
+| 7 | Mancuerna, KB y gimnástico básico | `dumbbell`, `kettlebell`, `wall ball`, `burpee`, `box jump`, `push-up`, `sit-up`, `air squat`, `pull-up`, `ring row`, `swing`, `russian twist` | 3 | 30 s |
+| — | Cualquier otro | (default) | 3 | 30 s |
+
+> ⚠️ Estas dos columnas cambiaron respecto de la versión anterior de este documento: los lunges
+> pasaron de 2,5 a **3** seg/rep y los saltos de soga de 0,8 a **1** seg/rep, para quedar iguales al
+> código.
 
 **Ejercicios que no son por repeticiones:**
 
-| Caso                                    | Estimación                                              |
-|-----------------------------------------|---------------------------------------------------------|
-| Correr / shuttle run                    | 25 s cada 100 m                                         |
-| Remo / assault bike (distancia)         | 25 s cada 100 m                                         |
-| Remo / assault bike (calorías)          | 4 s por caloría                                         |
-| Carry (farmer's, overhead)              | 10 s cada 20 m                                          |
-| Rope climb                              | 30 s por subida                                         |
-| Isométricos (plancha, hollow hold)      | el tiempo del MD; si no dice, 30 s                      |
-| Estiramiento sin tiempo indicado        | 30 s por posición                                       |
+| Caso                                       | Estimación                                           |
+|--------------------------------------------|------------------------------------------------------|
+| Correr / shuttle run                       | 25 s cada 100 m (600 m → 150 s)                      |
+| Remo / assault bike / SkiErg (distancia)   | 25 s cada 100 m                                      |
+| Remo / assault bike / SkiErg (calorías)    | 4 s por caloría                                      |
+| Carry (farmer's, sandbag, overhead)        | 10 s cada 20 m                                       |
+| Rope climb                                 | 30 s por subida                                      |
+| Isométricos (`hold`, `plank`, `hollow`, `superman`, `wall sit`, `l-sit`) | el tiempo del MD; si no dice, 30 s |
+| Estiramiento sin tiempo indicado           | 30 s por posición                                    |
+
+> La distancia se toma de `planned_distance_value` + su unidad (`m` o `km`), y las calorías de
+> `planned_calories`: cargar esos campos hace que la estimación salga sola y sea consistente con el
+> service. Si el ejercicio tiene distancia **y** reps, gana la distancia.
 
 **Ajustes:**
-- Si el ejercicio es "cada lado" / "por lado", **duplicar** la estimación (y dejarlo en `coach_notes`).
+- Si el ejercicio es "cada lado" / "por lado", **duplicar** la estimación. Escribir literalmente
+  `"cada lado"` o `"por lado"` en `coach_notes`: el service busca esas dos frases para duplicar.
 - Si el MD dice el tiempo (ej. "todo 30 segundos"), va en `planned_time_seconds` y
   `suggested_timer_seconds` queda en `null`. **Nunca cargar los dos.**
 - Peso alto o % de RM alto (≥85%): sumar ~30% al tiempo estimado.
@@ -773,20 +915,49 @@ de la ventana y convierte el sobrante en descanso automáticamente.
   (`floor(time_cap / (ventana × ventanas_por_vuelta))`). Aun así, **cargar `total_rounds` explícito**
   siempre que el MD lo permita.
 
+> ⚠️ **La ventana es POR EJERCICIO, no por ronda.** `timerEngine.ts` le da una ventana completa a
+> cada `section_exercise`. Con `interval_seconds: 180` y 2 ejercicios, cada vuelta dura **360 s**,
+> no 180.
+>
+> Por eso, cuando el MD dice *"N rondas cada X minutos"* y la ronda tiene **más de un ejercicio**
+> (el caso típico de un complejo de fuerza), **no** se modela como intervalo: se usa
+> **`Por rondas`** con los tiempos de trabajo explícitos y
+> `rest_between_rounds_seconds = ventana − suma del trabajo`, para que la vuelta completa dure lo
+> que dice el MD. Los formatos de intervalo quedan para cuando **cada ejercicio** tiene su propia
+> ventana (EMOM clásico, Tabata).
+>
+> Ejemplo real (GOAT 15/08/2026, "5 rondas cada 3 minutos" con 2 ejercicios): `Por rondas`,
+> `total_rounds: 5`, trabajo 60 s + 50 s, `rest_between_exercises_seconds: 0`,
+> `rest_between_rounds_seconds: 70` → 180 s por vuelta. Mismo criterio que se usó en la clase
+> GOAT 13/07/2026.
+
 ### 7.4 Descansos por tipo de sección (valores sugeridos)
 
-| Sección                                | `rest_between_exercises_seconds` | `rest_after_section_seconds` |
-|----------------------------------------|:--------------------------------:|:----------------------------:|
-| Entrada en calor / Movilidad           | 10                               | 60                           |
-| Activación                             | 10                               | 60                           |
-| Fuerza (series pesadas)                | 60–90                            | 120                          |
-| WOD (For Time / AMRAP / Por rondas)    | **0** (circuito continuo)        | 60                           |
-| Vuelta a la calma                      | 10                               | `null` (es la última)        |
-| Secciones de intervalo                 | ignorado (manda la ventana)      | 60–120                       |
+Estos son los valores exactos de `SECTION_RESTS` en `timerEstimationService.ts` — usar los mismos en
+el ZIP para que el ZIP y el botón "Estimación de tiempos" digan lo mismo:
 
-`rest_between_rounds_seconds`: sólo si el MD lo dice ("1 minuto entre rondas" → 60). En un WOD
-continuo va en 0; si va en `null` el motor mete 60 s por default, que casi nunca es lo que se quiere
-en un metcon.
+| `section_type`      | `rest_between_exercises_seconds` | `rest_between_rounds_seconds` | `rest_after_section_seconds` |
+|---------------------|:--------------------------------:|:-----------------------------:|:----------------------------:|
+| Entrada en calor    | 10                               | 0                             | 60                           |
+| Activación          | 10                               | 0                             | 60                           |
+| Fuerza              | 60                               | 90                            | 120                          |
+| Habilidad           | 30                               | 60                            | 90                           |
+| WOD                 | **0** (circuito continuo)        | 0                             | 60                           |
+| Accesorio           | 30                               | 60                            | 60                           |
+| Vuelta a la calma   | 10                               | 0                             | 0 / `null` si es la última   |
+| **Movilidad**       | 10                               | 0                             | 60 (mismo criterio que Entrada en calor) |
+| Cualquier otro      | 15                               | `null`                        | 60                           |
+
+> ⚠️ **Movilidad todavía no está en `SECTION_RESTS`** (el service se escribió antes de que existiera
+> ese tipo de sección): si se deja en `null`, el botón de estimación le va a poner los defaults
+> genéricos (15 / `null` / 60) en vez de los de calentamiento. Por eso, en las secciones de
+> Movilidad conviene **cargar los tres descansos explícitos en el ZIP**.
+
+- `rest_between_rounds_seconds` sólo se completa si la sección tiene más de una vuelta
+  (`total_rounds > 1`). Si el MD dice algo distinto ("1 minuto entre rondas" → 60), manda el MD.
+- En un WOD continuo va en 0: si queda en `null`, el motor mete 60 s por default, que casi nunca es
+  lo que se quiere en un metcon.
+- `rest_after_section_seconds` de la **última** sección: dejarlo en `null` (no hay nada después).
 
 ### 7.5 Trampas conocidas
 
@@ -799,6 +970,13 @@ en un metcon.
   de 45 s, que casi nunca es correcto. Por eso el paso de estimación es obligatorio.
 - La suma de la línea de tiempo debería quedar cerca de `estimated_duration_minutes` de la clase.
   Si difiere mucho, revisar rondas y descansos.
+- **Dos secciones del mismo `section_type` en una clase** rompen la agrupación de resultados de
+  sesión (bug corregido en v013/v014, ver `src/utils/sessionSections.ts`). Con Movilidad como tipo
+  propio esto ya casi no pasa; si hace falta repetir un tipo, darles `visible_title` distintos.
+- **Circuitos desenrollados en el MD**: si se cargan las 4 vueltas como 12 `section_exercise`
+  seguidos *y además* `total_rounds: 4`, el cronómetro hace 16 vueltas. Una cosa o la otra.
+- Un `section_exercise` con `planned_time_seconds: 0` o `suggested_timer_seconds: 0` genera un paso
+  de 0 segundos que el cronómetro atraviesa de golpe. Mínimo 15 s siempre.
 
 ---
 
@@ -809,11 +987,11 @@ en un metcon.
 `class-share.json`, que entra por `importClassFromZip()` (vía el detector automático
 `importFromZip()`), y ese importador es **aditivo por diseño**:
 
-- Ejercicios y catálogos se resuelven por nombre: si ya existen, se reutilizan (y de paso se
-  actualizan sus datos con lo que traiga el ZIP — ver excepción de "sólo id+name" en PASO 7); si no
-  existen, se crean.
-- La clase se crea siempre como nueva (salvo que ya exista una con el mismo nombre exacto, en cuyo
-  caso se reutiliza esa).
+- Ejercicios y catálogos se resuelven por nombre: si ya existen, se reutilizan y se actualizan con
+  lo que traiga el ZIP — campo por campo en `exercise`, reemplazo completo en las relaciones (§2 y
+  PASO 7). Si no existen, se crean.
+- La clase se crea siempre como nueva **salvo que ya exista una con el mismo nombre exacto**, en
+  cuyo caso se reutiliza esa y las secciones nuevas se le agregan al final (ojo con reimportar).
 - **Nunca** toca `training_session`, `session_exercise_result` ni `personal_record` — el progreso
   del usuario no se ve afectado.
 
@@ -824,6 +1002,17 @@ de la clase nueva de forma aislada (PASO 7/8) y el usuario lo importa directamen
 ---
 
 ## 9. EJEMPLO COMPLETO RESUELTO: Clase GOAT 01/04/2026
+
+> ⚠️ **Ejemplo histórico.** Sirve para ver el nivel de detalle esperado en cada sección y cómo se
+> razonan los tiempos, pero fue escrito con las convenciones viejas. Al usarlo como molde, traducir:
+> - Los músculos están con los **12 nombres simplificados** ("Deltoides", "Cuádriceps",
+>   "Core/Abdominales"). Hoy van los **35 granulares** de §5.1 ("Deltoides anterior",
+>   "Recto femoral", "Recto abdominal").
+> - La "Sección 2: Movilidad" figura como `section_type: Entrada en calor`. Hoy es su propio tipo
+>   **Movilidad** (PASO 2).
+> - El nombre de la clase hoy es `GOAT DD/MM/YYYY`, sin el prefijo "Clase".
+> - Los `suggested_timer_seconds` de lunges/step-overs se recalculan con **3 seg/rep** (§7.2).
+> - Los ejercicios reutilizados de §9c hoy también viajan con sus músculos (§6.1).
 
 ### 9a. Análisis del MD
 
@@ -1053,19 +1242,36 @@ de sección → coherente con `estimated_duration_minutes: 60`.
 
 Al finalizar la generación de una clase, verificar:
 
+- [ ] Antes de crear un ejercicio nuevo, se buscó el existente en `public/img/exercises/`,
+      `imageUpdateService.ts` y `PosiblesEjerciciosRepetidos.md` (§4)
+- [ ] Los nombres nuevos respetan la convención de §4a (inglés, Title Case, prefijo de implemento,
+      `and` en vez de `&`) y no duplican una variante ya existente
 - [ ] SVGs creados para todos los ejercicios nuevos (3 frames, 200x230, animación CSS) y guardados en `public/img/exercises/`
 - [ ] Ejercicios **nuevos** en el JSON traen todos los campos: description, technical_notes, difficulty_level_id, primary_muscle_group_id, image_url, video_path/video_long_path (si hay video en el MD), is_compound, is_active, created_at, updated_at
-- [ ] Ejercicios **reutilizados** (ya existían) sólo llevan `{ id, name }` — no se pisan sus datos existentes
-- [ ] Cada ejercicio nuevo tiene exactamente 1 `primary_muscle_group_id` y 0-N filas en `exercise_muscle_group` con `is_primary: 0` para secundarios, usando IDs del catálogo `muscle_group` del propio JSON (§5.1)
+- [ ] Ejercicios **reutilizados** llevan `id`, `name`, `primary_muscle_group_id`, `image_url` y sus
+      filas de músculos; **no** llevan description/technical_notes/videos salvo que aporten algo nuevo (§7)
+- [ ] Ninguna relación va a medias: si el ZIP trae `exercise_equipment` / `_tag` / `_unit` /
+      `_section_type` de un ejercicio, las trae **completas** (el importador hace DELETE + INSERT)
+- [ ] **Músculos (§6.1):** *todos* los ejercicios de la clase — nuevos y reutilizados — tienen
+      1 `primary_muscle_group_id` + su fila con `is_primary: 1` + al menos 2 filas con `is_primary: 0`
+- [ ] Los nombres de músculos son los **granulares del catálogo de 35** (§5.1), no los 12 viejos
+- [ ] Todos los músculos, equipamiento, tags y tipos de sección usados están declarados en
+      `catalogs` del mismo JSON (si no están en el seed, igual van: el importador los crea)
+- [ ] La sección de Movilidad usa el `section_type` **Movilidad**, no "Entrada en calor" (PASO 2)
 - [ ] Todas las secciones de la clase mapeadas a `section_type` y `work_format` correctos (§2/§3)
-- [ ] Todos los `section_exercises` tienen `planned_repetitions` / `planned_time_seconds` / `planned_weight_value` según corresponda
+- [ ] El nombre de la clase (`GOAT DD/MM/YYYY`) no existe todavía en la BD del usuario (§2)
+- [ ] Todos los `section_exercises` tienen `planned_repetitions` / `planned_time_seconds` /
+      `planned_distance_value` + unidad / `planned_calories` / `planned_weight_value` según corresponda
+- [ ] Los circuitos que el MD trae desenrollados se cargaron **una vez** + `total_rounds`
 
 **Cronómetro (§7):**
 - [ ] Todo ejercicio tiene duración resoluble: `planned_time_seconds` (si el MD lo dice) **o** `suggested_timer_seconds` (estimado) — nunca los dos
 - [ ] Ninguna sección quedó sin ejercicios (el cronómetro la saltearía)
 - [ ] Secciones de intervalo: `interval_seconds` cargado si la ventana difiere del default del formato, y el trabajo estimado entra en la ventana
 - [ ] `rest_between_exercises_seconds` = 0 en los WOD continuos; `rest_between_rounds_seconds` cargado donde el MD lo indica
-- [ ] `rest_after_section_seconds` definido en las secciones intermedias
+- [ ] `rest_after_section_seconds` definido en las secciones intermedias, `null` en la última
+- [ ] Las secciones de **Movilidad** llevan los tres descansos explícitos (§7.4)
+- [ ] Ningún paso queda en 0 segundos
 - [ ] La suma estimada de la línea de tiempo es coherente con `estimated_duration_minutes`
 
 **ZIP (§11b):**
@@ -1073,6 +1279,9 @@ Al finalizar la generación de una clase, verificar:
 - [ ] Todo `exercise_id` / `class_section_id` / `class_template_id` referenciado existe en su tabla correspondiente del mismo JSON
 - [ ] Los IDs son UUID v4 válidos y no se repiten dentro del JSON
 - [ ] Las fechas están en formato `YYYY-MM-DD HH:MM:SS` (created_at/updated_at) o `YYYY-MM-DD` (campo `date` de la clase)
+- [ ] Todo `muscle_group_id` / `equipment_id` / `tag_id` / `measurement_unit_id` /
+      `section_type_id` / `work_format_id` referenciado existe en `catalogs` del mismo JSON
+      (un id que no resuelve se descarta en silencio: la relación simplemente no se crea)
 - [ ] El ZIP quedó guardado en `BKP/clase-<nombre>-<fecha>.zip`
 
 ---
@@ -1098,17 +1307,34 @@ const crypto = require('crypto');
 const uuid = () => crypto.randomUUID();
 
 // 1. Catálogos usados (id interno + name; el importador los resuelve por nombre)
-const muscle = {}; ['Deltoides', 'Trapecio', /* ... */].forEach(n => muscle[n] = uuid());
+//    Músculos: nombres GRANULARES del catálogo de 35 (§5.1)
+const muscle = {};
+['Recto femoral', 'Glúteo mayor', 'Deltoides anterior', 'Trapecio (superior)', /* ... */]
+  .forEach(n => muscle[n] = uuid());
 // ... equipment, unit, difficulty, tag, sectionType, workFormat, igual patrón
+// section_type incluye 'Movilidad' con { color: '#14b8a6', icon: 'Activity', ... } por si no existe
 
-// 2. Ejercicios: EXISTENTES sólo { id, name } — NUEVOS con todos los campos de PASO 6
-const exId = {};
-const exercises = [];
-// reutilizados:
-['Running', 'Rowing' /* ... */].forEach(n => { exId[n] = uuid(); exercises.push({ id: exId[n], name: n }); });
+// 2. Ejercicios + músculos. Helper que sirve para nuevos y reutilizados:
+const exId = {}, exercises = [], emg = [];
+const addMuscles = (name, primary, secondary = []) => {
+  emg.push({ id: uuid(), exercise_id: exId[name], muscle_group_id: muscle[primary], is_primary: 1 });
+  secondary.forEach(m =>
+    emg.push({ id: uuid(), exercise_id: exId[name], muscle_group_id: muscle[m], is_primary: 0 }));
+};
+
+// reutilizados: id + name + primary_muscle_group_id + image_url (+ sus filas de músculos)
+const reuse = (name, primary, secondary, svg) => {
+  exId[name] = uuid();
+  exercises.push({ id: exId[name], name, primary_muscle_group_id: muscle[primary],
+                   image_url: `/img/exercises/${svg}.svg` });
+  addMuscles(name, primary, secondary);
+};
+reuse('Wall Ball Shot', 'Recto femoral',
+      ['Glúteo mayor', 'Deltoides anterior', 'Tríceps braquial'], 'wall-ball-shot');
+
 // nuevos: id, name, description, technical_notes, difficulty_level_id, primary_muscle_group_id,
 //         image_url, video_path, video_long_path, is_compound, is_active, created_at, updated_at
-//         + entradas correspondientes en exercise_muscle_group / equipment / section_type / unit / tag
+//         + addMuscles(...) + filas de equipment / section_type / unit / tag
 
 // 3. Clase, class_sections (una por sección del MD, PASO 2/3) y section_exercises
 //    (una por ejercicio de cada sección, con planned_* / suggested_timer_seconds del PASO 7)
@@ -1123,8 +1349,8 @@ zip.generateAsync({ type: 'nodebuffer' }).then(buf =>
 ```
 
 Ejecutar con `node build_zip.js` desde la raíz del repo. El resultado es un único archivo
-`BKP/clase-<nombre-clase>-<DD-MM-YYYY>.zip` — mismo naming que los ZIP ya existentes en `BKP/`
-(ej. `clase-GOAT-30-07-2026.zip`, generado a mano de la misma forma).
+`BKP/clase-<nombre-clase>-<DD-MM-YYYY>.zip` — mismo naming que los ZIP de clases anteriores
+(ej. `clase-GOAT-13-08-2026.zip`, generado de la misma forma).
 
 ### 11b. Verificar el ZIP antes de entregarlo
 
@@ -1133,33 +1359,60 @@ Antes de darlo por terminado, chequear con un script Node corto (usando el mismo
 - Todo `section_exercises[].exercise_id` existe en `exercises[].id`.
 - Todo `section_exercises[].class_section_id` existe en `class_sections[].id`.
 - Todo `class_sections[].class_template_id` coincide con el `id` de la clase en `classes[]`.
+- **Todo ejercicio de `exercises[]` tiene `primary_muscle_group_id` + al menos 3 filas en
+  `exercise_relations.exercise_muscle_group`, exactamente una con `is_primary: 1`.**
+- Todo `*_id` de `exercise_relations` apunta a un id declarado en `catalogs`.
+- Ningún `section_exercise` queda sin duración (`planned_time_seconds` o `suggested_timer_seconds`),
+  y ninguno tiene los dos a la vez.
 
 ### 11c. Guardar el ZIP en `BKP/` y explicarle al usuario cómo importarlo
 
 1. Copiar el ZIP a `BKP/clase-<nombre>-<fecha>.zip` (se versiona junto a `Ejercicios.md`, sirve de
    historial — igual que los ZIP de clases anteriores).
-2. Indicarle al usuario: abrir la app (`npm run dev` si es local) → **Configuración → Importar** →
-   elegir ese ZIP. `importFromZip()` detecta que es una clase y hace el merge aditivo — no hace
-   falta backup previo ni hay riesgo de perder sesiones/PRs existentes (§8).
+2. Indicarle al usuario: abrir la app (`npm run dev` si es local) → **Configuración → Gestión de
+   datos → Importar** → elegir ese ZIP. `importFromZip()` detecta que es una clase y hace el merge
+   aditivo — no hace falta backup previo ni hay riesgo de perder sesiones/PRs existentes (§8).
 3. La clase aparece en `/clases` con todas sus secciones y ejercicios listos.
 
-### 11d. Verificar el cronómetro (después de que el usuario importe)
+### 11d. Verificar después de que el usuario importe
 
+**Ejercicios y músculos:**
+1. Abrir un par de ejercicios de la clase desde `/ejercicios` y confirmar que el **mapa muscular**
+   pinta las zonas correctas en las dos vistas (frontal y posterior) y que el SVG animado se ve.
+2. Si el mapa aparece vacío, el ZIP no trajo filas de `exercise_muscle_group` (o los ids de músculo
+   no resolvían contra `catalogs`) — §6.1.
+3. En **Estadísticas**, el gráfico de distribución muscular debería reflejar la clase nueva.
+
+**Cronómetro:**
 1. En **Sesiones → Nueva**, dejar seleccionado **Clase guiada** y elegir la clase recién importada.
 2. El cronómetro debe recorrer la clase entera sin pasos de 0 segundos inesperados ni secciones
    ausentes.
 3. Contrastar la duración total que muestra con `estimated_duration_minutes` de la plantilla.
 4. Los tiempos globales (cuenta regresiva, pips, vibración) se ajustan en
    **Configuración → Cronómetro**; los de la clase, editando la plantilla.
+5. Si algo quedó flojo, **Configuración → Gestión de datos → Estimación de tiempos** rellena los
+   huecos con las reglas de §7 sin tocar lo que ya está cargado.
 
 ---
 
-*Última actualización: 2026-08-01*
-*Versión del schema: 12 (v012_free_timer_templates)*
-*Mecanismo de carga vigente: ZIP `class-share.json` (§11) generado a mano con un script Node +
-`jszip`, importado desde Configuración → Importar. Reemplaza el viejo mecanismo de
-`classDDMMYYYYImportService.ts` + botón en "Clases Predefinidas" — ese patrón nunca se usó en la
-práctica para las clases semanales y quedó descartado.*
-*Músculo integrado en el JSON del ZIP — ya no se usa ACTUALIZO_MUSCULOS.md para clases nuevas*
-*Cronómetro: toda clase nueva debe traer tiempos cargados o estimados (§7)*
-*Ejemplo real de referencia: `BKP/clase-GOAT-01-08-2026.zip` (y los ZIP de clases anteriores en `BKP/`)*
+*Última actualización: 2026-08-15*
+*Versión del schema: 14 (v014_movilidad_section_type)*
+*Mecanismo de carga vigente: ZIP `class-share.json` (§11) generado con un script Node + `jszip`,
+importado desde Configuración → Gestión de datos → Importar. Reemplaza el viejo mecanismo de
+`classDDMMYYYYImportService.ts` + botón en "Clases Predefinidas", descartado.*
+
+**Cambios de esta revisión (vs. 2026-08-01):**
+- **Músculos obligatorios** para todos los ejercicios de la clase, también los reutilizados (§1, §6.1,
+  §7): la regla vieja de mandar sólo `{ id, name }` quedó sin efecto. `ACTUALIZO_MUSCULOS.md` ya no
+  se usa como paso aparte.
+- **Catálogo de músculos granular de 35** (§5.1) en reemplazo de los 12 nombres simplificados; la
+  función `toDbName()` ya no existe. Tabla de equivalencia y patrones de movimiento actualizados.
+- **"Movilidad" es su propio `section_type`** (PASO 2, §5.4), no "Entrada en calor" — migración v014.
+- **Inventario de SVG actualizado a 275** (§4b), con convención de nombres y lista de duplicados a
+  evitar (§4a) y el flujo de fusión desde Configuración → Gestión de datos.
+- **Contrato real del importador documentado** (§2): qué actualiza campo por campo, qué relaciones
+  reemplaza entero (DELETE + INSERT) y qué pasa si el nombre de la clase ya existe.
+- **Formato del MD al día** (§3): reps antes del nombre, `video corto` → `video_path` y
+  `video explicativo` → `video_long_path`, circuitos desenrollados, descripciones en español.
+- **Tiempos alineados con `timerEstimationService.ts`** (§7.2/§7.4), incluidos los seg/rep que
+  cambiaron, y documentado el botón "Estimación de tiempos".

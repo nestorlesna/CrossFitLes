@@ -13,7 +13,6 @@
 ### COMO USAR
 
 
-
 ### TEMPLATE
 Clase GOAT XX/XX/2026
 
@@ -27,6 +26,47 @@ Fuerza
 WOD
 Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ### TEMPLATE
+
+
+Clase GOAT 15/08/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Activacion 
+ - 12 Calf Raises video corto https://www.youtube.com/shorts/SjypFUbZBCA, video explicativo https://www.youtube.com/shorts/sNqa1ad2qIQ
+ - 12 Tibialis Raise video corto https://www.youtube.com/shorts/pQcvW08rnAk, video explicativo https://www.youtube.com/watch?v=OPEuhclsTUQ
+ - 8 Box Step-Up
+ - 10 Supinated Band Pull-Apart video corto https://www.youtube.com/shorts/Y1mbgIcDrf8, video explicativo https://www.youtube.com/watch?v=MnDpmNYUjbc
+ - 12 Wall Thoracic Extensions
+ - 60 seg Assault Bike
+ - 12 Calf Raises
+ - 12 Tibialis Raise
+ - 8 Box Step-Up
+ - 10 Supinated Band Pull-Apart
+ - 12 Wall Thoracic Extensions
+ - 60 seg SkiErg
+
+Fuerza 5 rondas cada 3 minutos
+ - 12 Stiff-Leg Deadlift video corto https://www.youtube.com/shorts/4ZEZd1zVJzE, video explicativo https://www.youtube.com/shorts/oMk0juzszj8
+ - 10 Dumbbell Push Press
+
+WOD 25 minutos maximo
+ - 600 m running
+ - 20 Wall Ball Shot
+ - 12 metros Burpee Broad Jump
+ - 600 m running
+ - 20 Wall Ball Shot
+ - 12 metros Burpee Broad Jump
+ - 600 m running
+ - 20 Wall Ball Shot
+ - 12 metros Burpee Broad Jump
+ - 600 m running
+ - 20 Wall Ball Shot
+ - 12 metros Burpee Broad Jump
+ 
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
 
 EMPLATE
 Clase GOAT 13/08/2026

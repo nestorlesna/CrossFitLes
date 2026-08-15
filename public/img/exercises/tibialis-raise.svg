@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+<rect width="200" height="230" fill="#111827" rx="12"/>
+<style>
+  .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+  @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+  @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+  @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+</style>
+<!-- Pared de apoyo -->
+<rect x="22" y="24" width="10" height="180" rx="3" fill="#374151"/>
+<line x1="32" y1="204" x2="176" y2="204" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+<text x="100" y="222" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">TIBIALIS RAISE</text>
+
+<!-- F1: Pie plano, punta apoyada -->
+<g class="f1" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" fill="none">
+  <circle cx="48" cy="48" r="12" fill="#94a3b8" stroke="none"/>
+  <line x1="48" y1="60" x2="56" y2="126"/>
+  <line x1="50" y1="72" x2="66" y2="116"/>
+  <line x1="56" y1="126" x2="92" y2="168"/>
+  <line x1="92" y1="168" x2="116" y2="204"/>
+  <line x1="116" y1="204" x2="142" y2="204"/>
+  <circle cx="92" cy="168" r="4" fill="#64748b" stroke="none"/>
+</g>
+
+<!-- F2: Punta del pie subiendo (dorsiflexion media) -->
+<g class="f2" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" fill="none">
+  <circle cx="48" cy="48" r="12" fill="#94a3b8" stroke="none"/>
+  <line x1="48" y1="60" x2="56" y2="126"/>
+  <line x1="50" y1="72" x2="66" y2="116"/>
+  <line x1="56" y1="126" x2="92" y2="168"/>
+  <line x1="92" y1="168" x2="116" y2="204"/>
+  <line x1="116" y1="204" x2="140" y2="192"/>
+  <circle cx="92" cy="168" r="4" fill="#64748b" stroke="none"/>
+</g>
+
+<!-- F3: Dorsiflexion maxima, talon apoyado -->
+<g class="f3" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" fill="none">
+  <circle cx="48" cy="48" r="12" fill="#94a3b8" stroke="none"/>
+  <line x1="48" y1="60" x2="56" y2="126"/>
+  <line x1="50" y1="72" x2="66" y2="116"/>
+  <line x1="56" y1="126" x2="92" y2="168"/>
+  <line x1="92" y1="168" x2="116" y2="204"/>
+  <line x1="116" y1="204" x2="136" y2="180"/>
+  <circle cx="92" cy="168" r="4" fill="#64748b" stroke="none"/>
+</g>
+</svg>
