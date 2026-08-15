@@ -116,7 +116,9 @@
       "Bash(mkdir -p /tmp_extract_bkp)",
       "Bash(unzip -p \"BKP/crossfit-backup-20260810-205051.zip\" data.json)",
       "Bash(python3 -c ' *)",
-      "Bash(cd *)"
+      "Bash(cd *)",
+      "Bash(sed 's/\\\\.svg$//')",
+      "Bash(awk '{ l=toupper\\(substr\\($0,1,1\\)\\); if \\(l!=p\\) { if\\(p!=\"\"\\) printf \"\\\\n\"; printf \"- **%s** — %s\", l, $0; p=l } else printf \", %s\", $0 } END { printf \"\\\\n\" }')"
     ]
   }
 }
