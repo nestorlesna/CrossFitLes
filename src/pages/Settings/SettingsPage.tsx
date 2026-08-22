@@ -24,12 +24,14 @@ import {
   Archive,
   LayoutList,
   ClipboardList,
+  MonitorPlay,
 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { BackupSection } from '../../components/export/BackupSection';
 import { ClassShareSection } from '../../components/export/ClassShareSection';
 import { TimerEstimationSection } from '../../components/export/TimerEstimationSection';
 import { ExerciseMigrationSection } from '../../components/export/ExerciseMigrationSection';
+import { UnusedExercisesSection } from '../../components/export/UnusedExercisesSection';
 import { ResetSection } from '../../components/export/ResetSection';
 
 const catalogItems = [
@@ -268,6 +270,19 @@ export function SettingsPage() {
                 <ChevronRight size={16} className="text-gray-600" />
               </button>
               <button
+                onClick={() => navigate('/configuracion/prueba-videos')}
+                className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
+              >
+                <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shrink-0">
+                  <MonitorPlay size={16} className="text-primary-400" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-sm text-white block">Prueba de videos</span>
+                  <span className="text-xs text-gray-600">Probar embeds de YouTube, Reels, TikTok, Vimeo</span>
+                </div>
+                <ChevronRight size={16} className="text-gray-600" />
+              </button>
+              <button
                 onClick={() => navigate('/configuracion/sesiones')}
                 className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-800/60 transition-colors text-left"
               >
@@ -293,6 +308,7 @@ export function SettingsPage() {
               <BackupSection />
               <TimerEstimationSection />
               <ExerciseMigrationSection />
+              <UnusedExercisesSection />
               <ResetSection />
             </div>
           )}

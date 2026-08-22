@@ -561,3 +561,100 @@ export async function getDuplicateExercises(): Promise<{
 
   return result;
 }
+
+// Ejercicios sin uso: no aparecen en ninguna clase (section_exercise), ni en resultados
+// de sesión (session_exercise_result), ni en récords personales (personal_record).
+// Incluye los inactivos (is_active = 0), que también son candidatos a limpieza.
+// Con `ignoreInactiveClasses` las clases dadas de baja (class_template.is_active = 0) no
+// cuentan como uso: un ejercicio que sólo figura ahí también se considera sin uso.
+export interface UnusedExerciseRow {
+  id: string;
+  name: string;
+  image_url: string | null;
+  is_active: number;
+  created_at: string;
+  /** Cuántas veces figura en clases inactivas (0 si no está en ninguna) */
+  inactive_class_count: number;
+}
+
+// Condición de "no está en ninguna clase", según se cuenten o no las clases inactivas
+function noClassUsage(ignoreInactiveClasses: boolean): string {
+  return ignoreInactiveClasses
+    ? `NOT EXISTS (
+         SELECT 1 FROM section_exercise se
+         JOIN class_section cs ON cs.id = se.class_section_id
+         JOIN class_template ct ON ct.id = cs.class_template_id
+         WHERE se.exercise_id = {ref} AND ct.is_active = 1)`
+    : `NOT EXISTS (SELECT 1 FROM section_exercise se WHERE se.exercise_id = {ref})`;
+}
+
+export async function getUnusedExercises(
+  ignoreInactiveClasses = false
+): Promise<UnusedExerciseRow[]> {
+  const db = getDatabase();
+  const result = await db.query(
+    `SELECT e.id, e.name, e.image_url, e.is_active, e.created_at,
+            (SELECT COUNT(*) FROM section_exercise se
+             JOIN class_section cs ON cs.id = se.class_section_id
+             JOIN class_template ct ON ct.id = cs.class_template_id
+             WHERE se.exercise_id = e.id AND ct.is_active = 0) AS inactive_class_count
+     FROM exercise e
+     WHERE ${noClassUsage(ignoreInactiveClasses).replace(/\{ref\}/g, 'e.id')}
+       AND NOT EXISTS (SELECT 1 FROM session_exercise_result sr WHERE sr.exercise_id = e.id)
+       AND NOT EXISTS (SELECT 1 FROM personal_record pr WHERE pr.exercise_id = e.id)
+     ORDER BY e.is_active DESC, e.name COLLATE NOCASE ASC`
+  );
+  return (result.values ?? []).map((row) => ({
+    ...(row as UnusedExerciseRow),
+    inactive_class_count: Number((row as { inactive_class_count?: number }).inactive_class_count ?? 0),
+  }));
+}
+
+// Borra físicamente los ejercicios indicados, siempre que sigan sin uso.
+// El chequeo de uso se repite dentro del DELETE para no borrar nada que se haya
+// empezado a usar entre el análisis y la confirmación. Devuelve cuántos se borraron.
+// Con `ignoreInactiveClasses` también borra las filas de section_exercise que esos
+// ejercicios tengan en clases inactivas (si no, la FK impediría eliminarlos).
+export async function deleteUnusedExercises(
+  ids: string[],
+  ignoreInactiveClasses = false
+): Promise<number> {
+  if (ids.length === 0) return 0;
+
+  const db = getDatabase();
+  const placeholders = ids.map(() => '?').join(', ');
+  const unusedFilter = `
+    id IN (${placeholders})
+    AND ${noClassUsage(ignoreInactiveClasses).replace(/\{ref\}/g, 'exercise.id')}
+    AND NOT EXISTS (SELECT 1 FROM session_exercise_result sr WHERE sr.exercise_id = exercise.id)
+    AND NOT EXISTS (SELECT 1 FROM personal_record pr WHERE pr.exercise_id = exercise.id)`;
+
+  // Los que realmente se van a borrar (los que siguen sin uso)
+  const target = await db.query(`SELECT id FROM exercise WHERE ${unusedFilter}`, ids);
+  const targetIds = (target.values ?? []).map((row) => (row as { id: string }).id);
+  if (targetIds.length === 0) return 0;
+
+  const inList = targetIds.map(() => '?').join(', ');
+  const stmts = [
+    'exercise_muscle_group', 'exercise_equipment', 'exercise_section_type',
+    'exercise_unit', 'exercise_tag', 'exercise_image',
+  ].map((table) => ({
+    statement: `DELETE FROM ${table} WHERE exercise_id IN (${inList})`,
+    values: targetIds,
+  }));
+
+  // Sus apariciones en clases inactivas (o huérfanas): sin esto la FK bloquea el borrado
+  if (ignoreInactiveClasses) {
+    stmts.push({
+      statement: `DELETE FROM section_exercise WHERE exercise_id IN (${inList})`,
+      values: targetIds,
+    });
+  }
+
+  stmts.push({ statement: `DELETE FROM exercise WHERE id IN (${inList})`, values: targetIds });
+
+  await db.executeSet(stmts, true);
+  await saveDatabase();
+
+  return targetIds.length;
+}

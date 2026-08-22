@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, Search, Calendar, Star, Dumbbell, Play, ClipboardList, Timer, ListChecks } from 'lucide-react';
+import { ChevronLeft, Search, Calendar, Star, Dumbbell, Play, ClipboardList, Timer, ListChecks, Video } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { Badge } from '../../components/ui/Badge';
 import { ClassTemplate } from '../../models/ClassTemplate';
@@ -36,6 +36,12 @@ export function NewSessionPage() {
     try {
       const sessionId = await createFromTemplate(templateId);
       toast.success('Sesión iniciada');
+      // Si la clase tiene video de cabecera, la clase guiada se ejecuta en modo video
+      const template = templates.find((t) => t.id === templateId);
+      if (mode === 'timer' && template?.video_url) {
+        navigate(`/sesiones/${sessionId}/video`);
+        return;
+      }
       navigate(mode === 'timer' ? `/sesiones/${sessionId}/cronometro` : `/sesiones/${sessionId}/ejecutar`);
     } catch (e) {
       toast.error('Error al iniciar sesión');
@@ -99,7 +105,7 @@ export function NewSessionPage() {
               <Timer size={18} />
               <span className="text-xs font-bold">Clase guiada</span>
               <span className={`text-[10px] leading-tight text-center ${mode === 'timer' ? 'text-white/70' : 'text-gray-600'}`}>
-                El cronómetro avanza solo
+                El cronómetro avanza solo (o el video, si la clase tiene)
               </span>
             </button>
             <button
@@ -159,6 +165,9 @@ export function NewSessionPage() {
                     )}
                   </div>
 
+                  {template.video_url && (
+                    <Video size={16} className="text-primary-400 shrink-0" aria-label="Clase con video" />
+                  )}
                   <Play size={16} className="text-primary-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
               ))}

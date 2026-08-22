@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="1">JUMPING JACK</text>
+  <g class="f1">
+    <circle cx="100" cy="26" r="14" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M100 40 L100 108"/>
+      <path d="M100 52 L78 60 L72 100"/>
+      <path d="M100 52 L122 60 L128 100"/>
+      <path d="M100 108 L92 160 L90 205"/>
+      <path d="M100 108 L108 160 L110 205"/>
+      <path d="M84 205 L96 205"/>
+      <path d="M104 205 L116 205"/>
+    </g>
+  </g>
+  <g class="f2">
+    <circle cx="100" cy="26" r="14" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M100 40 L100 108"/>
+      <path d="M100 52 L74 40 L58 26"/>
+      <path d="M100 52 L126 40 L142 26"/>
+      <path d="M100 108 L80 155 L66 198"/>
+      <path d="M100 108 L120 155 L134 198"/>
+      <path d="M58 200 L72 198"/>
+      <path d="M128 198 L142 200"/>
+    </g>
+    <circle cx="80" cy="155" r="5" fill="#64748b"/>
+    <circle cx="120" cy="155" r="5" fill="#64748b"/>
+  </g>
+  <g class="f3">
+    <circle cx="100" cy="26" r="14" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M100 40 L100 108"/>
+      <path d="M100 52 L82 28 L76 10"/>
+      <path d="M100 52 L118 28 L124 10"/>
+      <path d="M100 108 L76 158 L58 205"/>
+      <path d="M100 108 L124 158 L142 205"/>
+      <path d="M50 205 L66 205"/>
+      <path d="M134 205 L150 205"/>
+    </g>
+    <circle cx="76" cy="158" r="5" fill="#64748b"/>
+    <circle cx="124" cy="158" r="5" fill="#64748b"/>
+  </g>
+</svg>

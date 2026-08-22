@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="1">REACH-UP CRUNCH</text>
+  <g class="f1">
+    <circle cx="56" cy="182" r="11" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M68 186 L120 190"/>
+      <path d="M120 190 L146 168 L166 190"/>
+      <path d="M72 186 L70 146"/>
+      <path d="M78 188 L76 146"/>
+    </g>
+    <circle cx="146" cy="168" r="5" fill="#64748b"/>
+  </g>
+  <g class="f2">
+    <circle cx="60" cy="168" r="11" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M72 174 L120 190"/>
+      <path d="M120 190 L146 168 L166 190"/>
+      <path d="M76 174 L78 134"/>
+      <path d="M82 176 L84 134"/>
+    </g>
+    <circle cx="146" cy="168" r="5" fill="#64748b"/>
+  </g>
+  <g class="f3">
+    <circle cx="66" cy="154" r="11" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M78 162 L120 190"/>
+      <path d="M120 190 L146 168 L166 190"/>
+      <path d="M82 162 L90 122"/>
+      <path d="M88 164 L96 124"/>
+    </g>
+    <circle cx="146" cy="168" r="5" fill="#64748b"/>
+  </g>
+</svg>

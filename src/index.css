@@ -23,6 +23,32 @@
   }
 }
 
+@layer components {
+  /* Escenario del reproductor en la clase por video: define el alto disponible
+     como unidad de container query (100cqh) para que el video se acote a la
+     pantalla en vez de desbordar y generar scroll. */
+  .video-stage {
+    container-type: size;
+  }
+
+  /* El reproductor toma el menor entre el ancho disponible, su ancho máximo
+     (360px en videos verticales) y el ancho que le permite el alto del
+     escenario. Con `aspect-ratio` inline, el alto sale solo.
+     Si el navegador no soporta container queries, la regla se descarta y el
+     video vuelve a ocupar el 100% del ancho (comportamiento anterior). */
+  .video-fit {
+    width: min(100%, var(--video-max-width, 100%), calc(100cqh * var(--video-w) / var(--video-h)));
+  }
+
+  /* Archivos de video directos: el <video> ya respeta su relación de aspecto */
+  .video-fit-native {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+  }
+}
+
 @layer utilities {
   /* Safe area para dispositivos con notch */
   .safe-top {

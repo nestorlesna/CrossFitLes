@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="1">BAND SHOULDER TOSS</text>
+  <g class="f1">
+    <path d="M36 200 L70 120 L92 72" stroke="#64748b" stroke-width="3" stroke-dasharray="7 5" stroke-linecap="round" fill="none"/>
+    <circle cx="100" cy="40" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M100 53 L100 116"/>
+      <path d="M100 64 L84 80 L94 72"/>
+      <path d="M100 64 L88 84 L98 76"/>
+      <path d="M100 116 L80 158 L74 205"/>
+      <path d="M100 116 L120 158 L126 205"/>
+      <path d="M66 205 L84 205"/>
+      <path d="M118 205 L136 205"/>
+    </g>
+    <circle cx="84" cy="80" r="5" fill="#64748b"/>
+  </g>
+  <g class="f2">
+    <path d="M36 200 L86 130 L140 68" stroke="#64748b" stroke-width="3" stroke-dasharray="7 5" stroke-linecap="round" fill="none"/>
+    <circle cx="102" cy="40" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M102 53 L102 116"/>
+      <path d="M102 64 L124 70 L142 66"/>
+      <path d="M102 64 L122 74 L140 70"/>
+      <path d="M102 116 L82 158 L76 205"/>
+      <path d="M102 116 L122 158 L128 205"/>
+      <path d="M68 205 L86 205"/>
+      <path d="M120 205 L138 205"/>
+    </g>
+    <circle cx="124" cy="70" r="5" fill="#64748b"/>
+  </g>
+  <g class="f3">
+    <path d="M36 200 L96 128 L162 58" stroke="#64748b" stroke-width="3" stroke-dasharray="7 5" stroke-linecap="round" fill="none"/>
+    <circle cx="106" cy="38" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M106 51 L104 114"/>
+      <path d="M106 62 L132 60 L162 58"/>
+      <path d="M106 62 L130 66 L160 62"/>
+      <path d="M104 114 L86 156 L80 205"/>
+      <path d="M104 114 L126 156 L132 205"/>
+      <path d="M72 205 L90 205"/>
+      <path d="M124 205 L142 205"/>
+    </g>
+  </g>
+</svg>

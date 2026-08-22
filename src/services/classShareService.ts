@@ -564,9 +564,9 @@ export async function importClassFromZip(zipFile: Blob): Promise<ClassImportResu
       newClassId = generateUUID();
       stmts.push({
         statement: `INSERT INTO class_template
-          (id, date, name, objective, general_notes, estimated_duration_minutes, is_favorite, template_type, is_active, created_at, updated_at)
-          VALUES (?, ?, ?, ?, ?, ?, 0, 'my_classes', 1, ?, ?)`,
-        values: [newClassId, cls.date ?? null, cls.name, cls.objective ?? null, cls.general_notes ?? null, cls.estimated_duration_minutes ?? null, timestamp, timestamp],
+          (id, date, name, objective, general_notes, estimated_duration_minutes, video_url, video_duration_seconds, is_favorite, template_type, is_active, created_at, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, 'my_classes', 1, ?, ?)`,
+        values: [newClassId, cls.date ?? null, cls.name, cls.objective ?? null, cls.general_notes ?? null, cls.estimated_duration_minutes ?? null, cls.video_url ?? null, cls.video_duration_seconds ?? null, timestamp, timestamp],
       });
     }
     idMap.set(exportClassId, newClassId);

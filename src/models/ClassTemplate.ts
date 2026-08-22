@@ -9,6 +9,10 @@ export interface ClassTemplate {
   objective?: string
   general_notes?: string
   estimated_duration_minutes?: number
+  /** Video de cabecera: si está cargado, la sesión se ejecuta en modo "clase por video" */
+  video_url?: string
+  /** Duración del video en segundos, para cerrar la clase automáticamente al terminar */
+  video_duration_seconds?: number
   is_favorite: number    // 0 | 1
   template_type: TemplateType  // 'my_classes' | 'generic'
   is_active: number      // 0 | 1

@@ -15,6 +15,7 @@
 
 ### TEMPLATE
 Clase GOAT XX/XX/2026
+video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta
 
 Calentamiento
 - 6 minutos de calentamiento
@@ -27,6 +28,162 @@ WOD
 Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ### TEMPLATE
 
+
+Abdominales Corto - 3 MIN FULL ABS WORKOUT - 21/08/2026
+video principal: https://www.facebook.com/reel/2310088009792959 (2:56)
+Duracion: 3 minutos - 6 rondas - sin material
+Autor: Artem Davidchenko
+
+Activación, ejercicio 20 segundos, 10 de descanso
+ - Reach-Up Crunch (crunch con brazos extendidos hacia arriba)
+ - Leg Raises (elevación de piernas acostado)
+ - Bicycle Crunch (bicicleta)
+ - Heel Touches (toques de talón / crunch lateral)
+ - Toe Touches (toques de punta de pie con piernas verticales)
+ - Seated Tuck-Ins (in & out sentado, flexión y extensión de rodillas)
+
+
+
+Full Body Corto - 3 MIN HOME WORKOUT FULL BODY - 21/08/2026
+video principal: https://www.facebook.com/reel/723390367503207 (2:57)
+Duracion: 3 minutos - 6 rondas - con banda elástica
+Autor: Artem Davidchenko
+
+Activación, ejercicio 20 segundos, 10 de descanso
+ - Squat To Front Raise (sentadilla + elevación frontal)
+ - RDL To Bent Over Row (peso muerto rumano + remo inclinado)
+ - Jumping Lunges (zancadas con salto)
+ - Shoulder Toss (empuje/lanzamiento de hombros)
+ - Band WoodChopper (leñador con banda)
+ - Hammer Curl To Tricep Kickback (curl martillo + patada de tríceps)
+
+
+
+TABATA CARDIO EN 3 MIN | BEACH WORKOUT
+URL: https://www.youtube.com/watch?v=QXkG4me4fAI
+Canal: CRISTIAN LAGE LIFESTYLE · Duración: 3:05
+Formato: 6 rondas, 20 s trabajo / 10 s descanso. Sin material.
+
+1	0:10	Jumping jacks (saltos de tijera)	20 s	10 s	Alta
+2	0:40	Desplazamiento lateral en posición baja / skaters	20 s	10 s	Media
+3	1:10	Carrera en el sitio con rodillas altas	20 s	10 s	Alta
+4	1:40	Skater lateral con toque al suelo	20 s	10 s	Media-baja
+5	2:10	Pasos rápidos en base amplia con guardia (tipo boxeo)	20 s	10 s	Media-baja
+6	2:40	Sprint en el sitio / carrera explosiva	20 s	10 s	Media
+
+
+10 min CALISTHENICS workout at home for BEGINNERS | no equipment
+URL: https://www.youtube.com/watch?v=qQZBei1z06M
+Canal: Djanko · Duración: 10:01
+Formato: 30 s trabajo / 30 s descanso. 5 ejercicios × 2 vueltas = 10 bloques. Arranca ~0:20.
+
+1	0:20	Shoulder Tap	Toque de hombro en plancha	30 s	30 s
+2	1:20	Hollow Body	Hueco / hollow hold	30 s	30 s
+3	2:20	Pike Hold	Isométrico en V invertida	30 s	30 s
+4	3:20	Superman	Superman	30 s	30 s
+5	4:20	Squats	Sentadillas	30 s	30 s
+6	5:20	Shoulder Tap	Toque de hombro en plancha	30 s	30 s
+7	6:20	Hollow Body	Hueco / hollow hold	30 s	30 s
+8	7:20	Pike Walk	Caminata en V invertida	30 s	30 s
+9	8:20	Superman	Superman	30 s	30 s
+10	9:20	Squats	Sentadillas	30 s	30 s
+
+
+15 min CALISTHENICS Workout for Beginners | Full Body
+URL: https://www.youtube.com/watch?v=At7MqO1G37o
+Canal: Djanko · Duración: 16:07
+Formato: 40 s trabajo / 20 s descanso. 16 bloques. Arranca ~0:15.
+
+1	0:15	Negative Push Ups	Flexiones negativas	40 s	20 s
+2	1:15	Plank	Plancha	40 s	20 s
+3	2:15	Negative Push Ups	Flexiones negativas	40 s	20 s
+4	3:15	Superman Hold	Superman isométrico	40 s	20 s
+5	4:15	Right Lunges	Zancadas pierna derecha	40 s	20 s
+6	5:15	Left Lunges	Zancadas pierna izquierda	40 s	20 s
+7	6:15	Squats	Sentadillas	40 s	20 s
+8	7:15	Knee Push Ups	Flexiones con rodillas apoyadas	40 s	20 s
+9	8:15	Shoulders Tap	Toque de hombro en plancha	40 s	20 s
+10	9:15	Knee Push Ups	Flexiones con rodillas apoyadas	40 s	20 s
+11	10:15	Shoulders Tap	Toque de hombro en plancha	40 s	20 s
+12	11:15	Squats	Sentadillas	40 s	20 s
+13	12:15	Plank	Plancha	40 s	20 s
+14	13:15	Superman Hold	Superman isométrico	40 s	20 s
+15	14:15	Side Plank	Plancha lateral (un lado)	40 s	20 s
+16	15:15	Side Plank	Plancha lateral (otro lado)	40 s	20 s
+
+
+CALISTHENICS Program for Beginners | DAY 5 - Mobility routine
+URL: https://www.youtube.com/watch?v=QIz0tvJTeAw
+Canal: Djanko · Duración: 10:35
+Formato: irregular. Alterna bloques por tiempo (20 s o 40 s) con bloques por repeticiones (10 reps, 6 reps), y entre medio hay transiciones sin rótulo. Los tiempos son aproximados.
+
+1	0:20	Psoas Stretch	Estiramiento de psoas (lado 1)	20 s	transición
+2	0:45	10 Thoracic Openings	10 aperturas torácicas (lado 1)	10 reps	transición
+3	1:15	Psoas Stretch	Estiramiento de psoas (lado 2)	20 s	transición
+4	1:45	10 Thoracic Openings	10 aperturas torácicas (lado 2)	10 reps	transición
+5	2:20	6 Upward to Downward	6 perro arriba → perro abajo	6 reps	transición
+6	3:35	Shoulders Stretch	Estiramiento de hombros	40 s	transición
+7	4:20	10 Spine Rotations	10 rotaciones de columna	10 reps	transición
+8	5:25	Glute Stretch	Estiramiento de glúteo (lado 1)	40 s	transición
+9	6:30	Glute Stretch	Estiramiento de glúteo (lado 2)	40 s	transición
+10	7:30	10 Reps 90° to 90°	10 reps 90/90 de cadera	10 reps	transición
+11	8:15	Hamstring Stretch	Estiramiento isquiotibial (lado 1)	40 s	transición
+12	9:05	Hamstring Stretch	Estiramiento isquiotibial (lado 2)	40 s	transición
+13	9:40	Deep Squat Hold	Sentadilla profunda isométrica	40 s	fin
+
+
+10 Min CALISTHENICS for Complete Beginners
+URL: https://www.youtube.com/watch?v=N2I_XNKpWDA
+Canal: Djanko · Duración: 10:08
+Formato: 40 s trabajo / 20 s descanso. 10 ejercicios. Arranca ~0:20.
+
+1	0:20	Wide Push Ups Negatives	Flexiones abiertas negativas	40 s	20 s
+2	1:20	Knee Taps	Toque de rodillas en plancha	40 s	20 s
+3	2:20	Negative Push Ups	Flexiones negativas	40 s	20 s
+4	3:20	Shoulder Taps	Toque de hombro en plancha	40 s	20 s
+5	4:20	Ground Pull Ups	Dominadas en el suelo	40 s	20 s
+6	5:20	Plank	Plancha	40 s	20 s
+7	6:20	Around the World	Círculo de brazos boca abajo	40 s	20 s
+8	7:20	Lunges	Zancadas	40 s	20 s
+9	8:20	Squats	Sentadillas	40 s	20 s
+10	9:20	Hollow Tuck	Hueco con rodillas flexionadas	40 s	20 s
+
+
+10 min ABS & Core Workout at Home
+URL: https://www.youtube.com/watch?v=BDA_amHP4Jw
+Canal: Djanko · Duración: 10:06
+Formato: 40 s trabajo / 20 s descanso. 10 ejercicios. Arranca ~0:20.
+so
+1	0:20	Sit Up	Abdominal completo	40 s	20 s
+2	1:20	Oblique Crunch	Crunch oblicuo (lado 1)	40 s	20 s
+3	2:20	Oblique Crunch	Crunch oblicuo (lado 2)	40 s	20 s
+4	3:20	V Up	V-up	40 s	20 s
+5	4:20	Sit Up	Abdominal completo	40 s	20 s
+6	5:20	Heels Tap	Toque de talones	40 s	20 s
+7	6:20	Legs Compression	Compresión de piernas (sentado)	40 s	20 s
+8	7:20	Plank	Plancha	40 s	20 s
+9	8:20	Side Plank	Plancha lateral (lado 1)	40 s	20 s
+10	9:20	Side Plank	Plancha lateral (lado 2)	40 s	20 s
+
+
+
+
+
+
+
+
+
+Piernas Corto - 1 -  20/09/2026
+video principal: https://www.facebook.com/reel/2261175031285239 (3:00)
+Duracion: 3 minutos
+
+Activación, ejercicio 20 segundo, 10 de descanso
+ - Air Squat 
+ - Weighted Lunge
+ - Bottom-Half Squat, video corto https://www.youtube.com/watch?v=uwTVk6y0Zb8, video explicativo https://www.youtube.com/watch?v=22s8TlVzXVU
+ - Squat to Toe Raise, video corto https://www.youtube.com/watch?v=7AtSXS9vRDw, video explicativo https://www.youtube.com/shorts/6WkehwvAcyA
+ - Banded Glute Kickback, video corto https://www.youtube.com/watch?v=pdP0uJXvc44, video explicativo https://www.youtube.com/shorts/GFi2L548acc
+ - Kneeling Squat video corto https://www.youtube.com/shorts/89FvKU7nXls, video explicativo https://www.youtube.com/shorts/0exb3W3pXy0
 
 Clase GOAT 15/08/2026
 

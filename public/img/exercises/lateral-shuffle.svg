@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="1">LATERAL SHUFFLE</text>
+  <g class="f1">
+    <circle cx="100" cy="52" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M100 65 L100 120"/>
+      <path d="M100 76 L86 92 L92 106"/>
+      <path d="M100 76 L114 92 L108 106"/>
+      <path d="M100 120 L78 160 L70 205"/>
+      <path d="M100 120 L122 160 L130 205"/>
+      <path d="M62 205 L80 205"/>
+      <path d="M122 205 L140 205"/>
+    </g>
+    <circle cx="78" cy="160" r="5" fill="#64748b"/>
+    <circle cx="122" cy="160" r="5" fill="#64748b"/>
+  </g>
+  <g class="f2">
+    <circle cx="82" cy="54" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M82 67 L86 122"/>
+      <path d="M82 78 L68 94 L74 108"/>
+      <path d="M82 78 L96 94 L92 108"/>
+      <path d="M86 122 L62 162 L52 205"/>
+      <path d="M86 122 L112 158 L128 200"/>
+      <path d="M44 205 L62 205"/>
+      <path d="M122 202 L140 196"/>
+    </g>
+    <circle cx="62" cy="162" r="5" fill="#64748b"/>
+    <circle cx="112" cy="158" r="5" fill="#64748b"/>
+  </g>
+  <g class="f3">
+    <circle cx="118" cy="54" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M118 67 L114 122"/>
+      <path d="M118 78 L132 94 L126 108"/>
+      <path d="M118 78 L104 94 L108 108"/>
+      <path d="M114 122 L138 162 L148 205"/>
+      <path d="M114 122 L88 158 L72 200"/>
+      <path d="M138 205 L156 205"/>
+      <path d="M60 196 L78 202"/>
+    </g>
+    <circle cx="138" cy="162" r="5" fill="#64748b"/>
+    <circle cx="88" cy="158" r="5" fill="#64748b"/>
+  </g>
+</svg>

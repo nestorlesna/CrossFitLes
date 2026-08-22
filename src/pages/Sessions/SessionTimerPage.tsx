@@ -130,6 +130,11 @@ export function SessionTimerPage() {
         }
 
         const templ = await getTemplateById(sess.class_template_id);
+        if (templ?.video_url) {
+          // La clase se ejecuta mirando el video, no con el cronómetro paso a paso
+          navigate(`/sesiones/${id}/video`, { replace: true });
+          return;
+        }
         if (!templ || templ.sections.length === 0) {
           toast.error('La clase no tiene secciones cargadas');
           navigate('/sesiones');
