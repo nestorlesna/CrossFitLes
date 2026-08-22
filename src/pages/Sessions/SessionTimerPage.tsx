@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, useId } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   ChevronLeft,
@@ -72,6 +72,7 @@ function ProgressRing({ progress, className }: { progress: number; className: st
 }
 
 export function SessionTimerPage() {
+  const uid = useId();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
@@ -642,8 +643,9 @@ export function SessionTimerPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Notas</label>
+            <label htmlFor={`${uid}-notas`} className="block text-xs font-bold text-gray-500 uppercase mb-2">Notas</label>
             <textarea
+              id={`${uid}-notas`}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="¿Algo para recordar de hoy?"

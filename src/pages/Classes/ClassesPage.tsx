@@ -1,5 +1,5 @@
 // Página principal de plantillas de clase con vista lista y calendario
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useId } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Plus,
@@ -147,6 +147,7 @@ function ClassCard({
 }
 
 export function ClassesPage() {
+  const uid = useId();
   const navigate = useNavigate();
   const [myClasses, setMyClasses] = useState<ClassTemplate[]>([]);
   const [genericClasses, setGenericClasses] = useState<ClassTemplate[]>([]);
@@ -388,8 +389,9 @@ export function ClassesPage() {
             {/* Rango de fechas */}
             <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="block text-xs text-gray-400 mb-1">Desde</label>
+                <label htmlFor={`${uid}-desde`} className="block text-xs text-gray-400 mb-1">Desde</label>
                 <input
+                  id={`${uid}-desde`}
                   type="date"
                   value={filterFromDate}
                   onChange={(e) => setFilterFromDate(e.target.value)}
@@ -397,8 +399,9 @@ export function ClassesPage() {
                 />
               </div>
               <div>
-                <label className="block text-xs text-gray-400 mb-1">Hasta</label>
+                <label htmlFor={`${uid}-hasta`} className="block text-xs text-gray-400 mb-1">Hasta</label>
                 <input
+                  id={`${uid}-hasta`}
                   type="date"
                   value={filterToDate}
                   onChange={(e) => setFilterToDate(e.target.value)}

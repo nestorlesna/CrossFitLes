@@ -280,8 +280,9 @@ export function CatalogManager({
     if (field.type === 'select') {
       return (
         <div key={field.key} className="space-y-1.5">
-          <label className="text-sm text-gray-300 font-medium">{field.label}</label>
+          <label htmlFor={`${field.key}`} className="text-sm text-gray-300 font-medium">{field.label}</label>
           <select
+            id={`${field.key}`}
             value={String(value ?? '')}
             onChange={(e) => handleFieldChange(field.key, e.target.value)}
             className="w-full bg-gray-800 text-white rounded-xl px-3 py-2.5 text-sm border border-gray-700 focus:outline-none focus:border-primary-500"
@@ -300,8 +301,9 @@ export function CatalogManager({
     if (field.type === 'textarea') {
       return (
         <div key={field.key} className="space-y-1.5">
-          <label className="text-sm text-gray-300 font-medium">{field.label}</label>
+          <label htmlFor={`${field.key}`} className="text-sm text-gray-300 font-medium">{field.label}</label>
           <textarea
+            id={`${field.key}`}
             value={String(value ?? '')}
             onChange={(e) => handleFieldChange(field.key, e.target.value)}
             placeholder={field.placeholder}
@@ -315,11 +317,12 @@ export function CatalogManager({
     // text y number
     return (
       <div key={field.key} className="space-y-1.5">
-        <label className="text-sm text-gray-300 font-medium">
+        <label htmlFor={`${field.key}`} className="text-sm text-gray-300 font-medium">
           {field.label}
           {field.required && <span className="text-primary-500 ml-1">*</span>}
         </label>
         <input
+          id={`${field.key}`}
           type={field.type === 'number' ? 'number' : 'text'}
           value={String(value ?? '')}
           onChange={(e) => handleFieldChange(field.key, e.target.value)}

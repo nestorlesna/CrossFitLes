@@ -1,5 +1,5 @@
 // Página de perfil básico del usuario
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, Save, User } from 'lucide-react';
 import { toast } from 'sonner';
@@ -41,6 +41,7 @@ function fromProfile(p: UserProfile): FormState {
 
 export function ProfilePage() {
   const navigate = useNavigate();
+  const uid = useId();
   const [form, setForm] = useState<FormState>(EMPTY);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -103,8 +104,9 @@ export function ProfilePage() {
 
           {/* ── Nombre ── */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Nombre</label>
+            <label htmlFor={`${uid}-full-name`} className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Nombre</label>
             <input
+              id={`${uid}-full-name`}
               type="text"
               value={form.full_name}
               onChange={e => upd('full_name', e.target.value)}
@@ -119,8 +121,8 @@ export function ProfilePage() {
 
             {/* Sexo */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs text-gray-500">Sexo</label>
-              <div className="flex gap-2">
+              <span id={`${uid}-sex-label`} className="text-xs text-gray-500">Sexo</span>
+              <div className="flex gap-2" role="group" aria-labelledby={`${uid}-sex-label`}>
                 {(Object.entries(SEX_LABELS) as [Sex, string][]).map(([val, label]) => (
                   <button
                     key={val}
@@ -135,10 +137,11 @@ export function ProfilePage() {
 
             {/* Fecha de nacimiento */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs text-gray-500">
+              <label htmlFor={`${uid}-birth-date`} className="text-xs text-gray-500">
                 Fecha de nacimiento {age !== null && <span className="text-white font-semibold ml-1">({age} años)</span>}
               </label>
               <input
+                id={`${uid}-birth-date`}
                 type="date"
                 value={form.birth_date}
                 max={new Date().toISOString().split('T')[0]}
@@ -149,8 +152,9 @@ export function ProfilePage() {
 
             {/* Altura */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs text-gray-500">Altura (cm)</label>
+              <label htmlFor={`${uid}-height`} className="text-xs text-gray-500">Altura (cm)</label>
               <input
+                id={`${uid}-height`}
                 type="number" inputMode="decimal" min="100" max="250"
                 value={form.height_cm}
                 onChange={e => upd('height_cm', e.target.value)}
@@ -162,8 +166,8 @@ export function ProfilePage() {
 
           {/* ── Tipo de cuerpo ── */}
           <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 flex flex-col gap-3">
-            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Tipo de cuerpo <span className="font-normal normal-case text-gray-600">(opcional)</span></h3>
-            <div className="flex gap-2">
+            <h3 id={`${uid}-body-type-label`} className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Tipo de cuerpo <span className="font-normal normal-case text-gray-600">(opcional)</span></h3>
+            <div className="flex gap-2" role="group" aria-labelledby={`${uid}-body-type-label`}>
               {(Object.entries(BODY_TYPE_LABELS) as [BodyType, string][]).map(([val, label]) => (
                 <button
                   key={val}
@@ -181,8 +185,8 @@ export function ProfilePage() {
 
           {/* ── Nivel de experiencia ── */}
           <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 flex flex-col gap-3">
-            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Nivel de experiencia</h3>
-            <div className="flex gap-2">
+            <h3 id={`${uid}-experience-label`} className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Nivel de experiencia</h3>
+            <div className="flex gap-2" role="group" aria-labelledby={`${uid}-experience-label`}>
               {(Object.entries(EXPERIENCE_LABELS) as [ExperienceLevel, string][]).map(([val, label]) => (
                 <button
                   key={val}

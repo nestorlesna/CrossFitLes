@@ -1,5 +1,5 @@
 // Formulario completo para crear o editar un ejercicio
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useId } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ChevronLeft, Camera, Star, Check } from 'lucide-react';
 import { toast } from 'sonner';
@@ -72,6 +72,7 @@ function VideoEmbed({ url }: { url: string }) {
 }
 
 export function ExerciseFormPage() {
+  const uid = useId();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const isEditing = Boolean(id);
@@ -409,10 +410,11 @@ export function ExerciseFormPage() {
       <div className="flex flex-col gap-6 p-4 pb-10">
         {/* ── 1. Nombre ── */}
         <div>
-          <label className="block text-sm text-gray-400 mb-1.5">
+          <label htmlFor={`${uid}-nombre`} className="block text-sm text-gray-400 mb-1.5">
             Nombre <span className="text-primary-500">*</span>
           </label>
           <input
+            id={`${uid}-nombre`}
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -423,8 +425,9 @@ export function ExerciseFormPage() {
 
         {/* ── 2. Descripción ── */}
         <div>
-          <label className="block text-sm text-gray-400 mb-1.5">Descripción</label>
+          <label htmlFor={`${uid}-descripcion`} className="block text-sm text-gray-400 mb-1.5">Descripción</label>
           <textarea
+            id={`${uid}-descripcion`}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Descripción breve del ejercicio..."
@@ -435,8 +438,9 @@ export function ExerciseFormPage() {
 
         {/* ── 2b. Video corto ── */}
         <div>
-          <label className="block text-sm text-gray-400 mb-1.5">Video corto</label>
+          <label htmlFor={`${uid}-video-corto`} className="block text-sm text-gray-400 mb-1.5">Video corto</label>
           <input
+            id={`${uid}-video-corto`}
             type="url"
             value={videoLink}
             onChange={(e) => setVideoLink(e.target.value)}
@@ -448,8 +452,9 @@ export function ExerciseFormPage() {
 
         {/* ── 2c. Video explicativo ── */}
         <div>
-          <label className="block text-sm text-gray-400 mb-1.5">Video explicativo</label>
+          <label htmlFor={`${uid}-video-explicativo`} className="block text-sm text-gray-400 mb-1.5">Video explicativo</label>
           <input
+            id={`${uid}-video-explicativo`}
             type="url"
             value={videoLongLink}
             onChange={(e) => setVideoLongLink(e.target.value)}
@@ -461,8 +466,9 @@ export function ExerciseFormPage() {
 
         {/* ── 3. Dificultad ── */}
         <div>
-          <label className="block text-sm text-gray-400 mb-1.5">Dificultad</label>
+          <label htmlFor={`${uid}-dificultad`} className="block text-sm text-gray-400 mb-1.5">Dificultad</label>
           <select
+            id={`${uid}-dificultad`}
             value={difficultyId}
             onChange={(e) => setDifficultyId(e.target.value)}
             className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 appearance-none min-h-[44px]"
@@ -509,8 +515,9 @@ export function ExerciseFormPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-gray-500 mb-1.5 ml-1">Músculo Principal</label>
+              <label htmlFor={`${uid}-musculo-principal`} className="block text-xs text-gray-500 mb-1.5 ml-1">Músculo Principal</label>
               <select
+                id={`${uid}-musculo-principal`}
                 value={primaryMuscleId}
                 onChange={(e) => handlePrimaryMuscleChange(e.target.value)}
                 className="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 appearance-none min-h-[44px]"
@@ -658,8 +665,9 @@ export function ExerciseFormPage() {
 
         {/* ── 10. Notas técnicas ── */}
         <div>
-          <label className="block text-sm text-gray-400 mb-1.5">Notas técnicas</label>
+          <label htmlFor={`${uid}-notas-tecnicas`} className="block text-sm text-gray-400 mb-1.5">Notas técnicas</label>
           <textarea
+            id={`${uid}-notas-tecnicas`}
             value={technicalNotes}
             onChange={(e) => setTechnicalNotes(e.target.value)}
             placeholder="Indicaciones de técnica, cuidados, variantes..."

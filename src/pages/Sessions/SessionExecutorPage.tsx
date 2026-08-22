@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useId } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { 
   ChevronLeft, 
@@ -58,6 +58,7 @@ function ExerciseImage({
 }
 
 export function SessionExecutorPage() {
+  const uid = useId();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
@@ -468,8 +469,9 @@ export function SessionExecutorPage() {
                   {/* Tiempo (Segundos) */}
                   {(planned?.planned_time_seconds || result.actual_time_seconds) && (
                     <div className="flex flex-col gap-1">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Tiempo (seg)</label>
+                      <label htmlFor={`${uid}-tiempo-seg`} className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Tiempo (seg)</label>
                       <input
+                        id={`${uid}-tiempo-seg`}
                         type="number"
                         placeholder={`${planned?.planned_time_seconds || '0'}`}
                         value={result.actual_time_seconds || ''}
@@ -482,8 +484,9 @@ export function SessionExecutorPage() {
                   {/* Distancia */}
                   {(planned?.planned_distance_value || result.actual_distance_value) && (
                     <div className="flex flex-col gap-1">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Distancia ({planned?.distance_unit_abbreviation || 'm'})</label>
+                      <label htmlFor={`${uid}-distancia`} className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Distancia ({planned?.distance_unit_abbreviation || 'm'})</label>
                       <input
+                        id={`${uid}-distancia`}
                         type="number"
                         placeholder={`${planned?.planned_distance_value || '0'}`}
                         value={result.actual_distance_value || ''}
@@ -495,8 +498,9 @@ export function SessionExecutorPage() {
 
                   {/* Resumen Texto / Resultado Libre */}
                   <div className="col-span-2 flex flex-col gap-1">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Detalle del resultado (ej: 5+15)</label>
+                    <label htmlFor={`${uid}-detalle-del-resultado-ej-5-15`} className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Detalle del resultado (ej: 5+15)</label>
                     <input
+                      id={`${uid}-detalle-del-resultado-ej-5-15`}
                       type="text"
                       placeholder="Anota rondas extras, desgloses, etc..."
                       value={result.result_text || ''}
@@ -590,8 +594,9 @@ export function SessionExecutorPage() {
 
             {/* Notas finales */}
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Notas de la sesión</label>
+              <label htmlFor={`${uid}-notas-de-la-sesion`} className="block text-xs font-bold text-gray-500 uppercase mb-2">Notas de la sesión</label>
               <textarea
+                id={`${uid}-notas-de-la-sesion`}
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="¿Algo para recordar de hoy? (ej: 'Sentí molestias en el hombro', 'Me costó mucho el cardio')"

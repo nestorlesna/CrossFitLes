@@ -1,5 +1,5 @@
 // Listado de clases con secciones — permite copiar secciones entre clases
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useId } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ChevronLeft, ChevronDown, Copy,
@@ -268,6 +268,7 @@ function CopyModalContent({
   onConfirm: () => void;
   onCancel: () => void;
 }) {
+  const uid = useId();
   const dotColor = target.section.section_type_color ?? '#64748b';
   const exCount = target.section.exercises?.length ?? 0;
   const secLabel = target.section.visible_title || target.section.section_type_name || 'Sección';
@@ -360,10 +361,11 @@ function CopyModalContent({
       {destMode === 'new' && (
         <div className="space-y-3">
           <div>
-            <label className="block text-xs text-gray-400 mb-1.5">
+            <label htmlFor={`${uid}-nombre`} className="block text-xs text-gray-400 mb-1.5">
               Nombre <span className="text-red-400">*</span>
             </label>
             <input
+              id={`${uid}-nombre`}
               type="text"
               placeholder="Nombre de la clase"
               value={newForm.name}
@@ -373,8 +375,9 @@ function CopyModalContent({
             />
           </div>
           <div>
-            <label className="block text-xs text-gray-400 mb-1.5">Fecha (opcional)</label>
+            <label htmlFor={`${uid}-fecha-opcional`} className="block text-xs text-gray-400 mb-1.5">Fecha (opcional)</label>
             <input
+              id={`${uid}-fecha-opcional`}
               type="date"
               value={newForm.date}
               onChange={e => setNewForm({ ...newForm, date: e.target.value })}
@@ -382,8 +385,9 @@ function CopyModalContent({
             />
           </div>
           <div>
-            <label className="block text-xs text-gray-400 mb-1.5">Objetivo (opcional)</label>
+            <label htmlFor={`${uid}-objetivo-opcional`} className="block text-xs text-gray-400 mb-1.5">Objetivo (opcional)</label>
             <input
+              id={`${uid}-objetivo-opcional`}
               type="text"
               placeholder="Descripción u objetivo"
               value={newForm.objective}

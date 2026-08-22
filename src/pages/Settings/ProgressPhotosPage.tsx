@@ -1,5 +1,5 @@
 // Página de fotos de progreso: galería con filtro por ángulo + agregar nuevas
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, Plus, Trash2, Camera, X } from 'lucide-react';
 import { toast } from 'sonner';
@@ -79,6 +79,7 @@ function PhotoThumb({
 // ── Página principal ─────────────────────────────────────────────────────────
 
 export function ProgressPhotosPage() {
+  const uid = useId();
   const navigate = useNavigate();
   const [photos, setPhotos] = useState<ProgressPhoto[]>([]);
   const [activeAngle, setActiveAngle] = useState<PhotoAngle | 'all'>('all');
@@ -241,8 +242,9 @@ export function ProgressPhotosPage() {
 
           {/* Fecha */}
           <div className="flex flex-col gap-1">
-            <label className="text-xs text-gray-500">Fecha</label>
+            <label htmlFor={`${uid}-fecha`} className="text-xs text-gray-500">Fecha</label>
             <input
+              id={`${uid}-fecha`}
               type="date" value={form.photo_date}
               max={new Date().toISOString().split('T')[0]}
               onChange={e => upd('photo_date', e.target.value)}
@@ -268,8 +270,9 @@ export function ProgressPhotosPage() {
 
           {/* Notas */}
           <div className="flex flex-col gap-1">
-            <label className="text-xs text-gray-500">Notas <span className="text-gray-600">(opcional)</span></label>
+            <label htmlFor={`${uid}-notas-opcional`} className="text-xs text-gray-500">Notas <span className="text-gray-600">(opcional)</span></label>
             <input
+              id={`${uid}-notas-opcional`}
               type="text" value={form.notes}
               onChange={e => upd('notes', e.target.value)}
               placeholder="Ej: 1 mes de entrenamiento"

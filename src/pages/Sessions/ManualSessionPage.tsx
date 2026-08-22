@@ -1,5 +1,5 @@
 // Página para registrar una sesión pasada manualmente (sin temporizador)
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ChevronLeft, Calendar, Dumbbell, CheckCircle2,
@@ -84,6 +84,7 @@ function ResultCard({
   onChange: (updated: ResultDraft) => void;
   onInfoClick: (id: string, name: string) => void;
 }) {
+  const uid = useId();
   const upd = (field: keyof ResultDraft, value: any) => onChange({ ...result, [field]: value });
 
   return (
@@ -128,8 +129,9 @@ function ResultCard({
       <div className="grid grid-cols-2 gap-2">
         {/* Repeticiones */}
         <div className="flex flex-col gap-1">
-          <label className="text-xs text-gray-500">Reps</label>
+          <label htmlFor={`${uid}-reps`} className="text-xs text-gray-500">Reps</label>
           <input
+            id={`${uid}-reps`}
             type="number" inputMode="numeric" min="0"
             value={result.actual_repetitions}
             onChange={e => upd('actual_repetitions', e.target.value)}
@@ -139,8 +141,9 @@ function ResultCard({
         </div>
         {/* Rondas */}
         <div className="flex flex-col gap-1">
-          <label className="text-xs text-gray-500">Rondas</label>
+          <label htmlFor={`${uid}-rondas`} className="text-xs text-gray-500">Rondas</label>
           <input
+            id={`${uid}-rondas`}
             type="number" inputMode="numeric" min="0"
             value={result.actual_rounds}
             onChange={e => upd('actual_rounds', e.target.value)}
@@ -173,8 +176,9 @@ function ResultCard({
         </div>
         {/* Tiempo */}
         <div className="flex flex-col gap-1">
-          <label className="text-xs text-gray-500">Tiempo (seg)</label>
+          <label htmlFor={`${uid}-tiempo-seg`} className="text-xs text-gray-500">Tiempo (seg)</label>
           <input
+            id={`${uid}-tiempo-seg`}
             type="number" inputMode="numeric" min="0"
             value={result.actual_time_seconds}
             onChange={e => upd('actual_time_seconds', e.target.value)}
@@ -207,8 +211,9 @@ function ResultCard({
         </div>
         {/* Calorías */}
         <div className="flex flex-col gap-1">
-          <label className="text-xs text-gray-500">Calorías</label>
+          <label htmlFor={`${uid}-calorias`} className="text-xs text-gray-500">Calorías</label>
           <input
+            id={`${uid}-calorias`}
             type="number" inputMode="numeric" min="0"
             value={result.actual_calories}
             onChange={e => upd('actual_calories', e.target.value)}
@@ -220,8 +225,9 @@ function ResultCard({
 
       {/* Resultado libre */}
       <div className="flex flex-col gap-1">
-        <label className="text-xs text-gray-500">Resultado (texto libre)</label>
+        <label htmlFor={`${uid}-resultado-texto-libre`} className="text-xs text-gray-500">Resultado (texto libre)</label>
         <input
+          id={`${uid}-resultado-texto-libre`}
           type="text"
           value={result.result_text}
           onChange={e => upd('result_text', e.target.value)}
@@ -232,8 +238,9 @@ function ResultCard({
 
       {/* Notas del ejercicio */}
       <div className="flex flex-col gap-1">
-        <label className="text-xs text-gray-500">Notas</label>
+        <label htmlFor={`${uid}-notas`} className="text-xs text-gray-500">Notas</label>
         <input
+          id={`${uid}-notas`}
           type="text"
           value={result.notes}
           onChange={e => upd('notes', e.target.value)}
@@ -246,6 +253,7 @@ function ResultCard({
 }
 
 export function ManualSessionPage() {
+  const uid = useId();
   const navigate = useNavigate();
 
   // ── Fecha ──
@@ -438,11 +446,12 @@ export function ManualSessionPage() {
 
         {/* ── Fecha ── */}
         <div className="flex flex-col gap-2">
-          <label className="text-sm font-semibold text-gray-300 flex items-center gap-2">
+          <label htmlFor={`${uid}-fecha-del-entrenamiento`} className="text-sm font-semibold text-gray-300 flex items-center gap-2">
             <Calendar size={16} className="text-primary-400" />
             Fecha del entrenamiento
           </label>
           <input
+            id={`${uid}-fecha-del-entrenamiento`}
             type="date"
             value={sessionDate}
             max={todayStr}
@@ -512,8 +521,9 @@ export function ManualSessionPage() {
 
           {/* Duración */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs text-gray-500">Duración (minutos)</label>
+            <label htmlFor={`${uid}-duracion-minutos`} className="text-xs text-gray-500">Duración (minutos)</label>
             <input
+              id={`${uid}-duracion-minutos`}
               type="number" inputMode="numeric" min="1"
               value={durationMinutes}
               onChange={e => setDurationMinutes(e.target.value)}
@@ -541,8 +551,9 @@ export function ManualSessionPage() {
 
           {/* Esfuerzo percibido */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs text-gray-500">Esfuerzo percibido (RPE): <span className="text-white font-bold">{effort}/10</span></label>
+            <label htmlFor={`${uid}-esfuerzo-percibido-rpe-10`} className="text-xs text-gray-500">Esfuerzo percibido (RPE): <span className="text-white font-bold">{effort}/10</span></label>
             <input
+              id={`${uid}-esfuerzo-percibido-rpe-10`}
               type="range" min="1" max="10" step="1"
               value={effort}
               onChange={e => setEffort(Number(e.target.value))}
@@ -555,8 +566,9 @@ export function ManualSessionPage() {
 
           {/* Notas finales */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs text-gray-500">Notas finales</label>
+            <label htmlFor={`${uid}-notas-finales`} className="text-xs text-gray-500">Notas finales</label>
             <textarea
+              id={`${uid}-notas-finales`}
               value={notes}
               onChange={e => setNotes(e.target.value)}
               placeholder="¿Algo destacable del entrenamiento?"

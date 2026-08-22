@@ -1,5 +1,5 @@
 // Sesión libre: sin plantilla, el usuario agrega ejercicios en tiempo real con temporizador
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useId } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ChevronLeft, Play, Pause, Save, Timer, Info,
@@ -92,6 +92,7 @@ function ResultCard({
   onInfo: () => void;
   onVideo: () => void;
 }) {
+  const uid = useId();
   const inputCls = 'w-full bg-gray-950 border border-gray-800 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-primary-500';
   const labelCls = 'text-[10px] font-bold text-gray-500 uppercase tracking-widest';
 
@@ -135,15 +136,17 @@ function ResultCard({
       {/* Campos */}
       <div className="p-4 grid grid-cols-2 gap-x-4 gap-y-3">
         <div className="flex flex-col gap-1">
-          <label className={labelCls}>Reps</label>
-          <input type="number" inputMode="numeric" min="0" placeholder="—"
+          <label htmlFor={`${uid}-reps`} className={labelCls}>Reps</label>
+          <input
+            id={`${uid}-reps`} type="number" inputMode="numeric" min="0" placeholder="—"
             value={result.actual_repetitions ?? ''}
             onChange={e => onUpdate('actual_repetitions', e.target.value ? Number(e.target.value) : null)}
             className={inputCls} />
         </div>
         <div className="flex flex-col gap-1">
-          <label className={labelCls}>Rondas</label>
-          <input type="number" inputMode="numeric" min="0" placeholder="—"
+          <label htmlFor={`${uid}-rondas`} className={labelCls}>Rondas</label>
+          <input
+            id={`${uid}-rondas`} type="number" inputMode="numeric" min="0" placeholder="—"
             value={result.actual_rounds ?? ''}
             onChange={e => onUpdate('actual_rounds', e.target.value ? Number(e.target.value) : null)}
             className={inputCls} />
@@ -168,8 +171,9 @@ function ResultCard({
         </div>
         {/* Tiempo */}
         <div className="flex flex-col gap-1">
-          <label className={labelCls}>Tiempo (seg)</label>
-          <input type="number" inputMode="numeric" min="0" placeholder="—"
+          <label htmlFor={`${uid}-tiempo-seg`} className={labelCls}>Tiempo (seg)</label>
+          <input
+            id={`${uid}-tiempo-seg`} type="number" inputMode="numeric" min="0" placeholder="—"
             value={result.actual_time_seconds ?? ''}
             onChange={e => onUpdate('actual_time_seconds', e.target.value ? Number(e.target.value) : null)}
             className={inputCls} />
@@ -194,24 +198,27 @@ function ResultCard({
         </div>
         {/* Calorías */}
         <div className="flex flex-col gap-1">
-          <label className={labelCls}>Calorías</label>
-          <input type="number" inputMode="numeric" min="0" placeholder="—"
+          <label htmlFor={`${uid}-calorias`} className={labelCls}>Calorías</label>
+          <input
+            id={`${uid}-calorias`} type="number" inputMode="numeric" min="0" placeholder="—"
             value={result.actual_calories ?? ''}
             onChange={e => onUpdate('actual_calories', e.target.value ? Number(e.target.value) : null)}
             className={inputCls} />
         </div>
         {/* Resultado libre - span 2 cols */}
         <div className="col-span-2 flex flex-col gap-1">
-          <label className={labelCls}>Resultado (texto libre)</label>
-          <input type="text" placeholder="Ej: 5 rondas + 10 reps"
+          <label htmlFor={`${uid}-resultado-texto-libre`} className={labelCls}>Resultado (texto libre)</label>
+          <input
+            id={`${uid}-resultado-texto-libre`} type="text" placeholder="Ej: 5 rondas + 10 reps"
             value={result.result_text ?? ''}
             onChange={e => onUpdate('result_text', e.target.value)}
             className={inputCls} />
         </div>
         {/* Notas */}
         <div className="col-span-2 flex flex-col gap-1">
-          <label className={labelCls}>Notas</label>
-          <input type="text" placeholder="Observaciones..."
+          <label htmlFor={`${uid}-notas`} className={labelCls}>Notas</label>
+          <input
+            id={`${uid}-notas`} type="text" placeholder="Observaciones..."
             value={result.notes ?? ''}
             onChange={e => onUpdate('notes', e.target.value)}
             className={inputCls} />
@@ -237,6 +244,7 @@ const FEELINGS: { value: GeneralFeeling; emoji: string }[] = [
 ];
 
 export function FreeSessionPage() {
+  const uid = useId();
   const navigate = useNavigate();
   const todayStr = new Date().toISOString().split('T')[0];
 
@@ -615,8 +623,9 @@ export function FreeSessionPage() {
 
           {/* Notas */}
           <div>
-            <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Notas finales</label>
-            <textarea value={notes} onChange={e => setNotes(e.target.value)}
+            <label htmlFor={`${uid}-notas-finales`} className="block text-xs font-bold text-gray-500 uppercase mb-2">Notas finales</label>
+            <textarea
+              id={`${uid}-notas-finales`} value={notes} onChange={e => setNotes(e.target.value)}
               placeholder="¿Algo destacable del entrenamiento?"
               rows={3}
               className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 resize-none" />

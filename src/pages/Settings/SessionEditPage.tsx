@@ -1,5 +1,5 @@
 // Edición de sesión completada: corregir duración, sensación y valores de ejercicios
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useId } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   ChevronLeft,
@@ -315,6 +315,7 @@ function ResultCard({
 // ── Página principal ──────────────────────────────────────────────────────────
 
 export function SessionEditPage() {
+  const uid = useId();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
@@ -444,11 +445,12 @@ export function SessionEditPage() {
 
             {/* Duración */}
             <div>
-              <label className="flex items-center gap-1.5 mb-1.5">
+              <label htmlFor={`${uid}-duracion-minutos`} className="flex items-center gap-1.5 mb-1.5">
                 <Clock size={13} className="text-gray-500" />
                 <span className="text-xs font-bold text-gray-400 uppercase">Duración (minutos)</span>
               </label>
               <input
+                id={`${uid}-duracion-minutos`}
                 type="number"
                 min="0"
                 inputMode="numeric"
@@ -518,11 +520,12 @@ export function SessionEditPage() {
 
             {/* Peso corporal */}
             <div>
-              <label className="flex items-center gap-1.5 mb-1.5">
+              <label htmlFor={`${uid}-peso-corporal-kg`} className="flex items-center gap-1.5 mb-1.5">
                 <Scale size={13} className="text-gray-500" />
                 <span className="text-xs font-bold text-gray-400 uppercase">Peso corporal (kg)</span>
               </label>
               <input
+                id={`${uid}-peso-corporal-kg`}
                 type="number"
                 min="0"
                 step="0.1"
@@ -536,11 +539,12 @@ export function SessionEditPage() {
 
             {/* Notas finales */}
             <div>
-              <label className="flex items-center gap-1.5 mb-1.5">
+              <label htmlFor={`${uid}-notas-finales`} className="flex items-center gap-1.5 mb-1.5">
                 <StickyNote size={13} className="text-gray-500" />
                 <span className="text-xs font-bold text-gray-400 uppercase">Notas finales</span>
               </label>
               <textarea
+                id={`${uid}-notas-finales`}
                 rows={3}
                 value={sessionFields.final_notes}
                 onChange={e => setSessionFields(s => ({ ...s, final_notes: e.target.value }))}

@@ -2,7 +2,7 @@
 // ejecuta mostrando solo ese video a pantalla completa. Al terminar (por duración
 // cargada o por el botón de finalizar) se cierra la sesión igual que la clase guiada:
 // se guardan los resultados, la duración, las calorías estimadas y el resumen.
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, useId } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ChevronLeft, Play, Flag, CheckCircle2, ExternalLink } from 'lucide-react';
 import { toast } from 'sonner';
@@ -17,6 +17,7 @@ import { formatClock } from '../../services/timerEngine';
 import { detectVideo } from '../../utils/videoEmbed';
 
 export function SessionVideoPage() {
+  const uid = useId();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
@@ -367,8 +368,9 @@ export function SessionVideoPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Notas</label>
+            <label htmlFor={`${uid}-notas`} className="block text-xs font-bold text-gray-500 uppercase mb-2">Notas</label>
             <textarea
+              id={`${uid}-notas`}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="¿Algo para recordar de hoy?"

@@ -2,7 +2,7 @@
 // imágenes y datos planificados) en modo lectura, y sólo deja editar los tiempos
 // que el cronómetro necesita para ejecutarla sola.
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useId } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChevronLeft, Timer, Save, Loader2, Dumbbell, AlertTriangle } from 'lucide-react';
 import { toast } from 'sonner';
@@ -70,10 +70,12 @@ function SecondsInput({
   hint?: string;
   onChange: (value: number | null) => void;
 }) {
+  const uid = useId();
   return (
     <div>
-      <label className="block text-xs text-gray-500 mb-1">{label}</label>
+      <label htmlFor={`${uid}-field`} className="block text-xs text-gray-500 mb-1">{label}</label>
       <input
+        id={`${uid}-field`}
         type="number"
         min="0"
         value={value ?? ''}
