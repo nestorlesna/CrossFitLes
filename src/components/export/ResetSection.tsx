@@ -26,7 +26,7 @@ export function ResetSection() {
       await cleanDatabase();
       setCleanDone(true);
       toast.success('Base de datos borrada correctamente');
-    } catch (error) {
+    } catch {
       toast.error('Error al borrar');
     } finally {
       setCleanBusy(false);

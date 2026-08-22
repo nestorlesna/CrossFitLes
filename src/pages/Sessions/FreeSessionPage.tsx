@@ -21,7 +21,6 @@ import {
   finalize,
   updateSessionDuration,
   getById as getSessionById,
-  softDelete,
 } from '../../db/repositories/trainingSessionRepo';
 import { getDatabase } from '../../db/database';
 import { getImageDisplayUrl } from '../../services/mediaService';
@@ -293,6 +292,9 @@ export function FreeSessionPage() {
       }
     }
     init();
+    // Solo debe correr una vez al montar: el guard initDone lo garantiza y
+    // sessionDate es el valor inicial de la sesion
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Ref espejo: el efecto lee de acá para no re-suscribir el intervalo cada segundo
@@ -353,7 +355,7 @@ export function FreeSessionPage() {
     }
     try {
       const sortOrder = results.length + 1;
-      const resultId = await addExerciseToSession(sessionId, exercise.id, sortOrder);
+      await addExerciseToSession(sessionId, exercise.id, sortOrder);
       // Recargar el result con los campos enriquecidos (nombre, imagen, video)
       const updated = await getSessionById(sessionId);
       if (updated) setResults(updated.results);

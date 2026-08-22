@@ -195,7 +195,7 @@ export function ExerciseFormPage() {
 
       // Tags
       setSelectedTagIds(relations.tags.map((t) => t.id));
-    } catch (e) {
+    } catch {
       toast.error('Error al cargar el ejercicio');
     } finally {
       setLoadingData(false);
@@ -207,14 +207,6 @@ export function ExerciseFormPage() {
   }, [isEditing, loadExercise]);
 
   // ── Handlers de multi-selección ───────────────────────────────────────────
-
-  // Toggle músculo secundario; si se selecciona el primario como secundario, ignorar
-  function toggleSecondaryMuscle(muscleId: string) {
-    if (muscleId === primaryMuscleId) return;
-    setSecondaryMuscleIds((prev) =>
-      prev.includes(muscleId) ? prev.filter((id) => id !== muscleId) : [...prev, muscleId]
-    );
-  }
 
   // Al cambiar músculo principal, removerlo de los secundarios si estaba
   function handlePrimaryMuscleChange(muscleId: string) {

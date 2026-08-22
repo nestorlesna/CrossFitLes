@@ -3,7 +3,6 @@ import {
   TrendingUp, 
   Award, 
   Activity, 
-  Search, 
   Calendar,
   AlertCircle,
   Dumbbell,
@@ -26,7 +25,6 @@ import {
   CartesianGrid, 
   Tooltip, 
   ResponsiveContainer, 
-  Legend 
 } from 'recharts';
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -126,7 +124,7 @@ export function StatsPage() {
         const data = await getExerciseProgression(selectedExerciseId, selectedRecordType);
         if (cancelled) return;
         setProgressionData(data);
-      } catch (error) {
+      } catch {
         if (!cancelled) toast.error('Error al cargar historial del ejercicio');
       } finally {
         if (!cancelled) setLoadingProgression(false);
@@ -140,7 +138,6 @@ export function StatsPage() {
   }, [selectedExerciseId, selectedRecordType, activeTab]);
 
   // 4. Colores para el PieChart
-  const COLORS = ['#primary-500', '#8b5cf6', '#ef4444', '#10b981', '#f59e0b', '#3b82f6'];
   const chartColors = ['#C1FF00', '#8B5CF6', '#EF4444', '#10B981', '#F59E0B', '#3B82F6'];
 
   // 4. Formateador de fechas para gráficos

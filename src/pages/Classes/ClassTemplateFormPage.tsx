@@ -262,7 +262,7 @@ export function ClassTemplateFormPage() {
     if (allExercises.length === 0) {
       const exercises = await exerciseRepo.getAll();
       // Ordenar: primero los que tienen usage_count > 0, luego por nombre
-      // @ts-ignore (usage_count viene de la DB aunque no esté en el modelo base)
+      // usage_count viene de la DB aunque no esté en el modelo base
       const sorted = [...exercises].sort((a: any, b: any) => {
         const usageA = a.usage_count || 0;
         const usageB = b.usage_count || 0;
@@ -1382,7 +1382,7 @@ export function ClassTemplateFormPage() {
                   />
                   <div className="flex-1 min-w-0">
                     <span className="text-sm text-white font-medium block truncate">{exercise.name}</span>
-                    {/* @ts-ignore */}
+                    {/* @ts-expect-error usage_count viene de la query pero no del modelo Exercise */}
                     {exercise.usage_count > 0 && (
                       <span className="text-[10px] text-primary-500 font-bold uppercase tracking-tight">Frecuente</span>
                     )}

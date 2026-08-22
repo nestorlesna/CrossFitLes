@@ -8,7 +8,6 @@ import {
   ClassTemplateWithSections,
   ClassSection,
   SectionExercise,
-  TemplateType,
 } from '../../models/ClassTemplate';
 
 // Retorna la marca de tiempo actual en formato SQLite

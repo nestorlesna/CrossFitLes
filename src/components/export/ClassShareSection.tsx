@@ -86,7 +86,8 @@ export function ClassShareSection() {
   const toggleClass = (id: string) =>
     setSelectedClassIds(prev => {
       const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
       return next;
     });
 
@@ -144,7 +145,8 @@ export function ClassShareSection() {
   const toggleExercise = (id: string) =>
     setSelectedExerciseIds(prev => {
       const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
       return next;
     });
 

@@ -3,7 +3,7 @@
 
 import { Capacitor } from '@capacitor/core';
 import JSZip from 'jszip';
-import { openDatabase, getDatabase } from '../db/database';
+import { openDatabase } from '../db/database';
 import { APP_VERSION } from '../utils/constants';
 
 // Orden de tablas respetando dependencias (padres primero)
@@ -361,7 +361,6 @@ export async function importDataFromZip(zipFile: Blob): Promise<{ totalRecords: 
     // Insertar datos nuevos en lotes para mayor eficiencia
     const BATCH_SIZE = 1000;
     const { saveDatabase } = await import('../db/database');
-    const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
     for (const table of TABLE_ORDER) {
       const rows = backup.data[table];

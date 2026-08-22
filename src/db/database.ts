@@ -53,7 +53,7 @@ async function _initDatabase(): Promise<SQLiteDBConnection> {
       // loadFromStore copia de IndexedDB al VFS en memoria.
       await (sqlite as any).loadFromStore(DB_NAME);
       console.log(`[DB] ✅ Datos cargados exitosamente desde IndexedDB`);
-    } catch (e) {
+    } catch {
       console.log('[DB] Info: No hay datos previos en store (primera ejecución)');
     }
   }

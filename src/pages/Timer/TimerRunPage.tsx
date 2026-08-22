@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ChevronLeft, Pause, Play, SkipForward, Plus, Flag, Volume2, VolumeX, CheckCircle2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { Header } from '../../components/layout/Header';
 import { Modal } from '../../components/ui/Modal';
 import { getById } from '../../db/repositories/freeTimerTemplateRepo';
 import { get as getTimerConfig } from '../../db/repositories/timerConfigRepo';

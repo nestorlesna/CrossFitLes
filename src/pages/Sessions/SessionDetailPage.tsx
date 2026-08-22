@@ -158,7 +158,7 @@ export function SessionDetailPage() {
         const templ = await getTemplateById(sess.class_template_id);
         setTemplate(templ);
       }
-    } catch (e) {
+    } catch {
       toast.error('Error al cargar datos');
     } finally {
       setLoading(false);
@@ -177,7 +177,7 @@ export function SessionDetailPage() {
       await hardDelete(id);
       toast.success('Sesión eliminada');
       navigate('/sesiones');
-    } catch (e) {
+    } catch {
       toast.error('Error al eliminar la sesión');
     } finally {
       setDeleting(false);

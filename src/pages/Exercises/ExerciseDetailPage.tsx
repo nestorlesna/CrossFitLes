@@ -150,7 +150,7 @@ export function ExerciseDetailPage() {
       // Cargar clases que usan este ejercicio
       const classes = await getClassesUsingExercise(id);
       setClassesUsing(classes);
-    } catch (e) {
+    } catch {
       toast.error('Error al cargar el ejercicio');
     } finally {
       setLoading(false);
@@ -169,7 +169,7 @@ export function ExerciseDetailPage() {
       await softDelete(id);
       toast.success('Ejercicio eliminado');
       navigate('/ejercicios');
-    } catch (e) {
+    } catch {
       toast.error('Error al eliminar el ejercicio');
       setDeleting(false);
       setShowDeleteModal(false);

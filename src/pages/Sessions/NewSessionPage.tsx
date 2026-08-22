@@ -23,7 +23,7 @@ export function NewSessionPage() {
       try {
         const data = await getAllTemplates();
         setTemplates(data);
-      } catch (e) {
+      } catch {
         toast.error('Error al cargar plantillas');
       } finally {
         setLoading(false);
@@ -43,7 +43,7 @@ export function NewSessionPage() {
         return;
       }
       navigate(mode === 'timer' ? `/sesiones/${sessionId}/cronometro` : `/sesiones/${sessionId}/ejecutar`);
-    } catch (e) {
+    } catch {
       toast.error('Error al iniciar sesión');
     }
   };

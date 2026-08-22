@@ -31,7 +31,6 @@ const quickActions = [
 
 export function HomePage() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
   const [activeSession, setActiveSession] = useState<TrainingSession | null>(null);
   const [stats, setStats] = useState({
     sessionsThisMonth: 0,
@@ -50,8 +49,6 @@ export function HomePage() {
       setActiveSession(currentSession);
     } catch (error) {
       console.error('Error al cargar dashboard:', error);
-    } finally {
-      setLoading(false);
     }
   }, []);
 

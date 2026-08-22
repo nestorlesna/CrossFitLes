@@ -6,12 +6,9 @@ import {
   Pause, 
   Save, 
   Clock, 
-  ChevronRight, 
   Timer, 
   Info,
   CheckCircle2,
-  Trash2,
-  AlertCircle,
   Dumbbell,
   RotateCw
 } from 'lucide-react';
@@ -24,7 +21,7 @@ import { VideoEmbed } from '../../components/ui/VideoEmbed';
 import { getById as getSessionById, saveResults, finalize, updateSessionDuration } from '../../db/repositories/trainingSessionRepo';
 import { getById as getTemplateById } from '../../db/repositories/classTemplateRepo';
 import { SessionWithRelations, SessionExerciseResult } from '../../models/TrainingSession';
-import { ClassTemplateWithSections, SectionExercise } from '../../models/ClassTemplate';
+import { ClassTemplateWithSections } from '../../models/ClassTemplate';
 import { RxScaled, GeneralFeeling } from '../../types';
 import { getSectionResults } from '../../utils/sessionSections';
 import { getImageDisplayUrl } from '../../services/mediaService';
@@ -122,7 +119,7 @@ export function SessionExecutorPage() {
       if (sess.status === 'in_progress' || sess.status === 'planned') {
         setIsActive(true);
       }
-    } catch (e) {
+    } catch {
       toast.error('Error al cargar la sesión');
     } finally {
       setLoading(false);
@@ -196,7 +193,7 @@ export function SessionExecutorPage() {
     try {
       await saveResults(id, results);
       toast.success('Progreso guardado');
-    } catch (e) {
+    } catch {
       toast.error('Error al guardar progreso');
     }
   };
@@ -218,7 +215,7 @@ export function SessionExecutorPage() {
       
       toast.success('¡Entrenamiento completado!');
       navigate(`/sesiones/${id}`);
-    } catch (e) {
+    } catch {
       toast.error('Error al finalizar sesión');
     } finally {
       setSaving(false);
