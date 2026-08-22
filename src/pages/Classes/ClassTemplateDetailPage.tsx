@@ -15,12 +15,14 @@ import {
   AlertTriangle,
   Dumbbell,
   Info,
+  Video,
 } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
 import { Modal } from '../../components/ui/Modal';
+import { VideoEmbed } from '../../components/ui/VideoEmbed';
 import { ExerciseInfoModal } from '../../components/ui/ExerciseInfoModal';
 import { ClassTemplateWithSections, SectionExercise } from '../../models/ClassTemplate';
 import * as classTemplateRepo from '../../db/repositories/classTemplateRepo';
@@ -57,69 +59,6 @@ function buildExerciseParams(exercise: SectionExercise): string {
   }
 
   return parts.join(' · ');
-}
-
-// Helper para obtener el ID de YouTube (incluye Shorts)
-function getYoutubeId(url: string): string | null {
-  if (!url) return null;
-  // Soporta: youtu.be/ID, youtube.com/shorts/ID, youtube.com/watch?v=ID, youtube.com/v/ID, youtube.com/embed/ID
-  const m = url.match(/(?:youtube\.com\/(?:shorts\/|v\/|embed\/)|youtu\.be\/|watch\?v=)([^#&?]+)/);
-  return m ? m[1] : null;
-}
-
-// Helper para obtener el ID de Vimeo
-function getVimeoId(url: string): string | null {
-  const regExp = /vimeo\.com\/(?:video\/|channels\/(?:\w+\/)?|groups\/(?:\w+\/)?|album\/(?:\w+\/)?|showcase\/(?:\w+\/)?|)(\d+)(?:$|\/|\?)/;
-  const match = url.match(regExp);
-  return (match && match[1]) ? match[1] : null;
-}
-
-// Componente para embeber video
-function VideoEmbed({ url }: { url: string }) {
-  const youtubeId = getYoutubeId(url);
-  const vimeoId = getVimeoId(url);
-
-  if (youtubeId) {
-    return (
-      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
-        <iframe
-          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="absolute top-0 left-0 w-full h-full"
-        />
-      </div>
-    );
-  }
-
-  if (vimeoId) {
-    return (
-      <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
-        <iframe
-          src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1`}
-          title="Vimeo video player"
-          frameBorder="0"
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowFullScreen
-          className="absolute top-0 left-0 w-full h-full"
-        />
-      </div>
-    );
-  }
-
-  return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex items-center justify-between bg-gray-800 hover:bg-gray-700 p-3 rounded-lg transition-colors group"
-    >
-      <span className="text-sm text-gray-200 truncate max-w-[200px]">{url}</span>
-      <span className="text-xs text-primary-500 font-medium">Ver enlace</span>
-    </a>
-  );
 }
 
 function ExerciseImage({
@@ -339,6 +278,25 @@ export function ClassTemplateDetailPage() {
             <div className="border-t border-gray-800 pt-3">
               <p className="text-xs text-gray-500 mb-1">Observaciones</p>
               <p className="text-sm text-gray-400">{template.general_notes}</p>
+            </div>
+          )}
+
+          {/* Video de la clase: la sesión se ejecuta siguiéndolo */}
+          {template.video_url && (
+            <div className="border-t border-gray-800 pt-3 space-y-2">
+              <div className="flex items-center gap-2">
+                <Video size={14} className="text-primary-400 shrink-0" />
+                <p className="text-xs text-primary-400 font-semibold uppercase tracking-wider">
+                  Clase por video
+                </p>
+                {template.video_duration_seconds ? (
+                  <span className="text-xs text-gray-500 ml-auto">
+                    {Math.floor(template.video_duration_seconds / 60)}:
+                    {String(template.video_duration_seconds % 60).padStart(2, '0')}
+                  </span>
+                ) : null}
+              </div>
+              <VideoEmbed url={template.video_url} autoplay={false} />
             </div>
           )}
         </div>

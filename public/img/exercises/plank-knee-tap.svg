@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="1">PLANK KNEE TAP</text>
+  <g class="f1">
+    <circle cx="150" cy="140" r="11" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M138 146 L100 158 L58 196"/>
+      <path d="M138 146 L138 200"/>
+      <path d="M132 148 L132 200"/>
+      <path d="M50 200 L64 194"/>
+    </g>
+  </g>
+  <g class="f2">
+    <circle cx="150" cy="140" r="11" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M138 146 L100 158"/>
+      <path d="M100 158 L112 182 L92 198"/>
+      <path d="M100 158 L70 188 L58 198"/>
+      <path d="M134 148 L134 200"/>
+      <path d="M140 148 L120 176"/>
+      <path d="M50 200 L64 196"/>
+    </g>
+    <circle cx="112" cy="182" r="5" fill="#64748b"/>
+  </g>
+  <g class="f3">
+    <circle cx="150" cy="140" r="11" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M138 146 L100 158"/>
+      <path d="M100 158 L86 182 L68 196"/>
+      <path d="M100 158 L74 190 L60 200"/>
+      <path d="M140 148 L140 200"/>
+      <path d="M134 148 L110 178"/>
+      <path d="M52 202 L66 198"/>
+    </g>
+    <circle cx="86" cy="182" r="5" fill="#64748b"/>
+  </g>
+</svg>

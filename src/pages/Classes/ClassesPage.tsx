@@ -12,6 +12,7 @@ import {
   Clock,
   Layers,
   Dumbbell,
+  Video,
   Filter,
   X,
   FolderOpen,
@@ -106,6 +107,12 @@ function ClassCard({
               <span className="flex items-center gap-1">
                 <Dumbbell size={11} />
                 {template.exercise_count} ej.
+              </span>
+            )}
+            {template.video_url && (
+              <span className="flex items-center gap-1 text-primary-400">
+                <Video size={11} />
+                video
               </span>
             )}
           </div>

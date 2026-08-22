@@ -14,6 +14,7 @@ import { SessionsPage } from './pages/Sessions/SessionsPage';
 import { NewSessionPage } from './pages/Sessions/NewSessionPage';
 import { SessionExecutorPage } from './pages/Sessions/SessionExecutorPage';
 import { SessionTimerPage } from './pages/Sessions/SessionTimerPage';
+import { SessionVideoPage } from './pages/Sessions/SessionVideoPage';
 import { SessionDetailPage } from './pages/Sessions/SessionDetailPage';
 import { ManualSessionPage } from './pages/Sessions/ManualSessionPage';
 import { FreeSessionPage } from './pages/Sessions/FreeSessionPage';
@@ -40,6 +41,7 @@ import { ClassesSectionsPage } from './pages/Settings/ClassesSectionsPage';
 import { SessionsListPage } from './pages/Settings/SessionsListPage';
 import { SessionEditPage } from './pages/Settings/SessionEditPage';
 import { TimerSettingsPage } from './pages/Settings/TimerSettingsPage';
+import { VideoTestPage } from './pages/Settings/VideoTestPage';
 import { TimerHomePage } from './pages/Timer/TimerHomePage';
 import { TimerBuilderPage } from './pages/Timer/TimerBuilderPage';
 import { TimerRunPage } from './pages/Timer/TimerRunPage';
@@ -85,6 +87,7 @@ export default function App() {
             <Route path="sesiones/libre" element={<FreeSessionPage />} />
             <Route path="sesiones/:id/ejecutar" element={<SessionExecutorPage />} />
             <Route path="sesiones/:id/cronometro" element={<SessionTimerPage />} />
+            <Route path="sesiones/:id/video" element={<SessionVideoPage />} />
             <Route path="sesiones/:id" element={<SessionDetailPage />} />
             <Route path="timer" element={<TimerHomePage />} />
             <Route path="timer/nueva" element={<TimerBuilderPage />} />
@@ -107,6 +110,7 @@ export default function App() {
             <Route path="configuracion/clases-inactivas" element={<InactiveClassesPage />} />
             <Route path="configuracion/clases" element={<ClassesSectionsPage />} />
             <Route path="configuracion/cronometro" element={<TimerSettingsPage />} />
+            <Route path="configuracion/prueba-videos" element={<VideoTestPage />} />
             <Route path="configuracion/acerca-de" element={<AboutPage />} />
             <Route path="configuracion/ayuda" element={<HelpPage />} />
             <Route path="configuracion/perfil" element={<ProfilePage />} />

@@ -11,10 +11,13 @@ import {
   ArrowDown,
   X,
   Search,
+  Video,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
 import { Modal } from '../../components/ui/Modal';
+import { VideoEmbed } from '../../components/ui/VideoEmbed';
+import { detectVideo } from '../../utils/videoEmbed';
 import { generateUUID } from '../../utils/formatters';
 import * as classTemplateRepo from '../../db/repositories/classTemplateRepo';
 import * as catalogRepo from '../../db/repositories/catalogRepo';
@@ -101,6 +104,31 @@ interface SectionDraft {
   exercises: SectionExerciseDraft[]
 }
 
+// Convierte segundos a texto mm:ss para el campo de duración del video
+function secondsToClock(total?: number): string {
+  if (!total || total <= 0) return '';
+  const m = Math.floor(total / 60);
+  const sec = total % 60;
+  return `${m}:${String(sec).padStart(2, '0')}`;
+}
+
+// Interpreta "mm:ss" o un número suelto de minutos y devuelve segundos
+function clockToSeconds(value: string): number | undefined {
+  const v = value.trim();
+  if (!v) return undefined;
+  const parts = v.split(':');
+  if (parts.length === 2) {
+    const m = parseInt(parts[0], 10);
+    const sec = parseInt(parts[1], 10);
+    if (isNaN(m) || isNaN(sec)) return undefined;
+    const total = m * 60 + sec;
+    return total > 0 ? total : undefined;
+  }
+  const m = parseFloat(v);
+  if (isNaN(m) || m <= 0) return undefined;
+  return Math.round(m * 60);
+}
+
 export function ClassTemplateFormPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -112,6 +140,9 @@ export function ClassTemplateFormPage() {
   const [objective, setObjective] = useState('');
   const [generalNotes, setGeneralNotes] = useState('');
   const [estimatedDuration, setEstimatedDuration] = useState('');
+  const [videoUrl, setVideoUrl] = useState('');
+  const [videoDuration, setVideoDuration] = useState(''); // formato mm:ss
+  const [showVideoPreview, setShowVideoPreview] = useState(false);
 
   // Secciones
   const [sections, setSections] = useState<SectionDraft[]>([]);
@@ -161,6 +192,8 @@ export function ClassTemplateFormPage() {
     setObjective(template.objective ?? '');
     setGeneralNotes(template.general_notes ?? '');
     setEstimatedDuration(template.estimated_duration_minutes?.toString() ?? '');
+    setVideoUrl(template.video_url ?? '');
+    setVideoDuration(secondsToClock(template.video_duration_seconds));
 
     // Convertir las secciones al formato de draft
     const draftSections: SectionDraft[] = template.sections.map((s) => ({
@@ -422,6 +455,8 @@ export function ClassTemplateFormPage() {
         estimated_duration_minutes: estimatedDuration
           ? parseInt(estimatedDuration, 10)
           : undefined,
+        video_url: videoUrl.trim() || undefined,
+        video_duration_seconds: clockToSeconds(videoDuration),
         is_favorite: 0 as const,
         template_type: 'my_classes' as const,
         is_active: 1 as const,
@@ -564,6 +599,61 @@ export function ClassTemplateFormPage() {
               min="1"
               className="w-full bg-gray-800 text-white placeholder-gray-600 rounded-xl px-4 py-3 text-sm border border-gray-700 focus:outline-none focus:border-primary-500 transition-colors"
             />
+          </div>
+
+          {/* Video de la clase */}
+          <div className="bg-gray-900 border border-gray-800 rounded-xl p-4 space-y-3">
+            <div className="flex items-center gap-2">
+              <Video size={16} className="text-primary-400 shrink-0" />
+              <label className="text-sm text-gray-300 font-medium">Video de la clase</label>
+            </div>
+            <p className="text-xs text-gray-600 leading-relaxed">
+              Si cargás un video, la sesión se ejecuta en modo <strong className="text-gray-400">clase por video</strong>:
+              se muestra solo el video a pantalla completa y al terminar se cierra la sesión igual que la clase guiada.
+              Los ejercicios cargados abajo se registran igual (calorías, PRs, etc.).
+            </p>
+            <input
+              type="url"
+              value={videoUrl}
+              onChange={(e) => setVideoUrl(e.target.value)}
+              placeholder="https://www.facebook.com/reel/... o YouTube, Vimeo, TikTok..."
+              className="w-full bg-gray-800 text-white placeholder-gray-600 rounded-xl px-4 py-3 text-sm border border-gray-700 focus:outline-none focus:border-primary-500 transition-colors"
+            />
+
+            {videoUrl.trim() && (
+              <>
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] px-2 py-1 rounded-lg bg-gray-800 border border-gray-700 text-gray-400">
+                    {detectVideo(videoUrl).label}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setShowVideoPreview((v) => !v)}
+                    className="text-xs text-primary-400 hover:text-primary-300 ml-auto"
+                  >
+                    {showVideoPreview ? 'Ocultar vista previa' : 'Ver vista previa'}
+                  </button>
+                </div>
+
+                {showVideoPreview && <VideoEmbed url={videoUrl} autoplay={false} />}
+
+                <div>
+                  <label className="block text-sm text-gray-300 mb-1.5">Duración del video (mm:ss)</label>
+                  <input
+                    type="text"
+                    value={videoDuration}
+                    onChange={(e) => setVideoDuration(e.target.value)}
+                    placeholder="32:00"
+                    inputMode="numeric"
+                    className="w-full bg-gray-800 text-white placeholder-gray-600 rounded-xl px-4 py-3 text-sm border border-gray-700 focus:outline-none focus:border-primary-500 transition-colors"
+                  />
+                  <p className="text-[11px] text-gray-600 mt-1.5">
+                    Opcional. Si la cargás, la clase se cierra sola al llegar a ese tiempo; si no, la
+                    terminás con el botón de finalizar.
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </div>
 

@@ -25,6 +25,12 @@ El objetivo es producir:
 > `ACTUALIZO_MUSCULOS.md` como paso aparte para clases nuevas**. Sin músculos, el mapa muscular de
 > la ficha del ejercicio y el gráfico de Estadísticas quedan vacíos.
 
+> 🎬 **Videos obligatorios en los ejercicios nuevos:** cada ejercicio que se crea con la clase sale
+> del ZIP con su **video corto** (`video_path`) y, si se consigue, su **video explicativo**
+> (`video_long_path`) — del MD si los trae, y si no buscándolos (§6.2). Igual que con los músculos,
+> **ya no se usa `ACTUALIZO_VIDEO.md` como paso aparte**: los dos campos viajan en el
+> `class-share.json`. Sin `video_path` no aparece el botón de video en el popup de la sesión.
+
 > ⚠️ **NO se escribe código TypeScript por clase.** No existe (ni hace falta crear) un servicio
 > `classDDMMYYYYImportService.ts` ni un botón en Configuración por cada clase nueva. Eso quedó
 > descartado: desde 2026-08 el mecanismo vigente es generar el ZIP `class-share.json` a mano
@@ -55,8 +61,8 @@ El objetivo es producir:
 ## 2. ARQUITECTURA DEL SISTEMA (resumen)
 
 - **App**: React + TypeScript + Vite
-- **Base de datos**: SQLite (via `@capacitor-community/sqlite`) — **schema v014** (última migración:
-  `v014_movilidad_section_type`)
+- **Base de datos**: SQLite (via `@capacitor-community/sqlite`) — **schema v015** (última migración:
+  `v015_class_template_video`, que agregó `video_url` y `video_duration_seconds` a `class_template`)
 - **Formato de importación de una clase nueva**: ZIP con un `class-share.json` adentro (formato
   "compartir clase", ver `src/services/classShareService.ts`) — **NO** es el mismo formato que el
   backup completo (`data.json` de `backupService.ts`)
@@ -75,7 +81,7 @@ El objetivo es producir:
 | Catálogos (7 tablas) | Reutiliza el id local. En `work_format` sólo **agrega** `is_interval`/`default_interval_seconds` si el local no los tenía; nunca los quita | Lo crea con todos los campos del JSON |
 | `exercise` | **Actualiza campo por campo, sólo los que vengan en el JSON** (`description`, `technical_notes`, `difficulty_level_id`, `primary_muscle_group_id`, `image_url`, `image_path`, `video_path`, `video_long_path`, `is_compound`). Un campo ausente no se toca | Lo crea |
 | Relaciones del ejercicio (músculos, equipamiento, tags, section_type, unidades) | Si el ZIP trae filas de esa relación: **DELETE + INSERT** (reemplazo total de esa relación). Si no trae ninguna: la deja intacta | Inserta las que traiga |
-| `class_template` | Reutiliza la clase con el mismo nombre exacto (¡y le cuelga las secciones nuevas!) | La crea con `template_type = 'my_classes'` fijo (el campo del JSON se ignora) |
+| `class_template` | Reutiliza la clase con el mismo nombre exacto (¡y le cuelga las secciones nuevas!) — **no** actualiza sus campos, así que el `video_url` del JSON se pierde | La crea con `template_type = 'my_classes'` fijo (el campo del JSON se ignora) y con `video_url` / `video_duration_seconds` si vienen |
 | `class_section` / `section_exercise` | Siempre se insertan como filas nuevas | Idem |
 | Sesiones, resultados, récords | **Nunca se tocan** | — |
 
@@ -92,6 +98,7 @@ nuevas se escriben así:
 
 ```
 Clase GOAT DD/MM/YYYY
+video clase URL (mm:ss)          <- opcional: sólo en clases que se siguen mirando un video
 
 Calentamiento
 - 6 minutos de calentamiento
@@ -115,6 +122,10 @@ Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 
 - La cantidad va **antes** del nombre (`12 Calf Raises`, `600 m running`, `20 Wall Ball Shot`), no
   después. También aparece como tiempo (`60 seg Assault Bike`) o distancia (`12 metros Burpee Broad Jump`).
+- **Video de la clase entera** (opcional, desde 2026-08): una línea `video clase <URL> (mm:ss)`
+  justo debajo del nombre de la clase. Es un video que se sigue de principio a fin (típicamente un
+  Reel de Facebook o un YouTube/Shorts) y cambia **cómo se ejecuta la sesión**: ver §7.6. El
+  `(mm:ss)` es la duración del video y es opcional. No confundir con los videos por ejercicio.
 - **Dos videos por ejercicio**: `video corto <URL>` → `video_path` (el popup de la ficha) y
   `video explicativo <URL>` → `video_long_path` (el tutorial largo). Si sólo hay una URL, va a
   `video_path`. Los videos suelen citarse una sola vez, en la primera aparición del ejercicio.
@@ -139,6 +150,9 @@ Leer la clase del archivo `BKP/Ejercicios.md` e identificar:
 - Fecha de la clase (formato DD/MM/YYYY → convertir a YYYY-MM-DD para la BD)
 - Nombre: **"GOAT DD/MM/YYYY"** — es el naming que usan las clases desde 2026-05 (las viejas
   "Clase GOAT DD/MM/YYYY" quedaron así por historia). Tiene que ser único (§2).
+- **Video de la clase** (línea `video clase <URL> (mm:ss)` debajo del nombre, §3): si está, la clase
+  se carga como **clase por video** → `video_url` + `video_duration_seconds` en `class_template` (§7.6).
+  Si no está, la clase es normal (cronómetro guiado) y ambos campos van en `null`.
 - Secciones y sus ejercicios
 - Para cada ejercicio: nombre, repeticiones/tiempo/distancia/calorías, peso, video corto y explicativo
 
@@ -197,13 +211,13 @@ secciones tituladas "Movilidad" que estaban colgando de "Entrada en calor".
 ### PASO 4 – Verificar qué ejercicios ya existen
 
 Antes de inventar un ejercicio nuevo hay que agotar la búsqueda del que ya está. Hoy hay
-**275 SVG** en `public/img/exercises/` y más de 250 ejercicios usados en clases, así que lo normal
+**308 SVG** en `public/img/exercises/` y más de 280 ejercicios usados en clases, así que lo normal
 es que el movimiento ya exista con otro nombre.
 
 **Orden de búsqueda:**
 
 1. `ls public/img/exercises/` — es la **fuente de la verdad** del inventario de SVG (la lista de §4a
-   es una foto al 2026-08-15 y envejece con cada clase).
+   es una foto al 2026-08-22 y envejece con cada clase).
 2. `src/services/imageUpdateService.ts` — array `EXERCISE_IMAGES` con pares
    `nombre exacto en BD → /img/exercises/x.svg`. Sirve para saber **con qué nombre está cargado en
    la BD** un SVG determinado.
@@ -229,30 +243,31 @@ seguir generando duplicados:
   **Configuración → Gestión de datos → Migrar / fusionar ejercicios**, que reasigna clases, sesiones
   y récords al ejercicio destino y borra el origen.
 
-#### 4b. SVG existentes al 2026-08-15 (275 archivos, sin la extensión `.svg`)
+#### 4b. SVG existentes al 2026-08-22 (308 archivos, sin la extensión `.svg`)
 
 - **A** — ab-wheel-kneeling-rollout, ab-wheel-standing-rollout, air-squat, alternating-90-90-into-shin-box, alternating-double-clubbell-front-flag-press, alternating-heel-touches, alternating-kettlebell-row, alternating-single-arm-dumbbell-power-snatch, alternating-spiderman-stretch, american-kettlebell-swing, ankle-mobility-rock, arm-circles, assault-bike
-- **B** — back-squat, banded-ankle-dorsiflexion-stretch, banded-prone-leg-curl, banded-triceps-extensions, band-external-rotation, band-pass-through, band-pull-apart, band-row, band-triceps-pushdown, barbell-bench-press, barbell-bent-over-row, barbell-bicep-curl, barbell-clean-and-jerk, barbell-deadlift, barbell-front-rack-reverse-lunge, barbell-front-squat, barbell-good-morning, barbell-hang-clean, barbell-hang-clean-and-jerk, barbell-hang-muscle-clean-and-press, barbell-hang-muscle-clean-press, barbell-hang-power-clean, barbell-hang-power-cluster, barbell-hang-power-snatch, barbell-high-hang-power-clean, barbell-low-hang-power-clean, barbell-lunge, barbell-muscle-snatch, barbell-overhead-squat, barbell-power-snatch, barbell-push-jerk, barbell-push-press, barbell-romanian-deadlift, barbell-shrug, barbell-snatch-grip-deadlift, barbell-snatch-high-pull, barbell-snatch-pause-at-knee, barbell-squat-clean, barbell-strict-press, barbell-sumo-deadlift-high-pull, barbell-thruster, barbell-upright-row, bar-kip-swing, bar-muscle-up, bear-crawl-hold, bent-over-dumbbell-lateral-raise, bicycle-crunch, bird-dog-crunch, bird-dog-hold, bodyweight-glute-bridge, bodyweight-handstand-push-up, bodyweight-hollow-body-hold, bodyweight-pistol-squat, bodyweight-push-up, bodyweight-sit-up, box-jump, box-jump-over, box-step-up, breathing-4-6, bulgarian-split-squat, burpee, burpee-broad-jump, burpee-over-the-bar, burpee-to-bar
-- **C** — calf-raise-hold, cat-cow, chest-to-bar-pull-up, childs-pose, clamshell-hold, clean-and-jerk, cobra-pose, cool-down-stretch, core-overhead-hold-side-bend, cossack-squat, couch-stretch, counterbalance-squat, cross-body-mountain-climbers, cuban-press
-- **D** — dead-bug, dead-bug-hold-dumbbell, deadlift, dips, doorway-chest-stretch, double-dumbbell-overhead-walking-lunge, double-under, dual-dumbbell-snatch-with-burpee, dumbbell-alternating-bent-over-row, dumbbell-bench-press, dumbbell-bicep-curl, dumbbell-burpee-snatch, dumbbell-deadlift, dumbbell-devils-press, dumbbell-front-rack-lunge, dumbbell-front-raise, dumbbell-hang-clean-and-push-jerk, dumbbell-lateral-step-over, dumbbell-one-arm-overhead-lunge, dumbbell-overhead-hold, dumbbell-push-press, dumbbell-row, dumbbell-split-clean, dumbbell-thruster, dumbbell-wall-sit, dynamic-warm-up
+- **B** — back-squat, band-external-rotation, band-hammer-curl-to-triceps-kickback, band-pass-through, band-pull-apart, band-rdl-to-bent-over-row, band-row, band-shoulder-toss, band-squat-to-front-raise, band-triceps-pushdown, band-woodchopper, banded-ankle-dorsiflexion-stretch, banded-glute-kickback, banded-prone-leg-curl, banded-triceps-extensions, bar-kip-swing, bar-muscle-up, barbell-bench-press, barbell-bent-over-row, barbell-bicep-curl, barbell-clean-and-jerk, barbell-deadlift, barbell-front-rack-reverse-lunge, barbell-front-squat, barbell-good-morning, barbell-hang-clean, barbell-hang-clean-and-jerk, barbell-hang-muscle-clean-and-press, barbell-hang-muscle-clean-press, barbell-hang-power-clean, barbell-hang-power-cluster, barbell-hang-power-snatch, barbell-high-hang-power-clean, barbell-low-hang-power-clean, barbell-lunge, barbell-muscle-snatch, barbell-overhead-squat, barbell-power-snatch, barbell-push-jerk, barbell-push-press, barbell-romanian-deadlift, barbell-shrug, barbell-snatch-grip-deadlift, barbell-snatch-high-pull, barbell-snatch-pause-at-knee, barbell-squat-clean, barbell-stiff-leg-deadlift, barbell-strict-press, barbell-sumo-deadlift-high-pull, barbell-thruster, barbell-upright-row, bear-crawl-hold, bent-over-dumbbell-lateral-raise, bicycle-crunch, bird-dog-crunch, bird-dog-hold, bodyweight-glute-bridge, bodyweight-handstand-push-up, bodyweight-hollow-body-hold, bodyweight-pistol-squat, bodyweight-push-up, bodyweight-sit-up, bottom-half-squat, box-jump, box-jump-over, box-step-up, boxer-shuffle, breathing-4-6, bulgarian-split-squat, burpee, burpee-broad-jump, burpee-over-the-bar, burpee-to-bar
+- **C** — calf-raise, calf-raise-hold, cat-cow, chest-to-bar-pull-up, childs-pose, clamshell-hold, clean-and-jerk, cobra-pose, cool-down-stretch, core-overhead-hold-side-bend, cossack-squat, couch-stretch, counterbalance-squat, cross-body-mountain-climbers, cuban-press
+- **D** — dead-bug, dead-bug-hold-dumbbell, deadlift, deep-squat-hold, dips, doorway-chest-stretch, double-dumbbell-overhead-walking-lunge, double-under, dual-dumbbell-snatch-with-burpee, dumbbell-alternating-bent-over-row, dumbbell-bench-press, dumbbell-bicep-curl, dumbbell-burpee-snatch, dumbbell-deadlift, dumbbell-devils-press, dumbbell-front-rack-lunge, dumbbell-front-raise, dumbbell-hang-clean-and-push-jerk, dumbbell-lateral-step-over, dumbbell-one-arm-overhead-lunge, dumbbell-overhead-hold, dumbbell-push-press, dumbbell-row, dumbbell-split-clean, dumbbell-thruster, dumbbell-wall-sit, dynamic-warm-up
 - **F** — farmers-carry, front-squat
-- **G** — general-stretching, ghd-back-extension, ghd-sit-up, goblet-squat-hold-press
-- **H** — half-kneel-banded-lat-stretch, half-kneeling-ankle-dorsiflexion-stretch, half-kneeling-hip-flexor-hamstring-dynamic-stretch, half-kneeling-hip-flexor-stretch, half-kneeling-thoracic-rotation, hanging-flutter-kicks, hanging-knees-to-elbows, hanging-leg-raise-rotation-over-box, hanging-toes-to-bar, high-knee-clap, high-pull-external-rotation, hip-90-90-internal-rotation-liftoff, hip-90-90-rotation, hip-rotations-in-squat, hollow-body-rock, hollow-hold, hollow-hold-pass, hollow-rock, hollow-to-superman-roll
+- **G** — general-stretching, ghd-back-extension, ghd-sit-up, goblet-squat-hold-press, ground-pull-up
+- **H** — half-kneel-banded-lat-stretch, half-kneeling-ankle-dorsiflexion-stretch, half-kneeling-hip-flexor-hamstring-dynamic-stretch, half-kneeling-hip-flexor-stretch, half-kneeling-thoracic-rotation, hanging-flutter-kicks, hanging-knees-to-elbows, hanging-leg-raise-rotation-over-box, hanging-toes-to-bar, high-knee-clap, high-knees, high-pull-external-rotation, hip-90-90-internal-rotation-liftoff, hip-90-90-rotation, hip-rotations-in-squat, hollow-body-rock, hollow-hold, hollow-hold-pass, hollow-rock, hollow-to-superman-roll
 - **I** — inchworm, isometric-lunge, isometric-push-up-hold
-- **J** — jumping-lunge, jump-rope
-- **K** — kettlebell-ankle-mobility-drill, kettlebell-box-step-over, kettlebell-clean-and-jerk, kettlebell-deadlift, kettlebell-farmer-carry, kettlebell-front-squat, kettlebell-good-morning, kettlebell-good-morning-to-squat, kettlebell-ground-to-overhead, kettlebell-jumping-lunge, kettlebell-leg-overs, kettlebell-push-up, kettlebell-single-leg-romanian-deadlift, kettlebell-snatch, kettlebell-sumo-deadlift-high-pull, kettlebell-swing, kettlebell-windmill
-- **L** — lateral-lunge, lateral-raise-to-overhead
+- **J** — jump-rope, jumping-jack, jumping-lunge
+- **K** — kettlebell-ankle-mobility-drill, kettlebell-box-step-over, kettlebell-clean-and-jerk, kettlebell-deadlift, kettlebell-farmer-carry, kettlebell-front-squat, kettlebell-good-morning, kettlebell-good-morning-to-squat, kettlebell-ground-to-overhead, kettlebell-jumping-lunge, kettlebell-leg-overs, kettlebell-push-up, kettlebell-single-leg-romanian-deadlift, kettlebell-snatch, kettlebell-sumo-deadlift-high-pull, kettlebell-swing, kettlebell-windmill, knee-push-up, kneeling-squat
+- **L** — lateral-lunge, lateral-raise-to-overhead, lateral-shuffle, lying-leg-raise
 - **M** — march-in-place, med-ball-box-step-over, mountain-climbers
-- **N** — nordic-hamstring-curl
-- **O** — overhead-squat, overhead-triceps-stretch
-- **P** — partner-wall-ball-over-bar, partner-wall-ball-sit-up, pigeon-pose, pike-hold, plank-hold, plank-shoulder-taps, plank-to-opposite-toe-touch, plank-up-down, power-clean, pullup, push-press, push-press-behind-the-neck, pushup
+- **N** — negative-push-up, nordic-hamstring-curl
+- **O** — oblique-crunch, overhead-squat, overhead-triceps-stretch
+- **P** — partner-wall-ball-over-bar, partner-wall-ball-sit-up, pigeon-pose, pike-hold, pike-walk, plank-hold, plank-knee-tap, plank-shoulder-taps, plank-to-opposite-toe-touch, plank-up-down, power-clean, prone-around-the-world, pullup, push-press, push-press-behind-the-neck, pushup
 - **Q** — quadruped-rock-back, quadruped-thoracic-rotation
-- **R** — reverse-snow-angels, ring-dip, ring-handstand-push-up, ring-row, ring-strict-muscle-up, rope-climb, rowing, running, russian-twist
-- **S** — sally-up-sally-down, sandbag-carry, sandbag-walking-lunges, scapular-plank-hold, scapular-push-up, scapular-push-up-dina, scapular-wall-slides, seated-forward-fold, seated-leg-tucks, seated-quad-stretch, shadow-boxing, shoulder-press, shuttle-run, side-plank, side-plank-con-carga, side-plank-weighted, single-arm-dumbbell-push-press, single-leg-calf-raise, single-leg-dumbbell-romanian-deadlift, single-leg-pallof-press, single-leg-toes-to-bar, single-leg-v-up, single-leg-wall-sit, skierg, sled-push-pull, snatch, snatch-grip-deadlift, snatch-high-pull, snatch-pause-at-knee, spiderman-stretch-rotation, split-squat-calf-raise, squat, squat-press-out, squat-thoracic-rotation, stability-ball-plate-crunch, standing-biceps-stretch, standing-cross-crunch, standing-hamstring-stretch, standing-knees-to-elbow, standing-quad-stretch, step-jack, strict-knees-to-elbows, superband-shoulder-dislocates, superman-hold, supine-abdominal-stretch, supine-figure-4-stretch, supine-spinal-twist
-- **T** — tempo-push-up, tempo-squat, thruster, toes-to-bar, toe-touch-crunch, toe-touch-sit-up, towel-isometric-curl, towel-isometric-row
+- **R** — reach-up-crunch, reverse-snow-angels, ring-dip, ring-handstand-push-up, ring-row, ring-strict-muscle-up, rope-climb, rowing, running, russian-twist
+- **S** — sally-up-sally-down, sandbag-carry, sandbag-walking-lunges, scapular-plank-hold, scapular-push-up, scapular-push-up-dina, scapular-wall-slides, seated-forward-fold, seated-leg-compression, seated-leg-tucks, seated-quad-stretch, shadow-boxing, shoulder-press, shuttle-run, side-lying-thoracic-opening, side-plank, side-plank-con-carga, side-plank-weighted, single-arm-dumbbell-push-press, single-leg-calf-raise, single-leg-dumbbell-romanian-deadlift, single-leg-pallof-press, single-leg-toes-to-bar, single-leg-v-up, single-leg-wall-sit, skater-jump, skierg, sled-push-pull, snatch, snatch-grip-deadlift, snatch-high-pull, snatch-pause-at-knee, spiderman-stretch-rotation, split-squat-calf-raise, sprint-in-place, squat, squat-press-out, squat-thoracic-rotation, squat-to-toe-raise, stability-ball-plate-crunch, standing-biceps-stretch, standing-cross-crunch, standing-hamstring-stretch, standing-knees-to-elbow, standing-quad-stretch, step-jack, strict-knees-to-elbows, superband-shoulder-dislocates, superman-hold, supinated-band-pull-apart, supine-abdominal-stretch, supine-figure-4-stretch, supine-spinal-twist
+- **T** — tempo-push-up, tempo-squat, thruster, tibialis-raise, toe-touch-crunch, toe-touch-sit-up, toes-to-bar, towel-isometric-curl, towel-isometric-row
+- **U** — upward-to-downward-dog
 - **V** — v-up
-- **W** — walking, walking-lunge, wall-ball-box-over, wall-ball-run, wall-ball-shot, wall-lat-stretch, wall-shoulder-car, wall-shoulder-external-rotation, wall-shoulder-stretch, wall-sit, wall-sit-with-leg-extension, wall-squat-hold, wall-thoracic-extensions, wall-walk, weighted-bird-dog, weighted-box-step-up, weighted-hollow-rock, weighted-lunge, weighted-plank, weighted-sit-up, wrist-extensor-stretch
-- **Y** — yoga-push-up, y-raises
+- **W** — walking, walking-lunge, wall-ball-box-over, wall-ball-run, wall-ball-shot, wall-lat-stretch, wall-shoulder-car, wall-shoulder-external-rotation, wall-shoulder-stretch, wall-sit, wall-sit-with-leg-extension, wall-squat-hold, wall-thoracic-extensions, wall-walk, weighted-bird-dog, weighted-box-step-up, weighted-hollow-rock, weighted-lunge, weighted-plank, weighted-sit-up, wide-negative-push-up, wrist-extensor-stretch
+- **Y** — y-raises, yoga-push-up
 
 > **Pares duplicados o casi-duplicados ya detectados en esta carpeta** (elegir uno, no crear un
 > tercero):
@@ -264,7 +279,10 @@ seguir generando duplicados:
 > `snatch-pause-at-knee` / `barbell-snatch-pause-at-knee`,
 > `pushup` / `bodyweight-push-up`, `hollow-rock` / `hollow-body-rock`,
 > `farmers-carry` / `kettlebell-farmer-carry`, `walking-lunge` / `weighted-lunge` (revisar cuál
-> corresponde antes de reusar).
+> corresponde antes de reusar),
+> `high-knees` / `high-knee-clap`, `jumping-jack` / `step-jack`,
+> `hollow-hold` / `bodyweight-hollow-body-hold` (los agregados en 2026-08-22 son variantes reales,
+> pero conviene chequearlos antes de crear una tercera).
 > La versión **con prefijo de implemento** es la preferida para ejercicios nuevos.
 
 ### PASO 5 – Para cada ejercicio NUEVO (sin SVG), crear el SVG
@@ -313,7 +331,7 @@ Ejemplo: "Band Pull-Apart" → `band-pull-apart.svg`
 > los ejercicios nuevos como en los que ya existían. El service/botón sólo se usa cuando se dibujan
 > SVG sueltos, fuera del flujo de una clase.
 
-### PASO 6 – Determinar datos de cada ejercicio (incluidos los músculos)
+### PASO 6 – Determinar datos de cada ejercicio (incluidos los músculos y los videos)
 
 Para cada ejercicio de la clase — **nuevo o reutilizado** — definir:
 
@@ -329,8 +347,8 @@ Para cada ejercicio de la clase — **nuevo o reutilizado** — definir:
 | `tags[]` | Tags relevantes (§5.7) | sí |
 | `section_types[]` | En qué tipos de sección suele aparecer | sí |
 | `units[]` | Unidades de medida (la primera es `is_default: 1`) | sí |
-| `video_path` | Video **corto** (el del popup de la ficha) — "video corto" del MD | si el MD lo trae |
-| `video_long_path` | Video **explicativo/tutorial** — "video explicativo" del MD | si el MD lo trae |
+| `video_path` | Video **corto** (el del popup de la ficha) — del MD o buscado (§6.2) | si el MD lo trae |
+| `video_long_path` | Video **explicativo/tutorial** — del MD o buscado (§6.2) | si el MD lo trae |
 | `is_compound` | 1 si trabaja múltiples articulaciones, 0 si es monoarticular | sí |
 | `image_url` | `/img/exercises/nombre-del-archivo.svg` | sí (repara fichas sin imagen) |
 
@@ -364,6 +382,71 @@ puede haber 1 solo secundario). Se cargan en dos lugares del JSON, y hay que pon
   `Recto abdominal` como secundarios.
 - Todo lo que se hace colgado de la barra suma `Flexores antebrazo`.
 - Los estiramientos también llevan músculos: el que se estira es el primario.
+
+> 📄 **`BKP/ACTUALIZO_MUSCULOS.md` quedó como material histórico.** Su mecanismo (un
+> `muscles{Clase}UpdateService.ts` + botón en "Actualizar músculos") **ya no se usa para clases
+> nuevas**: los músculos viajan en el `class-share.json` (§6.1) y el importador los escribe.
+> Lo que sigue sirviendo de ese documento es el criterio de asignación (su §4 de patrones de
+> movimiento y su §5 con los músculos de las clases viejas), pero **está escrito con los 12 nombres
+> simplificados** — traducirlos a los 35 granulares con la tabla de equivalencia de §5.1 antes de
+> usarlos. La función `toDbName()` que hacía esa traducción ya no existe.
+
+#### 6.2 Videos: cómo buscarlos y asignarlos (paso obligatorio para los ejercicios nuevos)
+
+La ficha del ejercicio tiene **dos** campos de video, con destinos distintos:
+
+| Campo | Qué es | Dónde se ve |
+|-------|--------|-------------|
+| `video_path` | **Video corto**: demostración directa del movimiento, Shorts o < 2 min, sin intro | Popup del botón play durante la sesión, detalle de clase y de sesión |
+| `video_long_path` | **Video explicativo**: tutorial > 2 min con técnica, errores comunes y progresiones | Sección "Video explicativo" del detalle del ejercicio |
+
+> ⚠️ Si `video_path` queda vacío, **el botón de video no aparece en el popup de la sesión** — que es
+> donde más se usa. Ante la duda, el video que se consiga va a `video_path`.
+
+**Regla de la clase:** todo ejercicio **nuevo** sale del ZIP con los dos videos buscados (o al menos
+el corto). Para los **reutilizados** se manda video sólo si el MD trae URLs nuevas o si se encontró
+uno mejor y el usuario lo pidió: mandarlo **pisa** el que ya tenía en la BD (§2, §7).
+
+**De dónde salen las URLs, en orden:**
+
+1. **El MD** (`BKP/Ejercicios.md`): `video corto <URL>` → `video_path`, `video explicativo <URL>` →
+   `video_long_path` (§3). Es la fuente preferida y no hace falta buscar nada más si trae las dos.
+2. **Búsqueda con WebSearch + WebFetch.** WebSearch casi nunca devuelve la URL de YouTube directa;
+   el flujo que funciona es buscar una página que embeba el video y sacarle el ID:
+   - `"{ejercicio}" exercise tutorial site:catalystathletics.com` (halterofilia → explicativo)
+   - `"{ejercicio}" exercise youtube video site:barbend.com` (fuerza general → explicativo)
+   - `"{ejercicio}" exercise video site:muscleandstrength.com` (hipertrofia → explicativo)
+   - `"{ejercicio}" site:wodprep.com` (CrossFit → corto o largo)
+   - WebFetch sobre esa página con el prompt *"Find any YouTube video URL or video ID embedded on
+     this page"* → con el ID se arma `https://www.youtube.com/watch?v={ID}`.
+   - Para el **corto**: buscar `"{ejercicio}" shorts` y quedarse con un `youtube.com/shorts/...`.
+3. **El usuario**, si las pega a mano.
+
+**Reglas de decisión cuando no está claro cuál es cuál** (heredadas de `ACTUALIZO_VIDEO.md`):
+
+1. Si se sabe que es tutorial/explicativo → `video_long_path`.
+2. Si es un Short → `video_path`.
+3. Si hay **una sola** URL → `video_path`, y `video_long_path: null`.
+4. Si hay dos y no está claro → el más largo a `video_long_path`, el más corto a `video_path`.
+5. Si los dos son cortos → el más técnico a `video_long_path`.
+
+**Validar antes de cargar** (no inventar IDs de YouTube, es el error más común):
+
+```bash
+curl -s -o /dev/null -w "%{http_code}" \
+  "https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=<ID>&format=json"
+```
+
+HTTP 200 = el video existe y es embebible; 401/404 = no sirve, buscar otro. Las plataformas que el
+reproductor soporta están en `src/utils/videoEmbed.ts` (YouTube y Shorts, Vimeo, Facebook,
+Instagram, TikTok, archivo directo); cualquier otra se muestra como enlace suelto.
+
+> 📄 **`BKP/ACTUALIZO_VIDEO.md` también quedó como material histórico.** Su mecanismo
+> (`videos{Clase}UpdateService.ts` + entrada en `VideoSeederSection`) **no se usa al crear una
+> clase**: los dos campos viajan en `exercises[]` del `class-share.json` y el importador los escribe
+> solo. Ese documento sigue siendo la referencia para cargas de video *sueltas*, fuera de una clase
+> (por ejemplo completar en lote los ejercicios que figuran sin video en
+> **Configuración → Listados → Ejercicios con videos → "Sin"**).
 
 ### PASO 7 – Construir el JSON de salida
 
@@ -405,6 +488,7 @@ importador ya existente `importClassFromZip()` (aditivo, resuelve todo por nombr
   },
   "classes": [ { "id": "...", "date": "2026-08-15", "name": "GOAT 15/08/2026",
                  "objective": "...", "general_notes": null, "estimated_duration_minutes": 55,
+                 "video_url": null, "video_duration_seconds": null,
                  "is_favorite": 0, "is_active": 1, "created_at": "...", "updated_at": "..." } ],
   "class_sections": [ { "id": "...", "class_template_id": "...", "section_type_id": "...",
                          "work_format_id": "...", "sort_order": 1, "visible_title": "...",
@@ -424,7 +508,8 @@ importador ya existente `importClassFromZip()` (aditivo, resuelve todo por nombr
 
 **Notas clave (diferentes al viejo formato `data.json`):**
 
-- **Ejercicios nuevos**: incluir todos los campos de `exercise` (PASO 6) + sus 5 relaciones
+- **Ejercicios nuevos**: incluir todos los campos de `exercise` (PASO 6), con `video_path` y
+  `video_long_path` buscados y validados (§6.2), + sus 5 relaciones
   (`exercise_muscle_group`, `_equipment`, `_section_type`, `_unit`, `_tag`). El importador los crea
   si no encuentra el nombre.
 - **Ejercicios reutilizados** (ya existen en la BD — §4a): la regla vieja de mandar *sólo `id` +
@@ -445,6 +530,11 @@ importador ya existente `importClassFromZip()` (aditivo, resuelve todo por nombr
 - Los `id` de catálogos/ejercicios/secciones son sólo identificadores **internos del JSON** para
   enlazar filas entre sí (no tienen que coincidir con nada de la BD real) — el importador los
   resuelve a los IDs locales del usuario por nombre al importar.
+- **Clase con video en el cabezal** (§7.6): `video_url` y `video_duration_seconds` van en la fila de
+  `classes`. Sólo se aplican cuando el importador **crea** la clase; si ya existe una con ese nombre
+  la reutiliza sin actualizar sus campos, así que el video no se cargaría (§2). Los `section_exercise`
+  se cargan igual que siempre, con sus tiempos estimados (§7): aunque el cronómetro no los recorra
+  paso a paso, alimentan el cálculo de calorías, los PRs y las estadísticas al cerrar la sesión.
 - No hace falta incluir `training_session`, `session_exercise_result` ni `personal_record`: este
   formato es sólo de la clase, nunca toca el progreso del usuario.
 - Media (imágenes subidas por el usuario, no SVG estáticos): sólo si algún ejercicio nuevo usa una
@@ -747,6 +837,8 @@ en `catalogs.tag` del ZIP (con un color) y el importador los crea si faltan.
   "objective": "Descripción del objetivo de la clase",
   "general_notes": null,
   "estimated_duration_minutes": 60,
+  "video_url": null,
+  "video_duration_seconds": null,
   "is_favorite": 0,
   "template_type": "my_classes",
   "is_active": 1,
@@ -754,6 +846,11 @@ en `catalogs.tag` del ZIP (con un color) y el importador los crea si faltan.
   "updated_at": "2026-08-15 00:00:00"
 }
 ```
+> `video_url` / `video_duration_seconds` (migración v015) son el **video de cabecera** de la clase.
+> Si `video_url` tiene valor, la sesión se ejecuta en modo "clase por video" (§7.6) en vez del
+> cronómetro paso a paso. `video_duration_seconds` es la duración del video en segundos (entero) y es
+> opcional: sirve para que la clase se cierre sola al terminar. En una clase normal ambos van `null`.
+>
 > `template_type` (migración v008) separa **"Mis clases"** (`my_classes`) de las plantillas
 > genéricas (`generic`: Girls, Heroes, Open). El importador de clases lo fuerza a `'my_classes'`
 > ignorando lo que venga en el JSON, así que el campo es informativo — pero conviene dejarlo escrito
@@ -977,6 +1074,45 @@ el ZIP para que el ZIP y el botón "Estimación de tiempos" digan lo mismo:
   seguidos *y además* `total_rounds: 4`, el cronómetro hace 16 vueltas. Una cosa o la otra.
 - Un `section_exercise` con `planned_time_seconds: 0` o `suggested_timer_seconds: 0` genera un paso
   de 0 segundos que el cronómetro atraviesa de golpe. Mínimo 15 s siempre.
+
+### 7.6 Clases con video en el cabezal (modo "clase por video")
+
+Desde la migración **v015**, `class_template` tiene `video_url` y `video_duration_seconds`. Cuando
+`video_url` tiene valor, la clase **no se ejecuta con el cronómetro paso a paso**: al iniciar la
+sesión en modo "Clase guiada" la app abre `/sesiones/:id/video` (`SessionVideoPage.tsx`) y muestra
+sólo el video a pantalla completa. La rutina es la del video; los ejercicios cargados en las
+secciones son el registro de lo que ese video hace.
+
+Qué cambia y qué no:
+
+| | Clase normal | Clase por video |
+|---|---|---|
+| Pantalla de ejecución | Cronómetro paso a paso (`SessionTimerPage`) | Video a pantalla completa (`SessionVideoPage`) |
+| Secciones y ejercicios | Los recorre el cronómetro | **Se cargan igual**, pero no se recorren |
+| Fin de la clase | Al terminar la línea de tiempo | Al llegar a `video_duration_seconds`, o con el botón "Finalizar" |
+| Cierre de la sesión | `saveResults` + `finalize` | **Idéntico**: duración real, sensación, RPE, notas, calorías estimadas y PRs |
+| Modo Manual | Disponible | Disponible (no cambia) |
+
+Consecuencias para el armado del JSON:
+
+- **Cargar las secciones y los ejercicios igual que siempre**, con sus `planned_*` y sus tiempos
+  estimados (§7.2–§7.4). El cronómetro no los va a recorrer, pero de ahí salen las calorías
+  (`calorieService`), los récords personales y las estadísticas por grupo muscular. Una clase por
+  video sin ejercicios cargados registra una sesión vacía.
+- Que los ejercicios del JSON coincidan con los del video es responsabilidad de quien arma la clase:
+  la app no lo verifica.
+- `estimated_duration_minutes` debería coincidir con la duración del video, no con la suma de la
+  línea de tiempo del cronómetro.
+- `video_duration_seconds` es **opcional pero recomendado**: es lo que hace que la clase se cierre
+  sola al terminar el video. Sin él, la sesión queda abierta hasta que el usuario toca "Finalizar".
+  Los reproductores embebidos de terceros (Facebook, Instagram, TikTok) no avisan cuándo termina el
+  video, por eso la duración se carga a mano. Convertir el `(mm:ss)` del MD a segundos
+  (`32:15` → `1935`).
+- Plataformas soportadas por el reproductor (`src/utils/videoEmbed.ts`): YouTube y YouTube Shorts,
+  Vimeo, **Facebook Reels/Watch**, Instagram, TikTok y archivos de video directos (`.mp4`, `.webm`,
+  `.ogg`, `.mov`). Una URL de otra plataforma se muestra como enlace y no sirve para este modo.
+- El video se guarda tal cual viene la URL (no hay que convertirla a formato "embed"): la app la
+  reconoce y arma el iframe.
 
 ---
 
@@ -1247,7 +1383,12 @@ Al finalizar la generación de una clase, verificar:
 - [ ] Los nombres nuevos respetan la convención de §4a (inglés, Title Case, prefijo de implemento,
       `and` en vez de `&`) y no duplican una variante ya existente
 - [ ] SVGs creados para todos los ejercicios nuevos (3 frames, 200x230, animación CSS) y guardados en `public/img/exercises/`
-- [ ] Ejercicios **nuevos** en el JSON traen todos los campos: description, technical_notes, difficulty_level_id, primary_muscle_group_id, image_url, video_path/video_long_path (si hay video en el MD), is_compound, is_active, created_at, updated_at
+- [ ] Ejercicios **nuevos** en el JSON traen todos los campos: description, technical_notes, difficulty_level_id, primary_muscle_group_id, image_url, video_path/video_long_path, is_compound, is_active, created_at, updated_at
+- [ ] **Videos (§6.2):** cada ejercicio **nuevo** tiene `video_path` (corto) y, si se consiguió,
+      `video_long_path` (explicativo); los Shorts van siempre al corto y los tutoriales largos al
+      explicativo. Los reutilizados sólo llevan video si el MD trae URLs nuevas
+- [ ] Cada URL de YouTube se validó con `oembed` → HTTP 200 (existe y es embebible), y la
+      plataforma está soportada por `src/utils/videoEmbed.ts`
 - [ ] Ejercicios **reutilizados** llevan `id`, `name`, `primary_muscle_group_id`, `image_url` y sus
       filas de músculos; **no** llevan description/technical_notes/videos salvo que aporten algo nuevo (§7)
 - [ ] Ninguna relación va a medias: si el ZIP trae `exercise_equipment` / `_tag` / `_unit` /
@@ -1263,6 +1404,17 @@ Al finalizar la generación de una clase, verificar:
 - [ ] Todos los `section_exercises` tienen `planned_repetitions` / `planned_time_seconds` /
       `planned_distance_value` + unidad / `planned_calories` / `planned_weight_value` según corresponda
 - [ ] Los circuitos que el MD trae desenrollados se cargaron **una vez** + `total_rounds`
+
+**Clase por video (§7.6) — sólo si el MD trae la línea `video clase`:**
+- [ ] `video_url` cargado en la fila de `classes` con la URL tal cual viene del MD
+- [ ] La plataforma está soportada por `src/utils/videoEmbed.ts` (YouTube/Shorts, Vimeo, Facebook,
+      Instagram, TikTok o archivo directo)
+- [ ] `video_duration_seconds` = el `(mm:ss)` del MD convertido a segundos (entero)
+- [ ] `estimated_duration_minutes` coincide con la duración del video
+- [ ] Las secciones y los `section_exercise` están cargados igual que en una clase normal
+      (el cronómetro no los recorre, pero de ahí salen calorías, PRs y estadísticas)
+- [ ] La clase **no** existe ya en la BD del usuario: si el importador reutiliza una clase por
+      nombre, no le carga el video (§2)
 
 **Cronómetro (§7):**
 - [ ] Todo ejercicio tiene duración resoluble: `planned_time_seconds` (si el MD lo dice) **o** `suggested_timer_seconds` (estimado) — nunca los dos
@@ -1383,7 +1535,17 @@ Antes de darlo por terminado, chequear con un script Node corto (usando el mismo
    no resolvían contra `catalogs`) — §6.1.
 3. En **Estadísticas**, el gráfico de distribución muscular debería reflejar la clase nueva.
 
-**Cronómetro:**
+**Clase por video (§7.6, sólo si la clase tiene `video_url`):**
+1. En **Clases**, la clase debe mostrar el badge "video" en la lista y el reproductor embebido en su
+   detalle, bajo el rótulo "Clase por video".
+2. En **Sesiones → Nueva**, con **Clase guiada** seleccionado, la clase abre la pantalla de video
+   (no el cronómetro). El video tiene que reproducirse dentro de la app; si pide login o queda en
+   negro, la plataforma está bloqueando el embebido — probar la URL en
+   **Configuración → Listados → Prueba de videos** antes de dar la clase por buena.
+3. Al terminar (o con "Finalizar clase") la sesión se cierra igual que una normal: revisar en el
+   detalle de la sesión que quedaron la duración, las calorías estimadas y los ejercicios.
+
+**Cronómetro (clases sin video):**
 1. En **Sesiones → Nueva**, dejar seleccionado **Clase guiada** y elegir la clase recién importada.
 2. El cronómetro debe recorrer la clase entera sin pasos de 0 segundos inesperados ni secciones
    ausentes.
@@ -1395,13 +1557,43 @@ Antes de darlo por terminado, chequear con un script Node corto (usando el mismo
 
 ---
 
-*Última actualización: 2026-08-15*
-*Versión del schema: 14 (v014_movilidad_section_type)*
+*Última actualización: 2026-08-22*
+*Versión del schema: 15 (v015_class_template_video)*
 *Mecanismo de carga vigente: ZIP `class-share.json` (§11) generado con un script Node + `jszip`,
 importado desde Configuración → Gestión de datos → Importar. Reemplaza el viejo mecanismo de
 `classDDMMYYYYImportService.ts` + botón en "Clases Predefinidas", descartado.*
 
-**Cambios de esta revisión (vs. 2026-08-01):**
+**Cambios de esta revisión (2026-08-22, segunda pasada del día):**
+- **Videos por ejercicio como parte de la creación de la clase** (§1, PASO 6 y nuevo §6.2): los dos
+  campos (`video_path` corto / `video_long_path` explicativo), de dónde salen las URLs (MD →
+  WebSearch + WebFetch sobre Catalyst Athletics / BarBend / Muscle&Strength / WODPrep → Shorts), las
+  reglas de decisión cuando no está claro cuál es cuál y la validación por `oembed`. Absorbe lo
+  vigente de `BKP/ACTUALIZO_VIDEO.md`, cuyo mecanismo de service + botón queda como histórico
+  (sigue sirviendo para cargas de video sueltas, fuera de una clase).
+- **`ACTUALIZO_MUSCULOS.md` explicitado como histórico** (§6.1): los músculos ya se cargaban desde
+  el ZIP; ahora está dicho también en el paso, junto con el aviso de que sus tablas usan los 12
+  nombres simplificados y hay que traducirlos con §5.1.
+- **Checklist (§10)** con los dos ítems nuevos de video.
+
+**Cambios de la revisión 2026-08-22 — inventario de SVG (vs. 2026-08-21):**
+- **Inventario de SVG actualizado a 308** (§4b, PASO 4): se agregaron los 18 dibujados para las
+  clases por video de calistenia del 22/08 (`jumping-jack`, `lateral-shuffle`, `high-knees`,
+  `skater-jump`, `boxer-shuffle`, `sprint-in-place`, `pike-walk`, `negative-push-up`,
+  `knee-push-up`, `wide-negative-push-up`, `plank-knee-tap`, `ground-pull-up`,
+  `prone-around-the-world`, `oblique-crunch`, `seated-leg-compression`,
+  `side-lying-thoracic-opening`, `upward-to-downward-dog`, `deep-squat-hold`) y los 7 de los reels
+  cortos del 21/08 (`reach-up-crunch`, `lying-leg-raise`, `band-squat-to-front-raise`,
+  `band-rdl-to-bent-over-row`, `band-shoulder-toss`, `band-woodchopper`,
+  `band-hammer-curl-to-triceps-kickback`), más los que habían entrado con las clases de agosto.
+  Lista de casi-duplicados ampliada (§4a).
+
+**Cambios de la revisión 2026-08-21 (vs. 2026-08-15):**
+- **Video en el cabezal de la clase** (migración v015): `class_template.video_url` +
+  `video_duration_seconds`, la línea `video clase <URL> (mm:ss)` del MD (§3, PASO 1), los campos en
+  el JSON (§6, PASO 7), el modo "clase por video" completo (§7.6), el checklist (§10) y la
+  verificación post-import (§11d).
+
+**Cambios de la revisión 2026-08-15 (vs. 2026-08-01):**
 - **Músculos obligatorios** para todos los ejercicios de la clase, también los reutilizados (§1, §6.1,
   §7): la regla vieja de mandar sólo `{ id, name }` quedó sin efecto. `ACTUALIZO_MUSCULOS.md` ya no
   se usa como paso aparte.

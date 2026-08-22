@@ -157,8 +157,8 @@ export async function create(
   // 1. Sentencia para la plantilla principal
   stmts.push({
     statement: `INSERT INTO class_template 
-      (id, date, name, objective, general_notes, estimated_duration_minutes, is_favorite, template_type, is_active, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      (id, date, name, objective, general_notes, estimated_duration_minutes, video_url, video_duration_seconds, is_favorite, template_type, is_active, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     values: [
       templateId,
       template.date ?? null,
@@ -166,6 +166,8 @@ export async function create(
       template.objective ?? null,
       template.general_notes ?? null,
       template.estimated_duration_minutes ?? null,
+      template.video_url ?? null,
+      template.video_duration_seconds ?? null,
       template.is_favorite,
       (template as any).template_type ?? 'my_classes',
       template.is_active,
@@ -263,6 +265,8 @@ export async function update(
     objective: template.objective ?? null,
     general_notes: template.general_notes ?? null,
     estimated_duration_minutes: template.estimated_duration_minutes ?? null,
+    video_url: template.video_url ?? null,
+    video_duration_seconds: template.video_duration_seconds ?? null,
     is_favorite: template.is_favorite,
     template_type: (template as any).template_type,
     updated_at: timestamp,
@@ -403,8 +407,8 @@ export async function duplicate(id: string): Promise<string> {
   // Plantilla principal
   stmts.push({
     statement: `INSERT INTO class_template
-      (id, date, name, objective, general_notes, estimated_duration_minutes, is_favorite, template_type, is_active, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?, ?, 0, 'my_classes', 1, ?, ?)`,
+      (id, date, name, objective, general_notes, estimated_duration_minutes, video_url, video_duration_seconds, is_favorite, template_type, is_active, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, 'my_classes', 1, ?, ?)`,
     values: [
       newTemplateId,
       original.date ?? null,
@@ -412,6 +416,8 @@ export async function duplicate(id: string): Promise<string> {
       original.objective ?? null,
       original.general_notes ?? null,
       original.estimated_duration_minutes ?? null,
+      original.video_url ?? null,
+      original.video_duration_seconds ?? null,
       timestamp,
       timestamp,
     ],

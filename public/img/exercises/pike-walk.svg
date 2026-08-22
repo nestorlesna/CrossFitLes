@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="1">PIKE WALK</text>
+  <g class="f1">
+    <circle cx="146" cy="142" r="11" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M100 110 L138 150"/>
+      <path d="M138 150 L150 200"/>
+      <path d="M100 110 L76 166 L60 200"/>
+      <path d="M52 204 L68 200"/>
+    </g>
+    <circle cx="76" cy="166" r="5" fill="#64748b"/>
+  </g>
+  <g class="f2">
+    <circle cx="156" cy="150" r="11" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M104 130 L148 156"/>
+      <path d="M148 156 L160 200"/>
+      <path d="M104 130 L80 170 L62 200"/>
+      <path d="M54 204 L70 200"/>
+    </g>
+    <circle cx="80" cy="170" r="5" fill="#64748b"/>
+  </g>
+  <g class="f3">
+    <circle cx="136" cy="138" r="11" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M100 96 L130 142"/>
+      <path d="M130 142 L144 200"/>
+      <path d="M100 96 L88 156 L80 200"/>
+      <path d="M72 204 L88 200"/>
+    </g>
+    <circle cx="88" cy="156" r="5" fill="#64748b"/>
+  </g>
+</svg>
