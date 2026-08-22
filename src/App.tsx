@@ -1,4 +1,5 @@
 // Componente raíz con configuración de rutas
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { Layout } from './components/layout/Layout';
@@ -23,7 +24,6 @@ import { HelpPage } from './pages/Settings/HelpPage';
 import { ProfilePage } from './pages/Settings/ProfilePage';
 import { BodyMeasurementsPage } from './pages/Settings/BodyMeasurementsPage';
 import { ProgressPhotosPage } from './pages/Settings/ProgressPhotosPage';
-import { StatsPage } from './pages/Stats/StatsPage';
 import { SettingsPage } from './pages/Settings/SettingsPage';
 import { MuscleGroupsPage } from './pages/Settings/catalogs/MuscleGroupsPage';
 import { EquipmentPage } from './pages/Settings/catalogs/EquipmentPage';
@@ -48,6 +48,19 @@ import { TimerRunPage } from './pages/Timer/TimerRunPage';
 import { DbProvider } from './components/DbProvider';
 import { UpdateModal } from './components/UpdateModal';
 import { useUpdateCheck } from './hooks/useUpdateCheck';
+
+// recharts es pesado: se carga bajo demanda al entrar a Estadisticas
+const StatsPage = lazy(() =>
+  import('./pages/Stats/StatsPage').then(m => ({ default: m.StatsPage }))
+);
+
+function PageFallback() {
+  return (
+    <div className="flex items-center justify-center py-20 text-gray-500 text-sm">
+      Cargando...
+    </div>
+  );
+}
 
 function UpdateChecker() {
   const { updateInfo, downloading, progress, installError, startDownload, dismiss } = useUpdateCheck();
@@ -93,7 +106,14 @@ export default function App() {
             <Route path="timer/nueva" element={<TimerBuilderPage />} />
             <Route path="timer/:id/editar" element={<TimerBuilderPage />} />
             <Route path="timer/:id/correr" element={<TimerRunPage />} />
-            <Route path="estadisticas" element={<StatsPage />} />
+            <Route
+              path="estadisticas"
+              element={
+                <Suspense fallback={<PageFallback />}>
+                  <StatsPage />
+                </Suspense>
+              }
+            />
             {/* Configuración y catálogos */}
             <Route path="configuracion" element={<SettingsPage />} />
             <Route path="configuracion/grupos-musculares" element={<MuscleGroupsPage />} />
