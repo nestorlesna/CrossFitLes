@@ -98,7 +98,7 @@ function ResultCard({
         >
           {result.exercise_name}
         </button>
-        <button
+        <button aria-label="Ver informacion"
           onClick={() => onInfoClick(result.exercise_id, result.exercise_name)}
           className="p-1 text-gray-600 hover:text-primary-400 transition-colors"
         >
@@ -436,7 +436,7 @@ export function ManualSessionPage() {
       <Header
         title="Registrar Sesión Pasada"
         leftAction={
-          <button onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+          <button aria-label="Volver" onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <ChevronLeft size={24} />
           </button>
         }

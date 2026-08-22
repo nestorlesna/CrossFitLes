@@ -84,7 +84,12 @@ function ClassCard({
                 }
               />
             </button>
-            <h3 className="text-white font-semibold truncate">{template.name}</h3>
+            <button
+              onClick={onNavigate}
+              className="text-white font-semibold truncate text-left min-w-0 hover:text-primary-400 transition-colors"
+            >
+              <h3 className="truncate">{template.name}</h3>
+            </button>
           </div>
 
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500 ml-8">
@@ -370,21 +375,26 @@ export function ClassesPage() {
             </div>
 
             {/* Filtro favoritas */}
-            <label className="flex items-center gap-3 cursor-pointer">
-              <div
-                onClick={() => setFilterFavorite(!filterFavorite)}
-                className={`w-11 h-6 rounded-full transition-colors relative ${
+            <button
+              type="button"
+              role="switch"
+              aria-checked={filterFavorite}
+              onClick={() => setFilterFavorite(!filterFavorite)}
+              className="flex items-center gap-3 cursor-pointer"
+            >
+              <span
+                className={`block w-11 h-6 rounded-full transition-colors relative ${
                   filterFavorite ? 'bg-primary-600' : 'bg-gray-700'
                 }`}
               >
-                <div
+                <span
                   className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${
                     filterFavorite ? 'translate-x-5' : 'translate-x-0.5'
                   }`}
                 />
-              </div>
+              </span>
               <span className="text-sm text-gray-300">Solo favoritas</span>
-            </label>
+            </button>
 
             {/* Rango de fechas */}
             <div className="grid grid-cols-2 gap-2">
@@ -417,7 +427,7 @@ export function ClassesPage() {
           <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
             {/* Navegación del mes */}
             <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800">
-              <button
+              <button aria-label="Volver"
                 onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
                 className="p-2 text-gray-400 hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
               >
@@ -426,7 +436,7 @@ export function ClassesPage() {
               <span className="text-white font-medium capitalize">
                 {format(currentMonth, 'MMMM yyyy', { locale: es })}
               </span>
-              <button
+              <button aria-label="Siguiente"
                 onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
                 className="p-2 text-gray-400 hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
               >

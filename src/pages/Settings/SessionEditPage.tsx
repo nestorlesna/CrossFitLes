@@ -285,7 +285,7 @@ function ResultCard({
         <div className="flex items-center gap-1 mb-1">
           <span className="text-[10px] font-bold text-gray-500 uppercase">Resultado (texto libre)</span>
         </div>
-        <input
+        <input aria-label="Resultado"
           type="text"
           value={field.result_text}
           onChange={e => set('result_text', e.target.value)}
@@ -405,7 +405,7 @@ export function SessionEditPage() {
       <Header
         title="Editar sesión"
         leftAction={
-          <button
+          <button aria-label="Volver"
             onClick={() => navigate('/configuracion/sesiones')}
             className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
           >
@@ -413,7 +413,7 @@ export function SessionEditPage() {
           </button>
         }
         rightAction={
-          <button
+          <button aria-label="Guardar"
             onClick={handleSave}
             disabled={saving}
             className="text-primary-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center disabled:opacity-40"

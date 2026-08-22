@@ -259,7 +259,7 @@ export function SessionTimerPage() {
     return (
       <div className="fixed inset-0 bg-gray-950 flex flex-col z-50">
         <div className="p-4">
-          <button
+          <button aria-label="Volver"
             onClick={() => navigate(-1)}
             className="text-gray-400 min-h-[44px] min-w-[44px] flex items-center justify-center"
           >

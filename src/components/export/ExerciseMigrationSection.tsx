@@ -184,12 +184,14 @@ export function ExerciseMigrationSection() {
         <div className="space-y-3">
           <div className="relative">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-            <input
+            <input aria-label="Buscar ejercicio"
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Buscar ejercicio..."
               className="w-full bg-gray-800 text-white placeholder-gray-500 rounded-xl pl-9 pr-4 py-2.5 text-sm border border-gray-700 focus:outline-none focus:border-primary-500"
+              // El modal acaba de abrirse: el foco pertenece al campo de busqueda
+              // react-doctor-disable-next-line react-doctor/no-autofocus
               autoFocus
             />
           </div>

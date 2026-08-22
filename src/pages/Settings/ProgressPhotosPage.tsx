@@ -48,7 +48,7 @@ function PhotoThumb({
           {photo.notes && <p className="text-xs text-gray-300 truncate">{photo.notes}</p>}
         </div>
         {/* Botón borrar */}
-        <button
+        <button aria-label="Eliminar"
           onClick={onDelete}
           className="absolute top-2 right-2 w-7 h-7 bg-black/60 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity"
         >
@@ -62,7 +62,7 @@ function PhotoThumb({
           className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
           onClick={() => setEnlarged(false)}
         >
-          <button className="absolute top-4 right-4 text-white" onClick={() => setEnlarged(false)}>
+          <button aria-label="Cerrar" className="absolute top-4 right-4 text-white" onClick={() => setEnlarged(false)}>
             <X size={28} />
           </button>
           <img src={src} alt="" className="max-w-full max-h-full rounded-xl object-contain" onClick={e => e.stopPropagation()} />
@@ -168,12 +168,12 @@ export function ProgressPhotosPage() {
       <Header
         title="Fotos de progreso"
         leftAction={
-          <button onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+          <button aria-label="Volver" onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <ChevronLeft size={24} />
           </button>
         }
         rightAction={
-          <button onClick={() => setShowAddModal(true)} className="text-primary-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+          <button aria-label="Agregar" onClick={() => setShowAddModal(true)} className="text-primary-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <Plus size={24} />
           </button>
         }

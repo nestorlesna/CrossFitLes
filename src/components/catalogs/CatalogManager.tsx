@@ -338,7 +338,7 @@ export function CatalogManager({
       <Header
         title={title}
         rightAction={
-          <button
+          <button aria-label="Agregar"
             onClick={openCreateModal}
             className="w-9 h-9 flex items-center justify-center bg-primary-600 hover:bg-primary-500 rounded-xl transition-colors"
           >
@@ -396,14 +396,14 @@ export function CatalogManager({
                 {/* Botones de acción */}
                 <div className="flex items-center gap-1 shrink-0">
                   {/* Reordenar */}
-                  <button
+                  <button aria-label="Subir"
                     onClick={() => handleMoveUp(item)}
                     disabled={index === 0}
                     className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                   >
                     <ChevronUp size={16} />
                   </button>
-                  <button
+                  <button aria-label="Bajar"
                     onClick={() => handleMoveDown(item)}
                     disabled={index === filtered.length - 1}
                     className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
@@ -412,7 +412,7 @@ export function CatalogManager({
                   </button>
 
                   {/* Editar */}
-                  <button
+                  <button aria-label="Editar"
                     onClick={() => openEditModal(item)}
                     className="p-1.5 text-gray-400 hover:text-primary-400 transition-colors"
                   >
@@ -420,7 +420,7 @@ export function CatalogManager({
                   </button>
 
                   {/* Eliminar */}
-                  <button
+                  <button aria-label="Eliminar"
                     onClick={() => openDeleteModal(item)}
                     className="p-1.5 text-gray-400 hover:text-red-400 transition-colors"
                   >

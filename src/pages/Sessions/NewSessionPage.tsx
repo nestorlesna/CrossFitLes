@@ -7,6 +7,7 @@ import { ClassTemplate } from '../../models/ClassTemplate';
 import { getAll as getAllTemplates } from '../../db/repositories/classTemplateRepo';
 import { createFromTemplate } from '../../db/repositories/trainingSessionRepo';
 import { toast } from 'sonner';
+import { onActivateKey } from '../../utils/a11y';
 
 // Cómo se ejecuta la plantilla elegida
 type StartMode = 'timer' | 'manual';
@@ -58,7 +59,7 @@ export function NewSessionPage() {
       <Header
         title="Nueva Sesión"
         leftAction={
-          <button onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+          <button aria-label="Volver" onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <ChevronLeft size={24} />
           </button>
         }
@@ -124,7 +125,7 @@ export function NewSessionPage() {
 
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
-            <input
+            <input aria-label="Buscar plantilla"
               type="text"
               placeholder="Buscar plantilla..."
               value={search}
@@ -147,7 +148,10 @@ export function NewSessionPage() {
               {filteredTemplates.map((template) => (
                 <div
                   key={template.id}
+                  role="button"
+                  tabIndex={0}
                   onClick={() => handleStartFromTemplate(template.id)}
+                  onKeyDown={onActivateKey(() => handleStartFromTemplate(template.id))}
                   className="bg-gray-900 border border-gray-800 rounded-2xl p-4 flex items-center gap-4 active:scale-[0.98] transition-all cursor-pointer hover:border-gray-700 shadow-sm group"
                 >
                   <div className="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center border border-gray-700 group-hover:bg-primary-500/10 group-hover:border-primary-500/50 transition-colors">

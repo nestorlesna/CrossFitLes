@@ -316,7 +316,7 @@ function CopyModalContent({
         <div className="space-y-2">
           <div className="relative">
             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
-            <input
+            <input aria-label="Buscar clase…"
               type="text"
               placeholder="Buscar clase…"
               value={classSearch}
@@ -580,7 +580,7 @@ export function ClassesSectionsPage() {
       <Header
         title="Clases"
         leftAction={
-          <button
+          <button aria-label="Volver"
             onClick={() => navigate(-1)}
             className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
           >

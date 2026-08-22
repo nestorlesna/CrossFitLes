@@ -5,6 +5,7 @@ import { Header } from '../../components/layout/Header';
 import { getDatabase } from '../../db/database';
 import { Badge } from '../../components/ui/Badge';
 import { MuscleMap } from '../../components/exercises/MuscleMap';
+import { onActivateKey } from '../../utils/a11y';
 
 interface ExerciseMuscleRow {
   id: string;
@@ -61,7 +62,7 @@ export function ExerciseMusclesPage() {
       <Header
         title="Mapa Anatómico"
         leftAction={
-          <button onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+          <button aria-label="Volver" onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <ChevronLeft size={24} />
           </button>
         }
@@ -134,7 +135,10 @@ export function ExerciseMusclesPage() {
                 {withRows.map(row => (
                   <div
                     key={row.id}
+                    role="button"
+                    tabIndex={0}
                     onClick={() => navigate(`/ejercicios/${row.id}`)}
+                    onKeyDown={onActivateKey(() => navigate(`/ejercicios/${row.id}`))}
                     className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col hover:border-primary-500/50 transition-all group active:scale-[0.98]"
                   >
                     <div className="bg-black/40 flex items-center justify-center p-4 relative overflow-hidden h-48">

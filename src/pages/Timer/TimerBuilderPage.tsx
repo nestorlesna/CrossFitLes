@@ -253,7 +253,7 @@ export function TimerBuilderPage() {
               <span className="text-xs font-bold text-gray-500 uppercase">
                 EMOM alternado (opcional)
               </span>
-              <input
+              <input aria-label="Burpees, Cal Row, Sit-ups"
                 type="text"
                 value={emomLabels}
                 onChange={(e) => setEmomLabels(e.target.value)}
@@ -302,18 +302,18 @@ export function TimerBuilderPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-1 shrink-0">
-                  <button onClick={() => moveVarRound(i, -1)} disabled={i === 0} className="text-gray-500 disabled:opacity-20">
+                  <button aria-label="Subir" onClick={() => moveVarRound(i, -1)} disabled={i === 0} className="text-gray-500 disabled:opacity-20">
                     <ChevronUp size={16} />
                   </button>
-                  <button onClick={() => moveVarRound(i, 1)} disabled={i === varRounds.length - 1} className="text-gray-500 disabled:opacity-20">
+                  <button aria-label="Bajar" onClick={() => moveVarRound(i, 1)} disabled={i === varRounds.length - 1} className="text-gray-500 disabled:opacity-20">
                     <ChevronDown size={16} />
                   </button>
                 </div>
                 <div className="flex flex-col gap-1 shrink-0">
-                  <button onClick={() => duplicateVarRound(i)} className="text-gray-500 hover:text-white">
+                  <button aria-label="Copiar" onClick={() => duplicateVarRound(i)} className="text-gray-500 hover:text-white">
                     <Copy size={16} />
                   </button>
-                  <button
+                  <button aria-label="Eliminar"
                     onClick={() => removeVarRound(i)}
                     disabled={varRounds.length <= 1}
                     className="text-gray-500 hover:text-red-400 disabled:opacity-20"

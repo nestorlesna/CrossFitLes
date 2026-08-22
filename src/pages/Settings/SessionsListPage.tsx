@@ -60,7 +60,7 @@ export function SessionsListPage() {
       <Header
         title="Sesiones"
         leftAction={
-          <button
+          <button aria-label="Volver"
             onClick={() => navigate('/configuracion')}
             className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
           >

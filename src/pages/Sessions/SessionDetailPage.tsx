@@ -221,7 +221,7 @@ export function SessionDetailPage() {
       <Header
         title="Resumen de Sesión"
         leftAction={
-          <button onClick={() => navigate('/sesiones')} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+          <button aria-label="Volver" onClick={() => navigate('/sesiones')} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <ChevronLeft size={24} />
           </button>
         }
@@ -333,7 +333,7 @@ export function SessionDetailPage() {
                               >
                                 {result.exercise_name}
                               </button>
-                              <button
+                              <button aria-label="Ver informacion"
                                 onClick={() => {
                                   setInfoExerciseId(result.exercise_id);
                                   setInfoExerciseName(result.exercise_name ?? '');
@@ -343,7 +343,7 @@ export function SessionDetailPage() {
                                 <Info size={13} />
                               </button>
                               {result.exercise_video_url && (
-                                <button
+                                <button aria-label="Reproducir"
                                   onClick={() => {
                                     setSelectedVideoUrl(result.exercise_video_url!);
                                     setExerciseNameForVideo(result.exercise_name ?? '');

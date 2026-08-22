@@ -21,6 +21,7 @@ import { PersonalRecord } from '../../models/Stats';
 import { TrainingSession } from '../../models/TrainingSession';
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { onActivateKey } from '../../utils/a11y';
 
 const quickActions = [
   { label: 'Nueva sesión',    icon: Calendar,       path: '/sesiones/nueva' },
@@ -72,8 +73,11 @@ export function HomePage() {
         
         {/* ── SESIÓN ACTIVA (RESUMEN) ── */}
         {activeSession && (
-          <div 
+          <div
+            role="button"
+            tabIndex={0}
             onClick={() => navigate(`/sesiones/${activeSession.id}/ejecutar`)}
+            onKeyDown={onActivateKey(() => navigate(`/sesiones/${activeSession.id}/ejecutar`))}
             className="bg-primary-600 rounded-3xl p-5 flex items-center justify-between shadow-lg shadow-primary-900/30 cursor-pointer active:scale-[0.98] transition-all group"
           >
             <div className="flex items-center gap-4">

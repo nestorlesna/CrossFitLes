@@ -100,7 +100,7 @@ export function ExerciseImagesPage() {
       <Header
         title="Imágenes de ejercicios"
         leftAction={
-          <button onClick={() => window.history.back()} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+          <button aria-label="Volver" onClick={() => window.history.back()} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <ChevronLeft size={24} />
           </button>
         }

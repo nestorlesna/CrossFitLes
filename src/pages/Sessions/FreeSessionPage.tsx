@@ -107,11 +107,11 @@ function ResultCard({
               className="flex-1 text-left text-white font-bold text-base truncate hover:text-primary-400 transition-colors">
               {result.exercise_name}
             </button>
-            <button onClick={onInfo} className="p-1 text-gray-600 hover:text-gray-300 transition-colors shrink-0">
+            <button aria-label="Ver informacion" onClick={onInfo} className="p-1 text-gray-600 hover:text-gray-300 transition-colors shrink-0">
               <Info size={13} />
             </button>
             {result.exercise_video_url && (
-              <button onClick={onVideo}
+              <button aria-label="Reproducir" onClick={onVideo}
                 className="p-1.5 rounded-full bg-primary-500/20 text-primary-500 hover:bg-primary-500 hover:text-white transition-colors shrink-0">
                 <Play size={10} fill="currentColor" />
               </button>
@@ -127,7 +127,7 @@ function ResultCard({
             ))}
           </div>
         </div>
-        <button onClick={onDelete}
+        <button aria-label="Eliminar" onClick={onDelete}
           className="p-1.5 text-gray-700 hover:text-red-400 transition-colors shrink-0 mt-0.5">
           <Trash2 size={16} />
         </button>
@@ -429,12 +429,12 @@ export function FreeSessionPage() {
       <Header
         title="Sesión Libre"
         leftAction={
-          <button onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+          <button aria-label="Volver" onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <ChevronLeft size={24} />
           </button>
         }
         rightAction={
-          <button onClick={handleSavePartial}
+          <button aria-label="Guardar" onClick={handleSavePartial}
             className="text-primary-500 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <Save size={20} />
           </button>
@@ -503,16 +503,18 @@ export function FreeSessionPage() {
         <div className="flex flex-col gap-3">
           <div className="relative">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
-            <input
+            <input aria-label="Buscar ejercicio"
               type="text"
               placeholder="Buscar ejercicio..."
               value={exerciseSearch}
               onChange={e => setExerciseSearch(e.target.value)}
+              // El modal acaba de abrirse: el foco pertenece al campo de busqueda
+              // react-doctor-disable-next-line react-doctor/no-autofocus
               autoFocus
               className="w-full bg-gray-800 border border-gray-700 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-primary-500"
             />
             {exerciseSearch && (
-              <button onClick={() => setExerciseSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+              <button aria-label="Cerrar" onClick={() => setExerciseSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
                 <X size={14} />
               </button>
             )}

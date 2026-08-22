@@ -623,7 +623,7 @@ export function ClassTemplateFormPage() {
               se muestra solo el video a pantalla completa y al terminar se cierra la sesión igual que la clase guiada.
               Los ejercicios cargados abajo se registran igual (calorías, PRs, etc.).
             </p>
-            <input
+            <input aria-label="URL del video de la clase"
               type="url"
               value={videoUrl}
               onChange={(e) => setVideoUrl(e.target.value)}
@@ -703,7 +703,7 @@ export function ClassTemplateFormPage() {
                     <span className="text-xs text-gray-500 block leading-tight">
                       {getSectionTypeName(section.section_type_id)}
                     </span>
-                    <input
+                    <input aria-label="Título visible (opcional)"
                       type="text"
                       value={section.visible_title ?? ''}
                       onChange={(e) =>
@@ -1382,12 +1382,14 @@ export function ClassTemplateFormPage() {
               size={16}
               className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
             />
-            <input
+            <input aria-label="Buscar ejercicio"
               type="text"
               value={exerciseSearch}
               onChange={(e) => setExerciseSearch(e.target.value)}
               placeholder="Buscar ejercicio..."
               className="w-full bg-gray-800 text-white placeholder-gray-500 rounded-xl pl-9 pr-4 py-2.5 text-sm border border-gray-700 focus:outline-none focus:border-primary-500"
+              // El modal acaba de abrirse: el foco pertenece al campo de busqueda
+              // react-doctor-disable-next-line react-doctor/no-autofocus
               autoFocus
             />
           </div>
