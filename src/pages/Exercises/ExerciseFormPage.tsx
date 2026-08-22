@@ -1,5 +1,5 @@
 // Formulario completo para crear o editar un ejercicio
-import { useState, useEffect, useCallback, useId } from 'react';
+import { useState, useEffect, useCallback, useId, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ChevronLeft, Camera, Star, Check } from 'lucide-react';
 import { toast } from 'sonner';
@@ -90,6 +90,11 @@ export function ExerciseFormPage() {
   // Unidades: map de id → is_default (1=default, 0=normal)
   const [selectedUnits, setSelectedUnits] = useState<Record<string, number>>({});
   const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
+
+  // Sets para los lookups que corren dentro de los map de catalogos
+  const secondaryMuscleIdSet = useMemo(() => new Set(secondaryMuscleIds), [secondaryMuscleIds]);
+  const sectionTypeIdSet = useMemo(() => new Set(sectionTypeIds), [sectionTypeIds]);
+  const selectedTagIdSet = useMemo(() => new Set(selectedTagIds), [selectedTagIds]);
   const [isCompound, setIsCompound] = useState(0);
   const [imagePath, setImagePath] = useState('');
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -490,7 +495,7 @@ export function ExerciseFormPage() {
                 interactive
                 onMuscleClick={handleMuscleMapClick}
                 primaryMuscles={muscleGroups.filter(m => m.id === primaryMuscleId).map(m => m.name)}
-                secondaryMuscles={muscleGroups.filter(m => secondaryMuscleIds.includes(m.id)).map(m => m.name)}
+                secondaryMuscles={muscleGroups.filter(m => secondaryMuscleIdSet.has(m.id)).map(m => m.name)}
               />
             </div>
             
@@ -533,7 +538,7 @@ export function ExerciseFormPage() {
               <label className="block text-xs text-gray-500 mb-1.5 ml-1">Músculos Secundarios</label>
               <div className="flex flex-wrap gap-1.5 p-2 bg-gray-800/30 rounded-xl border border-gray-700/50 min-h-[46px]">
                 {muscleGroups
-                  .filter((mg) => secondaryMuscleIds.includes(mg.id))
+                  .filter((mg) => secondaryMuscleIdSet.has(mg.id))
                   .map((mg) => (
                     <Badge 
                       key={mg.id} 
@@ -563,7 +568,7 @@ export function ExerciseFormPage() {
                   key={eq.id}
                   type="button"
                   onClick={() => toggleEquipment(eq.id)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm transition-all min-h-[36px] ${
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm transition min-h-[36px] ${
                     isSelected && isRequired
                       ? 'border border-primary-500 bg-primary-500/20 text-primary-400'
                       : isSelected && !isRequired
@@ -586,13 +591,13 @@ export function ExerciseFormPage() {
           <label className="block text-sm text-gray-400 mb-2">Tipos de sección</label>
           <div className="flex flex-wrap gap-2">
             {sectionTypes.map((st) => {
-              const selected = sectionTypeIds.includes(st.id);
+              const selected = sectionTypeIdSet.has(st.id);
               return (
                 <button
                   key={st.id}
                   type="button"
                   onClick={() => toggleSectionType(st.id)}
-                  className={`px-3 py-1.5 rounded-full text-sm border transition-all min-h-[36px]`}
+                  className={`px-3 py-1.5 rounded-full text-sm border transition min-h-[36px]`}
                   style={
                     selected
                       ? {
@@ -623,7 +628,7 @@ export function ExerciseFormPage() {
                   key={unit.id}
                   type="button"
                   onClick={() => toggleUnit(unit.id)}
-                  className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-sm border transition-all min-h-[36px] ${
+                  className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-sm border transition min-h-[36px] ${
                     isSelected
                       ? 'border-primary-500 bg-primary-500/20 text-primary-400'
                       : 'border-gray-600 text-gray-400 bg-transparent'
@@ -646,13 +651,13 @@ export function ExerciseFormPage() {
                 key={tag.id}
                 type="button"
                 onClick={() => toggleTag(tag.id)}
-                className={`px-3 py-1.5 rounded-full text-sm border transition-all min-h-[36px] ${
-                  selectedTagIds.includes(tag.id)
+                className={`px-3 py-1.5 rounded-full text-sm border transition min-h-[36px] ${
+                  selectedTagIdSet.has(tag.id)
                     ? 'border-transparent text-white'
                     : 'border-gray-600 text-gray-400 bg-transparent'
                 }`}
                 style={
-                  selectedTagIds.includes(tag.id)
+                  selectedTagIdSet.has(tag.id)
                     ? { backgroundColor: tag.color ?? '#f97316' }
                     : {}
                 }
@@ -714,7 +719,7 @@ export function ExerciseFormPage() {
             <button
               type="button"
               onClick={handlePickImage}
-              className="mt-1 self-start bg-primary-500/10 text-primary-500 border border-primary-500/20 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-primary-500 hover:text-white transition-all min-h-[36px]"
+              className="mt-1 self-start bg-primary-500/10 text-primary-500 border border-primary-500/20 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-primary-500 hover:text-white transition min-h-[36px]"
             >
               {imagePreview ? 'Cambiar imagen' : 'Seleccionar foto'}
             </button>

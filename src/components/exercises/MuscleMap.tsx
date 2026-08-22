@@ -56,12 +56,13 @@ export function MuscleMap({
 }: MuscleMapProps) {
   // Normalize names for comparison
   const normalize = (name: string) => name.toLowerCase().trim();
-  const highlightedPrimary = expandMuscleNames(primaryMuscles).map(normalize);
-  const highlightedSecondary = expandMuscleNames(secondaryMuscles).map(normalize);
+  // Sets: getMuscleColor se ejecuta una vez por cada path del SVG
+  const highlightedPrimary = new Set(expandMuscleNames(primaryMuscles).map(normalize));
+  const highlightedSecondary = new Set(expandMuscleNames(secondaryMuscles).map(normalize));
 
   const getMuscleColor = (muscleNames: string[]) => {
-    const isPrimary = muscleNames.some(msg => highlightedPrimary.includes(normalize(msg)));
-    const isSecondary = muscleNames.some(msg => highlightedSecondary.includes(normalize(msg)));
+    const isPrimary = muscleNames.some(msg => highlightedPrimary.has(normalize(msg)));
+    const isSecondary = muscleNames.some(msg => highlightedSecondary.has(normalize(msg)));
 
     if (isPrimary) return '#ef4444'; // Red-500
     if (isSecondary) return '#f59e0b'; // Amber-500

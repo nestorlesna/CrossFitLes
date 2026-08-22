@@ -276,7 +276,7 @@ export function SessionExecutorPage() {
           <div className="flex gap-2">
             <button
               onClick={() => setIsActive(!isActive)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-sm transition-all active:scale-[0.95] ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-sm transition active:scale-[0.95] ${
                 isActive ? 'bg-amber-500/10 text-amber-500 border border-amber-500/30' : 'bg-green-600 text-white'
               }`}
             >
@@ -285,7 +285,7 @@ export function SessionExecutorPage() {
             </button>
             <button
               onClick={() => setShowFinishModal(true)}
-              className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-xl font-bold text-sm transition-all active:scale-[0.95]"
+              className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-xl font-bold text-sm transition active:scale-[0.95]"
             >
               Finalizar
             </button>
@@ -303,7 +303,7 @@ export function SessionExecutorPage() {
                   if (id) await saveResults(id, results);
                   setActiveSectionIdx(idx);
                 }}
-                className={`flex-1 min-w-[120px] px-4 py-2.5 rounded-xl border text-xs font-bold transition-all ${
+                className={`flex-1 min-w-[120px] px-4 py-2.5 rounded-xl border text-xs font-bold transition ${
                   activeSectionIdx === idx
                     ? 'bg-primary-600 border-primary-500 text-white shadow-lg shadow-primary-900/40'
                     : 'bg-gray-900 border-gray-800 text-gray-400'
@@ -414,7 +414,7 @@ export function SessionExecutorPage() {
                       <button
                         key={mode}
                         onClick={() => updateResult(result.id, 'rx_or_scaled', mode)}
-                        className={`px-2 py-1 rounded text-[10px] font-bold uppercase border transition-all ${
+                        className={`px-2 py-1 rounded text-[10px] font-bold uppercase border transition ${
                           result.rx_or_scaled === mode
                             ? 'bg-primary-600 border-primary-500 text-white'
                             : 'bg-gray-800 border-gray-700 text-gray-500'
@@ -557,7 +557,7 @@ export function SessionExecutorPage() {
                   <button
                     key={f}
                     onClick={() => setFeeling(f)}
-                    className={`flex-1 py-3 rounded-xl border text-xl transition-all ${
+                    className={`flex-1 py-3 rounded-xl border text-xl transition ${
                       feeling === f ? 'bg-primary-500/20 border-primary-500 active:scale-110' : 'bg-gray-900 border-gray-800 opacity-40 hover:opacity-100'
                     }`}
                   >

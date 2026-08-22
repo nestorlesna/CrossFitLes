@@ -577,7 +577,7 @@ export function SessionEditPage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="w-full bg-primary-500 hover:bg-primary-600 active:scale-[0.98] text-white font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+          className="w-full bg-primary-500 hover:bg-primary-600 active:scale-[0.98] text-white font-bold py-4 rounded-2xl transition flex items-center justify-center gap-2 disabled:opacity-50"
         >
           <Save size={18} />
           {saving ? 'Guardando...' : 'Guardar cambios'}

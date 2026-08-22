@@ -87,7 +87,7 @@ export function SessionsListPage() {
           <button
             key={session.id}
             onClick={() => navigate(`/configuracion/sesiones/${session.id}/editar`)}
-            className="w-full bg-gray-900 border border-gray-800 rounded-2xl p-4 flex items-center gap-3 hover:bg-gray-800/60 active:scale-[0.98] transition-all text-left"
+            className="w-full bg-gray-900 border border-gray-800 rounded-2xl p-4 flex items-center gap-3 hover:bg-gray-800/60 active:scale-[0.98] transition text-left"
           >
             {/* Ícono de estado */}
             <div className="w-10 h-10 rounded-xl bg-gray-800 flex items-center justify-center shrink-0">

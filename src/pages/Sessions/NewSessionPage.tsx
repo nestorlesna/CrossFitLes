@@ -152,7 +152,7 @@ export function NewSessionPage() {
                   tabIndex={0}
                   onClick={() => handleStartFromTemplate(template.id)}
                   onKeyDown={onActivateKey(() => handleStartFromTemplate(template.id))}
-                  className="bg-gray-900 border border-gray-800 rounded-2xl p-4 flex items-center gap-4 active:scale-[0.98] transition-all cursor-pointer hover:border-gray-700 shadow-sm group"
+                  className="bg-gray-900 border border-gray-800 rounded-2xl p-4 flex items-center gap-4 active:scale-[0.98] transition cursor-pointer hover:border-gray-700 shadow-sm group"
                 >
                   <div className="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center border border-gray-700 group-hover:bg-primary-500/10 group-hover:border-primary-500/50 transition-colors">
                     {template.is_favorite ? (

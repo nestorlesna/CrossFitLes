@@ -541,7 +541,7 @@ export function ManualSessionPage() {
                   key={f.value}
                   onClick={() => setFeeling(f.value)}
                   title={f.label}
-                  className={`flex-1 py-2 rounded-xl text-xl transition-all ${feeling === f.value ? 'bg-primary-600/30 ring-1 ring-primary-500 scale-110' : 'bg-gray-800 opacity-50'}`}
+                  className={`flex-1 py-2 rounded-xl text-xl transition ${feeling === f.value ? 'bg-primary-600/30 ring-1 ring-primary-500 scale-110' : 'bg-gray-800 opacity-50'}`}
                 >
                   {f.emoji}
                 </button>
@@ -582,7 +582,7 @@ export function ManualSessionPage() {
         <button
           onClick={() => setShowConfirm(true)}
           disabled={saving}
-          className="bg-primary-600 hover:bg-primary-700 active:scale-[0.98] text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-primary-900/30 disabled:opacity-50"
+          className="bg-primary-600 hover:bg-primary-700 active:scale-[0.98] text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 transition shadow-lg shadow-primary-900/30 disabled:opacity-50"
         >
           <Save size={20} />
           Guardar sesión

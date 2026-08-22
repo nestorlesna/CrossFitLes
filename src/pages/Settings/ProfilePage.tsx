@@ -203,7 +203,7 @@ export function ProfilePage() {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="bg-primary-600 hover:bg-primary-700 active:scale-[0.98] text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-primary-900/30 disabled:opacity-50"
+            className="bg-primary-600 hover:bg-primary-700 active:scale-[0.98] text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 transition shadow-lg shadow-primary-900/30 disabled:opacity-50"
           >
             {saving ? <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-white" /> : <Save size={20} />}
             Guardar perfil

@@ -346,7 +346,7 @@ export function SessionTimerPage() {
 
       <div className="h-1 bg-gray-900 shrink-0">
         <div
-          className="h-full bg-primary-500 transition-all duration-300"
+          className="h-full bg-primary-500 transition-[width] duration-300"
           style={{ width: `${totalSteps > 0 ? (stepIndex / totalSteps) * 100 : 0}%` }}
         />
       </div>
@@ -610,7 +610,7 @@ export function SessionTimerPage() {
                 <button
                   key={f}
                   onClick={() => setFeeling(f)}
-                  className={`flex-1 py-3 rounded-xl border text-xl transition-all ${
+                  className={`flex-1 py-3 rounded-xl border text-xl transition ${
                     feeling === f
                       ? 'bg-primary-500/20 border-primary-500'
                       : 'bg-gray-900 border-gray-800 opacity-40'

@@ -121,7 +121,7 @@ function ResultCard({
           <div className="flex gap-1">
             {(['rx', 'rx+', 'scaled'] as const).map(v => (
               <button key={v} onClick={() => onUpdate('rx_or_scaled', v)}
-                className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase border transition-all ${result.rx_or_scaled === v ? 'bg-primary-600 border-primary-500 text-white' : 'bg-gray-800 border-gray-700 text-gray-500'}`}>
+                className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase border transition ${result.rx_or_scaled === v ? 'bg-primary-600 border-primary-500 text-white' : 'bg-gray-800 border-gray-700 text-gray-500'}`}>
                 {v === 'rx+' ? 'RX+' : v === 'rx' ? 'RX' : 'Scaled'}
               </button>
             ))}
@@ -455,7 +455,7 @@ export function FreeSessionPage() {
           </div>
           <div className="flex gap-2">
             <button onClick={() => setIsActive(!isActive)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-sm transition-all active:scale-[0.95] ${isActive ? 'bg-amber-500/10 text-amber-500 border border-amber-500/30' : 'bg-green-600 text-white'}`}>
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-sm transition active:scale-[0.95] ${isActive ? 'bg-amber-500/10 text-amber-500 border border-amber-500/30' : 'bg-green-600 text-white'}`}>
               {isActive ? <Pause size={18} /> : <Play size={18} fill="currentColor" />}
               {isActive ? 'Pausar' : 'Reanudar'}
             </button>
@@ -602,7 +602,7 @@ export function FreeSessionPage() {
             <div className="flex justify-between gap-2">
               {FEELINGS.map(f => (
                 <button key={f.value} onClick={() => setFeeling(f.value)}
-                  className={`flex-1 py-3 rounded-xl border text-xl transition-all ${feeling === f.value ? 'bg-primary-500/20 border-primary-500 scale-110' : 'bg-gray-900 border-gray-800 opacity-40 hover:opacity-100'}`}>
+                  className={`flex-1 py-3 rounded-xl border text-xl transition ${feeling === f.value ? 'bg-primary-500/20 border-primary-500 scale-110' : 'bg-gray-900 border-gray-800 opacity-40 hover:opacity-100'}`}>
                   {f.emoji}
                 </button>
               ))}

@@ -167,7 +167,7 @@ export function ExerciseMigrationSection() {
           <button
             onClick={() => setConfirmOpen(true)}
             disabled={!source || !target || busy}
-            className="w-full flex items-center justify-center gap-2 py-3 mt-1 bg-primary-600 hover:bg-primary-700 disabled:bg-gray-800 disabled:text-gray-600 text-white rounded-xl text-sm font-bold transition-all active:scale-[0.98]"
+            className="w-full flex items-center justify-center gap-2 py-3 mt-1 bg-primary-600 hover:bg-primary-700 disabled:bg-gray-800 disabled:text-gray-600 text-white rounded-xl text-sm font-bold transition active:scale-[0.98]"
           >
             {busy ? <Loader2 size={16} className="animate-spin" /> : <GitMerge size={16} />}
             Fusionar ejercicios

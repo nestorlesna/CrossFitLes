@@ -260,7 +260,7 @@ export function SessionVideoPage() {
       {videoSeconds > 0 && (
         <div className="h-1 bg-gray-900 mx-4 rounded-full overflow-hidden shrink-0">
           <div
-            className="h-full bg-primary-500 transition-all duration-1000 ease-linear"
+            className="h-full bg-primary-500 transition duration-1000 ease-linear"
             style={{ width: `${Math.min(100, (elapsed / videoSeconds) * 100)}%` }}
           />
         </div>
@@ -335,7 +335,7 @@ export function SessionVideoPage() {
                 <button
                   key={f}
                   onClick={() => setFeeling(f)}
-                  className={`flex-1 py-3 rounded-xl border text-xl transition-all ${
+                  className={`flex-1 py-3 rounded-xl border text-xl transition ${
                     feeling === f
                       ? 'bg-primary-500/20 border-primary-500'
                       : 'bg-gray-900 border-gray-800 opacity-40'

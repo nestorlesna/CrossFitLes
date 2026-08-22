@@ -78,7 +78,7 @@ export function HomePage() {
             tabIndex={0}
             onClick={() => navigate(`/sesiones/${activeSession.id}/ejecutar`)}
             onKeyDown={onActivateKey(() => navigate(`/sesiones/${activeSession.id}/ejecutar`))}
-            className="bg-primary-600 rounded-3xl p-5 flex items-center justify-between shadow-lg shadow-primary-900/30 cursor-pointer active:scale-[0.98] transition-all group"
+            className="bg-primary-600 rounded-3xl p-5 flex items-center justify-between shadow-lg shadow-primary-900/30 cursor-pointer active:scale-[0.98] transition group"
           >
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-black/20 rounded-2xl flex items-center justify-center">
@@ -190,7 +190,7 @@ export function HomePage() {
               <button
                 key={path}
                 onClick={() => navigate(path)}
-                className="bg-gray-900 border border-gray-800 rounded-2xl p-5 flex flex-col items-center gap-3 hover:bg-gray-800/60 hover:border-gray-700 transition-all active:scale-95 shadow-sm"
+                className="bg-gray-900 border border-gray-800 rounded-2xl p-5 flex flex-col items-center gap-3 hover:bg-gray-800/60 hover:border-gray-700 transition active:scale-95 shadow-sm"
               >
                 <div className="w-12 h-12 bg-gray-950 rounded-2xl flex items-center justify-center border border-gray-800 group-hover:border-primary-500 transition-colors">
                   <Icon size={24} className="text-primary-400" />

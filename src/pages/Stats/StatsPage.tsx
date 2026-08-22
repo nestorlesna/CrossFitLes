@@ -191,7 +191,7 @@ export function StatsPage() {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as TabType)}
-            className={`flex items-center gap-2 py-4 border-b-2 transition-all min-w-fit ${
+            className={`flex items-center gap-2 py-4 border-b-2 transition min-w-fit ${
               activeTab === tab.id 
                 ? 'border-primary-500 text-primary-500 font-bold' 
                 : 'border-transparent text-gray-500'
@@ -453,7 +453,7 @@ export function StatsPage() {
                       <button
                         key={type}
                         onClick={() => setSelectedRecordType(type)}
-                        className={`px-3 py-2 rounded-xl text-[11px] font-bold border transition-all ${
+                        className={`px-3 py-2 rounded-xl text-[11px] font-bold border transition ${
                           selectedRecordType === type 
                           ? 'bg-primary-600 border-primary-500 text-white' 
                           : 'bg-gray-800 border-gray-700 text-gray-500'

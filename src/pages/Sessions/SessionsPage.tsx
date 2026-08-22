@@ -188,7 +188,7 @@ export function SessionsPage() {
                 tabIndex={0}
                 onClick={() => navigate(goToSession(session))}
                 onKeyDown={onActivateKey(() => navigate(goToSession(session)))}
-                className="bg-gray-900 border border-gray-800 rounded-2xl p-4 flex items-center gap-4 active:scale-[0.98] transition-all cursor-pointer hover:border-gray-700 shadow-sm"
+                className="bg-gray-900 border border-gray-800 rounded-2xl p-4 flex items-center gap-4 active:scale-[0.98] transition cursor-pointer hover:border-gray-700 shadow-sm"
               >
                 {/* Indicador de estado */}
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${
