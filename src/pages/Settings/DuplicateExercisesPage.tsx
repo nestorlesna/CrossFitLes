@@ -35,10 +35,16 @@ export function DuplicateExercisesPage() {
 
   async function loadData() {
     setLoading(true);
-    const data = await getDuplicateExercises();
-    setGroups(data);
-    setTotalDupes(data.reduce((sum, g) => sum + g.count, 0));
-    setLoading(false);
+    try {
+      const data = await getDuplicateExercises();
+      setGroups(data);
+      setTotalDupes(data.reduce((sum, g) => sum + g.count, 0));
+    } catch (e) {
+      console.error('[DuplicateExercises] Error al cargar:', e);
+      toast.error('Error al cargar los duplicados');
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleDeleteRequest(exerciseId: string) {

@@ -32,9 +32,15 @@ export function InactiveClassesPage() {
 
   async function loadData() {
     setLoading(true);
-    const data = await getInactiveClasses();
-    setClasses(data);
-    setLoading(false);
+    try {
+      const data = await getInactiveClasses();
+      setClasses(data);
+    } catch (e) {
+      console.error('[InactiveClasses] Error al cargar:', e);
+      toast.error('Error al cargar las clases inactivas');
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleDeleteRequest(classId: string) {

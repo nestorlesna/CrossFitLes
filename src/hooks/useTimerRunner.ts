@@ -60,7 +60,11 @@ export function useTimerRunner(steps: TimerStep[], config: TimerConfig): TimerRu
   const beepedRef = useRef<Set<number>>(new Set());
   const startedRef = useRef(false);
 
-  stepsRef.current = steps;
+  // Mantiene el ref espejo sincronizado sin mutarlo durante el render.
+  // Declarado antes del efecto de inicializacion para que corra primero.
+  useEffect(() => {
+    stepsRef.current = steps;
+  }, [steps]);
 
   const currentStep = steps[stepIndex];
   const isOpenStep = Boolean(currentStep && currentStep.durationSeconds === 0);

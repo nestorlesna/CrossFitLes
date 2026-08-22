@@ -235,19 +235,24 @@ export function ClassTemplateFormPage() {
   }, [id, navigate]);
 
   useEffect(() => {
+    let cancelled = false;
     const init = async () => {
       setLoadingData(true);
       try {
         await loadCatalogs();
         if (isEditing) await loadTemplate();
       } catch (err) {
-        toast.error('Error al cargar datos');
+        if (!cancelled) toast.error('Error al cargar datos');
         console.error(err);
       } finally {
-        setLoadingData(false);
+        if (!cancelled) setLoadingData(false);
       }
     };
     init();
+
+    return () => {
+      cancelled = true;
+    };
   }, [loadCatalogs, loadTemplate, isEditing]);
 
   // Abre el modal de selección de ejercicio para una sección

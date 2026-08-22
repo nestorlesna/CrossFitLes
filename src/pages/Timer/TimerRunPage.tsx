@@ -82,9 +82,12 @@ export function TimerRunPage() {
   // ── Carga de datos ──
   useEffect(() => {
     if (!id) return;
+    let cancelled = false;
+
     (async () => {
       try {
         const [tpl, cfg] = await Promise.all([getById(id), getTimerConfig()]);
+        if (cancelled) return;
         if (!tpl) {
           toast.error('Timer no encontrado');
           navigate('/timer');
@@ -95,12 +98,17 @@ export function TimerRunPage() {
         setSoundOn(Boolean(cfg.sound_enabled));
         configureAudio({ sound: Boolean(cfg.sound_enabled), vibration: Boolean(cfg.vibration_enabled) });
       } catch {
+        if (cancelled) return;
         toast.error('Error al cargar el timer');
         navigate('/timer');
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     })();
+
+    return () => {
+      cancelled = true;
+    };
   }, [id, navigate]);
 
   // ── Mantener la pantalla encendida mientras corre ──

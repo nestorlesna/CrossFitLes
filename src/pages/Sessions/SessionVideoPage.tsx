@@ -44,9 +44,12 @@ export function SessionVideoPage() {
   useEffect(() => {
     if (!id) return;
 
+    let cancelled = false;
+
     async function load() {
       try {
         const sess = await getSessionById(id!);
+        if (cancelled) return;
         if (!sess) {
           toast.error('Sesión no encontrada');
           navigate('/sesiones');
@@ -59,6 +62,7 @@ export function SessionVideoPage() {
         }
 
         const templ = await getTemplateById(sess.class_template_id);
+        if (cancelled) return;
         if (!templ) {
           toast.error('Clase no encontrada');
           navigate('/sesiones');
@@ -73,13 +77,17 @@ export function SessionVideoPage() {
         setSession(sess);
         setTemplate(templ);
       } catch {
-        toast.error('Error al cargar la clase');
+        if (!cancelled) toast.error('Error al cargar la clase');
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     }
 
     load();
+
+    return () => {
+      cancelled = true;
+    };
   }, [id, navigate]);
 
   // ── Cronómetro de la clase ────────────────────────────────────────────────

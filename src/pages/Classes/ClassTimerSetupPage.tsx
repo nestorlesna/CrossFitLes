@@ -98,6 +98,8 @@ export function ClassTimerSetupPage() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
+
     async function load() {
       if (!id) return;
       try {
@@ -105,6 +107,7 @@ export function ClassTimerSetupPage() {
           classTemplateRepo.getById(id),
           timerConfigRepo.get(),
         ]);
+        if (cancelled) return;
         if (!data) {
           toast.error('No se encontró la clase');
           navigate('/clases');
@@ -137,12 +140,16 @@ export function ClassTimerSetupPage() {
         setExerciseEdits(exercises);
       } catch (e) {
         console.error('[ClassTimerSetup] Error al cargar:', e);
-        toast.error('Error al cargar la clase');
+        if (!cancelled) toast.error('Error al cargar la clase');
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     }
     load();
+
+    return () => {
+      cancelled = true;
+    };
   }, [id, navigate]);
 
   // Plantilla con las ediciones aplicadas: alimenta la vista previa de la línea de tiempo

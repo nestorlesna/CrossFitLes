@@ -101,30 +101,42 @@ export function StatsPage() {
   useEffect(() => {
     if (activeTab !== 'progression') return;
 
+    let cancelled = false;
     const loadExercises = async () => {
       const exs = await getExercisesWithProgression(selectedRecordType);
+      if (cancelled) return;
       setProgressionExercises(exs);
       setSelectedExerciseId(prev => exs.find(e => e.id === prev) ? prev : (exs[0]?.id ?? ''));
     };
     loadExercises();
+
+    return () => {
+      cancelled = true;
+    };
   }, [activeTab, selectedRecordType]);
 
   // 3. Cargar progresión cuando cambia el ejercicio o tipo
   useEffect(() => {
     if (!selectedExerciseId || activeTab !== 'progression') return;
 
+    let cancelled = false;
     const loadProgression = async () => {
       setLoadingProgression(true);
       try {
         const data = await getExerciseProgression(selectedExerciseId, selectedRecordType);
+        if (cancelled) return;
         setProgressionData(data);
       } catch (error) {
-        toast.error('Error al cargar historial del ejercicio');
+        if (!cancelled) toast.error('Error al cargar historial del ejercicio');
       } finally {
-        setLoadingProgression(false);
+        if (!cancelled) setLoadingProgression(false);
       }
     };
     loadProgression();
+
+    return () => {
+      cancelled = true;
+    };
   }, [selectedExerciseId, selectedRecordType, activeTab]);
 
   // 4. Colores para el PieChart

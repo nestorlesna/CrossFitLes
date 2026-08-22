@@ -114,9 +114,12 @@ export function SessionTimerPage() {
   useEffect(() => {
     if (!id) return;
 
+    let cancelled = false;
+
     async function load() {
       try {
         const [sess, cfg] = await Promise.all([getSessionById(id!), getTimerConfig()]);
+        if (cancelled) return;
 
         if (!sess) {
           toast.error('Sesión no encontrada');
@@ -130,6 +133,7 @@ export function SessionTimerPage() {
         }
 
         const templ = await getTemplateById(sess.class_template_id);
+        if (cancelled) return;
         if (templ?.video_url) {
           // La clase se ejecuta mirando el video, no con el cronómetro paso a paso
           navigate(`/sesiones/${id}/video`, { replace: true });
@@ -146,13 +150,17 @@ export function SessionTimerPage() {
         setConfig(cfg);
         configureAudio({ sound: Boolean(cfg.sound_enabled), vibration: Boolean(cfg.vibration_enabled) });
       } catch {
-        toast.error('Error al cargar la clase');
+        if (!cancelled) toast.error('Error al cargar la clase');
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     }
 
     load();
+
+    return () => {
+      cancelled = true;
+    };
   }, [id, navigate]);
 
   // ── Mantener la pantalla encendida mientras el cronómetro corre ───────────

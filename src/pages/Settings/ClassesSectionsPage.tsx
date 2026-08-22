@@ -442,17 +442,23 @@ export function ClassesSectionsPage() {
 
   async function loadData() {
     setLoading(true);
-    const data = await getAll();
-    // Favoritas primero, luego por fecha DESC
-    data.sort((a, b) => {
-      if (b.is_favorite !== a.is_favorite) return b.is_favorite - a.is_favorite;
-      if (!a.date && !b.date) return 0;
-      if (!a.date) return 1;
-      if (!b.date) return -1;
-      return b.date.localeCompare(a.date);
-    });
-    setClasses(data);
-    setLoading(false);
+    try {
+      const data = await getAll();
+      // Favoritas primero, luego por fecha DESC
+      data.sort((a, b) => {
+        if (b.is_favorite !== a.is_favorite) return b.is_favorite - a.is_favorite;
+        if (!a.date && !b.date) return 0;
+        if (!a.date) return 1;
+        if (!b.date) return -1;
+        return b.date.localeCompare(a.date);
+      });
+      setClasses(data);
+    } catch (e) {
+      console.error('[ClassesSections] Error al cargar:', e);
+      toast.error('Error al cargar las clases');
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function toggleExpand(cls: ClassTemplate) {
@@ -463,9 +469,15 @@ export function ClassesSectionsPage() {
     setExpandedId(cls.id);
     if (!expandedData[cls.id]) {
       setLoadingExpand(cls.id);
-      const full = await getById(cls.id);
-      if (full) setExpandedData(prev => ({ ...prev, [cls.id]: full }));
-      setLoadingExpand(null);
+      try {
+        const full = await getById(cls.id);
+        if (full) setExpandedData(prev => ({ ...prev, [cls.id]: full }));
+      } catch (e) {
+        console.error('[ClassesSections] Error al expandir:', e);
+        toast.error('Error al cargar la clase');
+      } finally {
+        setLoadingExpand(null);
+      }
     }
   }
 

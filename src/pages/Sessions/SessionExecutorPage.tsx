@@ -133,6 +133,17 @@ export function SessionExecutorPage() {
     loadData();
   }, [loadData]);
 
+  // Refs espejo: el efecto del temporizador lee de acá para guardar datos frescos
+  // al pausar sin re-suscribir el intervalo en cada segundo
+  const secondsRef = useRef(seconds);
+  const resultsRef = useRef(results);
+  useEffect(() => {
+    secondsRef.current = seconds;
+  }, [seconds]);
+  useEffect(() => {
+    resultsRef.current = results;
+  }, [results]);
+
   // 2. Lógica del Temporizador y Auto-guardado de Duración
   useEffect(() => {
     if (isActive) {
@@ -142,10 +153,11 @@ export function SessionExecutorPage() {
     } else {
       if (timerRef.current) clearInterval(timerRef.current);
       // Guardar duración parcial en la BD al pausar para no perder tiempo en caso de recarga
-      if (id && seconds > 0) {
-        saveResults(id, results); // Guardar resultados actuales
+      const currentSeconds = secondsRef.current;
+      if (id && currentSeconds > 0) {
+        saveResults(id, resultsRef.current); // Guardar resultados actuales
         // También guardamos la duración en la tabla training_session
-        updateSessionDuration(id, Math.floor(seconds / 60)).catch(console.error);
+        updateSessionDuration(id, Math.floor(currentSeconds / 60)).catch(console.error);
       }
     }
     return () => {

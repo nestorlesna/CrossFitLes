@@ -25,11 +25,11 @@ export function ResetSection() {
     try {
       await cleanDatabase();
       setCleanDone(true);
-      setCleanBusy(false);
       toast.success('Base de datos borrada correctamente');
     } catch (error) {
-       toast.error('Error al borrar');
-       setCleanBusy(false);
+      toast.error('Error al borrar');
+    } finally {
+      setCleanBusy(false);
     }
   };
 
@@ -48,13 +48,13 @@ export function ResetSection() {
       });
 
       setResult(res);
-      setInitBusy(false);
       toast.success('Carga base completada');
     } catch (error) {
       console.error('Error en carga:', error);
       toast.error(`Error: ${error instanceof Error ? error.message : 'Desconocido'}`);
-      setInitBusy(false);
       setProgress(null);
+    } finally {
+      setInitBusy(false);
     }
   };
 

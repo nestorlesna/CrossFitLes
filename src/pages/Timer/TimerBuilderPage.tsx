@@ -68,9 +68,12 @@ export function TimerBuilderPage() {
   // ── Cargar plantilla existente ──
   useEffect(() => {
     if (!id) return;
+    let cancelled = false;
+
     (async () => {
       try {
         const tpl = await getById(id);
+        if (cancelled) return;
         if (!tpl) {
           toast.error('Plantilla no encontrada');
           navigate('/timer');
@@ -102,11 +105,15 @@ export function TimerBuilderPage() {
           setVarRounds(params.rounds ?? [{ workSeconds: 40, restSeconds: 20 }]);
         }
       } catch {
-        toast.error('Error al cargar la plantilla');
+        if (!cancelled) toast.error('Error al cargar la plantilla');
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     })();
+
+    return () => {
+      cancelled = true;
+    };
   }, [id, navigate]);
 
   const defaultName = useMemo(() => PRESET_LABELS[preset], [preset]);

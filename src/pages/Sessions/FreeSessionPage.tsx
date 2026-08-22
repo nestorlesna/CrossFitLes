@@ -295,14 +295,21 @@ export function FreeSessionPage() {
     init();
   }, []);
 
+  // Ref espejo: el efecto lee de acá para no re-suscribir el intervalo cada segundo
+  const secondsRef = useRef(seconds);
+  useEffect(() => {
+    secondsRef.current = seconds;
+  }, [seconds]);
+
   // ── Timer ──
   useEffect(() => {
     if (isActive) {
       timerRef.current = setInterval(() => setSeconds(s => s + 1), 1000);
     } else {
       if (timerRef.current) clearInterval(timerRef.current);
-      if (sessionId && seconds > 0) {
-        updateSessionDuration(sessionId, Math.floor(seconds / 60)).catch(console.error);
+      const currentSeconds = secondsRef.current;
+      if (sessionId && currentSeconds > 0) {
+        updateSessionDuration(sessionId, Math.floor(currentSeconds / 60)).catch(console.error);
       }
     }
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
@@ -394,12 +401,10 @@ export function FreeSessionPage() {
         feeling, effort, notes,
       });
       toast.success('¡Entrenamiento completado!');
-      const idToNavigate = sessionId;
-      setShowFinishModal(false);
-      setSaving(false);
-      navigate(`/sesiones/${idToNavigate}`);
+      navigate(`/sesiones/${sessionId}`);
     } catch (e: any) {
       toast.error(`Error al finalizar: ${e?.message ?? e}`);
+    } finally {
       setSaving(false);
       setShowFinishModal(false);
     }
