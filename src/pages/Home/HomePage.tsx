@@ -11,12 +11,18 @@ import {
   Clock,
   ChevronRight,
   TrendingUp,
-  Play
+  Play,
+  CalendarRange,
+  Moon,
+  CheckCircle2
 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { ResolvedImage } from '../../components/ui/ResolvedImage';
 import { getHomeStats } from '../../db/repositories/statsRepo';
 import { getActiveSession } from '../../db/repositories/trainingSessionRepo';
+import * as planRepo from '../../db/repositories/trainingPlanRepo';
+import { TrainingPlan, PlanDay } from '../../models/TrainingPlan';
+import { toast } from 'sonner';
 import { PersonalRecord } from '../../models/Stats';
 import { TrainingSession } from '../../models/TrainingSession';
 import { format, parseISO } from 'date-fns';
@@ -27,12 +33,14 @@ const quickActions = [
   { label: 'Nueva sesión',    icon: Calendar,       path: '/sesiones/nueva' },
   { label: 'Ejercicios',      icon: Dumbbell,       path: '/ejercicios'     },
   { label: 'Clases',          icon: LayoutTemplate, path: '/clases'         },
+  { label: 'Planes',          icon: CalendarRange,  path: '/planes'         },
   { label: 'Estadísticas',    icon: BarChart2,      path: '/estadisticas'   },
 ];
 
 export function HomePage() {
   const navigate = useNavigate();
   const [activeSession, setActiveSession] = useState<TrainingSession | null>(null);
+  const [planToday, setPlanToday] = useState<{ plan: TrainingPlan; day: PlanDay } | null>(null);
   const [stats, setStats] = useState({
     sessionsThisMonth: 0,
     totalMinutesThisMonth: 0,
@@ -42,12 +50,14 @@ export function HomePage() {
 
   const loadData = useCallback(async () => {
     try {
-      const [statsData, currentSession] = await Promise.all([
+      const [statsData, currentSession, todayPlanDay] = await Promise.all([
         getHomeStats(),
-        getActiveSession()
+        getActiveSession(),
+        planRepo.getTodayDay()
       ]);
       setStats(statsData);
       setActiveSession(currentSession);
+      setPlanToday(todayPlanDay);
     } catch (error) {
       console.error('Error al cargar dashboard:', error);
     }
@@ -56,6 +66,26 @@ export function HomePage() {
   useEffect(() => {
     loadData();
   }, [loadData]);
+
+  // Etiquetas del día del plan: hoy o la fecha del próximo entrenamiento
+  const todayStr = new Date().toISOString().split('T')[0];
+  const isPlanDayToday =
+    !planToday?.day.scheduled_date || planToday.day.scheduled_date === todayStr;
+  const planDayDateLabel = planToday?.day.scheduled_date
+    ? format(parseISO(planToday.day.scheduled_date), "EEE d 'de' MMM", { locale: es })
+    : '';
+
+  // Arranca el día del plan reutilizando el ejecutor de clases
+  const startPlanDay = async () => {
+    if (!planToday) return;
+    try {
+      const { sessionId, hasVideo } = await planRepo.startDay(planToday.day.id);
+      navigate(hasVideo ? `/sesiones/${sessionId}/video` : `/sesiones/${sessionId}/cronometro`);
+    } catch (err) {
+      console.error(err);
+      toast.error(err instanceof Error ? err.message : 'Error al iniciar el día');
+    }
+  };
 
   const formatDate = (dateStr: string) => {
     try {
@@ -96,6 +126,60 @@ export function HomePage() {
               <div className="bg-white/20 p-2 rounded-xl group-hover:bg-white/30 transition-colors">
                 <ChevronRight size={20} className="text-white" />
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── DÍA DE HOY DEL PLAN ── */}
+        {!activeSession && planToday && (
+          <div className="bg-gray-900 border border-gray-800 rounded-3xl p-5">
+            <div className="flex items-center gap-2 mb-3">
+              <CalendarRange size={14} className="text-primary-400" />
+              <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">
+                {planToday.plan.name}
+              </span>
+              <button
+                onClick={() => navigate(`/planes/${planToday.plan.id}`)}
+                className="ml-auto text-[10px] text-primary-400 font-bold uppercase"
+              >
+                Ver plan
+              </button>
+            </div>
+
+            <div className="flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <span className="text-[10px] text-gray-500 uppercase font-bold">
+                  {planToday.day.day_type === 'rest'
+                    ? 'Toca descansar'
+                    : isPlanDayToday
+                    ? 'Tu entrenamiento de hoy'
+                    : `Próximo: ${planDayDateLabel}`}
+                </span>
+                <h3 className="text-white font-bold text-lg leading-tight truncate">
+                  {planToday.day.title || planToday.day.template_name || 'Sin asignar'}
+                </h3>
+              </div>
+
+              {planToday.day.day_type === 'rest' ? (
+                <Moon size={24} className="text-gray-500 shrink-0" />
+              ) : planToday.day.status === 'completed' ? (
+                <CheckCircle2 size={24} className="text-green-500 shrink-0" />
+              ) : planToday.day.class_template_id ? (
+                <button
+                  onClick={startPlanDay}
+                  className="shrink-0 bg-primary-600 hover:bg-primary-500 text-white px-4 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 min-h-[44px]"
+                >
+                  <Play size={16} className="fill-white" />
+                  Empezar
+                </button>
+              ) : (
+                <button
+                  onClick={() => navigate(`/planes/${planToday.plan.id}/dias/${planToday.day.id}`)}
+                  className="shrink-0 bg-gray-800 border border-gray-700 text-gray-200 px-4 py-2.5 rounded-xl text-sm font-medium min-h-[44px]"
+                >
+                  Asignar
+                </button>
+              )}
             </div>
           </div>
         )}

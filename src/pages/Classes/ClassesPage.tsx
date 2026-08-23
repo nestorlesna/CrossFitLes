@@ -35,6 +35,7 @@ import { Header } from '../../components/layout/Header';
 import { SearchBar } from '../../components/ui/SearchBar';
 import { ClassTemplate, ClassTemplateFilters, TemplateType } from '../../models/ClassTemplate';
 import * as classTemplateRepo from '../../db/repositories/classTemplateRepo';
+import { PlansTabs } from '../../components/plans/PlansTabs';
 
 // Modo de vista: lista o calendario
 type ViewMode = 'list' | 'calendar';
@@ -324,6 +325,8 @@ export function ClassesPage() {
       />
 
       <div className="px-4 py-4 space-y-4 pb-24">
+        <PlansTabs active="classes" />
+
         {/* Controles de búsqueda y modo de vista */}
         <div className="flex gap-2 items-center">
           <div className="flex-1">

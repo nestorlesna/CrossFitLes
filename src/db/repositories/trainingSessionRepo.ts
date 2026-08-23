@@ -254,6 +254,11 @@ export async function finalize(
       timestamp, id
     ]
   );
+
+  // Si la sesión pertenece a un día de un plan, ese día queda completado
+  const { completeDayBySession } = await import('./trainingPlanRepo');
+  await completeDayBySession(id);
+
   await saveDatabase();
 }
 

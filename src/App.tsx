@@ -11,6 +11,10 @@ import { ClassesPage } from './pages/Classes/ClassesPage';
 import { ClassTemplateFormPage } from './pages/Classes/ClassTemplateFormPage';
 import { ClassTemplateDetailPage } from './pages/Classes/ClassTemplateDetailPage';
 import { ClassTimerSetupPage } from './pages/Classes/ClassTimerSetupPage';
+import { PlansPage } from './pages/Plans/PlansPage';
+import { PlanFormPage } from './pages/Plans/PlanFormPage';
+import { PlanDetailPage } from './pages/Plans/PlanDetailPage';
+import { PlanDayEditPage } from './pages/Plans/PlanDayEditPage';
 import { SessionsPage } from './pages/Sessions/SessionsPage';
 import { NewSessionPage } from './pages/Sessions/NewSessionPage';
 import { SessionExecutorPage } from './pages/Sessions/SessionExecutorPage';
@@ -94,6 +98,12 @@ export default function App() {
             <Route path="clases/:id" element={<ClassTemplateDetailPage />} />
             <Route path="clases/:id/editar" element={<ClassTemplateFormPage />} />
             <Route path="clases/:id/tiempos" element={<ClassTimerSetupPage />} />
+            {/* Planes de entrenamiento */}
+            <Route path="planes" element={<PlansPage />} />
+            <Route path="planes/nuevo" element={<PlanFormPage />} />
+            <Route path="planes/:id" element={<PlanDetailPage />} />
+            <Route path="planes/:id/editar" element={<PlanFormPage />} />
+            <Route path="planes/:id/dias/:dayId" element={<PlanDayEditPage />} />
             <Route path="sesiones" element={<SessionsPage />} />
             <Route path="sesiones/nueva" element={<NewSessionPage />} />
             <Route path="sesiones/registrar" element={<ManualSessionPage />} />

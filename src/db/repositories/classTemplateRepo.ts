@@ -37,7 +37,7 @@ export async function getAll(filters?: ClassTemplateFilters): Promise<ClassTempl
     FROM class_template ct
     LEFT JOIN class_section cs ON cs.class_template_id = ct.id
     LEFT JOIN section_exercise se ON se.class_section_id = cs.id
-    WHERE ct.is_active = 1
+    WHERE ct.is_active = 1 AND ct.is_plan_day = 0
   `;
 
   const params: unknown[] = [];
@@ -527,7 +527,7 @@ export async function getByDateRange(from: string, to: string): Promise<ClassTem
     FROM class_template ct
     LEFT JOIN class_section cs ON cs.class_template_id = ct.id
     LEFT JOIN section_exercise se ON se.class_section_id = cs.id
-    WHERE ct.is_active = 1
+    WHERE ct.is_active = 1 AND ct.is_plan_day = 0
       AND ct.date >= ?
       AND ct.date <= ?
     GROUP BY ct.id
@@ -547,7 +547,7 @@ export async function getInactiveClasses(): Promise<ClassTemplate[]> {
     FROM class_template ct
     LEFT JOIN class_section cs ON cs.class_template_id = ct.id
     LEFT JOIN section_exercise se ON se.class_section_id = cs.id
-    WHERE ct.is_active = 0
+    WHERE ct.is_active = 0 AND ct.is_plan_day = 0
     GROUP BY ct.id
     ORDER BY ct.updated_at DESC`
   );
