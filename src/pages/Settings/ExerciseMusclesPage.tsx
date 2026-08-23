@@ -5,6 +5,7 @@ import { Header } from '../../components/layout/Header';
 import { getDatabase } from '../../db/database';
 import { Badge } from '../../components/ui/Badge';
 import { MuscleMap } from '../../components/exercises/MuscleMap';
+import { onActivateKey } from '../../utils/a11y';
 
 interface ExerciseMuscleRow {
   id: string;
@@ -61,7 +62,7 @@ export function ExerciseMusclesPage() {
       <Header
         title="Mapa Anatómico"
         leftAction={
-          <button onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+          <button aria-label="Volver" onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <ChevronLeft size={24} />
           </button>
         }
@@ -73,7 +74,7 @@ export function ExerciseMusclesPage() {
         <div className="flex bg-gray-900 border border-gray-800 rounded-2xl p-1 gap-1">
           <button
             onClick={() => setMode('con')}
-            className={`flex-1 py-2 rounded-xl text-sm font-semibold transition-all ${
+            className={`flex-1 py-2 rounded-xl text-sm font-semibold transition ${
               mode === 'con'
                 ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/20'
                 : 'text-gray-400 hover:text-gray-200'
@@ -86,7 +87,7 @@ export function ExerciseMusclesPage() {
           </button>
           <button
             onClick={() => setMode('sin')}
-            className={`flex-1 py-2 rounded-xl text-sm font-semibold transition-all ${
+            className={`flex-1 py-2 rounded-xl text-sm font-semibold transition ${
               mode === 'sin'
                 ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20'
                 : 'text-gray-400 hover:text-gray-200'
@@ -134,8 +135,11 @@ export function ExerciseMusclesPage() {
                 {withRows.map(row => (
                   <div
                     key={row.id}
+                    role="button"
+                    tabIndex={0}
                     onClick={() => navigate(`/ejercicios/${row.id}`)}
-                    className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col hover:border-primary-500/50 transition-all group active:scale-[0.98]"
+                    onKeyDown={onActivateKey(() => navigate(`/ejercicios/${row.id}`))}
+                    className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col hover:border-primary-500/50 transition group active:scale-[0.98]"
                   >
                     <div className="bg-black/40 flex items-center justify-center p-4 relative overflow-hidden h-48">
                       <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity z-10 bg-gray-950/80 p-1 rounded-md">

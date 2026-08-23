@@ -10,6 +10,7 @@ import { Modal } from '../../components/ui/Modal';
 import { FreeTimerPreset, FreeTimerTemplate, PRESET_LABELS } from '../../models/FreeTimer';
 import { summarizeFreeTimerConfig } from '../../services/freeTimerEngine';
 import { getAll, remove, duplicate } from '../../db/repositories/freeTimerTemplateRepo';
+import { onActivateKey } from '../../utils/a11y';
 
 interface PresetTile {
   preset: FreeTimerPreset;
@@ -132,7 +133,13 @@ export function TimerHomePage() {
                       <Play size={18} fill="currentColor" />
                     </button>
 
-                    <div className="flex-1 min-w-0" onClick={() => navigate(`/timer/${tpl.id}/correr`)}>
+                    <div
+                      className="flex-1 min-w-0"
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => navigate(`/timer/${tpl.id}/correr`)}
+                      onKeyDown={onActivateKey(() => navigate(`/timer/${tpl.id}/correr`))}
+                    >
                       <p className="font-bold text-white text-sm truncate">{tpl.name}</p>
                       <p className="text-xs text-gray-500">
                         {PRESET_LABELS[tpl.preset]} · {summarizeFreeTimerConfig(config)}

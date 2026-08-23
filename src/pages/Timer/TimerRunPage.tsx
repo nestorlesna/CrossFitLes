@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ChevronLeft, Pause, Play, SkipForward, Plus, Flag, Volume2, VolumeX, CheckCircle2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { Header } from '../../components/layout/Header';
 import { Modal } from '../../components/ui/Modal';
 import { getById } from '../../db/repositories/freeTimerTemplateRepo';
 import { get as getTimerConfig } from '../../db/repositories/timerConfigRepo';
@@ -82,9 +81,12 @@ export function TimerRunPage() {
   // ── Carga de datos ──
   useEffect(() => {
     if (!id) return;
+    let cancelled = false;
+
     (async () => {
       try {
         const [tpl, cfg] = await Promise.all([getById(id), getTimerConfig()]);
+        if (cancelled) return;
         if (!tpl) {
           toast.error('Timer no encontrado');
           navigate('/timer');
@@ -95,12 +97,17 @@ export function TimerRunPage() {
         setSoundOn(Boolean(cfg.sound_enabled));
         configureAudio({ sound: Boolean(cfg.sound_enabled), vibration: Boolean(cfg.vibration_enabled) });
       } catch {
+        if (cancelled) return;
         toast.error('Error al cargar el timer');
         navigate('/timer');
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     })();
+
+    return () => {
+      cancelled = true;
+    };
   }, [id, navigate]);
 
   // ── Mantener la pantalla encendida mientras corre ──
@@ -167,7 +174,7 @@ export function TimerRunPage() {
     return (
       <div className="fixed inset-0 bg-gray-950 flex flex-col z-[60]">
         <div className="p-4">
-          <button
+          <button aria-label="Volver"
             onClick={() => navigate(-1)}
             className="text-gray-400 min-h-[44px] min-w-[44px] flex items-center justify-center"
           >
@@ -238,7 +245,7 @@ export function TimerRunPage() {
 
       <div className="h-1 bg-gray-900 shrink-0">
         <div
-          className="h-full bg-primary-500 transition-all duration-300"
+          className="h-full bg-primary-500 transition-[width] duration-300"
           style={{ width: `${totalSteps > 0 ? (stepIndex / totalSteps) * 100 : 0}%` }}
         />
       </div>

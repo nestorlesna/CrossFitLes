@@ -1,5 +1,5 @@
 // Página de medidas corporales: historial + formulario para nueva medición
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useId } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, Plus, Trash2, ChevronDown, ChevronUp, Scale, Wand2 } from 'lucide-react';
 import { toast } from 'sonner';
@@ -77,10 +77,12 @@ function Field({ label, value, onChange, placeholder = '—' }: {
   label: string; value: string;
   onChange: (v: string) => void; placeholder?: string;
 }) {
+  const uid = useId();
   return (
     <div className="flex flex-col gap-1">
-      <label className="text-xs text-gray-500">{label}</label>
+      <label htmlFor={`${uid}-field`} className="text-xs text-gray-500">{label}</label>
       <input
+        id={`${uid}-field`}
         type="number" inputMode="decimal" min="0"
         value={value} onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
@@ -219,6 +221,7 @@ function bmiCategory(bmi: number): string {
 // ── Página principal ─────────────────────────────────────────────────────────
 
 export function BodyMeasurementsPage() {
+  const uid = useId();
   const navigate = useNavigate();
   const [measurements, setMeasurements] = useState<BodyMeasurement[]>([]);
   const [heightCm, setHeightCm] = useState<number | undefined>();
@@ -311,12 +314,12 @@ export function BodyMeasurementsPage() {
       <Header
         title="Medidas corporales"
         leftAction={
-          <button onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+          <button aria-label="Volver" onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <ChevronLeft size={24} />
           </button>
         }
         rightAction={
-          <button onClick={() => setShowForm(s => !s)} className="text-primary-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+          <button aria-label="Agregar" onClick={() => setShowForm(s => !s)} className="text-primary-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <Plus size={24} />
           </button>
         }
@@ -333,8 +336,9 @@ export function BodyMeasurementsPage() {
 
             {/* Fecha */}
             <div className="flex flex-col gap-1">
-              <label className="text-xs text-gray-500">Fecha</label>
+              <label htmlFor={`${uid}-fecha`} className="text-xs text-gray-500">Fecha</label>
               <input
+                id={`${uid}-fecha`}
                 type="date" value={form.measurement_date}
                 max={new Date().toISOString().split('T')[0]}
                 onChange={e => upd('measurement_date', e.target.value)}
@@ -346,8 +350,9 @@ export function BodyMeasurementsPage() {
             <div className="grid grid-cols-2 gap-3">
               <Field label="Peso (kg)"        value={form.weight_kg}          onChange={v => upd('weight_kg', v)} />
               <div className="flex flex-col gap-1">
-                <label className="text-xs text-gray-500">% Grasa corporal</label>
+                <label htmlFor={`${uid}-grasa-corporal`} className="text-xs text-gray-500">% Grasa corporal</label>
                 <input
+                  id={`${uid}-grasa-corporal`}
                   type="number" inputMode="decimal" min="0" max="70"
                   value={form.body_fat_percentage}
                   onChange={e => upd('body_fat_percentage', e.target.value)}
@@ -402,8 +407,9 @@ export function BodyMeasurementsPage() {
 
             {/* Notas */}
             <div className="flex flex-col gap-1">
-              <label className="text-xs text-gray-500">Notas</label>
+              <label htmlFor={`${uid}-notas`} className="text-xs text-gray-500">Notas</label>
               <input
+                id={`${uid}-notas`}
                 type="text" value={form.notes}
                 onChange={e => upd('notes', e.target.value)}
                 placeholder="Observaciones..."

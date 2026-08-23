@@ -86,7 +86,8 @@ export function ClassShareSection() {
   const toggleClass = (id: string) =>
     setSelectedClassIds(prev => {
       const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
       return next;
     });
 
@@ -144,7 +145,8 @@ export function ClassShareSection() {
   const toggleExercise = (id: string) =>
     setSelectedExerciseIds(prev => {
       const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
       return next;
     });
 
@@ -455,7 +457,7 @@ export function ClassShareSection() {
             {/* Buscador */}
             <div className="relative">
               <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
-              <input
+              <input aria-label="Buscar ejercicio…"
                 type="text"
                 value={exerciseSearch}
                 onChange={e => setExerciseSearch(e.target.value)}
@@ -463,7 +465,7 @@ export function ClassShareSection() {
                 className="w-full bg-gray-800 border border-gray-700 rounded-xl pl-8 pr-8 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-sky-500"
               />
               {exerciseSearch && (
-                <button
+                <button aria-label="Cerrar"
                   onClick={() => setExerciseSearch('')}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300"
                 >

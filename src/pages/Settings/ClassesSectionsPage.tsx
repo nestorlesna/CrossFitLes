@@ -1,5 +1,5 @@
 // Listado de clases con secciones — permite copiar secciones entre clases
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useId } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ChevronLeft, ChevronDown, Copy,
@@ -268,6 +268,7 @@ function CopyModalContent({
   onConfirm: () => void;
   onCancel: () => void;
 }) {
+  const uid = useId();
   const dotColor = target.section.section_type_color ?? '#64748b';
   const exCount = target.section.exercises?.length ?? 0;
   const secLabel = target.section.visible_title || target.section.section_type_name || 'Sección';
@@ -315,7 +316,7 @@ function CopyModalContent({
         <div className="space-y-2">
           <div className="relative">
             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
-            <input
+            <input aria-label="Buscar clase…"
               type="text"
               placeholder="Buscar clase…"
               value={classSearch}
@@ -360,10 +361,11 @@ function CopyModalContent({
       {destMode === 'new' && (
         <div className="space-y-3">
           <div>
-            <label className="block text-xs text-gray-400 mb-1.5">
+            <label htmlFor={`${uid}-nombre`} className="block text-xs text-gray-400 mb-1.5">
               Nombre <span className="text-red-400">*</span>
             </label>
             <input
+              id={`${uid}-nombre`}
               type="text"
               placeholder="Nombre de la clase"
               value={newForm.name}
@@ -373,8 +375,9 @@ function CopyModalContent({
             />
           </div>
           <div>
-            <label className="block text-xs text-gray-400 mb-1.5">Fecha (opcional)</label>
+            <label htmlFor={`${uid}-fecha-opcional`} className="block text-xs text-gray-400 mb-1.5">Fecha (opcional)</label>
             <input
+              id={`${uid}-fecha-opcional`}
               type="date"
               value={newForm.date}
               onChange={e => setNewForm({ ...newForm, date: e.target.value })}
@@ -382,8 +385,9 @@ function CopyModalContent({
             />
           </div>
           <div>
-            <label className="block text-xs text-gray-400 mb-1.5">Objetivo (opcional)</label>
+            <label htmlFor={`${uid}-objetivo-opcional`} className="block text-xs text-gray-400 mb-1.5">Objetivo (opcional)</label>
             <input
+              id={`${uid}-objetivo-opcional`}
               type="text"
               placeholder="Descripción u objetivo"
               value={newForm.objective}
@@ -442,17 +446,23 @@ export function ClassesSectionsPage() {
 
   async function loadData() {
     setLoading(true);
-    const data = await getAll();
-    // Favoritas primero, luego por fecha DESC
-    data.sort((a, b) => {
-      if (b.is_favorite !== a.is_favorite) return b.is_favorite - a.is_favorite;
-      if (!a.date && !b.date) return 0;
-      if (!a.date) return 1;
-      if (!b.date) return -1;
-      return b.date.localeCompare(a.date);
-    });
-    setClasses(data);
-    setLoading(false);
+    try {
+      const data = await getAll();
+      // Favoritas primero, luego por fecha DESC
+      data.sort((a, b) => {
+        if (b.is_favorite !== a.is_favorite) return b.is_favorite - a.is_favorite;
+        if (!a.date && !b.date) return 0;
+        if (!a.date) return 1;
+        if (!b.date) return -1;
+        return b.date.localeCompare(a.date);
+      });
+      setClasses(data);
+    } catch (e) {
+      console.error('[ClassesSections] Error al cargar:', e);
+      toast.error('Error al cargar las clases');
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function toggleExpand(cls: ClassTemplate) {
@@ -463,9 +473,15 @@ export function ClassesSectionsPage() {
     setExpandedId(cls.id);
     if (!expandedData[cls.id]) {
       setLoadingExpand(cls.id);
-      const full = await getById(cls.id);
-      if (full) setExpandedData(prev => ({ ...prev, [cls.id]: full }));
-      setLoadingExpand(null);
+      try {
+        const full = await getById(cls.id);
+        if (full) setExpandedData(prev => ({ ...prev, [cls.id]: full }));
+      } catch (e) {
+        console.error('[ClassesSections] Error al expandir:', e);
+        toast.error('Error al cargar la clase');
+      } finally {
+        setLoadingExpand(null);
+      }
     }
   }
 
@@ -564,7 +580,7 @@ export function ClassesSectionsPage() {
       <Header
         title="Clases"
         leftAction={
-          <button
+          <button aria-label="Volver"
             onClick={() => navigate(-1)}
             className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
           >

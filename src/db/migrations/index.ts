@@ -15,6 +15,7 @@ import { v012_free_timer_templates } from './v012_free_timer_templates';
 import { v013_session_result_class_section } from './v013_session_result_class_section';
 import { v014_movilidad_section_type } from './v014_movilidad_section_type';
 import { v015_class_template_video } from './v015_class_template_video';
+import { v016_training_plan } from './v016_training_plan';
 
 export const migrations: Migration[] = [
   v001_initial,
@@ -32,4 +33,5 @@ export const migrations: Migration[] = [
   v013_session_result_class_section,
   v014_movilidad_section_type,
   v015_class_template_video,
+  v016_training_plan,
 ];

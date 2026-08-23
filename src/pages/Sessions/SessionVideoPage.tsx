@@ -2,7 +2,7 @@
 // ejecuta mostrando solo ese video a pantalla completa. Al terminar (por duración
 // cargada o por el botón de finalizar) se cierra la sesión igual que la clase guiada:
 // se guardan los resultados, la duración, las calorías estimadas y el resumen.
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, useId } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ChevronLeft, Play, Flag, CheckCircle2, ExternalLink } from 'lucide-react';
 import { toast } from 'sonner';
@@ -17,6 +17,7 @@ import { formatClock } from '../../services/timerEngine';
 import { detectVideo } from '../../utils/videoEmbed';
 
 export function SessionVideoPage() {
+  const uid = useId();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
@@ -44,9 +45,12 @@ export function SessionVideoPage() {
   useEffect(() => {
     if (!id) return;
 
+    let cancelled = false;
+
     async function load() {
       try {
         const sess = await getSessionById(id!);
+        if (cancelled) return;
         if (!sess) {
           toast.error('Sesión no encontrada');
           navigate('/sesiones');
@@ -59,6 +63,7 @@ export function SessionVideoPage() {
         }
 
         const templ = await getTemplateById(sess.class_template_id);
+        if (cancelled) return;
         if (!templ) {
           toast.error('Clase no encontrada');
           navigate('/sesiones');
@@ -73,13 +78,17 @@ export function SessionVideoPage() {
         setSession(sess);
         setTemplate(templ);
       } catch {
-        toast.error('Error al cargar la clase');
+        if (!cancelled) toast.error('Error al cargar la clase');
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     }
 
     load();
+
+    return () => {
+      cancelled = true;
+    };
   }, [id, navigate]);
 
   // ── Cronómetro de la clase ────────────────────────────────────────────────
@@ -251,7 +260,7 @@ export function SessionVideoPage() {
       {videoSeconds > 0 && (
         <div className="h-1 bg-gray-900 mx-4 rounded-full overflow-hidden shrink-0">
           <div
-            className="h-full bg-primary-500 transition-all duration-1000 ease-linear"
+            className="h-full bg-primary-500 transition duration-1000 ease-linear"
             style={{ width: `${Math.min(100, (elapsed / videoSeconds) * 100)}%` }}
           />
         </div>
@@ -326,7 +335,7 @@ export function SessionVideoPage() {
                 <button
                   key={f}
                   onClick={() => setFeeling(f)}
-                  className={`flex-1 py-3 rounded-xl border text-xl transition-all ${
+                  className={`flex-1 py-3 rounded-xl border text-xl transition ${
                     feeling === f
                       ? 'bg-primary-500/20 border-primary-500'
                       : 'bg-gray-900 border-gray-800 opacity-40'
@@ -359,8 +368,9 @@ export function SessionVideoPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Notas</label>
+            <label htmlFor={`${uid}-notas`} className="block text-xs font-bold text-gray-500 uppercase mb-2">Notas</label>
             <textarea
+              id={`${uid}-notas`}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="¿Algo para recordar de hoy?"

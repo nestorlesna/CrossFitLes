@@ -6,7 +6,7 @@ import {
   SectionDistribution,
   CaloriesDataPoint,
 } from '../../models/Stats';
-import { format, subDays, startOfWeek, endOfWeek } from 'date-fns';
+import { format, subDays, startOfWeek } from 'date-fns';
 
 /**
  * Obtiene todos los PRs del usuario con nombres de ejercicios

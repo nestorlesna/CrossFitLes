@@ -163,7 +163,7 @@ export function ExerciseVideosPage() {
       <Header
         title="Videos de ejercicios"
         leftAction={
-          <button
+          <button aria-label="Volver"
             onClick={() => navigate(-1)}
             className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
           >
@@ -177,7 +177,7 @@ export function ExerciseVideosPage() {
         <div className="flex gap-2">
           <button
             onClick={() => setFilter('noLong')}
-            className={`flex-1 py-2 px-3 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-2 ${
+            className={`flex-1 py-2 px-3 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-2 ${
               filter === 'noLong'
                 ? 'bg-amber-500 text-white'
                 : 'bg-gray-800 text-gray-400 hover:text-gray-200'
@@ -188,7 +188,7 @@ export function ExerciseVideosPage() {
           </button>
           <button
             onClick={() => setFilter('noShort')}
-            className={`flex-1 py-2 px-3 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-2 ${
+            className={`flex-1 py-2 px-3 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-2 ${
               filter === 'noShort'
                 ? 'bg-purple-500 text-white'
                 : 'bg-gray-800 text-gray-400 hover:text-gray-200'
@@ -199,7 +199,7 @@ export function ExerciseVideosPage() {
           </button>
           <button
             onClick={() => setFilter('all')}
-            className={`flex-1 py-2 px-3 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-2 ${
+            className={`flex-1 py-2 px-3 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-2 ${
               filter === 'all'
                 ? 'bg-primary-600 text-white'
                 : 'bg-gray-800 text-gray-400 hover:text-gray-200'

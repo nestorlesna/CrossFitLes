@@ -3,7 +3,6 @@ import {
   TrendingUp, 
   Award, 
   Activity, 
-  Search, 
   Calendar,
   AlertCircle,
   Dumbbell,
@@ -26,7 +25,6 @@ import {
   CartesianGrid, 
   Tooltip, 
   ResponsiveContainer, 
-  Legend 
 } from 'recharts';
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -101,34 +99,45 @@ export function StatsPage() {
   useEffect(() => {
     if (activeTab !== 'progression') return;
 
+    let cancelled = false;
     const loadExercises = async () => {
       const exs = await getExercisesWithProgression(selectedRecordType);
+      if (cancelled) return;
       setProgressionExercises(exs);
       setSelectedExerciseId(prev => exs.find(e => e.id === prev) ? prev : (exs[0]?.id ?? ''));
     };
     loadExercises();
+
+    return () => {
+      cancelled = true;
+    };
   }, [activeTab, selectedRecordType]);
 
   // 3. Cargar progresión cuando cambia el ejercicio o tipo
   useEffect(() => {
     if (!selectedExerciseId || activeTab !== 'progression') return;
 
+    let cancelled = false;
     const loadProgression = async () => {
       setLoadingProgression(true);
       try {
         const data = await getExerciseProgression(selectedExerciseId, selectedRecordType);
+        if (cancelled) return;
         setProgressionData(data);
-      } catch (error) {
-        toast.error('Error al cargar historial del ejercicio');
+      } catch {
+        if (!cancelled) toast.error('Error al cargar historial del ejercicio');
       } finally {
-        setLoadingProgression(false);
+        if (!cancelled) setLoadingProgression(false);
       }
     };
     loadProgression();
+
+    return () => {
+      cancelled = true;
+    };
   }, [selectedExerciseId, selectedRecordType, activeTab]);
 
   // 4. Colores para el PieChart
-  const COLORS = ['#primary-500', '#8b5cf6', '#ef4444', '#10b981', '#f59e0b', '#3b82f6'];
   const chartColors = ['#C1FF00', '#8B5CF6', '#EF4444', '#10B981', '#F59E0B', '#3B82F6'];
 
   // 4. Formateador de fechas para gráficos
@@ -182,7 +191,7 @@ export function StatsPage() {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as TabType)}
-            className={`flex items-center gap-2 py-4 border-b-2 transition-all min-w-fit ${
+            className={`flex items-center gap-2 py-4 border-b-2 transition min-w-fit ${
               activeTab === tab.id 
                 ? 'border-primary-500 text-primary-500 font-bold' 
                 : 'border-transparent text-gray-500'
@@ -444,7 +453,7 @@ export function StatsPage() {
                       <button
                         key={type}
                         onClick={() => setSelectedRecordType(type)}
-                        className={`px-3 py-2 rounded-xl text-[11px] font-bold border transition-all ${
+                        className={`px-3 py-2 rounded-xl text-[11px] font-bold border transition ${
                           selectedRecordType === type 
                           ? 'bg-primary-600 border-primary-500 text-white' 
                           : 'bg-gray-800 border-gray-700 text-gray-500'

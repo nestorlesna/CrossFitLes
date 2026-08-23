@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { 
   Plus, 
   Search, 
-  Calendar, 
   Clock, 
   ChevronRight, 
   CheckCircle2, 
@@ -20,6 +19,14 @@ import { TrainingSession } from '../../models/TrainingSession';
 import { getAll } from '../../db/repositories/trainingSessionRepo';
 import { formatDate } from '../../utils/formatters';
 import { SessionStatus } from '../../types';
+import { onActivateKey } from '../../utils/a11y';
+
+// Destino de una card segun el estado de la sesion
+function goToSession(session: { id: string; status: string }) {
+  return session.status === 'completed'
+    ? `/sesiones/${session.id}`
+    : `/sesiones/${session.id}/ejecutar`;
+}
 
 export function SessionsPage() {
   const navigate = useNavigate();
@@ -123,7 +130,7 @@ export function SessionsPage() {
         <div className="flex flex-col gap-3">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
-            <input
+            <input aria-label="Buscar por fecha o plantilla"
               type="text"
               placeholder="Buscar por fecha o plantilla..."
               value={search}
@@ -177,12 +184,11 @@ export function SessionsPage() {
             {filteredSessions.map((session) => (
               <div
                 key={session.id}
-                onClick={() => navigate(
-                  session.status === 'completed' 
-                    ? `/sesiones/${session.id}` 
-                    : `/sesiones/${session.id}/ejecutar`
-                )}
-                className="bg-gray-900 border border-gray-800 rounded-2xl p-4 flex items-center gap-4 active:scale-[0.98] transition-all cursor-pointer hover:border-gray-700 shadow-sm"
+                role="button"
+                tabIndex={0}
+                onClick={() => navigate(goToSession(session))}
+                onKeyDown={onActivateKey(() => navigate(goToSession(session)))}
+                className="bg-gray-900 border border-gray-800 rounded-2xl p-4 flex items-center gap-4 active:scale-[0.98] transition cursor-pointer hover:border-gray-700 shadow-sm"
               >
                 {/* Indicador de estado */}
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useId } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { 
   ChevronLeft, 
@@ -6,12 +6,9 @@ import {
   Pause, 
   Save, 
   Clock, 
-  ChevronRight, 
   Timer, 
   Info,
   CheckCircle2,
-  Trash2,
-  AlertCircle,
   Dumbbell,
   RotateCw
 } from 'lucide-react';
@@ -24,7 +21,7 @@ import { VideoEmbed } from '../../components/ui/VideoEmbed';
 import { getById as getSessionById, saveResults, finalize, updateSessionDuration } from '../../db/repositories/trainingSessionRepo';
 import { getById as getTemplateById } from '../../db/repositories/classTemplateRepo';
 import { SessionWithRelations, SessionExerciseResult } from '../../models/TrainingSession';
-import { ClassTemplateWithSections, SectionExercise } from '../../models/ClassTemplate';
+import { ClassTemplateWithSections } from '../../models/ClassTemplate';
 import { RxScaled, GeneralFeeling } from '../../types';
 import { getSectionResults } from '../../utils/sessionSections';
 import { getImageDisplayUrl } from '../../services/mediaService';
@@ -61,6 +58,7 @@ function ExerciseImage({
 }
 
 export function SessionExecutorPage() {
+  const uid = useId();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
@@ -122,7 +120,7 @@ export function SessionExecutorPage() {
       if (sess.status === 'in_progress' || sess.status === 'planned') {
         setIsActive(true);
       }
-    } catch (e) {
+    } catch {
       toast.error('Error al cargar la sesión');
     } finally {
       setLoading(false);
@@ -133,6 +131,17 @@ export function SessionExecutorPage() {
     loadData();
   }, [loadData]);
 
+  // Refs espejo: el efecto del temporizador lee de acá para guardar datos frescos
+  // al pausar sin re-suscribir el intervalo en cada segundo
+  const secondsRef = useRef(seconds);
+  const resultsRef = useRef(results);
+  useEffect(() => {
+    secondsRef.current = seconds;
+  }, [seconds]);
+  useEffect(() => {
+    resultsRef.current = results;
+  }, [results]);
+
   // 2. Lógica del Temporizador y Auto-guardado de Duración
   useEffect(() => {
     if (isActive) {
@@ -142,10 +151,11 @@ export function SessionExecutorPage() {
     } else {
       if (timerRef.current) clearInterval(timerRef.current);
       // Guardar duración parcial en la BD al pausar para no perder tiempo en caso de recarga
-      if (id && seconds > 0) {
-        saveResults(id, results); // Guardar resultados actuales
+      const currentSeconds = secondsRef.current;
+      if (id && currentSeconds > 0) {
+        saveResults(id, resultsRef.current); // Guardar resultados actuales
         // También guardamos la duración en la tabla training_session
-        updateSessionDuration(id, Math.floor(seconds / 60)).catch(console.error);
+        updateSessionDuration(id, Math.floor(currentSeconds / 60)).catch(console.error);
       }
     }
     return () => {
@@ -184,7 +194,7 @@ export function SessionExecutorPage() {
     try {
       await saveResults(id, results);
       toast.success('Progreso guardado');
-    } catch (e) {
+    } catch {
       toast.error('Error al guardar progreso');
     }
   };
@@ -206,7 +216,7 @@ export function SessionExecutorPage() {
       
       toast.success('¡Entrenamiento completado!');
       navigate(`/sesiones/${id}`);
-    } catch (e) {
+    } catch {
       toast.error('Error al finalizar sesión');
     } finally {
       setSaving(false);
@@ -233,7 +243,7 @@ export function SessionExecutorPage() {
       <Header
         title={session.template_name || 'Sesión Libre'}
         leftAction={
-          <button onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+          <button aria-label="Volver" onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <ChevronLeft size={24} />
           </button>
         }
@@ -266,7 +276,7 @@ export function SessionExecutorPage() {
           <div className="flex gap-2">
             <button
               onClick={() => setIsActive(!isActive)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-sm transition-all active:scale-[0.95] ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-sm transition active:scale-[0.95] ${
                 isActive ? 'bg-amber-500/10 text-amber-500 border border-amber-500/30' : 'bg-green-600 text-white'
               }`}
             >
@@ -275,7 +285,7 @@ export function SessionExecutorPage() {
             </button>
             <button
               onClick={() => setShowFinishModal(true)}
-              className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-xl font-bold text-sm transition-all active:scale-[0.95]"
+              className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-xl font-bold text-sm transition active:scale-[0.95]"
             >
               Finalizar
             </button>
@@ -293,7 +303,7 @@ export function SessionExecutorPage() {
                   if (id) await saveResults(id, results);
                   setActiveSectionIdx(idx);
                 }}
-                className={`flex-1 min-w-[120px] px-4 py-2.5 rounded-xl border text-xs font-bold transition-all ${
+                className={`flex-1 min-w-[120px] px-4 py-2.5 rounded-xl border text-xs font-bold transition ${
                   activeSectionIdx === idx
                     ? 'bg-primary-600 border-primary-500 text-white shadow-lg shadow-primary-900/40'
                     : 'bg-gray-900 border-gray-800 text-gray-400'
@@ -404,7 +414,7 @@ export function SessionExecutorPage() {
                       <button
                         key={mode}
                         onClick={() => updateResult(result.id, 'rx_or_scaled', mode)}
-                        className={`px-2 py-1 rounded text-[10px] font-bold uppercase border transition-all ${
+                        className={`px-2 py-1 rounded text-[10px] font-bold uppercase border transition ${
                           result.rx_or_scaled === mode
                             ? 'bg-primary-600 border-primary-500 text-white'
                             : 'bg-gray-800 border-gray-700 text-gray-500'
@@ -459,8 +469,9 @@ export function SessionExecutorPage() {
                   {/* Tiempo (Segundos) */}
                   {(planned?.planned_time_seconds || result.actual_time_seconds) && (
                     <div className="flex flex-col gap-1">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Tiempo (seg)</label>
+                      <label htmlFor={`${uid}-tiempo-seg`} className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Tiempo (seg)</label>
                       <input
+                        id={`${uid}-tiempo-seg`}
                         type="number"
                         placeholder={`${planned?.planned_time_seconds || '0'}`}
                         value={result.actual_time_seconds || ''}
@@ -473,8 +484,9 @@ export function SessionExecutorPage() {
                   {/* Distancia */}
                   {(planned?.planned_distance_value || result.actual_distance_value) && (
                     <div className="flex flex-col gap-1">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Distancia ({planned?.distance_unit_abbreviation || 'm'})</label>
+                      <label htmlFor={`${uid}-distancia`} className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Distancia ({planned?.distance_unit_abbreviation || 'm'})</label>
                       <input
+                        id={`${uid}-distancia`}
                         type="number"
                         placeholder={`${planned?.planned_distance_value || '0'}`}
                         value={result.actual_distance_value || ''}
@@ -486,8 +498,9 @@ export function SessionExecutorPage() {
 
                   {/* Resumen Texto / Resultado Libre */}
                   <div className="col-span-2 flex flex-col gap-1">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Detalle del resultado (ej: 5+15)</label>
+                    <label htmlFor={`${uid}-detalle-del-resultado-ej-5-15`} className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Detalle del resultado (ej: 5+15)</label>
                     <input
+                      id={`${uid}-detalle-del-resultado-ej-5-15`}
                       type="text"
                       placeholder="Anota rondas extras, desgloses, etc..."
                       value={result.result_text || ''}
@@ -544,7 +557,7 @@ export function SessionExecutorPage() {
                   <button
                     key={f}
                     onClick={() => setFeeling(f)}
-                    className={`flex-1 py-3 rounded-xl border text-xl transition-all ${
+                    className={`flex-1 py-3 rounded-xl border text-xl transition ${
                       feeling === f ? 'bg-primary-500/20 border-primary-500 active:scale-110' : 'bg-gray-900 border-gray-800 opacity-40 hover:opacity-100'
                     }`}
                   >
@@ -581,8 +594,9 @@ export function SessionExecutorPage() {
 
             {/* Notas finales */}
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Notas de la sesión</label>
+              <label htmlFor={`${uid}-notas-de-la-sesion`} className="block text-xs font-bold text-gray-500 uppercase mb-2">Notas de la sesión</label>
               <textarea
+                id={`${uid}-notas-de-la-sesion`}
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="¿Algo para recordar de hoy? (ej: 'Sentí molestias en el hombro', 'Me costó mucho el cardio')"

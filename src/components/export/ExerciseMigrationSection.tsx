@@ -167,7 +167,7 @@ export function ExerciseMigrationSection() {
           <button
             onClick={() => setConfirmOpen(true)}
             disabled={!source || !target || busy}
-            className="w-full flex items-center justify-center gap-2 py-3 mt-1 bg-primary-600 hover:bg-primary-700 disabled:bg-gray-800 disabled:text-gray-600 text-white rounded-xl text-sm font-bold transition-all active:scale-[0.98]"
+            className="w-full flex items-center justify-center gap-2 py-3 mt-1 bg-primary-600 hover:bg-primary-700 disabled:bg-gray-800 disabled:text-gray-600 text-white rounded-xl text-sm font-bold transition active:scale-[0.98]"
           >
             {busy ? <Loader2 size={16} className="animate-spin" /> : <GitMerge size={16} />}
             Fusionar ejercicios
@@ -184,12 +184,14 @@ export function ExerciseMigrationSection() {
         <div className="space-y-3">
           <div className="relative">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-            <input
+            <input aria-label="Buscar ejercicio"
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Buscar ejercicio..."
               className="w-full bg-gray-800 text-white placeholder-gray-500 rounded-xl pl-9 pr-4 py-2.5 text-sm border border-gray-700 focus:outline-none focus:border-primary-500"
+              // El modal acaba de abrirse: el foco pertenece al campo de busqueda
+              // react-doctor-disable-next-line react-doctor/no-autofocus
               autoFocus
             />
           </div>

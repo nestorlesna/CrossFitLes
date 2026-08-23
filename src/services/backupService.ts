@@ -3,7 +3,7 @@
 
 import { Capacitor } from '@capacitor/core';
 import JSZip from 'jszip';
-import { openDatabase, getDatabase } from '../db/database';
+import { openDatabase } from '../db/database';
 import { APP_VERSION } from '../utils/constants';
 
 // Orden de tablas respetando dependencias (padres primero)
@@ -29,6 +29,8 @@ const TABLE_ORDER = [
   'training_session',
   'session_exercise_result',
   'personal_record',
+  'training_plan',
+  'plan_day',
 ] as const;
 
 // Estructura del JSON interno del ZIP
@@ -350,6 +352,16 @@ export async function importDataFromZip(zipFile: Blob): Promise<{ totalRecords: 
 
   // 3. Importar Base de Datos
   const deleteOrder = [...TABLE_ORDER].reverse();
+
+  // Columnas reales de cada tabla en ESTE dispositivo: permite importar backups
+  // de versiones distintas ignorando columnas que acá no existen.
+  const columnsByTable = new Map<string, Set<string>>();
+  for (const table of TABLE_ORDER) {
+    const info = await db.query(`PRAGMA table_info(${table})`);
+    const cols = (info.values ?? []) as { name: string }[];
+    columnsByTable.set(table, new Set(cols.map((c) => c.name)));
+  }
+
   await db.execute('PRAGMA foreign_keys = OFF;');
 
   try {
@@ -361,11 +373,18 @@ export async function importDataFromZip(zipFile: Blob): Promise<{ totalRecords: 
     // Insertar datos nuevos en lotes para mayor eficiencia
     const BATCH_SIZE = 1000;
     const { saveDatabase } = await import('../db/database');
-    const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
     for (const table of TABLE_ORDER) {
       const rows = backup.data[table];
       if (!rows || rows.length === 0) continue;
+
+      const validColumns = columnsByTable.get(table) ?? new Set<string>();
+      const ignored = Object.keys(rows[0]).filter((k) => !validColumns.has(k));
+      if (ignored.length > 0) {
+        console.warn(
+          `[Backup] La tabla ${table} del backup trae columnas que no existen acá y se ignoran: ${ignored.join(', ')}`
+        );
+      }
 
       console.log(`[Backup] Importando ${rows.length} registros en tabla: ${table}...`);
       
@@ -374,8 +393,10 @@ export async function importDataFromZip(zipFile: Blob): Promise<{ totalRecords: 
         const stmts: { statement: string; values: unknown[] }[] = [];
 
         for (const row of batch) {
-          const keys = Object.keys(row);
-          const values = Object.values(row);
+          // Solo columnas que existen en el esquema actual
+          const keys = Object.keys(row).filter((k) => validColumns.has(k));
+          if (keys.length === 0) continue;
+          const values = keys.map((k) => row[k]);
           const placeholders = keys.map(() => '?').join(', ');
           
           stmts.push({
@@ -383,6 +404,8 @@ export async function importDataFromZip(zipFile: Blob): Promise<{ totalRecords: 
             values: values as (string | number | null)[]
           });
         }
+
+        if (stmts.length === 0) continue;
 
         try {
           await db.executeSet(stmts, true);

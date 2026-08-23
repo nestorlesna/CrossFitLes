@@ -26,7 +26,7 @@ export function CollapsibleSection({ title, children, defaultOpen = false }: Col
         </h2>
       </button>
       <div
-        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+        className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out ${
           isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
         }`}
       >

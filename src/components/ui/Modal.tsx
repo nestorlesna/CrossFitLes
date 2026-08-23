@@ -47,7 +47,7 @@ export function Modal({ isOpen, onClose, title, children, footer, size = 'lg' }:
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-800 shrink-0">
           <h2 className="text-white font-semibold text-base">{title}</h2>
-          <button
+          <button aria-label="Cerrar"
             onClick={onClose}
             className="text-gray-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-gray-800"
           >

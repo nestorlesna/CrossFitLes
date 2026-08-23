@@ -32,9 +32,15 @@ export function InactiveClassesPage() {
 
   async function loadData() {
     setLoading(true);
-    const data = await getInactiveClasses();
-    setClasses(data);
-    setLoading(false);
+    try {
+      const data = await getInactiveClasses();
+      setClasses(data);
+    } catch (e) {
+      console.error('[InactiveClasses] Error al cargar:', e);
+      toast.error('Error al cargar las clases inactivas');
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleDeleteRequest(classId: string) {
@@ -76,7 +82,7 @@ export function InactiveClassesPage() {
       <Header
         title="Clases inactivas"
         leftAction={
-          <button onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+          <button aria-label="Volver" onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <ChevronLeft size={24} />
           </button>
         }

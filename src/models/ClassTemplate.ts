@@ -15,6 +15,8 @@ export interface ClassTemplate {
   video_duration_seconds?: number
   is_favorite: number    // 0 | 1
   template_type: TemplateType  // 'my_classes' | 'generic'
+  /** 1 = plantilla privada de un día de plan: no se lista en Clases */
+  is_plan_day?: number
   is_active: number      // 0 | 1
   created_at: string
   updated_at: string

@@ -58,6 +58,11 @@ Cada entidad principal tiene su propio repo:
 - `exerciseRepo.ts` — ejercicios con relaciones M2M (grupos musculares, equipamiento, tags, etc.).
 - `classTemplateRepo.ts` — plantillas con secciones (`class_section`) y ejercicios de sección (`section_exercise`); usa transacciones para escrituras.
 - `trainingSessionRepo.ts` — sesiones de entrenamiento (`training_session`) y resultados (`session_exercise_result`, `personal_record`).
+- `trainingPlanRepo.ts` — planes (`training_plan`) y sus días (`plan_day`). Un día apunta a una
+  `class_template`: puede ser una clase existente o una plantilla privada del día
+  (`is_plan_day = 1`, no se lista en Clases) armada con ejercicios sueltos. Al ejecutar un día se
+  reutiliza `createFromTemplate()` y, al finalizar la sesión, `finalize()` marca el día como
+  completado vía `completeDayBySession()`.
 
 ### Modelos clave
 - `TrainingSession` / `SessionWithRelations` / `SessionExerciseResult` — en `src/models/TrainingSession.ts`.
@@ -111,3 +116,4 @@ idiomas). Los **datos** son MIT; los **medios (imágenes/GIF) son © Gym visual*
 - Fase 2 (Gestión de Ejercicios): COMPLETADA (2026-03-10)
 - Fase 3 (Plantillas de Clases): COMPLETADA (2026-03-10)
 - Fase 4 (Sesiones y Récords): COMPLETADA (2026-03-15)
+- Fase 5 (Planes de entrenamiento con calendario): COMPLETADA (2026-08-23)

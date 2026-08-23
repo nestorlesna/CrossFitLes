@@ -1,5 +1,5 @@
 // Sesión libre: sin plantilla, el usuario agrega ejercicios en tiempo real con temporizador
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useId } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ChevronLeft, Play, Pause, Save, Timer, Info,
@@ -21,7 +21,6 @@ import {
   finalize,
   updateSessionDuration,
   getById as getSessionById,
-  softDelete,
 } from '../../db/repositories/trainingSessionRepo';
 import { getDatabase } from '../../db/database';
 import { getImageDisplayUrl } from '../../services/mediaService';
@@ -93,6 +92,7 @@ function ResultCard({
   onInfo: () => void;
   onVideo: () => void;
 }) {
+  const uid = useId();
   const inputCls = 'w-full bg-gray-950 border border-gray-800 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-primary-500';
   const labelCls = 'text-[10px] font-bold text-gray-500 uppercase tracking-widest';
 
@@ -107,11 +107,11 @@ function ResultCard({
               className="flex-1 text-left text-white font-bold text-base truncate hover:text-primary-400 transition-colors">
               {result.exercise_name}
             </button>
-            <button onClick={onInfo} className="p-1 text-gray-600 hover:text-gray-300 transition-colors shrink-0">
+            <button aria-label="Ver informacion" onClick={onInfo} className="p-1 text-gray-600 hover:text-gray-300 transition-colors shrink-0">
               <Info size={13} />
             </button>
             {result.exercise_video_url && (
-              <button onClick={onVideo}
+              <button aria-label="Reproducir" onClick={onVideo}
                 className="p-1.5 rounded-full bg-primary-500/20 text-primary-500 hover:bg-primary-500 hover:text-white transition-colors shrink-0">
                 <Play size={10} fill="currentColor" />
               </button>
@@ -121,13 +121,13 @@ function ResultCard({
           <div className="flex gap-1">
             {(['rx', 'rx+', 'scaled'] as const).map(v => (
               <button key={v} onClick={() => onUpdate('rx_or_scaled', v)}
-                className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase border transition-all ${result.rx_or_scaled === v ? 'bg-primary-600 border-primary-500 text-white' : 'bg-gray-800 border-gray-700 text-gray-500'}`}>
+                className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase border transition ${result.rx_or_scaled === v ? 'bg-primary-600 border-primary-500 text-white' : 'bg-gray-800 border-gray-700 text-gray-500'}`}>
                 {v === 'rx+' ? 'RX+' : v === 'rx' ? 'RX' : 'Scaled'}
               </button>
             ))}
           </div>
         </div>
-        <button onClick={onDelete}
+        <button aria-label="Eliminar" onClick={onDelete}
           className="p-1.5 text-gray-700 hover:text-red-400 transition-colors shrink-0 mt-0.5">
           <Trash2 size={16} />
         </button>
@@ -136,15 +136,17 @@ function ResultCard({
       {/* Campos */}
       <div className="p-4 grid grid-cols-2 gap-x-4 gap-y-3">
         <div className="flex flex-col gap-1">
-          <label className={labelCls}>Reps</label>
-          <input type="number" inputMode="numeric" min="0" placeholder="—"
+          <label htmlFor={`${uid}-reps`} className={labelCls}>Reps</label>
+          <input
+            id={`${uid}-reps`} type="number" inputMode="numeric" min="0" placeholder="—"
             value={result.actual_repetitions ?? ''}
             onChange={e => onUpdate('actual_repetitions', e.target.value ? Number(e.target.value) : null)}
             className={inputCls} />
         </div>
         <div className="flex flex-col gap-1">
-          <label className={labelCls}>Rondas</label>
-          <input type="number" inputMode="numeric" min="0" placeholder="—"
+          <label htmlFor={`${uid}-rondas`} className={labelCls}>Rondas</label>
+          <input
+            id={`${uid}-rondas`} type="number" inputMode="numeric" min="0" placeholder="—"
             value={result.actual_rounds ?? ''}
             onChange={e => onUpdate('actual_rounds', e.target.value ? Number(e.target.value) : null)}
             className={inputCls} />
@@ -169,8 +171,9 @@ function ResultCard({
         </div>
         {/* Tiempo */}
         <div className="flex flex-col gap-1">
-          <label className={labelCls}>Tiempo (seg)</label>
-          <input type="number" inputMode="numeric" min="0" placeholder="—"
+          <label htmlFor={`${uid}-tiempo-seg`} className={labelCls}>Tiempo (seg)</label>
+          <input
+            id={`${uid}-tiempo-seg`} type="number" inputMode="numeric" min="0" placeholder="—"
             value={result.actual_time_seconds ?? ''}
             onChange={e => onUpdate('actual_time_seconds', e.target.value ? Number(e.target.value) : null)}
             className={inputCls} />
@@ -195,24 +198,27 @@ function ResultCard({
         </div>
         {/* Calorías */}
         <div className="flex flex-col gap-1">
-          <label className={labelCls}>Calorías</label>
-          <input type="number" inputMode="numeric" min="0" placeholder="—"
+          <label htmlFor={`${uid}-calorias`} className={labelCls}>Calorías</label>
+          <input
+            id={`${uid}-calorias`} type="number" inputMode="numeric" min="0" placeholder="—"
             value={result.actual_calories ?? ''}
             onChange={e => onUpdate('actual_calories', e.target.value ? Number(e.target.value) : null)}
             className={inputCls} />
         </div>
         {/* Resultado libre - span 2 cols */}
         <div className="col-span-2 flex flex-col gap-1">
-          <label className={labelCls}>Resultado (texto libre)</label>
-          <input type="text" placeholder="Ej: 5 rondas + 10 reps"
+          <label htmlFor={`${uid}-resultado-texto-libre`} className={labelCls}>Resultado (texto libre)</label>
+          <input
+            id={`${uid}-resultado-texto-libre`} type="text" placeholder="Ej: 5 rondas + 10 reps"
             value={result.result_text ?? ''}
             onChange={e => onUpdate('result_text', e.target.value)}
             className={inputCls} />
         </div>
         {/* Notas */}
         <div className="col-span-2 flex flex-col gap-1">
-          <label className={labelCls}>Notas</label>
-          <input type="text" placeholder="Observaciones..."
+          <label htmlFor={`${uid}-notas`} className={labelCls}>Notas</label>
+          <input
+            id={`${uid}-notas`} type="text" placeholder="Observaciones..."
             value={result.notes ?? ''}
             onChange={e => onUpdate('notes', e.target.value)}
             className={inputCls} />
@@ -238,6 +244,7 @@ const FEELINGS: { value: GeneralFeeling; emoji: string }[] = [
 ];
 
 export function FreeSessionPage() {
+  const uid = useId();
   const navigate = useNavigate();
   const todayStr = new Date().toISOString().split('T')[0];
 
@@ -293,7 +300,16 @@ export function FreeSessionPage() {
       }
     }
     init();
+    // Solo debe correr una vez al montar: el guard initDone lo garantiza y
+    // sessionDate es el valor inicial de la sesion
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Ref espejo: el efecto lee de acá para no re-suscribir el intervalo cada segundo
+  const secondsRef = useRef(seconds);
+  useEffect(() => {
+    secondsRef.current = seconds;
+  }, [seconds]);
 
   // ── Timer ──
   useEffect(() => {
@@ -301,8 +317,9 @@ export function FreeSessionPage() {
       timerRef.current = setInterval(() => setSeconds(s => s + 1), 1000);
     } else {
       if (timerRef.current) clearInterval(timerRef.current);
-      if (sessionId && seconds > 0) {
-        updateSessionDuration(sessionId, Math.floor(seconds / 60)).catch(console.error);
+      const currentSeconds = secondsRef.current;
+      if (sessionId && currentSeconds > 0) {
+        updateSessionDuration(sessionId, Math.floor(currentSeconds / 60)).catch(console.error);
       }
     }
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
@@ -346,7 +363,7 @@ export function FreeSessionPage() {
     }
     try {
       const sortOrder = results.length + 1;
-      const resultId = await addExerciseToSession(sessionId, exercise.id, sortOrder);
+      await addExerciseToSession(sessionId, exercise.id, sortOrder);
       // Recargar el result con los campos enriquecidos (nombre, imagen, video)
       const updated = await getSessionById(sessionId);
       if (updated) setResults(updated.results);
@@ -394,12 +411,10 @@ export function FreeSessionPage() {
         feeling, effort, notes,
       });
       toast.success('¡Entrenamiento completado!');
-      const idToNavigate = sessionId;
-      setShowFinishModal(false);
-      setSaving(false);
-      navigate(`/sesiones/${idToNavigate}`);
+      navigate(`/sesiones/${sessionId}`);
     } catch (e: any) {
       toast.error(`Error al finalizar: ${e?.message ?? e}`);
+    } finally {
       setSaving(false);
       setShowFinishModal(false);
     }
@@ -414,12 +429,12 @@ export function FreeSessionPage() {
       <Header
         title="Sesión Libre"
         leftAction={
-          <button onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+          <button aria-label="Volver" onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <ChevronLeft size={24} />
           </button>
         }
         rightAction={
-          <button onClick={handleSavePartial}
+          <button aria-label="Guardar" onClick={handleSavePartial}
             className="text-primary-500 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <Save size={20} />
           </button>
@@ -440,7 +455,7 @@ export function FreeSessionPage() {
           </div>
           <div className="flex gap-2">
             <button onClick={() => setIsActive(!isActive)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-sm transition-all active:scale-[0.95] ${isActive ? 'bg-amber-500/10 text-amber-500 border border-amber-500/30' : 'bg-green-600 text-white'}`}>
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-sm transition active:scale-[0.95] ${isActive ? 'bg-amber-500/10 text-amber-500 border border-amber-500/30' : 'bg-green-600 text-white'}`}>
               {isActive ? <Pause size={18} /> : <Play size={18} fill="currentColor" />}
               {isActive ? 'Pausar' : 'Reanudar'}
             </button>
@@ -488,16 +503,18 @@ export function FreeSessionPage() {
         <div className="flex flex-col gap-3">
           <div className="relative">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
-            <input
+            <input aria-label="Buscar ejercicio"
               type="text"
               placeholder="Buscar ejercicio..."
               value={exerciseSearch}
               onChange={e => setExerciseSearch(e.target.value)}
+              // El modal acaba de abrirse: el foco pertenece al campo de busqueda
+              // react-doctor-disable-next-line react-doctor/no-autofocus
               autoFocus
               className="w-full bg-gray-800 border border-gray-700 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-primary-500"
             />
             {exerciseSearch && (
-              <button onClick={() => setExerciseSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+              <button aria-label="Cerrar" onClick={() => setExerciseSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
                 <X size={14} />
               </button>
             )}
@@ -585,7 +602,7 @@ export function FreeSessionPage() {
             <div className="flex justify-between gap-2">
               {FEELINGS.map(f => (
                 <button key={f.value} onClick={() => setFeeling(f.value)}
-                  className={`flex-1 py-3 rounded-xl border text-xl transition-all ${feeling === f.value ? 'bg-primary-500/20 border-primary-500 scale-110' : 'bg-gray-900 border-gray-800 opacity-40 hover:opacity-100'}`}>
+                  className={`flex-1 py-3 rounded-xl border text-xl transition ${feeling === f.value ? 'bg-primary-500/20 border-primary-500 scale-110' : 'bg-gray-900 border-gray-800 opacity-40 hover:opacity-100'}`}>
                   {f.emoji}
                 </button>
               ))}
@@ -608,8 +625,9 @@ export function FreeSessionPage() {
 
           {/* Notas */}
           <div>
-            <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Notas finales</label>
-            <textarea value={notes} onChange={e => setNotes(e.target.value)}
+            <label htmlFor={`${uid}-notas-finales`} className="block text-xs font-bold text-gray-500 uppercase mb-2">Notas finales</label>
+            <textarea
+              id={`${uid}-notas-finales`} value={notes} onChange={e => setNotes(e.target.value)}
               placeholder="¿Algo destacable del entrenamiento?"
               rows={3}
               className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 resize-none" />

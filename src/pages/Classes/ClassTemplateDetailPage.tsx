@@ -194,7 +194,7 @@ export function ClassTemplateDetailPage() {
         <Header
           title="Clase"
           leftAction={
-            <button
+            <button aria-label="Volver"
               onClick={() => navigate('/clases')}
               className="text-gray-400 hover:text-white p-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
             >

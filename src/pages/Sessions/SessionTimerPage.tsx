@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, useId } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   ChevronLeft,
@@ -72,6 +72,7 @@ function ProgressRing({ progress, className }: { progress: number; className: st
 }
 
 export function SessionTimerPage() {
+  const uid = useId();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
@@ -114,9 +115,12 @@ export function SessionTimerPage() {
   useEffect(() => {
     if (!id) return;
 
+    let cancelled = false;
+
     async function load() {
       try {
         const [sess, cfg] = await Promise.all([getSessionById(id!), getTimerConfig()]);
+        if (cancelled) return;
 
         if (!sess) {
           toast.error('Sesión no encontrada');
@@ -130,6 +134,7 @@ export function SessionTimerPage() {
         }
 
         const templ = await getTemplateById(sess.class_template_id);
+        if (cancelled) return;
         if (templ?.video_url) {
           // La clase se ejecuta mirando el video, no con el cronómetro paso a paso
           navigate(`/sesiones/${id}/video`, { replace: true });
@@ -146,13 +151,17 @@ export function SessionTimerPage() {
         setConfig(cfg);
         configureAudio({ sound: Boolean(cfg.sound_enabled), vibration: Boolean(cfg.vibration_enabled) });
       } catch {
-        toast.error('Error al cargar la clase');
+        if (!cancelled) toast.error('Error al cargar la clase');
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     }
 
     load();
+
+    return () => {
+      cancelled = true;
+    };
   }, [id, navigate]);
 
   // ── Mantener la pantalla encendida mientras el cronómetro corre ───────────
@@ -250,7 +259,7 @@ export function SessionTimerPage() {
     return (
       <div className="fixed inset-0 bg-gray-950 flex flex-col z-50">
         <div className="p-4">
-          <button
+          <button aria-label="Volver"
             onClick={() => navigate(-1)}
             className="text-gray-400 min-h-[44px] min-w-[44px] flex items-center justify-center"
           >
@@ -337,7 +346,7 @@ export function SessionTimerPage() {
 
       <div className="h-1 bg-gray-900 shrink-0">
         <div
-          className="h-full bg-primary-500 transition-all duration-300"
+          className="h-full bg-primary-500 transition-[width] duration-300"
           style={{ width: `${totalSteps > 0 ? (stepIndex / totalSteps) * 100 : 0}%` }}
         />
       </div>
@@ -601,7 +610,7 @@ export function SessionTimerPage() {
                 <button
                   key={f}
                   onClick={() => setFeeling(f)}
-                  className={`flex-1 py-3 rounded-xl border text-xl transition-all ${
+                  className={`flex-1 py-3 rounded-xl border text-xl transition ${
                     feeling === f
                       ? 'bg-primary-500/20 border-primary-500'
                       : 'bg-gray-900 border-gray-800 opacity-40'
@@ -634,8 +643,9 @@ export function SessionTimerPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Notas</label>
+            <label htmlFor={`${uid}-notas`} className="block text-xs font-bold text-gray-500 uppercase mb-2">Notas</label>
             <textarea
+              id={`${uid}-notas`}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="¿Algo para recordar de hoy?"

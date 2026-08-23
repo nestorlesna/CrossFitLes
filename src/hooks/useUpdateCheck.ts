@@ -26,6 +26,16 @@ export function useUpdateCheck() {
   const [progress, setProgress] = useState(0);
   const [installError, setInstallError] = useState(false);
   const checked = useRef(false);
+  // Handle del listener de progreso: se guarda para poder removerlo si el
+  // componente se desmonta con una descarga en curso
+  const progressHandleRef = useRef<{ remove: () => Promise<void> } | null>(null);
+
+  useEffect(() => {
+    return () => {
+      progressHandleRef.current?.remove().catch(() => {});
+      progressHandleRef.current = null;
+    };
+  }, []);
 
   useEffect(() => {
     // Solo en Android nativo y una única vez por sesión
@@ -66,13 +76,13 @@ export function useUpdateCheck() {
       fileOpener = mod.FileOpener;
     } catch {
       // Plugin no instalado — abrir URL en browser externo como fallback
-      window.open(updateInfo.downloadUrl, '_system');
+      window.open(updateInfo.downloadUrl, '_system', 'noopener,noreferrer');
       setUpdateInfo(null);
       return;
     }
 
     if (!fileOpener) {
-      window.open(updateInfo.downloadUrl, '_system');
+      window.open(updateInfo.downloadUrl, '_system', 'noopener,noreferrer');
       setUpdateInfo(null);
       return;
     }
@@ -82,11 +92,15 @@ export function useUpdateCheck() {
 
     // Suscribir listener de progreso antes de iniciar la descarga
     const downloadUrl = updateInfo.downloadUrl;
+    // El listener no vive en un efecto: se crea en este handler y se remueve siempre
+    // en el finally de abajo, mas el efecto de desmontaje que limpia progressHandleRef.
+    // react-doctor-disable-next-line react-doctor/effect-needs-cleanup
     const handle = await Filesystem.addListener('progress', ({ url, bytes, contentLength }) => {
       if (url === downloadUrl && contentLength > 0) {
         setProgress(Math.round((bytes / contentLength) * 100));
       }
     });
+    progressHandleRef.current = handle;
 
     try {
       const result = await Filesystem.downloadFile({
@@ -97,8 +111,6 @@ export function useUpdateCheck() {
         progress: true,
       });
 
-      await handle.remove();
-
       if (!result.path) throw new Error('No se obtuvo la ruta del archivo descargado');
 
       await fileOpener.open({
@@ -106,11 +118,13 @@ export function useUpdateCheck() {
         contentType: 'application/vnd.android.package-archive',
       });
     } catch {
-      await handle.remove();
       // Fallback: abrir URL directamente en el browser externo
       setInstallError(true);
-      window.open(downloadUrl, '_system');
+      window.open(downloadUrl, '_system', 'noopener,noreferrer');
     } finally {
+      // El listener se remueve siempre, tanto en exito como en error
+      await handle.remove();
+      progressHandleRef.current = null;
       setDownloading(false);
     }
   };

@@ -28,29 +28,6 @@ export function clearSeedFlags(): void {
   localStorage.removeItem('seed_v4_goat_apr1_done');
 }
 
-// Inserta un registro de catálogo con manejo de errores individual
-async function insertRecord(
-  db: SQLiteDBConnection,
-  table: string,
-  data: Record<string, unknown>
-): Promise<void> {
-  try {
-    const id = generateUUID();
-    const fields = { id, ...data };
-    const keys = Object.keys(fields);
-    const values = Object.values(fields);
-    const placeholders = keys.map(() => '?').join(', ');
-
-    await db.run(
-      `INSERT OR IGNORE INTO ${table} (${keys.join(', ')}) VALUES (${placeholders})`,
-      values
-    );
-  } catch (err) {
-    // Si falla un registro, loguear y continuar sin abortar el seed
-    console.warn(`[Seed] Error al insertar en ${table}:`, data, err);
-  }
-}
-
 // Busca el ID de un registro en una tabla por nombre
 async function findIdByName(db: SQLiteDBConnection, table: string, name: string): Promise<string | null> {
   const result = await db.query(`SELECT id FROM ${table} WHERE name = ?`, [name]);
@@ -81,7 +58,7 @@ export async function runSeed(db: SQLiteDBConnection): Promise<void> {
       
       const exCheck = await db.query('SELECT count(*) as count FROM exercise');
       exerciseEmpty = (exCheck.values?.[0]?.count ?? 0) === 0;
-    } catch (e) {
+    } catch {
       // Ignorar si las tablas no existen todavía
     }
 
@@ -642,7 +619,6 @@ async function seedTemplates(db: SQLiteDBConnection): Promise<void> {
 
     const warmupType = await findIdByName(db, 'section_type', 'Entrada en calor');
     const wodType = await findIdByName(db, 'section_type', 'WOD');
-    const amrapFormat = await findIdByName(db, 'work_format', 'AMRAP');
     const forTimeFormat = await findIdByName(db, 'work_format', 'For Time');
     const kgUnit = await findIdByName(db, 'measurement_unit', 'Kilogramos');
     
@@ -1187,7 +1163,9 @@ export async function resetDatabase(db: SQLiteDBConnection): Promise<void> {
     // Vaciar sequence por si acaso (sin VACUUM para evitar errores de transaccion)
     try {
       await db.execute('DELETE FROM sqlite_sequence;');
-    } catch {}
+    } catch {
+      // La tabla sqlite_sequence no existe si nunca hubo AUTOINCREMENT
+    }
 
     // Reactivar FKs e invalidar versión de migraciones
     await db.execute('PRAGMA foreign_keys = ON;');
@@ -1198,7 +1176,9 @@ export async function resetDatabase(db: SQLiteDBConnection): Promise<void> {
       const { saveDatabase } = await import('../db/database');
       await saveDatabase();
       console.log('[Seed] Estado de base de datos vacía persistido en disco.');
-    } catch {}
+    } catch {
+      // Persistir en disco es best-effort: en web puede no haber IndexedDB
+    }
     
     console.log('[Seed] Todas las tablas han sido borradas definitivamente.');
   } catch (err) {

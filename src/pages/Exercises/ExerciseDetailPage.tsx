@@ -150,7 +150,7 @@ export function ExerciseDetailPage() {
       // Cargar clases que usan este ejercicio
       const classes = await getClassesUsingExercise(id);
       setClassesUsing(classes);
-    } catch (e) {
+    } catch {
       toast.error('Error al cargar el ejercicio');
     } finally {
       setLoading(false);
@@ -169,7 +169,7 @@ export function ExerciseDetailPage() {
       await softDelete(id);
       toast.success('Ejercicio eliminado');
       navigate('/ejercicios');
-    } catch (e) {
+    } catch {
       toast.error('Error al eliminar el ejercicio');
       setDeleting(false);
       setShowDeleteModal(false);
@@ -215,7 +215,7 @@ export function ExerciseDetailPage() {
         <Header
           title="Ejercicio"
           leftAction={
-            <button onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+            <button aria-label="Volver" onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
               <ChevronLeft size={24} />
             </button>
           }

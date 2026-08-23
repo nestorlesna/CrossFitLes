@@ -1,5 +1,5 @@
 // Formulario de creación y edición de plantillas de clase con secciones y ejercicios
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useId } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   ChevronLeft,
@@ -130,6 +130,7 @@ function clockToSeconds(value: string): number | undefined {
 }
 
 export function ClassTemplateFormPage() {
+  const uid = useId();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const isEditing = Boolean(id);
@@ -235,19 +236,24 @@ export function ClassTemplateFormPage() {
   }, [id, navigate]);
 
   useEffect(() => {
+    let cancelled = false;
     const init = async () => {
       setLoadingData(true);
       try {
         await loadCatalogs();
         if (isEditing) await loadTemplate();
       } catch (err) {
-        toast.error('Error al cargar datos');
+        if (!cancelled) toast.error('Error al cargar datos');
         console.error(err);
       } finally {
-        setLoadingData(false);
+        if (!cancelled) setLoadingData(false);
       }
     };
     init();
+
+    return () => {
+      cancelled = true;
+    };
   }, [loadCatalogs, loadTemplate, isEditing]);
 
   // Abre el modal de selección de ejercicio para una sección
@@ -257,7 +263,7 @@ export function ClassTemplateFormPage() {
     if (allExercises.length === 0) {
       const exercises = await exerciseRepo.getAll();
       // Ordenar: primero los que tienen usage_count > 0, luego por nombre
-      // @ts-ignore (usage_count viene de la DB aunque no esté en el modelo base)
+      // usage_count viene de la DB aunque no esté en el modelo base
       const sorted = [...exercises].sort((a: any, b: any) => {
         const usageA = a.usage_count || 0;
         const usageB = b.usage_count || 0;
@@ -541,10 +547,11 @@ export function ClassTemplateFormPage() {
 
           {/* Nombre */}
           <div>
-            <label className="block text-sm text-gray-300 mb-1.5">
+            <label htmlFor={`${uid}-nombre`} className="block text-sm text-gray-300 mb-1.5">
               Nombre <span className="text-primary-500">*</span>
             </label>
             <input
+              id={`${uid}-nombre`}
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -555,8 +562,9 @@ export function ClassTemplateFormPage() {
 
           {/* Fecha */}
           <div>
-            <label className="block text-sm text-gray-300 mb-1.5">Fecha</label>
+            <label htmlFor={`${uid}-fecha`} className="block text-sm text-gray-300 mb-1.5">Fecha</label>
             <input
+              id={`${uid}-fecha`}
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
@@ -566,8 +574,9 @@ export function ClassTemplateFormPage() {
 
           {/* Objetivo */}
           <div>
-            <label className="block text-sm text-gray-300 mb-1.5">Objetivo</label>
+            <label htmlFor={`${uid}-objetivo`} className="block text-sm text-gray-300 mb-1.5">Objetivo</label>
             <input
+              id={`${uid}-objetivo`}
               type="text"
               value={objective}
               onChange={(e) => setObjective(e.target.value)}
@@ -578,8 +587,9 @@ export function ClassTemplateFormPage() {
 
           {/* Observaciones */}
           <div>
-            <label className="block text-sm text-gray-300 mb-1.5">Observaciones</label>
+            <label htmlFor={`${uid}-observaciones`} className="block text-sm text-gray-300 mb-1.5">Observaciones</label>
             <textarea
+              id={`${uid}-observaciones`}
               value={generalNotes}
               onChange={(e) => setGeneralNotes(e.target.value)}
               placeholder="Notas generales de la clase..."
@@ -590,8 +600,9 @@ export function ClassTemplateFormPage() {
 
           {/* Duración estimada */}
           <div>
-            <label className="block text-sm text-gray-300 mb-1.5">Duración estimada (min)</label>
+            <label htmlFor={`${uid}-duracion-estimada-min`} className="block text-sm text-gray-300 mb-1.5">Duración estimada (min)</label>
             <input
+              id={`${uid}-duracion-estimada-min`}
               type="number"
               value={estimatedDuration}
               onChange={(e) => setEstimatedDuration(e.target.value)}
@@ -612,7 +623,7 @@ export function ClassTemplateFormPage() {
               se muestra solo el video a pantalla completa y al terminar se cierra la sesión igual que la clase guiada.
               Los ejercicios cargados abajo se registran igual (calorías, PRs, etc.).
             </p>
-            <input
+            <input aria-label="URL del video de la clase"
               type="url"
               value={videoUrl}
               onChange={(e) => setVideoUrl(e.target.value)}
@@ -638,8 +649,9 @@ export function ClassTemplateFormPage() {
                 {showVideoPreview && <VideoEmbed url={videoUrl} autoplay={false} />}
 
                 <div>
-                  <label className="block text-sm text-gray-300 mb-1.5">Duración del video (mm:ss)</label>
+                  <label htmlFor={`${uid}-duracion-del-video-mm-ss`} className="block text-sm text-gray-300 mb-1.5">Duración del video (mm:ss)</label>
                   <input
+                    id={`${uid}-duracion-del-video-mm-ss`}
                     type="text"
                     value={videoDuration}
                     onChange={(e) => setVideoDuration(e.target.value)}
@@ -691,7 +703,7 @@ export function ClassTemplateFormPage() {
                     <span className="text-xs text-gray-500 block leading-tight">
                       {getSectionTypeName(section.section_type_id)}
                     </span>
-                    <input
+                    <input aria-label="Título visible (opcional)"
                       type="text"
                       value={section.visible_title ?? ''}
                       onChange={(e) =>
@@ -743,8 +755,9 @@ export function ClassTemplateFormPage() {
                   <div className="border-t border-gray-800 px-4 py-4 space-y-4">
                     {/* Tipo de sección */}
                     <div>
-                      <label className="block text-xs text-gray-400 mb-1.5">Tipo de sección</label>
+                      <label htmlFor={`${section.tempId}-tipo-de-seccion`} className="block text-xs text-gray-400 mb-1.5">Tipo de sección</label>
                       <select
+                        id={`${section.tempId}-tipo-de-seccion`}
                         value={section.section_type_id}
                         onChange={(e) => updateSection(section.tempId, { section_type_id: e.target.value })}
                         className="w-full bg-gray-800 text-white rounded-xl px-4 py-3 text-sm border border-gray-700 focus:outline-none focus:border-primary-500"
@@ -759,8 +772,9 @@ export function ClassTemplateFormPage() {
 
                     {/* Formato de trabajo */}
                     <div>
-                      <label className="block text-xs text-gray-400 mb-1.5">Formato de trabajo</label>
+                      <label htmlFor={`${section.tempId}-formato-de-trabajo`} className="block text-xs text-gray-400 mb-1.5">Formato de trabajo</label>
                       <select
+                        id={`${section.tempId}-formato-de-trabajo`}
                         value={section.work_format_id ?? ''}
                         onChange={(e) =>
                           updateSection(section.tempId, {
@@ -780,8 +794,9 @@ export function ClassTemplateFormPage() {
 
                     {/* Descripción general */}
                     <div>
-                      <label className="block text-xs text-gray-400 mb-1.5">Descripción general</label>
+                      <label htmlFor={`${section.tempId}-descripcion-general`} className="block text-xs text-gray-400 mb-1.5">Descripción general</label>
                       <textarea
+                        id={`${section.tempId}-descripcion-general`}
                         value={section.general_description ?? ''}
                         onChange={(e) =>
                           updateSection(section.tempId, {
@@ -797,10 +812,11 @@ export function ClassTemplateFormPage() {
                     {/* Time Cap (solo si el formato tiene has_time_cap) */}
                     {wf?.has_time_cap === 1 && (
                       <div>
-                        <label className="block text-xs text-gray-400 mb-1.5">
+                        <label htmlFor={`${section.tempId}-time-cap-segundos`} className="block text-xs text-gray-400 mb-1.5">
                           Time cap (segundos)
                         </label>
                         <input
+                          id={`${section.tempId}-time-cap-segundos`}
                           type="number"
                           value={section.time_cap_seconds ?? ''}
                           onChange={(e) =>
@@ -820,8 +836,9 @@ export function ClassTemplateFormPage() {
                     {/* Rondas (solo si el formato tiene has_rounds) */}
                     {wf?.has_rounds === 1 && (
                       <div>
-                        <label className="block text-xs text-gray-400 mb-1.5">Rondas</label>
+                        <label htmlFor={`${section.tempId}-rondas`} className="block text-xs text-gray-400 mb-1.5">Rondas</label>
                         <input
+                          id={`${section.tempId}-rondas`}
                           type="number"
                           value={section.total_rounds ?? ''}
                           onChange={(e) =>
@@ -840,10 +857,11 @@ export function ClassTemplateFormPage() {
 
                     {/* Descanso entre rondas */}
                     <div>
-                      <label className="block text-xs text-gray-400 mb-1.5">
+                      <label htmlFor={`${section.tempId}-descanso-entre-rondas-seg`} className="block text-xs text-gray-400 mb-1.5">
                         Descanso entre rondas (seg)
                       </label>
                       <input
+                        id={`${section.tempId}-descanso-entre-rondas-seg`}
                         type="number"
                         value={section.rest_between_rounds_seconds ?? ''}
                         onChange={(e) =>
@@ -870,10 +888,11 @@ export function ClassTemplateFormPage() {
 
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className="block text-xs text-gray-400 mb-1.5">
+                          <label htmlFor={`${section.tempId}-descanso-entre-ejercicios-seg`} className="block text-xs text-gray-400 mb-1.5">
                             Descanso entre ejercicios (seg)
                           </label>
                           <input
+                            id={`${section.tempId}-descanso-entre-ejercicios-seg`}
                             type="number"
                             value={section.rest_between_exercises_seconds ?? ''}
                             onChange={(e) =>
@@ -890,10 +909,11 @@ export function ClassTemplateFormPage() {
                         </div>
 
                         <div>
-                          <label className="block text-xs text-gray-400 mb-1.5">
+                          <label htmlFor={`${section.tempId}-descanso-al-terminar-seg`} className="block text-xs text-gray-400 mb-1.5">
                             Descanso al terminar (seg)
                           </label>
                           <input
+                            id={`${section.tempId}-descanso-al-terminar-seg`}
                             type="number"
                             value={section.rest_after_section_seconds ?? ''}
                             onChange={(e) =>
@@ -913,10 +933,11 @@ export function ClassTemplateFormPage() {
                       {/* Ventana fija: solo en formatos de intervalo (EMOM, Tabata, etc.) */}
                       {wf?.is_interval === 1 && (
                         <div>
-                          <label className="block text-xs text-gray-400 mb-1.5">
+                          <label htmlFor={`${section.tempId}-ventana-de-seg`} className="block text-xs text-gray-400 mb-1.5">
                             Ventana de {wf.name} (seg)
                           </label>
                           <input
+                            id={`${section.tempId}-ventana-de-seg`}
                             type="number"
                             value={section.interval_seconds ?? ''}
                             onChange={(e) =>
@@ -939,8 +960,9 @@ export function ClassTemplateFormPage() {
 
                     {/* Notas de la sección */}
                     <div>
-                      <label className="block text-xs text-gray-400 mb-1.5">Notas</label>
+                      <label htmlFor={`${section.tempId}-notas`} className="block text-xs text-gray-400 mb-1.5">Notas</label>
                       <textarea
+                        id={`${section.tempId}-notas`}
                         value={section.notes ?? ''}
                         onChange={(e) =>
                           updateSection(section.tempId, {
@@ -1024,8 +1046,9 @@ export function ClassTemplateFormPage() {
                             <div className="border-t border-gray-700 px-3 py-3 grid grid-cols-2 gap-3">
                               {/* Repeticiones */}
                               <div>
-                                <label className="block text-xs text-gray-500 mb-1">Reps</label>
+                                <label htmlFor={`${exercise.tempId}-reps`} className="block text-xs text-gray-500 mb-1">Reps</label>
                                 <input
+                                  id={`${exercise.tempId}-reps`}
                                   type="number"
                                   value={exercise.planned_repetitions ?? ''}
                                   onChange={(e) =>
@@ -1043,8 +1066,9 @@ export function ClassTemplateFormPage() {
 
                               {/* Rondas del ejercicio */}
                               <div>
-                                <label className="block text-xs text-gray-500 mb-1">Rondas</label>
+                                <label htmlFor={`${exercise.tempId}-rondas-2`} className="block text-xs text-gray-500 mb-1">Rondas</label>
                                 <input
+                                  id={`${exercise.tempId}-rondas-2`}
                                   type="number"
                                   value={exercise.planned_rounds ?? ''}
                                   onChange={(e) =>
@@ -1062,8 +1086,9 @@ export function ClassTemplateFormPage() {
 
                               {/* Peso */}
                               <div>
-                                <label className="block text-xs text-gray-500 mb-1">Peso</label>
+                                <label htmlFor={`${exercise.tempId}-peso`} className="block text-xs text-gray-500 mb-1">Peso</label>
                                 <input
+                                  id={`${exercise.tempId}-peso`}
                                   type="number"
                                   value={exercise.planned_weight_value ?? ''}
                                   onChange={(e) =>
@@ -1082,10 +1107,11 @@ export function ClassTemplateFormPage() {
 
                               {/* Unidad de peso */}
                               <div>
-                                <label className="block text-xs text-gray-500 mb-1">
+                                <label htmlFor={`${exercise.tempId}-unidad-peso`} className="block text-xs text-gray-500 mb-1">
                                   Unidad peso
                                 </label>
                                 <select
+                                  id={`${exercise.tempId}-unidad-peso`}
                                   value={exercise.planned_weight_unit_id ?? ''}
                                   onChange={(e) =>
                                     updateExercise(section.tempId, exercise.tempId, {
@@ -1105,10 +1131,11 @@ export function ClassTemplateFormPage() {
 
                               {/* Tiempo */}
                               <div>
-                                <label className="block text-xs text-gray-500 mb-1">
+                                <label htmlFor={`${exercise.tempId}-tiempo-seg`} className="block text-xs text-gray-500 mb-1">
                                   Tiempo (seg)
                                 </label>
                                 <input
+                                  id={`${exercise.tempId}-tiempo-seg`}
                                   type="number"
                                   value={exercise.planned_time_seconds ?? ''}
                                   onChange={(e) =>
@@ -1126,10 +1153,11 @@ export function ClassTemplateFormPage() {
 
                               {/* Segundos sugeridos: guían al cronómetro cuando el ejercicio es por reps */}
                               <div>
-                                <label className="block text-xs text-gray-500 mb-1">
+                                <label htmlFor={`${exercise.tempId}-sugerido-cronometro-seg`} className="block text-xs text-gray-500 mb-1">
                                   Sugerido cronómetro (seg)
                                 </label>
                                 <input
+                                  id={`${exercise.tempId}-sugerido-cronometro-seg`}
                                   type="number"
                                   value={exercise.suggested_timer_seconds ?? ''}
                                   onChange={(e) =>
@@ -1148,10 +1176,11 @@ export function ClassTemplateFormPage() {
 
                               {/* Distancia */}
                               <div>
-                                <label className="block text-xs text-gray-500 mb-1">
+                                <label htmlFor={`${exercise.tempId}-distancia`} className="block text-xs text-gray-500 mb-1">
                                   Distancia
                                 </label>
                                 <input
+                                  id={`${exercise.tempId}-distancia`}
                                   type="number"
                                   value={exercise.planned_distance_value ?? ''}
                                   onChange={(e) =>
@@ -1169,10 +1198,11 @@ export function ClassTemplateFormPage() {
 
                               {/* Unidad de distancia */}
                               <div>
-                                <label className="block text-xs text-gray-500 mb-1">
+                                <label htmlFor={`${exercise.tempId}-unidad-dist`} className="block text-xs text-gray-500 mb-1">
                                   Unidad dist.
                                 </label>
                                 <select
+                                  id={`${exercise.tempId}-unidad-dist`}
                                   value={exercise.planned_distance_unit_id ?? ''}
                                   onChange={(e) =>
                                     updateExercise(section.tempId, exercise.tempId, {
@@ -1192,8 +1222,9 @@ export function ClassTemplateFormPage() {
 
                               {/* Calorías */}
                               <div>
-                                <label className="block text-xs text-gray-500 mb-1">Cal</label>
+                                <label htmlFor={`${exercise.tempId}-cal`} className="block text-xs text-gray-500 mb-1">Cal</label>
                                 <input
+                                  id={`${exercise.tempId}-cal`}
                                   type="number"
                                   value={exercise.planned_calories ?? ''}
                                   onChange={(e) =>
@@ -1211,10 +1242,11 @@ export function ClassTemplateFormPage() {
 
                               {/* Descanso */}
                               <div>
-                                <label className="block text-xs text-gray-500 mb-1">
+                                <label htmlFor={`${exercise.tempId}-descanso-seg`} className="block text-xs text-gray-500 mb-1">
                                   Descanso (seg)
                                 </label>
                                 <input
+                                  id={`${exercise.tempId}-descanso-seg`}
                                   type="number"
                                   value={exercise.planned_rest_seconds ?? ''}
                                   onChange={(e) =>
@@ -1232,8 +1264,9 @@ export function ClassTemplateFormPage() {
 
                               {/* % RM */}
                               <div>
-                                <label className="block text-xs text-gray-500 mb-1">% RM</label>
+                                <label htmlFor={`${exercise.tempId}-rm`} className="block text-xs text-gray-500 mb-1">% RM</label>
                                 <input
+                                  id={`${exercise.tempId}-rm`}
                                   type="number"
                                   value={exercise.rm_percentage ?? ''}
                                   onChange={(e) =>
@@ -1252,10 +1285,11 @@ export function ClassTemplateFormPage() {
 
                               {/* Escalado sugerido */}
                               <div className="col-span-2">
-                                <label className="block text-xs text-gray-500 mb-1">
+                                <label htmlFor={`${exercise.tempId}-escalado-sugerido`} className="block text-xs text-gray-500 mb-1">
                                   Escalado sugerido
                                 </label>
                                 <input
+                                  id={`${exercise.tempId}-escalado-sugerido`}
                                   type="text"
                                   value={exercise.suggested_scaling ?? ''}
                                   onChange={(e) =>
@@ -1270,10 +1304,11 @@ export function ClassTemplateFormPage() {
 
                               {/* Notas del coach */}
                               <div className="col-span-2">
-                                <label className="block text-xs text-gray-500 mb-1">
+                                <label htmlFor={`${exercise.tempId}-notas-del-coach`} className="block text-xs text-gray-500 mb-1">
                                   Notas del coach
                                 </label>
                                 <input
+                                  id={`${exercise.tempId}-notas-del-coach`}
                                   type="text"
                                   value={exercise.coach_notes ?? ''}
                                   onChange={(e) =>
@@ -1288,8 +1323,9 @@ export function ClassTemplateFormPage() {
 
                               {/* Notas generales del ejercicio */}
                               <div className="col-span-2">
-                                <label className="block text-xs text-gray-500 mb-1">Notas</label>
+                                <label htmlFor={`${exercise.tempId}-notas-2`} className="block text-xs text-gray-500 mb-1">Notas</label>
                                 <input
+                                  id={`${exercise.tempId}-notas-2`}
                                   type="text"
                                   value={exercise.notes ?? ''}
                                   onChange={(e) =>
@@ -1346,12 +1382,14 @@ export function ClassTemplateFormPage() {
               size={16}
               className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
             />
-            <input
+            <input aria-label="Buscar ejercicio"
               type="text"
               value={exerciseSearch}
               onChange={(e) => setExerciseSearch(e.target.value)}
               placeholder="Buscar ejercicio..."
               className="w-full bg-gray-800 text-white placeholder-gray-500 rounded-xl pl-9 pr-4 py-2.5 text-sm border border-gray-700 focus:outline-none focus:border-primary-500"
+              // El modal acaba de abrirse: el foco pertenece al campo de busqueda
+              // react-doctor-disable-next-line react-doctor/no-autofocus
               autoFocus
             />
           </div>
@@ -1377,7 +1415,7 @@ export function ClassTemplateFormPage() {
                   />
                   <div className="flex-1 min-w-0">
                     <span className="text-sm text-white font-medium block truncate">{exercise.name}</span>
-                    {/* @ts-ignore */}
+                    {/* @ts-expect-error usage_count viene de la query pero no del modelo Exercise */}
                     {exercise.usage_count > 0 && (
                       <span className="text-[10px] text-primary-500 font-bold uppercase tracking-tight">Frecuente</span>
                     )}

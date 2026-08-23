@@ -8,7 +8,6 @@
 
 import { getDatabase } from '../db/database';
 import { getLatestMeasurement } from '../db/repositories/userProfileRepo';
-import { getProfile } from '../db/repositories/userProfileRepo';
 
 // Peso por defecto cuando no hay dato del usuario
 const DEFAULT_WEIGHT_KG = 75;

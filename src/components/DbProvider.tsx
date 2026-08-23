@@ -10,6 +10,9 @@ interface DbContextValue {
 
 const DbContext = createContext<DbContextValue>({ isReady: false, error: null });
 
+// Hook de acceso al contexto: convive con el componente a proposito, es la
+// API publica del provider
+// eslint-disable-next-line react-refresh/only-export-components
 export function useDb() {
   return useContext(DbContext);
 }

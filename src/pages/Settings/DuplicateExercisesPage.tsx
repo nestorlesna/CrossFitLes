@@ -35,10 +35,16 @@ export function DuplicateExercisesPage() {
 
   async function loadData() {
     setLoading(true);
-    const data = await getDuplicateExercises();
-    setGroups(data);
-    setTotalDupes(data.reduce((sum, g) => sum + g.count, 0));
-    setLoading(false);
+    try {
+      const data = await getDuplicateExercises();
+      setGroups(data);
+      setTotalDupes(data.reduce((sum, g) => sum + g.count, 0));
+    } catch (e) {
+      console.error('[DuplicateExercises] Error al cargar:', e);
+      toast.error('Error al cargar los duplicados');
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleDeleteRequest(exerciseId: string) {
@@ -82,7 +88,7 @@ export function DuplicateExercisesPage() {
       <Header
         title="Ejercicios duplicados"
         leftAction={
-          <button onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+          <button aria-label="Volver" onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <ChevronLeft size={24} />
           </button>
         }

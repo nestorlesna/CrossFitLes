@@ -33,15 +33,26 @@ export function ExerciseInfoModal({ exerciseId, exerciseName, onClose }: Props) 
       setImageSrc(null);
       return;
     }
+    let cancelled = false;
     setLoading(true);
     getById(exerciseId)
       .then(async ex => {
+        if (cancelled) return;
         setExercise(ex);
         const url = await getImageDisplayUrl(ex?.image_url || ex?.image_path);
+        if (cancelled) return;
         setImageSrc(url);
       })
-      .catch(() => setExercise(null))
-      .finally(() => setLoading(false));
+      .catch(() => {
+        if (!cancelled) setExercise(null);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, [exerciseId]);
 
   const primaryMuscles = exercise?.relations.muscleGroups.filter(m => m.is_primary) ?? [];

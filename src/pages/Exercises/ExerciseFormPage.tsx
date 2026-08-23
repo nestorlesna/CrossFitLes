@@ -1,5 +1,5 @@
 // Formulario completo para crear o editar un ejercicio
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useId, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ChevronLeft, Camera, Star, Check } from 'lucide-react';
 import { toast } from 'sonner';
@@ -72,6 +72,7 @@ function VideoEmbed({ url }: { url: string }) {
 }
 
 export function ExerciseFormPage() {
+  const uid = useId();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const isEditing = Boolean(id);
@@ -89,6 +90,11 @@ export function ExerciseFormPage() {
   // Unidades: map de id → is_default (1=default, 0=normal)
   const [selectedUnits, setSelectedUnits] = useState<Record<string, number>>({});
   const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
+
+  // Sets para los lookups que corren dentro de los map de catalogos
+  const secondaryMuscleIdSet = useMemo(() => new Set(secondaryMuscleIds), [secondaryMuscleIds]);
+  const sectionTypeIdSet = useMemo(() => new Set(sectionTypeIds), [sectionTypeIds]);
+  const selectedTagIdSet = useMemo(() => new Set(selectedTagIds), [selectedTagIds]);
   const [isCompound, setIsCompound] = useState(0);
   const [imagePath, setImagePath] = useState('');
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -195,7 +201,7 @@ export function ExerciseFormPage() {
 
       // Tags
       setSelectedTagIds(relations.tags.map((t) => t.id));
-    } catch (e) {
+    } catch {
       toast.error('Error al cargar el ejercicio');
     } finally {
       setLoadingData(false);
@@ -207,14 +213,6 @@ export function ExerciseFormPage() {
   }, [isEditing, loadExercise]);
 
   // ── Handlers de multi-selección ───────────────────────────────────────────
-
-  // Toggle músculo secundario; si se selecciona el primario como secundario, ignorar
-  function toggleSecondaryMuscle(muscleId: string) {
-    if (muscleId === primaryMuscleId) return;
-    setSecondaryMuscleIds((prev) =>
-      prev.includes(muscleId) ? prev.filter((id) => id !== muscleId) : [...prev, muscleId]
-    );
-  }
 
   // Al cambiar músculo principal, removerlo de los secundarios si estaba
   function handlePrimaryMuscleChange(muscleId: string) {
@@ -378,7 +376,7 @@ export function ExerciseFormPage() {
         <Header
           title={isEditing ? 'Editar ejercicio' : 'Nuevo ejercicio'}
           leftAction={
-            <button onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+            <button aria-label="Volver" onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
               <ChevronLeft size={24} />
             </button>
           }
@@ -417,10 +415,11 @@ export function ExerciseFormPage() {
       <div className="flex flex-col gap-6 p-4 pb-10">
         {/* ── 1. Nombre ── */}
         <div>
-          <label className="block text-sm text-gray-400 mb-1.5">
+          <label htmlFor={`${uid}-nombre`} className="block text-sm text-gray-400 mb-1.5">
             Nombre <span className="text-primary-500">*</span>
           </label>
           <input
+            id={`${uid}-nombre`}
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -431,8 +430,9 @@ export function ExerciseFormPage() {
 
         {/* ── 2. Descripción ── */}
         <div>
-          <label className="block text-sm text-gray-400 mb-1.5">Descripción</label>
+          <label htmlFor={`${uid}-descripcion`} className="block text-sm text-gray-400 mb-1.5">Descripción</label>
           <textarea
+            id={`${uid}-descripcion`}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Descripción breve del ejercicio..."
@@ -443,8 +443,9 @@ export function ExerciseFormPage() {
 
         {/* ── 2b. Video corto ── */}
         <div>
-          <label className="block text-sm text-gray-400 mb-1.5">Video corto</label>
+          <label htmlFor={`${uid}-video-corto`} className="block text-sm text-gray-400 mb-1.5">Video corto</label>
           <input
+            id={`${uid}-video-corto`}
             type="url"
             value={videoLink}
             onChange={(e) => setVideoLink(e.target.value)}
@@ -456,8 +457,9 @@ export function ExerciseFormPage() {
 
         {/* ── 2c. Video explicativo ── */}
         <div>
-          <label className="block text-sm text-gray-400 mb-1.5">Video explicativo</label>
+          <label htmlFor={`${uid}-video-explicativo`} className="block text-sm text-gray-400 mb-1.5">Video explicativo</label>
           <input
+            id={`${uid}-video-explicativo`}
             type="url"
             value={videoLongLink}
             onChange={(e) => setVideoLongLink(e.target.value)}
@@ -469,8 +471,9 @@ export function ExerciseFormPage() {
 
         {/* ── 3. Dificultad ── */}
         <div>
-          <label className="block text-sm text-gray-400 mb-1.5">Dificultad</label>
+          <label htmlFor={`${uid}-dificultad`} className="block text-sm text-gray-400 mb-1.5">Dificultad</label>
           <select
+            id={`${uid}-dificultad`}
             value={difficultyId}
             onChange={(e) => setDifficultyId(e.target.value)}
             className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 appearance-none min-h-[44px]"
@@ -492,7 +495,7 @@ export function ExerciseFormPage() {
                 interactive
                 onMuscleClick={handleMuscleMapClick}
                 primaryMuscles={muscleGroups.filter(m => m.id === primaryMuscleId).map(m => m.name)}
-                secondaryMuscles={muscleGroups.filter(m => secondaryMuscleIds.includes(m.id)).map(m => m.name)}
+                secondaryMuscles={muscleGroups.filter(m => secondaryMuscleIdSet.has(m.id)).map(m => m.name)}
               />
             </div>
             
@@ -517,8 +520,9 @@ export function ExerciseFormPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-gray-500 mb-1.5 ml-1">Músculo Principal</label>
+              <label htmlFor={`${uid}-musculo-principal`} className="block text-xs text-gray-500 mb-1.5 ml-1">Músculo Principal</label>
               <select
+                id={`${uid}-musculo-principal`}
                 value={primaryMuscleId}
                 onChange={(e) => handlePrimaryMuscleChange(e.target.value)}
                 className="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 appearance-none min-h-[44px]"
@@ -534,7 +538,7 @@ export function ExerciseFormPage() {
               <label className="block text-xs text-gray-500 mb-1.5 ml-1">Músculos Secundarios</label>
               <div className="flex flex-wrap gap-1.5 p-2 bg-gray-800/30 rounded-xl border border-gray-700/50 min-h-[46px]">
                 {muscleGroups
-                  .filter((mg) => secondaryMuscleIds.includes(mg.id))
+                  .filter((mg) => secondaryMuscleIdSet.has(mg.id))
                   .map((mg) => (
                     <Badge 
                       key={mg.id} 
@@ -564,7 +568,7 @@ export function ExerciseFormPage() {
                   key={eq.id}
                   type="button"
                   onClick={() => toggleEquipment(eq.id)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm transition-all min-h-[36px] ${
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm transition min-h-[36px] ${
                     isSelected && isRequired
                       ? 'border border-primary-500 bg-primary-500/20 text-primary-400'
                       : isSelected && !isRequired
@@ -587,13 +591,13 @@ export function ExerciseFormPage() {
           <label className="block text-sm text-gray-400 mb-2">Tipos de sección</label>
           <div className="flex flex-wrap gap-2">
             {sectionTypes.map((st) => {
-              const selected = sectionTypeIds.includes(st.id);
+              const selected = sectionTypeIdSet.has(st.id);
               return (
                 <button
                   key={st.id}
                   type="button"
                   onClick={() => toggleSectionType(st.id)}
-                  className={`px-3 py-1.5 rounded-full text-sm border transition-all min-h-[36px]`}
+                  className={`px-3 py-1.5 rounded-full text-sm border transition min-h-[36px]`}
                   style={
                     selected
                       ? {
@@ -624,7 +628,7 @@ export function ExerciseFormPage() {
                   key={unit.id}
                   type="button"
                   onClick={() => toggleUnit(unit.id)}
-                  className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-sm border transition-all min-h-[36px] ${
+                  className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-sm border transition min-h-[36px] ${
                     isSelected
                       ? 'border-primary-500 bg-primary-500/20 text-primary-400'
                       : 'border-gray-600 text-gray-400 bg-transparent'
@@ -647,13 +651,13 @@ export function ExerciseFormPage() {
                 key={tag.id}
                 type="button"
                 onClick={() => toggleTag(tag.id)}
-                className={`px-3 py-1.5 rounded-full text-sm border transition-all min-h-[36px] ${
-                  selectedTagIds.includes(tag.id)
+                className={`px-3 py-1.5 rounded-full text-sm border transition min-h-[36px] ${
+                  selectedTagIdSet.has(tag.id)
                     ? 'border-transparent text-white'
                     : 'border-gray-600 text-gray-400 bg-transparent'
                 }`}
                 style={
-                  selectedTagIds.includes(tag.id)
+                  selectedTagIdSet.has(tag.id)
                     ? { backgroundColor: tag.color ?? '#f97316' }
                     : {}
                 }
@@ -666,8 +670,9 @@ export function ExerciseFormPage() {
 
         {/* ── 10. Notas técnicas ── */}
         <div>
-          <label className="block text-sm text-gray-400 mb-1.5">Notas técnicas</label>
+          <label htmlFor={`${uid}-notas-tecnicas`} className="block text-sm text-gray-400 mb-1.5">Notas técnicas</label>
           <textarea
+            id={`${uid}-notas-tecnicas`}
             value={technicalNotes}
             onChange={(e) => setTechnicalNotes(e.target.value)}
             placeholder="Indicaciones de técnica, cuidados, variantes..."
@@ -714,7 +719,7 @@ export function ExerciseFormPage() {
             <button
               type="button"
               onClick={handlePickImage}
-              className="mt-1 self-start bg-primary-500/10 text-primary-500 border border-primary-500/20 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-primary-500 hover:text-white transition-all min-h-[36px]"
+              className="mt-1 self-start bg-primary-500/10 text-primary-500 border border-primary-500/20 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-primary-500 hover:text-white transition min-h-[36px]"
             >
               {imagePreview ? 'Cambiar imagen' : 'Seleccionar foto'}
             </button>

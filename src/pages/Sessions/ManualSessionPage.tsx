@@ -1,5 +1,5 @@
 // Página para registrar una sesión pasada manualmente (sin temporizador)
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ChevronLeft, Calendar, Dumbbell, CheckCircle2,
@@ -84,6 +84,7 @@ function ResultCard({
   onChange: (updated: ResultDraft) => void;
   onInfoClick: (id: string, name: string) => void;
 }) {
+  const uid = useId();
   const upd = (field: keyof ResultDraft, value: any) => onChange({ ...result, [field]: value });
 
   return (
@@ -97,7 +98,7 @@ function ResultCard({
         >
           {result.exercise_name}
         </button>
-        <button
+        <button aria-label="Ver informacion"
           onClick={() => onInfoClick(result.exercise_id, result.exercise_name)}
           className="p-1 text-gray-600 hover:text-primary-400 transition-colors"
         >
@@ -128,8 +129,9 @@ function ResultCard({
       <div className="grid grid-cols-2 gap-2">
         {/* Repeticiones */}
         <div className="flex flex-col gap-1">
-          <label className="text-xs text-gray-500">Reps</label>
+          <label htmlFor={`${uid}-reps`} className="text-xs text-gray-500">Reps</label>
           <input
+            id={`${uid}-reps`}
             type="number" inputMode="numeric" min="0"
             value={result.actual_repetitions}
             onChange={e => upd('actual_repetitions', e.target.value)}
@@ -139,8 +141,9 @@ function ResultCard({
         </div>
         {/* Rondas */}
         <div className="flex flex-col gap-1">
-          <label className="text-xs text-gray-500">Rondas</label>
+          <label htmlFor={`${uid}-rondas`} className="text-xs text-gray-500">Rondas</label>
           <input
+            id={`${uid}-rondas`}
             type="number" inputMode="numeric" min="0"
             value={result.actual_rounds}
             onChange={e => upd('actual_rounds', e.target.value)}
@@ -173,8 +176,9 @@ function ResultCard({
         </div>
         {/* Tiempo */}
         <div className="flex flex-col gap-1">
-          <label className="text-xs text-gray-500">Tiempo (seg)</label>
+          <label htmlFor={`${uid}-tiempo-seg`} className="text-xs text-gray-500">Tiempo (seg)</label>
           <input
+            id={`${uid}-tiempo-seg`}
             type="number" inputMode="numeric" min="0"
             value={result.actual_time_seconds}
             onChange={e => upd('actual_time_seconds', e.target.value)}
@@ -207,8 +211,9 @@ function ResultCard({
         </div>
         {/* Calorías */}
         <div className="flex flex-col gap-1">
-          <label className="text-xs text-gray-500">Calorías</label>
+          <label htmlFor={`${uid}-calorias`} className="text-xs text-gray-500">Calorías</label>
           <input
+            id={`${uid}-calorias`}
             type="number" inputMode="numeric" min="0"
             value={result.actual_calories}
             onChange={e => upd('actual_calories', e.target.value)}
@@ -220,8 +225,9 @@ function ResultCard({
 
       {/* Resultado libre */}
       <div className="flex flex-col gap-1">
-        <label className="text-xs text-gray-500">Resultado (texto libre)</label>
+        <label htmlFor={`${uid}-resultado-texto-libre`} className="text-xs text-gray-500">Resultado (texto libre)</label>
         <input
+          id={`${uid}-resultado-texto-libre`}
           type="text"
           value={result.result_text}
           onChange={e => upd('result_text', e.target.value)}
@@ -232,8 +238,9 @@ function ResultCard({
 
       {/* Notas del ejercicio */}
       <div className="flex flex-col gap-1">
-        <label className="text-xs text-gray-500">Notas</label>
+        <label htmlFor={`${uid}-notas`} className="text-xs text-gray-500">Notas</label>
         <input
+          id={`${uid}-notas`}
           type="text"
           value={result.notes}
           onChange={e => upd('notes', e.target.value)}
@@ -246,6 +253,7 @@ function ResultCard({
 }
 
 export function ManualSessionPage() {
+  const uid = useId();
   const navigate = useNavigate();
 
   // ── Fecha ──
@@ -428,7 +436,7 @@ export function ManualSessionPage() {
       <Header
         title="Registrar Sesión Pasada"
         leftAction={
-          <button onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
+          <button aria-label="Volver" onClick={() => navigate(-1)} className="text-gray-400 p-1 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <ChevronLeft size={24} />
           </button>
         }
@@ -438,11 +446,12 @@ export function ManualSessionPage() {
 
         {/* ── Fecha ── */}
         <div className="flex flex-col gap-2">
-          <label className="text-sm font-semibold text-gray-300 flex items-center gap-2">
+          <label htmlFor={`${uid}-fecha-del-entrenamiento`} className="text-sm font-semibold text-gray-300 flex items-center gap-2">
             <Calendar size={16} className="text-primary-400" />
             Fecha del entrenamiento
           </label>
           <input
+            id={`${uid}-fecha-del-entrenamiento`}
             type="date"
             value={sessionDate}
             max={todayStr}
@@ -512,8 +521,9 @@ export function ManualSessionPage() {
 
           {/* Duración */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs text-gray-500">Duración (minutos)</label>
+            <label htmlFor={`${uid}-duracion-minutos`} className="text-xs text-gray-500">Duración (minutos)</label>
             <input
+              id={`${uid}-duracion-minutos`}
               type="number" inputMode="numeric" min="1"
               value={durationMinutes}
               onChange={e => setDurationMinutes(e.target.value)}
@@ -531,7 +541,7 @@ export function ManualSessionPage() {
                   key={f.value}
                   onClick={() => setFeeling(f.value)}
                   title={f.label}
-                  className={`flex-1 py-2 rounded-xl text-xl transition-all ${feeling === f.value ? 'bg-primary-600/30 ring-1 ring-primary-500 scale-110' : 'bg-gray-800 opacity-50'}`}
+                  className={`flex-1 py-2 rounded-xl text-xl transition ${feeling === f.value ? 'bg-primary-600/30 ring-1 ring-primary-500 scale-110' : 'bg-gray-800 opacity-50'}`}
                 >
                   {f.emoji}
                 </button>
@@ -541,8 +551,9 @@ export function ManualSessionPage() {
 
           {/* Esfuerzo percibido */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs text-gray-500">Esfuerzo percibido (RPE): <span className="text-white font-bold">{effort}/10</span></label>
+            <label htmlFor={`${uid}-esfuerzo-percibido-rpe-10`} className="text-xs text-gray-500">Esfuerzo percibido (RPE): <span className="text-white font-bold">{effort}/10</span></label>
             <input
+              id={`${uid}-esfuerzo-percibido-rpe-10`}
               type="range" min="1" max="10" step="1"
               value={effort}
               onChange={e => setEffort(Number(e.target.value))}
@@ -555,8 +566,9 @@ export function ManualSessionPage() {
 
           {/* Notas finales */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs text-gray-500">Notas finales</label>
+            <label htmlFor={`${uid}-notas-finales`} className="text-xs text-gray-500">Notas finales</label>
             <textarea
+              id={`${uid}-notas-finales`}
               value={notes}
               onChange={e => setNotes(e.target.value)}
               placeholder="¿Algo destacable del entrenamiento?"
@@ -570,7 +582,7 @@ export function ManualSessionPage() {
         <button
           onClick={() => setShowConfirm(true)}
           disabled={saving}
-          className="bg-primary-600 hover:bg-primary-700 active:scale-[0.98] text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-primary-900/30 disabled:opacity-50"
+          className="bg-primary-600 hover:bg-primary-700 active:scale-[0.98] text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 transition shadow-lg shadow-primary-900/30 disabled:opacity-50"
         >
           <Save size={20} />
           Guardar sesión

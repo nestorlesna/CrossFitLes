@@ -1,5 +1,5 @@
 // Pantalla principal de la biblioteca de ejercicios con búsqueda y filtros
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useId } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, SlidersHorizontal, X, Dumbbell, CalendarCheck } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
@@ -12,6 +12,7 @@ import { getAll as getCatalog } from '../../db/repositories/catalogRepo';
 import { DifficultyLevel, MuscleGroup, Equipment, Tag } from '../../models/catalogs';
 
 export function ExercisesPage() {
+  const uid = useId();
   const navigate = useNavigate();
 
   // Estado del texto de búsqueda (sin debounce aplicado aún)
@@ -260,8 +261,9 @@ export function ExercisesPage() {
 
           {/* Filtro por grupo muscular */}
           <div>
-            <label className="block text-sm text-gray-400 mb-1.5">Grupo muscular</label>
+            <label htmlFor={`${uid}-grupo-muscular`} className="block text-sm text-gray-400 mb-1.5">Grupo muscular</label>
             <select
+              id={`${uid}-grupo-muscular`}
               value={tempMuscle}
               onChange={(e) => setTempMuscle(e.target.value)}
               className="w-full bg-gray-800 text-white rounded-lg px-3 py-2.5 text-sm border border-gray-700 focus:outline-none focus:border-primary-500 appearance-none min-h-[44px]"
@@ -275,8 +277,9 @@ export function ExercisesPage() {
 
           {/* Filtro por equipamiento */}
           <div>
-            <label className="block text-sm text-gray-400 mb-1.5">Equipamiento</label>
+            <label htmlFor={`${uid}-equipamiento`} className="block text-sm text-gray-400 mb-1.5">Equipamiento</label>
             <select
+              id={`${uid}-equipamiento`}
               value={tempEquipment}
               onChange={(e) => setTempEquipment(e.target.value)}
               className="w-full bg-gray-800 text-white rounded-lg px-3 py-2.5 text-sm border border-gray-700 focus:outline-none focus:border-primary-500 appearance-none min-h-[44px]"
@@ -290,8 +293,9 @@ export function ExercisesPage() {
 
           {/* Filtro por tag */}
           <div>
-            <label className="block text-sm text-gray-400 mb-1.5">Tag</label>
+            <label htmlFor={`${uid}-tag`} className="block text-sm text-gray-400 mb-1.5">Tag</label>
             <select
+              id={`${uid}-tag`}
               value={tempTag}
               onChange={(e) => setTempTag(e.target.value)}
               className="w-full bg-gray-800 text-white rounded-lg px-3 py-2.5 text-sm border border-gray-700 focus:outline-none focus:border-primary-500 appearance-none min-h-[44px]"

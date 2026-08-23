@@ -119,7 +119,7 @@ export function VideoTestPage() {
             reproductor embebido para ver cómo se comporta.
           </p>
           <div className="flex gap-2">
-            <input
+            <input aria-label="URL del video a probar"
               type="url"
               value={input}
               onChange={(e) => setInput(e.target.value)}

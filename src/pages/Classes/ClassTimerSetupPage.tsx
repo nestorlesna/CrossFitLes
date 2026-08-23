@@ -2,7 +2,7 @@
 // imágenes y datos planificados) en modo lectura, y sólo deja editar los tiempos
 // que el cronómetro necesita para ejecutarla sola.
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useId } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChevronLeft, Timer, Save, Loader2, Dumbbell, AlertTriangle } from 'lucide-react';
 import { toast } from 'sonner';
@@ -70,10 +70,12 @@ function SecondsInput({
   hint?: string;
   onChange: (value: number | null) => void;
 }) {
+  const uid = useId();
   return (
     <div>
-      <label className="block text-xs text-gray-500 mb-1">{label}</label>
+      <label htmlFor={`${uid}-field`} className="block text-xs text-gray-500 mb-1">{label}</label>
       <input
+        id={`${uid}-field`}
         type="number"
         min="0"
         value={value ?? ''}
@@ -98,6 +100,8 @@ export function ClassTimerSetupPage() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
+
     async function load() {
       if (!id) return;
       try {
@@ -105,6 +109,7 @@ export function ClassTimerSetupPage() {
           classTemplateRepo.getById(id),
           timerConfigRepo.get(),
         ]);
+        if (cancelled) return;
         if (!data) {
           toast.error('No se encontró la clase');
           navigate('/clases');
@@ -137,12 +142,16 @@ export function ClassTimerSetupPage() {
         setExerciseEdits(exercises);
       } catch (e) {
         console.error('[ClassTimerSetup] Error al cargar:', e);
-        toast.error('Error al cargar la clase');
+        if (!cancelled) toast.error('Error al cargar la clase');
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     }
     load();
+
+    return () => {
+      cancelled = true;
+    };
   }, [id, navigate]);
 
   // Plantilla con las ediciones aplicadas: alimenta la vista previa de la línea de tiempo
