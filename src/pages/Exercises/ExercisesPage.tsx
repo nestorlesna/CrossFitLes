@@ -1,7 +1,7 @@
 // Pantalla principal de la biblioteca de ejercicios con búsqueda y filtros
 import { useState, useRef, useEffect, useId } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, SlidersHorizontal, X, Dumbbell, CalendarCheck } from 'lucide-react';
+import { Plus, SlidersHorizontal, X, Dumbbell, CalendarCheck, ChevronLeft, ChevronRight, Video, VideoOff } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { SearchBar } from '../../components/ui/SearchBar';
 import { Modal } from '../../components/ui/Modal';
@@ -21,6 +21,8 @@ export function ExercisesPage() {
   const [filters, setFilters] = useState<ExerciseFilters>({ in_classes: true });
   // Control del modal de filtros
   const [showFilters, setShowFilters] = useState(false);
+  // Mostrar u ocultar los videos en las tarjetas del listado
+  const [showVideos, setShowVideos] = useState(false);
 
   // Filtros temporales dentro del modal (se aplican al cerrar)
   const [tempDifficulty, setTempDifficulty] = useState('');
@@ -105,6 +107,34 @@ export function ExercisesPage() {
 
   const { exercises, loading, error } = useExercises(filters);
 
+  // Paginado del listado (client-side: la BD es local)
+  const [pageSize, setPageSize] = useState(20);
+  const [page, setPage] = useState(1);
+
+  const totalPages = Math.max(1, Math.ceil(exercises.length / pageSize));
+  // Clampear la página si cambian filtros o tamaño de página
+  const currentPage = Math.min(page, totalPages);
+  const startIndex = (currentPage - 1) * pageSize;
+  const pageExercises = exercises.slice(startIndex, startIndex + pageSize);
+
+  // Volver a la primera página cuando cambian los filtros
+  const filtersKey = JSON.stringify(filters);
+  useEffect(() => {
+    setPage(1);
+  }, [filtersKey]);
+
+  // Navegar a una página y volver al inicio del listado
+  function goToPage(next: number) {
+    setPage(next);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Cambiar la cantidad de ejercicios por página
+  function handlePageSizeChange(value: number) {
+    setPageSize(value);
+    setPage(1);
+  }
+
   return (
     <>
       <Header
@@ -149,18 +179,32 @@ export function ExercisesPage() {
           </button>
         </div>
 
-        {/* Toggle: solo ejercicios en clases */}
-        <button
-          onClick={toggleInClasses}
-          className={`self-start flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
-            filters.in_classes
-              ? 'bg-primary-600 border-primary-500 text-white'
-              : 'bg-gray-800 border-gray-700 text-gray-400'
-          }`}
-        >
-          <CalendarCheck size={13} />
-          En clases
-        </button>
+        {/* Toggles: sólo ejercicios en clases / ver videos */}
+        <div className="flex flex-wrap gap-2">
+          <button
+            onClick={toggleInClasses}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+              filters.in_classes
+                ? 'bg-primary-600 border-primary-500 text-white'
+                : 'bg-gray-800 border-gray-700 text-gray-400'
+            }`}
+          >
+            <CalendarCheck size={13} />
+            En clases
+          </button>
+          <button
+            onClick={() => setShowVideos((prev) => !prev)}
+            aria-pressed={showVideos}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+              showVideos
+                ? 'bg-primary-600 border-primary-500 text-white'
+                : 'bg-gray-800 border-gray-700 text-gray-400'
+            }`}
+          >
+            {showVideos ? <Video size={13} /> : <VideoOff size={13} />}
+            {showVideos ? 'Ver videos' : 'Sin videos'}
+          </button>
+        </div>
 
         {/* Estado de carga */}
         {loading && (
@@ -184,13 +228,66 @@ export function ExercisesPage() {
           </div>
         )}
 
-        {/* Lista de ejercicios */}
+        {/* Lista de ejercicios (paginada) */}
         {!loading && !error && exercises.length > 0 && (
-          <div className="flex flex-col gap-2">
-            {exercises.map((exercise) => (
-              <ExerciseCard key={exercise.id} exercise={exercise} />
-            ))}
-          </div>
+          <>
+            {/* Cabecera del paginado: total y tamaño de página */}
+            <div className="flex items-center justify-between gap-2">
+              <p className="text-xs text-gray-500">
+                {exercises.length} ejercicio{exercises.length === 1 ? '' : 's'}
+                {' · '}
+                {startIndex + 1}-{startIndex + pageExercises.length}
+              </p>
+              <div className="flex items-center gap-2">
+                <label htmlFor={`${uid}-page-size`} className="text-xs text-gray-500">
+                  Por página
+                </label>
+                <select
+                  id={`${uid}-page-size`}
+                  value={pageSize}
+                  onChange={(e) => handlePageSizeChange(Number(e.target.value))}
+                  className="bg-gray-800 text-white rounded-lg px-2 py-1.5 text-xs border border-gray-700 focus:outline-none focus:border-primary-500"
+                >
+                  <option value={20}>20</option>
+                  <option value={40}>40</option>
+                  <option value={80}>80</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              {pageExercises.map((exercise) => (
+                <ExerciseCard key={exercise.id} exercise={exercise} showVideos={showVideos} />
+              ))}
+            </div>
+
+            {/* Navegación entre páginas */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-between gap-3 mt-2">
+                <button
+                  className="flex items-center gap-1 px-3 py-2 rounded-lg border border-gray-700 text-sm text-gray-300 disabled:opacity-40 disabled:text-gray-600 min-h-[44px]"
+                  onClick={() => goToPage(currentPage - 1)}
+                  disabled={currentPage <= 1}
+                  aria-label="Página anterior"
+                >
+                  <ChevronLeft size={16} />
+                  Anterior
+                </button>
+                <span className="text-xs text-gray-500">
+                  {currentPage} / {totalPages}
+                </span>
+                <button
+                  className="flex items-center gap-1 px-3 py-2 rounded-lg border border-gray-700 text-sm text-gray-300 disabled:opacity-40 disabled:text-gray-600 min-h-[44px]"
+                  onClick={() => goToPage(currentPage + 1)}
+                  disabled={currentPage >= totalPages}
+                  aria-label="Página siguiente"
+                >
+                  Siguiente
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+            )}
+          </>
         )}
 
         {/* Estado vacío */}

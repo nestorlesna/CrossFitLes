@@ -47,6 +47,23 @@
     width: auto;
     height: auto;
   }
+
+  /* Miniatura de video en el listado de ejercicios: caja de tamaño fijo para
+     que todos los videos se vean iguales sin importar su relación de aspecto.
+     El reproductor rellena la caja (el propio player agrega las bandas). */
+  .video-thumb {
+    width: 240px;
+    height: 135px;
+    max-width: 100%;
+  }
+  .video-thumb > * {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    aspect-ratio: auto !important;
+  }
 }
 
 @layer utilities {
