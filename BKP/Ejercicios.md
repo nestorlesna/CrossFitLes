@@ -29,6 +29,36 @@ Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ### TEMPLATE
 
 
+
+Clase GOAT 26/08/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - 90/90 Hip Rotation
+ - Cuban Press
+ - Yoga Push-Up 
+
+Activacion, 4 rondas de 1 minuto cada una, peso 30kg, 35kg, 40kg, 45kg
+ - Barbell Deadlift + Barbell High Hang Power Clean + Barbell Front Squat + Push Press Behind the Neck
+
+Fuerza 6 rondas cada 1.5 minuto cada una, peso 30kg, 35kg, 40kg, 45kg, 50kf, 55kg
+ - Barbell Clean and Jerk
+
+WOD, maximo 4 rondas, de 3 minutos de ejercicio y 1.5 de descanso, es en pareja y cuenta de 2 ejercicios con valores fijos y 2 ejercicio que la pareja debe de llegar a un maximo, si lo completa al maxio en una ronda antes (la 3ra por ejemplo) ya finaliza el wod
+ - 15 Barbell Thruster 30kg + 10 Shuttle Run 10m, en esperjo con la pareja
+ - aprox 20 Box Jump, aprox 20 Barbell Deadlift, a completar 60 sumando lo de cada uno
+
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
+
+
+
+
 Abdominales Corto - 3 MIN FULL ABS WORKOUT - 21/08/2026
 video principal: https://www.facebook.com/reel/2310088009792959 (2:56)
 Duracion: 3 minutos - 6 rondas - sin material
@@ -42,7 +72,7 @@ Activación, ejercicio 20 segundos, 10 de descanso
  - Toe Touches (toques de punta de pie con piernas verticales)
  - Seated Tuck-Ins (in & out sentado, flexión y extensión de rodillas)
 
-
+ 
 
 Full Body Corto - 3 MIN HOME WORKOUT FULL BODY - 21/08/2026
 video principal: https://www.facebook.com/reel/723390367503207 (2:57)
