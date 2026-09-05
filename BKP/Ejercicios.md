@@ -29,6 +29,64 @@ Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ### TEMPLATE
 
 
+Clase GOAT 05/09/2026
+Calentamiento
+- 6 minutos de calentamiento
+
+Activacion - 2 rondas 
+ - Banded Scapular Retraction Row 12 con cada hombro, video corto https://www.youtube.com/shorts/aMnaIIcRcDA , video explicativo https://www.youtube.com/shorts/WEH3rIBLky4
+ - I-Y-T Raises, video corto https://www.youtube.com/shorts/eLSPGI2lF4Y, video explicativo https://www.youtube.com/shorts/HIIdNKK3YkQ , 6 rep
+ - Wall Shoulder Stretch 10 reps
+ - Heel-Elevated Goblet Squat, video corto https://www.youtube.com/shorts/EAAeQM3-U1w, video explicativo https://www.youtube.com/shorts/M2WFgYumN_Q 15 kg
+ 
+
+Fuerza 6 series cada 2 minutos de 2 ejercicios 
+ - Sled Push 10m, 90kg + 10 Dumbbell Hip Thrust 15 kg, video corto https://www.youtube.com/shorts/wYT_Ru0yGD0, video explicativo https://www.youtube.com/watch?v=LxdfGyNBuRU
+ - 10 Barbell Bent Over Row 30kg + 30 segundos L-Sit video corto https://www.youtube.com/shorts/a4qGW79QtrE, vdeo explicativo https://www.youtube.com/shorts/xBquRSTa_Jo
+ 
+WOD por minuto en 20 minutos
+ - 1 - 10m Sled Pull 50kg 
+ - 2 y 3 runnig 400m
+ - 4 25 Russian Twist 10 kg
+ - 5 Plate Jump Over + Squat, video corto https://www.youtube.com/watch?v=Ks7VcxFekP0, video explicativo https://www.youtube.com/shorts/eQOGNf97KiM
+ 
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
+### TEMPLATE
+
+Clase GOAT 02/09/2026
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 3 rondas:
+ - Band Alternating Pass Through, video corto https://www.youtube.com/shorts/cB0Gq7N6rL0, video explicativo https://www.youtube.com/watch?v=6abLG23PyUU, video corto 
+ - Goblet Squat Hold Press 10kg
+ - Wall Ball KB Pullover 10kg, video corto https://www.youtube.com/shorts/CZzrYrkuS5Y, video explicativo https://www.youtube.com/shorts/W5W6G41DSAA
+
+Activacion
+ - 6 complex cada 1 minuto de, 2 Barbell Muscle Snatch 20 kg, seguido de 2 Push Press Behind the Neck 20kg, seguidos de 2 Barbell Hang Power Snatch 20kg
+ 
+Fuerza
+- complex de, 2 Barbell Muscle Snatch, 2 Barbell Power Snatcho, 2 Barbell Hang Power Snatch con 30kg , terminado descanso 1 minuto
+- complex de, 2 Barbell Muscle Snatch, 2 Barbell Power Snatcho, 2 Barbell Hang Power Snatch con 30kg , terminado descanso 1 minuto
+- complex de, 2 Barbell Muscle Snatch, 2 Barbell Power Snatcho, 2 Barbell Hang Power Snatch con 30kg , terminado descanso 1 minuto
+- complex de, 1 Barbell Muscle Snatch, 1 Barbell Power Snatcho, 1 Barbell Hang Power Snatch con 35kg , terminado descanso 1 minuto
+- complex de, 1 Barbell Muscle Snatch, 1 Barbell Power Snatcho, 1 Barbell Hang Power Snatch con 40kg , terminado descanso 1 minuto
+- complex de, 1 Barbell Muscle Snatch, 1 Barbell Power Snatcho, 1 Barbell Hang Power Snatch con 45kg , terminado descanso 1 minuto
+
+WOD mayor cantidad de vueltas en 15 minutos, da para 4 vueltas
+ - 4 Barbell Deadlift agarre ancho, 30kg
+ - 4 Barbell Power Snatch, 30kg
+ - 2 Barbell Overhead Squat, 30kg
+ - 3 Burpee Over the Bar
+ - 1 minuto descanso
+ - 13 Hanging Toes to Bar
+
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
 
 Clase GOAT 26/08/2026
 
