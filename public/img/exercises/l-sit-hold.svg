@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="225" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" fill="#475569" letter-spacing="1">L-SIT HOLD</text>
+  <!-- paralelas -->
+  <line x1="60" y1="120" x2="60" y2="190" stroke="#374151" stroke-width="4" stroke-linecap="round"/>
+  <line x1="140" y1="120" x2="140" y2="190" stroke="#374151" stroke-width="4" stroke-linecap="round"/>
+  <line x1="52" y1="120" x2="68" y2="120" stroke="#374151" stroke-width="4" stroke-linecap="round"/>
+  <line x1="132" y1="120" x2="148" y2="120" stroke="#374151" stroke-width="4" stroke-linecap="round"/>
+  <!-- Frame 1: apoyo, piernas colgando (posicion de entrada) -->
+  <g class="f1">
+    <circle cx="100" cy="60" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="73" x2="100" y2="120"/>
+      <line x1="100" y1="82" x2="80" y2="118"/><line x1="100" y1="82" x2="120" y2="118"/>
+      <line x1="98" y1="120" x2="96" y2="160"/><line x1="96" y1="160" x2="96" y2="196"/>
+      <line x1="102" y1="120" x2="104" y2="160"/><line x1="104" y1="160" x2="104" y2="196"/>
+    </g>
+  </g>
+  <!-- Frame 2: piernas elevandose a media altura -->
+  <g class="f2">
+    <circle cx="100" cy="58" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="71" x2="100" y2="116"/>
+      <line x1="100" y1="80" x2="80" y2="118"/><line x1="100" y1="80" x2="120" y2="118"/>
+      <line x1="100" y1="116" x2="122" y2="128"/><line x1="122" y1="128" x2="150" y2="128"/>
+    </g>
+  </g>
+  <!-- Frame 3: L-sit completa, piernas rectas horizontales, cadera bloqueada -->
+  <g class="f3">
+    <circle cx="98" cy="56" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="98" y1="69" x2="96" y2="112"/>
+      <line x1="98" y1="78" x2="78" y2="118"/><line x1="98" y1="78" x2="118" y2="118"/>
+      <line x1="96" y1="112" x2="130" y2="108"/><line x1="130" y1="108" x2="164" y2="106"/>
+    </g>
+    <circle cx="130" cy="108" r="5" fill="#64748b"/>
+  </g>
+</svg>

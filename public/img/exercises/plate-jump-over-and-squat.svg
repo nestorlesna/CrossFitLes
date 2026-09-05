@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="225" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" fill="#475569" letter-spacing="1">PLATE JUMP OVER + SQUAT</text>
+  <!-- disco en el piso al centro -->
+  <ellipse cx="100" cy="204" rx="20" ry="6" fill="#f59e0b"/>
+  <!-- Frame 1: parado a un lado del disco, semiflexion previa al salto -->
+  <g class="f1">
+    <circle cx="66" cy="70" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="66" y1="83" x2="66" y2="132"/>
+      <line x1="66" y1="94" x2="50" y2="112"/><line x1="66" y1="94" x2="82" y2="112"/>
+      <line x1="62" y1="132" x2="54" y2="164"/><line x1="54" y1="164" x2="56" y2="204"/>
+      <line x1="70" y1="132" x2="78" y2="164"/><line x1="78" y1="164" x2="76" y2="204"/>
+    </g>
+    <circle cx="54" cy="164" r="5" fill="#64748b"/><circle cx="78" cy="164" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: en el aire sobre el disco, rodillas recogidas -->
+  <g class="f2">
+    <circle cx="100" cy="44" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="57" x2="100" y2="102"/>
+      <line x1="100" y1="68" x2="80" y2="58"/><line x1="100" y1="68" x2="120" y2="58"/>
+      <line x1="96" y1="102" x2="84" y2="122"/><line x1="84" y1="122" x2="98" y2="138"/>
+      <line x1="104" y1="102" x2="116" y2="122"/><line x1="116" y1="122" x2="102" y2="138"/>
+    </g>
+    <circle cx="84" cy="122" r="5" fill="#64748b"/><circle cx="116" cy="122" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: aterriza del otro lado en sentadilla profunda -->
+  <g class="f3">
+    <circle cx="134" cy="80" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="134" y1="93" x2="134" y2="146"/>
+      <line x1="134" y1="106" x2="118" y2="120"/><line x1="134" y1="106" x2="150" y2="120"/>
+      <line x1="130" y1="146" x2="112" y2="156"/><line x1="112" y1="156" x2="128" y2="204"/>
+      <line x1="138" y1="146" x2="156" y2="156"/><line x1="156" y1="156" x2="142" y2="204"/>
+    </g>
+    <circle cx="112" cy="156" r="5" fill="#64748b"/><circle cx="156" cy="156" r="5" fill="#64748b"/>
+  </g>
+</svg>
