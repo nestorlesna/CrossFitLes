@@ -29,6 +29,85 @@ Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ### TEMPLATE
 
 
+Clase GOAT 12/09/2026
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas, 4 ejercicios, cada 30 segundos
+ - Pigeon Pose derecha
+ - Pigeon Pose izquierda
+ - Lunge with Open Rotation video corto https://www.youtube.com/shorts/hesyBQTaMz0, video explicativo https://www.youtube.com/shorts/79iSfO7V8ZQ
+ - Cat-Cow
+
+Activacion mayor cantidad de ejercicios en 6 minutos
+ - Kettlebell Good Morning 10 kg
+ - Dynamic Hollow Hold 10kg
+ - Romanian Deadlift 10kg, video corto https://www.youtube.com/watch?v=xAL7lHwj30E, video explicativo https://www.youtube.com/shorts/hu3jRvTc_po
+ - twist 10 kg
+
+Fuerza ejercicios por minuto, 5 minutos total
+ - 12 Barbell Romanian Deadlift, 80kg  video corto https://www.youtube.com/shorts/5rIqP63yWFg, video explicativo https://www.youtube.com/watch?v=7j-2w4-P14I
+ - minuto de descanso
+ - otro minuto de descanso
+ - 8 Barbell Romanian Deadlift 70 kg
+ - 8 Barbell Romanian Deadlift 70 kg
+ - 8 Barbell Romanian Deadlift 70 kg
+
+WOD 5 ejercicios por minuto en 20 minutos
+ - 14 Wall Ball Box Over 9kg
+ - running 200m
+ - Sled Push 80kg
+ - maquina, 1 y 4ta ronda Assault Bike, 2 y 3 Rowing
+ 
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+### TEMPLATE
+
+Clase GOAT 07/09/2026
+video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - 90/90 Hip Rotation
+ - Squat Thoracic Rotation
+ -  Wall Lat Stretch
+Activacion 20 de ejercicio 10 de descanso, 8 rondas
+ - Wall Sit 10 kg
+ - Jump Squat, video corto https://www.youtube.com/shorts/9hi65bciMdA, video explicativo https://www.youtube.com/watch?v=5xv0DKqe5XQ
+
+Fuerza , 5 rondas cada 2 minutos
+ - 12 Barbell Front Squat, 60 kg
+ - descanso
+ - 8 Barbell Front Squat, 60 kg
+ - 8 Barbell Front Squat, 60 kg
+ - 8 Barbell Front Squat, 70 kg
+
+WOD por minuto 15 minutos
+ - 10 Barbell Power Snatch
+ - 10 Burpee Over the Bar
+ - Shuttle Run
+ - 10 Barbell Power Snatch
+ - 10 Burpee Over the Bar
+ - Shuttle Run
+ - 10 Barbell Power Snatch
+ - 8 Burpee Over the Bar
+ - Shuttle Run
+ - 10 Barbell Power Snatch
+ - 8 Burpee Over the Bar
+ - Shuttle Run
+ - 10 Barbell Power Snatch
+ - 8 Burpee Over the Bar
+ - Shuttle Run
+
+
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
 Clase GOAT 05/09/2026
 Calentamiento
 - 6 minutos de calentamiento
@@ -53,8 +132,6 @@ WOD por minuto en 20 minutos
 Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 
 
-
-### TEMPLATE
 
 Clase GOAT 02/09/2026
 Calentamiento
