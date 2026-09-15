@@ -1,21 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
   <rect width="200" height="230" fill="#111827" rx="12"/>
   <style>
-    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
-    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
-    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
-    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}.f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}.f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}.f7{animation:sh7 8s linear infinite}.f8{animation:sh8 8s linear infinite}
+    @keyframes sh1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
+    @keyframes sh2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
+    @keyframes sh3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
+    @keyframes sh4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
+    @keyframes sh6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
+    @keyframes sh7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
+    @keyframes sh8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
   </style>
 
   <!-- Frame 1: Push-up bajo, pecho casi al piso -->
   <g class="f1" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
     <circle cx="100" cy="148" r="13" fill="#94a3b8" stroke="none"/>
-    <!-- Torso bajo y casi horizontal -->
     <line x1="100" y1="161" x2="100" y2="182"/>
-    <!-- Brazos flexionados, codos cerca del cuerpo -->
     <line x1="100" y1="168" x2="65" y2="200"/>
     <line x1="100" y1="168" x2="135" y2="200"/>
-    <!-- Piernas extendidas atrás, casi al piso -->
     <line x1="100" y1="182" x2="78" y2="205"/>
     <line x1="100" y1="182" x2="122" y2="205"/>
     <line x1="78" y1="205" x2="76" y2="210"/>
@@ -23,16 +25,47 @@
     <circle cx="65" cy="200" r="4" fill="#64748b" stroke="none"/>
     <circle cx="135" cy="200" r="4" fill="#64748b" stroke="none"/>
   </g>
-
-  <!-- Frame 2: Cobra / upward dog, pecho arriba y piernas apoyadas en el piso -->
-  <g class="f2" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+<g class="f2" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+    <circle cx="100" cy="132.3" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="100" y1="145.3" x2="100" y2="184.8"/>
+    <line x1="100" y1="153.5" x2="63.3" y2="199.5"/>
+    <line x1="100" y1="153.5" x2="136.8" y2="199.5"/>
+    <line x1="100" y1="184.8" x2="77.3" y2="205.3"/>
+    <line x1="100" y1="184.8" x2="122.8" y2="205.3"/>
+    <line x1="75.5" y1="206" x2="77.5" y2="209.8"/>
+    <line x1="121" y1="206" x2="126" y2="209.8"/>
+    <circle cx="63.3" cy="199.5" r="4" fill="#64748b" stroke="none"/>
+    <circle cx="136.8" cy="199.5" r="4" fill="#64748b" stroke="none"/>
+  </g>
+<g class="f3" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+    <circle cx="100" cy="116.5" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="100" y1="129.5" x2="100" y2="187.5"/>
+    <line x1="100" y1="139" x2="61.5" y2="199"/>
+    <line x1="100" y1="139" x2="138.5" y2="199"/>
+    <line x1="100" y1="187.5" x2="76.5" y2="205.5"/>
+    <line x1="100" y1="187.5" x2="123.5" y2="205.5"/>
+    <line x1="73" y1="207" x2="79" y2="209.5"/>
+    <line x1="120" y1="207" x2="128" y2="209.5"/>
+    <circle cx="61.5" cy="199" r="4" fill="#64748b" stroke="none"/>
+    <circle cx="138.5" cy="199" r="4" fill="#64748b" stroke="none"/>
+  </g>
+<g class="f4" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+    <circle cx="100" cy="100.8" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="100" y1="113.8" x2="100" y2="190.3"/>
+    <line x1="100" y1="124.5" x2="59.8" y2="198.5"/>
+    <line x1="100" y1="124.5" x2="140.3" y2="198.5"/>
+    <line x1="100" y1="190.3" x2="75.8" y2="205.8"/>
+    <line x1="100" y1="190.3" x2="124.3" y2="205.8"/>
+    <line x1="70.5" y1="208" x2="80.5" y2="209.3"/>
+    <line x1="119" y1="208" x2="130" y2="209.3"/>
+    <circle cx="59.8" cy="198.5" r="4" fill="#64748b" stroke="none"/>
+    <circle cx="140.3" cy="198.5" r="4" fill="#64748b" stroke="none"/>
+  </g>
+<g class="f5" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
     <circle cx="100" cy="85" r="13" fill="#94a3b8" stroke="none"/>
-    <!-- Torso arqueado, cadera baja cerca del piso -->
     <line x1="100" y1="98" x2="100" y2="193"/>
-    <!-- Brazos extendidos apoyados -->
     <line x1="100" y1="110" x2="58" y2="198"/>
     <line x1="100" y1="110" x2="142" y2="198"/>
-    <!-- Piernas apoyadas en el piso -->
     <line x1="100" y1="193" x2="75" y2="206"/>
     <line x1="100" y1="193" x2="125" y2="206"/>
     <line x1="68" y1="209" x2="82" y2="209"/>
@@ -40,24 +73,47 @@
     <circle cx="58" cy="198" r="4" fill="#64748b" stroke="none"/>
     <circle cx="142" cy="198" r="4" fill="#64748b" stroke="none"/>
   </g>
-
-  <!-- Frame 3: Downward dog / "carpita", cadera al cielo -->
-  <g class="f3" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
-    <circle cx="100" cy="68" r="13" fill="#94a3b8" stroke="none"/>
-    <!-- Torso inclinado formando V invertida -->
+<g class="f6" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+    <circle cx="100" cy="79.3" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="100" y1="95.3" x2="113.3" y2="178"/>
+    <line x1="100" y1="110" x2="61.3" y2="184.7"/>
+    <line x1="100" y1="110" x2="138.7" y2="184.7"/>
+    <line x1="86.7" y1="194" x2="74.7" y2="202.7"/>
+    <line x1="108.7" y1="194" x2="130" y2="202.7"/>
+    <line x1="62.7" y1="204.7" x2="76.7" y2="204.7"/>
+    <line x1="121.3" y1="204.7" x2="135.3" y2="204.7"/>
+    <circle cx="58.7" cy="181.3" r="4" fill="#64748b" stroke="none"/>
+    <circle cx="141.3" cy="181.3" r="4" fill="#64748b" stroke="none"/>
+  </g>
+<g class="f7" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+    <circle cx="100" cy="73.7" r="13" fill="#94a3b8" stroke="none"/>
     <line x1="100" y1="81" x2="100" y2="110"/>
-    <!-- Brazos hacia el suelo -->
+    <line x1="100" y1="90" x2="60" y2="148"/>
+    <line x1="100" y1="92.7" x2="126.7" y2="163"/>
+    <line x1="100" y1="110" x2="64.7" y2="171.3"/>
+    <line x1="100" y1="110" x2="135.3" y2="171.3"/>
+    <line x1="73.3" y1="195" x2="74.3" y2="199.3"/>
+    <line x1="117.3" y1="195" x2="135" y2="199.3"/>
+    <line x1="68" y1="158" x2="67" y2="196"/>
+    <line x1="132" y1="158" x2="133" y2="196"/>
+    <line x1="57.3" y1="200.3" x2="71.3" y2="200.3"/>
+    <line x1="52" y1="193" x2="52" y2="197"/>
+    <line x1="134" y1="193" x2="134" y2="197"/>
+    <line x1="124.7" y1="200.3" x2="138.7" y2="200.3"/>
+    <circle cx="59.3" cy="164.7" r="4" fill="#64748b" stroke="none"/>
+    <circle cx="140.7" cy="164.7" r="4" fill="#64748b" stroke="none"/>
+  </g>
+<g class="f8" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+    <circle cx="100" cy="68" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="100" y1="81" x2="100" y2="110"/>
     <line x1="100" y1="90" x2="60" y2="148"/>
     <line x1="100" y1="90" x2="140" y2="148"/>
-    <!-- Piernas hacia atrás/suelo -->
     <line x1="100" y1="110" x2="68" y2="158"/>
     <line x1="100" y1="110" x2="132" y2="158"/>
-    <!-- Pies en suelo -->
     <line x1="60" y1="196" x2="74" y2="196"/>
     <line x1="126" y1="196" x2="140" y2="196"/>
     <line x1="68" y1="158" x2="67" y2="196"/>
     <line x1="132" y1="158" x2="133" y2="196"/>
-    <!-- Manos en suelo -->
     <line x1="52" y1="196" x2="66" y2="196"/>
     <line x1="52" y1="193" x2="52" y2="197"/>
     <line x1="134" y1="193" x2="134" y2="197"/>

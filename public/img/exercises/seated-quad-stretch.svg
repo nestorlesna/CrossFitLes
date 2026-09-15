@@ -1,48 +1,107 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
 <rect width="200" height="230" fill="#111827" rx="12"/>
 <style>
-.f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
-@keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
-@keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
-@keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
-</style>
+    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}.f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}.f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}.f7{animation:sh7 8s linear infinite}.f8{animation:sh8 8s linear infinite}
+    @keyframes sh1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
+    @keyframes sh2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
+    @keyframes sh3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
+    @keyframes sh4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
+    @keyframes sh6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
+    @keyframes sh7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
+    @keyframes sh8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
+  </style>
 <!-- F1: Sitting on floor, one leg bent back at side -->
 <g class="f1">
-  <circle cx="85" cy="80" r="13" fill="#94a3b8"/>
-  <line x1="85" y1="93" x2="85" y2="152" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="85" y1="108" x2="65" y2="120" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="85" y1="108" x2="105" y2="120" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="85" y1="152" x2="50" y2="165" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="50" y1="165" x2="40" y2="185" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="85" y1="152" x2="130" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="130" y1="162" x2="150" y2="165" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="50" cy="165" r="5" fill="#64748b"/>
-  <circle cx="130" cy="162" r="5" fill="#64748b"/>
-</g>
-<!-- F2: Leaning back slightly, reaching for bent foot -->
+    <circle cx="85" cy="80" r="13" fill="#94a3b8"/>
+    <line x1="85" y1="93" x2="85" y2="152" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="108" x2="65" y2="120" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="108" x2="105" y2="120" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="152" x2="50" y2="165" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="50" y1="165" x2="40" y2="185" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="152" x2="130" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="130" y1="162" x2="150" y2="165" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="50" cy="165" r="5" fill="#64748b"/>
+    <circle cx="130" cy="162" r="5" fill="#64748b"/>
+  </g>
 <g class="f2">
-  <circle cx="85" cy="90" r="13" fill="#94a3b8"/>
-  <line x1="85" y1="103" x2="85" y2="158" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="85" y1="118" x2="60" y2="148" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="60" y1="148" x2="140" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="85" y1="118" x2="110" y2="128" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="85" y1="158" x2="50" y2="168" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="50" y1="168" x2="40" y2="190" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="85" y1="158" x2="130" y2="165" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="130" y1="165" x2="152" y2="168" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-</g>
-<!-- F3: Leaning back more, feeling quad stretch -->
+    <circle cx="85" cy="82.5" r="13" fill="#94a3b8"/>
+    <line x1="85" y1="95.5" x2="85" y2="153.5" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="110.5" x2="63.8" y2="127" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="110.5" x2="106.3" y2="122" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="153.5" x2="50" y2="165.8" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="50" y1="165.8" x2="40" y2="186.3" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="153.5" x2="130" y2="162.8" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="130" y1="162.8" x2="150.5" y2="165.8" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="50" cy="165" r="5" fill="#64748b"/>
+    <circle cx="130" cy="162" r="5" fill="#64748b"/>
+  </g>
 <g class="f3">
-  <circle cx="95" cy="100" r="13" fill="#94a3b8"/>
-  <line x1="88" y1="112" x2="78" y2="160" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="85" y1="130" x2="55" y2="160" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="55" y1="160" x2="145" y2="165" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="85" y1="130" x2="115" y2="135" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="78" y1="160" x2="50" y2="175" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="50" y1="175" x2="40" y2="200" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="78" y1="160" x2="128" y2="168" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="128" y1="168" x2="152" y2="170" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-</g>
+    <circle cx="85" cy="85" r="13" fill="#94a3b8"/>
+    <line x1="85" y1="98" x2="85" y2="155" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="113" x2="62.5" y2="134" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="60" y1="148" x2="140" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="113" x2="107.5" y2="124" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="155" x2="50" y2="166.5" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="50" y1="166.5" x2="40" y2="187.5" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="155" x2="130" y2="163.5" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="130" y1="163.5" x2="151" y2="166.5" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  </g>
+<g class="f4">
+    <circle cx="85" cy="87.5" r="13" fill="#94a3b8"/>
+    <line x1="85" y1="100.5" x2="85" y2="156.5" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="115.5" x2="61.3" y2="141" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="60" y1="148" x2="140" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="115.5" x2="108.8" y2="126" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="156.5" x2="50" y2="167.3" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="50" y1="167.3" x2="40" y2="188.8" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="156.5" x2="130" y2="164.3" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="130" y1="164.3" x2="151.5" y2="167.3" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  </g>
+<g class="f5">
+    <circle cx="85" cy="90" r="13" fill="#94a3b8"/>
+    <line x1="85" y1="103" x2="85" y2="158" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="118" x2="60" y2="148" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="60" y1="148" x2="140" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="118" x2="110" y2="128" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="158" x2="50" y2="168" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="50" y1="168" x2="40" y2="190" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="158" x2="130" y2="165" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="130" y1="165" x2="152" y2="168" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  </g>
+<g class="f6">
+    <circle cx="88.3" cy="93.3" r="13" fill="#94a3b8"/>
+    <line x1="86" y1="106" x2="82.7" y2="158.7" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="122" x2="58.3" y2="152" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="58.3" y1="152" x2="141.7" y2="163" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="122" x2="111.7" y2="130.3" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="82.7" y1="158.7" x2="50" y2="170.3" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="50" y1="170.3" x2="40" y2="193.3" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="82.7" y1="158.7" x2="129.3" y2="166" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="129.3" y1="166" x2="152" y2="168.7" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  </g>
+<g class="f7">
+    <circle cx="91.7" cy="96.7" r="13" fill="#94a3b8"/>
+    <line x1="87" y1="109" x2="80.3" y2="159.3" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="126" x2="56.7" y2="156" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="56.7" y1="156" x2="143.3" y2="164" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="126" x2="113.3" y2="132.7" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="80.3" y1="159.3" x2="50" y2="172.7" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="50" y1="172.7" x2="40" y2="196.7" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="80.3" y1="159.3" x2="128.7" y2="167" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="128.7" y1="167" x2="152" y2="169.3" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  </g>
+<g class="f8">
+    <circle cx="95" cy="100" r="13" fill="#94a3b8"/>
+    <line x1="88" y1="112" x2="78" y2="160" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="130" x2="55" y2="160" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="55" y1="160" x2="145" y2="165" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="85" y1="130" x2="115" y2="135" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="78" y1="160" x2="50" y2="175" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="50" y1="175" x2="40" y2="200" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="78" y1="160" x2="128" y2="168" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="128" y1="168" x2="152" y2="170" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  </g>
 <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
 <text x="100" y="225" text-anchor="middle" font-family="monospace" font-size="9" fill="#475569">SEATED QUAD STRETCH</text>
 </svg>

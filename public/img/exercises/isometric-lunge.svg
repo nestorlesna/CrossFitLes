@@ -1,51 +1,82 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
   <rect width="200" height="230" fill="#111827" rx="12"/>
   <style>
-    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
-    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
-    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
-    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 6s linear infinite}.f2{animation:sh2 6s linear infinite}.f3{animation:sh3 6s linear infinite}.f4{animation:sh4 6s linear infinite}.f5{animation:sh5 6s linear infinite}.f6{animation:sh6 6s linear infinite}
+    @keyframes sh1{0%,13.7%{opacity:1}16.7%,100%{opacity:0}}
+    @keyframes sh2{0%,16.7%{opacity:0}19.7%,30.3%{opacity:1}33.3%,100%{opacity:0}}
+    @keyframes sh3{0%,33.3%{opacity:0}36.3%,47%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh4{0%,50%{opacity:0}53%,63.7%{opacity:1}66.7%,100%{opacity:0}}
+    @keyframes sh5{0%,66.7%{opacity:0}69.7%,80.3%{opacity:1}83.3%,100%{opacity:0}}
+    @keyframes sh6{0%,83.3%{opacity:0}86.3%,97%{opacity:1}100%{opacity:0}}
   </style>
 
   <!-- Frame 1: posición alta del lunge isométrico, mancuerna al costado -->
   <g class="f1" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
     <circle cx="100" cy="28" r="13" fill="#94a3b8" stroke="none"/>
     <line x1="100" y1="41" x2="100" y2="105"/>
-    <!-- Brazos sosteniendo mancuerna izquierda -->
     <line x1="100" y1="58" x2="70" y2="90"/>
     <line x1="100" y1="58" x2="128" y2="75"/>
-    <!-- Mancuerna -->
     <rect x="55" y="88" width="18" height="6" fill="#64748b" rx="2" stroke="none"/>
-    <!-- Lunge: pierna delantera -->
     <line x1="100" y1="105" x2="82" y2="155"/>
     <line x1="82" y1="155" x2="80" y2="200"/>
-    <!-- Pierna trasera extendida -->
     <line x1="100" y1="105" x2="128" y2="155"/>
     <line x1="128" y1="155" x2="130" y2="200"/>
     <line x1="73" y1="200" x2="87" y2="200"/>
     <line x1="123" y1="200" x2="137" y2="200"/>
   </g>
-
-  <!-- Frame 2: posición baja mantenida (isométrica), rodilla trasera casi en el suelo -->
-  <g class="f2" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+<g class="f2" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+    <circle cx="100" cy="33.7" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="100" y1="46.7" x2="100" y2="109.3"/>
+    <line x1="100" y1="62.7" x2="69.3" y2="95"/>
+    <line x1="100" y1="62.7" x2="128.7" y2="80"/>
+    <rect x="54" y="92.7" width="18" height="6" fill="#64748b" rx="2" stroke="none"/>
+    <line x1="100" y1="109.3" x2="79.7" y2="156"/>
+    <line x1="79.7" y1="156" x2="77.3" y2="200"/>
+    <line x1="100" y1="109.3" x2="129.3" y2="155"/>
+    <line x1="129.3" y1="155" x2="133.3" y2="196.7"/>
+    <line x1="70.3" y1="200" x2="84.3" y2="200"/>
+    <line x1="123" y1="200" x2="137" y2="200"/>
+  </g>
+<g class="f3" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+    <circle cx="100" cy="39.3" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="100" y1="52.3" x2="100" y2="113.7"/>
+    <line x1="100" y1="67.3" x2="68.7" y2="100"/>
+    <line x1="100" y1="67.3" x2="129.3" y2="85"/>
+    <rect x="53" y="97.3" width="18" height="6" fill="#64748b" rx="2" stroke="none"/>
+    <line x1="100" y1="113.7" x2="77.3" y2="157"/>
+    <line x1="77.3" y1="157" x2="74.7" y2="200"/>
+    <line x1="100" y1="113.7" x2="130.7" y2="155"/>
+    <line x1="130.7" y1="155" x2="136.7" y2="193.3"/>
+    <line x1="67.7" y1="200" x2="81.7" y2="200"/>
+    <circle cx="140" cy="190" r="5" fill="#64748b" stroke="none"/>
+  </g>
+<g class="f4" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
     <circle cx="100" cy="45" r="13" fill="#94a3b8" stroke="none"/>
     <line x1="100" y1="58" x2="100" y2="118"/>
     <line x1="100" y1="72" x2="68" y2="105"/>
     <line x1="100" y1="72" x2="130" y2="90"/>
     <rect x="52" y="102" width="18" height="6" fill="#64748b" rx="2" stroke="none"/>
-    <!-- Pierna delantera, rodilla a 90° -->
     <line x1="100" y1="118" x2="75" y2="158"/>
     <line x1="75" y1="158" x2="72" y2="200"/>
-    <!-- Pierna trasera, rodilla al suelo -->
     <line x1="100" y1="118" x2="132" y2="155"/>
     <line x1="132" y1="155" x2="140" y2="190"/>
     <line x1="65" y1="200" x2="79" y2="200"/>
-    <!-- Rodilla trasera cerca del suelo -->
     <circle cx="140" cy="190" r="5" fill="#64748b" stroke="none"/>
   </g>
-
-  <!-- Frame 3: manteniendo bajo con torso erguido -->
-  <g class="f3" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+<g class="f5" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+    <circle cx="100" cy="43.5" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="100" y1="56.5" x2="100" y2="116.5"/>
+    <line x1="100" y1="70" x2="69" y2="102.5"/>
+    <line x1="100" y1="70" x2="131" y2="89"/>
+    <rect x="53" y="99.5" width="18" height="6" fill="#64748b" rx="2" stroke="none"/>
+    <line x1="100" y1="116.5" x2="75.5" y2="159"/>
+    <line x1="75.5" y1="159" x2="72.5" y2="200"/>
+    <line x1="100" y1="116.5" x2="131" y2="154"/>
+    <line x1="131" y1="154" x2="139" y2="191"/>
+    <line x1="65.5" y1="200" x2="79.5" y2="200"/>
+    <circle cx="139" cy="191" r="5" fill="#64748b" stroke="none"/>
+  </g>
+<g class="f6" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
     <circle cx="100" cy="42" r="13" fill="#94a3b8" stroke="none"/>
     <line x1="100" y1="55" x2="100" y2="115"/>
     <line x1="100" y1="68" x2="70" y2="100"/>

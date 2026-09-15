@@ -1,11 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
   <style>
-    .fr1{animation:f1 4s linear infinite}
-    .fr2{animation:f2 4s linear infinite}
-    .fr3{animation:f3 4s linear infinite}
-    @keyframes f1{0%,33%{opacity:1}34%,100%{opacity:0}}
-    @keyframes f2{0%,33%{opacity:0}34%,66%{opacity:1}67%,100%{opacity:0}}
-    @keyframes f3{0%,66%{opacity:0}67%,100%{opacity:1}}
+    .fr1{animation:shfr1 10s linear infinite}.fr2{animation:shfr2 10s linear infinite}.fr3{animation:shfr3 10s linear infinite}.fr4{animation:shfr4 10s linear infinite}.fr5{animation:shfr5 10s linear infinite}.fr6{animation:shfr6 10s linear infinite}.fr7{animation:shfr7 10s linear infinite}.fr8{animation:shfr8 10s linear infinite}.fr9{animation:shfr9 10s linear infinite}.fr10{animation:shfr10 10s linear infinite}
+    @keyframes shfr1{0%,8.2%{opacity:1}10%,100%{opacity:0}}
+    @keyframes shfr2{0%,10%{opacity:0}11.8%,18.2%{opacity:1}20%,100%{opacity:0}}
+    @keyframes shfr3{0%,20%{opacity:0}21.8%,28.2%{opacity:1}30%,100%{opacity:0}}
+    @keyframes shfr4{0%,30%{opacity:0}31.8%,38.2%{opacity:1}40%,100%{opacity:0}}
+    @keyframes shfr5{0%,40%{opacity:0}41.8%,48.2%{opacity:1}50%,100%{opacity:0}}
+    @keyframes shfr6{0%,50%{opacity:0}51.8%,58.2%{opacity:1}60%,100%{opacity:0}}
+    @keyframes shfr7{0%,60%{opacity:0}61.8%,68.2%{opacity:1}70%,100%{opacity:0}}
+    @keyframes shfr8{0%,70%{opacity:0}71.8%,78.2%{opacity:1}80%,100%{opacity:0}}
+    @keyframes shfr9{0%,80%{opacity:0}81.8%,88.2%{opacity:1}90%,100%{opacity:0}}
+    @keyframes shfr10{0%,90%{opacity:0}91.8%,98.2%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="200" height="230" fill="#111827"/>
 
@@ -13,58 +18,139 @@
   <g class="fr1" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="100" cy="28" r="10" fill="#94a3b8"/>
     <line x1="100" y1="38" x2="102" y2="112" stroke="#94a3b8" stroke-width="4"/>
-    <!-- brazo derecho hacia abajo sosteniendo mancuerna -->
     <line x1="100" y1="58" x2="126" y2="82" stroke="#94a3b8" stroke-width="4"/>
     <line x1="126" y1="82" x2="134" y2="105" stroke="#94a3b8" stroke-width="4"/>
-    <!-- brazo izquierdo relajado -->
     <line x1="100" y1="58" x2="74" y2="75" stroke="#94a3b8" stroke-width="4"/>
-    <!-- pierna derecha -->
     <line x1="102" y1="112" x2="92" y2="165" stroke="#94a3b8" stroke-width="4"/>
     <line x1="92" y1="165" x2="88" y2="215" stroke="#94a3b8" stroke-width="4"/>
-    <!-- pierna izquierda -->
     <line x1="102" y1="112" x2="114" y2="165" stroke="#94a3b8" stroke-width="4"/>
     <line x1="114" y1="165" x2="118" y2="215" stroke="#94a3b8" stroke-width="4"/>
-    <!-- mancuerna -->
     <rect x="130" y="102" width="22" height="7" rx="2" fill="#475569"/>
     <rect x="128" y="100" width="4" height="11" rx="1" fill="#64748b"/>
     <rect x="150" y="100" width="4" height="11" rx="1" fill="#64748b"/>
   </g>
-
-  <!-- Frame 2: tirón explosivo, codo alto, mancuerna a la altura del hombro -->
-  <g class="fr2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<g class="fr2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="100" cy="28.4" r="10" fill="#94a3b8"/>
+    <line x1="100" y1="38.4" x2="101.6" y2="112" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="58" x2="125.2" y2="74" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="125.2" y1="74" x2="133.6" y2="88" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="58" x2="72.8" y2="73" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="101.6" y1="112" x2="91.2" y2="164.4" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="91.2" y1="164.4" x2="86.8" y2="214.4" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="101.6" y1="112" x2="114" y2="164.4" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="114" y1="164.4" x2="118.4" y2="214.4" stroke="#94a3b8" stroke-width="4"/>
+    <rect x="129.6" y="84.4" width="22" height="7" rx="2" fill="#475569"/>
+    <rect x="127.6" y="82.4" width="4" height="11" rx="1" fill="#64748b"/>
+    <rect x="149.6" y="82.4" width="4" height="11" rx="1" fill="#64748b"/>
+  </g>
+<g class="fr3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="100" cy="28.8" r="10" fill="#94a3b8"/>
+    <line x1="100" y1="38.8" x2="101.2" y2="112" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="58" x2="124.4" y2="66" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="124.4" y1="66" x2="133.2" y2="71" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="58" x2="71.6" y2="71" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="101.2" y1="112" x2="90.4" y2="163.8" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="90.4" y1="163.8" x2="85.6" y2="213.8" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="101.2" y1="112" x2="114" y2="163.8" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="114" y1="163.8" x2="118.8" y2="213.8" stroke="#94a3b8" stroke-width="4"/>
+    <rect x="129.2" y="66.8" width="22" height="7" rx="2" fill="#475569"/>
+    <rect x="127.2" y="64.8" width="4" height="11" rx="1" fill="#64748b"/>
+    <rect x="149.2" y="64.8" width="4" height="11" rx="1" fill="#64748b"/>
+  </g>
+<g class="fr4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="100" cy="29.2" r="10" fill="#94a3b8"/>
+    <line x1="100" y1="39.2" x2="100.8" y2="112" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="58" x2="123.6" y2="58" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="123.6" y1="58" x2="132.8" y2="54" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="58" x2="70.4" y2="69" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100.8" y1="112" x2="89.6" y2="163.2" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="89.6" y1="163.2" x2="84.4" y2="213.2" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100.8" y1="112" x2="114" y2="163.2" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="114" y1="163.2" x2="119.2" y2="213.2" stroke="#94a3b8" stroke-width="4"/>
+    <rect x="128.8" y="49.2" width="22" height="7" rx="2" fill="#475569"/>
+    <rect x="126.8" y="47.2" width="4" height="11" rx="1" fill="#64748b"/>
+    <rect x="148.8" y="47.2" width="4" height="11" rx="1" fill="#64748b"/>
+  </g>
+<g class="fr5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="100" cy="29.6" r="10" fill="#94a3b8"/>
+    <line x1="100" y1="39.6" x2="100.4" y2="112" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="58" x2="122.8" y2="50" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="122.8" y1="50" x2="132.4" y2="37" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="58" x2="69.2" y2="67" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100.4" y1="112" x2="88.8" y2="162.6" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="88.8" y1="162.6" x2="83.2" y2="212.6" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100.4" y1="112" x2="114" y2="162.6" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="114" y1="162.6" x2="119.6" y2="212.6" stroke="#94a3b8" stroke-width="4"/>
+    <rect x="128.4" y="31.6" width="22" height="7" rx="2" fill="#475569"/>
+    <rect x="126.4" y="29.6" width="4" height="11" rx="1" fill="#64748b"/>
+    <rect x="148.4" y="29.6" width="4" height="11" rx="1" fill="#64748b"/>
+  </g>
+<g class="fr6" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="100" cy="30" r="10" fill="#94a3b8"/>
     <line x1="100" y1="40" x2="100" y2="112" stroke="#94a3b8" stroke-width="4"/>
-    <!-- brazo derecho, codo alto -->
     <line x1="100" y1="58" x2="122" y2="42" stroke="#94a3b8" stroke-width="4"/>
     <line x1="122" y1="42" x2="132" y2="20" stroke="#94a3b8" stroke-width="4"/>
-    <!-- brazo izquierdo para equilibrio -->
     <line x1="100" y1="58" x2="68" y2="65" stroke="#94a3b8" stroke-width="4"/>
-    <!-- piernas ligeramente dobladas -->
     <line x1="100" y1="112" x2="88" y2="162" stroke="#94a3b8" stroke-width="4"/>
     <line x1="88" y1="162" x2="82" y2="212" stroke="#94a3b8" stroke-width="4"/>
     <line x1="100" y1="112" x2="114" y2="162" stroke="#94a3b8" stroke-width="4"/>
     <line x1="114" y1="162" x2="120" y2="212" stroke="#94a3b8" stroke-width="4"/>
-    <!-- mancuerna en alto -->
     <rect x="128" y="14" width="22" height="7" rx="2" fill="#475569"/>
     <rect x="126" y="12" width="4" height="11" rx="1" fill="#64748b"/>
     <rect x="148" y="12" width="4" height="11" rx="1" fill="#64748b"/>
   </g>
-
-  <!-- Frame 3: bloqueo overhead, brazo extendido -->
-  <g class="fr3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<g class="fr7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="100" cy="31" r="10" fill="#94a3b8"/>
+    <line x1="100" y1="41" x2="100" y2="112.8" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="59.5" x2="120" y2="41" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="120" y1="41" x2="128.5" y2="17.5" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="59.5" x2="69.5" y2="68.8" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="112.8" x2="88.5" y2="162.8" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="88.5" y1="162.8" x2="83" y2="212.8" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="112.8" x2="113" y2="162.8" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="113" y1="162.8" x2="118.5" y2="212.8" stroke="#94a3b8" stroke-width="4"/>
+    <rect x="124.3" y="11.5" width="22" height="7" rx="2" fill="#475569"/>
+    <rect x="122.3" y="9.5" width="4" height="11" rx="1" fill="#64748b"/>
+    <rect x="138.8" y="15" width="4" height="11" rx="1" fill="#64748b"/>
+  </g>
+<g class="fr8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="100" cy="32" r="10" fill="#94a3b8"/>
+    <line x1="100" y1="42" x2="100" y2="113.5" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="61" x2="118" y2="40" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="118" y1="40" x2="125" y2="15" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="61" x2="71" y2="72.5" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="113.5" x2="89" y2="163.5" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="89" y1="163.5" x2="84" y2="213.5" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="113.5" x2="112" y2="163.5" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="112" y1="163.5" x2="117" y2="213.5" stroke="#94a3b8" stroke-width="4"/>
+    <rect x="120.5" y="9" width="22" height="7" rx="2" fill="#475569"/>
+    <rect x="118.5" y="7" width="4" height="11" rx="1" fill="#64748b"/>
+    <rect x="129.5" y="18" width="4" height="11" rx="1" fill="#64748b"/>
+  </g>
+<g class="fr9" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="100" cy="33" r="10" fill="#94a3b8"/>
+    <line x1="100" y1="43" x2="100" y2="114.3" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="62.5" x2="116" y2="39" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="116" y1="39" x2="121.5" y2="12.5" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="62.5" x2="72.5" y2="76.3" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="114.3" x2="89.5" y2="164.3" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="89.5" y1="164.3" x2="85" y2="214.3" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="100" y1="114.3" x2="111" y2="164.3" stroke="#94a3b8" stroke-width="4"/>
+    <line x1="111" y1="164.3" x2="115.5" y2="214.3" stroke="#94a3b8" stroke-width="4"/>
+    <rect x="116.8" y="6.5" width="22" height="7" rx="2" fill="#475569"/>
+    <rect x="114.8" y="4.5" width="4" height="11" rx="1" fill="#64748b"/>
+    <rect x="120.3" y="21" width="4" height="11" rx="1" fill="#64748b"/>
+  </g>
+<g class="fr10" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="100" cy="34" r="10" fill="#94a3b8"/>
     <line x1="100" y1="44" x2="100" y2="115" stroke="#94a3b8" stroke-width="4"/>
-    <!-- brazo derecho overhead -->
     <line x1="100" y1="64" x2="114" y2="38" stroke="#94a3b8" stroke-width="4"/>
     <line x1="114" y1="38" x2="118" y2="10" stroke="#94a3b8" stroke-width="4"/>
-    <!-- brazo izquierdo relajado -->
     <line x1="100" y1="64" x2="74" y2="80" stroke="#94a3b8" stroke-width="4"/>
-    <!-- piernas -->
     <line x1="100" y1="115" x2="90" y2="165" stroke="#94a3b8" stroke-width="4"/>
     <line x1="90" y1="165" x2="86" y2="215" stroke="#94a3b8" stroke-width="4"/>
     <line x1="100" y1="115" x2="110" y2="165" stroke="#94a3b8" stroke-width="4"/>
     <line x1="110" y1="165" x2="114" y2="215" stroke="#94a3b8" stroke-width="4"/>
-    <!-- mancuerna overhead (vertical) -->
     <rect x="113" y="4" width="7" height="22" rx="2" fill="#475569"/>
     <rect x="111" y="2" width="11" height="4" rx="1" fill="#64748b"/>
     <rect x="111" y="24" width="11" height="4" rx="1" fill="#64748b"/>

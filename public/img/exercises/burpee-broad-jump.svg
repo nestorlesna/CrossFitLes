@@ -1,63 +1,115 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
 <defs><style>
-.f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
-@keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
-@keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
-@keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
-</style></defs>
+    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}.f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}.f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}.f7{animation:sh7 8s linear infinite}.f8{animation:sh8 8s linear infinite}
+    @keyframes sh1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
+    @keyframes sh2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
+    @keyframes sh3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
+    @keyframes sh4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
+    @keyframes sh6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
+    @keyframes sh7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
+    @keyframes sh8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
+  </style></defs>
 <rect width="200" height="230" fill="#111827" rx="12"/>
 <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
 
 <!-- f1: Plancha abajo (push-up del burpee) -->
 <g class="f1" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
-  <circle cx="50" cy="170" r="12" fill="#94a3b8" stroke="none"/>
-  <!-- Torso horizontal -->
-  <line x1="50" y1="180" x2="155" y2="190"/>
-  <!-- Brazos extendidos al piso -->
-  <line x1="50" y1="180" x2="40" y2="205"/>
-  <line x1="65" y1="183" x2="58" y2="205"/>
-  <!-- Piernas extendidas -->
-  <line x1="155" y1="190" x2="165" y2="205"/>
-  <line x1="145" y1="190" x2="155" y2="205"/>
-  <circle cx="40" cy="205" r="4" fill="#64748b" stroke="none"/>
-  <circle cx="58" cy="205" r="4" fill="#64748b" stroke="none"/>
-</g>
-
-<!-- f2: De pie, brazos atrás preparando salto -->
+    <circle cx="50" cy="170" r="12" fill="#94a3b8" stroke="none"/>
+    <line x1="50" y1="180" x2="155" y2="190"/>
+    <line x1="50" y1="180" x2="40" y2="205"/>
+    <line x1="65" y1="183" x2="58" y2="205"/>
+    <line x1="155" y1="190" x2="165" y2="205"/>
+    <line x1="145" y1="190" x2="155" y2="205"/>
+    <circle cx="40" cy="205" r="4" fill="#64748b" stroke="none"/>
+    <circle cx="58" cy="205" r="4" fill="#64748b" stroke="none"/>
+  </g>
 <g class="f2" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
-  <circle cx="80" cy="60" r="13" fill="#94a3b8" stroke="none"/>
-  <!-- Torso inclinado adelante -->
-  <line x1="80" y1="73" x2="90" y2="130"/>
-  <!-- Brazos atrás listos para impulsar -->
-  <line x1="82" y1="85" x2="55" y2="118"/>
-  <line x1="82" y1="85" x2="55" y2="98"/>
-  <!-- Piernas en sentadilla parcial -->
-  <line x1="90" y1="130" x2="78" y2="170"/>
-  <line x1="78" y1="170" x2="85" y2="205"/>
-  <line x1="90" y1="130" x2="105" y2="170"/>
-  <line x1="105" y1="170" x2="98" y2="205"/>
-  <circle cx="78" cy="170" r="5" fill="#64748b" stroke="none"/>
-  <circle cx="105" cy="170" r="5" fill="#64748b" stroke="none"/>
-</g>
-
-<!-- f3: Salto al frente, brazos extendidos hacia adelante/arriba -->
+    <circle cx="50" cy="170" r="12" fill="#94a3b8" stroke="none"/>
+    <line x1="58" y1="156.3" x2="130" y2="172"/>
+    <line x1="60" y1="167.5" x2="49.5" y2="196.3"/>
+    <line x1="68.3" y1="179.8" x2="64.8" y2="205"/>
+    <line x1="138.8" y1="175" x2="150" y2="196.3"/>
+    <line x1="135" y1="185" x2="140.8" y2="205"/>
+    <circle cx="49.5" cy="196.3" r="4" fill="#64748b" stroke="none"/>
+    <circle cx="69.8" cy="196.3" r="4" fill="#64748b" stroke="none"/>
+  </g>
 <g class="f3" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
-  <circle cx="130" cy="50" r="13" fill="#94a3b8" stroke="none"/>
-  <line x1="130" y1="63" x2="140" y2="120"/>
-  <!-- Brazos al frente extendidos -->
-  <line x1="130" y1="73" x2="170" y2="55"/>
-  <line x1="130" y1="73" x2="170" y2="80"/>
-  <!-- Piernas flexionadas en vuelo -->
-  <line x1="140" y1="120" x2="115" y2="145"/>
-  <line x1="115" y1="145" x2="125" y2="170"/>
-  <line x1="140" y1="120" x2="155" y2="150"/>
-  <line x1="155" y1="150" x2="148" y2="180"/>
-  <circle cx="115" cy="145" r="5" fill="#64748b" stroke="none"/>
-  <circle cx="155" cy="150" r="5" fill="#64748b" stroke="none"/>
-  <!-- Líneas de impulso (movimiento) -->
-  <line x1="50" y1="195" x2="65" y2="195" stroke="#64748b" stroke-width="2" stroke-dasharray="3,3"/>
-  <line x1="50" y1="180" x2="70" y2="180" stroke="#64748b" stroke-width="2" stroke-dasharray="3,3"/>
-</g>
+    <circle cx="80" cy="60" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="80" y1="73" x2="90" y2="130"/>
+    <line x1="66" y1="132.5" x2="105" y2="154"/>
+    <line x1="82" y1="85" x2="55" y2="98"/>
+    <line x1="70" y1="155" x2="59" y2="187.5"/>
+    <line x1="71.5" y1="176.5" x2="71.5" y2="205"/>
+    <line x1="122.5" y1="160" x2="135" y2="187.5"/>
+    <line x1="125" y1="180" x2="126.5" y2="205"/>
+    <circle cx="59" cy="187.5" r="4" fill="#64748b" stroke="none"/>
+    <circle cx="81.5" cy="187.5" r="4" fill="#64748b" stroke="none"/>
+  </g>
+<g class="f4" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+    <circle cx="80" cy="60" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="80" y1="73" x2="90" y2="130"/>
+    <line x1="74" y1="108.8" x2="80" y2="136"/>
+    <line x1="82" y1="85" x2="55" y2="98"/>
+    <line x1="80" y1="142.5" x2="68.5" y2="178.8"/>
+    <line x1="74.8" y1="173.3" x2="78.3" y2="205"/>
+    <line x1="106.3" y1="145" x2="120" y2="178.8"/>
+    <line x1="115" y1="175" x2="112.3" y2="205"/>
+    <circle cx="68.5" cy="178.8" r="4" fill="#64748b" stroke="none"/>
+    <circle cx="93.3" cy="178.8" r="4" fill="#64748b" stroke="none"/>
+  </g>
+<g class="f5" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+    <circle cx="80" cy="60" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="80" y1="73" x2="90" y2="130"/>
+    <line x1="82" y1="85" x2="55" y2="118"/>
+    <line x1="82" y1="85" x2="55" y2="98"/>
+    <line x1="90" y1="130" x2="78" y2="170"/>
+    <line x1="78" y1="170" x2="85" y2="205"/>
+    <line x1="90" y1="130" x2="105" y2="170"/>
+    <line x1="105" y1="170" x2="98" y2="205"/>
+    <circle cx="78" cy="170" r="5" fill="#64748b" stroke="none"/>
+    <circle cx="105" cy="170" r="5" fill="#64748b" stroke="none"/>
+  </g>
+<g class="f6" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+    <circle cx="96.7" cy="56.7" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="96.7" y1="69.7" x2="106.7" y2="126.7"/>
+    <line x1="98" y1="81" x2="93.3" y2="97"/>
+    <line x1="98" y1="81" x2="93.3" y2="92"/>
+    <line x1="106.7" y1="126.7" x2="90.3" y2="161.7"/>
+    <line x1="90.3" y1="161.7" x2="98.3" y2="193.3"/>
+    <line x1="106.7" y1="126.7" x2="121.7" y2="163.3"/>
+    <line x1="121.7" y1="163.3" x2="114.7" y2="196.7"/>
+    <circle cx="90.3" cy="161.7" r="5" fill="#64748b" stroke="none"/>
+    <circle cx="121.7" cy="163.3" r="5" fill="#64748b" stroke="none"/>
+  </g>
+<g class="f7" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+    <circle cx="113.3" cy="53.3" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="113.3" y1="66.3" x2="123.3" y2="123.3"/>
+    <line x1="114" y1="77" x2="131.7" y2="76"/>
+    <line x1="114" y1="77" x2="131.7" y2="86"/>
+    <line x1="123.3" y1="123.3" x2="102.7" y2="153.3"/>
+    <line x1="102.7" y1="153.3" x2="111.7" y2="181.7"/>
+    <line x1="123.3" y1="123.3" x2="138.3" y2="156.7"/>
+    <line x1="138.3" y1="156.7" x2="131.3" y2="188.3"/>
+    <circle cx="102.7" cy="153.3" r="5" fill="#64748b" stroke="none"/>
+    <circle cx="138.3" cy="156.7" r="5" fill="#64748b" stroke="none"/>
+    <line x1="50" y1="195" x2="65" y2="195" stroke="#64748b" stroke-width="2" stroke-dasharray="3,3"/>
+    <line x1="50" y1="180" x2="70" y2="180" stroke="#64748b" stroke-width="2" stroke-dasharray="3,3"/>
+  </g>
+<g class="f8" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+    <circle cx="130" cy="50" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="130" y1="63" x2="140" y2="120"/>
+    <line x1="130" y1="73" x2="170" y2="55"/>
+    <line x1="130" y1="73" x2="170" y2="80"/>
+    <line x1="140" y1="120" x2="115" y2="145"/>
+    <line x1="115" y1="145" x2="125" y2="170"/>
+    <line x1="140" y1="120" x2="155" y2="150"/>
+    <line x1="155" y1="150" x2="148" y2="180"/>
+    <circle cx="115" cy="145" r="5" fill="#64748b" stroke="none"/>
+    <circle cx="155" cy="150" r="5" fill="#64748b" stroke="none"/>
+    <line x1="50" y1="195" x2="65" y2="195" stroke="#64748b" stroke-width="2" stroke-dasharray="3,3"/>
+    <line x1="50" y1="180" x2="70" y2="180" stroke="#64748b" stroke-width="2" stroke-dasharray="3,3"/>
+  </g>
 
 <text x="100" y="225" text-anchor="middle" font-size="10" fill="#475569" font-family="sans-serif">BURPEE BROAD JUMP</text>
 </svg>

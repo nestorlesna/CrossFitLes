@@ -1,9 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 200">
   <style>
-    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
-    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
-    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
-    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}.f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}.f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}.f7{animation:sh7 8s linear infinite}.f8{animation:sh8 8s linear infinite}
+    @keyframes sh1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
+    @keyframes sh2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
+    @keyframes sh3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
+    @keyframes sh4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
+    @keyframes sh6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
+    @keyframes sh7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
+    @keyframes sh8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="260" height="200" fill="#111827" rx="12"/>
   <!-- Bike frame (always visible) -->
@@ -25,48 +30,109 @@
   <text x="130" y="192" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="2">ASSAULT BIKE</text>
   <!-- Frame 1: Pedal forward, arm push -->
   <g class="f1">
-    <!-- Crank arm position 1 -->
     <line x1="140" y1="140" x2="158" y2="152" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
     <circle cx="152" cy="80" r="11" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="152" y1="91" x2="154" y2="118"/>
-      <line x1="138" y1="100" x2="166" y2="100"/>
-      <!-- Right arm pushing forward -->
-      <line x1="138" y1="100" x2="122" y2="80"/>
-      <!-- Left arm pulling back -->
-      <line x1="166" y1="100" x2="150" y2="72"/>
-      <!-- Legs pedaling: right forward -->
-      <line x1="150" y1="118" x2="160" y2="148"/><line x1="160" y1="148" x2="158" y2="152"/>
-      <!-- Left leg back -->
-      <line x1="158" y1="118" x2="150" y2="140"/><line x1="150" y1="140" x2="138" y2="150"/>
+    <line x1="138" y1="100" x2="166" y2="100"/>
+    <line x1="138" y1="100" x2="122" y2="80"/>
+    <line x1="166" y1="100" x2="150" y2="72"/>
+    <line x1="150" y1="118" x2="160" y2="148"/>
+    <line x1="160" y1="148" x2="158" y2="152"/>
+    <line x1="158" y1="118" x2="150" y2="140"/>
+    <line x1="150" y1="140" x2="138" y2="150"/>
     </g>
   </g>
-  <!-- Frame 2: Mid stroke -->
-  <g class="f2">
+<g class="f2">
+    <line x1="140" y1="140" x2="153.5" y2="153.5" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="152" cy="80" r="11" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="152" y1="91" x2="154" y2="118"/>
+    <line x1="137.5" y1="100" x2="166.5" y2="100"/>
+    <line x1="137.5" y1="100" x2="123.5" y2="79"/>
+    <line x1="166.5" y1="100" x2="148.5" y2="71"/>
+    <line x1="150" y1="118" x2="157" y2="149"/>
+    <line x1="160" y1="148" x2="158" y2="152"/>
+    <line x1="158" y1="118" x2="151.5" y2="138.5"/>
+    <line x1="151.5" y1="138.5" x2="140.5" y2="149.5"/>
+    </g>
+  </g>
+<g class="f3">
+    <line x1="140" y1="140" x2="149" y2="155" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="152" cy="80" r="11" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="152" y1="91" x2="154" y2="118"/>
+    <line x1="137" y1="100" x2="167" y2="100"/>
+    <line x1="137" y1="100" x2="125" y2="78"/>
+    <line x1="167" y1="100" x2="147" y2="70"/>
+    <line x1="150" y1="118" x2="154" y2="150"/>
+    <line x1="158" y1="118" x2="153" y2="137"/>
+    <line x1="153" y1="137" x2="143" y2="149"/>
+    </g>
+  </g>
+<g class="f4">
+    <line x1="140" y1="140" x2="144.5" y2="156.5" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="152" cy="80" r="11" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="152" y1="91" x2="154" y2="118"/>
+    <line x1="136.5" y1="100" x2="167.5" y2="100"/>
+    <line x1="136.5" y1="100" x2="126.5" y2="77"/>
+    <line x1="167.5" y1="100" x2="145.5" y2="69"/>
+    <line x1="150" y1="118" x2="151" y2="151"/>
+    <line x1="158" y1="118" x2="154.5" y2="135.5"/>
+    <line x1="154.5" y1="135.5" x2="145.5" y2="148.5"/>
+    </g>
+  </g>
+<g class="f5">
     <line x1="140" y1="140" x2="140" y2="158" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
     <circle cx="152" cy="80" r="11" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="152" y1="91" x2="154" y2="118"/>
-      <line x1="136" y1="100" x2="168" y2="100"/>
-      <!-- Arms neutral -->
-      <line x1="136" y1="100" x2="128" y2="76"/>
-      <line x1="168" y1="100" x2="144" y2="68"/>
-      <line x1="150" y1="118" x2="148" y2="152"/>
-      <line x1="158" y1="118" x2="156" y2="134"/><line x1="156" y1="134" x2="148" y2="148"/>
+    <line x1="136" y1="100" x2="168" y2="100"/>
+    <line x1="136" y1="100" x2="128" y2="76"/>
+    <line x1="168" y1="100" x2="144" y2="68"/>
+    <line x1="150" y1="118" x2="148" y2="152"/>
+    <line x1="158" y1="118" x2="156" y2="134"/>
+    <line x1="156" y1="134" x2="148" y2="148"/>
     </g>
   </g>
-  <!-- Frame 3: Pedal back, arm pull -->
-  <g class="f3">
+<g class="f6">
+    <line x1="140" y1="140" x2="134" y2="156" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="152" cy="80" r="11" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="152" y1="91" x2="154" y2="118"/>
+    <line x1="136" y1="100" x2="168" y2="100"/>
+    <line x1="136" y1="100" x2="126.7" y2="76"/>
+    <line x1="168" y1="100" x2="145.3" y2="67.3"/>
+    <line x1="150" y1="118" x2="144.7" y2="150.7"/>
+    <line x1="151.3" y1="128" x2="144.7" y2="140"/>
+    <line x1="156.7" y1="128.7" x2="152.7" y2="147.3"/>
+    </g>
+  </g>
+<g class="f7">
+    <line x1="140" y1="140" x2="128" y2="154" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="152" cy="80" r="11" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="152" y1="91" x2="154" y2="118"/>
+    <line x1="136" y1="100" x2="168" y2="100"/>
+    <line x1="136" y1="100" x2="125.3" y2="76"/>
+    <line x1="168" y1="100" x2="146.7" y2="66.7"/>
+    <line x1="150" y1="118" x2="141.3" y2="149.3"/>
+    <line x1="144.7" y1="138" x2="133.3" y2="146"/>
+    <line x1="157.3" y1="123.3" x2="157.3" y2="146.7"/>
+    </g>
+  </g>
+<g class="f8">
     <line x1="140" y1="140" x2="122" y2="152" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
     <circle cx="152" cy="80" r="11" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="152" y1="91" x2="154" y2="118"/>
-      <line x1="136" y1="100" x2="168" y2="100"/>
-      <!-- Arms switch -->
-      <line x1="136" y1="100" x2="124" y2="76"/>
-      <line x1="168" y1="100" x2="148" y2="66"/>
-      <line x1="150" y1="118" x2="138" y2="148"/><line x1="138" y1="148" x2="122" y2="152"/>
-      <line x1="158" y1="118" x2="162" y2="146"/>
+    <line x1="136" y1="100" x2="168" y2="100"/>
+    <line x1="136" y1="100" x2="124" y2="76"/>
+    <line x1="168" y1="100" x2="148" y2="66"/>
+    <line x1="150" y1="118" x2="138" y2="148"/>
+    <line x1="138" y1="148" x2="122" y2="152"/>
+    <line x1="158" y1="118" x2="162" y2="146"/>
     </g>
   </g>
 </svg>

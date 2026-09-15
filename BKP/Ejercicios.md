@@ -29,6 +29,54 @@ Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ### TEMPLATE
 
 
+
+
+
+Clase GOAT 14/09/2026
+video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - 90/90 Hip Rotation
+ - World’s Greatest Stretch pie izquierdo, video corto https://www.youtube.com/shorts/7XheaZERvBQ, video explicativo https://www.youtube.com/shorts/qYBrq4A0LqI
+ - World’s Greatest Stretch pie derecho
+
+
+Activacion 3 rondas todo 30 segundos
+ - Isometric Split Squat Hold 20kg video corto https://www.youtube.com/shorts/QJDXBIQdV7Y, video explicativo https://www.youtube.com/shorts/v8fpt9QP_o0
+ - KB Dead Bug 20 kg video corto https://www.youtube.com/shorts/nGB3L_XKDTk, video explicativo https://www.youtube.com/watch?v=Nq2OfADWRYE
+  - Bird Dog Crunch
+
+Fuerza
+ - 8 Barbell Back Squat 100 kg
+ - descanso
+ - 5 Barbell Back Squat 100 kg
+ - 5 Barbell Back Squat 100 kg
+ - 5 Barbell Back Squat 110 kg
+
+WOD 12 minutos maximo:
+ - 7 Bodyweight Handstand Push-Up
+ - 14 Weighted Butterfly Sit-Up 10 kg, video corto https://www.youtube.com/shorts/FOR3Eg6yH8E, video explicativo https://www.youtube.com/watch?v=m6jfekngjOk
+ - 7 Barbell Power Clean 20kg 
+ - 14 Hanging Toes to Bar
+ - 7 Bodyweight Handstand Push-Up
+ - 14 Weighted Butterfly Sit-Up 10 kg
+ - 7 Barbell Power Clean 20kg 
+ - 14 Hanging Toes to Bar
+ - 7 Bodyweight Handstand Push-Up
+ - 14 Weighted Butterfly Sit-Up 10 kg
+ - 7 Barbell Power Clean 20kg 
+ - 14 Hanging Toes to Bar
+ - 7 Bodyweight Handstand Push-Up
+ - 14 Weighted Butterfly Sit-Up 10 kg
+ - 7 Barbell Power Clean 20kg 
+ - 14 Hanging Toes to Bar
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
 Clase GOAT 12/09/2026
 Calentamiento
 - 6 minutos de calentamiento
@@ -61,8 +109,6 @@ WOD 5 ejercicios por minuto en 20 minutos
  
 Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 
-
-### TEMPLATE
 
 Clase GOAT 07/09/2026
 video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta
@@ -455,9 +501,6 @@ WOD 14 minutos como maximo
  - 21 Barbell Thruster 30 kg
 Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 
-### TEMPLATE
-
-
 
 Clase GOAT 01/08/2026
 
@@ -637,7 +680,7 @@ WOD en parejas, uno hace ejercicio el otro espera, maximo 20 minutos
  - 200 m running
 
 Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
-### TEMPLATE
+
 
 Clase GOAT 22/07/2026
 
@@ -674,7 +717,7 @@ WOD, en parejas, maximo 16m, running 1/2 camino cada uno con la wall ball, y las
  
  
 Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
-### TEMPLATE
+
 
 
 Clase GOAT 20/07/2026
@@ -898,7 +941,7 @@ Estiramiento, cada ejercicio 20 - 30 segundos
 - Standing biceps stretch 
 - Overhead triceps stretch 
 - Wrist extensor stretch 
-### TEMPLATE
+
 
 
 Clase GOAT 01/06/2026

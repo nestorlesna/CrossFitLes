@@ -1,9 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
   <style>
-    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
-    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
-    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
-    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}.f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}.f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}.f7{animation:sh7 8s linear infinite}.f8{animation:sh8 8s linear infinite}
+    @keyframes sh1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
+    @keyframes sh2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
+    @keyframes sh3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
+    @keyframes sh4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
+    @keyframes sh6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
+    @keyframes sh7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
+    @keyframes sh8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="200" height="230" fill="#111827" rx="12"/>
   <!-- Barra en el suelo (siempre visible) -->
@@ -13,7 +18,8 @@
   <line x1="20" y1="208" x2="54" y2="208" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
   <line x1="146" y1="208" x2="180" y2="208" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
   <text x="100" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="2">BURPEE/BAR</text>
-  <!-- Frame 1: De pie junto a la barra -->
+
+  <!-- F1: De pie junto a la barra -->
   <g class="f1">
     <circle cx="44" cy="36" r="13" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
@@ -25,8 +31,20 @@
       <line x1="23" y1="205" x2="55" y2="205"/>
     </g>
   </g>
-  <!-- Frame 2: En el suelo (burpee abajo, junto a la barra) -->
+
+  <!-- F2: Sentadilla, manos bajando hacia el piso -->
   <g class="f2">
+    <circle cx="42" cy="66" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="42" y1="79" x2="42" y2="128"/>
+      <line x1="30" y1="86" x2="20" y2="118"/><line x1="54" y1="86" x2="64" y2="118"/>
+      <line x1="37" y1="128" x2="24" y2="150"/><line x1="24" y1="150" x2="22" y2="196"/>
+      <line x1="47" y1="128" x2="58" y2="150"/><line x1="58" y1="150" x2="58" y2="196"/>
+    </g>
+  </g>
+
+  <!-- F3: En el suelo (plank/crouch junto a la barra) -->
+  <g class="f3">
     <circle cx="44" cy="128" r="13" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="44" y1="141" x2="44" y2="162"/>
@@ -37,17 +55,64 @@
       <line x1="49" y1="162" x2="56" y2="190"/><line x1="56" y1="190" x2="56" y2="208"/>
     </g>
   </g>
-  <!-- Frame 3: Saltando por encima de la barra -->
-  <g class="f3">
+
+  <!-- F4: Empuje hacia arriba, pies recogiéndose hacia las manos -->
+  <g class="f4">
+    <circle cx="44" cy="96" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="44" y1="109" x2="44" y2="150"/>
+      <line x1="26" y1="118" x2="20" y2="146"/><line x1="62" y1="118" x2="68" y2="146"/>
+      <line x1="39" y1="150" x2="30" y2="172"/><line x1="30" y1="172" x2="28" y2="204"/>
+      <line x1="49" y1="150" x2="58" y2="172"/><line x1="58" y1="172" x2="58" y2="204"/>
+    </g>
+  </g>
+
+  <!-- F5: De pie, comenzando el salto -->
+  <g class="f5">
+    <circle cx="48" cy="46" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="48" y1="59" x2="48" y2="118"/>
+      <line x1="30" y1="66" x2="64" y2="60"/>
+      <line x1="30" y1="66" x2="22" y2="94"/><line x1="64" y1="60" x2="72" y2="88"/>
+      <line x1="44" y1="118" x2="40" y2="160"/><line x1="40" y1="160" x2="38" y2="200"/>
+      <line x1="52" y1="118" x2="56" y2="160"/><line x1="56" y1="160" x2="56" y2="200"/>
+    </g>
+  </g>
+
+  <!-- F6: En el aire, subiendo hacia la barra, rodillas empezando a doblarse -->
+  <g class="f6">
+    <circle cx="72" cy="32" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="72" y1="45" x2="72" y2="104"/>
+      <line x1="54" y1="58" x2="88" y2="58"/>
+      <line x1="54" y1="58" x2="42" y2="34"/><line x1="88" y1="58" x2="100" y2="34"/>
+      <line x1="68" y1="104" x2="56" y2="142"/><line x1="56" y1="142" x2="50" y2="176"/>
+      <line x1="76" y1="104" x2="88" y2="142"/><line x1="88" y1="142" x2="94" y2="176"/>
+    </g>
+  </g>
+
+  <!-- F7: Saltando por encima de la barra, rodillas dobladas al máximo -->
+  <g class="f7">
     <circle cx="100" cy="30" r="13" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="100" y1="43" x2="100" y2="102"/>
       <line x1="80" y1="56" x2="120" y2="56"/>
       <line x1="80" y1="56" x2="66" y2="30"/><line x1="120" y1="56" x2="134" y2="30"/>
-      <!-- Piernas dobladas en el aire, cruzando la barra -->
       <line x1="95" y1="102" x2="78" y2="148"/><line x1="78" y1="148" x2="70" y2="178"/>
       <line x1="105" y1="102" x2="122" y2="148"/><line x1="122" y1="148" x2="130" y2="178"/>
     </g>
     <circle cx="78" cy="148" r="5" fill="#64748b"/><circle cx="122" cy="148" r="5" fill="#64748b"/>
+  </g>
+
+  <!-- F8: Aterrizando del otro lado de la barra, piernas extendiéndose -->
+  <g class="f8">
+    <circle cx="132" cy="40" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="132" y1="53" x2="132" y2="110"/>
+      <line x1="112" y1="66" x2="150" y2="62"/>
+      <line x1="112" y1="66" x2="100" y2="42"/><line x1="150" y1="62" x2="160" y2="38"/>
+      <line x1="127" y1="110" x2="120" y2="152"/><line x1="120" y1="152" x2="118" y2="196"/>
+      <line x1="136" y1="110" x2="142" y2="152"/><line x1="142" y1="152" x2="144" y2="196"/>
+    </g>
   </g>
 </svg>

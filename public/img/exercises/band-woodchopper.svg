@@ -1,50 +1,49 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
   <style>
-    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
-    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
-    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
-    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}.f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}.f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}.f7{animation:sh7 8s linear infinite}.f8{animation:sh8 8s linear infinite}
+    @keyframes sh1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
+    @keyframes sh2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
+    @keyframes sh3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
+    @keyframes sh4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
+    @keyframes sh6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
+    @keyframes sh7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
+    @keyframes sh8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="200" height="230" fill="#111827" rx="12"/>
   <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
   <text x="100" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="1">BAND WOODCHOPPER</text>
   <g class="f1">
-    <path d="M176 28 L158 38 L140 50" stroke="#64748b" stroke-width="3" stroke-dasharray="7 5" stroke-linecap="round" fill="none"/>
     <circle cx="96" cy="32" r="13" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <path d="M96 46 L100 112"/>
-      <path d="M98 58 L120 50 L140 50"/>
-      <path d="M100 112 L80 160 L76 205"/>
-      <path d="M100 112 L120 160 L124 205"/>
-      <path d="M64 205 L88 205"/>
-      <path d="M116 205 L140 205"/>
-    </g>
-    <circle cx="120" cy="50" r="5" fill="#64748b"/>
   </g>
+
   <g class="f2">
-    <path d="M176 28 L148 66 L104 110" stroke="#64748b" stroke-width="3" stroke-dasharray="7 5" stroke-linecap="round" fill="none"/>
-    <circle cx="100" cy="44" r="13" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <path d="M100 58 L100 120"/>
-      <path d="M100 68 L104 92 L104 110"/>
-      <path d="M100 120 L78 162 L74 205"/>
-      <path d="M100 120 L122 162 L126 205"/>
-      <path d="M62 205 L86 205"/>
-      <path d="M118 205 L142 205"/>
-    </g>
-    <circle cx="104" cy="92" r="5" fill="#64748b"/>
+    <circle cx="97" cy="35" r="13" fill="#94a3b8"/>
   </g>
+
   <g class="f3">
-    <path d="M176 28 L138 100 L64 166" stroke="#64748b" stroke-width="3" stroke-dasharray="7 5" stroke-linecap="round" fill="none"/>
+    <circle cx="98" cy="38" r="13" fill="#94a3b8"/>
+  </g>
+
+  <g class="f4">
+    <circle cx="99" cy="41" r="13" fill="#94a3b8"/>
+  </g>
+
+  <g class="f5">
+    <circle cx="100" cy="44" r="13" fill="#94a3b8"/>
+  </g>
+
+  <g class="f6">
+    <circle cx="102" cy="50" r="13" fill="#94a3b8"/>
+  </g>
+
+  <g class="f7">
+    <circle cx="104" cy="56" r="13" fill="#94a3b8"/>
+  </g>
+
+  <g class="f8">
     <circle cx="106" cy="62" r="13" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <path d="M104 76 L102 130"/>
-      <path d="M104 86 L84 130 L64 166"/>
-      <path d="M102 130 L78 168 L72 205"/>
-      <path d="M102 130 L126 166 L130 205"/>
-      <path d="M60 205 L84 205"/>
-      <path d="M122 205 L146 205"/>
-    </g>
+  </g>
     <circle cx="84" cy="130" r="5" fill="#64748b"/>
   </g>
 </svg>
