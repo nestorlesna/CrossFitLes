@@ -1,9 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
   <style>
-    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
-    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
-    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
-    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}.f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}.f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}.f7{animation:sh7 8s linear infinite}.f8{animation:sh8 8s linear infinite}
+    @keyframes sh1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
+    @keyframes sh2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
+    @keyframes sh3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
+    @keyframes sh4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
+    @keyframes sh6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
+    @keyframes sh7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
+    @keyframes sh8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="200" height="230" fill="#111827" rx="12"/>
   <!-- Caja centrada (siempre visible) -->
@@ -16,39 +21,124 @@
     <circle cx="46" cy="38" r="13" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="46" y1="51" x2="46" y2="114"/>
-      <line x1="28" y1="64" x2="64" y2="64"/>
-      <line x1="28" y1="64" x2="24" y2="108"/><line x1="64" y1="64" x2="68" y2="108"/>
-      <line x1="41" y1="114" x2="40" y2="165"/><line x1="40" y1="165" x2="40" y2="205"/>
-      <line x1="51" y1="114" x2="52" y2="165"/><line x1="52" y1="165" x2="52" y2="205"/>
-      <line x1="26" y1="205" x2="56" y2="205"/><line x1="38" y1="205" x2="66" y2="205"/>
+    <line x1="28" y1="64" x2="64" y2="64"/>
+    <line x1="28" y1="64" x2="24" y2="108"/>
+    <line x1="64" y1="64" x2="68" y2="108"/>
+    <line x1="41" y1="114" x2="40" y2="165"/>
+    <line x1="40" y1="165" x2="40" y2="205"/>
+    <line x1="51" y1="114" x2="52" y2="165"/>
+    <line x1="52" y1="165" x2="52" y2="205"/>
+    <line x1="26" y1="205" x2="56" y2="205"/>
+    <line x1="38" y1="205" x2="66" y2="205"/>
     </g>
   </g>
-  <!-- Frame 2: En el aire por encima de la caja -->
-  <g class="f2">
+<g class="f2">
+    <circle cx="59.5" cy="34" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="59.5" y1="47" x2="59.5" y2="109.5"/>
+    <line x1="40.5" y1="60" x2="78.5" y2="60"/>
+    <line x1="40.5" y1="60" x2="33.5" y2="87"/>
+    <line x1="78.5" y1="60" x2="85.5" y2="87"/>
+    <line x1="54.5" y1="109.5" x2="50" y2="158.3"/>
+    <line x1="50" y1="158.3" x2="47" y2="194.3"/>
+    <line x1="64.5" y1="109.5" x2="69" y2="158.3"/>
+    <line x1="69" y1="158.3" x2="72" y2="194.3"/>
+    <line x1="26" y1="205" x2="56" y2="205"/>
+    <line x1="38" y1="205" x2="66" y2="205"/>
+    </g>
+  </g>
+<g class="f3">
+    <circle cx="73" cy="30" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="73" y1="43" x2="73" y2="105"/>
+    <line x1="53" y1="56" x2="93" y2="56"/>
+    <line x1="53" y1="56" x2="43" y2="66"/>
+    <line x1="93" y1="56" x2="103" y2="66"/>
+    <line x1="68" y1="105" x2="60" y2="151.5"/>
+    <line x1="60" y1="151.5" x2="54" y2="183.5"/>
+    <line x1="78" y1="105" x2="86" y2="151.5"/>
+    <line x1="86" y1="151.5" x2="92" y2="183.5"/>
+    </g>
+    <circle cx="80" cy="138" r="5" fill="#64748b"/>
+    <circle cx="120" cy="138" r="5" fill="#64748b"/>
+  </g>
+<g class="f4">
+    <circle cx="86.5" cy="26" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="86.5" y1="39" x2="86.5" y2="100.5"/>
+    <line x1="65.5" y1="52" x2="107.5" y2="52"/>
+    <line x1="65.5" y1="52" x2="52.5" y2="45"/>
+    <line x1="107.5" y1="52" x2="120.5" y2="45"/>
+    <line x1="81.5" y1="100.5" x2="70" y2="144.8"/>
+    <line x1="70" y1="144.8" x2="61" y2="172.8"/>
+    <line x1="91.5" y1="100.5" x2="103" y2="144.8"/>
+    <line x1="103" y1="144.8" x2="112" y2="172.8"/>
+    </g>
+    <circle cx="80" cy="138" r="5" fill="#64748b"/>
+    <circle cx="120" cy="138" r="5" fill="#64748b"/>
+  </g>
+<g class="f5">
     <circle cx="100" cy="22" r="13" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="100" y1="35" x2="100" y2="96"/>
-      <line x1="78" y1="48" x2="122" y2="48"/>
-      <!-- Brazos arriba en el salto -->
-      <line x1="78" y1="48" x2="62" y2="24"/><line x1="122" y1="48" x2="138" y2="24"/>
-      <!-- Piernas dobladas en el aire -->
-      <line x1="95" y1="96" x2="80" y2="138"/><line x1="80" y1="138" x2="68" y2="162"/>
-      <line x1="105" y1="96" x2="120" y2="138"/><line x1="120" y1="138" x2="132" y2="162"/>
+    <line x1="78" y1="48" x2="122" y2="48"/>
+    <line x1="78" y1="48" x2="62" y2="24"/>
+    <line x1="122" y1="48" x2="138" y2="24"/>
+    <line x1="95" y1="96" x2="80" y2="138"/>
+    <line x1="80" y1="138" x2="68" y2="162"/>
+    <line x1="105" y1="96" x2="120" y2="138"/>
+    <line x1="120" y1="138" x2="132" y2="162"/>
     </g>
-    <circle cx="80" cy="138" r="5" fill="#64748b"/><circle cx="120" cy="138" r="5" fill="#64748b"/>
+    <circle cx="80" cy="138" r="5" fill="#64748b"/>
+    <circle cx="120" cy="138" r="5" fill="#64748b"/>
   </g>
-  <!-- Frame 3: Aterrizando a la derecha de la caja -->
-  <g class="f3">
+<g class="f6">
+    <circle cx="118" cy="32" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="118" y1="45" x2="118" y2="104.7"/>
+    <line x1="97.3" y1="58" x2="138.7" y2="58"/>
+    <line x1="97.3" y1="58" x2="84.7" y2="54.7"/>
+    <line x1="138.7" y1="58" x2="151.3" y2="54.7"/>
+    <line x1="113" y1="104.7" x2="100" y2="148"/>
+    <line x1="100" y1="148" x2="92.7" y2="176.3"/>
+    <line x1="123" y1="104.7" x2="136" y2="148"/>
+    <line x1="136" y1="148" x2="143.3" y2="176.3"/>
+    </g>
+    <circle cx="100" cy="148" r="5" fill="#64748b"/>
+    <circle cx="136" cy="148" r="5" fill="#64748b"/>
+  </g>
+<g class="f7">
+    <circle cx="136" cy="42" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="136" y1="55" x2="136" y2="113.3"/>
+    <line x1="116.7" y1="68" x2="155.3" y2="68"/>
+    <line x1="116.7" y1="68" x2="107.3" y2="85.3"/>
+    <line x1="155.3" y1="68" x2="164.7" y2="85.3"/>
+    <line x1="131" y1="113.3" x2="120" y2="158"/>
+    <line x1="120" y1="158" x2="117.3" y2="190.7"/>
+    <line x1="141" y1="113.3" x2="152" y2="158"/>
+    <line x1="152" y1="158" x2="154.7" y2="190.7"/>
+    <line x1="128" y1="205" x2="156" y2="205"/>
+    <line x1="154" y1="205" x2="180" y2="205"/>
+    </g>
+    <circle cx="120" cy="158" r="5" fill="#64748b"/>
+    <circle cx="152" cy="158" r="5" fill="#64748b"/>
+  </g>
+<g class="f8">
     <circle cx="154" cy="52" r="13" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="154" y1="65" x2="154" y2="122"/>
-      <line x1="136" y1="78" x2="172" y2="78"/>
-      <line x1="136" y1="78" x2="130" y2="116"/><line x1="172" y1="78" x2="178" y2="116"/>
-      <!-- Rodillas dobladas al aterrizar -->
-      <line x1="149" y1="122" x2="140" y2="168"/><line x1="140" y1="168" x2="142" y2="205"/>
-      <line x1="159" y1="122" x2="168" y2="168"/><line x1="168" y1="168" x2="166" y2="205"/>
-      <line x1="128" y1="205" x2="156" y2="205"/><line x1="154" y1="205" x2="180" y2="205"/>
+    <line x1="136" y1="78" x2="172" y2="78"/>
+    <line x1="136" y1="78" x2="130" y2="116"/>
+    <line x1="172" y1="78" x2="178" y2="116"/>
+    <line x1="149" y1="122" x2="140" y2="168"/>
+    <line x1="140" y1="168" x2="142" y2="205"/>
+    <line x1="159" y1="122" x2="168" y2="168"/>
+    <line x1="168" y1="168" x2="166" y2="205"/>
+    <line x1="128" y1="205" x2="156" y2="205"/>
+    <line x1="154" y1="205" x2="180" y2="205"/>
     </g>
-    <circle cx="140" cy="168" r="5" fill="#64748b"/><circle cx="168" cy="168" r="5" fill="#64748b"/>
+    <circle cx="140" cy="168" r="5" fill="#64748b"/>
+    <circle cx="168" cy="168" r="5" fill="#64748b"/>
   </g>
 </svg>

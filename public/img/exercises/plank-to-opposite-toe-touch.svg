@@ -1,9 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180">
   <style>
-    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
-    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
-    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
-    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 6s linear infinite}.f2{animation:sh2 6s linear infinite}.f3{animation:sh3 6s linear infinite}.f4{animation:sh4 6s linear infinite}.f5{animation:sh5 6s linear infinite}.f6{animation:sh6 6s linear infinite}
+    @keyframes sh1{0%,13.7%{opacity:1}16.7%,100%{opacity:0}}
+    @keyframes sh2{0%,16.7%{opacity:0}19.7%,30.3%{opacity:1}33.3%,100%{opacity:0}}
+    @keyframes sh3{0%,33.3%{opacity:0}36.3%,47%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh4{0%,50%{opacity:0}53%,63.7%{opacity:1}66.7%,100%{opacity:0}}
+    @keyframes sh5{0%,66.7%{opacity:0}69.7%,80.3%{opacity:1}83.3%,100%{opacity:0}}
+    @keyframes sh6{0%,83.3%{opacity:0}86.3%,97%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="240" height="180" fill="#111827" rx="12"/>
   <line x1="20" y1="148" x2="220" y2="148" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
@@ -13,41 +16,70 @@
     <circle cx="48" cy="122" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="60" y1="128" x2="178" y2="130"/>
-      <line x1="65" y1="128" x2="52" y2="142"/>
-      <line x1="170" y1="130" x2="182" y2="130"/>
-      <line x1="182" y1="130" x2="200" y2="142"/>
+    <line x1="65" y1="128" x2="52" y2="142"/>
+    <line x1="170" y1="130" x2="182" y2="130"/>
+    <line x1="182" y1="130" x2="200" y2="142"/>
     </g>
     <circle cx="52" cy="142" r="4" fill="#64748b"/>
     <circle cx="200" cy="142" r="4" fill="#64748b"/>
   </g>
-  <!-- Frame 2: Pike — hips elevated, right arm reaching to left foot -->
-  <g class="f2">
+<g class="f2">
+    <circle cx="49.3" cy="120" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="61.3" y1="126" x2="137.3" y2="134"/>
+    <line x1="64.7" y1="126" x2="77.3" y2="124"/>
+    <line x1="156" y1="116" x2="184" y2="130"/>
+    <line x1="184" y1="130" x2="200.7" y2="142"/>
+    </g>
+    <circle cx="53.3" cy="142" r="4" fill="#64748b"/>
+    <circle cx="200.7" cy="142" r="4" fill="#64748b"/>
+  </g>
+<g class="f3">
+    <circle cx="50.7" cy="118" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="62.7" y1="124" x2="96.7" y2="138"/>
+    <line x1="64.3" y1="124" x2="102.7" y2="106"/>
+    <line x1="142" y1="102" x2="186" y2="130"/>
+    <line x1="186" y1="130" x2="201.3" y2="142"/>
+    <line x1="105" y1="96" x2="192" y2="138"/>
+    </g>
+    <circle cx="128" cy="88" r="5" fill="#64748b"/>
+    <circle cx="54.7" cy="142" r="4" fill="#64748b"/>
+    <circle cx="201.3" cy="142" r="4" fill="#64748b"/>
+  </g>
+<g class="f4">
     <circle cx="52" cy="116" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <!-- Left arm on ground -->
       <line x1="64" y1="122" x2="56" y2="142"/>
-      <!-- Torso up to pike -->
-      <line x1="64" y1="122" x2="128" y2="88"/>
-      <!-- Legs down from pike -->
-      <line x1="128" y1="88" x2="188" y2="130"/>
-      <line x1="188" y1="130" x2="202" y2="142"/>
-      <!-- Right arm crossing to opposite foot -->
-      <line x1="105" y1="96" x2="192" y2="138"/>
+    <line x1="64" y1="122" x2="128" y2="88"/>
+    <line x1="128" y1="88" x2="188" y2="130"/>
+    <line x1="188" y1="130" x2="202" y2="142"/>
+    <line x1="105" y1="96" x2="192" y2="138"/>
     </g>
     <circle cx="128" cy="88" r="5" fill="#64748b"/>
     <circle cx="56" cy="142" r="4" fill="#64748b"/>
     <circle cx="202" cy="142" r="4" fill="#64748b"/>
   </g>
-  <!-- Frame 3: Return to high plank -->
-  <g class="f3">
+<g class="f5">
+    <circle cx="50" cy="119" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="62" y1="125" x2="117" y2="136"/>
+    <line x1="64.5" y1="125" x2="90" y2="115"/>
+    <line x1="149" y1="109" x2="185" y2="130"/>
+    <line x1="185" y1="130" x2="201" y2="142"/>
+    <line x1="138.5" y1="113" x2="194" y2="128"/>
+    </g>
+    <circle cx="54" cy="142" r="4" fill="#64748b"/>
+    <circle cx="201" cy="142" r="4" fill="#64748b"/>
+  </g>
+<g class="f6">
     <circle cx="48" cy="122" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="60" y1="128" x2="178" y2="130"/>
-      <line x1="65" y1="128" x2="52" y2="142"/>
-      <line x1="170" y1="130" x2="182" y2="130"/>
-      <line x1="182" y1="130" x2="200" y2="142"/>
-      <!-- Hint: left arm slightly raised, about to reach -->
-      <line x1="172" y1="130" x2="196" y2="118"/>
+    <line x1="65" y1="128" x2="52" y2="142"/>
+    <line x1="170" y1="130" x2="182" y2="130"/>
+    <line x1="182" y1="130" x2="200" y2="142"/>
+    <line x1="172" y1="130" x2="196" y2="118"/>
     </g>
     <circle cx="52" cy="142" r="4" fill="#64748b"/>
     <circle cx="200" cy="142" r="4" fill="#64748b"/>

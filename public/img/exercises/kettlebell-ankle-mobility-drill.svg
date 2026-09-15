@@ -1,9 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 180">
   <style>
-    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
-    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
-    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
-    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}.f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}.f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}.f7{animation:sh7 8s linear infinite}.f8{animation:sh8 8s linear infinite}
+    @keyframes sh1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
+    @keyframes sh2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
+    @keyframes sh3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
+    @keyframes sh4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
+    @keyframes sh6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
+    @keyframes sh7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
+    @keyframes sh8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="260" height="180" fill="#111827" rx="12"/>
   <line x1="20" y1="148" x2="240" y2="148" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
@@ -14,50 +19,83 @@
   <!-- Frame 1: Half-kneeling upright, front foot near KB -->
   <g class="f1">
     <circle cx="128" cy="52" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <!-- Torso upright -->
-      <line x1="128" y1="64" x2="128" y2="104"/>
-      <!-- Arms relaxed -->
-      <line x1="128" y1="78" x2="112" y2="96"/>
-      <line x1="128" y1="78" x2="144" y2="96"/>
-      <!-- Front leg (right): from hip to knee to foot forward -->
-      <line x1="128" y1="104" x2="152" y2="130"/>
-      <line x1="152" y1="130" x2="175" y2="148"/>
-      <!-- Back leg: kneeling (left knee on ground) -->
-      <line x1="128" y1="104" x2="105" y2="148"/>
-    </g>
-    <circle cx="152" cy="130" r="5" fill="#64748b"/>
+    <line x1="128" y1="64" x2="128" y2="104"/>
+    <line x1="128" y1="78" x2="112" y2="96"/>
+    <line x1="128" y1="78" x2="144" y2="96"/>
+    <line x1="128" y1="104" x2="152" y2="130"/>
+    <line x1="152" y1="130" x2="175" y2="148"/>
+    <line x1="128" y1="104" x2="105" y2="148"/>
   </g>
-  <!-- Frame 2: Leaning forward, driving knee over toe -->
+
   <g class="f2">
-    <circle cx="135" cy="60" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <!-- Torso leaning forward -->
-      <line x1="135" y1="72" x2="132" y2="110"/>
-      <line x1="133" y1="87" x2="118" y2="106"/>
-      <line x1="133" y1="87" x2="150" y2="100"/>
-      <!-- Front leg: knee pushing forward over toe -->
-      <line x1="132" y1="110" x2="165" y2="128"/>
-      <line x1="165" y1="128" x2="178" y2="148"/>
-      <!-- Back leg kneeling -->
-      <line x1="132" y1="110" x2="110" y2="148"/>
-    </g>
-    <circle cx="165" cy="128" r="5" fill="#64748b"/>
+    <circle cx="129.8" cy="54" r="12" fill="#94a3b8"/>
+    <line x1="129.8" y1="66" x2="129" y2="105.5"/>
+    <line x1="129.3" y1="80.3" x2="113.5" y2="98.5"/>
+    <line x1="129.3" y1="80.3" x2="145.5" y2="97"/>
+    <line x1="129" y1="105.5" x2="155.3" y2="129.5"/>
+    <line x1="155.3" y1="129.5" x2="175.8" y2="148"/>
+    <line x1="129" y1="105.5" x2="106.3" y2="148"/>
   </g>
-  <!-- Frame 3: Maximum dorsiflexion — knee far forward over toe -->
+
   <g class="f3">
+    <circle cx="131.5" cy="56" r="12" fill="#94a3b8"/>
+    <line x1="131.5" y1="68" x2="130" y2="107"/>
+    <line x1="130.5" y1="82.5" x2="115" y2="101"/>
+    <line x1="130.5" y1="82.5" x2="147" y2="98"/>
+    <line x1="130" y1="107" x2="158.5" y2="129"/>
+    <line x1="158.5" y1="129" x2="176.5" y2="148"/>
+    <line x1="130" y1="107" x2="107.5" y2="148"/>
+  </g>
+
+  <g class="f4">
+    <circle cx="133.3" cy="58" r="12" fill="#94a3b8"/>
+    <line x1="133.3" y1="70" x2="131" y2="108.5"/>
+    <line x1="131.8" y1="84.8" x2="116.5" y2="103.5"/>
+    <line x1="131.8" y1="84.8" x2="148.5" y2="99"/>
+    <line x1="131" y1="108.5" x2="161.8" y2="128.5"/>
+    <line x1="161.8" y1="128.5" x2="177.3" y2="148"/>
+    <line x1="131" y1="108.5" x2="108.8" y2="148"/>
+  </g>
+
+  <g class="f5">
+    <circle cx="135" cy="60" r="12" fill="#94a3b8"/>
+    <line x1="135" y1="72" x2="132" y2="110"/>
+    <line x1="133" y1="87" x2="118" y2="106"/>
+    <line x1="133" y1="87" x2="150" y2="100"/>
+    <line x1="132" y1="110" x2="165" y2="128"/>
+    <line x1="165" y1="128" x2="178" y2="148"/>
+    <line x1="132" y1="110" x2="110" y2="148"/>
+  </g>
+
+  <g class="f6">
+    <circle cx="136.7" cy="62.7" r="12" fill="#94a3b8"/>
+    <line x1="136.7" y1="74.7" x2="133.3" y2="112"/>
+    <line x1="134.7" y1="89.3" x2="119.3" y2="108"/>
+    <line x1="134.7" y1="89.3" x2="151.7" y2="101.7"/>
+    <line x1="133.3" y1="112" x2="169.3" y2="127.3"/>
+    <line x1="169.3" y1="127.3" x2="178.7" y2="148"/>
+    <line x1="133.3" y1="112" x2="111.3" y2="148"/>
+  </g>
+
+  <g class="f7">
+    <circle cx="138.3" cy="65.3" r="12" fill="#94a3b8"/>
+    <line x1="138.3" y1="77.3" x2="134.7" y2="114"/>
+    <line x1="136.3" y1="91.7" x2="120.7" y2="110"/>
+    <line x1="136.3" y1="91.7" x2="153.3" y2="103.3"/>
+    <line x1="134.7" y1="114" x2="173.7" y2="126.7"/>
+    <line x1="173.7" y1="126.7" x2="179.3" y2="148"/>
+    <line x1="134.7" y1="114" x2="112.7" y2="148"/>
+  </g>
+
+  <g class="f8">
     <circle cx="140" cy="68" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <!-- Torso more forward lean -->
-      <line x1="140" y1="80" x2="136" y2="116"/>
-      <line x1="138" y1="94" x2="122" y2="112"/>
-      <line x1="138" y1="94" x2="155" y2="105"/>
-      <!-- Front leg: knee well past toe, ankle stretched -->
-      <line x1="136" y1="116" x2="178" y2="126"/>
-      <line x1="178" y1="126" x2="180" y2="148"/>
-      <!-- Back leg kneeling -->
-      <line x1="136" y1="116" x2="114" y2="148"/>
-    </g>
+    <line x1="140" y1="80" x2="136" y2="116"/>
+    <line x1="138" y1="94" x2="122" y2="112"/>
+    <line x1="138" y1="94" x2="155" y2="105"/>
+    <line x1="136" y1="116" x2="178" y2="126"/>
+    <line x1="178" y1="126" x2="180" y2="148"/>
+    <line x1="136" y1="116" x2="114" y2="148"/>
+  </g>
     <circle cx="178" cy="126" r="5" fill="#64748b"/>
   </g>
 </svg>

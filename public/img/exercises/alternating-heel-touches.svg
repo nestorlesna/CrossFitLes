@@ -1,10 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
 <defs><style>
-.f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
-@keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
-@keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
-@keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
-</style></defs>
+    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}.f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}.f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}.f7{animation:sh7 8s linear infinite}.f8{animation:sh8 8s linear infinite}
+    @keyframes sh1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
+    @keyframes sh2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
+    @keyframes sh3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
+    @keyframes sh4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
+    @keyframes sh6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
+    @keyframes sh7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
+    @keyframes sh8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
+  </style></defs>
 <rect width="200" height="230" fill="#111827" rx="12"/>
 <!-- Floor (horizontal) -->
 <line x1="25" y1="185" x2="175" y2="185" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
@@ -12,58 +17,101 @@
 <!-- f1: Lying on back, knees bent, shoulders slightly elevated -->
 <!-- Person lying head-left, feet-right -->
 <g class="f1" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
-  <circle cx="38" cy="155" r="13" fill="#94a3b8" stroke="none"/>
-  <!-- Torso horizontal -->
-  <line x1="51" y1="155" x2="118" y2="158"/>
-  <!-- Arms at sides -->
-  <line x1="75" y1="155" x2="72" y2="170"/>
-  <line x1="95" y1="157" x2="100" y2="172"/>
-  <!-- Right leg: bent knee up -->
-  <line x1="118" y1="158" x2="138" y2="140"/>
-  <line x1="138" y1="140" x2="155" y2="162"/>
-  <line x1="145" y1="162" x2="165" y2="162"/>
-  <!-- Left leg: bent knee up (slightly different) -->
-  <line x1="114" y1="160" x2="132" y2="144"/>
-  <line x1="132" y1="144" x2="150" y2="165"/>
-  <line x1="140" y1="165" x2="160" y2="165"/>
-</g>
-
-<!-- f2: Shoulders up, reaching RIGHT hand to RIGHT heel -->
+    <circle cx="38" cy="155" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="51" y1="155" x2="118" y2="158"/>
+    <line x1="75" y1="155" x2="72" y2="170"/>
+    <line x1="95" y1="157" x2="100" y2="172"/>
+    <line x1="118" y1="158" x2="138" y2="140"/>
+    <line x1="138" y1="140" x2="155" y2="162"/>
+    <line x1="145" y1="162" x2="165" y2="162"/>
+    <line x1="114" y1="160" x2="132" y2="144"/>
+    <line x1="132" y1="144" x2="150" y2="165"/>
+    <line x1="140" y1="165" x2="160" y2="165"/>
+  </g>
 <g class="f2" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
-  <circle cx="48" cy="144" r="13" fill="#94a3b8" stroke="none"/>
-  <!-- Torso lifted at 30° angle -->
-  <line x1="60" y1="148" x2="118" y2="162"/>
-  <!-- Left arm bent across chest -->
-  <line x1="75" y1="150" x2="68" y2="162"/>
-  <!-- RIGHT arm reaching far right toward heel -->
-  <line x1="90" y1="156" x2="148" y2="166"/>
-  <!-- Right leg: bent knee up -->
-  <line x1="118" y1="162" x2="138" y2="144"/>
-  <line x1="138" y1="144" x2="155" y2="166"/>
-  <line x1="145" y1="166" x2="165" y2="166"/>
-  <!-- Left leg: bent -->
-  <line x1="114" y1="163" x2="132" y2="148"/>
-  <line x1="132" y1="148" x2="148" y2="168"/>
-  <!-- Touch indicator dot -->
-  <circle cx="148" cy="166" r="5" fill="#64748b" stroke="none"/>
-</g>
-
-<!-- f3: Reaching LEFT hand to LEFT heel -->
+    <circle cx="40.5" cy="152.3" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="53.3" y1="153.3" x2="118" y2="159"/>
+    <line x1="75" y1="153.8" x2="71" y2="168"/>
+    <line x1="93.8" y1="156.8" x2="112" y2="170.5"/>
+    <line x1="118" y1="159" x2="138" y2="141"/>
+    <line x1="138" y1="141" x2="155" y2="163"/>
+    <line x1="145" y1="163" x2="165" y2="163"/>
+    <line x1="114" y1="160.8" x2="132" y2="145"/>
+    <line x1="132" y1="145" x2="149.5" y2="165.8"/>
+    <line x1="140" y1="165" x2="160" y2="165"/>
+  </g>
 <g class="f3" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
-  <circle cx="48" cy="144" r="13" fill="#94a3b8" stroke="none"/>
-  <line x1="60" y1="148" x2="118" y2="162"/>
-  <!-- RIGHT arm bent across -->
-  <line x1="95" y1="156" x2="102" y2="168"/>
-  <!-- LEFT arm reaching right toward left heel -->
-  <line x1="75" y1="150" x2="140" y2="170"/>
-  <!-- Legs: same bent position -->
-  <line x1="118" y1="162" x2="138" y2="144"/>
-  <line x1="138" y1="144" x2="155" y2="166"/>
-  <line x1="145" y1="166" x2="165" y2="166"/>
-  <line x1="114" y1="163" x2="132" y2="148"/>
-  <line x1="132" y1="148" x2="148" y2="168"/>
-  <circle cx="140" cy="170" r="5" fill="#64748b" stroke="none"/>
-</g>
+    <circle cx="43" cy="149.5" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="55.5" y1="151.5" x2="118" y2="160"/>
+    <line x1="75" y1="152.5" x2="70" y2="166"/>
+    <line x1="92.5" y1="156.5" x2="124" y2="169"/>
+    <line x1="118" y1="160" x2="138" y2="142"/>
+    <line x1="138" y1="142" x2="155" y2="164"/>
+    <line x1="145" y1="164" x2="165" y2="164"/>
+    <line x1="114" y1="161.5" x2="132" y2="146"/>
+    <line x1="132" y1="146" x2="149" y2="166.5"/>
+    <circle cx="148" cy="166" r="5" fill="#64748b" stroke="none"/>
+  </g>
+<g class="f4" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+    <circle cx="45.5" cy="146.8" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="57.8" y1="149.8" x2="118" y2="161"/>
+    <line x1="75" y1="151.3" x2="69" y2="164"/>
+    <line x1="91.3" y1="156.3" x2="136" y2="167.5"/>
+    <line x1="118" y1="161" x2="138" y2="143"/>
+    <line x1="138" y1="143" x2="155" y2="165"/>
+    <line x1="145" y1="165" x2="165" y2="165"/>
+    <line x1="114" y1="162.3" x2="132" y2="147"/>
+    <line x1="132" y1="147" x2="148.5" y2="167.3"/>
+    <circle cx="148" cy="166" r="5" fill="#64748b" stroke="none"/>
+  </g>
+<g class="f5" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+    <circle cx="48" cy="144" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="60" y1="148" x2="118" y2="162"/>
+    <line x1="75" y1="150" x2="68" y2="162"/>
+    <line x1="90" y1="156" x2="148" y2="166"/>
+    <line x1="118" y1="162" x2="138" y2="144"/>
+    <line x1="138" y1="144" x2="155" y2="166"/>
+    <line x1="145" y1="166" x2="165" y2="166"/>
+    <line x1="114" y1="163" x2="132" y2="148"/>
+    <line x1="132" y1="148" x2="148" y2="168"/>
+    <circle cx="148" cy="166" r="5" fill="#64748b" stroke="none"/>
+  </g>
+<g class="f6" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+    <circle cx="48" cy="144" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="60" y1="148" x2="118" y2="162"/>
+    <line x1="81.7" y1="152" x2="79.3" y2="164"/>
+    <line x1="85" y1="154" x2="145.3" y2="167.3"/>
+    <line x1="118" y1="162" x2="138" y2="144"/>
+    <line x1="138" y1="144" x2="155" y2="166"/>
+    <line x1="145" y1="166" x2="165" y2="166"/>
+    <line x1="114" y1="163" x2="132" y2="148"/>
+    <line x1="132" y1="148" x2="148" y2="168"/>
+    <circle cx="145.3" cy="167.3" r="5" fill="#64748b" stroke="none"/>
+  </g>
+<g class="f7" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+    <circle cx="48" cy="144" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="60" y1="148" x2="118" y2="162"/>
+    <line x1="88.3" y1="154" x2="90.7" y2="166"/>
+    <line x1="80" y1="152" x2="142.7" y2="168.7"/>
+    <line x1="118" y1="162" x2="138" y2="144"/>
+    <line x1="138" y1="144" x2="155" y2="166"/>
+    <line x1="145" y1="166" x2="165" y2="166"/>
+    <line x1="114" y1="163" x2="132" y2="148"/>
+    <line x1="132" y1="148" x2="148" y2="168"/>
+    <circle cx="142.7" cy="168.7" r="5" fill="#64748b" stroke="none"/>
+  </g>
+<g class="f8" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none">
+    <circle cx="48" cy="144" r="13" fill="#94a3b8" stroke="none"/>
+    <line x1="60" y1="148" x2="118" y2="162"/>
+    <line x1="95" y1="156" x2="102" y2="168"/>
+    <line x1="75" y1="150" x2="140" y2="170"/>
+    <line x1="118" y1="162" x2="138" y2="144"/>
+    <line x1="138" y1="144" x2="155" y2="166"/>
+    <line x1="145" y1="166" x2="165" y2="166"/>
+    <line x1="114" y1="163" x2="132" y2="148"/>
+    <line x1="132" y1="148" x2="148" y2="168"/>
+    <circle cx="140" cy="170" r="5" fill="#64748b" stroke="none"/>
+  </g>
 
 <text x="100" y="212" text-anchor="middle" font-size="9" fill="#475569" font-family="sans-serif">ALTERNATING HEEL TOUCHES</text>
 </svg>
