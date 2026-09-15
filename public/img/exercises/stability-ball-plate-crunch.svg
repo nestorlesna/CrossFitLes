@@ -83,5 +83,4 @@
     <!-- Plate high forward -->
     <circle cx="91" cy="41" r="10" fill="none" stroke="#475569" stroke-width="4"/>
     <circle cx="91" cy="41" r="4" fill="#475569"/>
-  </g>
 </svg>

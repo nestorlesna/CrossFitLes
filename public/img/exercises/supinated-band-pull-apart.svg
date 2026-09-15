@@ -131,5 +131,4 @@
   <line x1="34" y1="52" x2="166" y2="52" stroke="#a78bfa" stroke-width="3" stroke-linecap="round"/>
   <path d="M28,58 a6,5 0 0 0 12,0" fill="none" stroke="#a78bfa" stroke-width="2"/>
   <path d="M160,58 a6,5 0 0 0 12,0" fill="none" stroke="#a78bfa" stroke-width="2"/>
-</g>
 </svg>

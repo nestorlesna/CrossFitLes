@@ -95,7 +95,6 @@
     <line x1="100" y1="120" x2="150" y2="112"/>
     <line x1="100" y1="120" x2="138" y2="150"/>
   </g>
-  </g>
 
   <text x="100" y="223" font-family="sans-serif" font-size="8" fill="#475569" text-anchor="middle" letter-spacing="0.3">HANGING FLUTTER KICKS</text>
 </svg>

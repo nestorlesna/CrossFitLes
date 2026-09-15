@@ -104,5 +104,4 @@
     <circle cx="90" cy="162" r="5" fill="#64748b"/>
     <circle cx="110" cy="162" r="5" fill="#64748b"/>
     <path d="M58 26 q46 28 72 78" stroke="#f59e0b" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="6 4"/>
-  </g>
 </svg>

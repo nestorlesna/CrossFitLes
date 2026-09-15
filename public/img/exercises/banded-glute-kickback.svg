@@ -129,5 +129,4 @@
   </g>
     <circle cx="142" cy="140" r="5.5" fill="#64748b"/>
     <path d="M42 200 Q 100 196 164 164" stroke="#64748b" stroke-width="2.5" fill="none" stroke-dasharray="5 4"/>
-  </g>
 </svg>
