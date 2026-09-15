@@ -98,5 +98,4 @@
     <circle cx="140" cy="172" r="5" fill="#64748b"/>
     <path d="M38 128 q-2 -9 6 -7" stroke="#f59e0b" stroke-width="3" fill="none"/>
     <rect x="22" y="116" width="16" height="16" rx="4" fill="#f59e0b"/>
-  </g>
 </svg>

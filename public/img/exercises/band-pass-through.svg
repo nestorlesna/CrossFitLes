@@ -105,5 +105,4 @@
     <circle cx="110" cy="162" r="5" fill="#64748b"/>
     <!-- Banda por detrás del cuerpo: la curva cae al otro lado -->
     <path d="M62 96 q38 -22 76 0" stroke="#f59e0b" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="6 4"/>
-  </g>
 </svg>

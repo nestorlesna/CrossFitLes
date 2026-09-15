@@ -128,5 +128,4 @@
     <circle cx="113" cy="162" r="4" fill="#64748b"/>
     <circle cx="127" cy="162" r="4" fill="#64748b"/>
     <line x1="28" y1="50" x2="212" y2="50" stroke="#a78bfa" stroke-width="3" stroke-linecap="round"/>
-  </g>
 </svg>
