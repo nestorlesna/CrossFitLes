@@ -1,12 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
   <style>
-    .f1{animation:sh1 6s linear infinite}.f2{animation:sh2 6s linear infinite}.f3{animation:sh3 6s linear infinite}.f4{animation:sh4 6s linear infinite}.f5{animation:sh5 6s linear infinite}.f6{animation:sh6 6s linear infinite}
-    @keyframes sh1{0%,13.7%{opacity:1}16.7%,100%{opacity:0}}
-    @keyframes sh2{0%,16.7%{opacity:0}19.7%,30.3%{opacity:1}33.3%,100%{opacity:0}}
-    @keyframes sh3{0%,33.3%{opacity:0}36.3%,47%{opacity:1}50%,100%{opacity:0}}
-    @keyframes sh4{0%,50%{opacity:0}53%,63.7%{opacity:1}66.7%,100%{opacity:0}}
-    @keyframes sh5{0%,66.7%{opacity:0}69.7%,80.3%{opacity:1}83.3%,100%{opacity:0}}
-    @keyframes sh6{0%,83.3%{opacity:0}86.3%,97%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="200" height="230" fill="#111827" rx="12"/>
   <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
@@ -25,33 +22,8 @@
     <circle cx="85" cy="195" r="4" fill="#64748b"/>
   </g>
 
+  <!-- Frame 2: rodillas levemente elevadas, tension isometrica -->
   <g class="f2">
-    <circle cx="150" cy="128.7" r="12" fill="#94a3b8"/>
-    <line x1="141" y1="136.7" x2="80" y2="148.7" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
-    <line x1="135" y1="148.7" x2="129.3" y2="200" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
-    <line x1="90" y1="148.7" x2="84.3" y2="194" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
-    <line x1="80" y1="148.7" x2="59.3" y2="194" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
-    <line x1="114" y1="148.7" x2="99.3" y2="194" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
-    <circle cx="59.3" cy="194" r="4" fill="#64748b"/>
-    <circle cx="99.3" cy="194" r="4" fill="#64748b"/>
-    <circle cx="129.3" cy="200" r="4" fill="#64748b"/>
-    <circle cx="84.3" cy="194" r="4" fill="#64748b"/>
-  </g>
-
-  <g class="f3">
-    <circle cx="150" cy="127.3" r="12" fill="#94a3b8"/>
-    <line x1="141" y1="135.3" x2="80" y2="147.3" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
-    <line x1="135" y1="147.3" x2="128.7" y2="200" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
-    <line x1="90" y1="147.3" x2="83.7" y2="193" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
-    <line x1="80" y1="147.3" x2="58.7" y2="193" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
-    <line x1="113" y1="147.3" x2="98.7" y2="193" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
-    <circle cx="58.7" cy="193" r="4" fill="#64748b"/>
-    <circle cx="98.7" cy="193" r="4" fill="#64748b"/>
-    <circle cx="128.7" cy="200" r="4" fill="#64748b"/>
-    <circle cx="83.7" cy="193" r="4" fill="#64748b"/>
-  </g>
-
-  <g class="f4">
     <circle cx="150" cy="126" r="12" fill="#94a3b8"/>
     <line x1="141" y1="134" x2="80" y2="146" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
     <line x1="135" y1="146" x2="128" y2="200" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
@@ -64,20 +36,8 @@
     <circle cx="83" cy="192" r="4" fill="#64748b"/>
   </g>
 
-  <g class="f5">
-    <circle cx="150" cy="128" r="12" fill="#94a3b8"/>
-    <line x1="141" y1="136" x2="80" y2="148" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
-    <line x1="135" y1="148" x2="130" y2="200" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
-    <line x1="90" y1="148" x2="85.5" y2="193.5" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
-    <line x1="80" y1="148" x2="61.5" y2="193.5" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
-    <line x1="113.5" y1="148" x2="101.5" y2="193.5" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
-    <circle cx="61.5" cy="193.5" r="4" fill="#64748b"/>
-    <circle cx="101.5" cy="193.5" r="4" fill="#64748b"/>
-    <circle cx="130" cy="200" r="4" fill="#64748b"/>
-    <circle cx="85.5" cy="193.5" r="4" fill="#64748b"/>
-  </g>
-
-  <g class="f6">
+  <!-- Frame 3: mismo hold, leve balanceo de manos -->
+  <g class="f3">
     <circle cx="150" cy="130" r="12" fill="#94a3b8"/>
     <line x1="141" y1="138" x2="80" y2="150" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
     <line x1="135" y1="150" x2="132" y2="200" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>

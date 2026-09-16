@@ -1,12 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
   <style>
-    .f1{animation:sh1 6s linear infinite}.f2{animation:sh2 6s linear infinite}.f3{animation:sh3 6s linear infinite}.f4{animation:sh4 6s linear infinite}.f5{animation:sh5 6s linear infinite}.f6{animation:sh6 6s linear infinite}
-    @keyframes sh1{0%,13.7%{opacity:1}16.7%,100%{opacity:0}}
-    @keyframes sh2{0%,16.7%{opacity:0}19.7%,30.3%{opacity:1}33.3%,100%{opacity:0}}
-    @keyframes sh3{0%,33.3%{opacity:0}36.3%,47%{opacity:1}50%,100%{opacity:0}}
-    @keyframes sh4{0%,50%{opacity:0}53%,63.7%{opacity:1}66.7%,100%{opacity:0}}
-    @keyframes sh5{0%,66.7%{opacity:0}69.7%,80.3%{opacity:1}83.3%,100%{opacity:0}}
-    @keyframes sh6{0%,83.3%{opacity:0}86.3%,97%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="200" height="230" fill="#111827" rx="12"/>
   <line x1="30" y1="207" x2="170" y2="207" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
@@ -21,32 +18,13 @@
     <line x1="78" y1="204" x2="96" y2="204"/>
     <line x1="98" y1="204" x2="120" y2="204"/>
     <line x1="94" y1="58" x2="80" y2="112"/>
+    <path d="M124,58 L118,204" stroke="#f59e0b" stroke-width="4"/>
     <polyline points="94,58 124,64 124,58"/>
     <circle cx="124" cy="60" r="4" fill="#64748b" stroke="none"/>
   </g>
-<g class="f2" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <circle cx="94" cy="30" r="13" fill="#94a3b8" stroke="none"/>
-    <line x1="94" y1="43" x2="94" y2="114"/>
-    <polyline points="94,114 88,162 88,204"/>
-    <polyline points="94,114 104,162 106,204"/>
-    <line x1="78" y1="204" x2="96" y2="204"/>
-    <line x1="98" y1="204" x2="120" y2="204"/>
-    <line x1="94" y1="58" x2="80" y2="112"/>
-    <polyline points="94,58 116,74.7 125.3,66.7"/>
-    <circle cx="125.3" cy="68" r="4" fill="#64748b" stroke="none"/>
-  </g>
-<g class="f3" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <circle cx="94" cy="30" r="13" fill="#94a3b8" stroke="none"/>
-    <line x1="94" y1="43" x2="94" y2="114"/>
-    <polyline points="94,114 88,162 88,204"/>
-    <polyline points="94,114 104,162 106,204"/>
-    <line x1="78" y1="204" x2="96" y2="204"/>
-    <line x1="98" y1="204" x2="120" y2="204"/>
-    <polyline points="94,58 108,85.3 126.7,75.3"/>
-    <circle cx="100" cy="96" r="4" fill="#64748b" stroke="none"/>
-    <circle cx="126.7" cy="76" r="4" fill="#64748b" stroke="none"/>
-  </g>
-<g class="f4" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+
+  <!-- Frame 2: codo a 90°, tirando -->
+  <g class="f2" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
     <circle cx="94" cy="30" r="13" fill="#94a3b8" stroke="none"/>
     <line x1="94" y1="43" x2="94" y2="114"/>
     <polyline points="94,114 88,162 88,204"/>
@@ -54,24 +32,13 @@
     <line x1="78" y1="204" x2="96" y2="204"/>
     <line x1="98" y1="204" x2="120" y2="204"/>
     <polyline points="94,58 100,96 128,84"/>
+    <path d="M128,84 L118,204" stroke="#f59e0b" stroke-width="4"/>
     <circle cx="100" cy="96" r="4" fill="#64748b" stroke="none"/>
     <circle cx="128" cy="84" r="4" fill="#64748b" stroke="none"/>
   </g>
-<g class="f5" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <circle cx="94" cy="30" r="13" fill="#94a3b8" stroke="none"/>
-    <line x1="94" y1="43" x2="94" y2="114"/>
-    <polyline points="94,114 88,162 88,204"/>
-    <polyline points="94,114 104,162 106,204"/>
-    <line x1="78" y1="204" x2="96" y2="204"/>
-    <line x1="98" y1="204" x2="120" y2="204"/>
-    <polyline points="94,58 100,96 128,83"/>
-    <circle cx="100" cy="96" r="4" fill="#64748b" stroke="none"/>
-    <circle cx="128" cy="83" r="4" fill="#64748b" stroke="none"/>
-    <circle cx="152" cy="70" r="3" fill="#6ee7b7" stroke="none"/>
-    <circle cx="152" cy="82" r="3" fill="#6ee7b7" stroke="none"/>
-    <circle cx="152" cy="94" r="3" fill="#6ee7b7" stroke="none"/>
-  </g>
-<g class="f6" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+
+  <!-- Frame 3: tensión máxima sostenida -->
+  <g class="f3" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
     <circle cx="94" cy="30" r="13" fill="#94a3b8" stroke="none"/>
     <line x1="94" y1="43" x2="94" y2="114"/>
     <polyline points="94,114 88,162 88,204"/>
@@ -79,6 +46,7 @@
     <line x1="78" y1="204" x2="96" y2="204"/>
     <line x1="98" y1="204" x2="120" y2="204"/>
     <polyline points="94,58 100,96 128,82"/>
+    <path d="M128,82 L118,204" stroke="#f59e0b" stroke-width="4"/>
     <circle cx="100" cy="96" r="4" fill="#64748b" stroke="none"/>
     <circle cx="128" cy="82" r="4" fill="#64748b" stroke="none"/>
     <circle cx="152" cy="70" r="3" fill="#6ee7b7" stroke="none"/>

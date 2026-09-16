@@ -1,15 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
   <rect width="200" height="230" fill="#111827" rx="12"/>
   <style>
-    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}.f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}.f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}.f7{animation:sh7 8s linear infinite}.f8{animation:sh8 8s linear infinite}
-    @keyframes sh1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
-    @keyframes sh2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
-    @keyframes sh3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
-    @keyframes sh4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
-    @keyframes sh5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
-    @keyframes sh6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
-    @keyframes sh7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
-    @keyframes sh8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
   </style>
 
   <!-- Pared (fija en los 3 frames): la pierna trasera apoya el pie/empeine contra ella -->
@@ -20,93 +15,45 @@
   <g class="f1" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" fill="none">
     <circle cx="68" cy="46" r="13" fill="#94a3b8" stroke="none"/>
     <line x1="70" y1="58" x2="78" y2="112"/>
+    <!-- brazo apoyado sobre la rodilla delantera -->
     <line x1="70" y1="72" x2="52" y2="118"/>
+    <!-- pierna delantera (izq), rodilla a 90 grados -->
     <line x1="78" y1="112" x2="48" y2="150"/>
     <line x1="48" y1="150" x2="30" y2="205"/>
     <line x1="20" y1="205" x2="42" y2="205"/>
+    <!-- pierna trasera: rodilla apoyada cerca de la pared, empeine subiendo contra la pared -->
     <line x1="78" y1="112" x2="120" y2="175"/>
     <line x1="120" y1="175" x2="130" y2="205"/>
     <circle cx="130" cy="205" r="6" fill="#64748b" stroke="none"/>
     <line x1="120" y1="175" x2="150" y2="185" stroke-width="4"/>
   </g>
-<g class="f2" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" fill="none">
-    <circle cx="67.5" cy="47.5" r="13" fill="#94a3b8" stroke="none"/>
-    <line x1="69.5" y1="59.5" x2="78.5" y2="113"/>
-    <line x1="69.5" y1="73.5" x2="51.5" y2="118.5"/>
-    <line x1="78.5" y1="113" x2="47.5" y2="150.5"/>
-    <line x1="47.5" y1="150.5" x2="29.5" y2="205"/>
-    <line x1="19.5" y1="205" x2="41.5" y2="205"/>
-    <line x1="78.5" y1="113" x2="122" y2="177.5"/>
-    <line x1="122" y1="177.5" x2="130.5" y2="205"/>
-    <circle cx="130.5" cy="205" r="6" fill="#64748b" stroke="none"/>
-    <line x1="122" y1="177.5" x2="150.5" y2="176.3" stroke-width="4"/>
-  </g>
-<g class="f3" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" fill="none">
-    <circle cx="67" cy="49" r="13" fill="#94a3b8" stroke="none"/>
-    <line x1="69" y1="61" x2="79" y2="114"/>
-    <line x1="69" y1="75" x2="51" y2="119"/>
-    <line x1="79" y1="114" x2="47" y2="151"/>
-    <line x1="47" y1="151" x2="29" y2="205"/>
-    <line x1="19" y1="205" x2="41" y2="205"/>
-    <line x1="79" y1="114" x2="124" y2="180"/>
-    <line x1="124" y1="180" x2="131" y2="205"/>
-    <circle cx="131" cy="205" r="6" fill="#64748b" stroke="none"/>
-    <line x1="124" y1="180" x2="151" y2="167.5" stroke-width="4"/>
-  </g>
-<g class="f4" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" fill="none">
-    <circle cx="66.5" cy="50.5" r="13" fill="#94a3b8" stroke="none"/>
-    <line x1="68.5" y1="62.5" x2="79.5" y2="115"/>
-    <line x1="68.5" y1="76.5" x2="50.5" y2="119.5"/>
-    <line x1="79.5" y1="115" x2="46.5" y2="151.5"/>
-    <line x1="46.5" y1="151.5" x2="28.5" y2="205"/>
-    <line x1="18.5" y1="205" x2="40.5" y2="205"/>
-    <line x1="79.5" y1="115" x2="126" y2="182.5"/>
-    <line x1="126" y1="182.5" x2="131.5" y2="205"/>
-    <circle cx="131.5" cy="205" r="6" fill="#64748b" stroke="none"/>
-    <line x1="126" y1="182.5" x2="151.5" y2="158.8" stroke-width="4"/>
-  </g>
-<g class="f5" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" fill="none">
+
+  <!-- F2: transición, cadera empezando a empujar hacia adelante y abajo -->
+  <g class="f2" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" fill="none">
     <circle cx="66" cy="52" r="13" fill="#94a3b8" stroke="none"/>
     <line x1="68" y1="64" x2="80" y2="116"/>
     <line x1="68" y1="78" x2="50" y2="120"/>
     <line x1="80" y1="116" x2="46" y2="152"/>
     <line x1="46" y1="152" x2="28" y2="205"/>
     <line x1="18" y1="205" x2="40" y2="205"/>
+    <!-- rodilla trasera pegada al piso junto a la pared, canilla y pie subiendo contra la pared -->
     <line x1="80" y1="116" x2="128" y2="185"/>
     <line x1="128" y1="185" x2="132" y2="205"/>
     <circle cx="132" cy="205" r="6" fill="#64748b" stroke="none"/>
     <line x1="128" y1="185" x2="152" y2="150" stroke-width="4"/>
   </g>
-<g class="f6" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" fill="none">
-    <circle cx="68" cy="49.3" r="13" fill="#94a3b8" stroke="none"/>
-    <line x1="69.3" y1="61.7" x2="78.7" y2="116.7"/>
-    <line x1="69.3" y1="75.3" x2="60.7" y2="90"/>
-    <line x1="78.7" y1="116.7" x2="44" y2="151.3"/>
-    <line x1="44" y1="151.3" x2="26.7" y2="205"/>
-    <line x1="16.7" y1="205" x2="38.7" y2="205"/>
-    <line x1="78.7" y1="116.7" x2="129.3" y2="190"/>
-    <line x1="128" y1="185" x2="132" y2="205"/>
-    <circle cx="132" cy="203.3" r="6" fill="#64748b" stroke="none"/>
-    <line x1="129.3" y1="190" x2="151.3" y2="143.3" stroke-width="4"/>
-  </g>
-<g class="f7" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" fill="none">
-    <circle cx="70" cy="46.7" r="13" fill="#94a3b8" stroke="none"/>
-    <line x1="70.7" y1="59.3" x2="77.3" y2="117.3"/>
-    <line x1="70.7" y1="72.7" x2="71.3" y2="60"/>
-    <line x1="77.3" y1="117.3" x2="42" y2="150.7"/>
-    <line x1="42" y1="150.7" x2="25.3" y2="205"/>
-    <line x1="15.3" y1="205" x2="37.3" y2="205"/>
-    <line x1="77.3" y1="117.3" x2="130.7" y2="195"/>
-    <circle cx="132" cy="201.7" r="6" fill="#64748b" stroke="none"/>
-    <line x1="130.7" y1="195" x2="150.7" y2="136.7" stroke-width="4"/>
-  </g>
-<g class="f8" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" fill="none">
+
+  <!-- F3: couch stretch profundo, torso erguido, cadera empujada adelante, pie firme contra la pared -->
+  <g class="f3" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" fill="none">
     <circle cx="72" cy="44" r="13" fill="#94a3b8" stroke="none"/>
     <line x1="72" y1="57" x2="76" y2="118"/>
+    <!-- brazo arriba, torso vertical y erguido (glúteo trasero contraído) -->
     <line x1="72" y1="70" x2="82" y2="30"/>
+    <!-- pierna delantera muy flexionada, rodilla adelantada -->
     <line x1="76" y1="118" x2="40" y2="150"/>
     <line x1="40" y1="150" x2="24" y2="205"/>
     <line x1="14" y1="205" x2="36" y2="205"/>
+    <!-- pierna trasera: rodilla en el piso pegada a la pared, canilla y empeine totalmente verticales contra la pared -->
     <line x1="76" y1="118" x2="132" y2="200"/>
     <circle cx="132" cy="200" r="6" fill="#64748b" stroke="none"/>
     <line x1="132" y1="200" x2="150" y2="130" stroke-width="4"/>

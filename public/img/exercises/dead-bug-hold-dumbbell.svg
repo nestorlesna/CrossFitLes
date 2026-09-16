@@ -1,12 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
   <style>
-    .f1{animation:sh1 6s linear infinite}.f2{animation:sh2 6s linear infinite}.f3{animation:sh3 6s linear infinite}.f4{animation:sh4 6s linear infinite}.f5{animation:sh5 6s linear infinite}.f6{animation:sh6 6s linear infinite}
-    @keyframes sh1{0%,13.7%{opacity:1}16.7%,100%{opacity:0}}
-    @keyframes sh2{0%,16.7%{opacity:0}19.7%,30.3%{opacity:1}33.3%,100%{opacity:0}}
-    @keyframes sh3{0%,33.3%{opacity:0}36.3%,47%{opacity:1}50%,100%{opacity:0}}
-    @keyframes sh4{0%,50%{opacity:0}53%,63.7%{opacity:1}66.7%,100%{opacity:0}}
-    @keyframes sh5{0%,66.7%{opacity:0}69.7%,80.3%{opacity:1}83.3%,100%{opacity:0}}
-    @keyframes sh6{0%,83.3%{opacity:0}86.3%,97%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="200" height="230" fill="#111827" rx="12"/>
   <line x1="20" y1="175" x2="180" y2="175" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
@@ -25,29 +22,9 @@
     <circle cx="140" cy="82" r="4" fill="#64748b" stroke="none"/>
     <circle cx="125" cy="90" r="4" fill="#64748b" stroke="none"/>
   </g>
-<g class="f2" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <circle cx="28" cy="112" r="12" fill="#94a3b8" stroke="none"/>
-    <line x1="40" y1="116" x2="160" y2="116"/>
-    <line x1="65" y1="116" x2="56.7" y2="86"/>
-    <line x1="80" y1="116" x2="75" y2="86"/>
-    <circle cx="61.7" cy="82.7" r="6" fill="#64748b" stroke="none"/>
-    <line x1="130" y1="116" x2="125" y2="89.3"/>
-    <line x1="128.3" y1="89.3" x2="140" y2="87.3"/>
-    <circle cx="130" cy="82" r="4" fill="#64748b" stroke="none"/>
-    <circle cx="140" cy="82" r="4" fill="#64748b" stroke="none"/>
-    <circle cx="125" cy="89.3" r="4" fill="#64748b" stroke="none"/>
-  </g>
-<g class="f3" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <circle cx="28" cy="112" r="12" fill="#94a3b8" stroke="none"/>
-    <line x1="40" y1="116" x2="160" y2="116"/>
-    <line x1="65" y1="116" x2="58.3" y2="82"/>
-    <line x1="80" y1="116" x2="75" y2="82"/>
-    <circle cx="63.3" cy="78.3" r="6" fill="#64748b" stroke="none"/>
-    <line x1="130" y1="116" x2="125" y2="88.7"/>
-    <line x1="126.7" y1="88.7" x2="140" y2="84.7"/>
-    <circle cx="125" cy="88.7" r="4" fill="#64748b" stroke="none"/>
-  </g>
-<g class="f4" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+
+  <!-- Frame 2: Arms extending up with dumbbell, one leg extending -->
+  <g class="f2" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
     <circle cx="28" cy="112" r="12" fill="#94a3b8" stroke="none"/>
     <line x1="40" y1="116" x2="160" y2="116"/>
     <line x1="65" y1="116" x2="60" y2="78"/>
@@ -57,19 +34,9 @@
     <line x1="125" y1="88" x2="140" y2="82"/>
     <circle cx="125" cy="88" r="4" fill="#64748b" stroke="none"/>
   </g>
-<g class="f5" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <circle cx="28" cy="112" r="12" fill="#94a3b8" stroke="none"/>
-    <line x1="40" y1="116" x2="160" y2="116"/>
-    <line x1="65" y1="116" x2="60" y2="73"/>
-    <line x1="80" y1="116" x2="75" y2="73"/>
-    <circle cx="65" cy="69" r="6" fill="#64748b" stroke="none"/>
-    <circle cx="73" cy="64" r="6" fill="#64748b" stroke="none"/>
-    <line x1="130" y1="116" x2="125" y2="89"/>
-    <line x1="125" y1="89" x2="142.5" y2="85"/>
-    <circle cx="125" cy="89" r="4" fill="#64748b" stroke="none"/>
-    <circle cx="145" cy="88" r="4" fill="#64748b" stroke="none"/>
-  </g>
-<g class="f6" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+
+  <!-- Frame 3: Full hold — arms up with dumbbell overhead, legs tabletop sustained -->
+  <g class="f3" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
     <circle cx="28" cy="112" r="12" fill="#94a3b8" stroke="none"/>
     <line x1="40" y1="116" x2="160" y2="116"/>
     <line x1="65" y1="116" x2="60" y2="68"/>

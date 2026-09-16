@@ -1,14 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180">
   <style>
-    .fr1{animation:shfr1 8s linear infinite}.fr2{animation:shfr2 8s linear infinite}.fr3{animation:shfr3 8s linear infinite}.fr4{animation:shfr4 8s linear infinite}.fr5{animation:shfr5 8s linear infinite}.fr6{animation:shfr6 8s linear infinite}.fr7{animation:shfr7 8s linear infinite}.fr8{animation:shfr8 8s linear infinite}
-    @keyframes shfr1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
-    @keyframes shfr2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
-    @keyframes shfr3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
-    @keyframes shfr4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
-    @keyframes shfr5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
-    @keyframes shfr6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
-    @keyframes shfr7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
-    @keyframes shfr8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
+    .fr1{animation:f1 4s linear infinite}
+    .fr2{animation:f2 4s linear infinite}
+    .fr3{animation:f3 4s linear infinite}
+    @keyframes f1{0%,33%{opacity:1}34%,100%{opacity:0}}
+    @keyframes f2{0%,33%{opacity:0}34%,66%{opacity:1}67%,100%{opacity:0}}
+    @keyframes f3{0%,66%{opacity:0}67%,100%{opacity:1}}
   </style>
   <rect width="240" height="180" fill="#111827"/>
   <!-- suelo -->
@@ -17,72 +14,49 @@
   <!-- Frame 1: acostado plano -->
   <g class="fr1" fill="none" stroke-linecap="round">
     <circle cx="25" cy="148" r="10" fill="#94a3b8"/>
+    <!-- torso en el suelo -->
     <line x1="35" y1="155" x2="128" y2="155" stroke="#94a3b8" stroke-width="4"/>
+    <!-- brazo al lado -->
     <line x1="80" y1="155" x2="82" y2="164" stroke="#94a3b8" stroke-width="3"/>
+    <!-- muslo hacia arriba -->
     <line x1="128" y1="155" x2="152" y2="132" stroke="#94a3b8" stroke-width="4"/>
+    <!-- pierna hacia el suelo -->
     <line x1="152" y1="132" x2="170" y2="155" stroke="#94a3b8" stroke-width="4"/>
+    <!-- pies en el suelo -->
     <line x1="168" y1="155" x2="182" y2="155" stroke="#94a3b8" stroke-width="3"/>
   </g>
-<g class="fr2" fill="none" stroke-linecap="round">
+
+  <!-- Frame 2: puente a medio camino -->
+  <g class="fr2" fill="none" stroke-linecap="round">
     <circle cx="25" cy="148" r="10" fill="#94a3b8"/>
-    <line x1="35" y1="155" x2="116.5" y2="155" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="75" y1="155" x2="77" y2="164" stroke="#94a3b8" stroke-width="3"/>
-    <line x1="128" y1="150.3" x2="152" y2="131" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="152" y1="131" x2="170" y2="155" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="168" y1="155" x2="182" y2="155" stroke="#94a3b8" stroke-width="3"/>
-  </g>
-<g class="fr3" fill="none" stroke-linecap="round">
-    <circle cx="25" cy="148" r="10" fill="#94a3b8"/>
-    <line x1="35" y1="155" x2="105" y2="155" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="82" y1="155" x2="128" y2="136" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="70" y1="155" x2="72" y2="164" stroke="#94a3b8" stroke-width="3"/>
-    <line x1="128" y1="145.5" x2="152" y2="130" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="152" y1="130" x2="170" y2="155" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="168" y1="155" x2="182" y2="155" stroke="#94a3b8" stroke-width="3"/>
-  </g>
-<g class="fr4" fill="none" stroke-linecap="round">
-    <circle cx="25" cy="148" r="10" fill="#94a3b8"/>
-    <line x1="35" y1="155" x2="93.5" y2="155" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="82" y1="155" x2="128" y2="136" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="65" y1="155" x2="67" y2="164" stroke="#94a3b8" stroke-width="3"/>
-    <line x1="128" y1="140.8" x2="152" y2="129" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="152" y1="129" x2="170" y2="155" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="168" y1="155" x2="182" y2="155" stroke="#94a3b8" stroke-width="3"/>
-  </g>
-<g class="fr5" fill="none" stroke-linecap="round">
-    <circle cx="25" cy="148" r="10" fill="#94a3b8"/>
+    <!-- hombros en suelo -->
     <line x1="35" y1="155" x2="82" y2="155" stroke="#94a3b8" stroke-width="4"/>
+    <!-- torso diagonal, caderas subiendo -->
     <line x1="82" y1="155" x2="128" y2="136" stroke="#94a3b8" stroke-width="4"/>
+    <!-- brazo al lado -->
     <line x1="60" y1="155" x2="62" y2="164" stroke="#94a3b8" stroke-width="3"/>
+    <!-- muslo -->
     <line x1="128" y1="136" x2="152" y2="128" stroke="#94a3b8" stroke-width="4"/>
+    <!-- pierna -->
     <line x1="152" y1="128" x2="170" y2="155" stroke="#94a3b8" stroke-width="4"/>
+    <!-- pies -->
     <line x1="168" y1="155" x2="182" y2="155" stroke="#94a3b8" stroke-width="3"/>
   </g>
-<g class="fr6" fill="none" stroke-linecap="round">
+
+  <!-- Frame 3: puente completo, caderas arriba -->
+  <g class="fr3" fill="none" stroke-linecap="round">
     <circle cx="25" cy="148" r="10" fill="#94a3b8"/>
-    <line x1="35" y1="155" x2="78.7" y2="155" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="78.7" y1="155" x2="128" y2="128" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="58" y1="155" x2="60" y2="164" stroke="#94a3b8" stroke-width="3"/>
-    <line x1="128" y1="128" x2="153" y2="128" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="153" y1="128" x2="170" y2="155" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="168" y1="155" x2="182" y2="155" stroke="#94a3b8" stroke-width="3"/>
-  </g>
-<g class="fr7" fill="none" stroke-linecap="round">
-    <circle cx="25" cy="148" r="10" fill="#94a3b8"/>
-    <line x1="35" y1="155" x2="75.3" y2="155" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="75.3" y1="155" x2="128" y2="120" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="56" y1="155" x2="58" y2="164" stroke="#94a3b8" stroke-width="3"/>
-    <line x1="128" y1="120" x2="154" y2="128" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="154" y1="128" x2="170" y2="155" stroke="#94a3b8" stroke-width="4"/>
-    <line x1="168" y1="155" x2="182" y2="155" stroke="#94a3b8" stroke-width="3"/>
-  </g>
-<g class="fr8" fill="none" stroke-linecap="round">
-    <circle cx="25" cy="148" r="10" fill="#94a3b8"/>
+    <!-- hombros en suelo -->
     <line x1="35" y1="155" x2="72" y2="155" stroke="#94a3b8" stroke-width="4"/>
+    <!-- torso en alto (arco) -->
     <line x1="72" y1="155" x2="128" y2="112" stroke="#94a3b8" stroke-width="4"/>
+    <!-- brazo al lado, ligeramente presionando suelo -->
     <line x1="54" y1="155" x2="56" y2="164" stroke="#94a3b8" stroke-width="3"/>
+    <!-- muslo -->
     <line x1="128" y1="112" x2="155" y2="128" stroke="#94a3b8" stroke-width="4"/>
+    <!-- pierna -->
     <line x1="155" y1="128" x2="170" y2="155" stroke="#94a3b8" stroke-width="4"/>
+    <!-- pies -->
     <line x1="168" y1="155" x2="182" y2="155" stroke="#94a3b8" stroke-width="3"/>
   </g>
 </svg>

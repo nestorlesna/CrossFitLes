@@ -1,14 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240">
   <style>
-    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}.f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}.f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}.f7{animation:sh7 8s linear infinite}.f8{animation:sh8 8s linear infinite}
-    @keyframes sh1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
-    @keyframes sh2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
-    @keyframes sh3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
-    @keyframes sh4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
-    @keyframes sh5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
-    @keyframes sh6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
-    @keyframes sh7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
-    @keyframes sh8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="200" height="240" fill="#111827" rx="12"/>
   <!-- Anillos (siempre visibles) -->
@@ -22,128 +17,37 @@
     <circle cx="100" cy="36" r="13" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="100" y1="49" x2="100" y2="112"/>
-    <line x1="80" y1="62" x2="120" y2="62"/>
-    <line x1="80" y1="62" x2="68" y2="56"/>
-    <line x1="120" y1="62" x2="132" y2="56"/>
-    <line x1="95" y1="112" x2="93" y2="172"/>
-    <line x1="93" y1="172" x2="95" y2="220"/>
-    <line x1="105" y1="112" x2="107" y2="172"/>
-    <line x1="107" y1="172" x2="105" y2="220"/>
+      <line x1="80" y1="62" x2="120" y2="62"/>
+      <line x1="80" y1="62" x2="68" y2="56"/><line x1="120" y1="62" x2="132" y2="56"/>
+      <line x1="95" y1="112" x2="93" y2="172"/><line x1="93" y1="172" x2="95" y2="220"/>
+      <line x1="105" y1="112" x2="107" y2="172"/><line x1="107" y1="172" x2="105" y2="220"/>
     </g>
   </g>
-<g class="f2">
-    <circle cx="100" cy="42" r="13" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="100" y1="55" x2="100" y2="117"/>
-    <line x1="80" y1="67.8" x2="120" y2="67.8"/>
-    <line x1="76" y1="64.5" x2="68" y2="56"/>
-    <line x1="124" y1="64.5" x2="132" y2="56"/>
-    <line x1="95" y1="117" x2="93" y2="176"/>
-    <line x1="93" y1="176" x2="95" y2="220.5"/>
-    <line x1="105" y1="117" x2="107" y2="176"/>
-    <line x1="107" y1="176" x2="105" y2="220.5"/>
-    </g>
-  </g>
-<g class="f3">
-    <circle cx="100" cy="48" r="13" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="100" y1="61" x2="100" y2="122"/>
-    <line x1="80" y1="73.5" x2="120" y2="73.5"/>
-    <line x1="80" y1="85" x2="64" y2="72"/>
-    <line x1="72" y1="67" x2="68" y2="56"/>
-    <line x1="120" y1="85" x2="136" y2="72"/>
-    <line x1="128" y1="67" x2="132" y2="56"/>
-    <line x1="95" y1="122" x2="93" y2="180"/>
-    <line x1="93" y1="180" x2="95" y2="221"/>
-    <line x1="105" y1="122" x2="107" y2="180"/>
-    <line x1="107" y1="180" x2="105" y2="221"/>
-    </g>
-    <circle cx="64" cy="72" r="5" fill="#64748b"/>
-    <circle cx="136" cy="72" r="5" fill="#64748b"/>
-  </g>
-<g class="f4">
-    <circle cx="100" cy="54" r="13" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="100" y1="67" x2="100" y2="127"/>
-    <line x1="80" y1="79.3" x2="120" y2="79.3"/>
-    <line x1="80" y1="85" x2="64" y2="72"/>
-    <line x1="68" y1="69.5" x2="68" y2="56"/>
-    <line x1="120" y1="85" x2="136" y2="72"/>
-    <line x1="132" y1="69.5" x2="132" y2="56"/>
-    <line x1="95" y1="127" x2="93" y2="184"/>
-    <line x1="93" y1="184" x2="95" y2="221.5"/>
-    <line x1="105" y1="127" x2="107" y2="184"/>
-    <line x1="107" y1="184" x2="105" y2="221.5"/>
-    </g>
-    <circle cx="64" cy="72" r="5" fill="#64748b"/>
-    <circle cx="136" cy="72" r="5" fill="#64748b"/>
-  </g>
-<g class="f5">
+  <!-- Frame 2: A mitad (codos doblados, anillos rotando) -->
+  <g class="f2">
     <circle cx="100" cy="60" r="13" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="100" y1="73" x2="100" y2="132"/>
-    <line x1="80" y1="85" x2="120" y2="85"/>
-    <line x1="80" y1="85" x2="64" y2="72"/>
-    <line x1="64" y1="72" x2="68" y2="56"/>
-    <line x1="120" y1="85" x2="136" y2="72"/>
-    <line x1="136" y1="72" x2="132" y2="56"/>
-    <line x1="95" y1="132" x2="93" y2="188"/>
-    <line x1="93" y1="188" x2="95" y2="222"/>
-    <line x1="105" y1="132" x2="107" y2="188"/>
-    <line x1="107" y1="188" x2="105" y2="222"/>
+      <line x1="80" y1="85" x2="120" y2="85"/>
+      <line x1="80" y1="85" x2="64" y2="72"/><line x1="64" y1="72" x2="68" y2="56"/>
+      <line x1="120" y1="85" x2="136" y2="72"/><line x1="136" y1="72" x2="132" y2="56"/>
+      <line x1="95" y1="132" x2="93" y2="188"/><line x1="93" y1="188" x2="95" y2="222"/>
+      <line x1="105" y1="132" x2="107" y2="188"/><line x1="107" y1="188" x2="105" y2="222"/>
     </g>
-    <circle cx="64" cy="72" r="5" fill="#64748b"/>
-    <circle cx="136" cy="72" r="5" fill="#64748b"/>
+    <circle cx="64" cy="72" r="5" fill="#64748b"/><circle cx="136" cy="72" r="5" fill="#64748b"/>
   </g>
-<g class="f6">
-    <circle cx="100" cy="66.7" r="13" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="100" y1="79.7" x2="100" y2="137.3"/>
-    <line x1="80" y1="91.7" x2="120" y2="91.7"/>
-    <line x1="80" y1="91.7" x2="62" y2="76.3"/>
-    <line x1="62" y1="76.3" x2="65.3" y2="58.7"/>
-    <line x1="120" y1="91.7" x2="138" y2="76.3"/>
-    <line x1="138" y1="76.3" x2="134.7" y2="58.7"/>
-    <line x1="95" y1="137.3" x2="93" y2="192"/>
-    <line x1="93" y1="192" x2="95" y2="223"/>
-    <line x1="105" y1="137.3" x2="107" y2="192"/>
-    <line x1="107" y1="192" x2="105" y2="223"/>
-    </g>
-    <circle cx="62" cy="76.3" r="5" fill="#64748b"/>
-    <circle cx="138" cy="76.3" r="5" fill="#64748b"/>
-  </g>
-<g class="f7">
-    <circle cx="100" cy="73.3" r="13" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="100" y1="86.3" x2="100" y2="142.7"/>
-    <line x1="80" y1="98.3" x2="120" y2="98.3"/>
-    <line x1="80" y1="98.3" x2="60" y2="80.7"/>
-    <line x1="60" y1="80.7" x2="62.7" y2="61.3"/>
-    <line x1="120" y1="98.3" x2="140" y2="80.7"/>
-    <line x1="140" y1="80.7" x2="137.3" y2="61.3"/>
-    <line x1="95" y1="142.7" x2="93" y2="196"/>
-    <line x1="93" y1="196" x2="95" y2="224"/>
-    <line x1="105" y1="142.7" x2="107" y2="196"/>
-    <line x1="107" y1="196" x2="105" y2="224"/>
-    </g>
-    <circle cx="60" cy="80.7" r="5" fill="#64748b"/>
-    <circle cx="140" cy="80.7" r="5" fill="#64748b"/>
-  </g>
-<g class="f8">
+  <!-- Frame 3: Abajo (anillos girados hacia adentro, codos atrás) -->
+  <g class="f3">
     <circle cx="100" cy="80" r="13" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="100" y1="93" x2="100" y2="148"/>
-    <line x1="80" y1="105" x2="120" y2="105"/>
-    <line x1="80" y1="105" x2="58" y2="85"/>
-    <line x1="58" y1="85" x2="60" y2="64"/>
-    <line x1="120" y1="105" x2="142" y2="85"/>
-    <line x1="142" y1="85" x2="140" y2="64"/>
-    <line x1="95" y1="148" x2="93" y2="200"/>
-    <line x1="93" y1="200" x2="95" y2="225"/>
-    <line x1="105" y1="148" x2="107" y2="200"/>
-    <line x1="107" y1="200" x2="105" y2="225"/>
+      <line x1="80" y1="105" x2="120" y2="105"/>
+      <line x1="80" y1="105" x2="58" y2="85"/><line x1="58" y1="85" x2="60" y2="64"/>
+      <line x1="120" y1="105" x2="142" y2="85"/><line x1="142" y1="85" x2="140" y2="64"/>
+      <!-- Anillos ahora girados más hacia adentro -->
+      <line x1="95" y1="148" x2="93" y2="200"/><line x1="93" y1="200" x2="95" y2="225"/>
+      <line x1="105" y1="148" x2="107" y2="200"/><line x1="107" y1="200" x2="105" y2="225"/>
     </g>
-    <circle cx="58" cy="85" r="5" fill="#64748b"/>
-    <circle cx="142" cy="85" r="5" fill="#64748b"/>
+    <circle cx="58" cy="85" r="5" fill="#64748b"/><circle cx="142" cy="85" r="5" fill="#64748b"/>
   </g>
 </svg>

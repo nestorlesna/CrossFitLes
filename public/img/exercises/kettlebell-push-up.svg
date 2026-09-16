@@ -1,14 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180">
   <style>
-    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}.f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}.f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}.f7{animation:sh7 8s linear infinite}.f8{animation:sh8 8s linear infinite}
-    @keyframes sh1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
-    @keyframes sh2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
-    @keyframes sh3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
-    @keyframes sh4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
-    @keyframes sh5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
-    @keyframes sh6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
-    @keyframes sh7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
-    @keyframes sh8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="240" height="180" fill="#111827" rx="12"/>
   <line x1="20" y1="148" x2="220" y2="148" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
@@ -22,80 +17,35 @@
   <g class="f1">
     <circle cx="190" cy="72" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso flat -->
       <line x1="190" y1="84" x2="90" y2="96"/>
-    <line x1="172" y1="88" x2="172" y2="120"/>
-    <line x1="90" y1="96" x2="68" y2="148"/>
-    <line x1="92" y1="96" x2="72" y2="148"/>
+      <!-- Arms straight to KB -->
+      <line x1="172" y1="88" x2="172" y2="120"/>
+      <!-- Body line -->
+      <line x1="90" y1="96" x2="68" y2="148"/>
+      <line x1="92" y1="96" x2="72" y2="148"/>
     </g>
   </g>
-<g class="f2">
-    <circle cx="189.3" cy="77" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="189.3" y1="89" x2="90" y2="100"/>
-    <line x1="172" y1="92.5" x2="168.5" y2="120"/>
-    <line x1="90" y1="100" x2="68" y2="148"/>
-    <line x1="92" y1="100" x2="72" y2="148"/>
-    </g>
-  </g>
-<g class="f3">
-    <circle cx="188.5" cy="82" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="188.5" y1="94" x2="90" y2="104"/>
-    <line x1="172" y1="97" x2="165" y2="120"/>
-    <line x1="90" y1="104" x2="68" y2="148"/>
-    <line x1="92" y1="104" x2="72" y2="148"/>
-    </g>
-    <circle cx="158" cy="120" r="5" fill="#64748b"/>
-  </g>
-<g class="f4">
-    <circle cx="187.8" cy="87" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="187.8" y1="99" x2="90" y2="108"/>
-    <line x1="172" y1="101.5" x2="161.5" y2="120"/>
-    <line x1="90" y1="108" x2="68" y2="148"/>
-    <line x1="92" y1="108" x2="72" y2="148"/>
-    </g>
-    <circle cx="158" cy="120" r="5" fill="#64748b"/>
-  </g>
-<g class="f5">
+  <!-- Frame 2: Mid -->
+  <g class="f2">
     <circle cx="187" cy="92" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="187" y1="104" x2="90" y2="112"/>
-    <line x1="172" y1="106" x2="158" y2="120"/>
-    <line x1="90" y1="112" x2="68" y2="148"/>
-    <line x1="92" y1="112" x2="72" y2="148"/>
+      <line x1="172" y1="106" x2="158" y2="120"/>
+      <line x1="90" y1="112" x2="68" y2="148"/>
+      <line x1="92" y1="112" x2="72" y2="148"/>
     </g>
     <circle cx="158" cy="120" r="5" fill="#64748b"/>
   </g>
-<g class="f6">
-    <circle cx="185.7" cy="97.3" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="185.7" y1="109.3" x2="89.3" y2="117.3"/>
-    <line x1="171.3" y1="111.3" x2="153.3" y2="118.3"/>
-    <line x1="89.3" y1="117.3" x2="67.3" y2="148"/>
-    <line x1="91.3" y1="117.3" x2="71.3" y2="148"/>
-    </g>
-    <circle cx="153.3" cy="118.3" r="5" fill="#64748b"/>
-  </g>
-<g class="f7">
-    <circle cx="184.3" cy="102.7" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="184.3" y1="114.7" x2="88.7" y2="122.7"/>
-    <line x1="170.7" y1="116.7" x2="148.7" y2="116.7"/>
-    <line x1="144" y1="115" x2="142" y2="120"/>
-    <line x1="88.7" y1="122.7" x2="66.7" y2="148"/>
-    <line x1="90.7" y1="122.7" x2="70.7" y2="148"/>
-    </g>
-    <circle cx="148.7" cy="116.7" r="5" fill="#64748b"/>
-  </g>
-<g class="f8">
+  <!-- Frame 3: Bottom - chest below KB level (deeper range of motion) -->
+  <g class="f3">
     <circle cx="183" cy="108" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="183" y1="120" x2="88" y2="128"/>
-    <line x1="170" y1="122" x2="144" y2="115"/>
-    <line x1="144" y1="115" x2="142" y2="120"/>
-    <line x1="88" y1="128" x2="66" y2="148"/>
-    <line x1="90" y1="128" x2="70" y2="148"/>
+      <!-- Elbow bent, arm horizontal -->
+      <line x1="170" y1="122" x2="144" y2="115"/><line x1="144" y1="115" x2="142" y2="120"/>
+      <line x1="88" y1="128" x2="66" y2="148"/>
+      <line x1="90" y1="128" x2="70" y2="148"/>
     </g>
     <circle cx="144" cy="115" r="5" fill="#64748b"/>
   </g>

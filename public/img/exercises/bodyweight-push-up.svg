@@ -1,14 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180">
   <style>
-    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}.f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}.f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}.f7{animation:sh7 8s linear infinite}.f8{animation:sh8 8s linear infinite}
-    @keyframes sh1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
-    @keyframes sh2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
-    @keyframes sh3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
-    @keyframes sh4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
-    @keyframes sh5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
-    @keyframes sh6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
-    @keyframes sh7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
-    @keyframes sh8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="240" height="180" fill="#111827" rx="12"/>
   <line x1="20" y1="148" x2="220" y2="148" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
@@ -17,87 +12,39 @@
   <g class="f1">
     <circle cx="185" cy="78" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso flat -->
       <line x1="185" y1="90" x2="90" y2="100"/>
-    <line x1="168" y1="94" x2="164" y2="148"/>
-    <line x1="90" y1="100" x2="68" y2="148"/>
-    <line x1="92" y1="100" x2="72" y2="148"/>
+      <!-- Arms straight down to floor -->
+      <line x1="168" y1="94" x2="164" y2="148"/>
+      <!-- Body straight line -->
+      <line x1="90" y1="100" x2="68" y2="148"/>
+      <line x1="92" y1="100" x2="72" y2="148"/>
     </g>
     <circle cx="164" cy="148" r="5" fill="#64748b"/>
   </g>
-<g class="f2">
-    <circle cx="184.3" cy="82.5" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="184.3" y1="94.5" x2="90" y2="104"/>
-    <line x1="168" y1="98.5" x2="160" y2="148"/>
-    <line x1="90" y1="104" x2="68" y2="148"/>
-    <line x1="92" y1="104" x2="72" y2="148"/>
-    </g>
-    <circle cx="160" cy="148" r="5" fill="#64748b"/>
-  </g>
-<g class="f3">
-    <circle cx="183.5" cy="87" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="183.5" y1="99" x2="90" y2="108"/>
-    <line x1="168" y1="103" x2="156" y2="148"/>
-    <circle cx="148" cy="148" r="5" fill="#64748b"/>
-    <line x1="90" y1="108" x2="68" y2="148"/>
-    <line x1="92" y1="108" x2="72" y2="148"/>
-    </g>
-    <circle cx="156" cy="148" r="5" fill="#64748b"/>
-  </g>
-<g class="f4">
-    <circle cx="182.8" cy="91.5" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="182.8" y1="103.5" x2="90" y2="112"/>
-    <line x1="168" y1="107.5" x2="152" y2="148"/>
-    <circle cx="148" cy="148" r="5" fill="#64748b"/>
-    <line x1="90" y1="112" x2="68" y2="148"/>
-    <line x1="92" y1="112" x2="72" y2="148"/>
-    </g>
-    <circle cx="152" cy="148" r="5" fill="#64748b"/>
-  </g>
-<g class="f5">
+  <!-- Frame 2: Mid position -->
+  <g class="f2">
     <circle cx="182" cy="96" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="182" y1="108" x2="90" y2="116"/>
-    <line x1="168" y1="112" x2="148" y2="148"/>
-    <circle cx="148" cy="148" r="5" fill="#64748b"/>
-    <line x1="90" y1="116" x2="68" y2="148"/>
-    <line x1="92" y1="116" x2="72" y2="148"/>
+      <!-- Arm bent at ~45° -->
+      <line x1="168" y1="112" x2="148" y2="148"/>
+      <circle cx="148" cy="148" r="5" fill="#64748b"/>
+      <line x1="90" y1="116" x2="68" y2="148"/>
+      <line x1="92" y1="116" x2="72" y2="148"/>
     </g>
     <circle cx="148" cy="148" r="5" fill="#64748b"/>
   </g>
-<g class="f6">
-    <circle cx="180.7" cy="101.3" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="180.7" y1="113.3" x2="89.3" y2="120.7"/>
-    <line x1="167.3" y1="116.7" x2="144.7" y2="138.7"/>
-    <circle cx="148" cy="148" r="5" fill="#64748b"/>
-    <line x1="89.3" y1="120.7" x2="67.3" y2="148"/>
-    <line x1="91.3" y1="120.7" x2="71.3" y2="148"/>
-    </g>
-    <circle cx="143.3" cy="148" r="5" fill="#64748b"/>
-  </g>
-<g class="f7">
-    <circle cx="179.3" cy="106.7" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="179.3" y1="118.7" x2="88.7" y2="125.3"/>
-    <line x1="166.7" y1="121.3" x2="141.3" y2="129.3"/>
-    <line x1="138" y1="120" x2="134" y2="148"/>
-    <line x1="88.7" y1="125.3" x2="66.7" y2="148"/>
-    <line x1="90.7" y1="125.3" x2="70.7" y2="148"/>
-    </g>
-    <circle cx="138" cy="120" r="5" fill="#64748b"/>
-    <circle cx="138.7" cy="148" r="5" fill="#64748b"/>
-  </g>
-<g class="f8">
+  <!-- Frame 3: Bottom position - chest near floor -->
+  <g class="f3">
     <circle cx="178" cy="112" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso nearly flat on ground -->
       <line x1="178" y1="124" x2="88" y2="130"/>
-    <line x1="166" y1="126" x2="138" y2="120"/>
-    <line x1="138" y1="120" x2="134" y2="148"/>
-    <line x1="88" y1="130" x2="66" y2="148"/>
-    <line x1="90" y1="130" x2="70" y2="148"/>
+      <!-- Elbow fully bent, arm horizontal -->
+      <line x1="166" y1="126" x2="138" y2="120"/><line x1="138" y1="120" x2="134" y2="148"/>
+      <line x1="88" y1="130" x2="66" y2="148"/>
+      <line x1="90" y1="130" x2="70" y2="148"/>
     </g>
     <circle cx="138" cy="120" r="5" fill="#64748b"/>
     <circle cx="134" cy="148" r="5" fill="#64748b"/>

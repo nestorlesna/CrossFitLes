@@ -1,15 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
   <rect width="200" height="230" fill="#111827" rx="12"/>
   <style>
-    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}.f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}.f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}.f7{animation:sh7 8s linear infinite}.f8{animation:sh8 8s linear infinite}
-    @keyframes sh1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
-    @keyframes sh2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
-    @keyframes sh3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
-    @keyframes sh4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
-    @keyframes sh5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
-    @keyframes sh6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
-    @keyframes sh7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
-    @keyframes sh8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
   </style>
   <!-- Frame 1: Starting position -->
   <g class="f1" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
@@ -27,72 +22,13 @@
     <circle cx="122" cy="155" r="4.5" fill="#64748b"/>
     <line x1="122" y1="155" x2="126" y2="205"/>
     <line x1="119" y1="205" x2="133" y2="205"/>
+    <!-- Barbell on floor, wide snatch grip -->
     <line x1="38" y1="108" x2="162" y2="108" stroke="#64748b" stroke-width="5"/>
     <rect x="28" y="100" width="10" height="16" rx="2" fill="#475569" stroke="#64748b"/>
     <rect x="162" y="100" width="10" height="16" rx="2" fill="#475569" stroke="#64748b"/>
   </g>
-
+  <!-- Frame 2: Pull to knees -->
   <g class="f2" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
-    <circle cx="100" cy="56" r="13"/>
-    <line x1="100" y1="69" x2="100" y2="115.5"/>
-    <line x1="100" y1="82.3" x2="68.5" y2="95.5"/>
-    <line x1="68.5" y1="95.5" x2="59" y2="104"/>
-    <line x1="100" y1="82.3" x2="131.5" y2="95.5"/>
-    <line x1="131.5" y1="95.5" x2="141" y2="104"/>
-    <line x1="100" y1="115.5" x2="79" y2="155"/>
-    <circle cx="79" cy="155" r="4.5" fill="#64748b"/>
-    <line x1="79" y1="155" x2="75" y2="205"/>
-    <line x1="68" y1="205" x2="82" y2="205"/>
-    <line x1="100" y1="115.5" x2="121" y2="155"/>
-    <circle cx="121" cy="155" r="4.5" fill="#64748b"/>
-    <line x1="121" y1="155" x2="125" y2="205"/>
-    <line x1="118" y1="205" x2="132" y2="205"/>
-    <line x1="39.5" y1="104" x2="160.5" y2="104" stroke="#64748b" stroke-width="5"/>
-    <rect x="29.5" y="96" width="10" height="16" rx="2" fill="#475569" stroke="#64748b"/>
-    <rect x="160.5" y="96" width="10" height="16" rx="2" fill="#475569" stroke="#64748b"/>
-  </g>
-
-  <g class="f3" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
-    <circle cx="100" cy="50" r="13"/>
-    <line x1="100" y1="63" x2="100" y2="113"/>
-    <line x1="100" y1="76.5" x2="69" y2="91"/>
-    <line x1="69" y1="91" x2="60" y2="100"/>
-    <line x1="100" y1="76.5" x2="131" y2="91"/>
-    <line x1="131" y1="91" x2="140" y2="100"/>
-    <line x1="100" y1="113" x2="80" y2="155"/>
-    <circle cx="80" cy="155" r="4.5" fill="#64748b"/>
-    <line x1="80" y1="155" x2="76" y2="205"/>
-    <line x1="69" y1="205" x2="83" y2="205"/>
-    <line x1="100" y1="113" x2="120" y2="155"/>
-    <circle cx="120" cy="155" r="4.5" fill="#64748b"/>
-    <line x1="120" y1="155" x2="124" y2="205"/>
-    <line x1="117" y1="205" x2="131" y2="205"/>
-    <line x1="41" y1="100" x2="159" y2="100" stroke="#64748b" stroke-width="5"/>
-    <rect x="31" y="92" width="10" height="16" rx="2" fill="#475569" stroke="#64748b"/>
-    <rect x="159" y="92" width="10" height="16" rx="2" fill="#475569" stroke="#64748b"/>
-  </g>
-
-  <g class="f4" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
-    <circle cx="100" cy="44" r="13"/>
-    <line x1="100" y1="57" x2="100" y2="110.5"/>
-    <line x1="100" y1="70.8" x2="69.5" y2="86.5"/>
-    <line x1="69.5" y1="86.5" x2="61" y2="96"/>
-    <line x1="100" y1="70.8" x2="130.5" y2="86.5"/>
-    <line x1="130.5" y1="86.5" x2="139" y2="96"/>
-    <line x1="100" y1="110.5" x2="81" y2="155"/>
-    <circle cx="81" cy="155" r="4.5" fill="#64748b"/>
-    <line x1="81" y1="155" x2="77" y2="205"/>
-    <line x1="70" y1="205" x2="84" y2="205"/>
-    <line x1="100" y1="110.5" x2="119" y2="155"/>
-    <circle cx="119" cy="155" r="4.5" fill="#64748b"/>
-    <line x1="119" y1="155" x2="123" y2="205"/>
-    <line x1="116" y1="205" x2="130" y2="205"/>
-    <line x1="42.5" y1="96" x2="157.5" y2="96" stroke="#64748b" stroke-width="5"/>
-    <rect x="32.5" y="88" width="10" height="16" rx="2" fill="#475569" stroke="#64748b"/>
-    <rect x="157.5" y="88" width="10" height="16" rx="2" fill="#475569" stroke="#64748b"/>
-  </g>
-
-  <g class="f5" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
     <circle cx="100" cy="38" r="13"/>
     <line x1="100" y1="51" x2="100" y2="108"/>
     <line x1="100" y1="65" x2="70" y2="82"/>
@@ -107,52 +43,13 @@
     <circle cx="118" cy="155" r="4.5" fill="#64748b"/>
     <line x1="118" y1="155" x2="122" y2="205"/>
     <line x1="115" y1="205" x2="129" y2="205"/>
+    <!-- Barbell at knee level -->
     <line x1="44" y1="92" x2="156" y2="92" stroke="#64748b" stroke-width="5"/>
     <rect x="34" y="84" width="10" height="16" rx="2" fill="#475569" stroke="#64748b"/>
     <rect x="156" y="84" width="10" height="16" rx="2" fill="#475569" stroke="#64748b"/>
   </g>
-
-  <g class="f6" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
-    <circle cx="100" cy="34" r="13"/>
-    <line x1="100" y1="47" x2="100" y2="108"/>
-    <line x1="100" y1="61.7" x2="67.3" y2="72"/>
-    <line x1="67.3" y1="72" x2="59.7" y2="80.7"/>
-    <line x1="100" y1="61.7" x2="132.7" y2="72"/>
-    <line x1="132.7" y1="72" x2="140.3" y2="80.7"/>
-    <line x1="100" y1="108" x2="82" y2="155"/>
-    <circle cx="82" cy="155" r="4.5" fill="#64748b"/>
-    <line x1="82" y1="155" x2="78" y2="205"/>
-    <line x1="71" y1="205" x2="85" y2="205"/>
-    <line x1="100" y1="108" x2="118" y2="155"/>
-    <circle cx="118" cy="155" r="4.5" fill="#64748b"/>
-    <line x1="118" y1="155" x2="122" y2="205"/>
-    <line x1="115" y1="205" x2="129" y2="205"/>
-    <line x1="42" y1="80.7" x2="158" y2="80.7" stroke="#64748b" stroke-width="5"/>
-    <rect x="32" y="72.7" width="10" height="16" rx="2" fill="#475569" stroke="#64748b"/>
-    <rect x="158" y="72.7" width="10" height="16" rx="2" fill="#475569" stroke="#64748b"/>
-  </g>
-
-  <g class="f7" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
-    <circle cx="100" cy="30" r="13"/>
-    <line x1="100" y1="43" x2="100" y2="108"/>
-    <line x1="100" y1="58.3" x2="64.7" y2="62"/>
-    <line x1="64.7" y1="62" x2="57.3" y2="69.3"/>
-    <line x1="100" y1="58.3" x2="135.3" y2="62"/>
-    <line x1="135.3" y1="62" x2="142.7" y2="69.3"/>
-    <line x1="100" y1="108" x2="82" y2="155"/>
-    <circle cx="82" cy="155" r="4.5" fill="#64748b"/>
-    <line x1="82" y1="155" x2="78" y2="205"/>
-    <line x1="71" y1="205" x2="85" y2="205"/>
-    <line x1="100" y1="108" x2="118" y2="155"/>
-    <circle cx="118" cy="155" r="4.5" fill="#64748b"/>
-    <line x1="118" y1="155" x2="122" y2="205"/>
-    <line x1="115" y1="205" x2="129" y2="205"/>
-    <line x1="40" y1="69.3" x2="160" y2="69.3" stroke="#64748b" stroke-width="5"/>
-    <rect x="30" y="61.3" width="10" height="16" rx="2" fill="#475569" stroke="#64748b"/>
-    <rect x="160" y="61.3" width="10" height="16" rx="2" fill="#475569" stroke="#64748b"/>
-  </g>
-
-  <g class="f8" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
+  <!-- Frame 3: High pull - bar at chest, wide arms -->
+  <g class="f3" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" fill="none">
     <circle cx="100" cy="26" r="13"/>
     <line x1="100" y1="39" x2="100" y2="108"/>
     <line x1="100" y1="55" x2="62" y2="52"/>
@@ -167,6 +64,7 @@
     <circle cx="118" cy="155" r="4.5" fill="#64748b"/>
     <line x1="118" y1="155" x2="122" y2="205"/>
     <line x1="115" y1="205" x2="129" y2="205"/>
+    <!-- Barbell at chest height, wide arms extended -->
     <line x1="38" y1="58" x2="162" y2="58" stroke="#64748b" stroke-width="5"/>
     <rect x="28" y="50" width="10" height="16" rx="2" fill="#475569" stroke="#64748b"/>
     <rect x="162" y="50" width="10" height="16" rx="2" fill="#475569" stroke="#64748b"/>
