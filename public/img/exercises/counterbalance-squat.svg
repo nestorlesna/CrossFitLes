@@ -1,14 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 180">
   <style>
-    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}.f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}.f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}.f7{animation:sh7 8s linear infinite}.f8{animation:sh8 8s linear infinite}
-    @keyframes sh1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
-    @keyframes sh2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
-    @keyframes sh3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
-    @keyframes sh4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
-    @keyframes sh5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
-    @keyframes sh6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
-    @keyframes sh7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
-    @keyframes sh8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="260" height="180" fill="#111827" rx="12"/>
   <line x1="20" y1="148" x2="240" y2="148" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
@@ -16,77 +11,49 @@
   <!-- Frame 1: Standing, arms holding weight at chest height -->
   <g class="f1">
     <circle cx="130" cy="55" r="12" fill="#94a3b8"/>
-    <line x1="130" y1="67" x2="130" y2="108"/>
-    <line x1="130" y1="82" x2="108" y2="82"/>
-    <line x1="130" y1="82" x2="152" y2="82"/>
-    <line x1="130" y1="108" x2="115" y2="148"/>
-    <line x1="130" y1="108" x2="145" y2="148"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="130" y1="67" x2="130" y2="108"/>
+      <!-- Arms forward at chest holding weight -->
+      <line x1="130" y1="82" x2="108" y2="82"/>
+      <line x1="130" y1="82" x2="152" y2="82"/>
+      <line x1="130" y1="108" x2="115" y2="148"/>
+      <line x1="130" y1="108" x2="145" y2="148"/>
+    </g>
+    <!-- Weight (plate/KB) held in front -->
+    <rect x="104" y="75" width="22" height="14" rx="3" fill="#374151" stroke="#4b5563" stroke-width="2"/>
   </g>
-
+  <!-- Frame 2: Mid squat, hips back and down, arms extending forward -->
   <g class="f2">
-    <circle cx="130" cy="58.3" r="12" fill="#94a3b8"/>
-    <line x1="130" y1="70.3" x2="129" y2="110"/>
-    <line x1="129.5" y1="85" x2="106" y2="83.5"/>
-    <line x1="129.5" y1="85" x2="152" y2="83"/>
-    <line x1="129" y1="110" x2="113.3" y2="148"/>
-    <line x1="129" y1="110" x2="144.8" y2="148"/>
-  </g>
-
-  <g class="f3">
-    <circle cx="130" cy="61.5" r="12" fill="#94a3b8"/>
-    <line x1="130" y1="73.5" x2="128" y2="112"/>
-    <line x1="129" y1="88" x2="104" y2="85"/>
-    <line x1="129" y1="88" x2="152" y2="84"/>
-    <line x1="128" y1="112" x2="111.5" y2="148"/>
-    <line x1="128" y1="112" x2="144.5" y2="148"/>
-  </g>
-
-  <g class="f4">
-    <circle cx="130" cy="64.8" r="12" fill="#94a3b8"/>
-    <line x1="130" y1="76.8" x2="127" y2="114"/>
-    <line x1="128.5" y1="91" x2="102" y2="86.5"/>
-    <line x1="128.5" y1="91" x2="152" y2="85"/>
-    <line x1="127" y1="114" x2="109.8" y2="148"/>
-    <line x1="127" y1="114" x2="144.3" y2="148"/>
-  </g>
-
-  <g class="f5">
     <circle cx="130" cy="68" r="12" fill="#94a3b8"/>
-    <line x1="130" y1="80" x2="126" y2="116"/>
-    <line x1="128" y1="94" x2="100" y2="88"/>
-    <line x1="128" y1="94" x2="152" y2="86"/>
-    <line x1="126" y1="116" x2="108" y2="148"/>
-    <line x1="126" y1="116" x2="144" y2="148"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso leaning slightly forward -->
+      <line x1="130" y1="80" x2="126" y2="116"/>
+      <!-- Arms extended forward -->
+      <line x1="128" y1="94" x2="100" y2="88"/>
+      <line x1="128" y1="94" x2="152" y2="86"/>
+      <!-- Legs bending, knees tracking over toes -->
+      <line x1="126" y1="116" x2="108" y2="148"/>
+      <line x1="126" y1="116" x2="144" y2="148"/>
+    </g>
+    <!-- Weight extended forward -->
+    <rect x="92" y="82" width="22" height="14" rx="3" fill="#374151" stroke="#4b5563" stroke-width="2"/>
   </g>
-
-  <g class="f6">
-    <circle cx="130" cy="72.7" r="12" fill="#94a3b8"/>
-    <line x1="130" y1="84.7" x2="126.7" y2="118.7"/>
-    <line x1="128.3" y1="97.7" x2="99.3" y2="91.3"/>
-    <line x1="128.3" y1="97.7" x2="153" y2="89.3"/>
-    <line x1="126.7" y1="118.7" x2="108" y2="148"/>
-    <line x1="126.7" y1="118.7" x2="145.3" y2="148"/>
-  </g>
-
-  <g class="f7">
-    <circle cx="130" cy="77.3" r="12" fill="#94a3b8"/>
-    <line x1="130" y1="89.3" x2="127.3" y2="121.3"/>
-    <line x1="128.7" y1="101.3" x2="98.7" y2="94.7"/>
-    <line x1="128.7" y1="101.3" x2="154" y2="92.7"/>
-    <line x1="127.3" y1="121.3" x2="108" y2="148"/>
-    <line x1="127.3" y1="121.3" x2="146.7" y2="148"/>
-  </g>
-
-  <g class="f8">
+  <!-- Frame 3: Full squat depth, arms fully extended forward as counterbalance -->
+  <g class="f3">
     <circle cx="130" cy="82" r="12" fill="#94a3b8"/>
-    <line x1="130" y1="94" x2="128" y2="124"/>
-    <line x1="129" y1="105" x2="98" y2="98"/>
-    <line x1="129" y1="105" x2="155" y2="96"/>
-    <line x1="128" y1="124" x2="108" y2="148"/>
-    <line x1="128" y1="124" x2="148" y2="148"/>
-  </g>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso more upright (counterbalance works) -->
+      <line x1="130" y1="94" x2="128" y2="124"/>
+      <!-- Arms fully extended forward -->
+      <line x1="129" y1="105" x2="98" y2="98"/>
+      <line x1="129" y1="105" x2="155" y2="96"/>
+      <!-- Deep squat legs -->
+      <line x1="128" y1="124" x2="108" y2="148"/>
+      <line x1="128" y1="124" x2="148" y2="148"/>
+    </g>
     <!-- Weight at arm's length forward -->
     <rect x="80" y="92" width="22" height="14" rx="3" fill="#374151" stroke="#4b5563" stroke-width="2"/>
     <circle cx="108" cy="148" r="5" fill="#64748b"/>
     <circle cx="148" cy="148" r="5" fill="#64748b"/>
+  </g>
 </svg>

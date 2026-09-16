@@ -1,14 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180">
   <style>
-    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}.f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}.f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}.f7{animation:sh7 8s linear infinite}.f8{animation:sh8 8s linear infinite}
-    @keyframes sh1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
-    @keyframes sh2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
-    @keyframes sh3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
-    @keyframes sh4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
-    @keyframes sh5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
-    @keyframes sh6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
-    @keyframes sh7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
-    @keyframes sh8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="240" height="180" fill="#111827" rx="12"/>
   <line x1="20" y1="148" x2="220" y2="148" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
@@ -16,59 +11,32 @@
   <!-- Frame 1: Lying flat, arms extended overhead -->
   <g class="f1">
     <circle cx="48" cy="130" r="12" fill="#94a3b8"/>
-    <line x1="60" y1="137" x2="178" y2="140"/>
-    <line x1="78" y1="136" x2="36" y2="118"/>
-    <line x1="168" y1="139" x2="212" y2="141"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="60" y1="137" x2="178" y2="140"/>
+      <line x1="78" y1="136" x2="36" y2="118"/>
+      <line x1="168" y1="139" x2="212" y2="141"/>
+    </g>
+    <circle cx="185" cy="140" r="4" fill="#64748b"/>
   </g>
-
+  <!-- Frame 2: Torso at ~45°, arms reaching toward feet -->
   <g class="f2">
-    <circle cx="61.8" cy="122.5" r="12" fill="#94a3b8"/>
-    <line x1="70.8" y1="130.8" x2="173" y2="139.3"/>
-    <line x1="87.5" y1="131" x2="69" y2="121.5"/>
-    <line x1="165.5" y1="138.5" x2="211" y2="140.8"/>
-  </g>
-
-  <g class="f3">
-    <circle cx="75.5" cy="115" r="12" fill="#94a3b8"/>
-    <line x1="81.5" y1="124.5" x2="168" y2="138.5"/>
-    <line x1="97" y1="126" x2="102" y2="125"/>
-    <line x1="163" y1="138" x2="210" y2="140.5"/>
-  </g>
-
-  <g class="f4">
-    <circle cx="89.3" cy="107.5" r="12" fill="#94a3b8"/>
-    <line x1="92.3" y1="118.3" x2="163" y2="137.8"/>
-    <line x1="106.5" y1="121" x2="135" y2="128.5"/>
-    <line x1="160.5" y1="137.5" x2="209" y2="140.3"/>
-  </g>
-
-  <g class="f5">
     <circle cx="103" cy="100" r="12" fill="#94a3b8"/>
-    <line x1="103" y1="112" x2="158" y2="137"/>
-    <line x1="116" y1="116" x2="168" y2="132"/>
-    <line x1="158" y1="137" x2="208" y2="140"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="103" y1="112" x2="158" y2="137"/>
+      <line x1="116" y1="116" x2="168" y2="132"/>
+      <line x1="158" y1="137" x2="208" y2="140"/>
+    </g>
+    <circle cx="158" cy="137" r="4" fill="#64748b"/>
   </g>
-
-  <g class="f6">
-    <circle cx="116.3" cy="96.7" r="12" fill="#94a3b8"/>
-    <line x1="116.3" y1="108.7" x2="154" y2="136.7"/>
-    <line x1="120.7" y1="113.3" x2="177" y2="133.3"/>
-    <line x1="154" y1="136.7" x2="206.3" y2="138.3"/>
-  </g>
-
-  <g class="f7">
-    <circle cx="129.7" cy="93.3" r="12" fill="#94a3b8"/>
-    <line x1="129.7" y1="105.3" x2="150" y2="136.3"/>
-    <line x1="125.3" y1="110.7" x2="186" y2="134.7"/>
-    <line x1="150" y1="136.3" x2="204.7" y2="136.7"/>
-  </g>
-
-  <g class="f8">
+  <!-- Frame 3: Fully seated, hands touching toes -->
+  <g class="f3">
     <circle cx="143" cy="90" r="12" fill="#94a3b8"/>
-    <line x1="143" y1="102" x2="146" y2="136"/>
-    <line x1="130" y1="108" x2="195" y2="136"/>
-    <line x1="146" y1="136" x2="203" y2="135"/>
-  </g>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="143" y1="102" x2="146" y2="136"/>
+      <line x1="130" y1="108" x2="195" y2="136"/>
+      <line x1="146" y1="136" x2="203" y2="135"/>
+    </g>
     <circle cx="146" cy="136" r="4" fill="#64748b"/>
     <circle cx="203" cy="135" r="4" fill="#64748b"/>
+  </g>
 </svg>

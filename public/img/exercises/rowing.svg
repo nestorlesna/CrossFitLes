@@ -1,14 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 200">
   <style>
-    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}.f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}.f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}.f7{animation:sh7 8s linear infinite}.f8{animation:sh8 8s linear infinite}
-    @keyframes sh1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
-    @keyframes sh2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
-    @keyframes sh3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
-    @keyframes sh4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
-    @keyframes sh5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
-    @keyframes sh6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
-    @keyframes sh7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
-    @keyframes sh8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="260" height="200" fill="#111827" rx="12"/>
   <!-- Remo ergómetro (riel, asiento y reposa-pies, siempre visibles) -->
@@ -20,106 +15,48 @@
   <g class="f1">
     <circle cx="155" cy="90" r="13" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso inclinado adelante -->
       <line x1="155" y1="103" x2="120" y2="120"/>
-    <line x1="140" y1="110" x2="136" y2="122"/>
-    <line x1="136" y1="116" x2="80" y2="112"/>
-    <line x1="80" y1="112" x2="74" y2="112"/>
-    <line x1="120" y1="120" x2="145" y2="140"/>
-    <line x1="145" y1="140" x2="195" y2="138"/>
+      <line x1="140" y1="110" x2="136" y2="122"/><!-- shoulder -->
+      <!-- Brazos extendidos al frente (tomando el remo) -->
+      <line x1="136" y1="116" x2="80" y2="112"/>
+      <line x1="80" y1="112" x2="74" y2="112"/><!-- mango -->
+      <!-- Piernas muy dobladas -->
+      <line x1="120" y1="120" x2="145" y2="140"/><line x1="145" y1="140" x2="195" y2="138"/>
     </g>
     <circle cx="145" cy="140" r="5" fill="#64748b"/>
+    <!-- Remo/handle -->
     <line x1="60" y1="112" x2="80" y2="112" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
     <line x1="60" y1="105" x2="60" y2="155" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
   </g>
-<g class="f2">
-    <circle cx="151.3" cy="88.8" r="13" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="151.3" y1="101.8" x2="122" y2="122"/>
-    <line x1="138" y1="109" x2="134" y2="121"/>
-    <line x1="134" y1="115" x2="80" y2="111"/>
-    <line x1="80" y1="112" x2="74" y2="112"/>
-    <line x1="122" y1="122" x2="147.5" y2="140"/>
-    <line x1="147.5" y1="140" x2="195" y2="138"/>
-    </g>
-    <circle cx="147.5" cy="140" r="5" fill="#64748b"/>
-    <line x1="60" y1="111" x2="80" y2="111" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
-    <line x1="60" y1="105" x2="60" y2="155" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
-  </g>
-<g class="f3">
-    <circle cx="147.5" cy="87.5" r="13" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="147.5" y1="100.5" x2="124" y2="124"/>
-    <line x1="136" y1="108" x2="132" y2="120"/>
-    <line x1="132" y1="114" x2="80" y2="110"/>
-    <line x1="124" y1="124" x2="150" y2="140"/>
-    <line x1="150" y1="140" x2="195" y2="138"/>
-    </g>
-    <circle cx="150" cy="140" r="5" fill="#64748b"/>
-    <line x1="60" y1="110" x2="80" y2="110" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
-    <line x1="60" y1="105" x2="60" y2="155" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
-  </g>
-<g class="f4">
-    <circle cx="143.8" cy="86.3" r="13" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="143.8" y1="99.3" x2="126" y2="126"/>
-    <line x1="134" y1="107" x2="130" y2="119"/>
-    <line x1="130" y1="113" x2="80" y2="109"/>
-    <line x1="126" y1="126" x2="152.5" y2="140"/>
-    <line x1="152.5" y1="140" x2="195" y2="138"/>
-    </g>
-    <circle cx="152.5" cy="140" r="5" fill="#64748b"/>
-    <line x1="60" y1="109" x2="80" y2="109" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
-    <line x1="60" y1="105" x2="60" y2="155" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
-  </g>
-<g class="f5">
+  <!-- Frame 2: Drive (piernas empujando, torso neutro) -->
+  <g class="f2">
     <circle cx="140" cy="85" r="13" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso erguido -->
       <line x1="140" y1="98" x2="128" y2="128"/>
-    <line x1="132" y1="106" x2="128" y2="118"/>
-    <line x1="128" y1="112" x2="80" y2="108"/>
-    <line x1="128" y1="128" x2="155" y2="140"/>
-    <line x1="155" y1="140" x2="195" y2="138"/>
+      <line x1="132" y1="106" x2="128" y2="118"/>
+      <!-- Brazos al frente, remo a media altura -->
+      <line x1="128" y1="112" x2="80" y2="108"/>
+      <!-- Piernas a media extensión -->
+      <line x1="128" y1="128" x2="155" y2="140"/><line x1="155" y1="140" x2="195" y2="138"/>
     </g>
     <circle cx="155" cy="140" r="5" fill="#64748b"/>
     <line x1="60" y1="108" x2="80" y2="108" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
     <line x1="60" y1="105" x2="60" y2="155" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
   </g>
-<g class="f6">
-    <circle cx="132.7" cy="83.3" r="13" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="132.7" y1="96.3" x2="128.7" y2="128"/>
-    <line x1="128" y1="104.7" x2="124" y2="116.7"/>
-    <line x1="124" y1="111.3" x2="80.7" y2="106.7"/>
-    <line x1="128.7" y1="128" x2="158.3" y2="140"/>
-    <line x1="158.3" y1="140" x2="195" y2="138"/>
-    </g>
-    <circle cx="158.3" cy="140" r="5" fill="#64748b"/>
-    <line x1="60" y1="106.7" x2="80" y2="106.7" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
-    <line x1="60" y1="103.3" x2="60" y2="155" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
-  </g>
-<g class="f7">
-    <circle cx="125.3" cy="81.7" r="13" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="125.3" y1="94.7" x2="129.3" y2="128"/>
-    <line x1="124" y1="103.3" x2="120" y2="115.3"/>
-    <line x1="120" y1="110.7" x2="81.3" y2="105.3"/>
-    <line x1="82" y1="104" x2="76" y2="104"/>
-    <line x1="129.3" y1="128" x2="161.7" y2="140"/>
-    <line x1="161.7" y1="140" x2="195" y2="138"/>
-    </g>
-    <circle cx="161.7" cy="140" r="5" fill="#64748b"/>
-    <line x1="60" y1="105.3" x2="80" y2="105.3" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
-    <line x1="60" y1="101.7" x2="60" y2="155" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
-  </g>
-<g class="f8">
+  <!-- Frame 3: Finish (piernas extendidas, remo al pecho, torso levemente atrás) -->
+  <g class="f3">
     <circle cx="118" cy="80" r="13" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso levemente inclinado atrás -->
       <line x1="118" y1="93" x2="130" y2="128"/>
-    <line x1="120" y1="102" x2="116" y2="114"/>
-    <line x1="116" y1="110" x2="82" y2="104"/>
-    <line x1="82" y1="104" x2="76" y2="104"/>
-    <line x1="130" y1="128" x2="165" y2="140"/>
-    <line x1="165" y1="140" x2="195" y2="138"/>
+      <line x1="120" y1="102" x2="116" y2="114"/>
+      <!-- Brazos halando al pecho -->
+      <line x1="116" y1="110" x2="82" y2="104"/>
+      <line x1="82" y1="104" x2="76" y2="104"/>
+      <!-- Piernas casi rectas -->
+      <line x1="130" y1="128" x2="165" y2="140"/><line x1="165" y1="140" x2="195" y2="138"/>
     </g>
     <circle cx="165" cy="140" r="5" fill="#64748b"/>
     <line x1="60" y1="104" x2="80" y2="104" stroke="#475569" stroke-width="5" stroke-linecap="round"/>

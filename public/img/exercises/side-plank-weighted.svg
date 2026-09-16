@@ -1,12 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 180">
   <style>
-    .f1{animation:sh1 6s linear infinite}.f2{animation:sh2 6s linear infinite}.f3{animation:sh3 6s linear infinite}.f4{animation:sh4 6s linear infinite}.f5{animation:sh5 6s linear infinite}.f6{animation:sh6 6s linear infinite}
-    @keyframes sh1{0%,13.7%{opacity:1}16.7%,100%{opacity:0}}
-    @keyframes sh2{0%,16.7%{opacity:0}19.7%,30.3%{opacity:1}33.3%,100%{opacity:0}}
-    @keyframes sh3{0%,33.3%{opacity:0}36.3%,47%{opacity:1}50%,100%{opacity:0}}
-    @keyframes sh4{0%,50%{opacity:0}53%,63.7%{opacity:1}66.7%,100%{opacity:0}}
-    @keyframes sh5{0%,66.7%{opacity:0}69.7%,80.3%{opacity:1}83.3%,100%{opacity:0}}
-    @keyframes sh6{0%,83.3%{opacity:0}86.3%,97%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="260" height="180" fill="#111827" rx="12"/>
   <line x1="20" y1="148" x2="240" y2="148" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
@@ -15,60 +12,42 @@
   <g class="f1">
     <circle cx="65" cy="108" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Body diagonal, hips low -->
       <line x1="65" y1="120" x2="185" y2="140"/>
-    <line x1="65" y1="120" x2="72" y2="148"/>
-    <line x1="110" y1="128" x2="118" y2="148"/>
+      <!-- Support arm (right) from shoulder down to elbow on ground -->
+      <line x1="65" y1="120" x2="72" y2="148"/>
+      <!-- Top arm (left) at side -->
+      <line x1="110" y1="128" x2="118" y2="148"/>
     </g>
     <circle cx="72" cy="148" r="5" fill="#64748b"/>
   </g>
-<g class="f2">
-    <circle cx="64" cy="104" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="64" y1="116" x2="188.3" y2="139.3"/>
-    <line x1="64" y1="116" x2="70.7" y2="145.3"/>
-    <line x1="111.7" y1="126" x2="118.7" y2="133.3"/>
-    </g>
-    <circle cx="77.3" cy="148" r="5" fill="#64748b"/>
-  </g>
-<g class="f3">
-    <circle cx="63" cy="100" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="63" y1="112" x2="191.7" y2="138.7"/>
-    <line x1="63" y1="112" x2="69.3" y2="142.7"/>
-    <line x1="68" y1="140" x2="88" y2="148"/>
-    <line x1="113.3" y1="124" x2="119.3" y2="118.7"/>
-    </g>
-    <circle cx="82.7" cy="148" r="5" fill="#64748b"/>
-  </g>
-<g class="f4">
+  <!-- Frame 2: Full side plank, body straight, top arm at side -->
+  <g class="f2">
     <circle cx="62" cy="96" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Body in straight line from head to feet -->
       <line x1="62" y1="108" x2="195" y2="138"/>
-    <line x1="62" y1="108" x2="68" y2="140"/>
-    <line x1="68" y1="140" x2="88" y2="148"/>
-    <line x1="115" y1="122" x2="120" y2="104"/>
+      <!-- Support arm down to ground (forearm plank) -->
+      <line x1="62" y1="108" x2="68" y2="140"/>
+      <line x1="68" y1="140" x2="88" y2="148"/>
+      <!-- Top arm pointing up slightly -->
+      <line x1="115" y1="122" x2="120" y2="104"/>
     </g>
     <circle cx="88" cy="148" r="5" fill="#64748b"/>
   </g>
-<g class="f5">
+  <!-- Frame 3: Full side plank, top arm raised overhead holding weight (plate) -->
+  <g class="f3">
     <circle cx="62" cy="96" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Body in straight line -->
       <line x1="62" y1="108" x2="195" y2="138"/>
-    <line x1="62" y1="108" x2="68" y2="140"/>
-    <line x1="68" y1="140" x2="88" y2="148"/>
-    <line x1="115" y1="122" x2="114" y2="97"/>
+      <!-- Support arm (forearm plank) -->
+      <line x1="62" y1="108" x2="68" y2="140"/>
+      <line x1="68" y1="140" x2="88" y2="148"/>
+      <!-- Top arm raised overhead with weight -->
+      <line x1="115" y1="122" x2="108" y2="90"/>
     </g>
-    <rect x="100" y="80" width="16" height="10" rx="2" fill="#4b5563" stroke="#64748b" stroke-width="2"/>
-    <circle cx="88" cy="148" r="5" fill="#64748b"/>
-  </g>
-<g class="f6">
-    <circle cx="62" cy="96" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="62" y1="108" x2="195" y2="138"/>
-    <line x1="62" y1="108" x2="68" y2="140"/>
-    <line x1="68" y1="140" x2="88" y2="148"/>
-    <line x1="115" y1="122" x2="108" y2="90"/>
-    </g>
+    <!-- Weight (plate) at top of raised arm -->
     <rect x="100" y="80" width="16" height="10" rx="2" fill="#4b5563" stroke="#64748b" stroke-width="2"/>
     <circle cx="88" cy="148" r="5" fill="#64748b"/>
   </g>

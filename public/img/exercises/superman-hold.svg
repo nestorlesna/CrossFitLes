@@ -1,12 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180">
   <style>
-    .f1{animation:sh1 6s linear infinite}.f2{animation:sh2 6s linear infinite}.f3{animation:sh3 6s linear infinite}.f4{animation:sh4 6s linear infinite}.f5{animation:sh5 6s linear infinite}.f6{animation:sh6 6s linear infinite}
-    @keyframes sh1{0%,13.7%{opacity:1}16.7%,100%{opacity:0}}
-    @keyframes sh2{0%,16.7%{opacity:0}19.7%,30.3%{opacity:1}33.3%,100%{opacity:0}}
-    @keyframes sh3{0%,33.3%{opacity:0}36.3%,47%{opacity:1}50%,100%{opacity:0}}
-    @keyframes sh4{0%,50%{opacity:0}53%,63.7%{opacity:1}66.7%,100%{opacity:0}}
-    @keyframes sh5{0%,66.7%{opacity:0}69.7%,80.3%{opacity:1}83.3%,100%{opacity:0}}
-    @keyframes sh6{0%,83.3%{opacity:0}86.3%,97%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="240" height="180" fill="#111827" rx="12"/>
   <line x1="20" y1="148" x2="220" y2="148" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
@@ -15,53 +12,38 @@
   <g class="f1">
     <circle cx="200" cy="135" r="11" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso plano -->
       <line x1="192" y1="140" x2="50" y2="142"/>
-    <line x1="200" y1="135" x2="220" y2="138"/>
-    <line x1="50" y1="142" x2="32" y2="143"/>
+      <!-- Brazos extendidos al frente, en el piso -->
+      <line x1="200" y1="135" x2="220" y2="138"/>
+      <!-- Piernas extendidas, en el piso -->
+      <line x1="50" y1="142" x2="32" y2="143"/>
     </g>
   </g>
-<g class="f2">
-    <circle cx="200" cy="131.7" r="11" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="192" y1="137.3" x2="73.3" y2="141.3"/>
-    <line x1="200" y1="131.7" x2="220.7" y2="131.3"/>
-    <line x1="50" y1="139.7" x2="30.7" y2="138"/>
-    </g>
-  </g>
-<g class="f3">
-    <circle cx="200" cy="128.3" r="11" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="192" y1="134.7" x2="96.7" y2="140.7"/>
-    <line x1="120" y1="140" x2="50" y2="135"/>
-    <line x1="200" y1="128.3" x2="221.3" y2="124.7"/>
-    <line x1="50" y1="137.3" x2="29.3" y2="133"/>
-    </g>
-  </g>
-<g class="f4">
+  <!-- Frame 2: Elevación parcial -->
+  <g class="f2">
     <circle cx="200" cy="125" r="11" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso ligeramente arqueado, parte central pegada al piso -->
       <line x1="192" y1="132" x2="120" y2="140"/>
-    <line x1="120" y1="140" x2="50" y2="135"/>
-    <line x1="200" y1="125" x2="222" y2="118"/>
-    <line x1="50" y1="135" x2="28" y2="128"/>
+      <line x1="120" y1="140" x2="50" y2="135"/>
+      <!-- Brazos elevados al frente -->
+      <line x1="200" y1="125" x2="222" y2="118"/>
+      <!-- Piernas elevadas -->
+      <line x1="50" y1="135" x2="28" y2="128"/>
     </g>
   </g>
-<g class="f5">
-    <circle cx="200" cy="120" r="11" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="192" y1="127" x2="120" y2="140"/>
-    <line x1="120" y1="140" x2="50" y2="128.5"/>
-    <line x1="200" y1="120" x2="225" y2="109"/>
-    <line x1="50" y1="128.5" x2="25" y2="118"/>
-    </g>
-  </g>
-<g class="f6">
+  <!-- Frame 3: Superman completo - arqueado, brazos y piernas elevados -->
+  <g class="f3">
     <circle cx="200" cy="115" r="11" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Torso bien arqueado, sólo cadera en contacto con el piso -->
       <line x1="192" y1="122" x2="120" y2="140"/>
-    <line x1="120" y1="140" x2="50" y2="122"/>
-    <line x1="200" y1="115" x2="228" y2="100"/>
-    <line x1="50" y1="122" x2="22" y2="108"/>
+      <line x1="120" y1="140" x2="50" y2="122"/>
+      <!-- Brazos extendidos al frente y arriba -->
+      <line x1="200" y1="115" x2="228" y2="100"/>
+      <!-- Piernas extendidas y elevadas -->
+      <line x1="50" y1="122" x2="22" y2="108"/>
     </g>
   </g>
 </svg>

@@ -1,14 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 230">
   <style>
-    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}.f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}.f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}.f7{animation:sh7 8s linear infinite}.f8{animation:sh8 8s linear infinite}
-    @keyframes sh1{0%,10.2%{opacity:1}12.5%,100%{opacity:0}}
-    @keyframes sh2{0%,12.5%{opacity:0}14.8%,22.7%{opacity:1}25%,100%{opacity:0}}
-    @keyframes sh3{0%,25%{opacity:0}27.3%,35.2%{opacity:1}37.5%,100%{opacity:0}}
-    @keyframes sh4{0%,37.5%{opacity:0}39.8%,47.7%{opacity:1}50%,100%{opacity:0}}
-    @keyframes sh5{0%,50%{opacity:0}52.3%,60.2%{opacity:1}62.5%,100%{opacity:0}}
-    @keyframes sh6{0%,62.5%{opacity:0}64.8%,72.7%{opacity:1}75%,100%{opacity:0}}
-    @keyframes sh7{0%,75%{opacity:0}77.3%,85.2%{opacity:1}87.5%,100%{opacity:0}}
-    @keyframes sh8{0%,87.5%{opacity:0}89.8%,97.7%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
+    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
+    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="220" height="230" fill="#111827" rx="12"/>
   <line x1="20" y1="210" x2="200" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
@@ -18,101 +13,35 @@
     <circle cx="110" cy="26" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="110" y1="38" x2="110" y2="110"/>
-    <line x1="86" y1="50" x2="134" y2="50"/>
-    <line x1="86" y1="50" x2="78" y2="98"/>
-    <line x1="134" y1="50" x2="142" y2="98"/>
-    <line x1="110" y1="110" x2="103" y2="162"/>
-    <line x1="103" y1="162" x2="103" y2="205"/>
-    <line x1="110" y1="110" x2="117" y2="162"/>
-    <line x1="117" y1="162" x2="117" y2="205"/>
-    <line x1="88" y1="205" x2="116" y2="205"/>
-    <line x1="104" y1="205" x2="132" y2="205"/>
+      <line x1="86" y1="50" x2="134" y2="50"/>
+      <line x1="86" y1="50" x2="78" y2="98"/>
+      <line x1="134" y1="50" x2="142" y2="98"/>
+      <line x1="110" y1="110" x2="103" y2="162"/><line x1="103" y1="162" x2="103" y2="205"/>
+      <line x1="110" y1="110" x2="117" y2="162"/><line x1="117" y1="162" x2="117" y2="205"/>
+      <line x1="88" y1="205" x2="116" y2="205"/>
+      <line x1="104" y1="205" x2="132" y2="205"/>
     </g>
     <circle cx="103" cy="162" r="4" fill="#64748b"/>
     <circle cx="117" cy="162" r="4" fill="#64748b"/>
     <rect x="64" y="95" width="16" height="7" rx="2" fill="#475569"/>
     <rect x="139" y="95" width="16" height="7" rx="2" fill="#475569"/>
   </g>
-<g class="f2">
+  <!-- Frame 2: High pull - elbows high and wide, discs at face height -->
+  <g class="f2">
     <circle cx="110" cy="26" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="110" y1="38" x2="110" y2="110"/>
-    <line x1="86" y1="50" x2="134" y2="50"/>
-    <line x1="86" y1="50" x2="72.5" y2="82.5"/>
-    <line x1="134" y1="50" x2="147.5" y2="82.5"/>
-    <line x1="110" y1="110" x2="103" y2="162"/>
-    <line x1="103" y1="162" x2="103" y2="205"/>
-    <line x1="110" y1="110" x2="117" y2="162"/>
-    <line x1="117" y1="162" x2="117" y2="205"/>
-    <line x1="88" y1="205" x2="116" y2="205"/>
-    <line x1="104" y1="205" x2="132" y2="205"/>
-    </g>
-    <circle cx="103" cy="162" r="4" fill="#64748b"/>
-    <circle cx="117" cy="162" r="4" fill="#64748b"/>
-    <rect x="65.8" y="84.3" width="16" height="7" rx="2" fill="#475569"/>
-    <rect x="137.3" y="84.3" width="16" height="7" rx="2" fill="#475569"/>
-  </g>
-<g class="f3">
-    <circle cx="110" cy="26" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="110" y1="38" x2="110" y2="110"/>
-    <line x1="86" y1="50" x2="134" y2="50"/>
-    <line x1="86" y1="50" x2="67" y2="67"/>
-    <line x1="56" y1="36" x2="80" y2="58"/>
-    <line x1="134" y1="50" x2="153" y2="67"/>
-    <line x1="164" y1="36" x2="140" y2="58"/>
-    <line x1="110" y1="110" x2="103" y2="162"/>
-    <line x1="103" y1="162" x2="103" y2="205"/>
-    <line x1="110" y1="110" x2="117" y2="162"/>
-    <line x1="117" y1="162" x2="117" y2="205"/>
-    <line x1="88" y1="205" x2="116" y2="205"/>
-    <line x1="104" y1="205" x2="132" y2="205"/>
-    </g>
-    <circle cx="56" cy="36" r="5" fill="#64748b"/>
-    <circle cx="164" cy="36" r="5" fill="#64748b"/>
-    <circle cx="103" cy="162" r="4" fill="#64748b"/>
-    <circle cx="117" cy="162" r="4" fill="#64748b"/>
-    <rect x="67.5" y="73.5" width="16" height="7" rx="2" fill="#475569"/>
-    <rect x="135.5" y="73.5" width="16" height="7" rx="2" fill="#475569"/>
-  </g>
-<g class="f4">
-    <circle cx="110" cy="26" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="110" y1="38" x2="110" y2="110"/>
-    <line x1="86" y1="50" x2="134" y2="50"/>
-    <line x1="86" y1="50" x2="61.5" y2="51.5"/>
-    <line x1="56" y1="36" x2="80" y2="58"/>
-    <line x1="134" y1="50" x2="158.5" y2="51.5"/>
-    <line x1="164" y1="36" x2="140" y2="58"/>
-    <line x1="110" y1="110" x2="103" y2="162"/>
-    <line x1="103" y1="162" x2="103" y2="205"/>
-    <line x1="110" y1="110" x2="117" y2="162"/>
-    <line x1="117" y1="162" x2="117" y2="205"/>
-    <line x1="88" y1="205" x2="116" y2="205"/>
-    <line x1="104" y1="205" x2="132" y2="205"/>
-    </g>
-    <circle cx="56" cy="36" r="5" fill="#64748b"/>
-    <circle cx="164" cy="36" r="5" fill="#64748b"/>
-    <circle cx="103" cy="162" r="4" fill="#64748b"/>
-    <circle cx="117" cy="162" r="4" fill="#64748b"/>
-    <rect x="69.3" y="62.8" width="16" height="7" rx="2" fill="#475569"/>
-    <rect x="133.8" y="62.8" width="16" height="7" rx="2" fill="#475569"/>
-  </g>
-<g class="f5">
-    <circle cx="110" cy="26" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="110" y1="38" x2="110" y2="110"/>
-    <line x1="86" y1="50" x2="134" y2="50"/>
-    <line x1="86" y1="50" x2="56" y2="36"/>
-    <line x1="56" y1="36" x2="80" y2="58"/>
-    <line x1="134" y1="50" x2="164" y2="36"/>
-    <line x1="164" y1="36" x2="140" y2="58"/>
-    <line x1="110" y1="110" x2="103" y2="162"/>
-    <line x1="103" y1="162" x2="103" y2="205"/>
-    <line x1="110" y1="110" x2="117" y2="162"/>
-    <line x1="117" y1="162" x2="117" y2="205"/>
-    <line x1="88" y1="205" x2="116" y2="205"/>
-    <line x1="104" y1="205" x2="132" y2="205"/>
+      <line x1="86" y1="50" x2="134" y2="50"/>
+      <!-- Left: elbow high and wide, forearm down to hands at face -->
+      <line x1="86" y1="50" x2="56" y2="36"/>
+      <line x1="56" y1="36" x2="80" y2="58"/>
+      <!-- Right: elbow high and wide, forearm down -->
+      <line x1="134" y1="50" x2="164" y2="36"/>
+      <line x1="164" y1="36" x2="140" y2="58"/>
+      <line x1="110" y1="110" x2="103" y2="162"/><line x1="103" y1="162" x2="103" y2="205"/>
+      <line x1="110" y1="110" x2="117" y2="162"/><line x1="117" y1="162" x2="117" y2="205"/>
+      <line x1="88" y1="205" x2="116" y2="205"/>
+      <line x1="104" y1="205" x2="132" y2="205"/>
     </g>
     <circle cx="56" cy="36" r="5" fill="#64748b"/>
     <circle cx="164" cy="36" r="5" fill="#64748b"/>
@@ -121,67 +50,22 @@
     <rect x="71" y="52" width="16" height="7" rx="2" fill="#475569"/>
     <rect x="132" y="52" width="16" height="7" rx="2" fill="#475569"/>
   </g>
-<g class="f6">
+  <!-- Frame 3: External rotation - forearms flipped overhead (snatch catch start) -->
+  <g class="f3">
     <circle cx="110" cy="26" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
       <line x1="110" y1="38" x2="110" y2="110"/>
-    <line x1="86" y1="50" x2="134" y2="50"/>
-    <line x1="86" y1="50" x2="55.3" y2="39.3"/>
-    <line x1="55.3" y1="39.3" x2="72" y2="43.3"/>
-    <line x1="134" y1="50" x2="164.7" y2="39.3"/>
-    <line x1="164.7" y1="39.3" x2="148" y2="43.3"/>
-    <line x1="110" y1="110" x2="103" y2="162"/>
-    <line x1="103" y1="162" x2="103" y2="205"/>
-    <line x1="110" y1="110" x2="117" y2="162"/>
-    <line x1="117" y1="162" x2="117" y2="205"/>
-    <line x1="88" y1="205" x2="116" y2="205"/>
-    <line x1="104" y1="205" x2="132" y2="205"/>
-    </g>
-    <circle cx="55.3" cy="39.3" r="5" fill="#64748b"/>
-    <circle cx="164.7" cy="39.3" r="5" fill="#64748b"/>
-    <circle cx="103" cy="162" r="4" fill="#64748b"/>
-    <circle cx="117" cy="162" r="4" fill="#64748b"/>
-    <rect x="62" y="37" width="16" height="7" rx="2" fill="#475569"/>
-    <rect x="140.7" y="37" width="16" height="7" rx="2" fill="#475569"/>
-  </g>
-<g class="f7">
-    <circle cx="110" cy="26" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="110" y1="38" x2="110" y2="110"/>
-    <line x1="86" y1="50" x2="134" y2="50"/>
-    <line x1="86" y1="50" x2="54.7" y2="42.7"/>
-    <line x1="54.7" y1="42.7" x2="64" y2="28.7"/>
-    <line x1="134" y1="50" x2="165.3" y2="42.7"/>
-    <line x1="165.3" y1="42.7" x2="156" y2="28.7"/>
-    <line x1="110" y1="110" x2="103" y2="162"/>
-    <line x1="103" y1="162" x2="103" y2="205"/>
-    <line x1="110" y1="110" x2="117" y2="162"/>
-    <line x1="117" y1="162" x2="117" y2="205"/>
-    <line x1="88" y1="205" x2="116" y2="205"/>
-    <line x1="104" y1="205" x2="132" y2="205"/>
-    </g>
-    <circle cx="54.7" cy="42.7" r="5" fill="#64748b"/>
-    <circle cx="165.3" cy="42.7" r="5" fill="#64748b"/>
-    <circle cx="103" cy="162" r="4" fill="#64748b"/>
-    <circle cx="117" cy="162" r="4" fill="#64748b"/>
-    <rect x="53" y="22" width="16" height="7" rx="2" fill="#475569"/>
-    <rect x="149.3" y="22" width="16" height="7" rx="2" fill="#475569"/>
-  </g>
-<g class="f8">
-    <circle cx="110" cy="26" r="12" fill="#94a3b8"/>
-    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="110" y1="38" x2="110" y2="110"/>
-    <line x1="86" y1="50" x2="134" y2="50"/>
-    <line x1="86" y1="50" x2="54" y2="46"/>
-    <line x1="54" y1="46" x2="56" y2="14"/>
-    <line x1="134" y1="50" x2="166" y2="46"/>
-    <line x1="166" y1="46" x2="164" y2="14"/>
-    <line x1="110" y1="110" x2="103" y2="162"/>
-    <line x1="103" y1="162" x2="103" y2="205"/>
-    <line x1="110" y1="110" x2="117" y2="162"/>
-    <line x1="117" y1="162" x2="117" y2="205"/>
-    <line x1="88" y1="205" x2="116" y2="205"/>
-    <line x1="104" y1="205" x2="132" y2="205"/>
+      <line x1="86" y1="50" x2="134" y2="50"/>
+      <!-- Left: elbow wide, forearm now pointing UP (external rotation complete) -->
+      <line x1="86" y1="50" x2="54" y2="46"/>
+      <line x1="54" y1="46" x2="56" y2="14"/>
+      <!-- Right: same, forearm pointing up -->
+      <line x1="134" y1="50" x2="166" y2="46"/>
+      <line x1="166" y1="46" x2="164" y2="14"/>
+      <line x1="110" y1="110" x2="103" y2="162"/><line x1="103" y1="162" x2="103" y2="205"/>
+      <line x1="110" y1="110" x2="117" y2="162"/><line x1="117" y1="162" x2="117" y2="205"/>
+      <line x1="88" y1="205" x2="116" y2="205"/>
+      <line x1="104" y1="205" x2="132" y2="205"/>
     </g>
     <circle cx="54" cy="46" r="5" fill="#64748b"/>
     <circle cx="166" cy="46" r="5" fill="#64748b"/>
