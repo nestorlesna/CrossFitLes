@@ -1,5 +1,11 @@
 # ACTUALIZO_SVG_3FOTOG.md
-## Guía para crear SVGs animados de 3 fotogramas para ejercicios
+## Guía para crear SVGs animados para ejercicios
+
+> ⚠️ **El nombre del archivo quedó desactualizado (2026-09):** el patrón fijo de 3 fotogramas se
+> descontinuó para SVG nuevos. El timing (sección 2 y 5) ahora es de **5 a 10 frames**, con la
+> fórmula general de `BKP/CREO_CLASE.md` §5a. El resto de esta guía (paleta, proporciones, nombre de
+> archivo, registro en la BD) sigue vigente sin cambios. Ver también `BKP/SVG_MEJORAS.md` para el
+> registro de dificultades/mejoras por ejercicio.
 
 Este documento indica a Claude exactamente qué hacer cuando el usuario pide
 crear imágenes SVG animadas para ejercicios y registrarlas en la base de datos.
@@ -26,9 +32,11 @@ El objetivo es:
 
 ---
 
-## 2. ESTRUCTURA DEL SVG — PATRÓN DE 3 FOTOGRAMAS
+## 2. ESTRUCTURA DEL SVG — PATRÓN DE N FOTOGRAMAS (5-10)
 
-Referencia: `public/img/exercises/air-squat.svg`
+Referencia histórica (patrón viejo de 3 frames, todavía sin actualizar): `public/img/exercises/air-squat.svg`.
+Para SVG nuevos usar 5-10 frames — ver la fórmula de `BKP/CREO_CLASE.md` §5a, que reemplaza el
+timing fijo de abajo.
 
 ### Estructura base
 
@@ -65,7 +73,11 @@ Referencia: `public/img/exercises/air-squat.svg`
 </svg>
 ```
 
-### Timing de la animación (no modificar)
+### Timing de la animación — DESCONTINUADO para SVG nuevos
+
+La tabla de abajo es el timing fijo del patrón viejo de 3 frames (queda como referencia histórica,
+todavía la usan los 308 SVG existentes sin actualizar). Para SVG **nuevos** usar la fórmula de N
+frames de `BKP/CREO_CLASE.md` §5a.
 
 | Clase | Visible en | Ciclo 4 segundos |
 |-------|-----------|------------------|
@@ -125,7 +137,13 @@ Piernas:  hasta y≈205 (suelo)
 
 ## 5. QUÉ MOSTRAR EN CADA FOTOGRAMA
 
-Los 3 fotogramas deben representar las 3 fases clave del movimiento:
+**Para SVG nuevos (5-10 frames):** no alcanza con inicio/medio/final — hay que desglosar las fases
+intermedias reales del movimiento. Ver `BKP/CREO_CLASE.md` §5a para el ejemplo resuelto de
+movimiento olímpico (8 frames) y burpee (6-7 frames).
+
+La tabla de abajo es la referencia histórica del patrón viejo de 3 frames (sigue sirviendo como
+punto de partida: esas 3 fases son el "esqueleto" mínimo, y para N frames se intercalan las fases
+intermedias entre ellas):
 
 | Ejercicio tipo | Frame 1 | Frame 2 | Frame 3 |
 |---------------|---------|---------|---------|
@@ -411,12 +429,15 @@ de creación — este servicio es para ejercicios que existían antes o que se c
 
 ## 12. CHECKLIST DE ENTREGA
 
-- [ ] Cada SVG tiene exactamente 3 fotogramas con clases `f1`, `f2`, `f3`
+- [ ] Cada SVG tiene entre 5 y 10 fotogramas (según complejidad del movimiento) con clases `f1`...`fN`
+- [ ] El timing de los `@keyframes` sigue la fórmula de `BKP/CREO_CLASE.md` §5a (no el timing fijo de 3 frames de la sección 2)
+- [ ] Los frames cubren las fases intermedias reales del movimiento, no sólo inicio/medio/final
 - [ ] Los colores respetan la paleta definida en sección 3
 - [ ] El fondo `#111827` está presente con `rx="12"` para bordes redondeados
 - [ ] La línea de suelo (`y=210`) y etiqueta (`y=225`) están presentes
 - [ ] La etiqueta está en MAYÚSCULAS y es legible (font-size 9 o 10)
 - [ ] El nombre del archivo es kebab-case sin caracteres especiales
+- [ ] Se anotó una entrada en `BKP/SVG_MEJORAS.md` con dificultades/mejoras del ejercicio
 - [ ] El servicio usa `UPPER(TRIM(?))` para buscar el ejercicio en la BD
 - [ ] El flag localStorage es único (no colisiona con otros servicios)
 - [ ] `npx tsc --noEmit` sin errores

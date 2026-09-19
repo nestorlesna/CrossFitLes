@@ -12,7 +12,7 @@ Cuando el usuario agregue una clase nueva a `BKP/Ejercicios.md` y diga algo como
 > "Cargá la Clase GOAT 03/04/2026 en el sistema usando CREO_CLASE.md"
 
 El objetivo es producir:
-1. **SVG animados** (3 fotogramas) para cada ejercicio nuevo → en `public/img/exercises/`
+1. **SVG animados** (5-10 fotogramas, ver PASO 5 §5a) para cada ejercicio nuevo → en `public/img/exercises/`
 2. **Un ZIP `clase-<nombre>-<fecha>.zip`** con un `class-share.json` adentro — el mismo formato
    que genera el botón "Exportar Clase(s)" de la app (`src/services/classShareService.ts`) —
    listo para importarse desde **Configuración → Importar** sin perder datos existentes
@@ -293,17 +293,84 @@ seguir generando duplicados:
 - Línea de piso: `<line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>`
 - Nombre del ejercicio en la parte inferior: font-size="10", fill="#475569", en mayúsculas, máx 20 chars
 - Color del stick figure: `#94a3b8` (cuerpo) y `#64748b` (articulaciones/círculos)
-- **3 frames animados** con clases CSS `f1`, `f2`, `f3`
+- **Entre 5 y 10 frames animados** (no 3) con clases CSS `f1`, `f2`, `f3`, ... `fN` — ver §5a. Usar
+  el mínimo necesario para que el movimiento se entienda: un squat simple puede andar con 5-6, un
+  olímpico completo (snatch, clean and jerk) o un movimiento con muchas fases (burpee, muscle-up)
+  conviene llevarlo a 8-10.
 
-**Template CSS de animación (siempre el mismo):**
+> ⚠️ **Cambio de criterio (2026-09):** hasta ahora el patrón era fijo en 3 fotogramas. A partir de
+> ahora los SVG **nuevos** se dibujan con más fotogramas (5-10) para representar mejor las fases
+> intermedias del movimiento. El patrón de 3 frames queda **descontinuado para SVG nuevos**; el
+> centenar de SVG existentes con 3 frames se actualizan más adelante, en una pasada aparte (§5c),
+> no ejercicio por ejercicio a medida que aparecen en una clase.
+
+#### 5a. Template CSS de animación (N frames, fórmula general)
+
+Con 3 frames fijos alcanzaba con 3 `@keyframes` fijos. Con N variable (5 a 10) se calculan así:
+
+- **Duración del ciclo:** `T = round(1.3 × N, 1)` segundos (ej. N=6 → `T=8s`; N=9 → `T=12s`). Frames
+  más numerosos necesitan más tiempo total para que cada posición se pueda leer.
+- **Slot de cada frame:** `slot = 100 / N` (%) del ciclo.
+- **Núcleo visible** (opacity 1 sostenido): `core = slot × 0.6`, centrado dentro del slot.
+- **Fundido** (fade in/out) a cada lado del núcleo: `fade = slot × 0.2`.
+
+Para el frame `i` (1-indexado, `j = i-1`):
+```
+inicioFade   = j × slot
+inicioNucleo = inicioFade + fade
+finNucleo    = inicioNucleo + core
+finFade      = finNucleo + fade
+```
+Y el keyframe queda:
+```
+@keyframes sh{i} {
+  {inicioFade}%   { opacity: 0 }
+  {inicioNucleo}% { opacity: 1 }
+  {finNucleo}%    { opacity: 1 }
+  {finFade}%      { opacity: 0 }
+}
+```
+El **frame 1** es la excepción: además de su propio ciclo, también debe estar visible en `0%` y en
+`100%` (para que el loop no parpadee), igual que en el patrón viejo de 3 frames.
+
+**Ejemplo resuelto para N=6 (slot=16.67%, core=10%, fade=3.33%, T=8s):**
 ```xml
 <style>
-  .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
-  @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
-  @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
-  @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+  .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}
+  .f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}
+  .f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}
+  @keyframes sh1{0%,13.3%{opacity:1}16.7%,96.7%{opacity:0}100%{opacity:1}}
+  @keyframes sh2{0%,16.7%{opacity:0}20%,30%{opacity:1}33.3%,100%{opacity:0}}
+  @keyframes sh3{0%,33.3%{opacity:0}36.7%,46.7%{opacity:1}50%,100%{opacity:0}}
+  @keyframes sh4{0%,50%{opacity:0}53.3%,63.3%{opacity:1}66.7%,100%{opacity:0}}
+  @keyframes sh5{0%,66.7%{opacity:0}70%,80%{opacity:1}83.3%,100%{opacity:0}}
+  @keyframes sh6{0%,83.3%{opacity:0}86.7%,96.7%{opacity:1}100%{opacity:0}}
 </style>
 ```
+No hace falta recalcular a mano cada vez: aplicar la fórmula de arriba con el N elegido y redondear
+a un decimal es suficiente — la diferencia visual entre redondeos es imperceptible. Cada frame ocupa
+un slot completo de `100/N`%: fundido de entrada (`fade`) + núcleo visible (`core`) + fundido de
+salida (`fade`) — el punto donde termina el fundido de salida de un frame **tiene que ser
+exactamente el mismo punto** donde empieza el fundido de entrada del siguiente (mismo valor de %),
+para que el traspaso sea continuo.
+
+> ⚠️ **Dos bugs detectados y corregidos (2026-09-16), presentes en versiones anteriores de este
+> ejemplo — revisar cualquier SVG de 5-10 frames creado antes de esa fecha:**
+> 1. **Falta el punto `0%` explícito en `sh2`..`shN`.** Si el primer punto declarado no es `0%`
+>    (ej. si `sh2` arranca directamente en `13.3%`), el navegador usa como valor inicial implícito
+>    la opacidad computada normal del elemento (`1` en SVG) e interpola desde ahí — los frames
+>    2..N aparecen visibles junto con el frame 1 al arrancar cada ciclo, y se ven todos pintados
+>    a la vez ("todo el recorrido") hasta que van cayendo a 0 de a uno. Los SVG viejos de 3 frames
+>    no tienen este bug porque cada uno de sus `@keyframes` sí declara `0%` explícito.
+> 2. **Punto de traspaso desalineado entre frames consecutivos.** Si el frame 1 llega a 0 en un
+>    punto (ej. `13.3%`) y el frame 2 no empieza a aparecer hasta un punto posterior (ej. `16.7%`),
+>    queda un hueco en el medio donde **todo el tren superior desaparece** (sólo se ven las
+>    piernas fijas, si las hay) durante ese tramo. La regla es que el fin del fundido de salida de
+>    un frame y el inicio del fundido de entrada del siguiente sean el **mismo número** (arriba,
+>    `16.7%` cierra `sh1` y abre `sh2`, `33.3%` cierra `sh2` y abre `sh3`, etc.) — cero hueco y
+>    cero superposición, salvo en el empalme frame N → frame 1 donde sí se solapan a propósito
+>    (fundido cruzado en el loop, ver el frame `sh1` que empieza a aparecer en `96.7%` mientras
+>    `shN` todavía está terminando de desaparecer).
 
 **Anatomía del stick figure estándar (de pie):**
 - Cabeza: `<circle cx="100" cy="26" r="14" fill="#94a3b8"/>`
@@ -313,10 +380,13 @@ seguir generando duplicados:
 - Piernas: bajan desde y=108 hasta y=162 (rodillas) y luego a y=205 (pies)
 - Pies: líneas horizontales a y=205
 
-**Los 3 fotogramas deben mostrar las 3 posiciones clave del movimiento:**
-- Frame 1 (f1): Posición inicial
-- Frame 2 (f2): Posición media / punto de mayor esfuerzo
-- Frame 3 (f3): Posición final / de retorno
+**Los N fotogramas deben cubrir las fases clave del movimiento, no sólo inicio/medio/final.** Por
+ejemplo, para un movimiento olímpico completo (8 frames): 1) posición inicial, 2) primera tracción,
+3) transición/scoop, 4) segunda tracción (extensión de cadera), 5) encogimiento bajo la barra,
+6) recepción, 7) de pie con la barra, 8) posición final/bloqueo. Para un burpee (6-7 frames): de pie
+→ manos al piso → plancha → pecho al piso → empuje hacia arriba → salto con extensión → de pie con
+brazos arriba. Cuantas más fases tenga el movimiento real, más vale usar el extremo alto del rango
+(8-10) en vez de forzarlo a menos frames de los que necesita.
 
 **Nombre del archivo SVG:** kebab-case del nombre del ejercicio en inglés.
 Ejemplo: "Band Pull-Apart" → `band-pull-apart.svg`
@@ -324,12 +394,37 @@ Ejemplo: "Band Pull-Apart" → `band-pull-apart.svg`
 **Guardar en:** `public/img/exercises/`
 
 > 📐 **Guía completa del SVG:** `BKP/ACTUALIZO_SVG_3FOTOG.md` tiene el patrón detallado (paleta,
-> timing, anatomía por tipo de movimiento, ejemplos). Lo de arriba es el resumen.
-> **Salvedad:** ese documento pide además crear un service TypeScript + un botón en
-> "Registrar imágenes" para grabar la `image_url` en la BD. **Para una clase eso no hace falta**:
-> la `image_url` viaja en el `class-share.json` del ZIP y el importador la escribe sola, tanto en
-> los ejercicios nuevos como en los que ya existían. El service/botón sólo se usa cuando se dibujan
-> SVG sueltos, fuera del flujo de una clase.
+> anatomía por tipo de movimiento, ejemplos) — su timing de 3 frames quedó reemplazado por la
+> fórmula de §5a, el resto sigue vigente. **Salvedad:** ese documento pide además crear un service
+> TypeScript + un botón en "Registrar imágenes" para grabar la `image_url` en la BD. **Para una
+> clase eso no hace falta**: la `image_url` viaja en el `class-share.json` del ZIP y el importador
+> la escribe sola, tanto en los ejercicios nuevos como en los que ya existían. El service/botón sólo
+> se usa cuando se dibujan SVG sueltos, fuera del flujo de una clase.
+
+#### 5b. Registrar dificultades y mejoras del SVG (obligatorio para cada ejercicio nuevo)
+
+Cada vez que se crea un SVG nuevo, agregar una entrada en `BKP/SVG_MEJORAS.md` (crear el archivo la
+primera vez que se use, con el formato de su propia plantilla) anotando:
+- Qué fue difícil de representar con el stick figure (ej. rotación de muñeca, plano de movimiento
+  que no se ve bien de costado, equipo que tapa la figura).
+- Qué mejora quedó pendiente o qué se probó y no funcionó bien.
+- Cuántos frames se usaron y por qué (si un squat necesitó 8 en vez de 5, anotar el motivo).
+
+El objetivo es acumular criterio real (no genérico) clase a clase, para que la pasada de
+actualización de §5c parta de casos concretos en vez de reinventar la guía desde cero.
+
+#### 5c. Actualización futura de los SVG viejos de 3 fotogramas
+
+Los **308 SVG existentes** (§4b) siguen todos en el patrón viejo de 3 frames y muchos no
+representan bien el movimiento completo. Esa actualización **no se hace ejercicio por ejercicio
+al pasar por una clase** — es una tarea aparte, en lote, que se dispara cuando el usuario lo pida
+explícitamente (ej. "actualizá los SVG viejos a más fotogramas usando lo que aprendimos"). Cuando
+se haga:
+1. Partir de las anotaciones acumuladas en `BKP/SVG_MEJORAS.md` (§5b) para priorizar los ejercicios
+   donde ya se sabe qué mejorar.
+2. Rehacer el SVG con la fórmula de §5a (5-10 frames según la complejidad real del movimiento).
+3. No hace falta tocar la BD: el `image_url` no cambia (mismo nombre de archivo), sólo se
+   sobrescribe el `.svg` en `public/img/exercises/`.
 
 ### PASO 6 – Determinar datos de cada ejercicio (incluidos los músculos y los videos)
 
