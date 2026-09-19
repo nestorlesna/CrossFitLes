@@ -31,6 +31,87 @@ Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 
 
 
+Fuerza, 6 ejercicios cada 2 minutos
+
+
+
+
+
+
+Clase GOAT 19/09/2026
+
+
+Movilidad - 3 rondas todo 30 segundos
+- Kettlebell Sumo Deadlift High Pull 10kg
+- Kettlebell Good Morning to Squat
+- 90/90 Hip Rotation
+
+
+Activación 6 rondas por mimuto
+- Barbell Romanian Deadlift 30kg
+- Barbell Romanian Deadlift 30kg
+- Barbell Hang Power Clean 20kg
+- Barbell Hang Power Clean 20kg
+- Barbell Push Jerk 20kg
+- Barbell Push Jerk 20kg
+
+Fuerza 6 ejercicios cada 2 minutos
+ -3 Barbell Clean and Jerk 40kg
+ -3 Barbell Clean and Jerk 40kg
+ -2 Barbell Clean and Jerk 50kg
+ -2 Barbell Clean and Jerk 50kg
+ -1 Barbell Clean and Jerk 60kg
+ -1 Barbell Clean and Jerk 60kg
+
+Wod, máximo 20min, 4 rodas, en pareja
+- Sled Push 80kg, 20m aprox, 1 empuja el otro espera
+- Burpee Broad Jump, en espejo, 20m aprox
+- Dumbbell Reverse Lunge, 10kg, en espejo, unas 10-15 aprox
+- Running 200m
+- Descanso
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
+
+
+Clase GOAT 16/09/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - mayor cantidad de ejercicios en 5 minutos
+ - 6 Half Kneeling Windmill Rotation + Side Bend pierna derecha, video corto https://www.youtube.com/shorts/Us3FT0oX9aw, video explicativo https://www.youtube.com/shorts/2izI1cLsqfw
+ - 6 6 Half Kneeling Windmill Rotation + Side Bend, pierna izquirda
+ - 6 Yoga Push-Up
+ - Squat Hold + Plate Press 10kg  video corto https://www.youtube.com/shorts/uGwLKy8LmlU , video explicativo https://www.youtube.com/watch?v=ZT4l7eZwScA
+
+Activacion 6 rondas de 3 repeticiones de cada ejercicios por minuto
+ - 3 Snatch High Pull, 10 kg
+ - 3 Snatch High Pull, 10 kg
+ - 3 Push Press Behind the Neck, 10 kg
+ - 3 Push Press Behind the Neck, 10 kg
+ - 3 Barbell Power Snatch, 10 kg
+ - 3 Barbell Power Snatch, 10 kg
+
+Fuerza ejercicios cada 2 minutos
+ - 3 Barbell Power Snatch + 2 Barbell Overhead Squat, 30 kg
+ - 3 Barbell Power Snatch + 2 Barbell Overhead Squat, 30 kg
+ - 2 Barbell Power Snatch + 2 Barbell Overhead Squat, 35 kg
+ - 2 Barbell Power Snatch + 2 Barbell Overhead Squat, 35 kg
+ - 1 Barbell Power Snatch + 1 Barbell Overhead Squat, 40 kg
+ - 1 Barbell Power Snatch + 1 Barbell Overhead Squat, 40 kg
+
+WOD en parejas maximo 12 minutos, se aumenta de a 3 repticiones en cada serie
+ - 3 - 6 - 9 - 12 - 15  Barbell Deadlift 60 kg
+ - 3 - 6 - 9 - 12 - 15  Burpee Over the Bar
+ - 3 - 6 - 9 - 12 - 15  Box Jump
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
 
 Clase GOAT 14/09/2026
 video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta

@@ -1,0 +1,97 @@
+<svg viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .f1{animation:sh1 8s linear infinite}.f2{animation:sh2 8s linear infinite}
+    .f3{animation:sh3 8s linear infinite}.f4{animation:sh4 8s linear infinite}
+    .f5{animation:sh5 8s linear infinite}.f6{animation:sh6 8s linear infinite}
+    @keyframes sh1{0%,13.3%{opacity:1}16.7%,96.7%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,16.7%{opacity:0}20%,30%{opacity:1}33.3%,100%{opacity:0}}
+    @keyframes sh3{0%,33.3%{opacity:0}36.7%,46.7%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh4{0%,50%{opacity:0}53.3%,63.3%{opacity:1}66.7%,100%{opacity:0}}
+    @keyframes sh5{0%,66.7%{opacity:0}70%,80%{opacity:1}83.3%,100%{opacity:0}}
+    @keyframes sh6{0%,83.3%{opacity:0}86.7%,96.7%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Piernas fijas (media rodilla): rodilla de atras en el piso, pierna delantera flexionada.
+       Siempre visibles, no forman parte de ningun frame animado. -->
+  <line x1="72" y1="206" x2="98" y2="158" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+  <line x1="98" y1="158" x2="122" y2="178" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+  <line x1="122" y1="178" x2="145" y2="206" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="72" cy="206" r="4" fill="#64748b"/>
+  <circle cx="98" cy="158" r="4" fill="#64748b"/>
+  <circle cx="122" cy="178" r="4" fill="#64748b"/>
+  <circle cx="145" cy="206" r="4" fill="#64748b"/>
+
+  <!-- Estado inicial explicito: sin esto, antes de que arranque la animacion CSS el navegador
+       pinta los 6 frames a la vez con opacity:1 (default de SVG), y recien van desapareciendo
+       de a uno cuando cada @keyframes llega a su primer punto en 0. -->
+
+  <!-- Frame 1: posicion inicial, torso vertical, brazo extendido hacia arriba -->
+  <g class="f1" style="opacity:1">
+    <line x1="98" y1="158" x2="98" y2="105" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+    <line x1="98" y1="130" x2="80" y2="145" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="98" y1="105" x2="98" y2="55" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="98" cy="90" r="13" fill="#94a3b8"/>
+    <circle cx="98" cy="105" r="4" fill="#64748b"/>
+    <circle cx="98" cy="55" r="4" fill="#64748b"/>
+    <circle cx="80" cy="145" r="4" fill="#64748b"/>
+  </g>
+
+  <!-- Frame 2: la rotacion empieza, torso gira y el brazo abre hacia el costado -->
+  <g class="f2" style="opacity:0">
+    <line x1="98" y1="158" x2="112" y2="108" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+    <line x1="107" y1="131" x2="80" y2="145" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="112" y1="108" x2="150" y2="85" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="114" cy="93" r="13" fill="#94a3b8"/>
+    <circle cx="112" cy="108" r="4" fill="#64748b"/>
+    <circle cx="150" cy="85" r="4" fill="#64748b"/>
+    <circle cx="80" cy="145" r="4" fill="#64748b"/>
+  </g>
+
+  <!-- Frame 3: rotacion maxima, brazo extendido al costado a la altura del hombro -->
+  <g class="f3" style="opacity:0">
+    <line x1="98" y1="158" x2="122" y2="112" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+    <line x1="112" y1="135" x2="80" y2="145" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="122" y1="112" x2="168" y2="100" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="126" cy="98" r="13" fill="#94a3b8"/>
+    <circle cx="122" cy="112" r="4" fill="#64748b"/>
+    <circle cx="168" cy="100" r="4" fill="#64748b"/>
+    <circle cx="80" cy="145" r="4" fill="#64748b"/>
+  </g>
+
+  <!-- Frame 4: comienza la flexion lateral (side bend), el brazo sigue subiendo -->
+  <g class="f4" style="opacity:0">
+    <line x1="98" y1="158" x2="126" y2="120" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+    <line x1="114" y1="141" x2="80" y2="145" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="126" y1="120" x2="172" y2="75" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="132" cy="108" r="13" fill="#94a3b8"/>
+    <circle cx="126" cy="120" r="4" fill="#64748b"/>
+    <circle cx="172" cy="75" r="4" fill="#64748b"/>
+    <circle cx="80" cy="145" r="4" fill="#64748b"/>
+  </g>
+
+  <!-- Frame 5: flexion lateral maxima, brazo overhead completo (punto mas alto del windmill) -->
+  <g class="f5" style="opacity:0">
+    <line x1="98" y1="158" x2="130" y2="132" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+    <line x1="114" y1="145" x2="80" y2="145" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="130" y1="132" x2="175" y2="60" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="140" cy="122" r="13" fill="#94a3b8"/>
+    <circle cx="130" cy="132" r="4" fill="#64748b"/>
+    <circle cx="175" cy="60" r="4" fill="#64748b"/>
+    <circle cx="80" cy="145" r="4" fill="#64748b"/>
+  </g>
+
+  <!-- Frame 6: retorno, el torso y el brazo vuelven hacia el centro -->
+  <g class="f6" style="opacity:0">
+    <line x1="98" y1="158" x2="105" y2="112" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+    <line x1="102" y1="135" x2="80" y2="145" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="105" y1="112" x2="118" y2="62" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="102" cy="97" r="13" fill="#94a3b8"/>
+    <circle cx="105" cy="112" r="4" fill="#64748b"/>
+    <circle cx="118" cy="62" r="4" fill="#64748b"/>
+    <circle cx="80" cy="145" r="4" fill="#64748b"/>
+  </g>
+
+  <text x="100" y="222" font-size="10" fill="#475569" text-anchor="middle">WINDMILL + SIDE BEND</text>
+</svg>
