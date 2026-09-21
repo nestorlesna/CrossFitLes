@@ -30,17 +30,46 @@ Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 
 
 
+Clase GOAT 21/09/2026
 
-Fuerza, 6 ejercicios cada 2 minutos
+Calentamiento
+- 6 minutos de calentamiento
 
+Movilidad - 2 rondas todo 30 segundos
+ - Band Pull-Apart
+ - High Pull + External Rotation, actualizar video corto https://www.youtube.com/watch?v=-EZP2ynZchc, y video explicativo https://www.youtube.com/watch?v=xBRa5wmU82c
+ - Band Pass-Through
+ - Yoga Push-Up
 
+Activacion
+- Weighted Side Plank 10 kg
+- Weighted Side Plank 10 kg otro lado
+- Dumbbell Farmer Hold 10kg, video corto  https://www.youtube.com/shorts/DtAEKxS3PN4, video explicativo https://www.youtube.com/shorts/hdFPTe1EXF4 
 
+Fuerza
+ - 8 Barbell Inverted Row sin peso, video corto https://www.youtube.com/shorts/Gpm1N98x0Ek, video explicativo https://www.youtube.com/shorts/ezT5Ho5yV0k
+ - 5 Barbell Inverted Row 5kg
+ - 3 Barbell Inverted Row 10 kg
+ - 8 Barbell Inverted Row sin peso
+ - 5 Barbell Inverted Row 5kg
+ - 3 Barbell Inverted Row 10 kg
+ - 8 Barbell Inverted Row sin peso
+ - 5 Barbell Inverted Row sin peso
+ - 3 Barbell Inverted Row sin peso
 
+WOD maximo 15 minutos
+ - 400 running
+ - 3 Wall Walk, video corto https://www.youtube.com/shorts/kAZkLII49fk, video explicativo https://www.youtube.com/shorts/ZS__mYv0qVE
+ - 30 Barbell Deadlift 60 kg
+ - 3 Wall Walk
+ - 20 Barbell Hang Power Clean 40kg
+ - 3 Wall Walk
+ - 10 Barbell Power Snatch 30kg
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 
 
 Clase GOAT 19/09/2026
-
-
 Movilidad - 3 rondas todo 30 segundos
 - Kettlebell Sumo Deadlift High Pull 10kg
 - Kettlebell Good Morning to Squat

@@ -70,3 +70,15 @@ Una entrada por ejercicio nuevo, en orden cronológico (más reciente al final),
 - **Frames usados:** 6 — de pie, despegue del pie de atrás, apoyo de punta, posición baja, empuje y retorno; cubre las fases del paso atrás sin saturar.
 - **Dificultad:** vista lateral con un solo brazo visible por figura (mancuerna en el costado); el paso hacia atrás se sugiere sólo con la posición de pies y rodillas.
 - **Mejora pendiente / a revisar:** falta revisarlo visualmente en el navegador (timing de crossfade con solape del 12 % del slot); no distingue entre pierna derecha e izquierda.
+
+### Barbell Inverted Row (`barbell-inverted-row.svg`) — 2026-09-21
+
+- **Frames usados:** 6 — colgado, inicio de retracción escapular, tracción media, pecho a la barra, y las dos fases de descenso; sin frame extra porque el cuerpo es una línea rígida que sólo pivota sobre los talones.
+- **Dificultad:** vista lateral; la barra se ve de canto (círculo) y el cuerpo ocupa sólo la mitad inferior del cuadro, quedando espacio vacío arriba. El codo se sugiere doblado hacia atrás/abajo.
+- **Mejora pendiente / a revisar:** subir la barra y agrandar la figura para aprovechar el cuadro; revisar visualmente el crossfade en el navegador.
+
+### Dumbbell Farmer Hold (`dumbbell-farmer-hold.svg`) — 2026-09-21
+
+- **Frames usados:** 5 — mancuernas en el piso, media subida, de pie, sostén con hombros atrás y bajada; el ciclo muestra levantar y sostener porque el hold en sí casi no tiene movimiento.
+- **Dificultad:** un isométrico no se anima; la "tensión" se sugiere con tres trazos cortos junto a cada mancuerna en el frame de sostén y hombros ligeramente más altos.
+- **Mejora pendiente / a revisar:** las alturas de la figura entre frames de bisagra y de pie no coinciden del todo (piernas de largo distinto); revisar visualmente en el navegador.

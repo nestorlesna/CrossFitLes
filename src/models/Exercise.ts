@@ -36,6 +36,8 @@ export interface ExerciseWithRelations extends Exercise {
 // Para los filtros del listado
 export interface ExerciseFilters {
   search?: string;
+  // Búsqueda en todos los campos de texto (ejercicio + catálogos asociados)
+  search_all?: string;
   difficulty_level_id?: string;
   muscle_group_id?: string;
   equipment_id?: string;
