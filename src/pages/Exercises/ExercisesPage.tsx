@@ -17,6 +17,7 @@ export function ExercisesPage() {
 
   // Estado del texto de búsqueda (sin debounce aplicado aún)
   const [searchInput, setSearchInput] = useState('');
+  const [searchAllInput, setSearchAllInput] = useState('');
   // Filtros aplicados (con debounce en el search)
   const [filters, setFilters] = useState<ExerciseFilters>({ in_classes: true });
   // Control del modal de filtros
@@ -38,6 +39,7 @@ export function ExercisesPage() {
 
   // Timer del debounce para el search
   const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const debounceAllTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Cargar catálogos para los filtros al montar
   useEffect(() => {
@@ -53,6 +55,15 @@ export function ExercisesPage() {
     if (debounceTimer.current) clearTimeout(debounceTimer.current);
     debounceTimer.current = setTimeout(() => {
       setFilters((prev) => ({ ...prev, search: value || undefined }));
+    }, 300);
+  }
+
+  // Búsqueda en todos los campos (mismo debounce)
+  function handleSearchAllChange(value: string) {
+    setSearchAllInput(value);
+    if (debounceAllTimer.current) clearTimeout(debounceAllTimer.current);
+    debounceAllTimer.current = setTimeout(() => {
+      setFilters((prev) => ({ ...prev, search_all: value || undefined }));
     }, 300);
   }
 
@@ -85,6 +96,7 @@ export function ExercisesPage() {
     setTempTag('');
     setFilters((prev) => ({
       search: prev.search,
+      search_all: prev.search_all,
       in_classes: prev.in_classes,
     }));
     setShowFilters(false);
@@ -103,7 +115,7 @@ export function ExercisesPage() {
     filters.tag_id,
   ].filter(Boolean).length;
 
-  const hasAnyFilter = activeFilterCount > 0 || !!filters.search || !!filters.in_classes;
+  const hasAnyFilter = activeFilterCount > 0 || !!filters.search || !!filters.search_all || !!filters.in_classes;
 
   const { exercises, loading, error } = useExercises(filters);
 
@@ -178,6 +190,13 @@ export function ExercisesPage() {
             )}
           </button>
         </div>
+
+        {/* Búsqueda en todos los campos (descripción, notas, músculos, equipamiento, tags...) */}
+        <SearchBar
+          value={searchAllInput}
+          onChange={handleSearchAllChange}
+          placeholder="Buscar en todos los campos..."
+        />
 
         {/* Toggles: sólo ejercicios en clases / ver videos */}
         <div className="flex flex-wrap gap-2">

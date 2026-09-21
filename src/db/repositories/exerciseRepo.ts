@@ -32,6 +32,20 @@ export async function getAll(filters?: ExerciseFilters): Promise<Exercise[]> {
     params.push(`%${filters.search}%`);
   }
 
+  // Búsqueda global: campos de texto del ejercicio y nombres de catálogos asociados
+  if (filters?.search_all) {
+    const like = `%${filters.search_all}%`;
+    query += ` AND (
+      e.name LIKE ? OR e.description LIKE ? OR e.technical_notes LIKE ?
+      OR dl.name LIKE ? OR mg.name LIKE ?
+      OR e.id IN (SELECT emg.exercise_id FROM exercise_muscle_group emg JOIN muscle_group m ON m.id = emg.muscle_group_id WHERE m.name LIKE ?)
+      OR e.id IN (SELECT ee.exercise_id FROM exercise_equipment ee JOIN equipment q ON q.id = ee.equipment_id WHERE q.name LIKE ?)
+      OR e.id IN (SELECT et.exercise_id FROM exercise_tag et JOIN tag t ON t.id = et.tag_id WHERE t.name LIKE ?)
+      OR e.id IN (SELECT est.exercise_id FROM exercise_section_type est JOIN section_type st ON st.id = est.section_type_id WHERE st.name LIKE ?)
+    )`;
+    for (let i = 0; i < 9; i++) params.push(like);
+  }
+
   if (filters?.difficulty_level_id) {
     query += ` AND e.difficulty_level_id = ?`;
     params.push(filters.difficulty_level_id);
