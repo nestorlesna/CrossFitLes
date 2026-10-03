@@ -13,6 +13,79 @@
 ### COMO USAR
 
 
+Clase GOAT 03/10/2026
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad, 3 vueltas cada ejercicio 30seg
+- Ketebell al mentón
+- Kettlebell Good Morning to Squat
+- Alternating 90/90 Into Shin Box
+
+Activación, 6 emom,btodo con barra de 20kg
+- 2 Deadlift to knee height + 2 Barbell Deadlift + 2 Snatch High Pull
+- 2 Deadlift to knee height + 2 Barbell Deadlift + 2 Snatch High Pull
+- 2 Deadlift to knee height + 2 Barbell Deadlift + 2 Snatch High Pull
+- 2 Deadlift to knee height + 2 Barbell Deadlift + 2 Barbell Hang Power Clean
+- 2 Deadlift to knee height + 2 Barbell Deadlift + 2 Barbell Hang Power Clean
+- 2 Deadlift to knee height + 2 Barbell Deadlift + 2 Barbell Squat Clean
+
+Fuerza, emom 9m, cada 1,5
+- 2 Deadlift to knee height + 2 Barbell Deadlift + 2 Snatch High Pull, 30kg
+- 2 Deadlift to knee height + 2 Barbell Deadlift + 2 Snatch High Pull, 35kg
+- 2 Barbell Deadlift + 2 Snatch High Pull, 40 kg
+- 2 Barbell Deadlift + 2 Barbell Hang Power Clean, 40 kg
+- 2 Barbell Squat Clean, 50kg
+- 2 Barbell Squat Clean, 50 kg
+
+Wod 1, emom 9 cada minuto, descanso 1 al final, 3 ejercicios por 3 series, 50 seg de ejercicio y 10 de transición
+- Jump Rope
+- Rowing
+- Sled Push 100kg
+
+Wod 2, emom 9 cada minuto, 3 ejercicios por 3 series, 50 seg de ejercicio y 10 de transición
+- Weighted Lunge 10kg
+- Push-up + Push-up to Burpee
+- 1ra ronda Assault Bike , 2da ronda Running, 3ra ronda  SkiErg
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+Clase GOAT 28/09/2026
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - 90/90 Hip Rotation
+ - Kettlebell Ankle Mobility Drill pierna derecha
+ - Kettlebell Ankle Mobility Drill izquierda
+
+Activacion mayor cantidad de vueltas en 6 minutos
+ - Tibialis Raise 12
+ - Single-Leg Calf Raise 6 pie derecho
+ - Single-Leg Calf Raise 6 pie izquierdo
+ - Kettlebell Swing 10
+ - running 120 m
+
+Fuerza cada 2 mintuos
+ - 10 Barbell Back Squat 70 kg
+ - 10 Barbell Back Squat 70 kg
+ - 10 Barbell Back Squat 70 kg
+ - descanso
+ - 18 Barbell Back Squat 70 kg
+
+WOD maximo 14 minutos
+ - 200 m Kettlebell Farmer Carry 15kg
+ - Alternating Single Arm Dumbbell Power Snatch 12.5 kg
+ - 20 Hanging Toes to Bar
+ - 200 Jump Rope
+ - 20 Hanging Toes to Bar
+ - Alternating Kettlebell Clean and Press 12.5 kg, video corto https://www.youtube.com/shorts/ey9CD8i0eLk, video explicativo https://www.youtube.com/watch?v=fGKMchSmj7c
+ - 200 m Kettlebell Farmer Carry 15kg
+ 
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
 ### TEMPLATE
 Clase GOAT XX/XX/2026
 video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta
@@ -77,8 +150,8 @@ Movilidad - 3 rondas todo 30 segundos
 
 
 Activación 6 rondas por mimuto
-- Barbell Romanian Deadlift 30kg
-- Barbell Romanian Deadlift 30kg
+- Deadlift to knee height 30kg
+- Deadlift to knee height 30kg
 - Barbell Hang Power Clean 20kg
 - Barbell Hang Power Clean 20kg
 - Barbell Push Jerk 20kg
@@ -204,12 +277,12 @@ Activacion mayor cantidad de ejercicios en 6 minutos
  - twist 10 kg
 
 Fuerza ejercicios por minuto, 5 minutos total
- - 12 Barbell Romanian Deadlift, 80kg  video corto https://www.youtube.com/shorts/5rIqP63yWFg, video explicativo https://www.youtube.com/watch?v=7j-2w4-P14I
+ - 12 Deadlift to knee height, 80kg  video corto https://www.youtube.com/shorts/5rIqP63yWFg, video explicativo https://www.youtube.com/watch?v=7j-2w4-P14I
  - minuto de descanso
  - otro minuto de descanso
- - 8 Barbell Romanian Deadlift 70 kg
- - 8 Barbell Romanian Deadlift 70 kg
- - 8 Barbell Romanian Deadlift 70 kg
+ - 8 Deadlift to knee height 70 kg
+ - 8 Deadlift to knee height 70 kg
+ - 8 Deadlift to knee height 70 kg
 
 WOD 5 ejercicios por minuto en 20 minutos
  - 14 Wall Ball Box Over 9kg
