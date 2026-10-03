@@ -82,3 +82,21 @@ Una entrada por ejercicio nuevo, en orden cronológico (más reciente al final),
 - **Frames usados:** 5 — mancuernas en el piso, media subida, de pie, sostén con hombros atrás y bajada; el ciclo muestra levantar y sostener porque el hold en sí casi no tiene movimiento.
 - **Dificultad:** un isométrico no se anima; la "tensión" se sugiere con tres trazos cortos junto a cada mancuerna en el frame de sostén y hombros ligeramente más altos.
 - **Mejora pendiente / a revisar:** las alturas de la figura entre frames de bisagra y de pie no coinciden del todo (piernas de largo distinto); revisar visualmente en el navegador.
+
+### Alternating Kettlebell Clean and Press (`alternating-kettlebell-clean-and-press.svg`) — 2026-09-28
+
+- **Frames usados:** 6 — bisagra con la kettlebell entre las piernas, tirón con cadera extendida, rack en el hombro, dip de rodillas, press overhead bloqueado y bajada al rack; el clean y el press son dos movimientos encadenados y con menos frames se perdía la transición por el rack.
+- **Dificultad:** vista frontal con un solo brazo cargado; el giro de la kettlebell alrededor de la muñeca y la alternancia de brazo no se pueden mostrar con un stick figure, así que el dibujo siempre usa el brazo derecho y el cambio de lado queda sólo en la descripción del ejercicio.
+- **Mejora pendiente / a revisar:** revisar visualmente en el navegador el crossfade entre frames y las alturas de cabeza/cadera (el frame de bisagra y el de pie no tienen el mismo largo de pierna exacto).
+
+### Kettlebell Upright Row (`kettlebell-upright-row.svg`) — 2026-10-03
+
+- **Frames usados:** 6 — kettlebell abajo, a la cadera, al pecho, al mentón con codos altos, y dos de bajada; el recorrido vertical de las manos y la apertura de los codos se leen bien con ese ritmo.
+- **Dificultad:** en vista frontal los codos que suben y se abren son lo esencial, pero el stick figure no distingue agarre ni muñecas; la kettlebell se resuelve con un círculo y un asa simple.
+- **Mejora pendiente / a revisar:** revisar visualmente en el navegador que codos y manos no se crucen en el frame superior.
+
+### Barbell Deadlift to Knee Height (`barbell-deadlift-to-knee-height.svg`) — 2026-10-03
+
+- **Frames usados:** 5 — piso, subida, altura de rodilla con pausa (marcas de tensión), bajada y vuelta al piso; el ejercicio es corto y la pausa es la parte clave.
+- **Dificultad:** de frente no se ve la inclinación del torso ni la posición de hombros sobre la barra, que es lo que se corrige en este ejercicio; sólo se sugiere con la altura de cabeza y cadera.
+- **Mejora pendiente / a revisar:** probar una vista lateral para mostrar el ángulo de espalda; revisar en el navegador las alturas de piernas entre frames.
