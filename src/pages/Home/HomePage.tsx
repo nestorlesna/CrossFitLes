@@ -14,13 +14,15 @@ import {
   Play,
   CalendarRange,
   Moon,
-  CheckCircle2
+  CheckCircle2,
+  Medal
 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { ResolvedImage } from '../../components/ui/ResolvedImage';
 import { getHomeStats } from '../../db/repositories/statsRepo';
 import { getActiveSession } from '../../db/repositories/trainingSessionRepo';
 import * as planRepo from '../../db/repositories/trainingPlanRepo';
+import * as challengeRepo from '../../db/repositories/challengeRepo';
 import { TrainingPlan, PlanDay } from '../../models/TrainingPlan';
 import { toast } from 'sonner';
 import { PersonalRecord } from '../../models/Stats';
@@ -34,6 +36,7 @@ const quickActions = [
   { label: 'Ejercicios',      icon: Dumbbell,       path: '/ejercicios'     },
   { label: 'Clases',          icon: LayoutTemplate, path: '/clases'         },
   { label: 'Planes',          icon: CalendarRange,  path: '/planes'         },
+  { label: 'Challenges',      icon: Medal,          path: '/challenges'     },
   { label: 'Estadísticas',    icon: BarChart2,      path: '/estadisticas'   },
 ];
 
@@ -41,6 +44,7 @@ export function HomePage() {
   const navigate = useNavigate();
   const [activeSession, setActiveSession] = useState<TrainingSession | null>(null);
   const [planToday, setPlanToday] = useState<{ plan: TrainingPlan; day: PlanDay } | null>(null);
+  const [challengesToday, setChallengesToday] = useState<{ plan: TrainingPlan; day: PlanDay }[]>([]);
   const [stats, setStats] = useState({
     sessionsThisMonth: 0,
     totalMinutesThisMonth: 0,
@@ -50,14 +54,16 @@ export function HomePage() {
 
   const loadData = useCallback(async () => {
     try {
-      const [statsData, currentSession, todayPlanDay] = await Promise.all([
+      const [statsData, currentSession, todayPlanDay, todayChallenges] = await Promise.all([
         getHomeStats(),
         getActiveSession(),
-        planRepo.getTodayDay()
+        planRepo.getTodayDay(),
+        challengeRepo.getTodayChallenges()
       ]);
       setStats(statsData);
       setActiveSession(currentSession);
       setPlanToday(todayPlanDay);
+      setChallengesToday(todayChallenges);
     } catch (error) {
       console.error('Error al cargar dashboard:', error);
     }
@@ -84,6 +90,17 @@ export function HomePage() {
     } catch (err) {
       console.error(err);
       toast.error(err instanceof Error ? err.message : 'Error al iniciar el día');
+    }
+  };
+
+  // Arranca el día de un challenge en su pantalla de ejecución
+  const startChallengeDay = async (dayId: string) => {
+    try {
+      const sessionId = await challengeRepo.startDay(dayId);
+      navigate(`/challenges/sesion/${sessionId}`);
+    } catch (err) {
+      console.error(err);
+      toast.error(err instanceof Error ? err.message : 'Error al iniciar el challenge');
     }
   };
 
@@ -181,6 +198,48 @@ export function HomePage() {
                 </button>
               )}
             </div>
+          </div>
+        )}
+
+        {/* ── CHALLENGES DE HOY ── */}
+        {!activeSession && challengesToday.length > 0 && (
+          <div className="bg-gray-900 border border-gray-800 rounded-3xl p-5 space-y-3">
+            <div className="flex items-center gap-2">
+              <Medal size={14} className="text-amber-400" />
+              <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">
+                Challenges de hoy
+              </span>
+              <button
+                onClick={() => navigate('/challenges')}
+                className="ml-auto text-[10px] text-primary-400 font-bold uppercase"
+              >
+                Ver todos
+              </button>
+            </div>
+            {challengesToday.map(({ plan, day }) => (
+              <div key={plan.id} className="flex items-center justify-between gap-3">
+                <button
+                  onClick={() => navigate(`/challenges/${plan.challenge_code}`)}
+                  className="min-w-0 text-left"
+                >
+                  <h3 className="text-white font-bold leading-tight truncate">{plan.name}</h3>
+                  <span className="text-xs text-gray-500">{day.title}</span>
+                </button>
+                {day.day_type === 'rest' ? (
+                  <Moon size={20} className="text-gray-500 shrink-0" />
+                ) : day.status === 'completed' ? (
+                  <CheckCircle2 size={20} className="text-green-500 shrink-0" />
+                ) : (
+                  <button
+                    onClick={() => startChallengeDay(day.id)}
+                    className="shrink-0 bg-primary-600 hover:bg-primary-500 text-white px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 min-h-[40px]"
+                  >
+                    <Play size={14} className="fill-white" />
+                    Empezar
+                  </button>
+                )}
+              </div>
+            ))}
           </div>
         )}
 

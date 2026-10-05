@@ -1,9 +1,9 @@
-// Control segmentado que alterna entre las clases y los planes de entrenamiento
+// Control segmentado que alterna entre las clases, los planes y los challenges
 import { useNavigate } from 'react-router-dom';
-import { LayoutTemplate, CalendarRange } from 'lucide-react';
+import { LayoutTemplate, CalendarRange, Trophy } from 'lucide-react';
 
 interface PlansTabsProps {
-  active: 'classes' | 'plans';
+  active: 'classes' | 'plans' | 'challenges';
 }
 
 export function PlansTabs({ active }: PlansTabsProps) {
@@ -12,6 +12,7 @@ export function PlansTabs({ active }: PlansTabsProps) {
   const tabs = [
     { key: 'classes' as const, label: 'Clases', icon: LayoutTemplate, path: '/clases' },
     { key: 'plans' as const, label: 'Planes', icon: CalendarRange, path: '/planes' },
+    { key: 'challenges' as const, label: 'Challenges', icon: Trophy, path: '/challenges' },
   ];
 
   return (
@@ -24,7 +25,7 @@ export function PlansTabs({ active }: PlansTabsProps) {
             key={tab.key}
             onClick={() => !isActive && navigate(tab.path)}
             aria-current={isActive ? 'page' : undefined}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-colors min-h-[40px] ${
+            className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-medium transition-colors min-h-[40px] ${
               isActive
                 ? 'bg-primary-600 text-white'
                 : 'text-gray-400 hover:text-white hover:bg-gray-800'

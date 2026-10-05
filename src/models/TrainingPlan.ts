@@ -8,6 +8,8 @@ export type PlanScheduleMode = 'dates' | 'sequence';
 
 export type PlanStatus = 'draft' | 'active' | 'completed' | 'archived';
 
+export type PlanKind = 'plan' | 'challenge';
+
 /** 'class': plantilla existente · 'custom': lista de ejercicios armada a mano · 'rest': descanso */
 export type PlanDayType = 'class' | 'custom' | 'rest';
 
@@ -23,6 +25,14 @@ export interface TrainingPlan {
   status: PlanStatus;
   color?: string;
   is_active: number;            // 0 | 1
+  /** 'plan' = plan de entrenamiento · 'challenge' = challenge en curso */
+  plan_kind?: PlanKind;
+  /** Código del challenge del catálogo (src/data/challenges.ts) */
+  challenge_code?: string;
+  /** Nivel actual del challenge de meta: beginner | intermediate | advanced */
+  challenge_level?: string;
+  /** 1 = el challenge usa la versión fácil (regresión) del ejercicio */
+  challenge_easy?: number;
   created_at: string;
   updated_at: string;
   // Campos calculados (JOIN)
