@@ -157,6 +157,9 @@ const EXERCISE_IMAGES: [string, string][] = [
   ['Bodyweight Hollow Body Hold','/img/exercises/hollow-hold.svg'],
   ['Bodyweight Squat',           '/img/exercises/air-squat.svg'],
   ['Bodyweight Walking Lunge',   '/img/exercises/walking-lunge.svg'],
+
+  // Challenges
+  ['Bodyweight Bench Dip',       '/img/exercises/bench-dip.svg'],
 ];
 
 /**

@@ -72,6 +72,9 @@ Cada entidad principal tiene su propio repo:
   - Catálogo fijo en `src/data/challenges.ts` (9 challenges; ejercicios resueltos por nombre con alias,
     se crean si faltan). Motor de progresión puro en `src/services/challengeEngine.ts`
     (curva de 18 sesiones, redondeo a par: reproduce las tablas de `BKP/Challenges de calistenia…md`).
+  - `getVolumeSeries()` alimenta el gráfico de progreso (`ChallengeProgressChart.tsx`, carga diferida
+    porque recharts es pesado). Los ejercicios que el catálogo crea llevan su SVG en `imageUrl`
+    (`bench-dip.svg`); también está en `imageUpdateService.ts`.
   - Pantallas en `src/pages/Challenges/`: listado (3ª pestaña de Clases/Planes), detalle por código
     (`/challenges/:code`) y ejecución (`/challenges/sesion/:sessionId`, usa `buildTimeline` + `useTimerRunner`).
 

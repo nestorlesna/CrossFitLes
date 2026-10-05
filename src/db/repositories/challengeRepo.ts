@@ -50,10 +50,18 @@ export async function resolveExerciseId(ref: ChallengeExerciseRef): Promise<stri
   const db = getDatabase();
   for (const name of ref.names) {
     const result = await db.query(
-      `SELECT id FROM exercise WHERE LOWER(TRIM(name)) = LOWER(TRIM(?)) AND is_active = 1 LIMIT 1`,
+      `SELECT id, image_url FROM exercise WHERE LOWER(TRIM(name)) = LOWER(TRIM(?)) AND is_active = 1 LIMIT 1`,
       [name]
     );
-    if (result.values?.length) return result.values[0].id as string;
+    if (result.values?.length) {
+      const found = result.values[0];
+      // Ejercicio creado por un challenge antes de tener su SVG: se lo asigna ahora
+      if (ref.create?.imageUrl && !found.image_url && name === ref.create.name) {
+        await db.run(`UPDATE exercise SET image_url = ? WHERE id = ?`, [ref.create.imageUrl, found.id]);
+        await saveDatabase();
+      }
+      return found.id as string;
+    }
   }
   if (!ref.create) throw new Error(`No se encontró el ejercicio ${ref.names[0]}`);
 
@@ -69,9 +77,9 @@ export async function resolveExerciseId(ref: ChallengeExerciseRef): Promise<stri
 
   const stmts: Stmt[] = [
     {
-      statement: `INSERT INTO exercise (id, name, description, primary_muscle_group_id, is_compound, is_active, created_at, updated_at)
-                  VALUES (?, ?, ?, ?, 0, 1, ?, ?)`,
-      values: [id, ref.create.name, ref.create.description, muscleId, timestamp, timestamp],
+      statement: `INSERT INTO exercise (id, name, description, primary_muscle_group_id, image_url, is_compound, is_active, created_at, updated_at)
+                  VALUES (?, ?, ?, ?, ?, 0, 1, ?, ?)`,
+      values: [id, ref.create.name, ref.create.description, muscleId, ref.create.imageUrl ?? null, timestamp, timestamp],
     },
   ];
   if (muscleId) {
@@ -357,6 +365,40 @@ export async function getDaySets(planId: string): Promise<Record<string, Challen
     grouped[row.plan_day_id].push(row);
   }
   return grouped;
+}
+
+/** Volumen de una sesión completada del challenge (para el gráfico de progreso) */
+export interface ChallengeVolumePoint {
+  day_index: number;
+  title: string;
+  actual_reps: number;
+  planned_reps: number;
+  actual_seconds: number;
+  planned_seconds: number;
+}
+
+/**
+ * Volumen real vs. planificado de cada día completado. En circuitos se
+ * multiplica por las vueltas (cada ejercicio se registra una sola vez).
+ */
+export async function getVolumeSeries(planId: string): Promise<ChallengeVolumePoint[]> {
+  const db = getDatabase();
+  const result = await db.query(
+    `SELECT pd.day_index, pd.title,
+       SUM(COALESCE(ser.actual_repetitions, 0) * COALESCE(ser.actual_rounds, 1)) as actual_reps,
+       SUM(COALESCE(se.planned_repetitions, 0) * COALESCE(cs.total_rounds, 1)) as planned_reps,
+       SUM(COALESCE(ser.actual_time_seconds, 0) * COALESCE(ser.actual_rounds, 1)) as actual_seconds,
+       SUM(COALESCE(se.planned_time_seconds, 0) * COALESCE(cs.total_rounds, 1)) as planned_seconds
+     FROM plan_day pd
+     JOIN session_exercise_result ser ON ser.training_session_id = pd.training_session_id
+     LEFT JOIN section_exercise se ON se.id = ser.section_exercise_id
+     LEFT JOIN class_section cs ON cs.id = se.class_section_id
+     WHERE pd.training_plan_id = ? AND pd.status = 'completed'
+     GROUP BY pd.id
+     ORDER BY pd.day_index ASC`,
+    [planId]
+  );
+  return (result.values ?? []) as ChallengeVolumePoint[];
 }
 
 /** Challenge en curso de un código del catálogo (si lo hay) */

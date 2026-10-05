@@ -21,6 +21,8 @@ export interface ChallengeExerciseRef {
     name: string;
     description: string;
     primaryMuscle?: string;
+    /** SVG animado en /public (ej. /img/exercises/bench-dip.svg) */
+    imageUrl?: string;
   };
 }
 

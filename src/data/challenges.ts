@@ -73,6 +73,7 @@ const BENCH_DIP: ChallengeExerciseRef = {
     description:
       'Fondos en silla: manos en el borde del asiento, bajar flexionando los codos hacia atrás hasta 90° y empujar.',
     primaryMuscle: 'Tríceps',
+    imageUrl: '/img/exercises/bench-dip.svg',
   },
 };
 

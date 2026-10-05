@@ -100,3 +100,9 @@ Una entrada por ejercicio nuevo, en orden cronológico (más reciente al final),
 - **Frames usados:** 5 — piso, subida, altura de rodilla con pausa (marcas de tensión), bajada y vuelta al piso; el ejercicio es corto y la pausa es la parte clave.
 - **Dificultad:** de frente no se ve la inclinación del torso ni la posición de hombros sobre la barra, que es lo que se corrige en este ejercicio; sólo se sugiere con la altura de cabeza y cadera.
 - **Mejora pendiente / a revisar:** probar una vista lateral para mostrar el ángulo de espalda; revisar en el navegador las alturas de piernas entre frames.
+
+### Bodyweight Bench Dip (`bench-dip.svg`) — 2026-10-04
+
+- **Frames usados:** 6 — arriba con brazos extendidos, dos de bajada, abajo con codos a 90°, y dos de subida (simétricos a los de bajada); la fórmula de §5a de `CREO_CLASE.md` con N=6 (ciclo de 8s). Se generó con un script que interpola la pose entre "arriba" y "abajo", así los frames de subida repiten los de bajada.
+- **Dificultad:** vista lateral con la silla detrás de la figura: el brazo que se dobla hacia atrás queda pegado al asiento y al torso, y a escala chica el codo se confunde con la mano. Se resolvió con un círculo oscuro en el codo y la silla en un tono más apagado que la figura. Las piernas flexionadas (rodillas a 90°) evitan que una pierna estirada tape la cadera.
+- **Mejora pendiente / a revisar:** viewBox `240x180` (como `bodyweight-push-up.svg`) en vez del `200x230` de la guía, porque el movimiento es horizontal. No se dibuja la variante con piernas extendidas ni con los pies elevados.

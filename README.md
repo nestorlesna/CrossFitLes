@@ -132,25 +132,30 @@ src/
 │   ├── export/               # Exportar / Importar datos
 │   └── layout/               # Layout, Header, BottomNav
 ├── hooks/                    # Custom hooks
-├── services/                 # Servicios (media, migración, seed)
+├── data/                     # Datos fijos (catálogo de challenges)
+├── pages/                    # Pantallas por sección (Challenges, Plans, Sessions...)
+├── services/                 # Servicios (media, migración, seed, motor de challenges)
 ├── utils/                    # Utilidades y helpers
 └── types/                    # Tipos compartidos
 ```
 
 ## ✨ Funcionalidades
 
-### ✅ Implementadas (Fases 0–3)
+### ✅ Implementadas (Fases 0–6)
 
 - **Catálogos completos** — CRUD de grupos musculares, equipamiento, unidades, niveles, tags, tipos de sección y formatos de trabajo con datos semilla precargados.
-- **Biblioteca de ejercicios** — Creación, búsqueda, filtrado avanzado, imágenes, relaciones N:N con grupos musculares, equipamiento, tags y más.
+- **Biblioteca de ejercicios** — Creación, búsqueda, filtrado avanzado, imágenes y SVG animados, relaciones N:N con grupos musculares, equipamiento, tags y más.
 - **Plantillas de clase** — Planificación de clases con múltiples secciones, ejercicios configurables, formatos de trabajo (AMRAP, EMOM, For Time, etc.), duplicación de plantillas.
+- **Sesiones y récords** — Registro en vivo, cronómetro guiado paso a paso, comparación plan vs. resultado y detección de PRs.
+- **Estadísticas y progresión** — Gráficos de evolución, historial por ejercicio, récords personales y dashboard.
+- **Planes de entrenamiento** — Días programados en un calendario (por fecha o secuenciales), con clases existentes o días armados a mano, avance y racha.
+- **Challenges de calistenia** — 9 challenges sin equipamiento: 6 de meta de repeticiones (100 flexiones, 200 abdominales, 200 sentadillas, 150 fondos en silla, 150 zancadas, 50 burpees) y 3 diarios de 30 días (plancha de 5 minutos, sentadillas, abdominales). Test inicial que define el nivel, retests en las semanas 2/4/5 que recalculan las sesiones, "No pude completar" que repite la semana, timer de descanso con aviso sonoro, registro de repeticiones reales por serie y gráficos de progreso (volumen por sesión y repeticiones máximas). Varios challenges pueden estar en curso a la vez.
+- **Exportación e importación** — Backup completo a ZIP con los datos en JSON y los archivos multimedia.
 - **Base de datos SQLite** — Schema completo con sistema de migraciones versionado, transacciones y datos semilla.
 
-### 🔜 Próximamente (Fases 4–6)
+### 🏆 Cómo funcionan los challenges
 
-- **Ejecución de sesiones** — Registro en vivo, timer, comparación plan vs. resultado, detección de PRs.
-- **Estadísticas y progresión** — Gráficos de evolución, historial por ejercicio, records personales, dashboard.
-- **Exportación e importación** — Backup completo a JSON + ZIP con archivos multimedia.
+Un challenge en curso es un plan de entrenamiento con `plan_kind = 'challenge'`, así reutiliza días, plantillas privadas, sesiones, PRs y el cronómetro. El catálogo es fijo (`src/data/challenges.ts`) y las series de los challenges de meta se calculan con una curva de progresión única (`src/services/challengeEngine.ts`): `reps = round(meta × factor_sesión × factor_nivel × pct_serie)`. Las rutas son `/challenges`, `/challenges/:code` y `/challenges/sesion/:sessionId`.
 
 ## 🗄️ Base de Datos
 

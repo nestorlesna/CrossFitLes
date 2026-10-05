@@ -1,5 +1,5 @@
 // Detalle de un challenge: inscripción (con test inicial) o avance del que está en curso
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   ChevronLeft,
@@ -25,7 +25,7 @@ import { getChallenge, CHALLENGE_SAFETY_TEXT } from '../../data/challenges';
 import { ChallengeEnrollment, ChallengeLevel } from '../../models/Challenge';
 import { PlanDay } from '../../models/TrainingPlan';
 import * as challengeRepo from '../../db/repositories/challengeRepo';
-import { ChallengeDaySet } from '../../db/repositories/challengeRepo';
+import { ChallengeDaySet, ChallengeVolumePoint } from '../../db/repositories/challengeRepo';
 import {
   buildMetaSession,
   formatSets,
@@ -36,6 +36,9 @@ import {
   META_WEEKS,
   SESSIONS_PER_WEEK,
 } from '../../services/challengeEngine';
+
+// recharts es pesado: el gráfico se carga bajo demanda
+const ChallengeProgressChart = lazy(() => import('./ChallengeProgressChart'));
 
 const LEVELS: ChallengeLevel[] = ['beginner', 'intermediate', 'advanced'];
 
@@ -73,6 +76,7 @@ export function ChallengeDetailPage() {
   const [loading, setLoading] = useState(true);
   const [enrollment, setEnrollment] = useState<ChallengeEnrollment | null>(null);
   const [daySets, setDaySets] = useState<Record<string, ChallengeDaySet[]>>({});
+  const [volume, setVolume] = useState<ChallengeVolumePoint[]>([]);
   const [completedBefore, setCompletedBefore] = useState(0);
 
   // Formulario de inscripción
@@ -100,15 +104,18 @@ export function ChallengeDetailPage() {
       // Sin uno en curso, se muestra el último completado (hasta que se elija empezar de nuevo)
       const current = active ?? history.find((p) => p.status === 'completed');
       if (current) {
-        const [full, sets] = await Promise.all([
+        const [full, sets, vol] = await Promise.all([
           challengeRepo.getEnrollment(current.id),
           challengeRepo.getDaySets(current.id),
+          challengeRepo.getVolumeSeries(current.id),
         ]);
         setEnrollment(full);
         setDaySets(sets);
+        setVolume(vol);
       } else {
         setEnrollment(null);
         setDaySets({});
+        setVolume([]);
       }
     } catch (err) {
       console.error(err);
@@ -579,6 +586,15 @@ export function ChallengeDetailPage() {
           <section className="bg-gray-900 border border-gray-800 rounded-xl p-3 space-y-2">
             {days.map((d) => renderDay(d, false))}
           </section>
+        )}
+
+        {/* Gráficos de progreso */}
+        {(volume.length > 0 || tests.length > 0) && (
+          <Suspense
+            fallback={<div className="h-[220px] bg-gray-900 border border-gray-800 rounded-xl animate-pulse" />}
+          >
+            <ChallengeProgressChart volume={volume} tests={tests} unit={def.unit} color={def.color} />
+          </Suspense>
         )}
 
         {/* Tests */}
