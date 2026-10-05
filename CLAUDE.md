@@ -63,6 +63,20 @@ Cada entidad principal tiene su propio repo:
   (`is_plan_day = 1`, no se lista en Clases) armada con ejercicios sueltos. Al ejecutar un día se
   reutiliza `createFromTemplate()` y, al finalizar la sesión, `finalize()` marca el día como
   completado vía `completeDayBySession()`.
+- `challengeRepo.ts` — challenges de ejercicios. Un challenge en curso es un `training_plan` con
+  `plan_kind = 'challenge'` (+ `challenge_code`, `challenge_level`, `challenge_easy`); cada serie es un
+  `section_exercise` propio de la plantilla privada del día, así se guardan las reps reales por serie.
+  Los tests (inicial = semana 0, retests de semanas 2/4/5) van en `challenge_test`. `trainingPlanRepo`
+  filtra `plan_kind = 'plan'` para que Planes, calendario e Inicio no vean los challenges, y varios
+  challenges pueden estar activos a la vez sin archivar el plan activo.
+  - Catálogo fijo en `src/data/challenges.ts` (9 challenges; ejercicios resueltos por nombre con alias,
+    se crean si faltan). Motor de progresión puro en `src/services/challengeEngine.ts`
+    (curva de 18 sesiones, redondeo a par: reproduce las tablas de `BKP/Challenges de calistenia…md`).
+  - `getVolumeSeries()` alimenta el gráfico de progreso (`ChallengeProgressChart.tsx`, carga diferida
+    porque recharts es pesado). Los ejercicios que el catálogo crea llevan su SVG en `imageUrl`
+    (`bench-dip.svg`); también está en `imageUpdateService.ts`.
+  - Pantallas en `src/pages/Challenges/`: listado (3ª pestaña de Clases/Planes), detalle por código
+    (`/challenges/:code`) y ejecución (`/challenges/sesion/:sessionId`, usa `buildTimeline` + `useTimerRunner`).
 
 ### Modelos clave
 - `TrainingSession` / `SessionWithRelations` / `SessionExerciseResult` — en `src/models/TrainingSession.ts`.
@@ -117,3 +131,4 @@ idiomas). Los **datos** son MIT; los **medios (imágenes/GIF) son © Gym visual*
 - Fase 3 (Plantillas de Clases): COMPLETADA (2026-03-10)
 - Fase 4 (Sesiones y Récords): COMPLETADA (2026-03-15)
 - Fase 5 (Planes de entrenamiento con calendario): COMPLETADA (2026-08-23)
+- Fase 6 (Challenges de calistenia): COMPLETADA (2026-10-04)

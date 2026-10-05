@@ -31,6 +31,7 @@ const TABLE_ORDER = [
   'personal_record',
   'training_plan',
   'plan_day',
+  'challenge_test',
 ] as const;
 
 // Estructura del JSON interno del ZIP

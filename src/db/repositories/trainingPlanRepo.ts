@@ -50,7 +50,7 @@ export async function getAll(filters?: PlanFilters): Promise<TrainingPlan[]> {
       SUM(CASE WHEN pd.day_type <> 'rest' THEN 1 ELSE 0 END) as training_days
     FROM training_plan tp
     LEFT JOIN plan_day pd ON pd.training_plan_id = tp.id
-    WHERE tp.is_active = 1
+    WHERE tp.is_active = 1 AND tp.plan_kind = 'plan'
   `;
   const params: unknown[] = [];
 
@@ -118,7 +118,7 @@ export async function getDaysByRange(from: string, to: string): Promise<PlanDay[
   const result = await db.query(
     `${DAYS_QUERY}
      JOIN training_plan tp ON pd.training_plan_id = tp.id
-     WHERE tp.is_active = 1 AND pd.scheduled_date BETWEEN ? AND ?
+     WHERE tp.is_active = 1 AND tp.plan_kind = 'plan' AND pd.scheduled_date BETWEEN ? AND ?
      ORDER BY pd.scheduled_date ASC, pd.day_index ASC`,
     [from, to]
   );
@@ -282,11 +282,11 @@ export async function create(
     stmts.push(insertDayStmt(planId, day, timestamp));
   }
 
-  // Solo puede haber un plan activo: el resto pasa a archivado
+  // Solo puede haber un plan activo: el resto pasa a archivado (los challenges no cuentan)
   if (plan.status === 'active') {
     stmts.push({
       statement: `UPDATE training_plan SET status = 'archived', updated_at = ?
-                  WHERE status = 'active' AND id <> ?`,
+                  WHERE status = 'active' AND plan_kind = 'plan' AND id <> ?`,
       values: [timestamp, planId],
     });
   }
@@ -326,7 +326,8 @@ export async function update(id: string, plan: Partial<TrainingPlan>): Promise<v
   await saveDatabase();
 }
 
-// Cambia el estado del plan; al activarlo, archiva cualquier otro plan activo
+// Cambia el estado del plan; al activar un plan, archiva cualquier otro plan activo
+// (los challenges conviven entre sí y con el plan activo)
 export async function setStatus(id: string, status: PlanStatus): Promise<void> {
   const db = getDatabase();
   const timestamp = now();
@@ -339,8 +340,9 @@ export async function setStatus(id: string, status: PlanStatus): Promise<void> {
   if (status === 'active') {
     stmts.push({
       statement: `UPDATE training_plan SET status = 'archived', updated_at = ?
-                  WHERE status = 'active' AND id <> ?`,
-      values: [timestamp, id],
+                  WHERE status = 'active' AND plan_kind = 'plan' AND id <> ?
+                    AND (SELECT plan_kind FROM training_plan WHERE id = ?) = 'plan'`,
+      values: [timestamp, id, id],
     });
   }
   await db.executeSet(stmts, true);
@@ -526,7 +528,7 @@ export async function shiftPlan(planId: string, days: number): Promise<number> {
 // ─────────────────────────────────────────────────────────────────────────────
 
 // Tipo de sección por defecto para los días sueltos (preferimos "WOD")
-async function getDefaultSectionTypeId(): Promise<string> {
+export async function getDefaultSectionTypeId(): Promise<string> {
   const db = getDatabase();
   const preferred = await db.query(
     `SELECT id FROM section_type WHERE name = 'WOD' AND is_active = 1 LIMIT 1`

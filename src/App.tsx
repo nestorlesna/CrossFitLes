@@ -15,6 +15,9 @@ import { PlansPage } from './pages/Plans/PlansPage';
 import { PlanFormPage } from './pages/Plans/PlanFormPage';
 import { PlanDetailPage } from './pages/Plans/PlanDetailPage';
 import { PlanDayEditPage } from './pages/Plans/PlanDayEditPage';
+import { ChallengesPage } from './pages/Challenges/ChallengesPage';
+import { ChallengeDetailPage } from './pages/Challenges/ChallengeDetailPage';
+import { ChallengeRunPage } from './pages/Challenges/ChallengeRunPage';
 import { SessionsPage } from './pages/Sessions/SessionsPage';
 import { NewSessionPage } from './pages/Sessions/NewSessionPage';
 import { SessionExecutorPage } from './pages/Sessions/SessionExecutorPage';
@@ -104,6 +107,10 @@ export default function App() {
             <Route path="planes/:id" element={<PlanDetailPage />} />
             <Route path="planes/:id/editar" element={<PlanFormPage />} />
             <Route path="planes/:id/dias/:dayId" element={<PlanDayEditPage />} />
+            {/* Challenges */}
+            <Route path="challenges" element={<ChallengesPage />} />
+            <Route path="challenges/sesion/:sessionId" element={<ChallengeRunPage />} />
+            <Route path="challenges/:code" element={<ChallengeDetailPage />} />
             <Route path="sesiones" element={<SessionsPage />} />
             <Route path="sesiones/nueva" element={<NewSessionPage />} />
             <Route path="sesiones/registrar" element={<ManualSessionPage />} />
