@@ -441,6 +441,7 @@ de creación — este servicio es para ejercicios que existían antes o que se c
 - [ ] El servicio usa `UPPER(TRIM(?))` para buscar el ejercicio en la BD
 - [ ] El flag localStorage es único (no colisiona con otros servicios)
 - [ ] `npx tsc --noEmit` sin errores
+- [ ] Si el SVG se generó con un script: escribir el archivo en UTF-8 (`encoding='utf-8'`) y validar que el XML parsee (`python -c "import xml.dom.minidom as m; m.parse('x.svg')"`); ver `SVG_MEJORAS.md` (error de codificación 2026-10-07)
 
 ---
 

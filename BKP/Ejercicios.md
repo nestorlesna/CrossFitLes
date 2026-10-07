@@ -13,6 +13,89 @@
 ### COMO USAR
 
 
+
+### TEMPLATE
+Clase GOAT XX/XX/2026
+video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+
+Activacion
+Fuerza
+WOD
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+### TEMPLATE
+
+
+### TEMPLATE
+Clase GOAT XX/XX/2026
+video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+
+Activacion
+Fuerza
+WOD
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+### TEMPLATE
+
+
+Clase GOAT 07/10/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 3 rondas 
+ - 10 Squat to Stand, video corto https://www.youtube.com/shorts/2B1p06bROd8 ,video explicativo https://www.youtube.com/watch?v=G5iP1-kE4-4
+ - 6 Band External Rotation derecho
+ - 6 Band External Rotation izquierdo
+ - 10 Weighted Lunge izq 10 kg
+ - 10 Weighted Lunge der 10 kg
+ 
+Activacion 4 rondas complex
+ - 5 Barbell Deadlift
+ - 5 Barbell Sumo Deadlift High Pull
+ - 5 Barbell Hang Clean
+ - 5 Barbell Front Squat
+
+Fuerza cada 6 rondas cada 2 minutos
+ - 1 High Hang Squat Clean + 2 Barbell Hang Clean + 2 Barbell Squat Clean, 30 kg
+ - 1 High Hang Squat Clean + 2 Barbell Hang Clean + 2 Barbell Squat Clean, 40 kg
+ - 2 Barbell Hang Clean + 2 Barbell Squat Clean, 50 kg
+ - 2 Barbell Hang Clean + 2 Barbell Squat Clean, 50 kg
+ - 2 Barbell Squat Clean, 50 kg
+ - 2 Barbell Squat Clean, 55 kg
+
+WOD en pareja maximo 15 minutos, remo los dos juntos, los otros ejercicios un descansa el otro hace el ejercicio
+ - 400 Rowing ambos
+ - 15 Box Jump-Over
+ - descanso
+ - 15 Box Jump-Over
+ - descanso
+ - 15 Box Jump-Over
+ - descanso
+ - 20 Kettlebell Swing
+ - descanso
+ - 15 Kettlebell Swing
+ - descanso
+ - 50 Partner Wall Ball Sit-Up
+ - 5 de Barbell Push Press
+ - descanso 
+ - 5 de Barbell Push Press
+ - descanso 
+ - 5 de Barbell Push Press
+ - descanso 
+ - 400 Rowing ambos
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
 Clase GOAT 03/10/2026
 Calentamiento
 - 6 minutos de calentamiento

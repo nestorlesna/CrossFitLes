@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 230">
+  <style>
+    .f1{animation:sh1 7.8s linear infinite}.f2{animation:sh2 7.8s linear infinite}.f3{animation:sh3 7.8s linear infinite}.f4{animation:sh4 7.8s linear infinite}.f5{animation:sh5 7.8s linear infinite}.f6{animation:sh6 7.8s linear infinite}
+    @keyframes sh1{0%,13.3%{opacity:1}16.7%,96.7%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,16.7%{opacity:0}20%,30%{opacity:1}33.3%,100%{opacity:0}}
+    @keyframes sh3{0%,33.3%{opacity:0}36.7%,46.7%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh4{0%,50%{opacity:0}53.3%,63.3%{opacity:1}66.7%,100%{opacity:0}}
+    @keyframes sh5{0%,66.7%{opacity:0}70%,80%{opacity:1}83.3%,100%{opacity:0}}
+    @keyframes sh6{0%,83.3%{opacity:0}86.7%,96.7%{opacity:1}100%,100%{opacity:0}}
+  </style>
+  <rect width="220" height="230" fill="#111827" rx="12"/>
+  <line x1="20" y1="210" x2="200" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="110" y="225" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" fill="#475569" letter-spacing="2">SQUAT TO STAND</text>
+  <!-- Frame 1: De pie -->
+  <g class="f1">
+    <circle cx="90" cy="38" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="90" y1="116" x2="90" y2="60"/>
+      <line x1="90" y1="60" x2="94" y2="114"/>
+      <polyline points="90,116 102,161 92,206"/>
+      <line x1="84" y1="208" x2="112" y2="208"/>
+    </g>
+    <circle cx="102" cy="161" r="5" fill="#64748b"/>
+    <circle cx="94" cy="114" r="4" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: Flexion con piernas rectas -->
+  <g class="f2">
+    <circle cx="129" cy="169" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="68" y1="122" x2="112" y2="156"/>
+      <line x1="112" y1="156" x2="112" y2="206"/>
+      <polyline points="68,122 95,160 92,206"/>
+      <line x1="84" y1="208" x2="112" y2="208"/>
+    </g>
+    <circle cx="95" cy="160" r="5" fill="#64748b"/>
+    <circle cx="112" cy="206" r="4" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: Bajada en cuclillas -->
+  <g class="f3">
+    <circle cx="144" cy="138" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="72" y1="168" x2="124" y2="147"/>
+      <line x1="124" y1="147" x2="112" y2="205"/>
+      <polyline points="72,168 118,168 92,206"/>
+      <line x1="84" y1="208" x2="112" y2="208"/>
+    </g>
+    <circle cx="118" cy="168" r="5" fill="#64748b"/>
+    <circle cx="112" cy="205" r="4" fill="#64748b"/>
+  </g>
+  <!-- Frame 4: Cuclillas abajo, pecho arriba -->
+  <g class="f4">
+    <circle cx="137" cy="136" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="76" y1="186" x2="120" y2="150"/>
+      <line x1="120" y1="150" x2="112" y2="206"/>
+      <polyline points="76,186 120,169 92,206"/>
+      <line x1="84" y1="208" x2="112" y2="208"/>
+    </g>
+    <circle cx="120" cy="169" r="5" fill="#64748b"/>
+    <circle cx="112" cy="206" r="4" fill="#64748b"/>
+  </g>
+  <!-- Frame 5: Subida de cadera -->
+  <g class="f5">
+    <circle cx="139" cy="162" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="70" y1="128" x2="120" y2="153"/>
+      <line x1="120" y1="153" x2="112" y2="206"/>
+      <polyline points="70,128 103,161 92,206"/>
+      <line x1="84" y1="208" x2="112" y2="208"/>
+    </g>
+    <circle cx="103" cy="161" r="5" fill="#64748b"/>
+    <circle cx="112" cy="206" r="4" fill="#64748b"/>
+  </g>
+  <!-- Frame 6: De pie -->
+  <g class="f6">
+    <circle cx="91" cy="40" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="86" y1="118" x2="90" y2="62"/>
+      <line x1="90" y1="62" x2="94" y2="116"/>
+      <polyline points="86,118 103,161 92,206"/>
+      <line x1="84" y1="208" x2="112" y2="208"/>
+    </g>
+    <circle cx="103" cy="161" r="5" fill="#64748b"/>
+    <circle cx="94" cy="116" r="4" fill="#64748b"/>
+  </g>
+</svg>

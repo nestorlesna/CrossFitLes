@@ -1,57 +1,98 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
-<rect width="200" height="230" fill="#111827" rx="12"/>
-<style>
-.f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
-@keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
-@keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
-@keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
-</style>
-<!-- F1: Standing, weight at shoulders -->
-<g class="f1">
-  <circle cx="100" cy="26" r="13" fill="#94a3b8"/>
-  <line x1="100" y1="39" x2="100" y2="108" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="100" y1="52" x2="76" y2="60" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="76" y1="60" x2="72" y2="80" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="100" y1="52" x2="124" y2="60" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="124" y1="60" x2="128" y2="80" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="100" cy="50" r="8" fill="#64748b" opacity="0.6"/>
-  <line x1="100" y1="108" x2="86" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="86" y1="162" x2="82" y2="205" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="100" y1="108" x2="114" y2="162" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="114" y1="162" x2="118" y2="205" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-</g>
-<!-- F2: Lunge step forward (left leg forward) -->
-<g class="f2">
-  <circle cx="100" cy="35" r="13" fill="#94a3b8"/>
-  <line x1="100" y1="48" x2="100" y2="115" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="100" y1="60" x2="76" y2="68" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="76" y1="68" x2="72" y2="88" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="100" y1="60" x2="124" y2="68" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="124" y1="68" x2="128" y2="88" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="100" cy="58" r="8" fill="#64748b" opacity="0.6"/>
-  <line x1="100" y1="115" x2="72" y2="160" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="72" y1="160" x2="60" y2="205" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="100" y1="115" x2="118" y2="158" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="118" y1="158" x2="118" y2="205" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="72" cy="160" r="5" fill="#64748b"/>
-  <circle cx="118" cy="158" r="5" fill="#64748b"/>
-</g>
-<!-- F3: Bottom of lunge, back knee near ground -->
-<g class="f3">
-  <circle cx="100" cy="42" r="13" fill="#94a3b8"/>
-  <line x1="100" y1="55" x2="100" y2="122" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="100" y1="68" x2="76" y2="76" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="76" y1="76" x2="72" y2="96" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="100" y1="68" x2="124" y2="76" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="124" y1="76" x2="128" y2="96" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="100" cy="66" r="8" fill="#64748b" opacity="0.6"/>
-  <line x1="100" y1="122" x2="68" y2="168" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="68" y1="168" x2="56" y2="205" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="100" y1="122" x2="122" y2="165" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <line x1="122" y1="165" x2="128" y2="205" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="68" cy="168" r="5" fill="#64748b"/>
-  <circle cx="122" cy="165" r="5" fill="#64748b"/>
-</g>
-<line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
-<text x="100" y="225" text-anchor="middle" font-family="monospace" font-size="10" fill="#475569">WEIGHTED LUNGE</text>
+  <style>
+    .f1{animation:sh1 7.8s linear infinite}.f2{animation:sh2 7.8s linear infinite}.f3{animation:sh3 7.8s linear infinite}.f4{animation:sh4 7.8s linear infinite}.f5{animation:sh5 7.8s linear infinite}.f6{animation:sh6 7.8s linear infinite}
+    @keyframes sh1{0%,13.3%{opacity:1}16.7%,96.7%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,16.7%{opacity:0}20%,30%{opacity:1}33.3%,100%{opacity:0}}
+    @keyframes sh3{0%,33.3%{opacity:0}36.7%,46.7%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh4{0%,50%{opacity:0}53.3%,63.3%{opacity:1}66.7%,100%{opacity:0}}
+    @keyframes sh5{0%,66.7%{opacity:0}70%,80%{opacity:1}83.3%,100%{opacity:0}}
+    @keyframes sh6{0%,83.3%{opacity:0}86.7%,96.7%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <!-- Frame 1: de pie con mancuernas -->
+  <g class="f1">
+    <circle cx="102" cy="25" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="42" x2="100" y2="108"/>
+      <line x1="100" y1="42" x2="104" y2="94"/>
+      <line x1="100" y1="108" x2="113.8" y2="156.1"/><line x1="113.8" y1="156.1" x2="94" y2="202"/>
+      <line x1="92" y1="206" x2="106" y2="206"/>
+      <line x1="100" y1="108" x2="119.8" y2="153.9"/><line x1="119.8" y1="153.9" x2="106" y2="202"/>
+      <line x1="104" y1="206" x2="118" y2="206"/>
+    </g>
+    <rect x="96" y="91" width="16" height="7" rx="2" fill="#475569" stroke="#64748b" stroke-width="1.5"/>
+    <circle cx="119.8" cy="153.9" r="5" fill="#64748b"/><circle cx="113.8" cy="156.1" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: paso largo adelante -->
+  <g class="f2">
+    <circle cx="112" cy="29" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="110" y1="46" x2="110" y2="112"/>
+      <line x1="110" y1="46" x2="114" y2="98"/>
+      <line x1="110" y1="112" x2="110" y2="162"/><line x1="110" y1="162" x2="80" y2="202"/>
+      <line x1="78" y1="206" x2="92" y2="206"/>
+      <line x1="110" y1="112" x2="140" y2="152"/><line x1="140" y1="152" x2="140" y2="202"/>
+      <line x1="138" y1="206" x2="152" y2="206"/>
+    </g>
+    <rect x="106" y="95" width="16" height="7" rx="2" fill="#475569" stroke="#64748b" stroke-width="1.5"/>
+    <circle cx="140" cy="152" r="5" fill="#64748b"/><circle cx="110" cy="162" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: bajando -->
+  <g class="f3">
+    <circle cx="106" cy="51" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="104" y1="68" x2="104" y2="134"/>
+      <line x1="104" y1="68" x2="108" y2="120"/>
+      <line x1="104" y1="134" x2="110.4" y2="183.6"/><line x1="110.4" y1="183.6" x2="62" y2="196"/>
+      <line x1="62" y1="196" x2="72" y2="206"/>
+      <line x1="104" y1="134" x2="150.5" y2="152.4"/><line x1="150.5" y1="152.4" x2="144" y2="202"/>
+      <line x1="142" y1="206" x2="156" y2="206"/>
+    </g>
+    <rect x="100" y="117" width="16" height="7" rx="2" fill="#475569" stroke="#64748b" stroke-width="1.5"/>
+    <circle cx="150.5" cy="152.4" r="5" fill="#64748b"/><circle cx="110.4" cy="183.6" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 4: abajo, rodilla trasera cerca del piso -->
+  <g class="f4">
+    <circle cx="100" cy="73" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="98" y1="90" x2="98" y2="156"/>
+      <line x1="98" y1="90" x2="102" y2="142"/>
+      <line x1="98" y1="156" x2="84.5" y2="204.1"/><line x1="84.5" y1="204.1" x2="36" y2="192"/>
+      <line x1="36" y1="192" x2="46" y2="206"/>
+      <line x1="98" y1="156" x2="147.8" y2="152"/><line x1="147.8" y1="152" x2="146" y2="202"/>
+      <line x1="144" y1="206" x2="158" y2="206"/>
+    </g>
+    <rect x="94" y="139" width="16" height="7" rx="2" fill="#475569" stroke="#64748b" stroke-width="1.5"/>
+    <circle cx="147.8" cy="152" r="5" fill="#64748b"/><circle cx="84.5" cy="204.1" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 5: subiendo -->
+  <g class="f5">
+    <circle cx="102" cy="51" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="68" x2="100" y2="134"/>
+      <line x1="100" y1="68" x2="104" y2="120"/>
+      <line x1="100" y1="134" x2="96.5" y2="183.9"/><line x1="96.5" y1="183.9" x2="48" y2="196"/>
+      <line x1="48" y1="196" x2="58" y2="206"/>
+      <line x1="100" y1="134" x2="146.6" y2="152"/><line x1="146.6" y1="152" x2="146" y2="202"/>
+      <line x1="144" y1="206" x2="158" y2="206"/>
+    </g>
+    <rect x="96" y="117" width="16" height="7" rx="2" fill="#475569" stroke="#64748b" stroke-width="1.5"/>
+    <circle cx="146.6" cy="152" r="5" fill="#64748b"/><circle cx="96.5" cy="183.9" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 6: empuje para volver a la posición inicial -->
+  <g class="f6">
+    <circle cx="106" cy="29" r="13" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="104" y1="46" x2="104" y2="112"/>
+      <line x1="104" y1="46" x2="108" y2="98"/>
+      <line x1="104" y1="112" x2="105.9" y2="162"/><line x1="105.9" y1="162" x2="76" y2="202"/>
+      <line x1="74" y1="206" x2="88" y2="206"/>
+      <line x1="104" y1="112" x2="133.3" y2="152.5"/><line x1="133.3" y1="152.5" x2="126" y2="202"/>
+      <line x1="124" y1="206" x2="138" y2="206"/>
+    </g>
+    <rect x="100" y="95" width="16" height="7" rx="2" fill="#475569" stroke="#64748b" stroke-width="1.5"/>
+    <circle cx="133.3" cy="152.5" r="5" fill="#64748b"/><circle cx="105.9" cy="162" r="5" fill="#64748b"/>
+  </g>
+  <line x1="20" y1="210" x2="180" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="225" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569" letter-spacing="0.5">WEIGHTED LUNGE</text>
 </svg>

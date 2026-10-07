@@ -1,59 +1,98 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
   <style>
-    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
-    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
-    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
-    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 10.4s linear infinite}.f2{animation:sh2 10.4s linear infinite}.f3{animation:sh3 10.4s linear infinite}.f4{animation:sh4 10.4s linear infinite}.f5{animation:sh5 10.4s linear infinite}.f6{animation:sh6 10.4s linear infinite}.f7{animation:sh7 10.4s linear infinite}.f8{animation:sh8 10.4s linear infinite}
+    @keyframes sh1{0%,10%{opacity:1}12.5%,97.5%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,12.5%{opacity:0}15%,22.5%{opacity:1}25%,100%{opacity:0}}
+    @keyframes sh3{0%,25%{opacity:0}27.5%,35%{opacity:1}37.5%,100%{opacity:0}}
+    @keyframes sh4{0%,37.5%{opacity:0}40%,47.5%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh5{0%,50%{opacity:0}52.5%,60%{opacity:1}62.5%,100%{opacity:0}}
+    @keyframes sh6{0%,62.5%{opacity:0}65%,72.5%{opacity:1}75%,100%{opacity:0}}
+    @keyframes sh7{0%,75%{opacity:0}77.5%,85%{opacity:1}87.5%,100%{opacity:0}}
+    @keyframes sh8{0%,87.5%{opacity:0}90%,97.5%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="200" height="230" fill="#111827" rx="12"/>
   <!-- Pared derecha y suelo -->
   <line x1="175" y1="10" x2="175" y2="210" stroke="#374151" stroke-width="4" stroke-linecap="round"/>
   <line x1="20" y1="210" x2="175" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
   <text x="95" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="2">WALL WALK</text>
-  <!-- Frame 1: Posición plancha, pies en el suelo -->
+  <!-- Frame 1: plancha, pies en la base de la pared -->
   <g class="f1">
-    <circle cx="48" cy="174" r="13" fill="#94a3b8"/>
+    <circle cx="46.2" cy="155.7" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <!-- Cuerpo horizontal (plancha) -->
-      <line x1="48" y1="185" x2="152" y2="205"/>
-      <!-- Brazo apoyado -->
-      <line x1="48" y1="182" x2="42" y2="198"/><line x1="42" y1="198" x2="36" y2="210"/>
-      <line x1="28" y1="210" x2="46" y2="210"/>
-      <!-- Piernas -->
-      <line x1="152" y1="205" x2="162" y2="210"/>
-      <line x1="154" y1="200" x2="166" y2="210"/>
+      <line x1="62" y1="162" x2="172" y2="206"/>
+      <line x1="62" y1="162" x2="62" y2="210"/><line x1="54" y1="210" x2="72" y2="210"/>
+      <line x1="162" y1="208" x2="172" y2="208"/>
     </g>
+    <circle cx="117" cy="184" r="5" fill="#64748b"/>
   </g>
-  <!-- Frame 2: A mitad (pies en la pared, cuerpo a 45°) -->
+  <!-- Frame 2: pies suben, cuerpo horizontal -->
   <g class="f2">
-    <circle cx="72" cy="124" r="13" fill="#94a3b8"/>
+    <circle cx="37" cy="162.3" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <!-- Cuerpo en diagonal hacia la pared -->
-      <line x1="72" y1="135" x2="145" y2="178"/>
-      <!-- Brazo apoyado en suelo -->
-      <line x1="72" y1="132" x2="58" y2="156"/><line x1="58" y1="156" x2="48" y2="178"/>
-      <line x1="38" y1="178" x2="60" y2="178"/>
-      <!-- Pies en la pared (a media altura) -->
-      <line x1="145" y1="178" x2="175" y2="165"/>
-      <line x1="143" y1="182" x2="175" y2="175"/>
+      <line x1="54" y1="162" x2="172" y2="160"/>
+      <line x1="54" y1="162" x2="54" y2="210"/><line x1="46" y1="210" x2="64" y2="210"/>
+      <line x1="164" y1="160" x2="174" y2="160"/><line x1="164" y1="165" x2="174" y2="165"/>
     </g>
-    <circle cx="58" cy="156" r="5" fill="#64748b"/>
+    <circle cx="113" cy="161" r="5" fill="#64748b"/>
   </g>
-  <!-- Frame 3: Handstand contra la pared -->
+  <!-- Frame 3: manos caminan hacia la pared (cadera sube) -->
   <g class="f3">
-    <circle cx="100" cy="28" r="13" fill="#94a3b8"/>
+    <circle cx="46.1" cy="168.1" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <!-- Cuerpo vertical invertido -->
-      <line x1="100" y1="41" x2="100" y2="140"/>
-      <line x1="80" y1="54" x2="120" y2="54"/>
-      <!-- Brazos extendidos apoyados en suelo -->
-      <line x1="80" y1="54" x2="72" y2="82"/><line x1="72" y1="82" x2="64" y2="110"/>
-      <line x1="120" y1="54" x2="128" y2="82"/><line x1="128" y1="82" x2="136" y2="110"/>
-      <line x1="54" y1="110" x2="76" y2="110"/><line x1="126" y1="110" x2="148" y2="110"/>
-      <!-- Pies contra la pared (arriba) -->
-      <line x1="96" y1="140" x2="175" y2="138"/>
-      <line x1="104" y1="140" x2="175" y2="148"/>
+      <line x1="62" y1="162" x2="172" y2="120"/>
+      <line x1="62" y1="162" x2="62" y2="210"/><line x1="54" y1="210" x2="72" y2="210"/>
+      <line x1="164" y1="120" x2="174" y2="120"/><line x1="164" y1="125" x2="174" y2="125"/>
     </g>
-    <circle cx="72" cy="82" r="5" fill="#64748b"/><circle cx="128" cy="82" r="5" fill="#64748b"/>
+    <circle cx="117" cy="141" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 4: cuerpo a 45° -->
+  <g class="f4">
+    <circle cx="70.1" cy="173.1" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="83" y1="162" x2="172" y2="85"/>
+      <line x1="83" y1="162" x2="83" y2="210"/><line x1="75" y1="210" x2="93" y2="210"/>
+      <line x1="164" y1="85" x2="174" y2="85"/><line x1="164" y1="90" x2="174" y2="90"/>
+    </g>
+    <circle cx="127.5" cy="123.5" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 5: cuerpo a ~65° -->
+  <g class="f5">
+    <circle cx="99.9" cy="176.4" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="109" y1="162" x2="172" y2="62"/>
+      <line x1="109" y1="162" x2="109" y2="210"/><line x1="101" y1="210" x2="119" y2="210"/>
+      <line x1="164" y1="62" x2="174" y2="62"/><line x1="164" y1="67" x2="174" y2="67"/>
+    </g>
+    <circle cx="140.5" cy="112" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 6: casi vertical, manos cerca de la pared -->
+  <g class="f6">
+    <circle cx="137.7" cy="178.4" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="142" y1="162" x2="172" y2="48"/>
+      <line x1="142" y1="162" x2="142" y2="210"/><line x1="134" y1="210" x2="152" y2="210"/>
+      <line x1="164" y1="48" x2="174" y2="48"/><line x1="164" y1="53" x2="174" y2="53"/>
+    </g>
+    <circle cx="157" cy="105" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 7: vertical, pecho a la pared (bloqueo) -->
+  <g class="f7">
+    <circle cx="146.8" cy="178.7" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="150" y1="162" x2="172" y2="46"/>
+      <line x1="150" y1="162" x2="150" y2="210"/><line x1="142" y1="210" x2="160" y2="210"/>
+      <line x1="164" y1="46" x2="174" y2="46"/><line x1="164" y1="51" x2="174" y2="51"/>
+    </g>
+    <circle cx="161" cy="104" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 8: bajada controlada -->
+  <g class="f8">
+    <circle cx="57.6" cy="171" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="72" y1="162" x2="172" y2="100"/>
+      <line x1="72" y1="162" x2="72" y2="210"/><line x1="64" y1="210" x2="82" y2="210"/>
+      <line x1="164" y1="100" x2="174" y2="100"/><line x1="164" y1="105" x2="174" y2="105"/>
+    </g>
+    <circle cx="122" cy="131" r="5" fill="#64748b"/>
   </g>
 </svg>

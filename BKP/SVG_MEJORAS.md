@@ -106,3 +106,40 @@ Una entrada por ejercicio nuevo, en orden cronológico (más reciente al final),
 - **Frames usados:** 6 — arriba con brazos extendidos, dos de bajada, abajo con codos a 90°, y dos de subida (simétricos a los de bajada); la fórmula de §5a de `CREO_CLASE.md` con N=6 (ciclo de 8s). Se generó con un script que interpola la pose entre "arriba" y "abajo", así los frames de subida repiten los de bajada.
 - **Dificultad:** vista lateral con la silla detrás de la figura: el brazo que se dobla hacia atrás queda pegado al asiento y al torso, y a escala chica el codo se confunde con la mano. Se resolvió con un círculo oscuro en el codo y la silla en un tono más apagado que la figura. Las piernas flexionadas (rodillas a 90°) evitan que una pierna estirada tape la cadera.
 - **Mejora pendiente / a revisar:** viewBox `240x180` (como `bodyweight-push-up.svg`) en vez del `200x230` de la guía, porque el movimiento es horizontal. No se dibuja la variante con piernas extendidas ni con los pies elevados.
+
+### Wall Walk (`wall-walk.svg`) — 2026-10-07
+
+- **Frames usados:** 8 — plancha con pies en la base de la pared, pies suben (cuerpo horizontal), tres posiciones intermedias mientras las manos caminan hacia la pared (cadera sube), vertical con pecho a la pared, y una bajada controlada; ciclo de 10.4s (fórmula §5a). Se generó con un script a partir de (posición de manos, altura de pies) con largo de cuerpo constante, así la figura no se deforma entre frames.
+- **Dificultad:** en vista lateral el avance de las manos es lo esencial pero se pierde si los frames no mantienen el largo del cuerpo; cuerpo recto (sin pique de cadera) para simplificar.
+- **Mejora pendiente / a revisar:** revisar en el navegador que cabeza y manos no se crucen en los frames casi verticales; no se dibuja la variante con pique de cadera.
+
+### Weighted Lunge (`weighted-lunge.svg`) — 2026-10-07
+
+- **Frames usados:** 6 — de pie, paso largo, bajando, abajo (rodilla trasera cerca del piso), subiendo y empuje de vuelta; ciclo de 7.8s (fórmula §5a). Vista lateral mirando a la derecha (en vez de frontal como el SVG viejo de 3 frames, que no mostraba el paso). Generado con IK de 2 huesos (muslo=pierna=50) a partir de posición de cadera y tobillos.
+- **Dificultad:** en vista lateral las dos mancuernas se superponen; se dibuja un solo brazo con una mancuerna (rect). Talón trasero levantado (apoyo en punta) para que se lea la zancada.
+- **Mejora pendiente / a revisar:** revisar en el navegador el solapamiento de la rodilla trasera con la línea de suelo en el frame 4; no cubre la variante con paso atrás ni caminando.
+
+### ⚠️ Error de codificación al generar SVG con script (2026-10-07) — Wall Walk y Weighted Lunge
+
+- **Síntoma:** el SVG "no se ve" (imagen rota) aunque el diseño sea correcto.
+- **Causa:** el script Python escribía el archivo con `open(path,'w')`; en Windows eso usa cp1252, no UTF-8. Los comentarios con tildes/símbolos (`45°`, `posición`) quedaron como bytes inválidos y el navegador rechaza el XML ("invalid token").
+- **Solución:** escribir siempre con `open(path,'w',encoding='utf-8')`. Alternativa: no poner tildes ni `°` en los comentarios del SVG.
+- **Verificación obligatoria tras generar un SVG:** `python -c "import xml.dom.minidom as m; m.parse('archivo.svg')"` debe terminar sin error. No dar el SVG por bueno sin esto.
+
+### Barbell Push Press (`barbell-push-press.svg`) — 2026-10-07
+
+- **Frames usados:** 8 — rack frontal, inicio del dip, dip abajo, empuje de piernas, extensión con la barra al mentón, press intermedio, bloqueo arriba y bajada controlada; ciclo de 10.4s (fórmula §5a). Regenera el SVG viejo de 3 frames, que no mostraba el empuje de piernas ni el recorrido de la barra. Generado con script (IK de 2 huesos para piernas y codos) para mantener el largo de los segmentos constante.
+- **Dificultad:** en vista frontal la barra cruza la cara en los frames de press; se dibuja detrás de la figura y no tapa la cabeza. Los codos sólo se marcan (círculo) en los frames con brazo doblado.
+- **Mejora pendiente / a revisar:** revisar en el navegador el cruce barra/cabeza en los frames 5-6; una vista lateral mostraría mejor el ligero retroceso de la cabeza.
+
+### Squat to Stand (`squat-to-stand.svg`) — 2026-10-07
+
+- **Frames usados:** 6 — de pie, flexión con piernas rectas, bajada en cuclillas, cuclillas abajo con pecho arriba, subida de cadera y de pie; ciclo de 7.8s (fórmula §5a). Vista lateral mirando a la derecha, generada con script (IK de 2 huesos para la pierna).
+- **Dificultad:** las manos siempre agarran la punta de los pies, así que el brazo se dibuja recto hasta el pie y el tronco cambia de ángulo entre frames; en la cuclilla profunda la rodilla y el brazo se superponen.
+- **Mejora pendiente / a revisar:** revisar en el navegador el solape rodilla/brazo en los frames 3-4 y la altura de cadera en la cuclilla; se dibuja una sola pierna.
+
+### Barbell High Hang Squat Clean (`barbell-high-hang-squat-clean.svg`) — 2026-10-07
+
+- **Frames usados:** 8 — hang alto, carga de cadera, extensión triple, tirón alto con codos arriba, caída bajo la barra, recepción en sentadilla, subida y de pie en rack; ciclo de 10.4s (fórmula §5a). Vista frontal, generada con script (IK de piernas y codos).
+- **Dificultad:** en vista frontal no se ve la inclinación del torso ni el rebote de cadera; el cambio de ancho de pies (más abiertos en la recepción) es lo que marca la caída bajo la barra.
+- **Mejora pendiente / a revisar:** revisar el crossfade en el navegador; una vista lateral mostraría mejor la extensión de cadera. Sin videos cargados (no se encontró URL de YouTube validable).
