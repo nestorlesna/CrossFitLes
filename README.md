@@ -4,7 +4,12 @@ Aplicación móvil personal para planificar, registrar y analizar entrenamientos
 
 ## 📱 Distribución
 
-- **APK directo** (sin Play Store)
+- **APK directo** (sin Play Store), gratis. Link fijo a la última versión:
+  `https://github.com/nestorlesna/CrossFitLes/releases/latest/download/CrossFitLes.apk`
+- La app avisa sola cuando hay una versión nueva del APK.
+- **Contenido online**: clases, ejercicios (con sus SVG), planes y challenges se bajan desde el repo
+  público [CrossFitLes-content](https://github.com/nestorlesna/CrossFitLes-content) con
+  *Configuración → Contenido online → Actualizar contenido*, sin importar archivos.
 - **PWA** como fallback para navegador
 
 ## 🛠️ Stack Tecnológico
@@ -33,8 +38,8 @@ Aplicación móvil personal para planificar, registrar y analizar entrenamientos
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/tu-usuario/crossfit-session-tracker.git
-cd crossfit-session-tracker
+git clone https://github.com/nestorlesna/CrossFitLes.git
+cd CrossFitLes
 
 # Instalar dependencias
 npm install
@@ -91,8 +96,12 @@ Para regenerar `KEYSTORE_BASE64` si fuera necesario:
 ### Publicar una nueva versión
 
 ```powershell
-# Desde la raíz del proyecto — actualiza build.gradle, hace commit, tag y push
+# Desde la raíz del proyecto — bump de versión, commit, tag, merge a master, push
+# y, al final, push del contenido online si hay cambios publicados
 .\scripts\release.ps1 1.0.1
+
+.\scripts\release.ps1 1.0.1 -SkipContent   # release de la app sin tocar el contenido
+.\scripts\release.ps1 -ContentOnly          # sólo subir el contenido (sin release de la app)
 ```
 
 GitHub Actions construye el APK firmado y lo publica como GitHub Release automáticamente.
@@ -105,9 +114,37 @@ GitHub Actions construye el APK firmado y lo publica como GitHub Release automá
   → git commit + tag vX.Y.Z + push
   → GitHub Actions: build web → cap sync → gradle assembleRelease → firma APK
   → GitHub Release con CrossFitLes.apk adjunto
+  → push de ../CrossFitLes-content (commit "contenido vN") si hay cambios
 ```
 
-> El keystore vive en `KEY/` (ignorado por git). No subir al repositorio.
+> El keystore vive en `KEY/` (ignorado por git). No subir al repositorio. **No perderlo**: sin la
+> misma firma Android no permite actualizar la app y habría que desinstalarla (perdiendo los datos).
+
+## ☁️ Contenido online
+
+Las clases y ejercicios se comparten por un repo público con dos archivos JSON. No hay servidor ni
+base de datos online.
+
+```
+PC (npm run dev)                       GitHub (público)                 Teléfonos
+Configuración → Publicar contenido  →  CrossFitLes-content          →   Configuración → Actualizar contenido
+  escribe en ../CrossFitLes-content      manifest.json                    baja lo nuevo y lo aplica
+  (git push o release.ps1)               content/content.json             en una sola transacción
+```
+
+- **Publicar** (sólo visible en `npm run dev` en la PC): arma `content.json` con catálogos, ejercicios
+  (con su SVG embebido), clases, planes y las definiciones de challenges, y sube `contentVersion`
+  sólo si algo cambió. Lo escribe en el clon local `../CrossFitLes-content` (configurable con
+  `CONTENT_REPO_DIR` en `.env`). Después: `git push` en ese repo o `.\scripts\release.ps1 -ContentOnly`.
+- **Actualizar** (todos): agrega lo nuevo y actualiza lo que cambió, comparando un hash por
+  ejercicio/clase/plan. **Nunca** pisa lo que el usuario creó o editó (`user_modified`), no
+  actualiza clases que ya tienen sesiones, no borra nada y no toca sesiones, resultados, récords,
+  progreso de challenges ni perfil. Los planes llegan en borrador.
+- **Challenges**: un challenge nuevo agregado en `src/data/challenges.ts` llega a todos al publicar,
+  sin sacar APK (si es de un tipo que la app ya soporta: meta de repeticiones o diario).
+- **Probar antes del push**: levantar el dev server con `VITE_CONTENT_BASE_URL=/__content/raw` y abrir
+  `http://127.0.0.1:5173` (otro origen = otra base de datos) → Actualizar contenido.
+- Detalle, reglas y checklist: [`PLAN_SINCRONIZACION.md`](PLAN_SINCRONIZACION.md).
 
 ---
 
@@ -132,9 +169,9 @@ src/
 │   ├── export/               # Exportar / Importar datos
 │   └── layout/               # Layout, Header, BottomNav
 ├── hooks/                    # Custom hooks
-├── data/                     # Datos fijos (catálogo de challenges)
+├── data/                     # Catálogo de challenges (del APK; se suman los remotos)
 ├── pages/                    # Pantallas por sección (Challenges, Plans, Sessions...)
-├── services/                 # Servicios (media, migración, seed, motor de challenges)
+├── services/                 # Servicios (media, migración, seed, challenges, contenido online)
 ├── utils/                    # Utilidades y helpers
 └── types/                    # Tipos compartidos
 ```
@@ -150,12 +187,13 @@ src/
 - **Estadísticas y progresión** — Gráficos de evolución, historial por ejercicio, récords personales y dashboard.
 - **Planes de entrenamiento** — Días programados en un calendario (por fecha o secuenciales), con clases existentes o días armados a mano, avance y racha.
 - **Challenges de calistenia** — 9 challenges sin equipamiento: 6 de meta de repeticiones (100 flexiones, 200 abdominales, 200 sentadillas, 150 fondos en silla, 150 zancadas, 50 burpees) y 3 diarios de 30 días (plancha de 5 minutos, sentadillas, abdominales). Test inicial que define el nivel, retests en las semanas 2/4/5 que recalculan las sesiones, "No pude completar" que repite la semana, timer de descanso con aviso sonoro, registro de repeticiones reales por serie y gráficos de progreso (volumen por sesión y repeticiones máximas). Varios challenges pueden estar en curso a la vez.
-- **Exportación e importación** — Backup completo a ZIP con los datos en JSON y los archivos multimedia.
+- **Exportación e importación** — Backup completo a ZIP con los datos en JSON y los archivos multimedia; exportar/importar clases y ejercicios sueltos.
+- **Contenido online** — Publicar desde la PC y actualizar en cada dispositivo clases, ejercicios con SVG, planes y challenges, sin pisar lo propio ni tocar sesiones.
 - **Base de datos SQLite** — Schema completo con sistema de migraciones versionado, transacciones y datos semilla.
 
 ### 🏆 Cómo funcionan los challenges
 
-Un challenge en curso es un plan de entrenamiento con `plan_kind = 'challenge'`, así reutiliza días, plantillas privadas, sesiones, PRs y el cronómetro. El catálogo es fijo (`src/data/challenges.ts`) y las series de los challenges de meta se calculan con una curva de progresión única (`src/services/challengeEngine.ts`): `reps = round(meta × factor_sesión × factor_nivel × pct_serie)`. Las rutas son `/challenges`, `/challenges/:code` y `/challenges/sesion/:sessionId`.
+Un challenge en curso es un plan de entrenamiento con `plan_kind = 'challenge'`, así reutiliza días, plantillas privadas, sesiones, PRs y el cronómetro. El catálogo viene con el APK (`src/data/challenges.ts`) y se amplía con las definiciones bajadas del contenido online y las series de los challenges de meta se calculan con una curva de progresión única (`src/services/challengeEngine.ts`): `reps = round(meta × factor_sesión × factor_nivel × pct_serie)`. Las rutas son `/challenges`, `/challenges/:code` y `/challenges/sesion/:sessionId`.
 
 ## 🗄️ Base de Datos
 
@@ -173,7 +211,8 @@ Un challenge en curso es un plan de entrenamiento con `plan_kind = 'challenge'`,
 | `npm run lint` | Ejecuta ESLint |
 | `npm run cap:sync` | Compila y sincroniza con Capacitor |
 | `npm run cap:android` | Sincroniza y abre Android Studio (opcional) |
-| `.\scripts\release.ps1 X.Y.Z` | Publica una nueva versión (bump + tag + push) |
+| `.\scripts\release.ps1 X.Y.Z` | Publica una nueva versión (bump + tag + push) y sube el contenido online |
+| `.\scripts\release.ps1 -ContentOnly` | Sólo sube el contenido online publicado |
 
 ## 🌐 Convenciones del Proyecto
 

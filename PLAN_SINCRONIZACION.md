@@ -79,7 +79,7 @@ plan o sus días). Desactivar una clase también la protege.
       cambiar con `CONTENT_REPO_DIR` en `.env`). README agregado.
 - [x] 💻 Publicación generada: **versión 2** — 126 clases, 328 ejercicios (todos con SVG),
       0 planes, 9 challenges, ~3,9 MB. (La v1 no llegó a subirse: se sube directo la v2.)
-- [ ] 👤 Primer push:
+- [x] 👤 Primer push (v2, 2026-10-10). Desde ahora también lo hace `.\scripts\release.ps1` (o `-ContentOnly`):
   ```
   cd C:\DATOS\DESARROLLOS\React\CrossFitLes-content
   git add -A
