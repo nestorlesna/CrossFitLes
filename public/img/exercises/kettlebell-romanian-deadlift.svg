@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 230">
+  <style>
+    .f1{animation:sh1 7.8s linear infinite}.f2{animation:sh2 7.8s linear infinite}.f3{animation:sh3 7.8s linear infinite}.f4{animation:sh4 7.8s linear infinite}.f5{animation:sh5 7.8s linear infinite}.f6{animation:sh6 7.8s linear infinite}
+    @keyframes sh1{0%,13.3%{opacity:1}16.7%,96.7%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,16.7%{opacity:0}20%,30%{opacity:1}33.3%,100%{opacity:0}}
+    @keyframes sh3{0%,33.3%{opacity:0}36.7%,46.7%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh4{0%,50%{opacity:0}53.3%,63.3%{opacity:1}66.7%,100%{opacity:0}}
+    @keyframes sh5{0%,66.7%{opacity:0}70%,80%{opacity:1}83.3%,100%{opacity:0}}
+    @keyframes sh6{0%,83.3%{opacity:0}86.7%,96.7%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="220" height="230" fill="#111827" rx="12"/>
+  <line x1="20" y1="210" x2="200" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="110" y="225" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" fill="#475569" letter-spacing="2">KB ROMANIAN DEADLIFT</text>
+  <!-- Frame 1: de pie con la kettlebell al frente -->
+  <g class="f1">
+    <circle cx="92" cy="38" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="90,116 92,60"/>
+      <polyline points="92,62 100,92 104,122"/>
+      <polyline points="90,116 100,161 92,206"/>
+    </g>
+    <circle cx="100" cy="161" r="4" fill="#64748b"/>
+    <circle cx="104" cy="134" r="10" fill="#f59e0b"/><path d="M98,126 q6,-10 12,0" stroke="#f59e0b" stroke-width="3" fill="none"/>
+  </g>
+  <!-- Frame 2: cadera atras, empieza la bisagra -->
+  <g class="f2">
+    <circle cx="122" cy="52" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="84,120 114,70"/>
+      <polyline points="114,72 116,104 112,138"/>
+      <polyline points="84,120 98,162 92,206"/>
+    </g>
+    <circle cx="98" cy="162" r="4" fill="#64748b"/>
+    <circle cx="112" cy="150" r="10" fill="#f59e0b"/><path d="M106,142 q6,-10 12,0" stroke="#f59e0b" stroke-width="3" fill="none"/>
+  </g>
+  <!-- Frame 3: torso casi paralelo -->
+  <g class="f3">
+    <circle cx="152" cy="86" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="78,124 140,100"/>
+      <polyline points="140,102 136,130 128,158"/>
+      <polyline points="78,124 96,164 92,206"/>
+    </g>
+    <circle cx="96" cy="164" r="4" fill="#64748b"/>
+    <circle cx="127" cy="170" r="10" fill="#f59e0b"/><path d="M121,162 q6,-10 12,0" stroke="#f59e0b" stroke-width="3" fill="none"/>
+  </g>
+  <!-- Frame 4: abajo, kettlebell a media tibia -->
+  <g class="f4">
+    <circle cx="156" cy="100" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="76,126 142,112"/>
+      <polyline points="142,114 138,146 126,176"/>
+      <polyline points="76,126 96,166 92,206"/>
+    </g>
+    <circle cx="96" cy="166" r="4" fill="#64748b"/>
+    <circle cx="125" cy="188" r="10" fill="#f59e0b"/><path d="M119,180 q6,-10 12,0" stroke="#f59e0b" stroke-width="3" fill="none"/>
+  </g>
+  <!-- Frame 5: extension de cadera, sube -->
+  <g class="f5">
+    <circle cx="122" cy="52" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="84,120 114,70"/>
+      <polyline points="114,72 116,104 112,138"/>
+      <polyline points="84,120 98,162 92,206"/>
+    </g>
+    <circle cx="98" cy="162" r="4" fill="#64748b"/>
+    <circle cx="112" cy="150" r="10" fill="#f59e0b"/><path d="M106,142 q6,-10 12,0" stroke="#f59e0b" stroke-width="3" fill="none"/>
+  </g>
+  <!-- Frame 6: casi de pie -->
+  <g class="f6">
+    <circle cx="94" cy="40" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="90,117 93,62"/>
+      <polyline points="93,64 100,94 104,124"/>
+      <polyline points="90,117 100,161 92,206"/>
+    </g>
+    <circle cx="100" cy="161" r="4" fill="#64748b"/>
+    <circle cx="104" cy="136" r="10" fill="#f59e0b"/><path d="M98,128 q6,-10 12,0" stroke="#f59e0b" stroke-width="3" fill="none"/>
+  </g>
+</svg>
