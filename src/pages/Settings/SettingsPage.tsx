@@ -25,9 +25,11 @@ import {
   LayoutList,
   ClipboardList,
   MonitorPlay,
+  Cloud,
 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { BackupSection } from '../../components/export/BackupSection';
+import { ContentSyncSection } from '../../components/export/ContentSyncSection';
 import { ClassShareSection } from '../../components/export/ClassShareSection';
 import { TimerEstimationSection } from '../../components/export/TimerEstimationSection';
 import { ExerciseMigrationSection } from '../../components/export/ExerciseMigrationSection';
@@ -105,6 +107,7 @@ export function SettingsPage() {
   const [profileOpen, setProfileOpen] = useState(true);
   const [catalogsOpen, setCatalogsOpen] = useState(false);
   const [listingsOpen, setListingsOpen] = useState(false);
+  const [contentOpen, setContentOpen] = useState(true);
   const [dataMgmtOpen, setDataMgmtOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(true);
 
@@ -295,6 +298,16 @@ export function SettingsPage() {
                 </div>
                 <ChevronRight size={16} className="text-gray-600" />
               </button>
+            </div>
+          )}
+        </div>
+
+        {/* ── Contenido online ── */}
+        <div>
+          <SectionHeader icon={Cloud} title="Contenido online" expanded={contentOpen} onToggle={() => setContentOpen(!contentOpen)} />
+          {contentOpen && (
+            <div className="mt-2">
+              <ContentSyncSection />
             </div>
           )}
         </div>

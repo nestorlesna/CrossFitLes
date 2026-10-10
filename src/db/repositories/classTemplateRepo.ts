@@ -268,6 +268,8 @@ export async function update(
     video_duration_seconds: template.video_duration_seconds ?? null,
     is_favorite: template.is_favorite,
     template_type: (template as any).template_type,
+    // La sincronización de contenido no vuelve a pisar una clase editada por el usuario
+    user_modified: 1,
     updated_at: timestamp,
   };
 
