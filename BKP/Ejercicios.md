@@ -13,23 +13,6 @@
 ### COMO USAR
 
 
-
-### TEMPLATE
-Clase GOAT XX/XX/2026
-video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta
-
-Calentamiento
-- 6 minutos de calentamiento
-
-Movilidad - 2 rondas todo 30 segundos
-
-Activacion
-Fuerza
-WOD
-Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
-### TEMPLATE
-
-
 ### TEMPLATE
 Clase GOAT XX/XX/2026
 video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta
