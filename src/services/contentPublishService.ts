@@ -5,6 +5,7 @@
 // Si el middleware no está disponible, descarga los dos archivos.
 
 import { getDatabase, saveDatabase } from '../db/database';
+import { BUILTIN_CHALLENGES } from '../data/challenges';
 import {
   CATALOG_TABLES,
   CONTENT_APP,
@@ -256,6 +257,9 @@ export async function buildContent(): Promise<Omit<ContentFile, 'contentVersion'
     exercises: remoteExercises,
     classes: remoteClasses,
     plans: remotePlans,
+    // El catálogo del código es la fuente: un challenge nuevo en src/data/challenges.ts
+    // llega a todos al publicar, sin sacar APK
+    challenges: BUILTIN_CHALLENGES,
   };
 }
 
@@ -292,7 +296,12 @@ function downloadJson(fileName: string, json: string): void {
 export async function publishContent(force = false): Promise<PublishResult> {
   const base = await buildContent();
   const contentHash = hashOf(base);
-  const counts = { exercises: base.exercises.length, classes: base.classes.length, plans: base.plans.length };
+  const counts = {
+    exercises: base.exercises.length,
+    classes: base.classes.length,
+    plans: base.plans.length,
+    challenges: base.challenges?.length ?? 0,
+  };
 
   const previous = await readPreviousManifest();
   const prevVersion = previous.manifest?.contentVersion ?? 0;
@@ -313,6 +322,7 @@ export async function publishContent(force = false): Promise<PublishResult> {
     exercises: base.exercises,
     classes: base.classes,
     plans: base.plans,
+    challenges: base.challenges,
   };
   const contentJson = JSON.stringify(content, null, 2);
 

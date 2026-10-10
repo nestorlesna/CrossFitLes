@@ -1,4 +1,6 @@
-// Catálogo fijo de challenges de calistenia (sin equipamiento).
+// Catálogo de challenges de calistenia (sin equipamiento).
+// BUILTIN_CHALLENGES viene con el APK; "Actualizar contenido" puede sumar o reemplazar
+// definiciones (por code) sin sacar una versión nueva: ver setRemoteChallenges().
 // Los challenges de meta sólo guardan la meta y los rangos del test: las series
 // las calcula challengeEngine con la curva de progresión. Los diarios traen su
 // tabla de 30 días completa.
@@ -201,7 +203,7 @@ const ABS_DAYS: ChallengeDailyDay[] = [
 
 // ── Catálogo ──
 
-export const CHALLENGES: ChallengeDefinition[] = [
+export const BUILTIN_CHALLENGES: ChallengeDefinition[] = [
   {
     code: 'pushups-100',
     name: '100 flexiones',
@@ -322,8 +324,36 @@ export const CHALLENGES: ChallengeDefinition[] = [
   },
 ];
 
+// ── Catálogo remoto (bajado del contenido publicado) ──
+
+const SUPPORTED_KINDS: ChallengeDefinition['kind'][] = ['meta_reps', 'daily'];
+
+let remoteChallenges: ChallengeDefinition[] = [];
+
+// Descarta definiciones que esta versión de la app no sabe ejecutar
+export function isSupportedChallenge(def: unknown): def is ChallengeDefinition {
+  const d = def as ChallengeDefinition;
+  if (!d || typeof d.code !== 'string' || typeof d.name !== 'string') return false;
+  if (!SUPPORTED_KINDS.includes(d.kind) || !Array.isArray(d.exercise?.names)) return false;
+  if (d.kind === 'meta_reps') return typeof d.goal === 'number' && !!d.testRanges;
+  return Array.isArray(d.days) && d.days.length > 0;
+}
+
+export function setRemoteChallenges(defs: unknown[]): void {
+  remoteChallenges = defs.filter(isSupportedChallenge);
+}
+
+// Catálogo completo: los del APK en su orden (reemplazados si llegó una versión remota)
+// y después los remotos nuevos
+export function getChallenges(): ChallengeDefinition[] {
+  const remoteByCode = new Map(remoteChallenges.map((c) => [c.code, c]));
+  const merged = BUILTIN_CHALLENGES.map((c) => remoteByCode.get(c.code) ?? c);
+  const builtinCodes = new Set(BUILTIN_CHALLENGES.map((c) => c.code));
+  return [...merged, ...remoteChallenges.filter((c) => !builtinCodes.has(c.code))];
+}
+
 export function getChallenge(code: string | undefined): ChallengeDefinition | undefined {
-  return CHALLENGES.find((c) => c.code === code);
+  return getChallenges().find((c) => c.code === code);
 }
 
 export const CHALLENGE_SAFETY_TEXT =

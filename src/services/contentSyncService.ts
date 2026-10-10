@@ -16,6 +16,8 @@ import { getDatabase, saveDatabase } from '../db/database';
 import { getSetting, setSettingStmt } from '../db/repositories/appSettingRepo';
 import { generateUUID } from '../utils/formatters';
 import { addDaysISO, daysBetweenISO, todayISO } from './challengeEngine';
+import { CHALLENGE_CATALOG_SETTING, loadRemoteChallenges } from './challengeCatalogService';
+import { isSupportedChallenge } from '../data/challenges';
 import {
   CATALOG_TABLES,
   CONTENT_APP,
@@ -25,6 +27,7 @@ import {
   MANIFEST_PATH,
   ContentFile,
   ContentManifest,
+  hashOf,
   RemoteExercise,
   RemotePlan,
   RemoteSection,
@@ -56,6 +59,8 @@ export interface SyncSummary {
   plansAdded: number;
   plansUpdated: number;
   plansSkipped: number;
+  challengesAdded: number;
+  challengesUpdated: number;
 }
 
 export async function getContentStatus(): Promise<ContentStatus> {
@@ -145,6 +150,8 @@ export async function syncContent(force = false): Promise<SyncSummary> {
     plansAdded: 0,
     plansUpdated: 0,
     plansSkipped: 0,
+    challengesAdded: 0,
+    challengesUpdated: 0,
   };
   if (!force && manifest.contentVersion <= status.localVersion) {
     return { ...summary, upToDate: true };
@@ -517,13 +524,29 @@ export async function syncContent(force = false): Promise<SyncSummary> {
     summary.plansAdded++;
   }
 
-  // ── 5. Escritura atómica ──────────────────────────────────────────────────
+  // ── 5. Challenges: se reemplaza el catálogo remoto completo ─────────────────
+  // Sólo definiciones; el progreso de cada challenge (training_plan + challenge_test) no se toca.
+  if (content.challenges) {
+    const previousRaw = await getSetting(CHALLENGE_CATALOG_SETTING);
+    const previous = new Map(
+      ((previousRaw ? JSON.parse(previousRaw) : []) as { code: string }[]).map((c) => [c.code, hashOf(c)])
+    );
+    const defs = content.challenges.filter(isSupportedChallenge);
+    for (const def of defs) {
+      if (!previous.has(def.code)) summary.challengesAdded++;
+      else if (previous.get(def.code) !== hashOf(def)) summary.challengesUpdated++;
+    }
+    stmts.push(setSettingStmt(CHALLENGE_CATALOG_SETTING, JSON.stringify(defs)));
+  }
+
+  // ── 6. Escritura atómica ──────────────────────────────────────────────────
   stmts.push(setSettingStmt(SETTING_VERSION, String(manifest.contentVersion)));
   stmts.push(setSettingStmt(SETTING_LAST_SYNC, ts));
 
   const db = getDatabase();
   await db.executeSet(stmts, true);
   await saveDatabase();
+  await loadRemoteChallenges();
 
   // En Android las imágenes se leen primero del filesystem: copiarlas ahí también
   if (Capacitor.getPlatform() !== 'web' && imagesToWrite.length > 0) {

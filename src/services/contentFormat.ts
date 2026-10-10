@@ -8,6 +8,8 @@
 // Las referencias entre entidades van por "key" (global_key del publicador), nunca por el
 // id local: cada dispositivo genera sus propios ids al importar.
 
+import type { ChallengeDefinition } from '../models/Challenge';
+
 const CONTENT_OWNER = 'nestorlesna';
 const CONTENT_REPO = 'CrossFitLes-content';
 const CONTENT_BRANCH = 'main';
@@ -43,6 +45,7 @@ export interface ContentCounts {
   exercises: number;
   classes: number;
   plans: number;
+  challenges?: number;
 }
 
 export interface ContentManifest {
@@ -109,6 +112,8 @@ export interface ContentFile {
   exercises: RemoteExercise[];
   classes: RemoteClass[];
   plans: RemotePlan[];
+  // Opcional: contenidos viejos no lo traen. Definiciones completas, con ejercicios por nombre.
+  challenges?: ChallengeDefinition[];
 }
 
 // Columnas propias de cada dispositivo: nunca viajan en el contenido

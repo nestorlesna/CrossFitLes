@@ -41,6 +41,7 @@ Está pensado para publicar todas las veces que quieras:
 | Ejercicios (+SVG, relaciones) | Se agrega | Se actualiza | No se toca | Se adopta y actualiza |
 | Clases | Se agrega | Se actualiza si **no tiene sesiones** | No se toca | Se vincula y queda como propia (no se pisa) |
 | Planes | Se agrega en **borrador**, con fechas corridas a hoy | Se actualiza si sigue en borrador y sin días hechos | No se toca | Se vincula y queda como propio |
+| Challenges (definiciones) | Aparece en el catálogo | Se reemplaza la definición | — | El remoto reemplaza al del APK con el mismo `code` |
 | Sesiones, resultados, récords, challenges en curso, perfil | **Nunca se tocan** | | | |
 
 "Editado por el usuario" = `user_modified = 1`, se marca al guardar desde la app (ejercicio, clase,
@@ -76,13 +77,13 @@ plan o sus días). Desactivar una clase también la protege.
 - [x] 👤 Repo `nestorlesna/CrossFitLes-content` creado (público).
 - [x] 💻 Clonado en `C:\DATOS\DESARROLLOS\React\CrossFitLes-content` (carpeta hermana; se puede
       cambiar con `CONTENT_REPO_DIR` en `.env`). README agregado.
-- [x] 💻 Primera publicación generada: **versión 1** — 126 clases, 328 ejercicios (todos con SVG),
-      0 planes, ~3,8 MB.
+- [x] 💻 Publicación generada: **versión 2** — 126 clases, 328 ejercicios (todos con SVG),
+      0 planes, 9 challenges, ~3,9 MB. (La v1 no llegó a subirse: se sube directo la v2.)
 - [ ] 👤 Primer push:
   ```
   cd C:\DATOS\DESARROLLOS\React\CrossFitLes-content
   git add -A
-  git commit -m "contenido v1"
+  git commit -m "contenido v2"
   git push -u origin main
   ```
 - La app lee de `https://raw.githubusercontent.com/nestorlesna/CrossFitLes-content/main/`
@@ -115,10 +116,12 @@ plan o sus días). Desactivar una clase también la protege.
 - [x] 💻 Compatibilidad: `manifest.format`; si es mayor al que entiende la app → "Actualizá la app".
 - [x] 💻 UI: Configuración → "Contenido online" (`src/components/export/ContentSyncSection.tsx`)
       con versión local, fecha y resumen (nuevos / actualizados / no tocados).
-- [ ] 💻 **Challenges (pendiente)**: hoy su catálogo está en el código (`src/data/challenges.ts`) y
-      llega con el APK; el progreso de cada uno es personal y no viaja. Para agregar challenges
-      nuevos sin APK: tabla `challenge_definition` + incluirlos en `content.json` y que
-      `getChallenge()` combine código + remotos.
+- [x] 💻 **Challenges**: `content.json` lleva las definiciones de `BUILTIN_CHALLENGES`
+      (`src/data/challenges.ts`). El dispositivo las guarda en `app_setting.challenge_catalog` y
+      `getChallenges()` / `getChallenge()` combinan las del APK con las remotas (por `code`). Las
+      de un tipo que la app no sabe ejecutar se descartan. El progreso de cada challenge no viaja.
+      **Para sumar un challenge nuevo**: agregarlo en `src/data/challenges.ts`, `npm run dev` →
+      Publicar contenido → push. Llega a todos sin sacar APK (si es `meta_reps` o `daily`).
 
 ## Fase 7 — Extras (después)
 
@@ -136,6 +139,9 @@ Hechas (2026-10-10) en la PC con el clon local (`VITE_CONTENT_BASE_URL=/__conten
 - [x] Base distinta (`127.0.0.1:5173`, otro origen = otra base): quedan 328 ejercicios sin
       duplicados, todos con SVG visible, 126 clases, 414 secciones y 1582 ejercicios de sección
       (idéntico al publicado), 0 referencias rotas. Segunda vez → "Ya tenés el contenido al día".
+- [x] Publicación v2 (con 9 challenges): en la otra base sólo llegaron "9 challenges nuevos";
+      ejercicios y clases sin cambios (los hashes coinciden) → la actualización es incremental.
+- [x] Un challenge que existe sólo en el remoto aparece en el catálogo y su detalle funciona.
 - [x] `tsc` y `npm run lint` sin errores.
 
 Pendientes:

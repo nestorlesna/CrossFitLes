@@ -22,6 +22,8 @@ function summaryLines(s: SyncSummary): string[] {
   add(s.exercisesUpdated, s.exercisesUpdated === 1 ? 'ejercicio actualizado' : 'ejercicios actualizados');
   add(s.plansAdded, s.plansAdded === 1 ? 'plan nuevo (en borrador)' : 'planes nuevos (en borrador)');
   add(s.plansUpdated, s.plansUpdated === 1 ? 'plan actualizado' : 'planes actualizados');
+  add(s.challengesAdded, s.challengesAdded === 1 ? 'challenge nuevo' : 'challenges nuevos');
+  add(s.challengesUpdated, s.challengesUpdated === 1 ? 'challenge actualizado' : 'challenges actualizados');
   add(s.catalogsAdded, s.catalogsAdded === 1 ? 'dato de catálogo nuevo' : 'datos de catálogo nuevos');
   const skipped = s.exercisesSkipped + s.classesSkipped + s.plansSkipped;
   if (skipped > 0) lines.push(`${skipped} sin cambiar porque los editaste o ya los usaste`);
@@ -146,7 +148,8 @@ export function ContentSyncSection() {
         <div className="bg-gray-950 border border-gray-800 rounded-xl p-3 mt-3 space-y-0.5">
           <p className="text-xs text-gray-300">
             Versión {published.contentVersion} · {published.counts.classes} clases ·{' '}
-            {published.counts.exercises} ejercicios · {published.counts.plans} planes · {published.sizeKb} KB
+            {published.counts.exercises} ejercicios · {published.counts.plans} planes ·{' '}
+            {published.counts.challenges ?? 0} challenges · {published.sizeKb} KB
           </p>
           {published.repoDir && (
             <p className="text-[11px] text-gray-500 break-all">

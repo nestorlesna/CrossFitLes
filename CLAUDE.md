@@ -69,7 +69,7 @@ Cada entidad principal tiene su propio repo:
   Los tests (inicial = semana 0, retests de semanas 2/4/5) van en `challenge_test`. `trainingPlanRepo`
   filtra `plan_kind = 'plan'` para que Planes, calendario e Inicio no vean los challenges, y varios
   challenges pueden estar activos a la vez sin archivar el plan activo.
-  - Catálogo fijo en `src/data/challenges.ts` (9 challenges; ejercicios resueltos por nombre con alias,
+  - Catálogo en `src/data/challenges.ts` (9 challenges en `BUILTIN_CHALLENGES` + remotos; ejercicios resueltos por nombre con alias,
     se crean si faltan). Motor de progresión puro en `src/services/challengeEngine.ts`
     (curva de 18 sesiones, redondeo a par: reproduce las tablas de `BKP/Challenges de calistenia…md`).
   - `getVolumeSeries()` alimenta el gráfico de progreso (`ChallengeProgressChart.tsx`, carga diferida
@@ -86,6 +86,9 @@ Cada entidad principal tiene su propio repo:
   Configuración; inserta lo nuevo, actualiza por `remote_hash` y nunca pisa `user_modified = 1`.
 - Columnas de sync (v018) en `exercise`, `class_template`, `training_plan`: `global_key`, `origin`,
   `remote_hash`, `user_modified`. Al agregar un `update()` de usuario en esos repos, marcar `user_modified = 1`.
+- Challenges: `BUILTIN_CHALLENGES` se publica en `content.json`; los remotos se guardan en
+  `app_setting.challenge_catalog` y se cargan al iniciar (`challengeCatalogService`). Usar siempre
+  `getChallenges()` / `getChallenge()`, nunca el array directo.
 - Plan y checklist: `PLAN_SINCRONIZACION.md`.
 
 ### Modelos clave
