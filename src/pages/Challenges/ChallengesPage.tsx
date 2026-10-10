@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
 import { PlansTabs } from '../../components/plans/PlansTabs';
 import { TrainingPlan } from '../../models/TrainingPlan';
-import { CHALLENGES, getChallenge } from '../../data/challenges';
+import { getChallenges, getChallenge } from '../../data/challenges';
 import { LEVEL_LABEL } from '../../services/challengeEngine';
 import { ChallengeLevel } from '../../models/Challenge';
 import * as challengeRepo from '../../db/repositories/challengeRepo';
@@ -94,7 +94,7 @@ export function ChallengesPage() {
         <section className="space-y-3">
           <h2 className="text-xs font-bold text-gray-500 uppercase tracking-widest px-1">Catálogo</h2>
           <div className="grid grid-cols-1 gap-3">
-            {CHALLENGES.map((def) => (
+            {getChallenges().map((def) => (
               <button
                 key={def.code}
                 onClick={() => navigate(`/challenges/${def.code}`)}

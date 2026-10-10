@@ -1,10 +1,17 @@
 # Uso: .\scripts\release.ps1 1.0.8
+#      .\scripts\release.ps1 1.0.8 -SkipContent   (no sube el repo de contenido)
+#      .\scripts\release.ps1 -ContentOnly          (sólo sube el contenido, sin release de la app)
 param(
-    [Parameter(Mandatory=$true)]
     [string]$Version,
 
     # Rama principal a la que se hace merge del release.
-    [string]$MainBranch = "master"
+    [string]$MainBranch = "master",
+
+    # Clon local del repo público de contenido (ver PLAN_SINCRONIZACION.md).
+    [string]$ContentRepoDir = (Join-Path $PSScriptRoot "..\..\CrossFitLes-content"),
+
+    [switch]$SkipContent,
+    [switch]$ContentOnly
 )
 
 $ErrorActionPreference = "Stop"
@@ -13,6 +20,45 @@ $ErrorActionPreference = "Stop"
 # (ver el merge más abajo). Sin esto, un conflicto abortaría el script antes de
 # poder ejecutar `git merge --abort`.
 $PSNativeCommandUseErrorActionPreference = $false
+
+# ── Contenido online ───────────────────────────────────────────────────────────
+# Sube lo que generó "Publicar contenido" (Configuración, en npm run dev) al repo
+# público CrossFitLes-content. No genera el contenido: eso lo hace la app.
+# No es fatal: si falla, el release de la app ya quedó hecho.
+function Push-Content {
+    if (-not (Test-Path (Join-Path $ContentRepoDir ".git"))) {
+        Write-Host "`nNo se encontró el repo de contenido en '$ContentRepoDir'. Se omite." -ForegroundColor Yellow
+        return
+    }
+    $Changes = git -C $ContentRepoDir status --porcelain
+    if (-not $Changes) {
+        Write-Host "`nContenido: sin cambios para subir (¿hiciste 'Publicar contenido' en la app?)."
+        return
+    }
+    $ManifestPath   = Join-Path $ContentRepoDir "manifest.json"
+    $ContentVersion = "?"
+    if (Test-Path $ManifestPath) {
+        $ContentVersion = (Get-Content $ManifestPath -Raw | ConvertFrom-Json).contentVersion
+    }
+    Write-Host "`nSubiendo contenido v$ContentVersion a CrossFitLes-content..."
+    git -C $ContentRepoDir add -A
+    git -C $ContentRepoDir commit -m "contenido v$ContentVersion"
+    git -C $ContentRepoDir push origin HEAD
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "⚠️  No se pudo subir el contenido. Hacelo a mano en '$ContentRepoDir'." -ForegroundColor Yellow
+    } else {
+        Write-Host "Contenido v$ContentVersion publicado." -ForegroundColor Green
+    }
+}
+
+if ($ContentOnly) {
+    Push-Content
+    exit 0
+}
+if (-not $Version) {
+    Write-Host "Falta la versión. Uso: .\scripts\release.ps1 X.Y.Z  (o -ContentOnly)" -ForegroundColor Red
+    exit 1
+}
 
 # Rama actual de trabajo (típicamente "develop"). El commit y el tag del
 # release se crean aquí y luego se fusionan a $MainBranch.
@@ -107,6 +153,11 @@ git checkout $CurrentBranch
 # al final, una vez que ambas ramas ya están actualizadas en el remoto.
 Write-Host "`nPush del tag 'v$Version'..."
 git push origin "v$Version"
+
+# ── 6. Contenido online ──────────────────────────────────────────────────────────
+if (-not $SkipContent) {
+    Push-Content
+}
 
 Write-Host "`nRelease v$Version completado: fusionado a '$MainBranch' y de vuelta en '$CurrentBranch'." -ForegroundColor Green
 Write-Host "Ver progreso del build en GitHub Actions."

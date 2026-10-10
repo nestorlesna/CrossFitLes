@@ -252,8 +252,9 @@ export async function update(
     }
   }
 
-  // Calcular el UPDATE del ejercicio principal
-  const fields = { ...exercise, updated_at: timestamp };
+  // Calcular el UPDATE del ejercicio principal.
+  // user_modified = 1: la sincronización de contenido no vuelve a pisar este ejercicio.
+  const fields = { ...exercise, user_modified: 1, updated_at: timestamp };
   delete fields.difficulty_name;
   delete fields.difficulty_color;
   delete fields.primary_muscle_name;
