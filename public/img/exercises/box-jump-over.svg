@@ -1,9 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
   <style>
-    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
-    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
-    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
-    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 9.1s linear infinite}.f2{animation:sh2 9.1s linear infinite}.f3{animation:sh3 9.1s linear infinite}.f4{animation:sh4 9.1s linear infinite}.f5{animation:sh5 9.1s linear infinite}.f6{animation:sh6 9.1s linear infinite}.f7{animation:sh7 9.1s linear infinite}
+    @keyframes sh1{0%,11.4%{opacity:1}14.3%,97.1%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,14.3%{opacity:0}17.1%,25.7%{opacity:1}28.6%,100%{opacity:0}}
+    @keyframes sh3{0%,28.6%{opacity:0}31.4%,40%{opacity:1}42.9%,100%{opacity:0}}
+    @keyframes sh4{0%,42.9%{opacity:0}45.7%,54.3%{opacity:1}57.1%,100%{opacity:0}}
+    @keyframes sh5{0%,57.1%{opacity:0}60%,68.6%{opacity:1}71.4%,100%{opacity:0}}
+    @keyframes sh6{0%,71.4%{opacity:0}74.3%,82.9%{opacity:1}85.7%,100%{opacity:0}}
+    @keyframes sh7{0%,85.7%{opacity:0}88.6%,97.1%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="200" height="230" fill="#111827" rx="12"/>
   <!-- Caja centrada (siempre visible) -->
@@ -13,42 +17,100 @@
   <text x="100" y="226" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="2">BOX JUMP OVER</text>
   <!-- Frame 1: De pie a la izquierda de la caja -->
   <g class="f1">
-    <circle cx="46" cy="38" r="13" fill="#94a3b8"/>
+    <circle cx="44" cy="38" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="46" y1="51" x2="46" y2="114"/>
-      <line x1="28" y1="64" x2="64" y2="64"/>
-      <line x1="28" y1="64" x2="24" y2="108"/><line x1="64" y1="64" x2="68" y2="108"/>
-      <line x1="41" y1="114" x2="40" y2="165"/><line x1="40" y1="165" x2="40" y2="205"/>
-      <line x1="51" y1="114" x2="52" y2="165"/><line x1="52" y1="165" x2="52" y2="205"/>
-      <line x1="26" y1="205" x2="56" y2="205"/><line x1="38" y1="205" x2="66" y2="205"/>
+      <line x1="44" y1="50" x2="44" y2="114"/>
+      <line x1="26" y1="64" x2="62" y2="64"/>
+      <line x1="26" y1="64" x2="18" y2="108"/>
+      <polyline points="38,114 38,162 36,205"/>
+      <line x1="62" y1="64" x2="70" y2="108"/>
+      <polyline points="50,114 50,162 52,205"/>
     </g>
+    <circle cx="38" cy="162" r="5" fill="#64748b"/>
+    <circle cx="50" cy="162" r="5" fill="#64748b"/>
   </g>
-  <!-- Frame 2: En el aire por encima de la caja -->
+  <!-- Frame 2: Flexion, brazos atras -->
   <g class="f2">
-    <circle cx="100" cy="22" r="13" fill="#94a3b8"/>
+    <circle cx="46" cy="66" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="100" y1="35" x2="100" y2="96"/>
-      <line x1="78" y1="48" x2="122" y2="48"/>
-      <!-- Brazos arriba en el salto -->
-      <line x1="78" y1="48" x2="62" y2="24"/><line x1="122" y1="48" x2="138" y2="24"/>
-      <!-- Piernas dobladas en el aire -->
-      <line x1="95" y1="96" x2="80" y2="138"/><line x1="80" y1="138" x2="68" y2="162"/>
-      <line x1="105" y1="96" x2="120" y2="138"/><line x1="120" y1="138" x2="132" y2="162"/>
+      <line x1="46" y1="78" x2="46" y2="136"/>
+      <line x1="28" y1="92" x2="64" y2="92"/>
+      <line x1="28" y1="92" x2="16" y2="132"/>
+      <polyline points="40,136 30,172 28,205"/>
+      <line x1="64" y1="92" x2="76" y2="132"/>
+      <polyline points="52,136 62,172 64,205"/>
     </g>
-    <circle cx="80" cy="138" r="5" fill="#64748b"/><circle cx="120" cy="138" r="5" fill="#64748b"/>
+    <circle cx="30" cy="172" r="5" fill="#64748b"/>
+    <circle cx="62" cy="172" r="5" fill="#64748b"/>
   </g>
-  <!-- Frame 3: Aterrizando a la derecha de la caja -->
+  <!-- Frame 3: Despegue con extension -->
   <g class="f3">
-    <circle cx="154" cy="52" r="13" fill="#94a3b8"/>
+    <circle cx="62" cy="32" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="154" y1="65" x2="154" y2="122"/>
-      <line x1="136" y1="78" x2="172" y2="78"/>
-      <line x1="136" y1="78" x2="130" y2="116"/><line x1="172" y1="78" x2="178" y2="116"/>
-      <!-- Rodillas dobladas al aterrizar -->
-      <line x1="149" y1="122" x2="140" y2="168"/><line x1="140" y1="168" x2="142" y2="205"/>
-      <line x1="159" y1="122" x2="168" y2="168"/><line x1="168" y1="168" x2="166" y2="205"/>
-      <line x1="128" y1="205" x2="156" y2="205"/><line x1="154" y1="205" x2="180" y2="205"/>
+      <line x1="62" y1="44" x2="62" y2="108"/>
+      <line x1="44" y1="58" x2="80" y2="58"/>
+      <line x1="44" y1="58" x2="32" y2="28"/>
+      <polyline points="56,108 56,152 54,194"/>
+      <line x1="80" y1="58" x2="92" y2="28"/>
+      <polyline points="68,108 68,152 70,194"/>
     </g>
-    <circle cx="140" cy="168" r="5" fill="#64748b"/><circle cx="168" cy="168" r="5" fill="#64748b"/>
+    <circle cx="56" cy="152" r="5" fill="#64748b"/>
+    <circle cx="68" cy="152" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 4: En el aire sobre la caja -->
+  <g class="f4">
+    <circle cx="100" cy="24" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="36" x2="100" y2="94"/>
+      <line x1="82" y1="50" x2="118" y2="50"/>
+      <line x1="82" y1="50" x2="66" y2="26"/>
+      <polyline points="94,94 78,126 74,150"/>
+      <line x1="118" y1="50" x2="134" y2="26"/>
+      <polyline points="106,94 122,126 126,150"/>
+    </g>
+    <circle cx="78" cy="126" r="5" fill="#64748b"/>
+    <circle cx="122" cy="126" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 5: Descendiendo -->
+  <g class="f5">
+    <circle cx="136" cy="50" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="136" y1="62" x2="136" y2="122"/>
+      <line x1="118" y1="76" x2="154" y2="76"/>
+      <line x1="118" y1="76" x2="100" y2="104"/>
+      <polyline points="130,122 118,152 116,178"/>
+      <line x1="154" y1="76" x2="172" y2="104"/>
+      <polyline points="142,122 154,152 156,178"/>
+    </g>
+    <circle cx="118" cy="152" r="5" fill="#64748b"/>
+    <circle cx="154" cy="152" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 6: Aterrizaje amortiguando -->
+  <g class="f6">
+    <circle cx="156" cy="72" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="156" y1="84" x2="156" y2="138"/>
+      <line x1="138" y1="98" x2="174" y2="98"/>
+      <line x1="138" y1="98" x2="120" y2="122"/>
+      <polyline points="150,138 130,172 128,205"/>
+      <line x1="174" y1="98" x2="192" y2="122"/>
+      <polyline points="162,138 182,172 184,205"/>
+    </g>
+    <circle cx="130" cy="172" r="5" fill="#64748b"/>
+    <circle cx="182" cy="172" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 7: De pie a la derecha de la caja -->
+  <g class="f7">
+    <circle cx="156" cy="38" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="156" y1="50" x2="156" y2="114"/>
+      <line x1="138" y1="64" x2="174" y2="64"/>
+      <line x1="138" y1="64" x2="130" y2="108"/>
+      <polyline points="150,114 150,162 148,205"/>
+      <line x1="174" y1="64" x2="182" y2="108"/>
+      <polyline points="162,114 162,162 164,205"/>
+    </g>
+    <circle cx="150" cy="162" r="5" fill="#64748b"/>
+    <circle cx="162" cy="162" r="5" fill="#64748b"/>
   </g>
 </svg>
