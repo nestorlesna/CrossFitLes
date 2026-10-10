@@ -243,6 +243,19 @@ seguir generando duplicados:
   **Configuración → Gestión de datos → Migrar / fusionar ejercicios**, que reasigna clases, sesiones
   y récords al ejercicio destino y borra el origen.
 
+#### 4a-bis. Nombres del profesor y aliases (desde 2026-10-10)
+
+El nombre del ejercicio en la BD **sigue lo que escribe el profesor** en la pantalla (expandiendo
+abreviaturas: `KB RDL` → `Kettlebell Romanian Deadlift`, `Banded Lat Pulldown` se mantiene), siempre
+que no exista ya el movimiento con otro nombre. Cuando el movimiento ya existe con otro nombre
+(ej. `KB Kang Squat` = `Kettlebell Good Morning to Squat`), se **reutiliza el existente** y se deja
+el nombre del profesor como alias:
+
+- En el ejercicio: línea `También lo nombran: <alias>.` al final de `technical_notes`. Como mandar
+  `technical_notes` **pisa** el valor anterior, hay que mandarlas completas (buscar el texto vigente
+  en los ZIP anteriores de `BKP/` o en git antes de reescribirlas).
+- En la clase: el nombre del profesor tal cual va en `coach_notes` del `section_exercise`.
+
 #### 4b. SVG existentes al 2026-08-22 (308 archivos, sin la extensión `.svg`)
 
 - **A** — ab-wheel-kneeling-rollout, ab-wheel-standing-rollout, air-squat, alternating-90-90-into-shin-box, alternating-double-clubbell-front-flag-press, alternating-heel-touches, alternating-kettlebell-row, alternating-single-arm-dumbbell-power-snatch, alternating-spiderman-stretch, american-kettlebell-swing, ankle-mobility-rock, arm-circles, assault-bike

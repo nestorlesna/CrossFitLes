@@ -1,64 +1,122 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 230">
   <style>
-    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
-    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
-    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
-    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 7.8s linear infinite}.f2{animation:sh2 7.8s linear infinite}.f3{animation:sh3 7.8s linear infinite}.f4{animation:sh4 7.8s linear infinite}.f5{animation:sh5 7.8s linear infinite}.f6{animation:sh6 7.8s linear infinite}
+    @keyframes sh1{0%,13.3%{opacity:1}16.7%,96.7%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,16.7%{opacity:0}20%,30%{opacity:1}33.3%,100%{opacity:0}}
+    @keyframes sh3{0%,33.3%{opacity:0}36.7%,46.7%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh4{0%,50%{opacity:0}53.3%,63.3%{opacity:1}66.7%,100%{opacity:0}}
+    @keyframes sh5{0%,66.7%{opacity:0}70%,80%{opacity:1}83.3%,100%{opacity:0}}
+    @keyframes sh6{0%,83.3%{opacity:0}86.7%,96.7%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="220" height="230" fill="#111827" rx="12"/>
   <line x1="20" y1="210" x2="200" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
   <text x="110" y="225" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" fill="#475569" letter-spacing="2">FRONT SQUAT</text>
-  <!-- Frame 1: Standing, bar in front rack -->
+  <!-- Frame 1: De pie con la barra en rack -->
   <g class="f1">
-    <line x1="42" y1="96" x2="178" y2="96" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
-    <rect x="36" y="88" width="8" height="16" rx="2" fill="#475569"/>
-    <rect x="176" y="88" width="8" height="16" rx="2" fill="#475569"/>
-    <circle cx="110" cy="44" r="12" fill="#94a3b8"/>
+    <line x1="44" y1="76" x2="176" y2="76" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="36" y="68" width="8" height="16" rx="2" fill="#475569"/><rect x="176" y="68" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="110" cy="48" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="110" y1="56" x2="110" y2="110"/>
-      <line x1="90" y1="68" x2="130" y2="68"/>
-      <!-- Front rack elbows high -->
-      <line x1="90" y1="68" x2="74" y2="96"/>
-      <line x1="130" y1="68" x2="146" y2="96"/>
-      <line x1="104" y1="110" x2="100" y2="160"/><line x1="100" y1="160" x2="96" y2="210"/>
-      <line x1="116" y1="110" x2="120" y2="160"/><line x1="120" y1="160" x2="124" y2="210"/>
+      <line x1="110" y1="60" x2="110" y2="116"/>
+      <line x1="90" y1="72" x2="130" y2="72"/>
+      <polyline points="90,72 72,94 78,76"/>
+      <polyline points="104,116 99,162 96,210"/>
+      <polyline points="130,72 148,94 142,76"/>
+      <polyline points="116,116 121,162 124,210"/>
     </g>
-    <circle cx="100" cy="160" r="5" fill="#64748b"/>
-    <circle cx="120" cy="160" r="5" fill="#64748b"/>
+    <circle cx="99" cy="162" r="5" fill="#64748b"/>
+    <circle cx="72" cy="94" r="4" fill="#64748b"/>
+    <circle cx="121" cy="162" r="5" fill="#64748b"/>
+    <circle cx="148" cy="94" r="4" fill="#64748b"/>
   </g>
-  <!-- Frame 2: Parallel squat -->
+  <!-- Frame 2: Bajando -->
   <g class="f2">
-    <line x1="42" y1="112" x2="178" y2="112" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
-    <rect x="36" y="104" width="8" height="16" rx="2" fill="#475569"/>
-    <rect x="176" y="104" width="8" height="16" rx="2" fill="#475569"/>
-    <circle cx="110" cy="70" r="12" fill="#94a3b8"/>
+    <line x1="44" y1="88" x2="176" y2="88" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="36" y="80" width="8" height="16" rx="2" fill="#475569"/><rect x="176" y="80" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="110" cy="60" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="110" y1="82" x2="110" y2="130"/>
-      <line x1="90" y1="94" x2="130" y2="94"/>
-      <line x1="90" y1="94" x2="74" y2="112"/>
-      <line x1="130" y1="94" x2="146" y2="112"/>
-      <line x1="104" y1="130" x2="84" y2="170"/><line x1="84" y1="170" x2="72" y2="210"/>
-      <line x1="116" y1="130" x2="136" y2="170"/><line x1="136" y1="170" x2="148" y2="210"/>
+      <line x1="110" y1="72" x2="110" y2="128"/>
+      <line x1="90" y1="84" x2="130" y2="84"/>
+      <polyline points="90,84 72,106 78,88"/>
+      <polyline points="104,128 90,168 84,210"/>
+      <polyline points="130,84 148,106 142,88"/>
+      <polyline points="116,128 130,168 136,210"/>
+    </g>
+    <circle cx="90" cy="168" r="5" fill="#64748b"/>
+    <circle cx="72" cy="106" r="4" fill="#64748b"/>
+    <circle cx="130" cy="168" r="5" fill="#64748b"/>
+    <circle cx="148" cy="106" r="4" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: Paralelo -->
+  <g class="f3">
+    <line x1="44" y1="100" x2="176" y2="100" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="36" y="92" width="8" height="16" rx="2" fill="#475569"/><rect x="176" y="92" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="110" cy="72" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="110" y1="84" x2="110" y2="138"/>
+      <line x1="90" y1="96" x2="130" y2="96"/>
+      <polyline points="90,96 72,118 78,100"/>
+      <polyline points="104,138 80,172 74,210"/>
+      <polyline points="130,96 148,118 142,100"/>
+      <polyline points="116,138 140,172 146,210"/>
+    </g>
+    <circle cx="80" cy="172" r="5" fill="#64748b"/>
+    <circle cx="72" cy="118" r="4" fill="#64748b"/>
+    <circle cx="140" cy="172" r="5" fill="#64748b"/>
+    <circle cx="148" cy="118" r="4" fill="#64748b"/>
+  </g>
+  <!-- Frame 4: Fondo de la sentadilla -->
+  <g class="f4">
+    <line x1="44" y1="112" x2="176" y2="112" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="36" y="104" width="8" height="16" rx="2" fill="#475569"/><rect x="176" y="104" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="110" cy="84" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="110" y1="96" x2="110" y2="148"/>
+      <line x1="90" y1="108" x2="130" y2="108"/>
+      <polyline points="90,108 72,130 78,112"/>
+      <polyline points="104,148 72,176 64,210"/>
+      <polyline points="130,108 148,130 142,112"/>
+      <polyline points="116,148 148,176 156,210"/>
+    </g>
+    <circle cx="72" cy="176" r="5" fill="#64748b"/>
+    <circle cx="72" cy="130" r="4" fill="#64748b"/>
+    <circle cx="148" cy="176" r="5" fill="#64748b"/>
+    <circle cx="148" cy="130" r="4" fill="#64748b"/>
+  </g>
+  <!-- Frame 5: Subiendo -->
+  <g class="f5">
+    <line x1="44" y1="94" x2="176" y2="94" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="36" y="86" width="8" height="16" rx="2" fill="#475569"/><rect x="176" y="86" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="110" cy="66" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="110" y1="78" x2="110" y2="132"/>
+      <line x1="90" y1="90" x2="130" y2="90"/>
+      <polyline points="90,90 72,112 78,94"/>
+      <polyline points="104,132 84,170 76,210"/>
+      <polyline points="130,90 148,112 142,94"/>
+      <polyline points="116,132 136,170 144,210"/>
     </g>
     <circle cx="84" cy="170" r="5" fill="#64748b"/>
+    <circle cx="72" cy="112" r="4" fill="#64748b"/>
     <circle cx="136" cy="170" r="5" fill="#64748b"/>
+    <circle cx="148" cy="112" r="4" fill="#64748b"/>
   </g>
-  <!-- Frame 3: Deep squat, torso upright -->
-  <g class="f3">
-    <line x1="42" y1="128" x2="178" y2="128" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
-    <rect x="36" y="120" width="8" height="16" rx="2" fill="#475569"/>
-    <rect x="176" y="120" width="8" height="16" rx="2" fill="#475569"/>
-    <circle cx="110" cy="96" r="12" fill="#94a3b8"/>
+  <!-- Frame 6: Casi arriba -->
+  <g class="f6">
+    <line x1="44" y1="82" x2="176" y2="82" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="36" y="74" width="8" height="16" rx="2" fill="#475569"/><rect x="176" y="74" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="110" cy="54" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="110" y1="108" x2="110" y2="152"/>
-      <line x1="90" y1="118" x2="130" y2="118"/>
-      <line x1="90" y1="118" x2="74" y2="128"/>
-      <line x1="130" y1="118" x2="146" y2="128"/>
-      <!-- Deep squat -->
-      <line x1="104" y1="152" x2="70" y2="184"/><line x1="70" y1="184" x2="58" y2="210"/>
-      <line x1="116" y1="152" x2="150" y2="184"/><line x1="150" y1="184" x2="162" y2="210"/>
+      <line x1="110" y1="66" x2="110" y2="122"/>
+      <line x1="90" y1="78" x2="130" y2="78"/>
+      <polyline points="90,78 72,100 78,82"/>
+      <polyline points="104,122 96,164 92,210"/>
+      <polyline points="130,78 148,100 142,82"/>
+      <polyline points="116,122 124,164 128,210"/>
     </g>
-    <circle cx="70" cy="184" r="5" fill="#64748b"/>
-    <circle cx="150" cy="184" r="5" fill="#64748b"/>
+    <circle cx="96" cy="164" r="5" fill="#64748b"/>
+    <circle cx="72" cy="100" r="4" fill="#64748b"/>
+    <circle cx="124" cy="164" r="5" fill="#64748b"/>
+    <circle cx="148" cy="100" r="4" fill="#64748b"/>
   </g>
 </svg>

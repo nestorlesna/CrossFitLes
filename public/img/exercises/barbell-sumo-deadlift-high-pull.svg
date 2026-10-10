@@ -1,68 +1,131 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 230">
   <style>
-    .f1{animation:sh1 4s linear infinite}.f2{animation:sh2 4s linear infinite}.f3{animation:sh3 4s linear infinite}
-    @keyframes sh1{0%,27%{opacity:1}33%,90%{opacity:0}100%{opacity:1}}
-    @keyframes sh2{0%,33%{opacity:0}40%,60%{opacity:1}66%,100%{opacity:0}}
-    @keyframes sh3{0%,66%{opacity:0}72%,93%{opacity:1}100%{opacity:0}}
+    .f1{animation:sh1 9.1s linear infinite}.f2{animation:sh2 9.1s linear infinite}.f3{animation:sh3 9.1s linear infinite}.f4{animation:sh4 9.1s linear infinite}.f5{animation:sh5 9.1s linear infinite}.f6{animation:sh6 9.1s linear infinite}.f7{animation:sh7 9.1s linear infinite}
+    @keyframes sh1{0%,11.4%{opacity:1}14.3%,97.1%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,14.3%{opacity:0}17.1%,25.7%{opacity:1}28.6%,100%{opacity:0}}
+    @keyframes sh3{0%,28.6%{opacity:0}31.4%,40%{opacity:1}42.9%,100%{opacity:0}}
+    @keyframes sh4{0%,42.9%{opacity:0}45.7%,54.3%{opacity:1}57.1%,100%{opacity:0}}
+    @keyframes sh5{0%,57.1%{opacity:0}60%,68.6%{opacity:1}71.4%,100%{opacity:0}}
+    @keyframes sh6{0%,71.4%{opacity:0}74.3%,82.9%{opacity:1}85.7%,100%{opacity:0}}
+    @keyframes sh7{0%,85.7%{opacity:0}88.6%,97.1%{opacity:1}100%{opacity:0}}
   </style>
   <rect width="240" height="230" fill="#111827" rx="12"/>
   <line x1="20" y1="210" x2="220" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
   <text x="120" y="225" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="8" font-weight="700" fill="#475569" letter-spacing="2">SUMO DEADLIFT HIGH PULL</text>
-  <!-- Frame 1: Sumo setup - wide stance, bar on floor -->
+  <!-- Frame 1: Setup sumo, barra en el piso -->
   <g class="f1">
-    <line x1="46" y1="182" x2="194" y2="182" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
-    <rect x="40" y="174" width="8" height="16" rx="2" fill="#475569"/>
-    <rect x="192" y="174" width="8" height="16" rx="2" fill="#475569"/>
+    <line x1="50" y1="182" x2="190" y2="182" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="42" y="174" width="8" height="16" rx="2" fill="#475569"/><rect x="190" y="174" width="8" height="16" rx="2" fill="#475569"/>
     <circle cx="120" cy="72" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <!-- Upright-ish torso, sumo setup -->
-      <line x1="120" y1="84" x2="120" y2="128"/>
+      <line x1="120" y1="84" x2="120" y2="132"/>
       <line x1="100" y1="96" x2="140" y2="96"/>
-      <!-- Narrow grip arms -->
       <line x1="100" y1="96" x2="96" y2="182"/>
+      <polyline points="114,132 74,174 60,210"/>
       <line x1="140" y1="96" x2="144" y2="182"/>
-      <!-- Wide sumo stance -->
-      <line x1="114" y1="128" x2="76" y2="172"/><line x1="76" y1="172" x2="60" y2="210"/>
-      <line x1="126" y1="128" x2="164" y2="172"/><line x1="164" y1="172" x2="180" y2="210"/>
+      <polyline points="126,132 166,174 180,210"/>
     </g>
-    <circle cx="76" cy="172" r="5" fill="#64748b"/>
-    <circle cx="164" cy="172" r="5" fill="#64748b"/>
+    <circle cx="74" cy="174" r="5" fill="#64748b"/>
+    <circle cx="166" cy="174" r="5" fill="#64748b"/>
   </g>
-  <!-- Frame 2: Mid pull - bar at waist, elbows rising -->
+  <!-- Frame 2: Barra despega del piso -->
   <g class="f2">
-    <line x1="46" y1="128" x2="194" y2="128" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
-    <rect x="40" y="120" width="8" height="16" rx="2" fill="#475569"/>
-    <rect x="192" y="120" width="8" height="16" rx="2" fill="#475569"/>
-    <circle cx="120" cy="50" r="12" fill="#94a3b8"/>
+    <line x1="50" y1="158" x2="190" y2="158" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="42" y="150" width="8" height="16" rx="2" fill="#475569"/><rect x="190" y="150" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="120" cy="68" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="120" y1="62" x2="120" y2="114"/>
-      <line x1="100" y1="74" x2="140" y2="74"/>
-      <line x1="100" y1="74" x2="92" y2="128"/>
-      <line x1="140" y1="74" x2="148" y2="128"/>
-      <!-- Legs mostly straight -->
-      <line x1="114" y1="114" x2="90" y2="155"/><line x1="90" y1="155" x2="72" y2="210"/>
-      <line x1="126" y1="114" x2="150" y2="155"/><line x1="150" y1="155" x2="168" y2="210"/>
+      <line x1="120" y1="80" x2="120" y2="128"/>
+      <line x1="100" y1="92" x2="140" y2="92"/>
+      <line x1="100" y1="92" x2="96" y2="158"/>
+      <polyline points="114,128 76,170 60,210"/>
+      <line x1="140" y1="92" x2="144" y2="158"/>
+      <polyline points="126,128 164,170 180,210"/>
     </g>
-    <circle cx="90" cy="155" r="5" fill="#64748b"/>
-    <circle cx="150" cy="155" r="5" fill="#64748b"/>
+    <circle cx="76" cy="170" r="5" fill="#64748b"/>
+    <circle cx="164" cy="170" r="5" fill="#64748b"/>
   </g>
-  <!-- Frame 3: High pull finish - bar at chin, elbows flared high -->
+  <!-- Frame 3: Piernas extendiendose -->
   <g class="f3">
-    <line x1="46" y1="76" x2="194" y2="76" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
-    <rect x="40" y="68" width="8" height="16" rx="2" fill="#475569"/>
-    <rect x="192" y="68" width="8" height="16" rx="2" fill="#475569"/>
+    <line x1="50" y1="136" x2="190" y2="136" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="42" y="128" width="8" height="16" rx="2" fill="#475569"/><rect x="190" y="128" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="120" cy="58" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="120" y1="70" x2="120" y2="120"/>
+      <line x1="100" y1="82" x2="140" y2="82"/>
+      <line x1="100" y1="82" x2="96" y2="136"/>
+      <polyline points="114,120 84,166 66,210"/>
+      <line x1="140" y1="82" x2="144" y2="136"/>
+      <polyline points="126,120 156,166 174,210"/>
+    </g>
+    <circle cx="84" cy="166" r="5" fill="#64748b"/>
+    <circle cx="156" cy="166" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 4: Extension completa de cadera -->
+  <g class="f4">
+    <line x1="50" y1="118" x2="190" y2="118" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="42" y="110" width="8" height="16" rx="2" fill="#475569"/><rect x="190" y="110" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="120" cy="48" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="120" y1="60" x2="120" y2="112"/>
+      <line x1="100" y1="72" x2="140" y2="72"/>
+      <line x1="100" y1="72" x2="96" y2="118"/>
+      <polyline points="114,112 96,162 74,210"/>
+      <line x1="140" y1="72" x2="144" y2="118"/>
+      <polyline points="126,112 144,162 166,210"/>
+    </g>
+    <circle cx="96" cy="162" r="5" fill="#64748b"/>
+    <circle cx="144" cy="162" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 5: Tiron, codos suben -->
+  <g class="f5">
+    <line x1="50" y1="98" x2="190" y2="98" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="42" y="90" width="8" height="16" rx="2" fill="#475569"/><rect x="190" y="90" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="120" cy="44" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="120" y1="56" x2="120" y2="110"/>
+      <line x1="100" y1="68" x2="140" y2="68"/>
+      <polyline points="100,68 80,82 96,98"/>
+      <polyline points="114,110 98,160 76,210"/>
+      <polyline points="140,68 160,82 144,98"/>
+      <polyline points="126,110 142,160 164,210"/>
+    </g>
+    <circle cx="98" cy="160" r="5" fill="#64748b"/>
+    <circle cx="80" cy="82" r="4" fill="#64748b"/>
+    <circle cx="142" cy="160" r="5" fill="#64748b"/>
+    <circle cx="160" cy="82" r="4" fill="#64748b"/>
+  </g>
+  <!-- Frame 6: Arriba, codos altos -->
+  <g class="f6">
+    <line x1="50" y1="78" x2="190" y2="78" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="42" y="70" width="8" height="16" rx="2" fill="#475569"/><rect x="190" y="70" width="8" height="16" rx="2" fill="#475569"/>
     <circle cx="120" cy="40" r="12" fill="#94a3b8"/>
     <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <line x1="120" y1="52" x2="120" y2="112"/>
+      <line x1="120" y1="52" x2="120" y2="108"/>
       <line x1="100" y1="64" x2="140" y2="64"/>
-      <!-- Elbows high and wide -->
-      <line x1="100" y1="64" x2="72" y2="52"/><line x1="72" y1="52" x2="84" y2="76"/>
-      <line x1="140" y1="64" x2="168" y2="52"/><line x1="168" y1="52" x2="156" y2="76"/>
-      <!-- Standing legs -->
-      <line x1="114" y1="112" x2="96" y2="162"/><line x1="96" y1="162" x2="84" y2="210"/>
-      <line x1="126" y1="112" x2="144" y2="162"/><line x1="144" y1="162" x2="156" y2="210"/>
+      <polyline points="100,64 70,62 92,78"/>
+      <polyline points="114,108 100,158 76,208"/>
+      <polyline points="140,64 170,62 148,78"/>
+      <polyline points="126,108 140,158 164,208"/>
     </g>
-    <circle cx="72" cy="52" r="5" fill="#64748b"/>
-    <circle cx="168" cy="52" r="5" fill="#64748b"/>
+    <circle cx="100" cy="158" r="5" fill="#64748b"/>
+    <circle cx="70" cy="62" r="4" fill="#64748b"/>
+    <circle cx="140" cy="158" r="5" fill="#64748b"/>
+    <circle cx="170" cy="62" r="4" fill="#64748b"/>
+  </g>
+  <!-- Frame 7: Descenso de la barra -->
+  <g class="f7">
+    <line x1="50" y1="130" x2="190" y2="130" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <rect x="42" y="122" width="8" height="16" rx="2" fill="#475569"/><rect x="190" y="122" width="8" height="16" rx="2" fill="#475569"/>
+    <circle cx="120" cy="56" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="120" y1="68" x2="120" y2="118"/>
+      <line x1="100" y1="80" x2="140" y2="80"/>
+      <line x1="100" y1="80" x2="96" y2="130"/>
+      <polyline points="114,118 90,165 70,210"/>
+      <line x1="140" y1="80" x2="144" y2="130"/>
+      <polyline points="126,118 150,165 170,210"/>
+    </g>
+    <circle cx="90" cy="165" r="5" fill="#64748b"/>
+    <circle cx="150" cy="165" r="5" fill="#64748b"/>
   </g>
 </svg>

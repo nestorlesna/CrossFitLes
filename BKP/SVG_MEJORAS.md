@@ -143,3 +143,30 @@ Una entrada por ejercicio nuevo, en orden cronológico (más reciente al final),
 - **Frames usados:** 8 — hang alto, carga de cadera, extensión triple, tirón alto con codos arriba, caída bajo la barra, recepción en sentadilla, subida y de pie en rack; ciclo de 10.4s (fórmula §5a). Vista frontal, generada con script (IK de piernas y codos).
 - **Dificultad:** en vista frontal no se ve la inclinación del torso ni el rebote de cadera; el cambio de ancho de pies (más abiertos en la recepción) es lo que marca la caída bajo la barra.
 - **Mejora pendiente / a revisar:** revisar el crossfade en el navegador; una vista lateral mostraría mejor la extensión de cadera. Sin videos cargados (no se encontró URL de YouTube validable).
+
+### Pasada de actualización 3 → 5-10 frames, clase 07/10/2026 — 2026-10-07
+
+Se reemplazaron 10 SVG viejos de 3 frames (mismos nombres de archivo, así que no hace falta registrar `image_url` de nuevo). Generados con un script (`FK/IK` de 2 huesos para mantener el largo de los segmentos), ciclo `T = 1.3 × N` s (fórmula §5a), XML validado con `minidom`. Se revisó cada frame en una hoja de contactos antes de copiarlos.
+
+- **Barbell Deadlift** (`barbell-deadlift.svg`) — 6 frames: setup, despegue, rodillas, medio muslo, bloqueo, descenso. Vista frontal; los brazos del setup quedan largos (estilizado, igual que el SVG viejo).
+- **Barbell Sumo Deadlift High Pull** (`barbell-sumo-deadlift-high-pull.svg`) — 7 frames: setup sumo, despegue, piernas extendiendo, extensión completa, tirón, codos altos, descenso. Postura ancha y agarre cerrado.
+- **Barbell Hang Clean** (`barbell-hang-clean.svg`) — 8 frames: hang, carga, triple extensión, tirón alto, caída bajo la barra, recepción en sentadilla, subida y rack.
+- **Barbell Squat Clean** (`barbell-squat-clean.svg`) — 8 frames: igual que el hang clean pero desde el piso (setup + primera tracción en vez de hang + carga).
+- **Barbell Front Squat** (`barbell-front-squat.svg`) — 6 frames: rack, bajando, paralelo, fondo, subiendo, casi arriba.
+- **Band External Rotation** (`band-external-rotation.svg`) — 6 frames (ida y vuelta): el antebrazo rota en el plano horizontal y en vista frontal se acorta al apuntar hacia el espectador (frame 3). La banda se ancla del lado opuesto y cruza detrás del torso.
+- **Kettlebell Swing** (`kettlebell-swing.svg`) — 6 frames, ahora en vista lateral (el viejo era frontal y no mostraba la bisagra de cadera). Mejora pendiente: el hike (frame 1) tiene el brazo muy pegado al muslo.
+- **Rowing** (`rowing.svg`) — 6 frames del ciclo catch → empuje → apertura → finish → brazos → torso adelante. Se corrigió la orientación: el viejo tenía el mango a la izquierda y los pies a la derecha; ahora la figura mira al volante (a la derecha) y el asiento se mueve con la cadera.
+- **Box Jump Over** (`box-jump-over.svg`) — 7 frames: de pie, flexión, despegue, aire sobre la caja, descenso, aterrizaje, de pie. Vista frontal desplazándose de izquierda a derecha.
+- **Partner Wall Ball Sit-Up** (`partner-wall-ball-sit-up.svg`) — 6 frames en vista lateral con el piso en `y=210` (el viejo flotaba). Mejora pendiente: el balón queda muy cerca de la cabeza en los frames 3-4; el compañero no se dibuja (el frame 5 muestra el balón lanzado).
+
+### Clase GOAT 10/10/2026 — 7 SVG nuevos (2026-10-10)
+
+Generados con un script (fórmula §5a de `CREO_CLASE.md`, vista lateral salvo el pulldown). **No se revisaron en el navegador**: verificar el crossfade y las poses antes de darlos por buenos.
+
+- **Pigeon Rotation** (`pigeon-rotation.svg`) — 5 frames. Dificultad: la rotación torácica no se ve de costado; se resuelve con el brazo que se abre y sube. Mejora: una vista cenital mostraría mejor la rotación.
+- **Banded Lat Pulldown** (`banded-lat-pulldown.svg`) — 6 frames (ida y vuelta). La banda se dibuja como una línea desde el ancla hasta las manos; no se ve la tensión. Mejora: hacerla elástica (curva) en los frames de abajo.
+- **Kettlebell Romanian Deadlift** (`kettlebell-romanian-deadlift.svg`) — 6 frames, bisagra de cadera en vista lateral. Mejora: revisar el largo del brazo en el frame 4 (kettlebell a media tibia).
+- **Kettlebell Turkish Sit-Up** (`kettlebell-turkish-sit-up.svg`) — 6 frames, acostado. Dificultad: sólo se dibuja una pierna doblada y no se ve el pie de apoyo.
+- **Deficit Banded Deadlift** (`deficit-banded-deadlift.svg`) — 6 frames. La plataforma es un rectángulo bajo los pies y la banda son dos líneas de la barra al piso. Mejora: la banda no cambia de largo de forma realista.
+- **Dumbbell Back Rack Lunge** (`dumbbell-back-rack-lunge.svg`) — 6 frames, con pausa abajo. En vista lateral las mancuernas quedan sobre el hombro sin distinguir "back rack" de "front rack".
+- **Squat Jump to Plate** (`squat-jump-to-plate.svg`) — 7 frames, la figura se desplaza de izquierda a derecha sobre el disco. Mejora: el aire necesita más separación del piso en el frame 4.

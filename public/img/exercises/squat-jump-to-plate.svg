@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 230">
+  <style>
+    .f1{animation:sh1 9.1s linear infinite}.f2{animation:sh2 9.1s linear infinite}.f3{animation:sh3 9.1s linear infinite}.f4{animation:sh4 9.1s linear infinite}.f5{animation:sh5 9.1s linear infinite}.f6{animation:sh6 9.1s linear infinite}.f7{animation:sh7 9.1s linear infinite}
+    @keyframes sh1{0%,11.4%{opacity:1}14.3%,97.1%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,14.3%{opacity:0}17.1%,25.7%{opacity:1}28.6%,100%{opacity:0}}
+    @keyframes sh3{0%,28.6%{opacity:0}31.4%,40%{opacity:1}42.9%,100%{opacity:0}}
+    @keyframes sh4{0%,42.9%{opacity:0}45.7%,54.3%{opacity:1}57.1%,100%{opacity:0}}
+    @keyframes sh5{0%,57.1%{opacity:0}60%,68.6%{opacity:1}71.4%,100%{opacity:0}}
+    @keyframes sh6{0%,71.4%{opacity:0}74.3%,82.9%{opacity:1}85.7%,100%{opacity:0}}
+    @keyframes sh7{0%,85.7%{opacity:0}88.6%,97.1%{opacity:1}100%{opacity:0}}
+  </style>
+  <rect width="220" height="230" fill="#111827" rx="12"/>
+  <line x1="20" y1="210" x2="200" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="110" y="225" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" fill="#475569" letter-spacing="2">SQUAT JUMP TO PLATE</text>
+  <!-- Frame 1: de pie junto al disco -->
+  <g class="f1">
+    <ellipse cx="110" cy="203" rx="22" ry="6" fill="#475569"/><ellipse cx="110" cy="203" rx="5" ry="2" fill="#111827"/>
+    <circle cx="56" cy="38" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="56,116 56,60"/>
+      <polyline points="56,62 44,92 52,116"/>
+      <polyline points="56,116 64,160 56,206"/>
+    </g>
+    <circle cx="64" cy="160" r="4" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: sentadilla, brazos atras -->
+  <g class="f2">
+    <ellipse cx="110" cy="203" rx="22" ry="6" fill="#475569"/><ellipse cx="110" cy="203" rx="5" ry="2" fill="#111827"/>
+    <circle cx="70" cy="86" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="48,164 66,108"/>
+      <polyline points="66,110 48,128 34,138"/>
+      <polyline points="48,164 82,168 56,206"/>
+    </g>
+    <circle cx="82" cy="168" r="4" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: explosion, extension y brazos arriba -->
+  <g class="f3">
+    <ellipse cx="110" cy="203" rx="22" ry="6" fill="#475569"/><ellipse cx="110" cy="203" rx="5" ry="2" fill="#111827"/>
+    <circle cx="92" cy="30" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="84,110 90,54"/>
+      <polyline points="90,56 96,34 100,18"/>
+      <polyline points="84,110 92,152 86,190"/>
+    </g>
+    <circle cx="92" cy="152" r="4" fill="#64748b"/>
+  </g>
+  <!-- Frame 4: en el aire sobre el disco -->
+  <g class="f4">
+    <ellipse cx="110" cy="203" rx="22" ry="6" fill="#475569"/><ellipse cx="110" cy="203" rx="5" ry="2" fill="#111827"/>
+    <circle cx="116" cy="26" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="110,98 114,50"/>
+      <polyline points="114,52 124,36 130,22"/>
+      <polyline points="110,98 122,130 112,160"/>
+    </g>
+    <circle cx="122" cy="130" r="4" fill="#64748b"/>
+  </g>
+  <!-- Frame 5: aterrizaje del otro lado, amortigua -->
+  <g class="f5">
+    <ellipse cx="110" cy="203" rx="22" ry="6" fill="#475569"/><ellipse cx="110" cy="203" rx="5" ry="2" fill="#111827"/>
+    <circle cx="150" cy="70" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="138,150 148,94"/>
+      <polyline points="148,96 168,116 178,126"/>
+      <polyline points="138,150 168,162 150,206"/>
+    </g>
+    <circle cx="168" cy="162" r="4" fill="#64748b"/>
+  </g>
+  <!-- Frame 6: sentadilla profunda de recepcion -->
+  <g class="f6">
+    <ellipse cx="110" cy="203" rx="22" ry="6" fill="#475569"/><ellipse cx="110" cy="203" rx="5" ry="2" fill="#111827"/>
+    <circle cx="154" cy="84" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="140,164 152,108"/>
+      <polyline points="152,110 170,128 180,138"/>
+      <polyline points="140,164 172,168 150,206"/>
+    </g>
+    <circle cx="172" cy="168" r="4" fill="#64748b"/>
+  </g>
+  <!-- Frame 7: de pie, listo para volver a saltar -->
+  <g class="f7">
+    <ellipse cx="110" cy="203" rx="22" ry="6" fill="#475569"/><ellipse cx="110" cy="203" rx="5" ry="2" fill="#111827"/>
+    <circle cx="152" cy="38" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="152,116 152,60"/>
+      <polyline points="152,62 140,92 148,116"/>
+      <polyline points="152,116 160,160 152,206"/>
+    </g>
+    <circle cx="160" cy="160" r="4" fill="#64748b"/>
+  </g>
+</svg>

@@ -46,6 +46,48 @@ Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ### TEMPLATE
 
 
+
+Clase GOAT 10/10/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad (2 rondas)
+
+30" Pigeon rotation derecha
+30" Pigeon rotation izquierda
+30" Banded lat pulldown
+30" Cat Cow
+
+Activación (AMRAP 6)
+
+12 KB Kang Squat 10kg
+12 V Ups
+12 KB RDL 10kg
+12 KB Turkish Sit Ups
+
+Fuerza: Deficit Banded Deadlift (Semana 6/16 Ciclo Fuerza), cada 2 min x 5 sets
+
+Sets 1, 2 y 3: 8 reps al 78% (60 kg)
+Set 4: descanso
+Set 5: máximo al fallo (2 reps en reserva) al 78% ( 10 reps a 80kg)
+
+Workout (For time)
+
+400 m run
+15-12-9 Dumbbell back rack lunges 17.5kg
+10/8 cal row/bike/ski (10/8 cal fijas siempre)
+
+Rest 1:30
+
+400 m run
+18-15-12 A jumps
+30 m farmer carry 20kg
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
 Clase GOAT 07/10/2026
 
 Calentamiento
