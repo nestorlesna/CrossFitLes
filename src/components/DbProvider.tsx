@@ -2,6 +2,7 @@
 import { createContext, useContext, useEffect, useState, useRef } from 'react';
 import { openDatabase, getDatabase, saveDatabase } from '../db/database';
 import { Dumbbell } from 'lucide-react';
+import { loadRemoteChallenges } from '../services/challengeCatalogService';
 
 interface DbContextValue {
   isReady: boolean;
@@ -35,6 +36,8 @@ export function DbProvider({ children }: DbProviderProps) {
         // Migrar imágenes de localStorage a SQLite (una sola vez)
         return migrateImagesFromLocalStorage();
       })
+      // Challenges bajados con "Actualizar contenido" (se suman a los del APK)
+      .then(() => loadRemoteChallenges())
       .then(() => {
         setState({ isReady: true, error: null });
       })

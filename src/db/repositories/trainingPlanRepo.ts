@@ -309,6 +309,7 @@ export async function update(id: string, plan: Partial<TrainingPlan>): Promise<v
          schedule_mode = COALESCE(?, schedule_mode),
          status = COALESCE(?, status),
          color = ?,
+         user_modified = 1,
          updated_at = ?
      WHERE id = ?`,
     [
@@ -414,6 +415,15 @@ export async function duplicatePlan(id: string, newStartDate?: string): Promise<
 // Escrituras de días
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Marca el plan del día como editado: la sincronización de contenido no lo vuelve a pisar
+function markPlanModifiedByDayStmt(dayId: string): { statement: string; values: unknown[] } {
+  return {
+    statement: `UPDATE training_plan SET user_modified = 1
+                WHERE id = (SELECT training_plan_id FROM plan_day WHERE id = ?)`,
+    values: [dayId],
+  };
+}
+
 // Agrega un día al final del plan y devuelve su id
 export async function addDay(
   planId: string,
@@ -426,7 +436,10 @@ export async function addDay(
   );
   const nextIndex = ((maxResult.values?.[0]?.max_index as number) ?? 0) + 1;
   const stmt = insertDayStmt(planId, { ...day, day_index: nextIndex }, now());
-  await db.run(stmt.statement, stmt.values);
+  await db.executeSet(
+    [stmt, { statement: `UPDATE training_plan SET user_modified = 1 WHERE id = ?`, values: [planId] }],
+    true
+  );
   await saveDatabase();
 }
 
@@ -461,7 +474,10 @@ export async function updateDay(
   fields.push('updated_at = ?');
   values.push(now(), dayId);
 
-  await db.run(`UPDATE plan_day SET ${fields.join(', ')} WHERE id = ?`, values);
+  await db.executeSet(
+    [{ statement: `UPDATE plan_day SET ${fields.join(', ')} WHERE id = ?`, values }, markPlanModifiedByDayStmt(dayId)],
+    true
+  );
   await saveDatabase();
 }
 
@@ -478,6 +494,7 @@ export async function removeDay(dayId: string): Promise<void> {
   if (!day) return;
 
   const stmts: { statement: string; values: unknown[] }[] = [
+    markPlanModifiedByDayStmt(dayId),
     { statement: `DELETE FROM plan_day WHERE id = ?`, values: [dayId] },
   ];
   if (day.is_plan_day === 1 && day.class_template_id) {
@@ -498,6 +515,7 @@ export async function reorderDays(planId: string, orderedIds: string[]): Promise
     statement: `UPDATE plan_day SET day_index = ?, updated_at = ? WHERE id = ? AND training_plan_id = ?`,
     values: [i + 1, timestamp, dayId, planId],
   }));
+  stmts.push({ statement: `UPDATE training_plan SET user_modified = 1 WHERE id = ?`, values: [planId] });
   await db.executeSet(stmts, true);
   await saveDatabase();
 }
@@ -627,6 +645,7 @@ export async function saveCustomDay(
                 WHERE id = ?`,
     values: [templateId, title, timestamp, dayId],
   });
+  stmts.push(markPlanModifiedByDayStmt(dayId));
 
   await db.executeSet(stmts, true);
   await saveDatabase();

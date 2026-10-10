@@ -17,6 +17,7 @@ import { v014_movilidad_section_type } from './v014_movilidad_section_type';
 import { v015_class_template_video } from './v015_class_template_video';
 import { v016_training_plan } from './v016_training_plan';
 import { v017_challenges } from './v017_challenges';
+import { v018_content_sync } from './v018_content_sync';
 
 export const migrations: Migration[] = [
   v001_initial,
@@ -36,4 +37,5 @@ export const migrations: Migration[] = [
   v015_class_template_video,
   v016_training_plan,
   v017_challenges,
+  v018_content_sync,
 ];
