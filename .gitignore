@@ -70,3 +70,6 @@ KEY/
 
 # Dataset externo de ejercicios (referencia local, no versionar)
 BKP/exercises-dataset-main/
+
+# ZIPs de backup y clases exportadas (pueden tener datos personales; el repo es público)
+BKP/**/*.zip
