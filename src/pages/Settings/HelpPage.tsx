@@ -1,11 +1,13 @@
 // Guía de ayuda completa: pensada para alguien que abre la app por primera vez
 // y no sabe qué hacer. Explica cada flujo con ejemplos concretos, en especial
-// la parte que suele confundir: las 4 formas de cargar una sesión.
+// la parte que suele confundir: las 4 formas de cargar una sesión. Incluye una tarjeta de
+// Novedades (planes, challenges, clases por video, contenido online) con acceso directo.
 import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ChevronLeft, Dumbbell, CalendarDays, Timer, BarChart2, Settings, AlarmClock,
   ClipboardList, Play, ListChecks, Star, Database, HardDrive, Share2, Calculator,
+  CalendarRange, Trophy, Video, Cloud, Home, Sparkles, ChevronRight, Lightbulb,
 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { CollapsibleSection } from '../../components/ui/CollapsibleSection';
@@ -56,6 +58,46 @@ function FlowCard({
   );
 }
 
+// Recuadro de consejo / ejemplo dentro de una sección
+function Tip({ children }: { children: ReactNode }) {
+  return (
+    <div className="bg-amber-950/20 border border-amber-800/40 rounded-xl p-3 flex items-start gap-2">
+      <Lightbulb size={14} className="text-amber-400 shrink-0 mt-0.5" />
+      <p className="text-xs text-amber-100/80 leading-relaxed">{children}</p>
+    </div>
+  );
+}
+
+// Título chico con ícono para separar bloques dentro de una tarjeta
+function CardTitle({ icon, children }: { icon: ReactNode; children: ReactNode }) {
+  return (
+    <div className="flex items-center gap-2">
+      <span className="text-primary-400">{icon}</span>
+      <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">{children}</p>
+    </div>
+  );
+}
+
+// Novedades: acceso directo a cada funcionalidad nueva
+const NEWS = [
+  {
+    icon: <CalendarRange size={16} />, title: 'Planes de entrenamiento', path: '/planes',
+    text: 'Organizá varias semanas: qué clase toca cada día, con calendario, racha y adherencia.',
+  },
+  {
+    icon: <Trophy size={16} />, title: 'Challenges', path: '/challenges',
+    text: 'Retos de calistenia (100 flexiones, plancha de 5 min…) que te arman las series según tu nivel.',
+  },
+  {
+    icon: <Video size={16} />, title: 'Clases por video', path: '/clases',
+    text: 'Pegale un video (YouTube, Facebook, TikTok…) a una clase y entrená siguiéndolo.',
+  },
+  {
+    icon: <Cloud size={16} />, title: 'Contenido online', path: '/configuracion',
+    text: 'Bajá clases, ejercicios, planes y challenges nuevos sin perder lo tuyo.',
+  },
+];
+
 export function HelpPage() {
   const navigate = useNavigate();
 
@@ -99,9 +141,54 @@ export function HelpPage() {
           </div>
           <p className="text-xs text-gray-600 mt-1">
             Estas 5 secciones (+ Configuración) son los botones del menú de abajo. Siempre podés volver
-            al inicio con el ícono de casa arriba a la izquierda.
+            al inicio con el ícono de casa arriba a la izquierda. <span className="text-gray-400">Planes</span> y{' '}
+            <span className="text-gray-400">Challenges</span> no tienen botón propio: están como pestañas dentro de
+            Clases (Clases · Planes · Challenges) y como accesos directos en Inicio.
           </p>
         </Card>
+
+        {/* ── Novedades ── */}
+        <div className="bg-primary-600/10 border border-primary-700/50 rounded-2xl p-4 flex flex-col gap-3">
+          <div className="flex items-center gap-2">
+            <Sparkles size={16} className="text-primary-400" />
+            <p className="text-xs font-bold text-primary-300 uppercase tracking-wider">Novedades</p>
+          </div>
+          {NEWS.map((n) => (
+            <button
+              key={n.title}
+              onClick={() => navigate(n.path)}
+              className="flex items-center gap-3 text-left bg-gray-900/60 border border-gray-800 rounded-xl p-3 min-h-[44px] active:scale-[0.98] transition-transform"
+            >
+              <span className="text-primary-400 shrink-0">{n.icon}</span>
+              <span className="flex-1 min-w-0">
+                <span className="block text-sm text-white font-semibold">{n.title}</span>
+                <span className="block text-xs text-gray-400 leading-snug">{n.text}</span>
+              </span>
+              <ChevronRight size={16} className="text-gray-600 shrink-0" />
+            </button>
+          ))}
+          <p className="text-[11px] text-gray-500">
+            Tocá una para ir directo. Más abajo cada una tiene su explicación paso a paso.
+          </p>
+        </div>
+
+        {/* ── Inicio ── */}
+        <CollapsibleSection title="Inicio: qué me toca hoy">
+          <Card>
+            <CardTitle icon={<Home size={16} />}>La pantalla de inicio</CardTitle>
+            <p className="text-sm text-gray-300 leading-relaxed">
+              Es lo primero que ves al abrir la app y te dice qué hacer:
+            </p>
+            <StepList
+              steps={[
+                'Si dejaste una sesión a medias, aparece arriba para retomarla.',
+                'Si tenés un plan activo, muestra el entrenamiento de hoy (o el próximo, si hoy es descanso) con un botón para arrancarlo ahí mismo.',
+                'Si estás haciendo uno o más challenges, cada uno muestra su sesión del día con su botón "Empezar".',
+                'Abajo están los accesos directos: Nueva sesión, Ejercicios, Clases, Planes, Challenges y Estadísticas.',
+              ]}
+            />
+          </Card>
+        </CollapsibleSection>
 
         {/* ── Sesiones: la parte que más confunde ── */}
         <CollapsibleSection title="¿Cómo cargo una sesión? (empezá acá)" defaultOpen>
@@ -147,6 +234,7 @@ export function HelpPage() {
                 'Elegís la clase de la lista (buscador arriba) y tocás para arrancar.',
                 'Se abre el cronómetro a pantalla completa: cuenta regresiva, trabajo, descanso, siguiente sección… todo automático, con avisos sonoros y vibración.',
                 'Podés pausar, saltar un paso o sumar 15 segundos en cualquier momento con los botones de abajo.',
+                'Si la clase tiene un video cargado (aparece la etiqueta "video" en la lista), en vez del cronómetro se abre el video a pantalla completa: entrenás siguiéndolo y la sesión se cierra sola cuando termina, o antes con la bandera.',
                 'Al terminar (o si tocás la bandera para cerrar antes), te pide cómo te sentiste y guarda la sesión completa.',
               ]}
             />
@@ -173,6 +261,13 @@ export function HelpPage() {
                 plantilla, y ahí elegís si querés que el reloj te guíe (Clase guiada) o ir a tu aire (Manual).
               </p>
             </div>
+
+            <Tip>
+              Si seguís un <span className="font-semibold text-white">plan</span> o un{' '}
+              <span className="font-semibold text-white">challenge</span>, no hace falta pasar por acá: arrancás el
+              entrenamiento del día desde Inicio o desde el propio plan/challenge, y al terminarlo se marca solo como
+              hecho. Igual queda guardado en Sesiones como cualquier otro.
+            </Tip>
           </div>
         </CollapsibleSection>
 
@@ -188,6 +283,7 @@ export function HelpPage() {
               <StepList
                 steps={[
                   'Ejercicios (menú de abajo) muestra la lista completa, con buscador y filtros por músculo/equipamiento/dificultad.',
+                  'El botón "Ver videos / Sin videos" muestra u oculta, en cada tarjeta, el video corto y el explicativo del ejercicio. La lista va por páginas: abajo elegís cuántos ver por página.',
                   'Tocá un ejercicio para ver su ficha completa (descripción, notas técnicas, video).',
                   'Botón + arriba a la derecha: crea un ejercicio nuevo si no encontrás el que buscás.',
                   'Los ejercicios se eligen desde acá cuando armás una Clase, no hace falta entrar primero a esta sección para entrenar.',
@@ -210,10 +306,150 @@ export function HelpPage() {
                 'Le das nombre, fecha y objetivo, y armás las secciones (Entrada en calor, Activación, Fuerza, WOD, Vuelta a la calma…).',
                 'Cada sección tiene un formato de trabajo (EMOM, AMRAP, For Time, Por rondas...) y una lista de ejercicios con sus reps/peso/tiempo planificados.',
                 'La estrella marca una clase como favorita para encontrarla rápido.',
-                'Una vez guardada, la clase queda lista para usarse desde Sesiones → + → Usar plantilla (guiada o manual).',
+                'Las clases se separan en "Mis Clases" y "Clases Genéricas" (colapsable); podés mover una de un grupo al otro.',
+                'Una vez guardada, la clase queda lista para usarse desde Sesiones → + → Usar plantilla (guiada o manual), o para asignarla a un día de un plan.',
               ]}
             />
           </Card>
+
+          <Card>
+            <CardTitle icon={<Video size={16} />}>Clase por video</CardTitle>
+            <p className="text-sm text-gray-300 leading-relaxed">
+              Sirve para clases que seguís desde un video (una rutina de YouTube, un reel de Facebook, un TikTok…).
+            </p>
+            <StepList
+              steps={[
+                'Al crear o editar la clase, pegá el link en "Video de la clase". Abajo aparece una vista previa para comprobar que se reconoce.',
+                'Cargá la "Duración del video (mm:ss)": con eso la sesión se cierra sola al terminar el video y se calcula la duración y las calorías.',
+                'Si querés que queden registrados, agregá también los ejercicios en las secciones, como en cualquier clase.',
+                'Para entrenar: Sesiones → + → Usar plantilla → Clase guiada → elegís la clase. Se abre el video a pantalla completa en lugar del cronómetro.',
+              ]}
+            />
+          </Card>
+        </CollapsibleSection>
+
+        {/* ── Planes ── */}
+        <CollapsibleSection title="Planes de entrenamiento">
+          <div className="flex flex-col gap-3">
+            <Card>
+              <p className="text-sm text-gray-300 leading-relaxed">
+                Un plan es tu programación de varias semanas: dice qué entrenás cada día. Por ejemplo
+                &quot;Fuerza 4 semanas&quot;, lunes, miércoles y viernes. La app te muestra qué toca hoy, marca lo que
+                ya hiciste y te avisa si te atrasaste.
+              </p>
+              <p className="text-xs text-gray-500">
+                Dónde está: Clases → pestaña <span className="text-gray-300">Planes</span>, o Inicio → Planes.
+              </p>
+            </Card>
+
+            <FlowCard
+              icon={<CalendarRange size={18} />}
+              title="1. Crear el plan"
+              when="Le das nombre y estructura; la app genera los días sola."
+              steps={[
+                'Planes → "Nuevo plan". Poné nombre y, si querés, un objetivo (ej: "Subir sentadilla").',
+                'Elegí el modo de programación (no se puede cambiar después):',
+                '• Fechas fijas: cada día cae en una fecha del calendario. Elegís fecha de inicio, cantidad de semanas y qué días de la semana entrenás. Podés marcar los demás días como descanso.',
+                '• Secuencial: Día 1, Día 2, Día 3… sin fechas. Elegís semanas y días por semana; el plan avanza cuando entrenás, sin importar qué día sea. Ideal si no tenés horarios fijos.',
+                'Al guardar se crean todos los días vacíos ("sin asignar"). Falta decir qué se hace en cada uno.',
+              ]}
+            />
+
+            <FlowCard
+              icon={<ListChecks size={18} />}
+              title="2. Asignar qué se hace cada día"
+              when="Tocás un día del plan → Editar día (o Asignar entrenamiento)."
+              steps={[
+                'Clase: elegís una de tus clases ya armadas (con buscador).',
+                'Armar día: armás ese día con ejercicios sueltos (reps, peso, segundos, rondas) sin crear una clase aparte. No aparece en la lista de Clases.',
+                'Descanso: el día queda marcado como descanso (ícono de luna).',
+                'Con "Agregar día" sumás días extra al final del plan.',
+              ]}
+            />
+
+            <FlowCard
+              icon={<Play size={18} />}
+              title="3. Entrenar y seguir el avance"
+              when="Desde Inicio o tocando el día dentro del plan."
+              steps={[
+                'Tocá el día → "Empezar con cronómetro" (igual que Clase guiada) o "Cargar a mano" (igual que Manual). También podés arrancarlo directo desde Inicio.',
+                'Al finalizar la sesión, el día se marca solo como completado (tilde verde) y desde ahí podés "Ver el resultado".',
+                'Si un día no lo vas a hacer: "Saltear". Si te equivocaste: "Reabrir".',
+                'Arriba ves el avance: % de días hechos, Adherencia, Racha y Pendientes. En fechas fijas podés cambiar entre vista Calendario y Agenda.',
+                'Si te atrasaste aparece "N días atrasados → Correr el plan": mueve todo lo pendiente unos días hacia adelante. Para mover un solo día, usá "Reprogramar" en ese día.',
+              ]}
+            />
+
+            <Card>
+              <CardTitle icon={<Star size={16} />}>Estados del plan</CardTitle>
+              <p className="text-sm text-gray-300 leading-relaxed">
+                Solo puede haber <span className="text-white font-semibold">un plan Activo</span> a la vez (es el que se
+                ve en Inicio). Un plan recién creado queda Activo enseguida y el que tenías antes pasa a Archivado.
+                &quot;Duplicar&quot; copia un plan como Borrador (útil para repetir uno que te gustó); lo ponés en marcha
+                con &quot;Activar plan&quot; desde la lista. Cuando hacés todos los días, el plan queda Completado.
+              </p>
+            </Card>
+          </div>
+        </CollapsibleSection>
+
+        {/* ── Challenges ── */}
+        <CollapsibleSection title="Challenges de calistenia">
+          <div className="flex flex-col gap-3">
+            <Card>
+              <p className="text-sm text-gray-300 leading-relaxed">
+                Retos con peso corporal que te llevan a una meta: 100 flexiones, 200 abdominales, 200 sentadillas,
+                150 fondos en silla, 150 zancadas, 50 burpees, plancha de 5 minutos, y retos de 30 días. La app arma
+                cada sesión (series, repeticiones y descansos) y la ajusta según cómo te va.
+              </p>
+              <p className="text-xs text-gray-500">
+                Dónde está: Clases → pestaña <span className="text-gray-300">Challenges</span>, o Inicio → Challenges.
+                Arriba ves los que tenés &quot;En curso&quot; y abajo el &quot;Catálogo&quot; completo.
+              </p>
+            </Card>
+
+            <FlowCard
+              icon={<Trophy size={18} />}
+              title="Empezar un challenge"
+              when="Tocá uno del catálogo para ver de qué se trata."
+              steps={[
+                'Leé el aviso de seguridad y el equipamiento que necesitás.',
+                'En los challenges de meta (ej: 100 flexiones) primero hacés un test inicial: todas las repeticiones seguidas que puedas con buena técnica. Con ese número la app te asigna nivel Principiante, Intermedio o Avanzado.',
+                'Elegí la fecha de inicio. Son 3 sesiones por semana con un día de descanso entre medio. Los de "30 días" son diarios.',
+                'Si el ejercicio te cuesta, marcá "Usar la versión fácil" (ej: flexiones de rodillas).',
+                'Abajo ves cómo será el primer día. Tocá "Empezar challenge".',
+              ]}
+            />
+
+            <FlowCard
+              icon={<Play size={18} />}
+              title="Hacer la sesión del día"
+              when='Desde Inicio, o en el challenge → botón "Empezar" del día que toca.'
+              steps={[
+                'La pantalla te guía serie por serie. Las series por repeticiones esperan a que termines: ajustás con + / − las reps que hiciste de verdad y seguís.',
+                'Los descansos corren solos, con aviso sonoro cuando termina.',
+                'La última serie suele ser "al máximo": hacé todas las que puedas.',
+                'Al final te pregunta cómo te sentiste y el día queda completado. Si cortaste a la mitad, el botón dice "Retomar".',
+              ]}
+            />
+
+            <Card>
+              <CardTitle icon={<ClipboardList size={16} />}>Retests, atrasos y gráfico</CardTitle>
+              <StepList
+                steps={[
+                  'En algunas semanas aparece "Retest de la semana N": hacés otra vez el máximo y la app recalcula tu nivel antes de seguir. No podés avanzar sin cargarlo.',
+                  'Si una semana te quedó grande, tocá "No pude completar" en esa semana para repetirla.',
+                  'Si te salteaste 2 o más sesiones aparece "Reprogramar desde hoy", que corre los días pendientes.',
+                  'El gráfico muestra el volumen de cada sesión y los resultados de tus tests, para ver cómo progresás.',
+                  'Podés tener varios challenges a la vez y además un plan activo: no se pisan entre sí.',
+                ]}
+              />
+            </Card>
+
+            <Tip>
+              Ejemplo: en el test de flexiones hiciste 12, así que te toca nivel Intermedio. El lunes la app te pide
+              algo como 8-10-8-8-al máximo con 60 s de descanso. Cada semana sube un poco, hasta llegar a 100.
+            </Tip>
+          </div>
         </CollapsibleSection>
 
         {/* ── Timer libre ── */}
@@ -251,7 +487,7 @@ export function HelpPage() {
         </CollapsibleSection>
 
         {/* ── Configuración ── */}
-        <CollapsibleSection title="Configuración" defaultOpen>
+        <CollapsibleSection title="Configuración">
           <div className="flex flex-col gap-3">
             <Card>
               <div className="flex items-center gap-2">
@@ -291,7 +527,27 @@ export function HelpPage() {
               <p className="text-sm text-gray-300 leading-relaxed">
                 Vistas de mantenimiento sobre lo ya cargado: qué ejercicios les falta imagen, músculos o video;
                 detectar ejercicios duplicados; revisar las secciones de todas las clases (y copiarlas entre
-                clases); archivar clases viejas; y corregir sesiones ya guardadas (duración, sensación, valores).
+                clases); archivar clases viejas; probar si un link de video se reproduce bien; y corregir sesiones
+                ya guardadas (duración, sensación, valores).
+              </p>
+            </Card>
+
+            <Card>
+              <CardTitle icon={<Cloud size={16} />}>Contenido online</CardTitle>
+              <p className="text-sm text-gray-300 leading-relaxed">
+                Cada tanto se publican clases, ejercicios (con sus imágenes), planes y challenges nuevos. Con{' '}
+                <span className="text-white font-semibold">&quot;Actualizar contenido&quot;</span> los bajás a tu
+                celular (hace falta internet). Debajo del botón ves qué versión tenés y cuándo actualizaste.
+              </p>
+              <StepList
+                steps={[
+                  'Suma lo nuevo y actualiza lo que cambió en la versión publicada.',
+                  'Nunca toca lo que creaste o editaste vos: eso queda como está (el resumen avisa cuántos no se cambiaron por eso).',
+                  'No borra ni modifica tus sesiones, resultados ni récords.',
+                ]}
+              />
+              <p className="text-xs text-gray-600">
+                &quot;Publicar contenido&quot; aparece solo en la versión de administrador, no hace falta usarlo.
               </p>
             </Card>
 
@@ -305,6 +561,8 @@ export function HelpPage() {
                   'Compartir: exportá una o varias clases (o ejercicios sueltos) a un archivo para enviárselo a otra persona; al importar uno, se suma a lo que ya tenés sin borrar nada.',
                   'Copia de seguridad: exportá TODA tu base de datos a un archivo, o restaurala desde un backup anterior. Es la única forma de no perder tus datos si cambiás de celular.',
                   'Tiempos del cronómetro: completa automáticamente los tiempos que falten en tus clases, estimándolos a partir de las reps/distancia/calorías de cada ejercicio.',
+                  'Fusionar ejercicios: si tenés el mismo ejercicio cargado dos veces, pasa todas sus clases, sesiones y récords a uno solo y borra el otro.',
+                  'Ejercicios sin uso: lista los ejercicios que no están en ninguna clase, sesión ni récord para borrarlos y limpiar el catálogo. Antes de borrar podés desmarcar los que quieras conservar. No se puede deshacer.',
                   'Zona de peligro (Reset): cargar los datos base de ejemplo, o limpiar toda la base de datos. Usar con mucho cuidado, no tiene vuelta atrás salvo que tengas un backup.',
                 ]}
               />
