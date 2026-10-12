@@ -170,3 +170,11 @@ Generados con un script (fórmula §5a de `CREO_CLASE.md`, vista lateral salvo e
 - **Deficit Banded Deadlift** (`deficit-banded-deadlift.svg`) — 6 frames. La plataforma es un rectángulo bajo los pies y la banda son dos líneas de la barra al piso. Mejora: la banda no cambia de largo de forma realista.
 - **Dumbbell Back Rack Lunge** (`dumbbell-back-rack-lunge.svg`) — 6 frames, con pausa abajo. En vista lateral las mancuernas quedan sobre el hombro sin distinguir "back rack" de "front rack".
 - **Squat Jump to Plate** (`squat-jump-to-plate.svg`) — 7 frames, la figura se desplaza de izquierda a derecha sobre el disco. Mejora: el aire necesita más separación del piso en el frame 4.
+
+### Clase GOAT 12/10/2026 — 3 SVG nuevos (2026-10-12)
+
+Generados con un script (fórmula §5a de `CREO_CLASE.md`), XML validado con `minidom`. **No se revisaron en el navegador**: verificar el crossfade y las poses antes de darlos por buenos.
+
+- **Open the Gate** (`open-the-gate.svg`) — 6 frames, vista frontal con manos en la cadera. Dificultad: la rodilla que sube al frente apunta al espectador y en frontal casi no se ve (frame 2); la apertura hacia el costado sí se lee bien. Mejora: una vista 3/4 mostraría las dos fases (arriba y afuera).
+- **Candlestick to Straddle Stretch** (`candlestick-to-straddle-stretch.svg`) — 6 frames, vista lateral: sentado, rodado atrás, vela, rodado adelante, straddle y flexión al frente. Dificultad: de costado no se ve la apertura de piernas del straddle (las dos piernas se superponen). Mejora: dibujar la segunda pierna en otro tono o pasar el último frame a vista frontal.
+- **Barbell Cluster** (`barbell-cluster.svg`) — 7 frames, vista frontal (mismo molde que `barbell-squat-clean.svg`): setup, rodillas, triple extensión, recepción en sentadilla, subida, bloqueo overhead y bajada a la cadera. Mejora: falta el frame de bajada desde la cadera al piso; los codos del rack frontal en vista frontal se ven por debajo de la barra.

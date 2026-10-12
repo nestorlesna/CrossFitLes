@@ -13,20 +13,55 @@
 ### COMO USAR
 
 
-### TEMPLATE
-Clase GOAT XX/XX/2026
-video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta
+
+Clase GOAT 12/10/2026
 
 Calentamiento
 - 6 minutos de calentamiento
 
 Movilidad - 2 rondas todo 30 segundos
+ - open the gate izquierda, video corto https://www.youtube.com/shorts/1cpY_x7yr8c
+ - open the gate derecha
+ - candlestick to straddle stretch, video corto https://www.youtube.com/watch?v=ssLfWGw6Z5o, video explicativo https://www.youtube.com/shorts/AJ35xINDwlQ
 
-Activacion
+Activacion 3 rondas todos 30 segundos
+ - Single-Leg Wall Sit izquierda
+ - Single-Leg Wall Sit derecha
+ - Plank Up-Down
+ - Kettlebell Good Morning 10kg
+
 Fuerza
-WOD
+- Back Squat (Semana 7/16 Ciclo Fuerza)
+- Cada 2 min x 5 sets
+
+Set 1, 2 y 3: 5 reps al 83% (80kg)
+Set 4: Descanso
+Set 5: Máximos al fallo (0 reps en reserva) al 83%, aprox 12 Reps (80kg)
+
+WOD 20 minutos maximo
+ - 8 Cluster - video corto https://www.youtube.com/watch?v=XmoilY-pc-k, video explicativo https://www.youtube.com/watch?v=plCzO45g9nc
+ - 10 V-Up
+ - 12 Burpee Broad Jump
+ - 6 Cluster
+ - 10 V-Up
+ - 12 Burpee Broad Jump
+ - 4 Cluster
+ - 10 V-Up
+ - 12 Burpee Broad Jump
+ - Descanso 90 segundos
+ - 8 Cluster
+ - 10 V-Up
+ - 10 Burpee Broad Jump
+ - 6 Cluster
+ - 10 V-Up
+ - 10 Burpee Broad Jump
+ - 4 Cluster
+ - 10 V-Up
+ - 10 Burpee Broad Jump
+
+
 Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
-### TEMPLATE
+
 
 
 

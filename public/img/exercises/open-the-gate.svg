@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 230">
+  <style>
+    .f1{animation:sh1 7.8s linear infinite}.f2{animation:sh2 7.8s linear infinite}.f3{animation:sh3 7.8s linear infinite}.f4{animation:sh4 7.8s linear infinite}.f5{animation:sh5 7.8s linear infinite}.f6{animation:sh6 7.8s linear infinite}
+    @keyframes sh1{0%,13.3%{opacity:1}16.7%,96.7%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,16.7%{opacity:0}20%,30%{opacity:1}33.3%,100%{opacity:0}}
+    @keyframes sh3{0%,33.3%{opacity:0}36.7%,46.7%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh4{0%,50%{opacity:0}53.3%,63.3%{opacity:1}66.7%,100%{opacity:0}}
+    @keyframes sh5{0%,66.7%{opacity:0}70%,80%{opacity:1}83.3%,100%{opacity:0}}
+    @keyframes sh6{0%,83.3%{opacity:0}86.7%,96.7%{opacity:1}100%,100%{opacity:0}}
+  </style>
+  <rect width="220" height="230" fill="#111827" rx="12"/>
+  <line x1="20" y1="210" x2="200" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="110" y="225" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" fill="#475569" letter-spacing="2">OPEN THE GATE</text>
+  <!-- Frame 1: de pie, manos en la cadera -->
+  <g class="f1">
+    <circle cx="110" cy="34" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="110,46 110,112"/>
+      <polyline points="92,58 128,58"/>
+      <polyline points="92,58 78,86 100,110"/>
+      <polyline points="128,58 142,86 120,110"/>
+      <polyline points="104,112 104,160 104,208"/>
+      <polyline points="116,112 116,160 116,208"/>
+    </g>
+    <circle cx="104" cy="160" r="5" fill="#64748b"/>
+    <circle cx="116" cy="160" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: rodilla arriba al frente -->
+  <g class="f2">
+    <circle cx="110" cy="34" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="110,46 110,112"/>
+      <polyline points="92,58 128,58"/>
+      <polyline points="92,58 78,86 100,110"/>
+      <polyline points="128,58 142,86 120,110"/>
+      <polyline points="104,112 104,160 104,208"/>
+      <polyline points="116,112 118,122 120,168"/>
+    </g>
+    <circle cx="104" cy="160" r="5" fill="#64748b"/>
+    <circle cx="118" cy="122" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: rodilla rotando hacia afuera -->
+  <g class="f3">
+    <circle cx="110" cy="34" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="110,46 110,112"/>
+      <polyline points="92,58 128,58"/>
+      <polyline points="92,58 78,86 100,110"/>
+      <polyline points="128,58 142,86 120,110"/>
+      <polyline points="104,112 104,160 104,208"/>
+      <polyline points="116,112 138,104 130,150"/>
+    </g>
+    <circle cx="104" cy="160" r="5" fill="#64748b"/>
+    <circle cx="138" cy="104" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 4: cadera abierta, rodilla al costado -->
+  <g class="f4">
+    <circle cx="110" cy="34" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="110,46 110,112"/>
+      <polyline points="92,58 128,58"/>
+      <polyline points="92,58 78,86 100,110"/>
+      <polyline points="128,58 142,86 120,110"/>
+      <polyline points="104,112 104,160 104,208"/>
+      <polyline points="116,112 162,100 162,148"/>
+    </g>
+    <circle cx="104" cy="160" r="5" fill="#64748b"/>
+    <circle cx="162" cy="100" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 5: baja la pierna desde el costado -->
+  <g class="f5">
+    <circle cx="110" cy="34" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="110,46 110,112"/>
+      <polyline points="92,58 128,58"/>
+      <polyline points="92,58 78,86 100,110"/>
+      <polyline points="128,58 142,86 120,110"/>
+      <polyline points="104,112 104,160 104,208"/>
+      <polyline points="116,112 146,140 140,186"/>
+    </g>
+    <circle cx="104" cy="160" r="5" fill="#64748b"/>
+    <circle cx="146" cy="140" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 6: pie volviendo al piso -->
+  <g class="f6">
+    <circle cx="110" cy="34" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="110,46 110,112"/>
+      <polyline points="92,58 128,58"/>
+      <polyline points="92,58 78,86 100,110"/>
+      <polyline points="128,58 142,86 120,110"/>
+      <polyline points="104,112 104,160 104,208"/>
+      <polyline points="116,112 126,156 122,204"/>
+    </g>
+    <circle cx="104" cy="160" r="5" fill="#64748b"/>
+    <circle cx="126" cy="156" r="5" fill="#64748b"/>
+  </g>
+</svg>

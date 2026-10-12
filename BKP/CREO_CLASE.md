@@ -17,6 +17,7 @@ El objetivo es producir:
    que genera el botón "Exportar Clase(s)" de la app (`src/services/classShareService.ts`) —
    listo para importarse desde **Configuración → Importar** sin perder datos existentes
 3. Guardar el ZIP en `BKP/` (mismo naming que los ZIP generados antes, ej. `clase-GOAT-13-08-2026.zip`)
+4. **Agregar los ejercicios nuevos de la clase a `BKP/ejercicios_nuevos.csv`** (ver §4c)
 
 > 💪 **Músculos obligatorios:** *todos* los ejercicios de la clase — nuevos **y reutilizados** —
 > tienen que salir del ZIP con su músculo primario y sus secundarios cargados (§6 PASO 6 y §5.1).
@@ -218,6 +219,8 @@ es que el movimiento ya exista con otro nombre.
 
 1. `ls public/img/exercises/` — es la **fuente de la verdad** del inventario de SVG (la lista de §4a
    es una foto al 2026-08-22 y envejece con cada clase).
+1b. `BKP/ejercicios.csv` — export de los ejercicios cargados en la BD (§4a-ter): si el nombre
+   está ahí, el ejercicio existe y se reutiliza.
 2. `src/services/imageUpdateService.ts` — array `EXERCISE_IMAGES` con pares
    `nombre exacto en BD → /img/exercises/x.svg`. Sirve para saber **con qué nombre está cargado en
    la BD** un SVG determinado.
@@ -255,6 +258,30 @@ el nombre del profesor como alias:
   `technical_notes` **pisa** el valor anterior, hay que mandarlas completas (buscar el texto vigente
   en los ZIP anteriores de `BKP/` o en git antes de reescribirlas).
 - En la clase: el nombre del profesor tal cual va en `coach_notes` del `section_exercise`.
+
+#### 4a-ter. `BKP/ejercicios.csv` y `BKP/ejercicios_nuevos.csv` (desde 2026-10-12)
+
+- **`BKP/ejercicios.csv`** es un export del listado de ejercicios de la BD del usuario (separado por
+  `;`, UTF-8 con BOM, una fila por ejercicio: nombre, músculos en `zonas`, `grupo_principal`,
+  técnica, tags, unidades, videos, SVG, uso en clases/sesiones). Es la **foto más fiel de lo que
+  está cargado** en la BD: usarlo en PASO 4 para decidir si un ejercicio ya existe (buscar por
+  `nombre` y por `clave` = kebab-case) y para tomar de ahí los músculos y las `technical_notes`
+  vigentes de los reutilizados (§4a-bis). No se modifica: lo regenera el usuario.
+- **`BKP/ejercicios_nuevos.csv`** acumula, clase a clase, los ejercicios que **no** estaban en
+  `ejercicios.csv` y se crearon con la clase. **Mismas columnas y formato** que `ejercicios.csv`
+  (mismo encabezado, `;`, BOM, campos con `;` o comillas entre comillas dobles, saltos de línea
+  reemplazados por espacio). Reglas:
+  - Si el archivo no existe, crearlo con el encabezado de `ejercicios.csv`; si existe, **agregar
+    filas al final** sin tocar las anteriores ni duplicar una `clave` ya presente.
+  - `id` queda vacío (el importador genera el UUID real al importar el ZIP).
+  - `categoria` = los `section_types` del ejercicio, `zonas` = primario + secundarios,
+    `unidades` con `*` en la default, `svg_local` = `public\img\exercises\<clave>.svg`,
+    `video_corto` / `video_largo` = `video_path` / `video_long_path`.
+  - Contadores de uso: `sesiones_realizadas` / `veces_ejecutado` / `records_personales` en `0`,
+    `clases_que_lo_usan` en `1`, `apariciones_en_clases` = cantidad de `section_exercise` de la clase.
+  - `creado` / `actualizado` = fecha de la clase (`YYYY-MM-DD 00:00:00`).
+  - Lo más simple es generarlo desde el mismo script del ZIP (§11a), a partir del array de
+    ejercicios nuevos, así los datos del CSV y del ZIP no se desfasan.
 
 #### 4b. SVG existentes al 2026-08-22 (308 archivos, sin la extensión `.svg`)
 
@@ -1512,6 +1539,8 @@ Al finalizar la generación de una clase, verificar:
 - [ ] Todos los `section_exercises` tienen `planned_repetitions` / `planned_time_seconds` /
       `planned_distance_value` + unidad / `planned_calories` / `planned_weight_value` según corresponda
 - [ ] Los circuitos que el MD trae desenrollados se cargaron **una vez** + `total_rounds`
+- [ ] Los ejercicios nuevos (los que no figuran en `BKP/ejercicios.csv`) quedaron agregados al final
+      de `BKP/ejercicios_nuevos.csv`, con las mismas columnas y sin duplicar claves (§4a-ter)
 
 **Clase por video (§7.6) — sólo si el MD trae la línea `video clase`:**
 - [ ] `video_url` cargado en la fila de `classes` con la URL tal cual viene del MD
