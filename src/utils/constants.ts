@@ -2,7 +2,8 @@
 
 export const DB_NAME = 'crossfit_tracker';
 export const DB_VERSION = 1;
-export const APP_VERSION = '1.0.0';
+// Única fuente de verdad: src/config/version.ts (la actualiza scripts/release.ps1)
+export { APP_VERSION } from '../config/version';
 export const MEDIA_BASE_DIR = 'crossfit-tracker/media';
 export const MEDIA_DIRS = {
   muscles: 'crossfit-tracker/media/muscles',

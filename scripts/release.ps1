@@ -91,6 +91,10 @@ $VTs = $VTs -replace "APP_VERSION = '[^']*'", "APP_VERSION = '$Version'"
 Set-Content $VersionTsPath $VTs -NoNewline
 Write-Host "Bumped src/config/version.ts: APP_VERSION → '$Version'"
 
+# ── 2b. package.json / package-lock.json ───────────────────────────────────────
+npm version $Version --no-git-tag-version --allow-same-version | Out-Null
+Write-Host "Bumped package.json: version → '$Version'"
+
 # ── 3. Commit y tag ────────────────────────────────────────────────────────────
 # Incluir TODOS los cambios locales (nuevos archivos, modificaciones, imágenes, etc.)
 # para que el APK generado refleje exactamente el estado del working tree.
