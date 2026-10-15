@@ -14,6 +14,71 @@
 
 
 
+
+### TEMPLATE
+Clase GOAT XX/XX/2026
+video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+
+Activacion
+Fuerza
+WOD
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+### TEMPLATE
+
+
+Clase GOAT 14/10/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 6 minutos 
+ - Thoracic Wall Sweep pie izquierdo, video corto https://www.youtube.com/shorts/sNu7RbNVbDg video explicativo https://www.youtube.com/shorts/n7T17_baMV8
+ - Thoracic Wall Sweep pie derecho
+ - Yoga Push-Up
+ - Kettlebell Good Morning to Squat 10kg
+
+Activacion 6 rondas por minuto, 1 y 2 un ejercicio, 3 y 4 otro, 5 y 6 otro, todo con barra de 20 sin pesas
+ - 2 Barbell Deadlift to Knee Height + 2 Barbell Deadlift + 2 Barbell Hang Clean
+ - 2 Barbell Deadlift to Knee Height + 2 Barbell Deadlift + 2 Barbell Hang Clean
+ - 6 Barbell Hang Clean
+ - 6 Barbell Hang Clean
+ - 6 Push Press Behind the Neck
+ - 6 Push Press Behind the Neck
+
+Fuerza 8 rondas cada 1.5 minutos
+ - 2 Barbell Deadlift + 3 Barbell Power Clean, 40 kg
+ - 2 Barbell Deadlift + 3 Barbell Power Clean, 40 kg
+ - 2 Barbell Deadlift + 3 Barbell Power Clean, 40 kg
+ - 1 Barbell Deadlift + 2 Barbell Power Clean, 45 kg
+ - 1 Barbell Deadlift + 2 Barbell Power Clean, 45 kg
+ - 1 Barbell Deadlift + 2 Barbell Power Clean, 45 kg
+ - 1 Barbell Power Clean, 50 kg
+ - 1 Barbell Power Clean, 50 kg
+
+WOD 
+ - 600 m running
+ - 200 m Kettlebell Farmer Carry 20kg 
+ - 18 Barbell Back Squat 20kg
+ - 400 m running
+ - 200 m Kettlebell Farmer Carry 20kg 
+ - 12 Barbell Front Squat 20 kg
+ - 200 m running
+ - 200 m Kettlebell Farmer Carry 20kg 
+ - 6 Barbell Overhead Squat 20 kg
+ 
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
+
+
+
 Clase GOAT 12/10/2026
 
 Calentamiento

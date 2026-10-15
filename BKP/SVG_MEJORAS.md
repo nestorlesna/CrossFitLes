@@ -178,3 +178,9 @@ Generados con un script (fórmula §5a de `CREO_CLASE.md`), XML validado con `mi
 - **Open the Gate** (`open-the-gate.svg`) — 6 frames, vista frontal con manos en la cadera. Dificultad: la rodilla que sube al frente apunta al espectador y en frontal casi no se ve (frame 2); la apertura hacia el costado sí se lee bien. Mejora: una vista 3/4 mostraría las dos fases (arriba y afuera).
 - **Candlestick to Straddle Stretch** (`candlestick-to-straddle-stretch.svg`) — 6 frames, vista lateral: sentado, rodado atrás, vela, rodado adelante, straddle y flexión al frente. Dificultad: de costado no se ve la apertura de piernas del straddle (las dos piernas se superponen). Mejora: dibujar la segunda pierna en otro tono o pasar el último frame a vista frontal.
 - **Barbell Cluster** (`barbell-cluster.svg`) — 7 frames, vista frontal (mismo molde que `barbell-squat-clean.svg`): setup, rodillas, triple extensión, recepción en sentadilla, subida, bloqueo overhead y bajada a la cadera. Mejora: falta el frame de bajada desde la cadera al piso; los codos del rack frontal en vista frontal se ven por debajo de la barra.
+
+### Clase GOAT 14/10/2026 — 1 SVG nuevo (2026-10-15)
+
+Generado con un script (fórmula §5a de `CREO_CLASE.md`), XML validado con `minidom` y revisado frame por frame en una hoja de contactos (Edge headless).
+
+- **Thoracic Wall Sweep** (`thoracic-wall-sweep.svg`) — 6 frames, vista frontal con la pared a la izquierda y el recorrido de la mano marcado con un arco punteado: mano en la pared, barrido hacia arriba, overhead, por detrás, apertura completa y regreso. Dificultad: la rotación torácica no se ve de frente; cuando el brazo pasa por detrás de la cabeza se dibuja antes que la cabeza y en un tono más oscuro (`#64748b`) para que se lea "detrás" y no "a través". Mejora: una vista cenital o 3/4 mostraría mejor la apertura del pecho; la estocada (pie adelante) casi no se distingue en frontal.
