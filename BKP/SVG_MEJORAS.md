@@ -184,3 +184,9 @@ Generados con un script (fórmula §5a de `CREO_CLASE.md`), XML validado con `mi
 Generado con un script (fórmula §5a de `CREO_CLASE.md`), XML validado con `minidom` y revisado frame por frame en una hoja de contactos (Edge headless).
 
 - **Thoracic Wall Sweep** (`thoracic-wall-sweep.svg`) — 6 frames, vista frontal con la pared a la izquierda y el recorrido de la mano marcado con un arco punteado: mano en la pared, barrido hacia arriba, overhead, por detrás, apertura completa y regreso. Dificultad: la rotación torácica no se ve de frente; cuando el brazo pasa por detrás de la cabeza se dibuja antes que la cabeza y en un tono más oscuro (`#64748b`) para que se lea "detrás" y no "a través". Mejora: una vista cenital o 3/4 mostraría mejor la apertura del pecho; la estocada (pie adelante) casi no se distingue en frontal.
+
+### Clase GOAT 17/10/2026 — 1 SVG nuevo (2026-10-17)
+
+Generado con un script (fórmula §5a de `CREO_CLASE.md`), XML validado con `minidom` y revisado frame por frame en una hoja de contactos (Edge headless).
+
+- **Clean Drop Drill** (`clean-drop-drill.svg`) — 7 frames, vista frontal (mismo molde que `barbell-hang-clean.svg`): de pie con la barra en la cadera, encogimiento en puntillas con codos altos, pies despegados cayendo bajo la barra, recepción en sentadilla frontal profunda, subida, de pie en rack y bajada a la cadera. Dificultad: lo que define el drill (la barra casi no sube y es el cuerpo el que baja) se lee poco en frontal; se marcó dejando la barra casi a la misma altura en los frames 2 y 3 mientras el cuerpo baja. El giro de codos al rack tampoco se ve de frente (los codos adelante quedan superpuestos con el torso). Mejora: una vista lateral mostraría el giro de codos y el despegue de los pies.

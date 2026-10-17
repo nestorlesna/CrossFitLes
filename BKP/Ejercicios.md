@@ -31,6 +31,55 @@ Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 ### TEMPLATE
 
 
+
+
+Clase GOAT 17/10/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 3 rondas todo 30 segundos
+ - Kettlebell Sumo Deadlift High Pull 10kg
+ - Kettlebell Good Morning to Squat
+ - 90/90 Hip Rotation
+
+ Activacion 6 rondas cada 1 minuto
+ - 8 Barbell Sumo Deadlift High Pull 20kg
+ - 8 Barbell Sumo Deadlift High Pull 20kg
+ - 8 Barbell Hang Clean 20kg
+ - 8 Barbell Hang Clean 20kg
+ - 8 Clean Drop Drill 20kg video corto https://www.youtube.com/shorts/vH3OMGdD6es
+ - 8 Clean Drop Drill 20kg
+ 
+Fuerza 8 rondas cada 1.5 minutos
+ - 3 Barbell Power Clean + 2 Barbell Hang Clean + 1 Barbell Sumo Deadlift High Pull 40kg
+ - 3 Barbell Power Clean + 2 Barbell Hang Clean + 1 Barbell Sumo Deadlift High Pull 40kg
+ - 3 Barbell Power Clean + 2 Barbell Hang Clean + 1 Barbell Sumo Deadlift High Pull 40kg
+ - 2 Barbell Hang Clean + 1 Barbell Sumo Deadlift High Pull 50kg
+ - 2 Barbell Hang Clean + 1 Barbell Sumo Deadlift High Pull 50kg
+ - 2 Barbell Hang Clean + 1 Barbell Sumo Deadlift High Pull 50kg
+ - 1 Barbell Hang Clean  54kg
+ - 1 Barbell Hang Clean  54kg
+
+
+WOD maximo en 18 minutos
+ - 40 Wall Ball Shot 6kg
+ - 400 m running
+ - 10 m Kettlebell Farmer Carry 2*22.5
+ - 30 Wall Ball Shot
+ - 400 m running
+ - 20 m Kettlebell Farmer Carry 2*22.5
+ - 20 Wall Ball Shot
+ - 400 m running
+ - 30 m Kettlebell Farmer Carry 2*22.5
+ - 10 Wall Ball Shot
+ - 400 m running
+ - 40 m Kettlebell Farmer Carry 2*22.5
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
 Clase GOAT 14/10/2026
 
 Calentamiento
