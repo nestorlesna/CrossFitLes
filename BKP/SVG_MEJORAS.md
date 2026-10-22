@@ -190,3 +190,9 @@ Generado con un script (fórmula §5a de `CREO_CLASE.md`), XML validado con `min
 Generado con un script (fórmula §5a de `CREO_CLASE.md`), XML validado con `minidom` y revisado frame por frame en una hoja de contactos (Edge headless).
 
 - **Clean Drop Drill** (`clean-drop-drill.svg`) — 7 frames, vista frontal (mismo molde que `barbell-hang-clean.svg`): de pie con la barra en la cadera, encogimiento en puntillas con codos altos, pies despegados cayendo bajo la barra, recepción en sentadilla frontal profunda, subida, de pie en rack y bajada a la cadera. Dificultad: lo que define el drill (la barra casi no sube y es el cuerpo el que baja) se lee poco en frontal; se marcó dejando la barra casi a la misma altura en los frames 2 y 3 mientras el cuerpo baja. El giro de codos al rack tampoco se ve de frente (los codos adelante quedan superpuestos con el torso). Mejora: una vista lateral mostraría el giro de codos y el despegue de los pies.
+
+### Clase GOAT 21/10/2026 — 1 SVG nuevo (2026-10-21)
+
+Generado con un script (fórmula §5a de `CREO_CLASE.md`, ángulos de muslo/rodilla calculados por trigonometría alrededor de la cadera) y revisado frame por frame en una hoja de contactos (Edge headless).
+
+- **Leg Swing** (`leg-swing.svg`) — 6 frames, vista lateral mirando a la derecha, con la pierna de apoyo fija en un tono más oscuro y el recorrido del pie marcado con un arco punteado: neutro, balanceo adelante, punto alto adelante, paso por el centro, punto más atrás y regreso. El torso hace una contra-inclinación leve (atrás cuando la pierna sube adelante, adelante cuando va atrás). Dificultad: en vista lateral la mano apoyada en la pared queda fuera del plano, así que se dibujó con las manos en la cadera; la versión lateral (abducción) del leg swing no se puede representar con este mismo SVG. Mejora: agregar el soporte (pared o rack) detrás de la figura sin tapar el recorrido de la pierna.

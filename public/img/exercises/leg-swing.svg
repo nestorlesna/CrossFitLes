@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+  <style>
+    .f1{animation:sh1 7.8s linear infinite}.f2{animation:sh2 7.8s linear infinite}.f3{animation:sh3 7.8s linear infinite}.f4{animation:sh4 7.8s linear infinite}.f5{animation:sh5 7.8s linear infinite}.f6{animation:sh6 7.8s linear infinite}
+    @keyframes sh1{0%,13.3%{opacity:1}16.7%,96.7%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,16.7%{opacity:0}20%,30%{opacity:1}33.3%,100%{opacity:0}}
+    @keyframes sh3{0%,33.3%{opacity:0}36.7%,46.7%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh4{0%,50%{opacity:0}53.3%,63.3%{opacity:1}66.7%,100%{opacity:0}}
+    @keyframes sh5{0%,66.7%{opacity:0}70%,80%{opacity:1}83.3%,100%{opacity:0}}
+    @keyframes sh6{0%,83.3%{opacity:0}86.7%,96.7%{opacity:1}100%,100%{opacity:0}}
+  </style>
+  <rect width="200" height="230" fill="#111827" rx="12"/>
+  <line x1="30" y1="210" x2="170" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="100" y="225" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="700" fill="#475569" letter-spacing="2">LEG SWING</text>
+  <polyline points="42.1,180.9 55,189.9 69.2,196.6 84.4,200.6 100,202 115.6,200.6 130.8,196.6 145,189.9 157.9,180.9 168.9,169.9 177.9,157 184.6,142.8" fill="none" stroke="#334155" stroke-width="2" stroke-dasharray="4 5"/>
+  <!-- Pierna de apoyo (fija, detrás) -->
+  <g stroke="#64748b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <polyline points="100,112 102,160 100,205 114,205"/>
+  </g>
+  <!-- Frame 1: Pierna junto a la de apoyo, torso erguido -->
+  <g class="f1">
+    <circle cx="100" cy="30" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="44" x2="100" y2="112"/>
+      <polyline points="100,56 84,82 96,106"/>
+      <polyline points="100,112 103.3,159.9 101.7,204.9 114.7,205.4"/>
+    </g>
+    <circle cx="84" cy="82" r="4" fill="#64748b"/>
+    <circle cx="103.3" cy="159.9" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 2: Balanceo hacia adelante -->
+  <g class="f2">
+    <circle cx="97.1" cy="30" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="97.6" y1="44" x2="100" y2="112"/>
+      <polyline points="98,56 83,82.6 95.8,106.1"/>
+      <polyline points="100,112 127.5,151.3 143.6,193.3 155.7,188.6"/>
+    </g>
+    <circle cx="83" cy="82.6" r="4" fill="#64748b"/>
+    <circle cx="127.5" cy="151.3" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 3: Punto más alto adelante, rodilla casi extendida -->
+  <g class="f3">
+    <circle cx="94.3" cy="30.2" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="95.3" y1="44.2" x2="100" y2="112"/>
+      <polyline points="96.1,56.1 81.9,83.2 95.6,106.3"/>
+      <polyline points="100,112 142.4,134.5 180.6,158.3 187.5,147.3"/>
+    </g>
+    <circle cx="81.9" cy="83.2" r="4" fill="#64748b"/>
+    <circle cx="142.4" cy="134.5" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 4: Pasa por el centro -->
+  <g class="f4">
+    <circle cx="100" cy="30" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="100" y1="44" x2="100" y2="112"/>
+      <polyline points="100,56 84,82 96,106"/>
+      <polyline points="100,112 106.7,159.5 105.1,204.5 118.1,205"/>
+    </g>
+    <circle cx="84" cy="82" r="4" fill="#64748b"/>
+    <circle cx="106.7" cy="159.5" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 5: Punto más atrás, cadera extendida -->
+  <g class="f5">
+    <circle cx="108.6" cy="30.4" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="107.1" y1="44.4" x2="100" y2="112"/>
+      <polyline points="105.9,56.3 87.2,80.5 96.6,105.6"/>
+      <polyline points="100,112 70.4,149.8 31.4,172.3 37.9,183.6"/>
+    </g>
+    <circle cx="87.2" cy="80.5" r="4" fill="#64748b"/>
+    <circle cx="70.4" cy="149.8" r="5" fill="#64748b"/>
+  </g>
+  <!-- Frame 6: Vuelve hacia el centro -->
+  <g class="f6">
+    <circle cx="104.3" cy="30.1" r="12" fill="#94a3b8"/>
+    <g stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="103.6" y1="44.1" x2="100" y2="112"/>
+      <polyline points="102.9,56.1 85.6,81.2 96.3,105.8"/>
+      <polyline points="100,112 85.2,157.7 60,195 70.8,202.3"/>
+    </g>
+    <circle cx="85.6" cy="81.2" r="4" fill="#64748b"/>
+    <circle cx="85.2" cy="157.7" r="5" fill="#64748b"/>
+  </g>
+</svg>

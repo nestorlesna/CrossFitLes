@@ -32,6 +32,47 @@ Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 
 
 
+Clase GOAT 21/10/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 3 rondas todo 12 repeticiones
+ - 12 leg swings izquierda, video corto https://www.youtube.com/shorts/G2WyCoVwv8Y, video explicativo https://www.youtube.com/shorts/SzOYrfTZDSM
+ - 12 leg swings derecha
+ - 12 World's Greatest Stretch
+ - 12 Barbell Good Morning
+
+Activacion 6 minutos maximo de repeticiones
+- 5 Barbell Deadlift
+- 5 Barbell Sumo Deadlift High Pull
+- 5 Barbell Power Clean
+- 5 Barbell Front Squat
+
+Fuerza 9 rondas cada 1 minuto
+- 5 Barbell Clean and Jerk 30 kg
+- 4 Barbell Clean and Jerk 35 kg
+- 3 Barbell Clean and Jerk 40 kg
+- 2 Barbell Clean and Jerk 45 kg
+- descando
+- 5 Barbell Clean and Jerk 35 kg
+- 4 Barbell Clean and Jerk 40 kg
+- 3 Barbell Clean and Jerk 45 kg
+- 2 Barbell Clean and Jerk 50 kg
+
+WOD 16 mintuos maximo de repeticiones, en parejas en espejo, aprox 2 rondas
+ - 20 Shuttle Run
+ - 50 Hanging Toes to Bar
+ - 75 Knee Push-Up
+ - 100 Air Squat
+ 
+ 
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
+
 
 Clase GOAT 17/10/2026
 
