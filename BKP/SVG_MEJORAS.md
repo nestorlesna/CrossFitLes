@@ -170,3 +170,37 @@ Generados con un script (fórmula §5a de `CREO_CLASE.md`, vista lateral salvo e
 - **Deficit Banded Deadlift** (`deficit-banded-deadlift.svg`) — 6 frames. La plataforma es un rectángulo bajo los pies y la banda son dos líneas de la barra al piso. Mejora: la banda no cambia de largo de forma realista.
 - **Dumbbell Back Rack Lunge** (`dumbbell-back-rack-lunge.svg`) — 6 frames, con pausa abajo. En vista lateral las mancuernas quedan sobre el hombro sin distinguir "back rack" de "front rack".
 - **Squat Jump to Plate** (`squat-jump-to-plate.svg`) — 7 frames, la figura se desplaza de izquierda a derecha sobre el disco. Mejora: el aire necesita más separación del piso en el frame 4.
+
+### Clase GOAT 12/10/2026 — 3 SVG nuevos (2026-10-12)
+
+Generados con un script (fórmula §5a de `CREO_CLASE.md`), XML validado con `minidom`. **No se revisaron en el navegador**: verificar el crossfade y las poses antes de darlos por buenos.
+
+- **Open the Gate** (`open-the-gate.svg`) — 6 frames, vista frontal con manos en la cadera. Dificultad: la rodilla que sube al frente apunta al espectador y en frontal casi no se ve (frame 2); la apertura hacia el costado sí se lee bien. Mejora: una vista 3/4 mostraría las dos fases (arriba y afuera).
+- **Candlestick to Straddle Stretch** (`candlestick-to-straddle-stretch.svg`) — 6 frames, vista lateral: sentado, rodado atrás, vela, rodado adelante, straddle y flexión al frente. Dificultad: de costado no se ve la apertura de piernas del straddle (las dos piernas se superponen). Mejora: dibujar la segunda pierna en otro tono o pasar el último frame a vista frontal.
+- **Barbell Cluster** (`barbell-cluster.svg`) — 7 frames, vista frontal (mismo molde que `barbell-squat-clean.svg`): setup, rodillas, triple extensión, recepción en sentadilla, subida, bloqueo overhead y bajada a la cadera. Mejora: falta el frame de bajada desde la cadera al piso; los codos del rack frontal en vista frontal se ven por debajo de la barra.
+
+### Clase GOAT 14/10/2026 — 1 SVG nuevo (2026-10-15)
+
+Generado con un script (fórmula §5a de `CREO_CLASE.md`), XML validado con `minidom` y revisado frame por frame en una hoja de contactos (Edge headless).
+
+- **Thoracic Wall Sweep** (`thoracic-wall-sweep.svg`) — 6 frames, vista frontal con la pared a la izquierda y el recorrido de la mano marcado con un arco punteado: mano en la pared, barrido hacia arriba, overhead, por detrás, apertura completa y regreso. Dificultad: la rotación torácica no se ve de frente; cuando el brazo pasa por detrás de la cabeza se dibuja antes que la cabeza y en un tono más oscuro (`#64748b`) para que se lea "detrás" y no "a través". Mejora: una vista cenital o 3/4 mostraría mejor la apertura del pecho; la estocada (pie adelante) casi no se distingue en frontal.
+
+### Clase GOAT 17/10/2026 — 1 SVG nuevo (2026-10-17)
+
+Generado con un script (fórmula §5a de `CREO_CLASE.md`), XML validado con `minidom` y revisado frame por frame en una hoja de contactos (Edge headless).
+
+- **Clean Drop Drill** (`clean-drop-drill.svg`) — 7 frames, vista frontal (mismo molde que `barbell-hang-clean.svg`): de pie con la barra en la cadera, encogimiento en puntillas con codos altos, pies despegados cayendo bajo la barra, recepción en sentadilla frontal profunda, subida, de pie en rack y bajada a la cadera. Dificultad: lo que define el drill (la barra casi no sube y es el cuerpo el que baja) se lee poco en frontal; se marcó dejando la barra casi a la misma altura en los frames 2 y 3 mientras el cuerpo baja. El giro de codos al rack tampoco se ve de frente (los codos adelante quedan superpuestos con el torso). Mejora: una vista lateral mostraría el giro de codos y el despegue de los pies.
+
+### Clase GOAT 21/10/2026 — 1 SVG nuevo (2026-10-21)
+
+Generado con un script (fórmula §5a de `CREO_CLASE.md`, ángulos de muslo/rodilla calculados por trigonometría alrededor de la cadera) y revisado frame por frame en una hoja de contactos (Edge headless).
+
+- **Leg Swing** (`leg-swing.svg`) — 6 frames, vista lateral mirando a la derecha, con la pierna de apoyo fija en un tono más oscuro y el recorrido del pie marcado con un arco punteado: neutro, balanceo adelante, punto alto adelante, paso por el centro, punto más atrás y regreso. El torso hace una contra-inclinación leve (atrás cuando la pierna sube adelante, adelante cuando va atrás). Dificultad: en vista lateral la mano apoyada en la pared queda fuera del plano, así que se dibujó con las manos en la cadera; la versión lateral (abducción) del leg swing no se puede representar con este mismo SVG. Mejora: agregar el soporte (pared o rack) detrás de la figura sin tapar el recorrido de la pierna.
+
+### Clases GOAT 30/10/2026 y 02/11/2026 — 3 SVG nuevos (2026-11-02)
+
+Generados con un script (fórmula §5a de `CREO_CLASE.md`, posiciones de brazos calculadas por trigonometría) y revisados frame por frame en una hoja de contactos (Edge headless).
+
+- **Kneeling Weighted Shoulder CAR** (`kneeling-weighted-shoulder-car.svg`) — 7 frames, vista lateral en media rodilla con el recorrido del brazo marcado con un círculo punteado; el cuerpo queda fijo y sólo se anima el brazo. Dificultad: la rotación del brazo sobre su eje, que es lo central del CAR, no se ve con un stick figure; en el frame vertical el brazo pasa por encima de la cabeza y se confunde con ella. Mejora: marcar la orientación de la palma, o agregar una vista desde atrás.
+- **Dumbbell Around the World** (`dumbbell-around-the-world.svg`) — 7 frames, vista frontal: abajo, subida lateral, cruz, arriba del hombro, overhead y bajada. Dificultad: los hombros se separaron más de lo normal (±16) para que los brazos no atraviesen la cabeza en el frame alto, y los brazos se acortaron para que las mancuernas entren en el viewBox. Mejora: bajar un poco la figura para usar brazos más proporcionados.
+- **Banded Pull-Up** (`banded-pull-up.svg`) — 6 frames, vista frontal con la barra y los parantes fijos; la banda (naranja) se acorta al subir. Dificultad: en frontal la banda queda superpuesta con el torso y la pierna de apoyo, y la pierna libre doblada se lee poco. Mejora: una vista 3/4 o lateral separaría la banda del cuerpo; la banda debería verse más tensa abajo que arriba.

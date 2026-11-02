@@ -1,7 +1,7 @@
 // Pantalla principal de la biblioteca de ejercicios con búsqueda y filtros
 import { useState, useRef, useEffect, useId } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, SlidersHorizontal, X, Dumbbell, CalendarCheck, ChevronLeft, ChevronRight, Video, VideoOff } from 'lucide-react';
+import { Plus, SlidersHorizontal, X, Dumbbell, CalendarCheck, ChevronLeft, ChevronRight, Video, VideoOff, ArrowDownAZ, ArrowDownWideNarrow } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { SearchBar } from '../../components/ui/SearchBar';
 import { Modal } from '../../components/ui/Modal';
@@ -19,7 +19,7 @@ export function ExercisesPage() {
   const [searchInput, setSearchInput] = useState('');
   const [searchAllInput, setSearchAllInput] = useState('');
   // Filtros aplicados (con debounce en el search)
-  const [filters, setFilters] = useState<ExerciseFilters>({ in_classes: true });
+  const [filters, setFilters] = useState<ExerciseFilters>({ in_classes: true, sort_by: 'usage' });
   // Control del modal de filtros
   const [showFilters, setShowFilters] = useState(false);
   // Mostrar u ocultar los videos en las tarjetas del listado
@@ -88,7 +88,7 @@ export function ExercisesPage() {
     setShowFilters(false);
   }
 
-  // Limpiar todos los filtros (mantiene in_classes)
+  // Limpiar todos los filtros (mantiene in_classes y el orden)
   function clearFilters() {
     setTempDifficulty('');
     setTempMuscle('');
@@ -98,6 +98,7 @@ export function ExercisesPage() {
       search: prev.search,
       search_all: prev.search_all,
       in_classes: prev.in_classes,
+      sort_by: prev.sort_by,
     }));
     setShowFilters(false);
   }
@@ -105,6 +106,11 @@ export function ExercisesPage() {
   // Alternar el filtro "en clases"
   function toggleInClasses() {
     setFilters((prev) => ({ ...prev, in_classes: !prev.in_classes }));
+  }
+
+  // Alternar el orden entre "más usados" y alfabético
+  function toggleSort() {
+    setFilters((prev) => ({ ...prev, sort_by: prev.sort_by === 'usage' ? 'name' : 'usage' }));
   }
 
   // Contar filtros activos (excluyendo search) para mostrar indicador
@@ -198,8 +204,20 @@ export function ExercisesPage() {
           placeholder="Buscar en todos los campos..."
         />
 
-        {/* Toggles: sólo ejercicios en clases / ver videos */}
+        {/* Toggles: orden / sólo ejercicios en clases / ver videos */}
         <div className="flex flex-wrap gap-2">
+          <button
+            onClick={toggleSort}
+            aria-label={filters.sort_by === 'usage' ? 'Orden: más usados. Cambiar a alfabético' : 'Orden: alfabético. Cambiar a más usados'}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+              filters.sort_by === 'usage'
+                ? 'bg-primary-600 border-primary-500 text-white'
+                : 'bg-gray-800 border-gray-700 text-gray-400'
+            }`}
+          >
+            {filters.sort_by === 'usage' ? <ArrowDownWideNarrow size={13} /> : <ArrowDownAZ size={13} />}
+            {filters.sort_by === 'usage' ? 'Más usados' : 'A-Z'}
+          </button>
           <button
             onClick={toggleInClasses}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${

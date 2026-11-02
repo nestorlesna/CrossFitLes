@@ -100,15 +100,24 @@ Cada entidad principal tiene su propio repo:
 Todas bajo un `<Layout>` con `BottomNav` de 5 tabs:
 - `/inicio` → Dashboard
 - `/ejercicios` (+ `/nuevo`, `/:id`, `/:id/editar`)
-- `/clases` (+ `/nueva`, `/:id`, `/:id/editar`)
-- `/sesiones` (+ `/nueva`, `/:id/ejecutar`, `/:id`)
+- `/clases` (+ `/nueva`, `/:id`, `/:id/editar`, `/:id/tiempos`)
+- `/planes` (+ `/nuevo`, `/:id`, `/:id/editar`, `/:id/dias/:dayId`)
+- `/challenges` (+ `/:code`, `/sesion/:sessionId`)
+- `/sesiones` (+ `/nueva`, `/registrar`, `/libre`, `/:id/ejecutar`, `/:id/cronometro`, `/:id/video`, `/:id`)
+- `/timer` (+ `/nueva`, `/:id/editar`, `/:id/correr`) — cronómetro libre
 - `/estadisticas`
-- `/configuracion` (+ subrutas para los 7 catálogos)
+- `/configuracion` (+ los 7 catálogos, perfil, medidas, fotos, imágenes/músculos/videos de
+  ejercicios, duplicados, clases inactivas, sesiones, cronómetro, ayuda, acerca de)
 
 ### Servicios adicionales
 - `src/services/mediaService.ts` — gestión de imágenes (web: file input; native: Capacitor Camera + Filesystem).
 - `src/services/seedService.ts` — carga datos iniciales (64 registros) controlado por flag en localStorage (`seed_v1_done`).
 - `src/services/backupService.ts` — exportar/importar todos los datos como JSON respetando el orden de dependencias entre tablas.
+
+### Versionado
+- `APP_VERSION` vive sólo en `src/config/version.ts` (`src/utils/constants.ts` la re-exporta).
+- `scripts/release.ps1 X.Y.Z` actualiza a la vez `build.gradle` (versionCode/versionName),
+  `src/config/version.ts` y `package.json`/`package-lock.json`. No editarlos a mano.
 
 ## Dataset de referencia externo (`BKP/exercises-dataset-main/`)
 Repositorio de terceros ("Exercises Dataset": 1.324 ejercicios con GIF animado, thumbnail

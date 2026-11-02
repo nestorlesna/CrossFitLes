@@ -25,12 +25,18 @@ Aplicación móvil personal para planificar, registrar y analizar entrenamientos
 | Fechas | date-fns | 3+ |
 | Iconos | Lucide React | — |
 | Toast/Feedback | Sonner | — |
+| Gráficos | Recharts (carga diferida) | 3+ |
+| Backup / exportación | JSZip | 3+ |
+| SQLite en navegador (dev) | jeep-sqlite + sql.js | 2.8 / 1.11 |
+
+Versión actual: **1.3.0** (`src/config/version.ts`, `android/app/build.gradle` y `package.json`
+se actualizan juntos con `scripts/release.ps1`).
 
 ## 🚀 Inicio Rápido
 
 ### Prerrequisitos
 
-- [Node.js](https://nodejs.org/) (v18 o superior)
+- [Node.js](https://nodejs.org/) (v20 recomendado; mínimo v18)
 - [npm](https://www.npmjs.com/) (v9 o superior)
 - [Android Studio](https://developer.android.com/studio) (para compilar APK)
 
@@ -110,7 +116,7 @@ GitHub Actions construye el APK firmado y lo publica como GitHub Release automá
 
 ```
 .\scripts\release.ps1 X.Y.Z
-  → bump versionCode/versionName en build.gradle
+  → bump versionCode/versionName en build.gradle, APP_VERSION y package.json
   → git commit + tag vX.Y.Z + push
   → GitHub Actions: build web → cap sync → gradle assembleRelease → firma APK
   → GitHub Release con CrossFitLes.apk adjunto
@@ -158,11 +164,13 @@ src/
 │   ├── database.ts           # Inicialización SQLite
 │   ├── migrations/           # Migraciones de esquema
 │   └── repositories/         # Acceso a datos (repos)
+├── config/                   # Versión de la app y URL de chequeo de actualizaciones
 ├── models/                   # Modelos de datos
 ├── components/
 │   ├── ui/                   # Componentes base reutilizables
 │   ├── exercises/            # Biblioteca de ejercicios
 │   ├── classes/              # Plantillas de clase
+│   ├── plans/                # Planes de entrenamiento y calendario
 │   ├── sessions/             # Sesiones de entrenamiento
 │   ├── catalogs/             # Gestión de catálogos
 │   ├── stats/                # Estadísticas y gráficos
@@ -170,10 +178,13 @@ src/
 │   └── layout/               # Layout, Header, BottomNav
 ├── hooks/                    # Custom hooks
 ├── data/                     # Catálogo de challenges (del APK; se suman los remotos)
-├── pages/                    # Pantallas por sección (Challenges, Plans, Sessions...)
+├── pages/                    # Pantallas por sección (Challenges, Plans, Sessions, Timer...)
 ├── services/                 # Servicios (media, migración, seed, challenges, contenido online)
 ├── utils/                    # Utilidades y helpers
 └── types/                    # Tipos compartidos
+public/                       # SVG animados de ejercicios, íconos y sql-wasm.wasm
+scripts/release.ps1           # Release de la app + push del contenido online
+.github/workflows/            # release-apk.yml: build y firma del APK al pushear un tag v*
 ```
 
 ## ✨ Funcionalidades
@@ -183,7 +194,9 @@ src/
 - **Catálogos completos** — CRUD de grupos musculares, equipamiento, unidades, niveles, tags, tipos de sección y formatos de trabajo con datos semilla precargados.
 - **Biblioteca de ejercicios** — Creación, búsqueda, filtrado avanzado, imágenes y SVG animados, relaciones N:N con grupos musculares, equipamiento, tags y más.
 - **Plantillas de clase** — Planificación de clases con múltiples secciones, ejercicios configurables, formatos de trabajo (AMRAP, EMOM, For Time, etc.), duplicación de plantillas.
-- **Sesiones y récords** — Registro en vivo, cronómetro guiado paso a paso, comparación plan vs. resultado y detección de PRs.
+- **Sesiones y récords** — Registro en vivo, cronómetro guiado paso a paso, comparación plan vs. resultado y detección de PRs. También sesiones libres, carga manual de sesiones pasadas y clases seguidas por video.
+- **Cronómetro libre** — Timers configurables (For Time, AMRAP, EMOM, Tabata, intervalos fijos o variables) independientes de las clases, con aviso sonoro.
+- **Perfil y progreso corporal** — Perfil del usuario, medidas corporales, fotos de progreso y estimación de calorías (MET).
 - **Estadísticas y progresión** — Gráficos de evolución, historial por ejercicio, récords personales y dashboard.
 - **Planes de entrenamiento** — Días programados en un calendario (por fecha o secuenciales), con clases existentes o días armados a mano, avance y racha.
 - **Challenges de calistenia** — 9 challenges sin equipamiento: 6 de meta de repeticiones (100 flexiones, 200 abdominales, 200 sentadillas, 150 fondos en silla, 150 zancadas, 50 burpees) y 3 diarios de 30 días (plancha de 5 minutos, sentadillas, abdominales). Test inicial que define el nivel, retests en las semanas 2/4/5 que recalculan las sesiones, "No pude completar" que repite la semana, timer de descanso con aviso sonoro, registro de repeticiones reales por serie y gráficos de progreso (volumen por sesión y repeticiones máximas). Varios challenges pueden estar en curso a la vez.
@@ -198,7 +211,7 @@ Un challenge en curso es un plan de entrenamiento con `plan_kind = 'challenge'`,
 ## 🗄️ Base de Datos
 
 - **Motor**: SQLite (offline-first, datos locales en el dispositivo)
-- **Migraciones**: Sistema versionado automático al iniciar la app
+- **Migraciones**: Sistema versionado automático al iniciar la app (`src/db/migrations/`, v001–v018)
 - **Principios**: UUIDs como PK, `created_at`/`updated_at` en todas las tablas, foreign keys con `ON DELETE CASCADE`
 
 ## 📜 Scripts Disponibles
@@ -212,6 +225,7 @@ Un challenge en curso es un plan de entrenamiento con `plan_kind = 'challenge'`,
 | `npm run cap:sync` | Compila y sincroniza con Capacitor |
 | `npm run cap:android` | Sincroniza y abre Android Studio (opcional) |
 | `.\scripts\release.ps1 X.Y.Z` | Publica una nueva versión (bump + tag + push) y sube el contenido online |
+| `.\scripts\release.ps1 X.Y.Z -SkipContent` | Publica la versión sin subir el contenido online |
 | `.\scripts\release.ps1 -ContentOnly` | Sólo sube el contenido online publicado |
 
 ## 🌐 Convenciones del Proyecto

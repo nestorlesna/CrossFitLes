@@ -105,11 +105,11 @@ export function SettingsPage() {
   const navigate = useNavigate();
 
   const [profileOpen, setProfileOpen] = useState(true);
-  const [catalogsOpen, setCatalogsOpen] = useState(false);
-  const [listingsOpen, setListingsOpen] = useState(false);
   const [contentOpen, setContentOpen] = useState(true);
   const [dataMgmtOpen, setDataMgmtOpen] = useState(false);
-  const [aboutOpen, setAboutOpen] = useState(true);
+  const [catalogsOpen, setCatalogsOpen] = useState(false);
+  const [listingsOpen, setListingsOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
 
   return (
     <>
@@ -161,6 +161,31 @@ export function SettingsPage() {
                 </div>
                 <ChevronRight size={16} className="text-gray-600" />
               </button>
+            </div>
+          )}
+        </div>
+
+        {/* ── Contenido online ── */}
+        <div>
+          <SectionHeader icon={Cloud} title="Contenido online" expanded={contentOpen} onToggle={() => setContentOpen(!contentOpen)} />
+          {contentOpen && (
+            <div className="mt-2">
+              <ContentSyncSection />
+            </div>
+          )}
+        </div>
+
+        {/* ── Gestión de datos ── */}
+        <div>
+          <SectionHeader icon={HardDrive} title="Gestión de datos" expanded={dataMgmtOpen} onToggle={() => setDataMgmtOpen(!dataMgmtOpen)} />
+          {dataMgmtOpen && (
+            <div className="space-y-4 mt-2">
+              <ClassShareSection />
+              <BackupSection />
+              <TimerEstimationSection />
+              <ExerciseMigrationSection />
+              <UnusedExercisesSection />
+              <ResetSection />
             </div>
           )}
         </div>
@@ -298,31 +323,6 @@ export function SettingsPage() {
                 </div>
                 <ChevronRight size={16} className="text-gray-600" />
               </button>
-            </div>
-          )}
-        </div>
-
-        {/* ── Contenido online ── */}
-        <div>
-          <SectionHeader icon={Cloud} title="Contenido online" expanded={contentOpen} onToggle={() => setContentOpen(!contentOpen)} />
-          {contentOpen && (
-            <div className="mt-2">
-              <ContentSyncSection />
-            </div>
-          )}
-        </div>
-
-        {/* ── Gestión de datos ── */}
-        <div>
-          <SectionHeader icon={HardDrive} title="Gestión de datos" expanded={dataMgmtOpen} onToggle={() => setDataMgmtOpen(!dataMgmtOpen)} />
-          {dataMgmtOpen && (
-            <div className="space-y-4 mt-2">
-              <ClassShareSection />
-              <BackupSection />
-              <TimerEstimationSection />
-              <ExerciseMigrationSection />
-              <UnusedExercisesSection />
-              <ResetSection />
             </div>
           )}
         </div>

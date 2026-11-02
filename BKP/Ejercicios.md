@@ -5,28 +5,297 @@
       "asigná los músculos de la clase 30/03 usando ACTUALIZO_MUSCULOS.md"
 
 - CREO_CLASE.md
-  El próximo paso para usarlo: cuando tengas una clase nueva en el MD, decime     
+  El próximo paso para usarlo: cuando tengas una clase nueva en el MD, decime
       "cargá la clase X usando CREO_CLASE.md"
 
 - ACTUALIZO_VIDEOS.md
   asigná los videos de X x x x usando ACTUALIZO_VIDEO.md
 ### COMO USAR
 
-
 ### TEMPLATE
-Clase GOAT XX/XX/2026
-video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta
 
 Calentamiento
+
 - 6 minutos de calentamiento
 
 Movilidad - 2 rondas todo 30 segundos
 
 Activacion
+
 Fuerza
+
 WOD
+
 Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
 ### TEMPLATE
+
+
+
+
+
+
+Clase GOAT 02/11/2026
+Calentamiento
+
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+
+- Band Pull-Apart
+- Cuban Press 2*2.5kg
+- Band Pass-Through
+- Dumbbell around the world video corto https://www.youtube.com/shorts/IDSv0v-9Zms, video explicativo https://www.youtube.com/shorts/jcZQ8oj8AdI
+
+Activacion 5 minutos de prueba gimnastica
+
+- practica de pull up con banda, 3 o cuatro repeticiones de 5
+
+Fuerza 5 rondas cada 1.5 minutos
+
+- Barbell Push Press strict, 5 * 30kg
+- Barbell Push Press strict, 4 * 35kg
+- Barbell Push Press strict, 3 * 35kg
+- Barbell Push Press strict, 3 * 35kg
+- Barbell Push Press strict, 2 * 35kg
+
+WOD 12 minutos, maximo canitidad de vueltas, en cada vuelta aumento 2 repes, pongo un total de 5 de ejemplo, dejar las 5 
+
+- 4 Hanging Toes to Bar
+- 10 Wall Ball Shot
+- 14 Box Jump-Over
+- 6 Hanging Toes to Bar
+- 12 Wall Ball Shot
+- 16 Box Jump-Over
+- 8 Hanging Toes to Bar
+- 14 Wall Ball Shot
+- 16 Box Jump-Over
+- 10 Hanging Toes to Bar
+- 16 Wall Ball Shot
+- 18 Box Jump-Over
+- 12 Hanging Toes to Bar
+- 18 Wall Ball Shot
+- 20 Box Jump-Over
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+Clase GOAT 02/11/2026
+video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta
+
+Clase GOAT 30/10/2026
+
+Movilidad 5 min mayor cantidad d vueltas
+- Band External Rotation
+- 12, 10kg Kettlebell Good Morning to Squat
+- 10/10 kneeling weighted shoulder CARs, video corto https://www.youtube.com/shorts/j1bV41gRRAs, video explicativo https://www.youtube.com/shorts/JWirMSVBlBA
+- Kettlebell Deadlift 10kg
+
+Activación 
+- práctica de Bodyweight Handstand Push-Up, 3 veces
+
+Fuerza, 5 rondas, 2 minutos, ultima ronda mayor cantidad de repes
+- 5 Barbell Deadlift, 70kg
+- 5 Barbell Deadlift, 70kg
+- 5 Barbell Deadlift, 70kg
+- descsnso
+- 8 Barbell Deadlift, 90kg
+
+Wod, máximo 14m, 10 rondas (mi tiempo 8:33)
+- 3 Bodyweight Handstand Push-Up
+- 2 Burpee Over the Bar
+- 1 Barbell Power Clean
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
+
+
+Clase GOAT 21/10/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 3 rondas todo 12 repeticiones
+ - 12 leg swings izquierda, video corto https://www.youtube.com/shorts/G2WyCoVwv8Y, video explicativo https://www.youtube.com/shorts/SzOYrfTZDSM
+ - 12 leg swings derecha
+ - 12 World's Greatest Stretch
+ - 12 Barbell Good Morning
+
+Activacion 6 minutos maximo de repeticiones
+- 5 Barbell Deadlift
+- 5 Barbell Sumo Deadlift High Pull
+- 5 Barbell Power Clean
+- 5 Barbell Front Squat
+
+Fuerza 9 rondas cada 1 minuto
+- 5 Barbell Clean and Jerk 30 kg
+- 4 Barbell Clean and Jerk 35 kg
+- 3 Barbell Clean and Jerk 40 kg
+- 2 Barbell Clean and Jerk 45 kg
+- descando
+- 5 Barbell Clean and Jerk 35 kg
+- 4 Barbell Clean and Jerk 40 kg
+- 3 Barbell Clean and Jerk 45 kg
+- 2 Barbell Clean and Jerk 50 kg
+
+WOD 16 mintuos maximo de repeticiones, en parejas en espejo, aprox 2 rondas
+ - 20 Shuttle Run
+ - 50 Hanging Toes to Bar
+ - 75 Knee Push-Up
+ - 100 Air Squat
+ 
+ 
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
+
+
+Clase GOAT 17/10/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 3 rondas todo 30 segundos
+ - Kettlebell Sumo Deadlift High Pull 10kg
+ - Kettlebell Good Morning to Squat
+ - 90/90 Hip Rotation
+
+ Activacion 6 rondas cada 1 minuto
+ - 8 Barbell Sumo Deadlift High Pull 20kg
+ - 8 Barbell Sumo Deadlift High Pull 20kg
+ - 8 Barbell Hang Clean 20kg
+ - 8 Barbell Hang Clean 20kg
+ - 8 Clean Drop Drill 20kg video corto https://www.youtube.com/shorts/vH3OMGdD6es
+ - 8 Clean Drop Drill 20kg
+ 
+Fuerza 8 rondas cada 1.5 minutos
+ - 3 Barbell Power Clean + 2 Barbell Hang Clean + 1 Barbell Sumo Deadlift High Pull 40kg
+ - 3 Barbell Power Clean + 2 Barbell Hang Clean + 1 Barbell Sumo Deadlift High Pull 40kg
+ - 3 Barbell Power Clean + 2 Barbell Hang Clean + 1 Barbell Sumo Deadlift High Pull 40kg
+ - 2 Barbell Hang Clean + 1 Barbell Sumo Deadlift High Pull 50kg
+ - 2 Barbell Hang Clean + 1 Barbell Sumo Deadlift High Pull 50kg
+ - 2 Barbell Hang Clean + 1 Barbell Sumo Deadlift High Pull 50kg
+ - 1 Barbell Hang Clean  54kg
+ - 1 Barbell Hang Clean  54kg
+
+
+WOD maximo en 18 minutos
+ - 40 Wall Ball Shot 6kg
+ - 400 m running
+ - 10 m Kettlebell Farmer Carry 2*22.5
+ - 30 Wall Ball Shot
+ - 400 m running
+ - 20 m Kettlebell Farmer Carry 2*22.5
+ - 20 Wall Ball Shot
+ - 400 m running
+ - 30 m Kettlebell Farmer Carry 2*22.5
+ - 10 Wall Ball Shot
+ - 400 m running
+ - 40 m Kettlebell Farmer Carry 2*22.5
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
+Clase GOAT 14/10/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 6 minutos 
+ - Thoracic Wall Sweep pie izquierdo, video corto https://www.youtube.com/shorts/sNu7RbNVbDg video explicativo https://www.youtube.com/shorts/n7T17_baMV8
+ - Thoracic Wall Sweep pie derecho
+ - Yoga Push-Up
+ - Kettlebell Good Morning to Squat 10kg
+
+Activacion 6 rondas por minuto, 1 y 2 un ejercicio, 3 y 4 otro, 5 y 6 otro, todo con barra de 20 sin pesas
+ - 2 Barbell Deadlift to Knee Height + 2 Barbell Deadlift + 2 Barbell Hang Clean
+ - 2 Barbell Deadlift to Knee Height + 2 Barbell Deadlift + 2 Barbell Hang Clean
+ - 6 Barbell Hang Clean
+ - 6 Barbell Hang Clean
+ - 6 Push Press Behind the Neck
+ - 6 Push Press Behind the Neck
+
+Fuerza 8 rondas cada 1.5 minutos
+ - 2 Barbell Deadlift + 3 Barbell Power Clean, 40 kg
+ - 2 Barbell Deadlift + 3 Barbell Power Clean, 40 kg
+ - 2 Barbell Deadlift + 3 Barbell Power Clean, 40 kg
+ - 1 Barbell Deadlift + 2 Barbell Power Clean, 45 kg
+ - 1 Barbell Deadlift + 2 Barbell Power Clean, 45 kg
+ - 1 Barbell Deadlift + 2 Barbell Power Clean, 45 kg
+ - 1 Barbell Power Clean, 50 kg
+ - 1 Barbell Power Clean, 50 kg
+
+WOD 
+ - 600 m running
+ - 200 m Kettlebell Farmer Carry 20kg 
+ - 18 Barbell Back Squat 20kg
+ - 400 m running
+ - 200 m Kettlebell Farmer Carry 20kg 
+ - 12 Barbell Front Squat 20 kg
+ - 200 m running
+ - 200 m Kettlebell Farmer Carry 20kg 
+ - 6 Barbell Overhead Squat 20 kg
+ 
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
+
+
+
+Clase GOAT 12/10/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+ - open the gate izquierda, video corto https://www.youtube.com/shorts/1cpY_x7yr8c
+ - open the gate derecha
+ - candlestick to straddle stretch, video corto https://www.youtube.com/watch?v=ssLfWGw6Z5o, video explicativo https://www.youtube.com/shorts/AJ35xINDwlQ
+
+Activacion 3 rondas todos 30 segundos
+ - Single-Leg Wall Sit izquierda
+ - Single-Leg Wall Sit derecha
+ - Plank Up-Down
+ - Kettlebell Good Morning 10kg
+
+Fuerza
+- Back Squat (Semana 7/16 Ciclo Fuerza)
+- Cada 2 min x 5 sets
+
+Set 1, 2 y 3: 5 reps al 83% (80kg)
+Set 4: Descanso
+Set 5: Máximos al fallo (0 reps en reserva) al 83%, aprox 12 Reps (80kg)
+
+WOD 20 minutos maximo
+ - 8 Cluster - video corto https://www.youtube.com/watch?v=XmoilY-pc-k, video explicativo https://www.youtube.com/watch?v=plCzO45g9nc
+ - 10 V-Up
+ - 12 Burpee Broad Jump
+ - 6 Cluster
+ - 10 V-Up
+ - 12 Burpee Broad Jump
+ - 4 Cluster
+ - 10 V-Up
+ - 12 Burpee Broad Jump
+ - Descanso 90 segundos
+ - 8 Cluster
+ - 10 V-Up
+ - 10 Burpee Broad Jump
+ - 6 Cluster
+ - 10 V-Up
+ - 10 Burpee Broad Jump
+ - 4 Cluster
+ - 10 V-Up
+ - 10 Burpee Broad Jump
+
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
 
 
 
