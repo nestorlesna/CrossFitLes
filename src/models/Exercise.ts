@@ -27,7 +27,14 @@ export interface Exercise {
   difficulty_name?: string;
   difficulty_color?: string;
   primary_muscle_name?: string;
+  // Métricas de uso calculadas (sólo con sort_by = 'usage'; no son columnas de la tabla)
+  // Sesiones completadas en las que se hizo el ejercicio
+  session_count?: number;
+  // Clases activas + planes/challenges vigentes que lo incluyen
+  program_count?: number;
 }
+
+export type ExerciseSort = 'usage' | 'name';
 
 export interface ExerciseWithRelations extends Exercise {
   relations: ExerciseRelations;
@@ -44,4 +51,6 @@ export interface ExerciseFilters {
   tag_id?: string;
   section_type_id?: string;
   in_classes?: boolean;
+  // Orden del listado (por defecto, nombre)
+  sort_by?: ExerciseSort;
 }

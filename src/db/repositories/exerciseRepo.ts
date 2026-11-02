@@ -9,19 +9,50 @@ function now(): string {
   return new Date().toISOString().replace('T', ' ').substring(0, 19);
 }
 
+// Métricas de uso, calculadas al consultar para que nunca queden desactualizadas.
+// - su: sesiones completadas. Se cuentan sesiones distintas porque un challenge guarda un
+//   resultado por serie, y se filtra por estado porque las sesiones planificadas ya
+//   tienen sus resultados precargados con is_completed = 1.
+// - pu: clases + planes. Las plantillas privadas de un plan o challenge cuentan una vez por
+//   plan (si no, un challenge de 18 días sumaría 18). Excluye clases inactivas y planes archivados.
+const USAGE_JOINS = `
+    LEFT JOIN (
+      SELECT ser.exercise_id, COUNT(DISTINCT ser.training_session_id) as cnt
+      FROM session_exercise_result ser
+      JOIN training_session ts ON ts.id = ser.training_session_id
+      WHERE ts.status = 'completed' AND ser.is_completed = 1
+      GROUP BY ser.exercise_id
+    ) su ON su.exercise_id = e.id
+    LEFT JOIN (
+      SELECT se.exercise_id,
+        COUNT(DISTINCT CASE WHEN ct.is_plan_day = 1 THEN 'plan:' || pd.training_plan_id ELSE 'class:' || ct.id END) as cnt
+      FROM section_exercise se
+      JOIN class_section cs ON cs.id = se.class_section_id
+      JOIN class_template ct ON ct.id = cs.class_template_id
+      LEFT JOIN plan_day pd ON ct.is_plan_day = 1 AND pd.class_template_id = ct.id
+      LEFT JOIN training_plan tp ON tp.id = pd.training_plan_id
+      WHERE ct.is_active = 1
+        AND (ct.is_plan_day = 0 OR (tp.is_active = 1 AND tp.status <> 'archived'))
+      GROUP BY se.exercise_id
+    ) pu ON pu.exercise_id = e.id
+`;
+
 // Obtiene todos los ejercicios activos aplicando filtros dinámicos
 export async function getAll(filters?: ExerciseFilters): Promise<Exercise[]> {
   const db = getDatabase();
+  const sortByUsage = filters?.sort_by === 'usage';
 
   let query = `
     SELECT e.*,
       dl.name as difficulty_name,
       dl.color as difficulty_color,
       mg.name as primary_muscle_name,
+      ${sortByUsage ? `COALESCE(su.cnt, 0) as session_count, COALESCE(pu.cnt, 0) as program_count,` : ''}
       (SELECT COUNT(*) FROM section_exercise se WHERE se.exercise_id = e.id) as usage_count
     FROM exercise e
     LEFT JOIN difficulty_level dl ON e.difficulty_level_id = dl.id
     LEFT JOIN muscle_group mg ON e.primary_muscle_group_id = mg.id
+    ${sortByUsage ? USAGE_JOINS : ''}
     WHERE e.is_active = 1
   `;
 
@@ -75,7 +106,9 @@ export async function getAll(filters?: ExerciseFilters): Promise<Exercise[]> {
     query += ` AND e.id IN (SELECT DISTINCT exercise_id FROM section_exercise)`;
   }
 
-  query += ` ORDER BY e.name ASC`;
+  query += sortByUsage
+    ? ` ORDER BY session_count DESC, program_count DESC, e.name ASC`
+    : ` ORDER BY e.name ASC`;
 
   const result = await db.query(query, params);
   return (result.values ?? []) as Exercise[];

@@ -5,30 +5,109 @@
       "asigná los músculos de la clase 30/03 usando ACTUALIZO_MUSCULOS.md"
 
 - CREO_CLASE.md
-  El próximo paso para usarlo: cuando tengas una clase nueva en el MD, decime     
+  El próximo paso para usarlo: cuando tengas una clase nueva en el MD, decime
       "cargá la clase X usando CREO_CLASE.md"
 
 - ACTUALIZO_VIDEOS.md
   asigná los videos de X x x x usando ACTUALIZO_VIDEO.md
 ### COMO USAR
 
-
-
-
 ### TEMPLATE
-Clase GOAT XX/XX/2026
-video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta
 
 Calentamiento
+
 - 6 minutos de calentamiento
 
 Movilidad - 2 rondas todo 30 segundos
 
 Activacion
+
 Fuerza
+
 WOD
+
 Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
 ### TEMPLATE
+
+
+
+
+
+
+Clase GOAT 02/11/2026
+Calentamiento
+
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+
+- Band Pull-Apart
+- Cuban Press 2*2.5kg
+- Band Pass-Through
+- Dumbbell around the world video corto https://www.youtube.com/shorts/IDSv0v-9Zms, video explicativo https://www.youtube.com/shorts/jcZQ8oj8AdI
+
+Activacion 5 minutos de prueba gimnastica
+
+- practica de pull up con banda, 3 o cuatro repeticiones de 5
+
+Fuerza 5 rondas cada 1.5 minutos
+
+- Barbell Push Press strict, 5 * 30kg
+- Barbell Push Press strict, 4 * 35kg
+- Barbell Push Press strict, 3 * 35kg
+- Barbell Push Press strict, 3 * 35kg
+- Barbell Push Press strict, 2 * 35kg
+
+WOD 12 minutos, maximo canitidad de vueltas, en cada vuelta aumento 2 repes, pongo un total de 5 de ejemplo, dejar las 5 
+
+- 4 Hanging Toes to Bar
+- 10 Wall Ball Shot
+- 14 Box Jump-Over
+- 6 Hanging Toes to Bar
+- 12 Wall Ball Shot
+- 16 Box Jump-Over
+- 8 Hanging Toes to Bar
+- 14 Wall Ball Shot
+- 16 Box Jump-Over
+- 10 Hanging Toes to Bar
+- 16 Wall Ball Shot
+- 18 Box Jump-Over
+- 12 Hanging Toes to Bar
+- 18 Wall Ball Shot
+- 20 Box Jump-Over
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+Clase GOAT 02/11/2026
+video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta
+
+Clase GOAT 30/10/2026
+
+Movilidad 5 min mayor cantidad d vueltas
+- Band External Rotation
+- 12, 10kg Kettlebell Good Morning to Squat
+- 10/10 kneeling weighted shoulder CARs, video corto https://www.youtube.com/shorts/j1bV41gRRAs, video explicativo https://www.youtube.com/shorts/JWirMSVBlBA
+- Kettlebell Deadlift 10kg
+
+Activación 
+- práctica de Bodyweight Handstand Push-Up, 3 veces
+
+Fuerza, 5 rondas, 2 minutos, ultima ronda mayor cantidad de repes
+- 5 Barbell Deadlift, 70kg
+- 5 Barbell Deadlift, 70kg
+- 5 Barbell Deadlift, 70kg
+- descsnso
+- 8 Barbell Deadlift, 90kg
+
+Wod, máximo 14m, 10 rondas (mi tiempo 8:33)
+- 3 Bodyweight Handstand Push-Up
+- 2 Burpee Over the Bar
+- 1 Barbell Power Clean
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
 
 
 

@@ -30,6 +30,13 @@ export function ExerciseCard({ exercise, tags = [], showVideos = false }: Exerci
 
   const visibleTags = tags.slice(0, 3);
 
+  const sessionCount = exercise.session_count ?? 0;
+  const programCount = exercise.program_count ?? 0;
+  const usageParts = [
+    sessionCount > 0 && `${sessionCount} ${sessionCount === 1 ? 'sesión' : 'sesiones'}`,
+    programCount > 0 && `${programCount} ${programCount === 1 ? 'clase/plan' : 'clases/planes'}`,
+  ].filter(Boolean);
+
   return (
     <div className="w-full bg-gray-900 border border-gray-800 rounded-xl p-3">
       <div className="flex flex-wrap gap-3 items-start">
@@ -66,6 +73,11 @@ export function ExerciseCard({ exercise, tags = [], showVideos = false }: Exerci
                 size="sm"
               />
             </div>
+
+            {/* Uso: sólo llega al ordenar por "más usados" */}
+            {usageParts.length > 0 && (
+              <p className="text-xs text-gray-500 mt-1 truncate">{usageParts.join(' · ')}</p>
+            )}
 
             {/* Tags (máximo 3) */}
             {visibleTags.length > 0 && (
