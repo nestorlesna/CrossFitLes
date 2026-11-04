@@ -29,6 +29,11 @@ Google Play (aunque la distribución sigue siendo por GitHub Releases).
   fuera), `THIRD_PARTY_NOTICES.md` y `src/data/thirdPartyLicenses.json` (`npm run licenses`),
   Acerca de reescrita, pantalla "Licencias de terceros". Faltan los links a Privacidad y Términos:
   se agregan en la Fase 5.
+- **Fase 2: HECHA (2026-11-03)**: migración `v020_fix_classic_classes` (aplicada en la BD de
+  desarrollo) y contenido **v8** publicado en el clon local, **sin commit ni push**.
+  **Ojo:** la app 1.3.1 rechaza un `manifest.app` distinto de `CrossFit Session Tracker`, así que
+  el contenido v8 (`FitLesUY Session Tracker`) se sube **junto con el release 2.0.0**
+  (`release.ps1` lo hace), nunca antes.
 
 ---
 
@@ -130,6 +135,30 @@ Tareas:
 4. Verificar que pesos y unidades (♂/♀ en `general_notes`) estén en kg y que el `work_format` coincida
    con el título (For Time, AMRAP, EMOM).
 5. Corregir en la BD de desarrollo y volver a "Publicar contenido".
+
+### Resultado (2026-11-03)
+- Las "4 secciones sin tiempos" no aparecieron con ningún criterio (toda sección tiene time cap,
+  intervalo o algún descanso). El problema real eran **26 secciones de intervalo** mal resueltas:
+  - Sin `interval_seconds`, el motor usaba la ventana por defecto del formato: "Every 90"" o
+    "Every 2'30"" corrían con 60 s y los E2MOM de 2 ejercicios con 2 × 120 s. Se cargó la ventana
+    real; en los complejos ("Every 2 min: A + B + C") se reparte entre los ejercicios, porque el
+    motor da una ventana por ejercicio.
+  - Sin `rest_between_rounds_seconds`, el motor sumaba 60 s por vuelta a los EMOM (ej. el EMOM
+    8 min de C&J Ladder duraba 15). Ahora es 0.
+  - "Voltage Shift" (2 ON / 2 OFF) y "C&J Ladder" (2 ON / 1 OFF) pasan a "Por rondas" con
+    descansos explícitos.
+- Los 8 ejercicios de "máximas reps" tienen ahora `suggested_timer_seconds`. Lynne lleva
+  descanso de 2 min entre rondas (era 0 y el WOD dice "descanso libre").
+- 23 secciones "N Rondas For Time" estaban como "Por rondas": pasan a "For Time".
+- Pesos: todos en kg; lo imperial sólo aparece como aclaración en notas ("9 kg (20 lb)").
+- **Duración:** sigue habiendo ~50 clases con más de 25 % de diferencia, pero no es de los datos:
+  `estimated_duration_minutes` incluye explicación y transiciones, y el motor corre **una sola
+  vuelta** en los AMRAP y en los For Time sin rondas (Cindy: 6 min de timeline para 20 de AMRAP).
+  Las GOAT tienen el mismo comportamiento. Si se quiere arreglar, es un cambio del motor
+  (repetir el AMRAP hasta el time cap), no de las clases.
+- Tarea 3 (revisar a ojo en el ejecutor) **no se hizo**: el modelado de las clases viejas es el
+  mismo que el de las GOAT (descansos por sección, notas de coach, video), así que no hay
+  diferencias estructurales que corregir; queda para la prueba manual.
 
 ---
 
