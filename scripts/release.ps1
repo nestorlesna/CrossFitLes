@@ -128,6 +128,13 @@ git tag "v$Version"
 # Push de la rama de trabajo con el commit del release.
 Write-Host "`nPush de '$CurrentBranch'..."
 git push origin $CurrentBranch
+if ($LASTEXITCODE -ne 0) {
+    # El commit y el tag ya existen localmente: no se reintenta todo el script,
+    # sólo los pushes pendientes.
+    Write-Host "`n⚠️  Falló el push de '$CurrentBranch'. Release detenido (commit y tag v$Version quedaron locales)." -ForegroundColor Red
+    Write-Host "Reintentá a mano: git push origin $CurrentBranch ; luego merge a '$MainBranch' y git push origin v$Version" -ForegroundColor Red
+    exit 1
+}
 
 # ── 4. Merge a la rama principal ─────────────────────────────────────────────────
 # Se trae lo último de $MainBranch y se fusiona la rama de trabajo con --no-ff
@@ -148,15 +155,28 @@ if ($LASTEXITCODE -ne 0) {
 
 Write-Host "Push de '$MainBranch'..."
 git push origin $MainBranch
+$MainPushFailed = ($LASTEXITCODE -ne 0)
 
 # Volver a la rama de trabajo original.
 git checkout $CurrentBranch
+
+if ($MainPushFailed) {
+    # Sin '$MainBranch' en el remoto no se publica el tag (dispararía el build).
+    Write-Host "`n⚠️  Falló el push de '$MainBranch' (el merge quedó local). Release detenido." -ForegroundColor Red
+    Write-Host "Reintentá a mano: git push origin $MainBranch ; git push origin v$Version" -ForegroundColor Red
+    exit 1
+}
 
 # ── 5. Push del tag ──────────────────────────────────────────────────────────────
 # El push del tag es lo que dispara el workflow de GitHub Actions, por eso va
 # al final, una vez que ambas ramas ya están actualizadas en el remoto.
 Write-Host "`nPush del tag 'v$Version'..."
 git push origin "v$Version"
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "`n⚠️  Falló el push del tag 'v$Version': el build del APK no arrancó." -ForegroundColor Red
+    Write-Host "Reintentá a mano: git push origin v$Version" -ForegroundColor Red
+    exit 1
+}
 
 # ── 6. Contenido online ──────────────────────────────────────────────────────────
 if (-not $SkipContent) {
