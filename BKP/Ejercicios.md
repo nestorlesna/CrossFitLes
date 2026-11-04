@@ -79,9 +79,6 @@ WOD 12 minutos, maximo canitidad de vueltas, en cada vuelta aumento 2 repes, pon
 
 Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 
-Clase GOAT 02/11/2026
-video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta
-
 Clase GOAT 30/10/2026
 
 Movilidad 5 min mayor cantidad d vueltas
