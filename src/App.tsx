@@ -27,6 +27,7 @@ import { SessionDetailPage } from './pages/Sessions/SessionDetailPage';
 import { ManualSessionPage } from './pages/Sessions/ManualSessionPage';
 import { FreeSessionPage } from './pages/Sessions/FreeSessionPage';
 import { AboutPage } from './pages/Settings/AboutPage';
+import { ThirdPartyLicensesPage } from './pages/Settings/ThirdPartyLicensesPage';
 import { HelpPage } from './pages/Settings/HelpPage';
 import { ProfilePage } from './pages/Settings/ProfilePage';
 import { BodyMeasurementsPage } from './pages/Settings/BodyMeasurementsPage';
@@ -149,6 +150,7 @@ export default function App() {
             <Route path="configuracion/cronometro" element={<TimerSettingsPage />} />
             <Route path="configuracion/prueba-videos" element={<VideoTestPage />} />
             <Route path="configuracion/acerca-de" element={<AboutPage />} />
+            <Route path="configuracion/acerca-de/licencias" element={<ThirdPartyLicensesPage />} />
             <Route path="configuracion/ayuda" element={<HelpPage />} />
             <Route path="configuracion/perfil" element={<ProfilePage />} />
             <Route path="configuracion/medidas-corporales" element={<BodyMeasurementsPage />} />

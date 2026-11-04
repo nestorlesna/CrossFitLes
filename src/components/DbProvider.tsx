@@ -3,6 +3,9 @@ import { createContext, useContext, useEffect, useState, useRef } from 'react';
 import { openDatabase, getDatabase, saveDatabase } from '../db/database';
 import { Dumbbell } from 'lucide-react';
 import { loadRemoteChallenges } from '../services/challengeCatalogService';
+import { loadBaseContent, needsBaseContent } from '../services/baseContentService';
+import { acceptDisclaimer, needsDisclaimer } from '../services/disclaimerService';
+import { WelcomeScreen } from './WelcomeScreen';
 
 interface DbContextValue {
   isReady: boolean;
@@ -22,37 +25,80 @@ interface DbProviderProps {
   children: React.ReactNode;
 }
 
+// Carga base del primer arranque; si falla, la app sigue usable vacía y se reintenta al reabrir
+async function tryLoadBaseContent(): Promise<void> {
+  try {
+    const summary = await loadBaseContent();
+    console.log(`[DB] Datos base cargados: ${summary.exercisesAdded} ejercicios, ${summary.classesAdded} clases`);
+  } catch (err) {
+    console.error('[DB] No se pudieron cargar los datos base:', err);
+  }
+}
+
 export function DbProvider({ children }: DbProviderProps) {
   const [state, setState] = useState<DbContextValue>({ isReady: false, error: null });
+  // Descargo pendiente: firstRun = además hay que cargar los datos base
+  const [welcome, setWelcome] = useState<{ firstRun: boolean } | null>(null);
+  const [busy, setBusy] = useState(false);
   const initStarted = useRef(false);
+
+  const fail = (err: Error) => {
+    console.error('[DB] Error al inicializar:', err);
+    setState({ isReady: false, error: err.message ?? 'Error desconocido' });
+  };
+
+  // Últimos pasos comunes: challenges bajados con "Actualizar contenido" (se suman a los del APK)
+  const finish = async () => {
+    await loadRemoteChallenges();
+    setWelcome(null);
+    setState({ isReady: true, error: null });
+  };
 
   useEffect(() => {
     if (initStarted.current) return;
     initStarted.current = true;
 
     // jeep-sqlite ya fue inicializado en main.tsx antes de montar React
-    openDatabase()
-      .then(() => {
-        // Migrar imágenes de localStorage a SQLite (una sola vez)
-        return migrateImagesFromLocalStorage();
-      })
-      // Challenges bajados con "Actualizar contenido" (se suman a los del APK)
-      .then(() => loadRemoteChallenges())
-      .then(() => {
-        setState({ isReady: true, error: null });
-      })
-      .catch((err: Error) => {
-        console.error('[DB] Error al inicializar:', err);
-        setState({ isReady: false, error: err.message ?? 'Error desconocido' });
-      });
+    (async () => {
+      await openDatabase();
+      // Migrar imágenes de localStorage a SQLite (una sola vez)
+      await migrateImagesFromLocalStorage();
+      const baseNeeded = await needsBaseContent();
+      if (await needsDisclaimer()) {
+        setWelcome({ firstRun: baseNeeded });
+        return; // sigue en handleAccept
+      }
+      if (baseNeeded) {
+        setBusy(true);
+        await tryLoadBaseContent();
+      }
+      await finish();
+    })().catch(fail);
   }, []);
+
+  const handleAccept = () => {
+    if (!welcome) return;
+    setBusy(true);
+    (async () => {
+      await acceptDisclaimer();
+      if (welcome.firstRun) await tryLoadBaseContent();
+      await finish();
+    })().catch(fail);
+  };
+
+  // Bienvenida + descargo de salud (primer arranque o texto nuevo)
+  if (welcome && !state.error) {
+    return <WelcomeScreen firstRun={welcome.firstRun} busy={busy} onAccept={handleAccept} />;
+  }
 
   // Pantalla de carga mientras inicializa la BD
   if (!state.isReady && !state.error) {
     return (
       <div className="flex flex-col items-center justify-center min-h-dvh bg-gray-950 text-white gap-4">
         <Dumbbell size={48} className="text-primary-500 animate-pulse" />
-        <p className="text-gray-400">Iniciando base de datos...</p>
+        <p className="text-gray-400">
+          {busy ? 'Preparando ejercicios y clases…' : 'Iniciando base de datos...'}
+        </p>
       </div>
     );
   }

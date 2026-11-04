@@ -43,7 +43,8 @@ No hay tests unitarios en este proyecto.
 
 ### Flujo de arranque
 1. `main.tsx` inicializa `jeep-sqlite` en el DOM antes de montar React.
-2. `DbProvider` (wrappea toda la app) llama a `openDatabase()` → ejecuta migraciones → ejecuta seed si es la primera vez → expone `useDb()` context.
+2. `DbProvider` (wrappea toda la app) llama a `openDatabase()` → ejecuta migraciones → con la BD vacía
+   carga los datos base (`baseContentService`) → expone `useDb()` context.
 3. Las páginas/componentes sólo se renderizan cuando `isReady === true`.
 
 ### Base de datos y migraciones
@@ -74,7 +75,7 @@ Cada entidad principal tiene su propio repo:
     (curva de 18 sesiones, redondeo a par: reproduce las tablas de `BKP/Challenges de calistenia…md`).
   - `getVolumeSeries()` alimenta el gráfico de progreso (`ChallengeProgressChart.tsx`, carga diferida
     porque recharts es pesado). Los ejercicios que el catálogo crea llevan su SVG en `imageUrl`
-    (`bench-dip.svg`); también está en `imageUpdateService.ts`.
+    (`bench-dip.svg`).
   - Pantallas en `src/pages/Challenges/`: listado (3ª pestaña de Clases/Planes), detalle por código
     (`/challenges/:code`) y ejecución (`/challenges/sesion/:sessionId`, usa `buildTimeline` + `useTimerRunner`).
 
@@ -82,7 +83,8 @@ Cada entidad principal tiene su propio repo:
 - Repo público `nestorlesna/CrossFitLes-content` (clon local en `../CrossFitLes-content`): `manifest.json`
   + `content/content.json`. Formato y helpers en `src/services/contentFormat.ts`.
 - `contentPublishService.ts` (sólo `npm run dev` web): arma el contenido y lo escribe vía middleware de
-  Vite (`/__content`, ver `vite.config.ts`). `contentSyncService.ts`: "Actualizar contenido" en
+  Vite (`/__content`, ver `vite.config.ts`); también regenera `public/base-content.json` (va en el APK).
+  Las clases GOAT llevan `collection: 'goat'` (`classCollectionOf()`): no entran en la carga base. `contentSyncService.ts`: "Actualizar contenido" en
   Configuración; inserta lo nuevo, actualiza por `remote_hash` y nunca pisa `user_modified = 1`.
 - Columnas de sync (v018) en `exercise`, `class_template`, `training_plan`: `global_key`, `origin`,
   `remote_hash`, `user_modified`. Al agregar un `update()` de usuario en esos repos, marcar `user_modified = 1`.
@@ -111,8 +113,18 @@ Todas bajo un `<Layout>` con `BottomNav` de 5 tabs:
 
 ### Servicios adicionales
 - `src/services/mediaService.ts` — gestión de imágenes (web: file input; native: Capacitor Camera + Filesystem).
-- `src/services/seedService.ts` — carga datos iniciales (64 registros) controlado por flag en localStorage (`seed_v1_done`).
+- `src/services/baseContentService.ts` — carga base del primer arranque: importa `public/base-content.json`
+  (contenido publicado sin GOAT ni planes) con `applyContent()` de `contentSyncService`. Estado en
+  `app_setting.base_content`. `resetService.ts` borra todo ("Borrar todos los datos").
 - `src/services/backupService.ts` — exportar/importar todos los datos como JSON respetando el orden de dependencias entre tablas.
+
+### Nombre de la app (FitLesUY)
+- La app se llama **FitLesUY Session Tracker** (`APP_NAME` / `APP_SHORT_NAME` en `src/utils/constants.ts`),
+  `applicationId` `uy.fitles.tracker`. Al importar backups/clases/contenido usar `isKnownAppName()`,
+  que acepta también el nombre viejo `CrossFit Session Tracker`.
+- `DB_NAME = 'crossfit_tracker'` y el alias `crossfitles` del keystore son históricos: **no cambiarlos**.
+- Media nativa en `MEDIA_BASE_DIR` (`fitlesuy/media`); nunca hardcodear la ruta.
+- Plan de la migración: `PLAN_FITLESUY.md`.
 
 ### Versionado
 - `APP_VERSION` vive sólo en `src/config/version.ts` (`src/utils/constants.ts` la re-exporta).

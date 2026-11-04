@@ -1,4 +1,4 @@
-// Formato del contenido publicado en el repo público CrossFitLes-content.
+// Formato del contenido publicado en el repo público de contenido (CONTENT_REPO).
 // Lo comparten contentPublishService (genera) y contentSyncService (aplica).
 //
 // Estructura del repo:
@@ -9,6 +9,7 @@
 // id local: cada dispositivo genera sus propios ids al importar.
 
 import type { ChallengeDefinition } from '../models/Challenge';
+import { APP_NAME } from '../utils/constants';
 
 const CONTENT_OWNER = 'nestorlesna';
 const CONTENT_REPO = 'CrossFitLes-content';
@@ -22,7 +23,11 @@ export const CONTENT_BASE_URL =
 export const MANIFEST_PATH = 'manifest.json';
 export const CONTENT_PATH = 'content/content.json';
 
-export const CONTENT_APP = 'CrossFit Session Tracker';
+// Snapshot del contenido sin GOAT ni planes, empaquetado con la app (public/): es la carga base
+// del primer arranque. Lo escribe "Publicar contenido" en el proyecto de la app.
+export const BASE_CONTENT_FILE = 'base-content.json';
+
+export const CONTENT_APP = APP_NAME;
 
 // Versión del formato del archivo. Subirla sólo ante cambios incompatibles: las apps viejas
 // verán "actualizá la app" en vez de importar datos que no entienden.
@@ -56,6 +61,8 @@ export interface ContentManifest {
   contentHash: string;
   counts: ContentCounts;
   files: { path: string; size: number }[];
+  // Destino opcional del botón "Enviar comentario" (ver feedbackService)
+  feedbackUrl?: string;
 }
 
 // Imagen embebida de un ejercicio (SVG o foto) como data URL
@@ -83,11 +90,21 @@ export interface RemoteSection {
   exercises: (Row & { exercise_key: string })[];
 }
 
+// Colecciones con reglas propias. 'goat': clases del box GOAT, que no van en la carga base
+// (llegan con "Actualizar contenido"). Va fuera del hash: no es un cambio de la clase.
+export type ClassCollection = 'goat';
+
 export interface RemoteClass {
   key: string;
   hash: string;
+  collection?: ClassCollection;
   row: Row;
   sections: RemoteSection[];
+}
+
+// Criterio único para clasificar una clase al publicar
+export function classCollectionOf(name: unknown): ClassCollection | undefined {
+  return /^GOAT\b/i.test(String(name ?? '').trim()) ? 'goat' : undefined;
 }
 
 export interface RemotePlanDay {

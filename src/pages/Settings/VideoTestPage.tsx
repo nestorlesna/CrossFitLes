@@ -14,7 +14,7 @@ const SAMPLES: { label: string; url: string }[] = [
   { label: 'YouTube Shorts', url: 'https://www.youtube.com/shorts/mvhVQZ_8mgg' },
   { label: 'Facebook Reel', url: 'https://www.facebook.com/reel/2261175031285239' },
   { label: 'Instagram Reel', url: 'https://www.instagram.com/reel/C2Zx1QZsQqf/' },
-  { label: 'TikTok', url: 'https://www.tiktok.com/@crossfit/video/7222222222222222222' },
+  { label: 'TikTok', url: 'https://www.tiktok.com/@fitlesuy/video/7222222222222222222' },
   { label: 'Vimeo', url: 'https://vimeo.com/76979871' },
 ];
 

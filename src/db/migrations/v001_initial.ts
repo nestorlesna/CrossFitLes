@@ -1,4 +1,4 @@
-// Migración v001: Schema inicial completo de CrossFit Session Tracker
+// Migración v001: Schema inicial completo de FitLesUY Session Tracker
 import { Migration } from '../../services/migrationService';
 
 export const v001_initial: Migration = {

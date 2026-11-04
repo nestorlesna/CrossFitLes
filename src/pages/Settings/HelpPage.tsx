@@ -513,7 +513,7 @@ export function HelpPage() {
                 cuando una clase no especifica un tiempo propio.
               </p>
               <p className="text-xs text-gray-600">
-                Normalmente no hace falta tocar esto: ya vienen cargados con los valores típicos de CrossFit. Sirve
+                Normalmente no hace falta tocar esto: ya vienen cargados con los valores típicos del entrenamiento funcional. Sirve
                 para agregar uno nuevo (por ejemplo un equipamiento que no está) o ajustar los tiempos por defecto
                 del cronómetro.
               </p>
@@ -563,7 +563,7 @@ export function HelpPage() {
                   'Tiempos del cronómetro: completa automáticamente los tiempos que falten en tus clases, estimándolos a partir de las reps/distancia/calorías de cada ejercicio.',
                   'Fusionar ejercicios: si tenés el mismo ejercicio cargado dos veces, pasa todas sus clases, sesiones y récords a uno solo y borra el otro.',
                   'Ejercicios sin uso: lista los ejercicios que no están en ninguna clase, sesión ni récord para borrarlos y limpiar el catálogo. Antes de borrar podés desmarcar los que quieras conservar. No se puede deshacer.',
-                  'Zona de peligro (Reset): cargar los datos base de ejemplo, o limpiar toda la base de datos. Usar con mucho cuidado, no tiene vuelta atrás salvo que tengas un backup.',
+                  'Zona de peligro: borrar todos los datos y dejar la app como recién instalada (vuelve a cargar los datos base). Usar con mucho cuidado, no tiene vuelta atrás salvo que tengas un backup.',
                 ]}
               />
               <div className="mt-1 bg-blue-900/30 border border-blue-700/40 rounded-xl px-3 py-2.5 flex items-start gap-2">

@@ -1,11 +1,13 @@
-# 💪 CrossFit Session Tracker
+<p align="center"><img src="BKP/fitlesuy-logo.png" alt="FitLesUY" width="160"></p>
 
-Aplicación móvil personal para planificar, registrar y analizar entrenamientos de CrossFit. Diseñada con enfoque **mobile-first** y **offline-first**.
+# FitLesUY Session Tracker
+
+Aplicación móvil del canal de YouTube **FitLesUY** para planificar, registrar y analizar entrenamientos funcionales. Diseñada con enfoque **mobile-first** y **offline-first**.
 
 ## 📱 Distribución
 
 - **APK directo** (sin Play Store), gratis. Link fijo a la última versión:
-  `https://github.com/nestorlesna/CrossFitLes/releases/latest/download/CrossFitLes.apk`
+  `https://github.com/nestorlesna/CrossFitLes/releases/latest/download/FitLesUY.apk`
 - La app avisa sola cuando hay una versión nueva del APK.
 - **Contenido online**: clases, ejercicios (con sus SVG), planes y challenges se bajan desde el repo
   público [CrossFitLes-content](https://github.com/nestorlesna/CrossFitLes-content) con
@@ -72,10 +74,10 @@ Luego, en **Android Studio**:
 3. Menú **Build → Generate Signed Bundle / APK**
 4. Elegir **APK** → Next
 5. En *Key store path* apuntar a `KEY/release.keystore`
-6. Completar alias (`crossfitles`), contraseña del keystore y contraseña de la clave
+6. Completar alias (`crossfitles`, nombre histórico de la clave: no cambiarlo), contraseña del keystore y contraseña de la clave
 7. Elegir variante **release** → Next → **Finish**
 
-El APK firmado queda en `android/app/release/CrossFitLes.apk`.
+El APK firmado queda en `android/app/release/FitLesUY.apk`.
 
 > `npm run cap:android` intenta abrir Android Studio automáticamente; si no funciona, abrir Android Studio manualmente desde la carpeta `android/`.
 
@@ -119,7 +121,7 @@ GitHub Actions construye el APK firmado y lo publica como GitHub Release automá
   → bump versionCode/versionName en build.gradle, APP_VERSION y package.json
   → git commit + tag vX.Y.Z + push
   → GitHub Actions: build web → cap sync → gradle assembleRelease → firma APK
-  → GitHub Release con CrossFitLes.apk adjunto
+  → GitHub Release con FitLesUY.apk adjunto
   → push de ../CrossFitLes-content (commit "contenido vN") si hay cambios
 ```
 
@@ -237,4 +239,9 @@ Un challenge en curso es un plan de entrenamiento con `plan_kind = 'challenge'`,
 
 ## 📄 Licencia
 
-Proyecto de uso personal. Todos los derechos reservados.
+- **Código**: [MIT](LICENSE).
+- **Contenido** (ilustraciones de ejercicios, clases, challenges y contenido publicado): [CC BY 4.0](LICENSE-CONTENT.md). El logo de FitLesUY no está incluido.
+- **Bibliotecas de terceros**: ver [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) (se regenera con `npm run licenses`).
+- **Créditos**: el [Exercises Dataset](https://github.com/hasaneyldrm/exercises-dataset) (MIT) se usó como referencia de datos; sus imágenes (© Gym visual) no se incluyen.
+
+¿Encontraste un error o tenés una idea? Usá **Enviar comentario** en la app o abrí un *issue*.
