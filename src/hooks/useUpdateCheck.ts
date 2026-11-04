@@ -105,7 +105,7 @@ export function useUpdateCheck() {
     try {
       const result = await Filesystem.downloadFile({
         url: downloadUrl,
-        path: 'crossfitles-update.apk',
+        path: 'fitlesuy-update.apk',
         directory: Directory.Cache,
         recursive: true,
         progress: true,

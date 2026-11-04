@@ -7,7 +7,7 @@ import { Capacitor } from '@capacitor/core';
 import JSZip from 'jszip';
 import { openDatabase, saveDatabase } from '../db/database';
 import { generateUUID } from '../utils/formatters';
-import { APP_VERSION } from '../utils/constants';
+import { APP_NAME, APP_VERSION, MEDIA_BASE_DIR, isKnownAppName } from '../utils/constants';
 
 const SHARE_TYPE = 'class-share';
 
@@ -186,7 +186,7 @@ export async function exportClasses(classIds: string[]): Promise<void> {
   // 6. Construir el JSON
   const shareJson: ClassShareJson = {
     meta: {
-      app: 'CrossFit Session Tracker',
+      app: APP_NAME,
       type: SHARE_TYPE,
       version: APP_VERSION,
       exportDate: new Date().toISOString(),
@@ -260,7 +260,7 @@ export async function exportClasses(classIds: string[]): Promise<void> {
       if (sqliteImages.some(img => img.id === path)) continue;
       try {
         const fileData = await Filesystem.readFile({
-          path: `crossfit-tracker/media/${path}`,
+          path: `${MEDIA_BASE_DIR}/${path}`,
           directory: Directory.Data,
         });
         mediaFolder?.file(path, fileData.data as string, { base64: true });
@@ -317,7 +317,7 @@ export async function exportClasses(classIds: string[]): Promise<void> {
     });
 
     await Share.share({
-      title: 'Clase CrossFit',
+      title: 'Clase FitLesUY',
       text: `Clase${classes.length > 1 ? 's' : ''}: ${classes.map(c => c.name).join(', ')}`,
       url: uriResult.uri,
       dialogTitle: 'Compartir Clase',
@@ -347,8 +347,8 @@ export async function importClassFromZip(zipFile: Blob): Promise<ClassImportResu
 
   const share: ClassShareJson = JSON.parse(await jsonFile.async('string'));
 
-  if (share.meta?.app !== 'CrossFit Session Tracker' || share.meta?.type !== SHARE_TYPE) {
-    throw new Error('El archivo no es una exportación de clase de CrossFit Session Tracker.');
+  if (!isKnownAppName(share.meta?.app) || share.meta?.type !== SHARE_TYPE) {
+    throw new Error('El archivo no es una exportación de clase de FitLesUY.');
   }
 
   const db = await openDatabase();
@@ -748,7 +748,7 @@ export async function exportExercises(exerciseIds: string[]): Promise<void> {
   // 5. Construir JSON
   const shareJson: ExerciseShareJson = {
     meta: {
-      app: 'CrossFit Session Tracker',
+      app: APP_NAME,
       type: EXERCISE_SHARE_TYPE,
       version: APP_VERSION,
       exportDate: new Date().toISOString(),
@@ -815,7 +815,7 @@ export async function exportExercises(exerciseIds: string[]): Promise<void> {
     for (const path of exerciseMediaPaths) {
       if (sqliteImages.some(img => img.id === path)) continue;
       try {
-        const fileData = await Filesystem.readFile({ path: `crossfit-tracker/media/${path}`, directory: Directory.Data });
+        const fileData = await Filesystem.readFile({ path: `${MEDIA_BASE_DIR}/${path}`, directory: Directory.Data });
         mediaFolder?.file(path, fileData.data as string, { base64: true });
       } catch (e) {
         console.warn(`[ExerciseShare] No se pudo incluir media: ${path}`, e);
@@ -858,7 +858,7 @@ export async function exportExercises(exerciseIds: string[]): Promise<void> {
     const uriResult = await Filesystem.getUri({ path: cachePath, directory: Directory.Cache });
 
     await Share.share({
-      title: 'Ejercicios CrossFit',
+      title: 'Ejercicios FitLesUY',
       text: `Ejercicio${exercises.length > 1 ? 's' : ''}: ${exercises.map(e => e.name).join(', ')}`,
       url: uriResult.uri,
       dialogTitle: 'Compartir Ejercicios',
@@ -885,8 +885,8 @@ export async function importExercisesFromZip(zipFile: Blob): Promise<ExerciseImp
 
   const share: ExerciseShareJson = JSON.parse(await jsonFile.async('string'));
 
-  if (share.meta?.app !== 'CrossFit Session Tracker' || share.meta?.type !== EXERCISE_SHARE_TYPE) {
-    throw new Error('El archivo no es una exportación de ejercicios de CrossFit Session Tracker.');
+  if (!isKnownAppName(share.meta?.app) || share.meta?.type !== EXERCISE_SHARE_TYPE) {
+    throw new Error('El archivo no es una exportación de ejercicios de FitLesUY.');
   }
 
   const db = await openDatabase();
@@ -1086,7 +1086,7 @@ export async function importFromZip(zipFile: Blob): Promise<ImportFromZipResult>
   }
 
   throw new Error(
-    'El archivo no es una exportación válida de CrossFit Session Tracker.\n' +
+    'El archivo no es una exportación válida de FitLesUY.\n' +
     'Asegurate de usar un ZIP generado con "Exportar Clase(s)" o "Exportar Ejercicio(s)".'
   );
 }
@@ -1130,7 +1130,7 @@ async function restoreMedia(zip: JSZip): Promise<void> {
       // También guardar en filesystem nativo (Android)
       try {
         const { Filesystem, Directory } = await import('@capacitor/filesystem');
-        const fullPath = `crossfit-tracker/media/${relativePath}`;
+        const fullPath = `${MEDIA_BASE_DIR}/${relativePath}`;
         await Filesystem.writeFile({ path: fullPath, data: base64, directory: Directory.Data, recursive: true });
       } catch (e) {
         console.warn(`[ClassShare] No se pudo guardar media en filesystem: ${relativePath}`, e);

@@ -30,6 +30,7 @@ import { TrainingSession } from '../../models/TrainingSession';
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { onActivateKey } from '../../utils/a11y';
+import { APP_SHORT_NAME } from '../../utils/constants';
 
 const quickActions = [
   { label: 'Nueva sesión',    icon: Calendar,       path: '/sesiones/nueva' },
@@ -114,7 +115,7 @@ export function HomePage() {
 
   return (
     <>
-      <Header title="CrossFitLes Tracker" />
+      <Header title={APP_SHORT_NAME} />
 
       <div className="p-4 space-y-6 pb-24">
         

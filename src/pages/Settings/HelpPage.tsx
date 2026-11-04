@@ -513,7 +513,7 @@ export function HelpPage() {
                 cuando una clase no especifica un tiempo propio.
               </p>
               <p className="text-xs text-gray-600">
-                Normalmente no hace falta tocar esto: ya vienen cargados con los valores típicos de CrossFit. Sirve
+                Normalmente no hace falta tocar esto: ya vienen cargados con los valores típicos del entrenamiento funcional. Sirve
                 para agregar uno nuevo (por ejemplo un equipamiento que no está) o ajustar los tiempos por defecto
                 del cronómetro.
               </p>

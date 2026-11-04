@@ -194,7 +194,7 @@ export function ClassShareSection() {
       } else if (zip.file('exercise-share.json')) {
         setDetectedZipType('exercise');
       } else {
-        toast.error('El archivo no es una exportación válida de CrossFit Session Tracker.');
+        toast.error('El archivo no es una exportación válida de FitLesUY.');
         return;
       }
     } catch {

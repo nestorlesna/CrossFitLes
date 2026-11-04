@@ -352,7 +352,7 @@ export function SettingsPage() {
                 <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shrink-0">
                   <Info size={16} className="text-primary-400" />
                 </div>
-                <span className="flex-1 text-sm text-white">Acerca de CrossFit Les</span>
+                <span className="flex-1 text-sm text-white">Acerca de FitLesUY</span>
                 <ChevronRight size={16} className="text-gray-600" />
               </button>
             </div>

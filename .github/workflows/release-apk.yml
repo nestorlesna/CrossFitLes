@@ -67,8 +67,8 @@ jobs:
       - name: Find and rename APK
         id: find_apk
         run: |
-          APK_DEST="android/app/build/outputs/apk/release/CrossFitLes.apk"
-          APK_SOURCE=$(find android/app/build/outputs/apk/release/ -name "*.apk" ! -name "CrossFitLes.apk" | head -1)
+          APK_DEST="android/app/build/outputs/apk/release/FitLesUY.apk"
+          APK_SOURCE=$(find android/app/build/outputs/apk/release/ -name "*.apk" ! -name "FitLesUY.apk" | head -1)
           if [ -n "$APK_SOURCE" ]; then
             mv "$APK_SOURCE" "$APK_DEST"
           fi
@@ -81,12 +81,12 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         with:
-          name: "CrossFitLes v${{ steps.version.outputs.version }}"
+          name: "FitLesUY v${{ steps.version.outputs.version }}"
           tag_name: ${{ github.ref_name }}
           body: |
             ## Instalación
 
-            1. Descargar **CrossFitLes.apk** desde los assets de abajo
+            1. Descargar **FitLesUY.apk** desde los assets de abajo
             2. En Android: **Configuración → Seguridad → Instalar apps desconocidas** (activar para el navegador/explorador usado)
             3. Abrir el APK descargado e instalar
             4. Si ya tenías la app instalada, se actualizará automáticamente manteniendo tus datos

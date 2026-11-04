@@ -20,7 +20,7 @@ export function UpdateModal({ version, downloading, progress, installError, onUp
           </div>
           <div className="flex-1 min-w-0">
             <h2 className="text-base font-bold text-white">Nueva versión disponible</h2>
-            <p className="text-sm text-gray-400 mt-0.5">CrossFit Les v{version}</p>
+            <p className="text-sm text-gray-400 mt-0.5">FitLesUY v{version}</p>
           </div>
           {!downloading && (
             <button

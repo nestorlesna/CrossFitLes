@@ -1,4 +1,4 @@
-// Benchmarks históricos de CrossFit: Chicas (Girls) y Héroes (Heroes)
+// Benchmarks históricos: Chicas (Girls) y Héroes (Heroes)
 // Operación ADITIVA — no borra nada. Asume que Inicializar Datos ya corrió.
 
 import { SQLiteDBConnection } from '@capacitor-community/sqlite';
@@ -363,7 +363,7 @@ const BENCHMARK_EXERCISES: ExerciseDef[] = [
 const GIRLS_TEMPLATES: TemplateDef[] = [
   // 1. BÁRBARA
   {
-    name: 'CrossFit Girl: Bárbara',
+    name: 'Girl: Bárbara',
     objective: '5 rondas con 3 min de descanso — resistencia muscular total',
     general_notes: '5 Rondas con 3 minutos de descanso entre rondas\nApuntar tiempo de cada ronda.',
     estimated_duration_minutes: 40,
@@ -392,7 +392,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 2. CHELSEA
   {
-    name: 'CrossFit Girl: Chelsea',
+    name: 'Girl: Chelsea',
     objective: 'EMOM 30 minutos — capacidad aeróbica y resistencia a la fatiga',
     general_notes: 'EMOM 30 minutos\nCompletar las repeticiones en el primer minuto y descansar el tiempo restante.\nSi no se completan, se convierte en AMRAP.',
     estimated_duration_minutes: 35,
@@ -419,7 +419,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 3. MARY
   {
-    name: 'CrossFit Girl: Mary',
+    name: 'Girl: Mary',
     objective: 'AMRAP 20 minutos — gimnástico de alto nivel',
     general_notes: 'AMRAP 20 minutos\nContar rondas + repeticiones extra.',
     estimated_duration_minutes: 25,
@@ -446,7 +446,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 4. CINDY
   {
-    name: 'CrossFit Girl: Cindy',
+    name: 'Girl: Cindy',
     objective: 'AMRAP 20 minutos — fitness general y capacidad aeróbica',
     general_notes: 'AMRAP 20 minutos\nUno de los benchmarks más populares. Contar rondas + reps.',
     estimated_duration_minutes: 25,
@@ -473,7 +473,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 5. ANNIE
   {
-    name: 'CrossFit Girl: Annie',
+    name: 'Girl: Annie',
     objective: '50-40-30-20-10 doble salto y abdominales — habilidad y core',
     general_notes: 'For Time\nEsquema: 50-40-30-20-10 repeticiones de cada ejercicio.\n♀ y ♂ mismo peso (cuerda).',
     estimated_duration_minutes: 15,
@@ -506,7 +506,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 6. NICOLE
   {
-    name: 'CrossFit Girl: Nicole',
+    name: 'Girl: Nicole',
     objective: 'AMRAP 20 min — carrera + máximas dominadas',
     general_notes: 'AMRAP 20 minutos\nCada ronda: correr 400m, luego máximas dominadas sin soltar la barra.\nAnotar número de pull-ups de cada ronda.',
     estimated_duration_minutes: 25,
@@ -532,7 +532,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 7. ANGIE
   {
-    name: 'CrossFit Girl: Angie',
+    name: 'Girl: Angie',
     objective: 'For Time — 100 reps de 4 movimientos en orden',
     general_notes: 'For Time\nCompletar TODAS las repeticiones de un ejercicio antes de pasar al siguiente.\nNo se puede pasar al siguiente hasta terminar las 100 del anterior.',
     estimated_duration_minutes: 30,
@@ -561,7 +561,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 8. EVA
   {
-    name: 'CrossFit Girl: Eva',
+    name: 'Girl: Eva',
     objective: '5 rondas — carrera larga + kettlebell swings',
     general_notes: '5 Rondas For Time\n♂ 32 kg kettlebell | ♀ 24 kg kettlebell',
     estimated_duration_minutes: 40,
@@ -587,7 +587,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 9. HELEN
   {
-    name: 'CrossFit Girl: Helen',
+    name: 'Girl: Helen',
     objective: '3 rondas — carrera + kettlebell + pull-ups',
     general_notes: '3 Rondas For Time\n♂ 24 kg kettlebell (1,5 pood) | ♀ 16 kg (1 pood)',
     estimated_duration_minutes: 15,
@@ -615,7 +615,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 10. KELLY
   {
-    name: 'CrossFit Girl: Kelly',
+    name: 'Girl: Kelly',
     objective: '5 rondas — carrera + box jumps + wall balls',
     general_notes: '5 Rondas For Time\n♂ Box 24" / Wall ball 9 kg | ♀ Box 20" / Wall ball 6 kg',
     estimated_duration_minutes: 40,
@@ -643,7 +643,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 11. KAREN
   {
-    name: 'CrossFit Girl: Karen',
+    name: 'Girl: Karen',
     objective: 'For Time — 150 Wall Balls',
     general_notes: 'For Time\n150 Wall Balls\n♂ 9 kg (20 lb) / 10 ft target | ♀ 6 kg (14 lb) / 9 ft target',
     estimated_duration_minutes: 15,
@@ -667,7 +667,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 12. AMANDA
   {
-    name: 'CrossFit Girl: Amanda',
+    name: 'Girl: Amanda',
     objective: '9-7-5 Muscle-ups y Snatches — potencia olímpica',
     general_notes: 'For Time — 9-7-5\n♂ 61 kg snatch | ♀ 43 kg snatch',
     estimated_duration_minutes: 15,
@@ -697,7 +697,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 13. JACKIE
   {
-    name: 'CrossFit Girl: Jackie',
+    name: 'Girl: Jackie',
     objective: 'For Time — Remo + Thrusters + Pull-ups',
     general_notes: 'For Time\n♂ 20 kg Thruster | ♀ 15 kg Thruster\nUno de los benchmarks más cortos: apunta a < 10 minutos.',
     estimated_duration_minutes: 15,
@@ -724,7 +724,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 14. DIANE
   {
-    name: 'CrossFit Girl: Diane',
+    name: 'Girl: Diane',
     objective: '21-15-9 Peso muerto y HSPU — fuerza y habilidad',
     general_notes: 'For Time — 21-15-9\n♂ 102 kg Deadlift | ♀ 70 kg',
     estimated_duration_minutes: 15,
@@ -753,7 +753,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 15. FRAN
   {
-    name: 'CrossFit Girl: Fran',
+    name: 'Girl: Fran',
     objective: '21-15-9 Thrusters y Pull-ups — el benchmark más icónico',
     general_notes: 'For Time — 21-15-9\n♂ 43 kg Thruster | ♀ 29 kg\nMetaobjetivo: < 10 min (elite: < 3 min)',
     estimated_duration_minutes: 15,
@@ -782,7 +782,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 16. ELIZABETH
   {
-    name: 'CrossFit Girl: Elizabeth',
+    name: 'Girl: Elizabeth',
     objective: '21-15-9 Cleans y Ring Dips — potencia y empuje',
     general_notes: 'For Time — 21-15-9\n♂ 61 kg Clean | ♀ 43 kg',
     estimated_duration_minutes: 15,
@@ -811,7 +811,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 17. NANCY
   {
-    name: 'CrossFit Girl: Nancy',
+    name: 'Girl: Nancy',
     objective: '5 rondas — carrera + overhead squats',
     general_notes: '5 Rondas For Time\n♂ 43 kg OHS | ♀ 29 kg',
     estimated_duration_minutes: 20,
@@ -837,7 +837,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 18. LYNNE
   {
-    name: 'CrossFit Girl: Lynne',
+    name: 'Girl: Lynne',
     objective: '5 rondas a máximas repeticiones — fuerza relativa al cuerpo',
     general_notes: '5 Rondas — Máximas repeticiones (sin time cap)\nBench press con el peso corporal del atleta.\nDescanso entre rondas según necesidad. No hay tiempo.',
     estimated_duration_minutes: 30,
@@ -863,7 +863,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 19. ISABEL
   {
-    name: 'CrossFit Girl: Isabel',
+    name: 'Girl: Isabel',
     objective: 'For Time — 30 Snatches',
     general_notes: 'For Time\n30 Snatches\n♂ 61 kg | ♀ 43 kg\nMetaobjetivo: < 5 minutos',
     estimated_duration_minutes: 10,
@@ -887,7 +887,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 20. LINDA
   {
-    name: 'CrossFit Girl: Linda',
+    name: 'Girl: Linda',
     objective: '10-9-8-7-6-5-4-3-2-1 tres barras — fuerza total',
     general_notes: 'For Time — 10-9-8-7-6-5-4-3-2-1\nDeadlift: 1,5× peso corporal\nBench press: 1× peso corporal\nClean: 0,75× peso corporal\nLas 3 barras se cargan con pesos diferentes según el atleta.',
     estimated_duration_minutes: 30,
@@ -915,7 +915,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 
   // 21. GRACE
   {
-    name: 'CrossFit Girl: Grace',
+    name: 'Girl: Grace',
     objective: 'For Time — 30 Clean and Jerks',
     general_notes: 'For Time\n30 Clean and Jerks\n♂ 61 kg | ♀ 43 kg\nMetaobjetivo: < 5 minutos',
     estimated_duration_minutes: 10,
@@ -943,7 +943,7 @@ const GIRLS_TEMPLATES: TemplateDef[] = [
 const HEROES_TEMPLATES: TemplateDef[] = [
   // 1. JT
   {
-    name: 'CrossFit Hero: JT',
+    name: 'Hero: JT',
     objective: '21-15-9 HSPU, Ring Dips y Push-ups — empuje total',
     general_notes: 'For Time — 21-15-9\nEn honor a PO1 John Thomas, caído en combate.',
     estimated_duration_minutes: 20,
@@ -975,7 +975,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 2. MICHAEL
   {
-    name: 'CrossFit Hero: Michael',
+    name: 'Hero: Michael',
     objective: '3 rondas — carrera + lumbares + abdominales',
     general_notes: '3 Rondas For Time\nEn honor al MSgt Michael Maltz.',
     estimated_duration_minutes: 35,
@@ -1002,7 +1002,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 3. TOMMY V
   {
-    name: 'CrossFit Hero: Tommy V',
+    name: 'Hero: Tommy V',
     objective: '5 rondas con escalera de thrusters y rope climbs',
     general_notes: '5 Rondas For Time\nEn honor al Lt Michael P. McGreevy.\n♂ 29 kg Thruster | ♀ 20 kg\nCuerda: 4-5 metros\nCada ronda tiene 3 bloques de thrusters + rope climbs (21-12, 15-9, 9-6).',
     estimated_duration_minutes: 40,
@@ -1032,7 +1032,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 4. JOSHIE
   {
-    name: 'CrossFit Hero: Joshie',
+    name: 'Hero: Joshie',
     objective: '3 rondas — DB Snatch alternado y pull-ups',
     general_notes: '3 Rondas For Time\n♂ 22 kg mancuerna | ♀ 16 kg\n21 snatches con brazo derecho, luego 21 pull-ups, luego 21 snatches con brazo izquierdo, luego 21 pull-ups.',
     estimated_duration_minutes: 25,
@@ -1060,7 +1060,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 5. BADGER
   {
-    name: 'CrossFit Hero: Badger',
+    name: 'Hero: Badger',
     objective: '3 rondas — Squat Cleans, Pull-ups y carrera',
     general_notes: '3 Rondas For Time\nEn honor al SO2 Adam Lee Brown.\n♂ 43 kg Squat Clean | ♀ 29 kg',
     estimated_duration_minutes: 35,
@@ -1088,7 +1088,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 6. DANIEL
   {
-    name: 'CrossFit Hero: Daniel',
+    name: 'Hero: Daniel',
     objective: 'Chipper simétrico — pull-ups, carrera y thrusters',
     general_notes: 'For Time — Chipper simétrico\nEn honor al Army Cpt Daniel Whitten.\n♂ 43 kg Thruster | ♀ 29 kg',
     estimated_duration_minutes: 30,
@@ -1119,7 +1119,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 7. MURPH
   {
-    name: 'CrossFit Hero: Murph',
+    name: 'Hero: Murph',
     objective: 'For Time — 1 milla + 100 pull-ups + 200 push-ups + 300 squats + 1 milla',
     general_notes: 'For Time — con chaleco lastrado 10 kg (opcional)\nEn honor al Lt Michael Murphy.\nSe puede dividir pull-ups, push-ups y squats en cualquier combinación (ej: 20 rondas de 5+10+15).',
     estimated_duration_minutes: 50,
@@ -1149,7 +1149,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 8. JASON
   {
-    name: 'CrossFit Hero: Jason',
+    name: 'Hero: Jason',
     objective: 'Chipper con Muscle-ups escalando — squats + muscle-ups en pirámide',
     general_notes: 'For Time — Chipper\n100 Squats · 5 MU · 75 Squats · 10 MU · 50 Squats · 15 MU · 25 Squats · 20 MU',
     estimated_duration_minutes: 30,
@@ -1179,7 +1179,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 9. JOSH
   {
-    name: 'CrossFit Hero: Josh',
+    name: 'Hero: Josh',
     objective: '21-15-9 Overhead Squats y Pull-ups (reps dobles)',
     general_notes: 'For Time\n21 OHS + 42 Pull-ups | 15 OHS + 30 Pull-ups | 9 OHS + 18 Pull-ups\n♂ 61 kg OHS | ♀ 43 kg',
     estimated_duration_minutes: 20,
@@ -1208,7 +1208,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 10. McGHEE
   {
-    name: 'CrossFit Hero: McGhee',
+    name: 'Hero: McGhee',
     objective: 'AMRAP 30 minutos — deadlift, push-ups y box jumps',
     general_notes: 'AMRAP 30 minutos\nEn honor al Capt Brian R. Bunting.\n♂ 82 kg Deadlift | ♀ 56 kg\nBox 24" (♂) / 20" (♀)',
     estimated_duration_minutes: 35,
@@ -1236,7 +1236,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 11. NATE
   {
-    name: 'CrossFit Hero: Nate',
+    name: 'Hero: Nate',
     objective: 'AMRAP 20 minutos — muscle-ups, HSPU y kettlebell swings',
     general_notes: 'AMRAP 20 minutos\nEn honor al CPO Nate Hardy.\n♂ 32 kg KB | ♀ 24 kg\n2 Muscle-ups · 4 HSPU · 8 KB Swings por ronda',
     estimated_duration_minutes: 25,
@@ -1264,7 +1264,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 12. GRIFF
   {
-    name: 'CrossFit Hero: Griff',
+    name: 'Hero: Griff',
     objective: 'For Time — carrera y carrera hacia atrás',
     general_notes: 'For Time\nEn honor al SSgt Travis Griffin.\n800m forward · 400m backward · 800m forward · 400m backward\nCorrer hacia atrás a ritmo seguro.',
     estimated_duration_minutes: 20,
@@ -1290,7 +1290,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 13. RYAN
   {
-    name: 'CrossFit Hero: Ryan',
+    name: 'Hero: Ryan',
     objective: '5 rondas — Muscle-ups y Burpees',
     general_notes: '5 Rondas For Time\nEn honor al Spc Ryan C. Baumann.',
     estimated_duration_minutes: 25,
@@ -1315,7 +1315,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 14. ERIN
   {
-    name: 'CrossFit Hero: Erin',
+    name: 'Hero: Erin',
     objective: '5 rondas — DB Split Cleans y Pull-ups',
     general_notes: '5 Rondas For Time\nEn honor al CPL Erin Wall.\n♂ 22 kg mancuernas | ♀ 16 kg',
     estimated_duration_minutes: 25,
@@ -1341,7 +1341,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 15. MR. JOSHUA
   {
-    name: 'CrossFit Hero: Mr. Joshua',
+    name: 'Hero: Mr. Joshua',
     objective: '5 rondas — carrera, abdominales y peso muerto',
     general_notes: '5 Rondas For Time\nEn honor al MSG Joshua Wheeler.\n♂ 84 kg Deadlift | ♀ 56 kg',
     estimated_duration_minutes: 30,
@@ -1369,7 +1369,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 16. DT
   {
-    name: 'CrossFit Hero: DT',
+    name: 'Hero: DT',
     objective: '5 rondas — complejo de barra (Deadlift + Hang Power Clean + Push Jerk)',
     general_notes: '5 Rondas For Time\nEn honor al SSgt Timothy P. Davis.\n♂ 70 kg | ♀ 47 kg — misma barra todo el WOD\nNo soltar la barra entre ejercicios de la misma ronda.',
     estimated_duration_minutes: 20,
@@ -1397,7 +1397,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 17. DANNY
   {
-    name: 'CrossFit Hero: Danny',
+    name: 'Hero: Danny',
     objective: 'AMRAP 20 minutos — box jumps, push press y pull-ups',
     general_notes: 'AMRAP 20 minutos\nEn honor al Sgt Daniel Crabtree.\n♂ 52 kg Push Press | ♀ 34 kg\nBox 24" (♂) / 20" (♀)',
     estimated_duration_minutes: 25,
@@ -1425,7 +1425,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 18. HANSEN
   {
-    name: 'CrossFit Hero: Hansen',
+    name: 'Hero: Hansen',
     objective: '5 rondas — kettlebell swings, burpees y GHD sit-ups',
     general_notes: '5 Rondas For Time\nEn honor al SSgt Daniel Hansen.\n♂ 32 kg KB | ♀ 24 kg\nSit-ups en GHD.',
     estimated_duration_minutes: 35,
@@ -1453,7 +1453,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 19. TYLER
   {
-    name: 'CrossFit Hero: Tyler',
+    name: 'Hero: Tyler',
     objective: '5 rondas — Muscle-ups y Sumo Deadlift High Pulls',
     general_notes: '5 Rondas For Time\nEn honor al Cpl Tyler Condrey.\n♂ 34 kg Sumo DL HP | ♀ 25 kg',
     estimated_duration_minutes: 25,
@@ -1479,7 +1479,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 20. STEPHEN
   {
-    name: 'CrossFit Hero: Stephen',
+    name: 'Hero: Stephen',
     objective: 'For Time — 30-25-20-15-10-5 de GHD, extensiones y K2E',
     general_notes: 'For Time\nEn honor al Sgt Stephen Sutherland.\n6 bloques: 30-25-20-15-10-5 reps de cada movimiento + 40 Deadlifts por bloque.\n♂ 84 kg DL | ♀ 56 kg',
     estimated_duration_minutes: 35,
@@ -1509,7 +1509,7 @@ const HEROES_TEMPLATES: TemplateDef[] = [
 
   // 21. GARRETT
   {
-    name: 'CrossFit Hero: Garrett',
+    name: 'Hero: Garrett',
     objective: '3 rondas — squats, ring HSPU y pull-ups',
     general_notes: '3 Rondas For Time\nEn honor al Capt Garrett Lawton.',
     estimated_duration_minutes: 30,

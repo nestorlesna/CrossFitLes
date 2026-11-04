@@ -1,6 +1,6 @@
 // Servicio de datos semilla para la aplicación
 // Se ejecuta UNA SOLA VEZ al inicializar la BD (controlado por localStorage)
-// v2: agrega ejercicios básicos de CrossFit
+// v2: agrega ejercicios básicos de entrenamiento funcional
 
 import { SQLiteDBConnection } from '@capacitor-community/sqlite';
 import { generateUUID } from '../utils/formatters';
@@ -304,7 +304,7 @@ const SEED_EXERCISES: SeedExercise[] = [
   },
   {
     name: 'Air Squat',
-    description: 'Sentadilla sin peso (bodyweight). Base de todo movimiento de piernas en CrossFit.',
+    description: 'Sentadilla sin peso (bodyweight). Base de todo movimiento de piernas en el entrenamiento funcional.',
     difficulty: 'Básico', primaryMuscle: 'Cuádriceps', is_compound: 1,
     secondaryMuscles: ['Glúteos', 'Core/Abdominales'],
     equipment: [],

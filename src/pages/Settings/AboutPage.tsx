@@ -25,12 +25,12 @@ export function AboutPage() {
         {/* ── Identidad de la app ── */}
         <div className="flex flex-col items-center gap-3 pt-4 pb-2">
           <img
-            src="/icon.svg"
-            alt="CrossFit Les"
-            className="w-24 h-24 rounded-3xl shadow-lg shadow-primary-900/30"
+            src="/logo.png"
+            alt="FitLesUY"
+            className="w-24 h-24 rounded-full shadow-lg shadow-primary-900/30"
           />
           <div className="text-center">
-            <h1 className="text-xl font-black text-white tracking-tight">CrossFit Les</h1>
+            <h1 className="text-xl font-black text-white tracking-tight">FitLesUY Session Tracker</h1>
             <p className="text-sm text-gray-500 mt-0.5">Registro personal de entrenamiento</p>
           </div>
         </div>
@@ -58,7 +58,7 @@ export function AboutPage() {
           </div>
           <p className="text-sm text-gray-300 leading-relaxed">
             Esta aplicación fue desarrollada para uso <span className="text-white font-semibold">estrictamente personal</span>,
-            con el fin de registrar y hacer seguimiento de sesiones de entrenamiento de CrossFit.
+            con el fin de registrar y hacer seguimiento de sesiones de entrenamiento funcional.
           </p>
           <p className="text-sm text-gray-300 leading-relaxed">
             Se recomienda siempre realizar los ejercicios bajo la supervisión o guía de un

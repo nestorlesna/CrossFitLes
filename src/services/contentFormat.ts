@@ -1,4 +1,4 @@
-// Formato del contenido publicado en el repo público CrossFitLes-content.
+// Formato del contenido publicado en el repo público de contenido (CONTENT_REPO).
 // Lo comparten contentPublishService (genera) y contentSyncService (aplica).
 //
 // Estructura del repo:
@@ -9,6 +9,7 @@
 // id local: cada dispositivo genera sus propios ids al importar.
 
 import type { ChallengeDefinition } from '../models/Challenge';
+import { APP_NAME } from '../utils/constants';
 
 const CONTENT_OWNER = 'nestorlesna';
 const CONTENT_REPO = 'CrossFitLes-content';
@@ -22,7 +23,7 @@ export const CONTENT_BASE_URL =
 export const MANIFEST_PATH = 'manifest.json';
 export const CONTENT_PATH = 'content/content.json';
 
-export const CONTENT_APP = 'CrossFit Session Tracker';
+export const CONTENT_APP = APP_NAME;
 
 // Versión del formato del archivo. Subirla sólo ante cambios incompatibles: las apps viejas
 // verán "actualizá la app" en vez de importar datos que no entienden.

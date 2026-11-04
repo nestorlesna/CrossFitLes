@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Colores de la app CrossFit
+        // Colores de la app FitLesUY (naranja del logo)
         primary: {
           50: '#fff7ed',
           100: '#ffedd5',

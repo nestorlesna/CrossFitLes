@@ -4,6 +4,7 @@
 
 import { Capacitor } from '@capacitor/core';
 import { generateUUID } from '../utils/formatters';
+import { MEDIA_BASE_DIR } from '../utils/constants';
 import { getDatabase, saveDatabase } from '../db/database';
 
 // Subtipos de directorios de media
@@ -119,7 +120,7 @@ async function pickImageNative(subdir: MediaSubdir): Promise<PickImageResult> {
   const ext = photo.format ?? 'jpeg';
   const filename = `${generateUUID()}.${ext}`;
   const relativePath = `${subdir}/${filename}`;
-  const fullPath = `crossfit-tracker/media/${relativePath}`;
+  const fullPath = `${MEDIA_BASE_DIR}/${relativePath}`;
 
   await Filesystem.writeFile({
     path: fullPath,
@@ -143,7 +144,7 @@ async function pickImageNative(subdir: MediaSubdir): Promise<PickImageResult> {
 async function getImageDisplayUrlNative(path: string): Promise<string | null> {
   try {
     const { Filesystem, Directory } = await import('@capacitor/filesystem');
-    const fullPath = `crossfit-tracker/media/${path}`;
+    const fullPath = `${MEDIA_BASE_DIR}/${path}`;
 
     // Obtener URI del archivo y convertir a URL HTTP para WebView
     const uriResult = await Filesystem.getUri({
@@ -162,7 +163,7 @@ async function getImageDisplayUrlNative(path: string): Promise<string | null> {
 async function ensureImageInFilesystem(path: string, dataUrl: string): Promise<void> {
   try {
     const { Filesystem, Directory } = await import('@capacitor/filesystem');
-    const fullPath = `crossfit-tracker/media/${path}`;
+    const fullPath = `${MEDIA_BASE_DIR}/${path}`;
     const base64 = dataUrl.split(',')[1];
     if (!base64) return;
     await Filesystem.writeFile({
@@ -180,7 +181,7 @@ async function ensureImageInFilesystem(path: string, dataUrl: string): Promise<v
 async function deleteImageNative(path: string): Promise<void> {
   try {
     const { Filesystem, Directory } = await import('@capacitor/filesystem');
-    const fullPath = `crossfit-tracker/media/${path}`;
+    const fullPath = `${MEDIA_BASE_DIR}/${path}`;
     await Filesystem.deleteFile({
       path: fullPath,
       directory: Directory.Data,

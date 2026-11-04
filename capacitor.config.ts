@@ -1,15 +1,15 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.crossfitles.tracker',
-  appName: 'CrossFit Session Tracker',
+  appId: 'uy.fitles.tracker',
+  appName: 'FitLesUY',
   webDir: 'dist',
   // Configuración del plugin SQLite
   plugins: {
     CapacitorSQLite: {
       iosDatabaseLocation: 'Library/CapacitorDatabase',
       iosIsEncryption: false,
-      iosKeychainPrefix: 'crossfit-tracker',
+      iosKeychainPrefix: 'fitlesuy',
       iosBiometric: {
         biometricAuth: false,
         biometricTitle: 'Biometric login for capacitor sqlite',

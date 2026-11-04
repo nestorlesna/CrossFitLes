@@ -18,6 +18,7 @@ import { v015_class_template_video } from './v015_class_template_video';
 import { v016_training_plan } from './v016_training_plan';
 import { v017_challenges } from './v017_challenges';
 import { v018_content_sync } from './v018_content_sync';
+import { v019_rename_benchmarks } from './v019_rename_benchmarks';
 
 export const migrations: Migration[] = [
   v001_initial,
@@ -38,4 +39,5 @@ export const migrations: Migration[] = [
   v016_training_plan,
   v017_challenges,
   v018_content_sync,
+  v019_rename_benchmarks,
 ];

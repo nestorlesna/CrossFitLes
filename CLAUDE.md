@@ -114,6 +114,14 @@ Todas bajo un `<Layout>` con `BottomNav` de 5 tabs:
 - `src/services/seedService.ts` — carga datos iniciales (64 registros) controlado por flag en localStorage (`seed_v1_done`).
 - `src/services/backupService.ts` — exportar/importar todos los datos como JSON respetando el orden de dependencias entre tablas.
 
+### Nombre de la app (FitLesUY)
+- La app se llama **FitLesUY Session Tracker** (`APP_NAME` / `APP_SHORT_NAME` en `src/utils/constants.ts`),
+  `applicationId` `uy.fitles.tracker`. Al importar backups/clases/contenido usar `isKnownAppName()`,
+  que acepta también el nombre viejo `CrossFit Session Tracker`.
+- `DB_NAME = 'crossfit_tracker'` y el alias `crossfitles` del keystore son históricos: **no cambiarlos**.
+- Media nativa en `MEDIA_BASE_DIR` (`fitlesuy/media`); nunca hardcodear la ruta.
+- Plan de la migración: `PLAN_FITLESUY.md`.
+
 ### Versionado
 - `APP_VERSION` vive sólo en `src/config/version.ts` (`src/utils/constants.ts` la re-exporta).
 - `scripts/release.ps1 X.Y.Z` actualiza a la vez `build.gradle` (versionCode/versionName),

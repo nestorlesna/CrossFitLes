@@ -1,4 +1,4 @@
-package com.crossfitles.tracker;
+package uy.fitles.tracker;
 
 import com.getcapacitor.BridgeActivity;
 

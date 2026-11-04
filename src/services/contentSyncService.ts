@@ -15,12 +15,12 @@ import { Capacitor } from '@capacitor/core';
 import { getDatabase, saveDatabase } from '../db/database';
 import { getSetting, setSettingStmt } from '../db/repositories/appSettingRepo';
 import { generateUUID } from '../utils/formatters';
+import { MEDIA_BASE_DIR, isKnownAppName } from '../utils/constants';
 import { addDaysISO, daysBetweenISO, todayISO } from './challengeEngine';
 import { CHALLENGE_CATALOG_SETTING, loadRemoteChallenges } from './challengeCatalogService';
 import { isSupportedChallenge } from '../data/challenges';
 import {
   CATALOG_TABLES,
-  CONTENT_APP,
   CONTENT_BASE_URL,
   CONTENT_FORMAT,
   CONTENT_PATH,
@@ -84,7 +84,7 @@ async function fetchJson<T>(path: string, version?: number): Promise<T> {
 
 export async function fetchManifest(): Promise<ContentManifest> {
   const manifest = await fetchJson<ContentManifest>(MANIFEST_PATH);
-  if (manifest.app !== CONTENT_APP) throw new Error('El contenido publicado no es válido');
+  if (!isKnownAppName(manifest.app)) throw new Error('El contenido publicado no es válido');
   return manifest;
 }
 
@@ -158,7 +158,7 @@ export async function syncContent(force = false): Promise<SyncSummary> {
   }
 
   const content = await fetchJson<ContentFile>(CONTENT_PATH, manifest.contentVersion);
-  if (content.app !== CONTENT_APP || content.format > CONTENT_FORMAT) {
+  if (!isKnownAppName(content.app) || content.format > CONTENT_FORMAT) {
     throw new Error('El contenido descargado no es compatible con esta versión de la app');
   }
 
@@ -556,7 +556,7 @@ export async function syncContent(force = false): Promise<SyncSummary> {
       if (!base64) continue;
       try {
         await Filesystem.writeFile({
-          path: `crossfit-tracker/media/${key}`,
+          path: `${MEDIA_BASE_DIR}/${key}`,
           data: base64,
           directory: Directory.Data,
           recursive: true,

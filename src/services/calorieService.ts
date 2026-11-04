@@ -45,7 +45,7 @@ export async function calculateSessionCalories(
   const db = getDatabase();
 
   // Obtener el MET promedio de los ejercicios completados en la sesión
-  // Ponderar por ejercicios completados; si no hay, usar MET genérico de CrossFit (8.5)
+  // Ponderar por ejercicios completados; si no hay, usar MET genérico de entrenamiento funcional (8.5)
   const metResult = await db.query(
     `SELECT AVG(e.met_value) as avg_met
      FROM session_exercise_result ser

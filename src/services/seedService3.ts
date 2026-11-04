@@ -1,4 +1,4 @@
-// Seed de Inicialización 3: plantillas del CrossFit Open 26.1, 26.2 y 26.3
+// Seed de Inicialización 3: plantillas del Open 26.1, 26.2 y 26.3
 // Operación ADITIVA — no borra nada. Asume que la Inicialización 2 ya corrió.
 // Se puede ejecutar directamente desde la UI (no requiere recarga de página).
 
@@ -242,7 +242,7 @@ const OPEN_EXERCISES: ExerciseDef[] = [
 // ── Definiciones de los 3 templates ──────────────────────────────────────────
 
 const TEMPLATE_26_1: TemplateDef = {
-  name: 'CrossFit Open 26.1',
+  name: 'Open 26.1',
   objective: 'Chipper de wall balls y box jumps — resistencia muscular y capacidad aeróbica',
   general_notes: 'For Time — Time cap: 12 minutos\n' +
     '20-18-30-18-40-18-66-18-40-18-30-18-20\n' +
@@ -292,7 +292,7 @@ const TEMPLATE_26_1: TemplateDef = {
 };
 
 const TEMPLATE_26_2: TemplateDef = {
-  name: 'CrossFit Open 26.2',
+  name: 'Open 26.2',
   objective: '3 rondas escalando habilidad de tracción: Pull-up → Chest-to-Bar → Ring Muscle-Up',
   general_notes: 'For Time — sin time cap especificado\n' +
     'Cada ronda: 80 ft (24 m) DB OH Lunge + 20 Alt DB Snatch + 20 pull-up variation\n' +
@@ -410,7 +410,7 @@ const TEMPLATE_26_2: TemplateDef = {
 };
 
 const TEMPLATE_26_3: TemplateDef = {
-  name: 'CrossFit Open 26.3',
+  name: 'Open 26.3',
   objective: 'Barbell cycling con peso escalado en 3 bloques — potencia y tolerancia al lactato',
   general_notes: 'For Time — Time cap: 16 minutos\n' +
     '6 rondas (2 rondas × 3 bloques de peso):\n' +
@@ -485,7 +485,7 @@ const TEMPLATE_26_3: TemplateDef = {
 // ── Punto de entrada principal ────────────────────────────────────────────────
 
 /**
- * Agrega las 3 plantillas del CrossFit Open 26 a la base de datos.
+ * Agrega las 3 plantillas del Open 26 a la base de datos.
  * Operación aditiva: no borra ni modifica datos existentes.
  * Crea automáticamente los ejercicios específicos del Open si no existen.
  */

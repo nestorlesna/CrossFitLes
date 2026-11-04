@@ -4,7 +4,7 @@
 import { Capacitor } from '@capacitor/core';
 import JSZip from 'jszip';
 import { openDatabase } from '../db/database';
-import { APP_VERSION } from '../utils/constants';
+import { APP_NAME, APP_VERSION, MEDIA_BASE_DIR, isKnownAppName } from '../utils/constants';
 
 // Orden de tablas respetando dependencias (padres primero)
 const TABLE_ORDER = [
@@ -83,7 +83,7 @@ export async function exportData(): Promise<void> {
 
   const backupJson: BackupJson = {
     meta: {
-      app: 'CrossFit Session Tracker',
+      app: APP_NAME,
       version: APP_VERSION,
       exportDate: new Date().toISOString(),
       schemaVersion,
@@ -132,7 +132,7 @@ export async function exportData(): Promise<void> {
     // Modo NATIVO: también incluir media del filesystem (legacy)
     const { Filesystem, Directory } = await import('@capacitor/filesystem');
     const subdirs = ['muscles', 'equipment', 'exercises', 'other'];
-    const basePath = 'crossfit-tracker/media';
+    const basePath = MEDIA_BASE_DIR;
 
     for (const subdir of subdirs) {
       try {
@@ -185,7 +185,7 @@ export async function exportData(): Promise<void> {
 
   // 4. Generar el ZIP final
   const content = await zip.generateAsync({ type: 'blob' });
-  const fileName = `crossfit-backup-${formatDateForFile(new Date())}.zip`;
+  const fileName = `fitlesuy-backup-${formatDateForFile(new Date())}.zip`;
 
   if (Capacitor.getPlatform() === 'web') {
     // Descarga en navegador
@@ -229,7 +229,7 @@ export async function exportData(): Promise<void> {
     });
 
     await Share.share({
-      title: 'Backup de CrossFit Tracker',
+      title: 'Backup de FitLesUY',
       text: 'Aquí tienes la copia de seguridad de tus datos.',
       url: uriResult.uri,
       dialogTitle: 'Exportar Backup',
@@ -253,8 +253,8 @@ export async function importDataFromZip(zipFile: Blob): Promise<{ totalRecords: 
   const backup: BackupJson = JSON.parse(jsonContent);
 
   // Validaciones básicas
-  if (backup.meta?.app !== 'CrossFit Session Tracker') {
-    throw new Error('El archivo no pertenece a CrossFit Session Tracker.');
+  if (!isKnownAppName(backup.meta?.app)) {
+    throw new Error(`El archivo no pertenece a ${APP_NAME}.`);
   }
 
   const db = await openDatabase();
@@ -320,7 +320,7 @@ export async function importDataFromZip(zipFile: Blob): Promise<{ totalRecords: 
   } else {
     // Nativo: Borrar carpeta media completa e importar del ZIP
     const { Filesystem, Directory } = await import('@capacitor/filesystem');
-    const basePath = 'crossfit-tracker/media';
+    const basePath = MEDIA_BASE_DIR;
 
     try {
       await Filesystem.rmdir({
