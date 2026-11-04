@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ChevronLeft, ChevronRight, Mail, Shield, AlertTriangle, Heart, HardDrive, MessageCircle,
-  Youtube, Github, Scale, BookOpen, ExternalLink,
+  Youtube, Github, Scale, BookOpen, ExternalLink, Lock, FileText,
 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { APP_NAME, APP_VERSION } from '../../utils/constants';
@@ -13,6 +13,10 @@ import { HEALTH_DISCLAIMER_POINTS, HEALTH_DISCLAIMER_TITLE } from '../../data/he
 const YOUTUBE_URL = 'https://www.youtube.com/@fitlesuy';
 const REPO_URL = 'https://github.com/nestorlesna/CrossFitLes';
 const DATASET_URL = 'https://github.com/hasaneyldrm/exercises-dataset';
+// Páginas públicas (GitHub Pages, carpeta docs/ de master)
+const SITE_URL = 'https://nestorlesna.github.io/CrossFitLes';
+const PRIVACY_URL = `${SITE_URL}/privacidad.html`;
+const TERMS_URL = `${SITE_URL}/terminos.html`;
 
 function openExternal(url: string) {
   window.open(url, '_system', 'noopener,noreferrer');
@@ -99,6 +103,16 @@ export function AboutPage() {
             label="Email"
             detail="nestor.lesna@gmail.com"
             onClick={() => openExternal('mailto:nestor.lesna@gmail.com')}
+          />
+          <LinkRow
+            icon={<Lock size={16} className="text-primary-400" />}
+            label="Política de privacidad"
+            onClick={() => openExternal(PRIVACY_URL)}
+          />
+          <LinkRow
+            icon={<FileText size={16} className="text-primary-400" />}
+            label="Términos de uso"
+            onClick={() => openExternal(TERMS_URL)}
           />
         </div>
 

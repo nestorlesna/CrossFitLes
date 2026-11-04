@@ -43,6 +43,18 @@ Google Play (aunque la distribución sigue siendo por GitHub Releases).
   `HEALTH_DISCLAIMER_VERSION` (`src/data/healthDisclaimer.ts`) se vuelve a pedir, con el título
   "Actualizamos el aviso de salud". Acerca de usa el mismo texto. Falta copiarlo a `terminos.html`
   (Fase 5).
+- **Release 2.0.0: PUBLICADO (2026-11-04)**, con el contenido v9. 1.7 hecho: backup de la app
+  vieja importado en el teléfono. Probado en el celular: instalación, bienvenida/descargo, carga
+  base, "Actualizar contenido" sin duplicados e importar una clase compartida desde la app vieja.
+  `release.ps1` ahora se detiene si falla un `git push` (el de 2.0.0 dio un 500 de GitHub en
+  `develop` y el log terminó en verde igual).
+- **Fase 5: HECHA en código (2026-11-04)**: `docs/` con `index.html`, `privacidad.html`,
+  `terminos.html`, `style.css`, `logo.png` y `.nojekyll`; links a Privacidad y Términos en Acerca de
+  (`SITE_URL` en `AboutPage.tsx`). El descargo de `terminos.html` es copia de
+  `HEALTH_DISCLAIMER_POINTS`: si cambia uno, cambiar el otro. **Falta:** que `docs/` llegue a
+  `master` y activar Pages (Settings → Pages → Deploy from a branch → `master` / `/docs`). URL:
+  `https://nestorlesna.github.io/CrossFitLes/`. Si se renombra el repo (1.6), cambia la URL.
+- **Próximo:** guardar el keystore y sus contraseñas fuera de la PC (Fase 8) y anunciar en el canal.
 
 ---
 
@@ -366,15 +378,16 @@ o `window.open` (Android lo deriva a WhatsApp). Botón en Configuración y en Ac
 | 8 | Fase 1.6 (renombrar repos) y Fase 8 (sabores, AAB, SDK) cuando se decida ir a Play | app |
 
 ## Checklist de verificación antes de anunciar
-- [ ] Instalación limpia en un teléfono **sin** la app vieja: bienvenida, descargo, Cargar Datos Base
-      sin GOAT, sin sesiones ni perfil.
-- [ ] "Actualizar contenido" después de Cargar Datos Base: trae las GOAT y **no duplica** nada.
-- [ ] Backup de la app vieja importado en la nueva (con fotos y media).
-- [ ] Importar una clase compartida desde la app vieja (formato `CrossFit Session Tracker`).
-- [ ] La auto-actualización de 2.0.0 a 2.0.1 funciona.
-- [ ] `grep -ri crossfit src android/app/src public index.html` sólo deja coincidencias justificadas
-      (compatibilidad y nombres de ejercicios).
-- [ ] `npm run lint` y `npm run build` sin errores.
+- [x] Instalación nueva (2.0.0, 2026-11-04): bienvenida, descargo y carga base.
+- [x] "Actualizar contenido" después de la carga base: trae las GOAT y **no duplica** nada.
+- [x] Backup de la app vieja importado en la nueva.
+- [x] Importar una clase compartida desde la app vieja (formato `CrossFit Session Tracker`).
+- [ ] La auto-actualización de 2.0.0 a 2.0.1 funciona (probar en el próximo release).
+- [x] `grep -ri crossfit`: en el código sólo quedan nombres de repo, la migración v019,
+      compatibilidad y `DB_NAME`. En el contenido hay 5 menciones descriptivas en notas de
+      ejercicios ("Nombre estándar en CrossFit", "Complementa el CrossFit"…). Opcional: cambiarlas
+      a "entrenamiento funcional" en la BD de desarrollo y volver a publicar.
+- [x] `npm run lint` y `npm run build` sin errores (2026-11-04).
 
 ---
 
