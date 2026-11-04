@@ -36,6 +36,13 @@ Google Play (aunque la distribución sigue siendo por GitHub Releases).
   (`release.ps1` lo hace), nunca antes.
 - **Fase 3: HECHA (2026-11-03)**: carga base = snapshot del contenido publicado **sin la biblioteca
   de 3.242 ejercicios** (decisión: sólo lo publicado). Detalle en la sección de la Fase 3.
+- **Fase 4: HECHA (2026-11-03)**: `WelcomeScreen` en `DbProvider` antes de la app: bienvenida +
+  descargo con "Leí y acepto"; al continuar guarda `health_disclaimer_version` y
+  `health_disclaimer_accepted_at` en `app_setting` y, si la BD está vacía, carga los datos base
+  (sin elección "Empezar vacío", según la decisión de la carga automática). Si cambia
+  `HEALTH_DISCLAIMER_VERSION` (`src/data/healthDisclaimer.ts`) se vuelve a pedir, con el título
+  "Actualizamos el aviso de salud". Acerca de usa el mismo texto. Falta copiarlo a `terminos.html`
+  (Fase 5).
 
 ---
 

@@ -1,4 +1,4 @@
-// Página de información: identidad, contacto, licencias, créditos y deslinde de responsabilidad
+// Página de información: identidad, contacto, licencias, créditos y descargo de salud
 import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -8,6 +8,7 @@ import {
 import { Header } from '../../components/layout/Header';
 import { APP_NAME, APP_VERSION } from '../../utils/constants';
 import { openFeedback } from '../../services/feedbackService';
+import { HEALTH_DISCLAIMER_POINTS, HEALTH_DISCLAIMER_TITLE } from '../../data/healthDisclaimer';
 
 const YOUTUBE_URL = 'https://www.youtube.com/@fitlesuy';
 const REPO_URL = 'https://github.com/nestorlesna/CrossFitLes';
@@ -142,21 +143,22 @@ export function AboutPage() {
           </div>
         </div>
 
-        {/* ── Deslinde de responsabilidad ── */}
+        {/* ── Descargo de salud (mismo texto que se acepta al instalar) ── */}
         <div className="bg-amber-950/30 border border-amber-800/40 rounded-2xl p-4 flex flex-col gap-2">
           <div className="flex items-center gap-2 mb-1">
             <AlertTriangle size={16} className="text-amber-400 shrink-0" />
-            <p className="text-xs font-semibold text-amber-500/80 uppercase tracking-wider">Deslinde de responsabilidad</p>
+            <p className="text-xs font-semibold text-amber-500/80 uppercase tracking-wider">
+              {HEALTH_DISCLAIMER_TITLE}
+            </p>
           </div>
-          <p className="text-sm text-amber-200/70 leading-relaxed">
-            El autor no se responsabiliza por lesiones, daños físicos o perjuicios de cualquier
-            naturaleza que pudieran derivarse del uso de la información registrada en esta aplicación.
-          </p>
-          <p className="text-sm text-amber-200/70 leading-relaxed">
-            Los datos de entrenamiento, pesos, repeticiones y tiempos cargados son de exclusiva
-            responsabilidad del usuario. Ante cualquier duda sobre la intensidad o técnica de un
-            ejercicio, consultá siempre con un profesional de la salud o del deporte.
-          </p>
+          <ul className="flex flex-col gap-2">
+            {HEALTH_DISCLAIMER_POINTS.map((point) => (
+              <li key={point} className="flex gap-2 text-sm text-amber-200/70 leading-relaxed">
+                <span className="text-amber-500 shrink-0">•</span>
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* ── Licencia ── */}
