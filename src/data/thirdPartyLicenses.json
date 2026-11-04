@@ -1,0 +1,110 @@
+[
+  {
+    "name": "@capacitor-community/file-opener",
+    "version": "6.0.1",
+    "license": "MIT",
+    "url": "https://github.com/capacitor-community/file-opener"
+  },
+  {
+    "name": "@capacitor-community/sqlite",
+    "version": "6.0.2",
+    "license": "MIT",
+    "url": "https://github.com/capacitor-community/sqlite"
+  },
+  {
+    "name": "@capacitor/android",
+    "version": "6.2.1",
+    "license": "MIT",
+    "url": "https://capacitorjs.com"
+  },
+  {
+    "name": "@capacitor/camera",
+    "version": "6.1.3",
+    "license": "MIT",
+    "url": "https://github.com/ionic-team/capacitor-plugins"
+  },
+  {
+    "name": "@capacitor/cli",
+    "version": "6.2.1",
+    "license": "MIT",
+    "url": "https://capacitorjs.com"
+  },
+  {
+    "name": "@capacitor/core",
+    "version": "6.2.1",
+    "license": "MIT",
+    "url": "https://capacitorjs.com"
+  },
+  {
+    "name": "@capacitor/filesystem",
+    "version": "6.0.4",
+    "license": "MIT",
+    "url": "https://github.com/ionic-team/capacitor-plugins"
+  },
+  {
+    "name": "@capacitor/share",
+    "version": "6.0.4",
+    "license": "MIT",
+    "url": "https://github.com/ionic-team/capacitor-plugins"
+  },
+  {
+    "name": "date-fns",
+    "version": "3.6.0",
+    "license": "MIT",
+    "url": "https://github.com/date-fns/date-fns"
+  },
+  {
+    "name": "jeep-sqlite",
+    "version": "2.8.0",
+    "license": "MIT",
+    "url": "https://github.com/jepiqueau/jeep-sqlite"
+  },
+  {
+    "name": "jszip",
+    "version": "3.10.1",
+    "license": "(MIT OR GPL-3.0-or-later)",
+    "url": "https://github.com/Stuk/jszip"
+  },
+  {
+    "name": "lucide-react",
+    "version": "0.577.0",
+    "license": "ISC",
+    "url": "https://lucide.dev"
+  },
+  {
+    "name": "react",
+    "version": "18.3.1",
+    "license": "MIT",
+    "url": "https://reactjs.org/"
+  },
+  {
+    "name": "react-dom",
+    "version": "18.3.1",
+    "license": "MIT",
+    "url": "https://reactjs.org/"
+  },
+  {
+    "name": "react-router-dom",
+    "version": "6.30.3",
+    "license": "MIT",
+    "url": "https://github.com/remix-run/react-router"
+  },
+  {
+    "name": "recharts",
+    "version": "3.8.0",
+    "license": "MIT",
+    "url": "https://github.com/recharts/recharts"
+  },
+  {
+    "name": "sonner",
+    "version": "2.0.7",
+    "license": "MIT",
+    "url": "https://sonner.emilkowal.ski/"
+  },
+  {
+    "name": "sql.js",
+    "version": "1.11.0",
+    "license": "MIT",
+    "url": "http://github.com/sql-js/sql.js"
+  }
+]

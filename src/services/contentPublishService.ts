@@ -6,6 +6,7 @@
 
 import { getDatabase, saveDatabase } from '../db/database';
 import { BUILTIN_CHALLENGES } from '../data/challenges';
+import { PUBLISHED_FEEDBACK_URL } from './feedbackService';
 import {
   CATALOG_TABLES,
   CONTENT_APP,
@@ -305,7 +306,9 @@ export async function publishContent(force = false): Promise<PublishResult> {
 
   const previous = await readPreviousManifest();
   const prevVersion = previous.manifest?.contentVersion ?? 0;
-  const changed = force || previous.manifest?.contentHash !== contentHash;
+  // Cambiar sólo el destino de "Enviar comentario" también cuenta como publicación
+  const feedbackChanged = (previous.manifest?.feedbackUrl ?? null) !== PUBLISHED_FEEDBACK_URL;
+  const changed = force || feedbackChanged || previous.manifest?.contentHash !== contentHash;
   const contentVersion = changed ? prevVersion + 1 : prevVersion;
 
   if (!changed && previous.available) {
@@ -334,6 +337,7 @@ export async function publishContent(force = false): Promise<PublishResult> {
     contentHash,
     counts,
     files: [{ path: CONTENT_PATH, size: contentJson.length }],
+    ...(PUBLISHED_FEEDBACK_URL ? { feedbackUrl: PUBLISHED_FEEDBACK_URL } : {}),
   };
   const manifestJson = JSON.stringify(manifest, null, 2);
   const sizeKb = Math.round(contentJson.length / 1024);

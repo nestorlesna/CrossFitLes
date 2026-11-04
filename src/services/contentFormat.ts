@@ -57,6 +57,8 @@ export interface ContentManifest {
   contentHash: string;
   counts: ContentCounts;
   files: { path: string; size: number }[];
+  // Destino opcional del botón "Enviar comentario" (ver feedbackService)
+  feedbackUrl?: string;
 }
 
 // Imagen embebida de un ejercicio (SVG o foto) como data URL

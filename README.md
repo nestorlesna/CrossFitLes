@@ -239,4 +239,9 @@ Un challenge en curso es un plan de entrenamiento con `plan_kind = 'challenge'`,
 
 ## 📄 Licencia
 
-Proyecto de uso personal. Todos los derechos reservados.
+- **Código**: [MIT](LICENSE).
+- **Contenido** (ilustraciones de ejercicios, clases, challenges y contenido publicado): [CC BY 4.0](LICENSE-CONTENT.md). El logo de FitLesUY no está incluido.
+- **Bibliotecas de terceros**: ver [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) (se regenera con `npm run licenses`).
+- **Créditos**: el [Exercises Dataset](https://github.com/hasaneyldrm/exercises-dataset) (MIT) se usó como referencia de datos; sus imágenes (© Gym visual) no se incluyen.
+
+¿Encontraste un error o tenés una idea? Usá **Enviar comentario** en la app o abrí un *issue*.

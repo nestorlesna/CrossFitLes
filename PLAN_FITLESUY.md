@@ -23,6 +23,12 @@ Google Play (aunque la distribución sigue siendo por GitHub Releases).
 
 - **Fase 1: HECHA (2026-11-03)**, salvo 1.6 (renombrar repos de GitHub) y 1.7 (migrar tu teléfono, al
   publicar 2.0.0). Desvío: `DB_NAME` **no** se renombró (ver 1.3).
+- **Fase 7: HECHA (2026-11-03)**: `feedbackService.ts`, botón en Configuración y en Acerca de;
+  override remoto con `PUBLISHED_FEEDBACK_URL` → `manifest.feedbackUrl`.
+- **Fase 6: HECHA (2026-11-03)**: `LICENSE` (MIT), `LICENSE-CONTENT.md` (CC BY 4.0; el logo queda
+  fuera), `THIRD_PARTY_NOTICES.md` y `src/data/thirdPartyLicenses.json` (`npm run licenses`),
+  Acerca de reescrita, pantalla "Licencias de terceros". Faltan los links a Privacidad y Términos:
+  se agregan en la Fase 5.
 
 ---
 
