@@ -84,7 +84,14 @@ Cada entidad principal tiene su propio repo:
   + `content/content.json`. Formato y helpers en `src/services/contentFormat.ts`.
 - `contentPublishService.ts` (sólo `npm run dev` web): arma el contenido y lo escribe vía middleware de
   Vite (`/__content`, ver `vite.config.ts`); también regenera `public/base-content.json` (va en el APK).
-  Las clases GOAT llevan `collection: 'goat'` (`classCollectionOf()`): no entran en la carga base. `contentSyncService.ts`: "Actualizar contenido" en
+  Dos canales (`ContentChannel`): `public` (`manifest.json` + `content/content.json`) y `mine`
+  (`manifest.mio.json` + `content/content.mio.json`, cifrado AES-GCM con `contentCrypto.ts`; la semilla
+  está en `.env.local` como `CONTENT_MINE_KEY` y la sirve el middleware, nunca va al bundle).
+  Ejercicios, catálogos y challenges van siempre; de las clases, `preparePublish()` separa las nuevas
+  (no están en `manifest.classKeys`) y el admin elige cuáles suma (`PublishClassesModal`); las ya
+  publicadas van siempre. Planes que usan clases fuera del canal quedan afuera. En el celular,
+  "Actualizar MI contenido" aparece sólo si se guardó la semilla (`app_setting.content_mine_seed`,
+  7 toques en la versión de Acerca de). `contentSyncService.ts`: "Actualizar contenido" en
   Configuración; inserta lo nuevo, actualiza por `remote_hash` y nunca pisa `user_modified = 1`.
 - Columnas de sync (v018) en `exercise`, `class_template`, `training_plan`: `global_key`, `origin`,
   `remote_hash`, `user_modified`. Al agregar un `update()` de usuario en esos repos, marcar `user_modified = 1`.
@@ -114,7 +121,7 @@ Todas bajo un `<Layout>` con `BottomNav` de 5 tabs:
 ### Servicios adicionales
 - `src/services/mediaService.ts` — gestión de imágenes (web: file input; native: Capacitor Camera + Filesystem).
 - `src/services/baseContentService.ts` — carga base del primer arranque: importa `public/base-content.json`
-  (contenido publicado sin GOAT ni planes) con `applyContent()` de `contentSyncService`. Estado en
+  (contenido público sin planes) con `applyContent()` de `contentSyncService`. Estado en
   `app_setting.base_content`. `resetService.ts` borra todo ("Borrar todos los datos").
 - `src/services/backupService.ts` — exportar/importar todos los datos como JSON respetando el orden de dependencias entre tablas.
 

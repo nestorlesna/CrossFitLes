@@ -1,21 +1,26 @@
 // Publicación del contenido (sólo desde la PC del administrador, en `npm run dev`).
 // Arma content.json + manifest.json con todos los catálogos, ejercicios (con su imagen
-// embebida), clases y planes, y los escribe en el clon local de CrossFitLes-content
-// a través del middleware de Vite (ver vite.config.ts). Después se hace git push a mano.
-// También escribe public/base-content.json (sin GOAT ni planes), la carga base del primer
-// arranque que viaja en el APK (ver baseContentService).
-// Si el middleware no está disponible, descarga los dos archivos.
+// embebida), challenges, las clases elegidas y los planes que sólo usan esas clases, y los
+// escribe en el clon local de CrossFitLes-content a través del middleware de Vite
+// (ver vite.config.ts). Después se hace git push a mano.
+// Dos canales: 'public' (content.json, para todos) y 'mine' (content.mio.json, cifrado con la
+// semilla CONTENT_MINE_KEY de .env.local). Las clases ya publicadas en el canal siguen yendo
+// siempre; de las nuevas, el administrador elige cuáles suma (preparePublish → publishDraft).
+// "Publicar contenido" también escribe public/base-content.json (el público sin planes), la
+// carga base del primer arranque que viaja en el APK (ver baseContentService).
+// Si el middleware no está disponible, descarga los archivos.
 
 import { getDatabase, saveDatabase } from '../db/database';
 import { BUILTIN_CHALLENGES } from '../data/challenges';
 import { PUBLISHED_FEEDBACK_URL } from './feedbackService';
+import { encryptText } from './contentCrypto';
 import {
   CATALOG_TABLES,
+  CHANNEL_PATHS,
   CONTENT_APP,
   CONTENT_FORMAT,
-  CONTENT_PATH,
-  MANIFEST_PATH,
   BASE_CONTENT_FILE,
+  ContentChannel,
   CatalogTable,
   ContentFile,
   ContentManifest,
@@ -26,7 +31,6 @@ import {
   RemotePlanDay,
   RemoteSection,
   Row,
-  classCollectionOf,
   hashOf,
   nowSql,
   stripLocalColumns,
@@ -43,18 +47,34 @@ export interface PublishResult {
   repoDir?: string;
   /** Clases que quedaron en la carga base (public/base-content.json) */
   baseClasses?: number;
+  /** Planes que quedaron afuera porque usan clases que no van en este canal */
+  excludedPlans: string[];
+}
+
+export interface PublishClassItem {
+  key: string;
+  name: string;
+}
+
+type BuiltContent = Omit<ContentFile, 'contentVersion' | 'publishedAt'>;
+
+/** Contenido armado y listo para elegir qué clases nuevas se suman al canal */
+export interface PublishDraft {
+  channel: ContentChannel;
+  base: BuiltContent;
+  previous: { manifest: ContentManifest | null; available: boolean };
+  /** Clases locales que todavía no están en el canal */
+  newClasses: PublishClassItem[];
+  /** Clases que ya están en el canal (van siempre) */
+  publishedClasses: PublishClassItem[];
 }
 
 /**
- * Carga base del primer arranque: el contenido publicado sin las clases GOAT ni los planes.
+ * Carga base del primer arranque: el contenido público sin los planes.
  * Conserva keys y hashes, así el próximo "Actualizar contenido" sólo suma lo que falta.
  */
 export function buildBaseContent(content: ContentFile): ContentFile {
-  return {
-    ...content,
-    classes: content.classes.filter((c) => !c.collection),
-    plans: [],
-  };
+  return { ...content, plans: [] };
 }
 
 async function queryRows(sql: string, values: unknown[] = []): Promise<Row[]> {
@@ -133,7 +153,7 @@ function buildSections(
   }));
 }
 
-export async function buildContent(): Promise<Omit<ContentFile, 'contentVersion' | 'publishedAt'>> {
+export async function buildContent(): Promise<BuiltContent> {
   await ensureGlobalKeys();
 
   // Catálogos completos (son pocos registros)
@@ -231,8 +251,7 @@ export async function buildContent(): Promise<Omit<ContentFile, 'contentVersion'
       row: stripLocalColumns(cls, ['is_favorite']),
       sections: buildSections(cls.id as string, sectionsByTemplate, seBySection, exerciseKeyById),
     };
-    const collection = classCollectionOf(cls.name);
-    return { key: cls.global_key as string, hash: hashOf(body), ...(collection ? { collection } : {}), ...body };
+    return { key: cls.global_key as string, hash: hashOf(body), ...body };
   });
 
   const classKeyById = new Map(classes.map((c) => [c.id as string, c.global_key as string]));
@@ -283,10 +302,12 @@ export async function buildContent(): Promise<Omit<ContentFile, 'contentVersion'
   };
 }
 
-// Lee el manifest publicado anteriormente (desde el clon local del repo de contenido)
-async function readPreviousManifest(): Promise<{ manifest: ContentManifest | null; available: boolean }> {
+// Lee el manifest publicado anteriormente del canal (desde el clon local del repo de contenido)
+async function readPreviousManifest(
+  channel: ContentChannel
+): Promise<{ manifest: ContentManifest | null; available: boolean }> {
   try {
-    const res = await fetch(`${DEV_ENDPOINT}/manifest`);
+    const res = await fetch(`${DEV_ENDPOINT}/manifest?file=${encodeURIComponent(CHANNEL_PATHS[channel].manifest)}`);
     if (res.status === 404) return { manifest: null, available: true };
     if (!res.ok) return { manifest: null, available: false };
     const type = res.headers.get('content-type') ?? '';
@@ -321,12 +342,69 @@ function downloadJson(fileName: string, json: string): void {
   URL.revokeObjectURL(url);
 }
 
+// Semilla del canal personal: la sirve el middleware de Vite desde .env.local (CONTENT_MINE_KEY),
+// así nunca queda dentro del bundle ni del APK
+async function readMineKey(): Promise<string> {
+  let res: Response;
+  try {
+    res = await fetch(`${DEV_ENDPOINT}/mine-key`);
+  } catch {
+    throw new Error('Publicar MI contenido sólo funciona con npm run dev');
+  }
+  const type = res.headers.get('content-type') ?? '';
+  if (!res.ok || !type.includes('application/json')) {
+    throw new Error('Falta CONTENT_MINE_KEY en .env.local (reiniciá npm run dev después de agregarla)');
+  }
+  const { key } = (await res.json()) as { key?: string };
+  if (!key) throw new Error('Falta CONTENT_MINE_KEY en .env.local');
+  return key;
+}
+
+const nameOf = (c: RemoteClass): string => String(c.row.name ?? '');
+const byName = (a: PublishClassItem, b: PublishClassItem) => a.name.localeCompare(b.name, 'es');
+
+/** Arma el contenido y separa las clases nuevas de las que ya están en el canal. */
+export async function preparePublish(channel: ContentChannel): Promise<PublishDraft> {
+  if (channel === 'mine') await readMineKey(); // falla antes de armar todo si falta la semilla
+  const base = await buildContent();
+  const previous = await readPreviousManifest(channel);
+  const prevKeys = new Set(previous.manifest?.classKeys ?? []);
+  const toItem = (c: RemoteClass): PublishClassItem => ({ key: c.key, name: nameOf(c) });
+  return {
+    channel,
+    base,
+    previous,
+    newClasses: base.classes.filter((c) => !prevKeys.has(c.key)).map(toItem).sort(byName),
+    publishedClasses: base.classes.filter((c) => prevKeys.has(c.key)).map(toItem).sort(byName),
+  };
+}
+
 /**
- * Genera y publica el contenido. Si nada cambió desde la última publicación, no sube la versión.
+ * Publica el canal con las clases ya publicadas + las nuevas elegidas. Si nada cambió desde la
+ * última publicación, no sube la versión.
+ * @param selectedKeys clases nuevas que se suman al canal
  * @param force publica aunque el contenido no haya cambiado
  */
-export async function publishContent(force = false): Promise<PublishResult> {
-  const base = await buildContent();
+export async function publishDraft(
+  draft: PublishDraft,
+  selectedKeys: string[],
+  force = false
+): Promise<PublishResult> {
+  const { channel, previous } = draft;
+  const paths = CHANNEL_PATHS[channel];
+  const isPublic = channel === 'public';
+
+  const keys = new Set([...draft.publishedClasses.map((c) => c.key), ...selectedKeys]);
+  const classes = draft.base.classes.filter((c) => keys.has(c.key));
+  // Un plan sólo viaja si todas las clases que usa van en este canal
+  const excludedPlans: string[] = [];
+  const plans = draft.base.plans.filter((p) => {
+    const ok = p.days.every((d) => !d.class_key || keys.has(d.class_key));
+    if (!ok) excludedPlans.push(String(p.row.name ?? ''));
+    return ok;
+  });
+  const base: BuiltContent = { ...draft.base, classes, plans };
+
   const contentHash = hashOf(base);
   const counts = {
     exercises: base.exercises.length,
@@ -335,10 +413,10 @@ export async function publishContent(force = false): Promise<PublishResult> {
     challenges: base.challenges?.length ?? 0,
   };
 
-  const previous = await readPreviousManifest();
   const prevVersion = previous.manifest?.contentVersion ?? 0;
-  // Cambiar sólo el destino de "Enviar comentario" también cuenta como publicación
-  const feedbackChanged = (previous.manifest?.feedbackUrl ?? null) !== PUBLISHED_FEEDBACK_URL;
+  // Cambiar sólo el destino de "Enviar comentario" también cuenta como publicación (canal público)
+  const feedbackUrl = isPublic ? PUBLISHED_FEEDBACK_URL : null;
+  const feedbackChanged = (previous.manifest?.feedbackUrl ?? null) !== (feedbackUrl ?? null);
   const changed = force || feedbackChanged || previous.manifest?.contentHash !== contentHash;
   const contentVersion = changed ? prevVersion + 1 : prevVersion;
 
@@ -356,13 +434,18 @@ export async function publishContent(force = false): Promise<PublishResult> {
 
   if (!changed && previous.available) {
     // Sin cambios: igual se regenera la carga base, por si el archivo falta o quedó viejo
-    const baseClasses = await writeBaseContent(toFile(previous.manifest?.publishedAt ?? nowSql()));
-    return { changed: false, contentVersion, counts, sizeKb: 0, writtenTo: 'repo', baseClasses };
+    const baseClasses = isPublic
+      ? await writeBaseContent(toFile(previous.manifest?.publishedAt ?? nowSql()))
+      : undefined;
+    return { changed: false, contentVersion, counts, sizeKb: 0, writtenTo: 'repo', baseClasses, excludedPlans };
   }
 
   const publishedAt = nowSql();
   const content = toFile(publishedAt);
-  const contentJson = JSON.stringify(content, null, 2);
+  const plainJson = JSON.stringify(content, null, 2);
+  const contentJson = isPublic
+    ? plainJson
+    : JSON.stringify(await encryptText(CONTENT_APP, plainJson, await readMineKey()));
 
   const manifest: ContentManifest = {
     app: CONTENT_APP,
@@ -371,8 +454,9 @@ export async function publishContent(force = false): Promise<PublishResult> {
     publishedAt,
     contentHash,
     counts,
-    files: [{ path: CONTENT_PATH, size: contentJson.length }],
-    ...(PUBLISHED_FEEDBACK_URL ? { feedbackUrl: PUBLISHED_FEEDBACK_URL } : {}),
+    files: [{ path: paths.content, size: contentJson.length }],
+    classKeys: base.classes.map((c) => c.key),
+    ...(feedbackUrl ? { feedbackUrl } : {}),
   };
   const manifestJson = JSON.stringify(manifest, null, 2);
   const sizeKb = Math.round(contentJson.length / 1024);
@@ -383,19 +467,28 @@ export async function publishContent(force = false): Promise<PublishResult> {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         files: [
-          { path: MANIFEST_PATH, content: manifestJson },
-          { path: CONTENT_PATH, content: contentJson },
+          { path: paths.manifest, content: manifestJson },
+          { path: paths.content, content: contentJson },
         ],
       }),
     });
     if (!res.ok) throw new Error(`No se pudo escribir en el repo de contenido: ${await res.text()}`);
     const data = await res.json();
-    const baseClasses = await writeBaseContent(content);
-    return { changed: true, contentVersion, counts, sizeKb, writtenTo: 'repo', repoDir: data.dir, baseClasses };
+    const baseClasses = isPublic ? await writeBaseContent(content) : undefined;
+    return {
+      changed: true,
+      contentVersion,
+      counts,
+      sizeKb,
+      writtenTo: 'repo',
+      repoDir: data.dir,
+      baseClasses,
+      excludedPlans,
+    };
   }
 
   // Sin middleware (build de producción): descargar los archivos para copiarlos a mano
-  downloadJson('manifest.json', manifestJson);
-  downloadJson('content.json', contentJson);
-  return { changed: true, contentVersion, counts, sizeKb, writtenTo: 'download' };
+  downloadJson(paths.manifest.split('/').pop()!, manifestJson);
+  downloadJson(paths.content.split('/').pop()!, contentJson);
+  return { changed: true, contentVersion, counts, sizeKb, writtenTo: 'download', excludedPlans };
 }

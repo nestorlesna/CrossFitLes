@@ -7,7 +7,9 @@ import path from 'node:path'
 // manifest.json y content/content.json en el clon local del repo CrossFitLes-content,
 // y la carga base (public/base-content.json) en este proyecto.
 // Ruta configurable con CONTENT_REPO_DIR (por defecto, carpeta hermana del proyecto).
-function contentPublishPlugin(repoDir: string, publicDir: string): Plugin {
+// CONTENT_MINE_KEY (.env.local, sin prefijo VITE_ para que no entre al bundle): semilla con la
+// que "Publicar MI contenido" cifra content.mio.json.
+function contentPublishPlugin(repoDir: string, publicDir: string, mineKey: string): Plugin {
   const insideRepo = (rel: string) => {
     const full = path.resolve(repoDir, rel)
     if (!full.startsWith(path.resolve(repoDir) + path.sep)) throw new Error(`Ruta inválida: ${rel}`)
@@ -32,8 +34,15 @@ function contentPublishPlugin(repoDir: string, publicDir: string): Plugin {
           if (!fs.existsSync(repoDir)) {
             return send(500, { error: `No existe el repo de contenido: ${repoDir}` })
           }
+          // Semilla del canal personal (Publicar MI contenido): sólo desde .env.local, nunca al bundle
+          if (req.method === 'GET' && req.url?.startsWith('/mine-key')) {
+            if (!mineKey) return send(404, { error: 'Falta CONTENT_MINE_KEY en .env.local' })
+            return send(200, { key: mineKey })
+          }
           if (req.method === 'GET' && req.url?.startsWith('/manifest')) {
-            const file = insideRepo('manifest.json')
+            const name = new URL(req.url, 'http://localhost').searchParams.get('file') || 'manifest.json'
+            if (!/^manifest(\.mio)?\.json$/.test(name)) return send(400, { error: `Manifest inválido: ${name}` })
+            const file = insideRepo(name)
             if (!fs.existsSync(file)) return send(404, { manifest: null })
             return send(200, { manifest: JSON.parse(fs.readFileSync(file, 'utf8')) })
           }
@@ -99,7 +108,7 @@ export default defineConfig(({ mode }) => {
   const contentRepoDir = path.resolve(env.CONTENT_REPO_DIR || path.join(process.cwd(), '..', 'CrossFitLes-content'))
 
   return {
-    plugins: [react(), contentPublishPlugin(contentRepoDir, path.resolve(process.cwd(), 'public'))],
+    plugins: [react(), contentPublishPlugin(contentRepoDir, path.resolve(process.cwd(), 'public'), env.CONTENT_MINE_KEY ?? '')],
     // Configuración optimizada para mobile con Capacitor
     server: {
       port: 5173,
