@@ -1,5 +1,7 @@
 // Actualización de contenido desde el repo público CrossFitLes-content.
 // Baja manifest.json y, si hay una versión nueva, content.json; lo aplica en UNA transacción.
+// Canal 'mine' ("Actualizar MI contenido"): igual, con manifest.mio.json y content.mio.json
+// (cifrado); sólo aparece en el dispositivo que guardó la semilla (7 toques en Acerca de).
 //
 // Reglas:
 // - Catálogos: se resuelven por nombre (UNIQUE); sólo se agregan los que faltan.
@@ -13,18 +15,19 @@
 
 import { Capacitor } from '@capacitor/core';
 import { getDatabase, saveDatabase } from '../db/database';
-import { getSetting, setSettingStmt } from '../db/repositories/appSettingRepo';
+import { getSetting, setSetting, setSettingStmt } from '../db/repositories/appSettingRepo';
 import { generateUUID } from '../utils/formatters';
 import { MEDIA_BASE_DIR, isKnownAppName } from '../utils/constants';
 import { addDaysISO, daysBetweenISO, todayISO } from './challengeEngine';
 import { CHALLENGE_CATALOG_SETTING, loadRemoteChallenges } from './challengeCatalogService';
 import { isSupportedChallenge } from '../data/challenges';
+import { decryptText, EncryptedContent } from './contentCrypto';
 import {
   CATALOG_TABLES,
+  CHANNEL_PATHS,
   CONTENT_BASE_URL,
   CONTENT_FORMAT,
-  CONTENT_PATH,
-  MANIFEST_PATH,
+  ContentChannel,
   ContentFile,
   ContentManifest,
   hashOf,
@@ -36,8 +39,21 @@ import {
   nowSql,
 } from './contentFormat';
 
-const SETTING_VERSION = 'content_version';
-const SETTING_LAST_SYNC = 'content_last_sync';
+const SETTINGS: Record<ContentChannel, { version: string; lastSync: string }> = {
+  public: { version: 'content_version', lastSync: 'content_last_sync' },
+  mine: { version: 'content_version_mine', lastSync: 'content_last_sync_mine' },
+};
+// Semilla del canal personal; si no está, no se muestra "Actualizar MI contenido"
+const SETTING_MINE_SEED = 'content_mine_seed';
+
+export async function getMineSeed(): Promise<string | null> {
+  return getSetting(SETTING_MINE_SEED);
+}
+
+export async function setMineSeed(seed: string | null): Promise<void> {
+  await setSetting(SETTING_MINE_SEED, seed ? seed.trim() : null);
+  await saveDatabase();
+}
 
 export type Stmt = { statement: string; values: unknown[] };
 
@@ -63,10 +79,10 @@ export interface SyncSummary {
   challengesUpdated: number;
 }
 
-export async function getContentStatus(): Promise<ContentStatus> {
+export async function getContentStatus(channel: ContentChannel = 'public'): Promise<ContentStatus> {
   return {
-    localVersion: Number((await getSetting(SETTING_VERSION)) ?? 0),
-    lastSync: await getSetting(SETTING_LAST_SYNC),
+    localVersion: Number((await getSetting(SETTINGS[channel].version)) ?? 0),
+    lastSync: await getSetting(SETTINGS[channel].lastSync),
   };
 }
 
@@ -82,8 +98,8 @@ async function fetchJson<T>(path: string, version?: number): Promise<T> {
   return (await res.json()) as T;
 }
 
-export async function fetchManifest(): Promise<ContentManifest> {
-  const manifest = await fetchJson<ContentManifest>(MANIFEST_PATH);
+export async function fetchManifest(channel: ContentChannel = 'public'): Promise<ContentManifest> {
+  const manifest = await fetchJson<ContentManifest>(CHANNEL_PATHS[channel].manifest);
   if (!isKnownAppName(manifest.app)) throw new Error('El contenido publicado no es válido');
   return manifest;
 }
@@ -130,23 +146,32 @@ function remoteImageKey(ex: RemoteExercise): string {
 
 // ─── Sincronización ─────────────────────────────────────────────────────────
 
-export async function syncContent(force = false): Promise<SyncSummary> {
-  const manifest = await fetchManifest();
+export async function syncContent(force = false, channel: ContentChannel = 'public'): Promise<SyncSummary> {
+  const seed = channel === 'mine' ? await getMineSeed() : null;
+  if (channel === 'mine' && !seed) throw new Error('Falta la semilla de tu contenido');
+
+  const manifest = await fetchManifest(channel);
   if (manifest.format > CONTENT_FORMAT) {
     throw new Error('Hay contenido nuevo que necesita una versión más nueva de la app. Actualizá la app.');
   }
 
-  const status = await getContentStatus();
+  const status = await getContentStatus(channel);
   if (!force && manifest.contentVersion <= status.localVersion) {
     return { ...emptySummary(manifest.contentVersion), upToDate: true };
   }
 
-  const content = await fetchJson<ContentFile>(CONTENT_PATH, manifest.contentVersion);
+  const path = CHANNEL_PATHS[channel].content;
+  const content =
+    channel === 'mine'
+      ? (JSON.parse(
+          await decryptText(await fetchJson<EncryptedContent>(path, manifest.contentVersion), seed!)
+        ) as ContentFile)
+      : await fetchJson<ContentFile>(path, manifest.contentVersion);
   if (!isKnownAppName(content.app) || content.format > CONTENT_FORMAT) {
     throw new Error('El contenido descargado no es compatible con esta versión de la app');
   }
 
-  return applyContent(content, manifest.contentVersion);
+  return applyContent(content, manifest.contentVersion, [], channel);
 }
 
 function emptySummary(contentVersion: number): SyncSummary {
@@ -173,11 +198,13 @@ function emptySummary(contentVersion: number): SyncSummary {
  * @param recordVersion versión a guardar como "contenido local"; null = no tocarla (carga base:
  *        así el próximo "Actualizar contenido" baja el contenido completo y suma lo que falte)
  * @param extraStmts sentencias que van en la misma transacción (ej. la marca de carga base)
+ * @param channel canal cuya versión local se registra
  */
 export async function applyContent(
   content: ContentFile,
   recordVersion: number | null,
-  extraStmts: Stmt[] = []
+  extraStmts: Stmt[] = [],
+  channel: ContentChannel = 'public'
 ): Promise<SyncSummary> {
   const summary = emptySummary(recordVersion ?? content.contentVersion);
   const ts = nowSql();
@@ -559,8 +586,8 @@ export async function applyContent(
 
   // ── 6. Escritura atómica ──────────────────────────────────────────────────
   if (recordVersion !== null) {
-    stmts.push(setSettingStmt(SETTING_VERSION, String(recordVersion)));
-    stmts.push(setSettingStmt(SETTING_LAST_SYNC, ts));
+    stmts.push(setSettingStmt(SETTINGS[channel].version, String(recordVersion)));
+    stmts.push(setSettingStmt(SETTINGS[channel].lastSync, ts));
   }
 
   stmts.push(...extraStmts);

@@ -1,17 +1,19 @@
 // Página de información: identidad, contacto, licencias, créditos y descargo de salud
-import type { ReactNode } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 import {
   ChevronLeft, ChevronRight, Mail, Shield, AlertTriangle, Heart, HardDrive, MessageCircle,
-  Youtube, Github, Scale, BookOpen, ExternalLink, Lock, FileText,
+  Youtube, Scale, BookOpen, ExternalLink, Lock, FileText,
 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
+import { Modal } from '../../components/ui/Modal';
+import { getMineSeed, setMineSeed } from '../../services/contentSyncService';
 import { APP_NAME, APP_VERSION } from '../../utils/constants';
 import { openFeedback } from '../../services/feedbackService';
 import { HEALTH_DISCLAIMER_POINTS, HEALTH_DISCLAIMER_TITLE } from '../../data/healthDisclaimer';
 
 const YOUTUBE_URL = 'https://www.youtube.com/@fitlesuy';
-const REPO_URL = 'https://github.com/nestorlesna/CrossFitLes';
 const DATASET_URL = 'https://github.com/hasaneyldrm/exercises-dataset';
 // Páginas públicas (GitHub Pages, carpeta docs/ de master)
 const SITE_URL = 'https://nestorlesna.github.io/CrossFitLes';
@@ -41,8 +43,39 @@ function LinkRow({ icon, label, detail, onClick }: {
   );
 }
 
+// Toques seguidos sobre la versión para abrir la semilla de "MI contenido"
+const UNLOCK_TAPS = 7;
+const TAP_WINDOW_MS = 2000;
+
 export function AboutPage() {
   const navigate = useNavigate();
+  const taps = useRef<number[]>([]);
+  const [seedOpen, setSeedOpen] = useState(false);
+  const [seed, setSeed] = useState('');
+  const [hasSeed, setHasSeed] = useState(false);
+
+  const handleVersionTap = async () => {
+    const now = Date.now();
+    taps.current = [...taps.current.filter((t) => now - t < TAP_WINDOW_MS), now];
+    if (taps.current.length < UNLOCK_TAPS) return;
+    taps.current = [];
+    setHasSeed(!!(await getMineSeed()));
+    setSeed('');
+    setSeedOpen(true);
+  };
+
+  const saveSeed = async () => {
+    if (!seed.trim()) return;
+    await setMineSeed(seed);
+    setSeedOpen(false);
+    toast.success('Listo: "Actualizar MI contenido" ya está en Configuración');
+  };
+
+  const removeSeed = async () => {
+    await setMineSeed(null);
+    setSeedOpen(false);
+    toast.success('Semilla borrada');
+  };
 
   return (
     <>
@@ -69,7 +102,9 @@ export function AboutPage() {
           />
           <div className="text-center">
             <h1 className="text-xl font-black text-white tracking-tight">{APP_NAME}</h1>
-            <p className="text-sm text-gray-500 mt-0.5">Versión {APP_VERSION}</p>
+            <p className="text-sm text-gray-500 mt-0.5 select-none" onClick={() => { void handleVersionTap(); }}>
+              Versión {APP_VERSION}
+            </p>
             <p className="text-xs text-gray-600 mt-1">App gratuita y de código abierto del canal FitLesUY</p>
           </div>
         </div>
@@ -91,12 +126,6 @@ export function AboutPage() {
             label="Canal de YouTube"
             detail="youtube.com/@fitlesuy"
             onClick={() => openExternal(YOUTUBE_URL)}
-          />
-          <LinkRow
-            icon={<Github size={16} className="text-gray-300" />}
-            label="Código fuente"
-            detail="github.com/nestorlesna/CrossFitLes"
-            onClick={() => openExternal(REPO_URL)}
           />
           <LinkRow
             icon={<Mail size={16} className="text-primary-400" />}
@@ -238,6 +267,43 @@ export function AboutPage() {
         </div>
 
       </div>
+      <Modal
+        isOpen={seedOpen}
+        onClose={() => setSeedOpen(false)}
+        title="MI contenido"
+        size="sm"
+        footer={
+          <div className="flex gap-2">
+            {hasSeed && (
+              <button onClick={() => { void removeSeed(); }} className="flex-1 py-3 rounded-xl bg-gray-800 text-red-400 text-sm font-semibold">
+                Borrar
+              </button>
+            )}
+            <button
+              onClick={() => { void saveSeed(); }}
+              disabled={!seed.trim()}
+              className="flex-1 py-3 rounded-xl bg-primary-500 text-white text-sm font-bold disabled:opacity-50"
+            >
+              Guardar
+            </button>
+          </div>
+        }
+      >
+        <p className="text-xs text-gray-400 mb-3">
+          {hasSeed
+            ? 'Este dispositivo ya tiene una semilla. Podés reemplazarla o borrarla.'
+            : 'Ingresá la semilla para bajar tu contenido personal.'}
+        </p>
+        <input
+          type="password"
+          value={seed}
+          onChange={(e) => setSeed(e.target.value)}
+          autoComplete="off"
+          autoCapitalize="off"
+          placeholder="Semilla"
+          className="w-full bg-gray-950 border border-gray-800 rounded-xl px-3 py-3 text-sm text-white outline-none focus:border-primary-500"
+        />
+      </Modal>
     </>
   );
 }

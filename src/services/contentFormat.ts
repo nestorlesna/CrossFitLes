@@ -1,9 +1,11 @@
 // Formato del contenido publicado en el repo público de contenido (CONTENT_REPO).
 // Lo comparten contentPublishService (genera) y contentSyncService (aplica).
 //
-// Estructura del repo:
-//   manifest.json          ← chico, se baja primero para saber si hay algo nuevo
-//   content/content.json   ← catálogos, ejercicios (con imagen), clases y planes
+// Estructura del repo (dos canales con el mismo formato):
+//   manifest.json              ← chico, se baja primero para saber si hay algo nuevo
+//   content/content.json       ← catálogos, ejercicios (con imagen), clases y planes (para todos)
+//   manifest.mio.json          ← canal personal del administrador
+//   content/content.mio.json   ← mismo formato, cifrado con la semilla (ver contentCrypto)
 //
 // Las referencias entre entidades van por "key" (global_key del publicador), nunca por el
 // id local: cada dispositivo genera sus propios ids al importar.
@@ -23,7 +25,15 @@ export const CONTENT_BASE_URL =
 export const MANIFEST_PATH = 'manifest.json';
 export const CONTENT_PATH = 'content/content.json';
 
-// Snapshot del contenido sin GOAT ni planes, empaquetado con la app (public/): es la carga base
+// Canal de contenido: 'public' lo baja cualquiera; 'mine' sólo el dispositivo que tiene la semilla
+export type ContentChannel = 'public' | 'mine';
+
+export const CHANNEL_PATHS: Record<ContentChannel, { manifest: string; content: string }> = {
+  public: { manifest: MANIFEST_PATH, content: CONTENT_PATH },
+  mine: { manifest: 'manifest.mio.json', content: 'content/content.mio.json' },
+};
+
+// Snapshot del contenido público sin planes, empaquetado con la app (public/): es la carga base
 // del primer arranque. Lo escribe "Publicar contenido" en el proyecto de la app.
 export const BASE_CONTENT_FILE = 'base-content.json';
 
@@ -61,6 +71,8 @@ export interface ContentManifest {
   contentHash: string;
   counts: ContentCounts;
   files: { path: string; size: number }[];
+  // Clases incluidas: al publicar se ofrecen sólo las que no están en esta lista
+  classKeys?: string[];
   // Destino opcional del botón "Enviar comentario" (ver feedbackService)
   feedbackUrl?: string;
 }
@@ -90,21 +102,11 @@ export interface RemoteSection {
   exercises: (Row & { exercise_key: string })[];
 }
 
-// Colecciones con reglas propias. 'goat': clases del box GOAT, que no van en la carga base
-// (llegan con "Actualizar contenido"). Va fuera del hash: no es un cambio de la clase.
-export type ClassCollection = 'goat';
-
 export interface RemoteClass {
   key: string;
   hash: string;
-  collection?: ClassCollection;
   row: Row;
   sections: RemoteSection[];
-}
-
-// Criterio único para clasificar una clase al publicar
-export function classCollectionOf(name: unknown): ClassCollection | undefined {
-  return /^GOAT\b/i.test(String(name ?? '').trim()) ? 'goat' : undefined;
 }
 
 export interface RemotePlanDay {
