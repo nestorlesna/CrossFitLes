@@ -48,7 +48,13 @@ Google Play (aunque la distribución sigue siendo por GitHub Releases).
   base, "Actualizar contenido" sin duplicados e importar una clase compartida desde la app vieja.
   `release.ps1` ahora se detiene si falla un `git push` (el de 2.0.0 dio un 500 de GitHub en
   `develop` y el log terminó en verde igual).
-- **Próximo:** Fase 5 (GitHub Pages) y guardar el keystore fuera de la PC (Fase 8).
+- **Fase 5: HECHA en código (2026-11-04)**: `docs/` con `index.html`, `privacidad.html`,
+  `terminos.html`, `style.css`, `logo.png` y `.nojekyll`; links a Privacidad y Términos en Acerca de
+  (`SITE_URL` en `AboutPage.tsx`). El descargo de `terminos.html` es copia de
+  `HEALTH_DISCLAIMER_POINTS`: si cambia uno, cambiar el otro. **Falta:** que `docs/` llegue a
+  `master` y activar Pages (Settings → Pages → Deploy from a branch → `master` / `/docs`). URL:
+  `https://nestorlesna.github.io/CrossFitLes/`. Si se renombra el repo (1.6), cambia la URL.
+- **Próximo:** guardar el keystore y sus contraseñas fuera de la PC (Fase 8) y anunciar en el canal.
 
 ---
 
