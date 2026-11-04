@@ -2,6 +2,8 @@
 // Arma content.json + manifest.json con todos los catálogos, ejercicios (con su imagen
 // embebida), clases y planes, y los escribe en el clon local de CrossFitLes-content
 // a través del middleware de Vite (ver vite.config.ts). Después se hace git push a mano.
+// También escribe public/base-content.json (sin GOAT ni planes), la carga base del primer
+// arranque que viaja en el APK (ver baseContentService).
 // Si el middleware no está disponible, descarga los dos archivos.
 
 import { getDatabase, saveDatabase } from '../db/database';
@@ -13,6 +15,7 @@ import {
   CONTENT_FORMAT,
   CONTENT_PATH,
   MANIFEST_PATH,
+  BASE_CONTENT_FILE,
   CatalogTable,
   ContentFile,
   ContentManifest,
@@ -23,6 +26,7 @@ import {
   RemotePlanDay,
   RemoteSection,
   Row,
+  classCollectionOf,
   hashOf,
   nowSql,
   stripLocalColumns,
@@ -37,6 +41,20 @@ export interface PublishResult {
   sizeKb: number;
   writtenTo: 'repo' | 'download';
   repoDir?: string;
+  /** Clases que quedaron en la carga base (public/base-content.json) */
+  baseClasses?: number;
+}
+
+/**
+ * Carga base del primer arranque: el contenido publicado sin las clases GOAT ni los planes.
+ * Conserva keys y hashes, así el próximo "Actualizar contenido" sólo suma lo que falta.
+ */
+export function buildBaseContent(content: ContentFile): ContentFile {
+  return {
+    ...content,
+    classes: content.classes.filter((c) => !c.collection),
+    plans: [],
+  };
 }
 
 async function queryRows(sql: string, values: unknown[] = []): Promise<Row[]> {
@@ -213,7 +231,8 @@ export async function buildContent(): Promise<Omit<ContentFile, 'contentVersion'
       row: stripLocalColumns(cls, ['is_favorite']),
       sections: buildSections(cls.id as string, sectionsByTemplate, seBySection, exerciseKeyById),
     };
-    return { key: cls.global_key as string, hash: hashOf(body), ...body };
+    const collection = classCollectionOf(cls.name);
+    return { key: cls.global_key as string, hash: hashOf(body), ...(collection ? { collection } : {}), ...body };
   });
 
   const classKeyById = new Map(classes.map((c) => [c.id as string, c.global_key as string]));
@@ -279,6 +298,18 @@ async function readPreviousManifest(): Promise<{ manifest: ContentManifest | nul
   }
 }
 
+// Escribe public/base-content.json en el proyecto de la app (middleware de Vite)
+async function writeBaseContent(content: ContentFile): Promise<number> {
+  const base = buildBaseContent(content);
+  const res = await fetch(`${DEV_ENDPOINT}/base`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ path: BASE_CONTENT_FILE, content: JSON.stringify(base) }),
+  });
+  if (!res.ok) throw new Error(`No se pudo escribir la carga base: ${await res.text()}`);
+  return base.classes.length;
+}
+
 function downloadJson(fileName: string, json: string): void {
   const url = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
   const link = document.createElement('a');
@@ -311,12 +342,7 @@ export async function publishContent(force = false): Promise<PublishResult> {
   const changed = force || feedbackChanged || previous.manifest?.contentHash !== contentHash;
   const contentVersion = changed ? prevVersion + 1 : prevVersion;
 
-  if (!changed && previous.available) {
-    return { changed: false, contentVersion, counts, sizeKb: 0, writtenTo: 'repo' };
-  }
-
-  const publishedAt = nowSql();
-  const content: ContentFile = {
+  const toFile = (publishedAt: string): ContentFile => ({
     app: base.app,
     format: base.format,
     contentVersion,
@@ -326,7 +352,16 @@ export async function publishContent(force = false): Promise<PublishResult> {
     classes: base.classes,
     plans: base.plans,
     challenges: base.challenges,
-  };
+  });
+
+  if (!changed && previous.available) {
+    // Sin cambios: igual se regenera la carga base, por si el archivo falta o quedó viejo
+    const baseClasses = await writeBaseContent(toFile(previous.manifest?.publishedAt ?? nowSql()));
+    return { changed: false, contentVersion, counts, sizeKb: 0, writtenTo: 'repo', baseClasses };
+  }
+
+  const publishedAt = nowSql();
+  const content = toFile(publishedAt);
   const contentJson = JSON.stringify(content, null, 2);
 
   const manifest: ContentManifest = {
@@ -355,7 +390,8 @@ export async function publishContent(force = false): Promise<PublishResult> {
     });
     if (!res.ok) throw new Error(`No se pudo escribir en el repo de contenido: ${await res.text()}`);
     const data = await res.json();
-    return { changed: true, contentVersion, counts, sizeKb, writtenTo: 'repo', repoDir: data.dir };
+    const baseClasses = await writeBaseContent(content);
+    return { changed: true, contentVersion, counts, sizeKb, writtenTo: 'repo', repoDir: data.dir, baseClasses };
   }
 
   // Sin middleware (build de producción): descargar los archivos para copiarlos a mano

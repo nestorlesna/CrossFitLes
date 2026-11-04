@@ -23,6 +23,10 @@ export const CONTENT_BASE_URL =
 export const MANIFEST_PATH = 'manifest.json';
 export const CONTENT_PATH = 'content/content.json';
 
+// Snapshot del contenido sin GOAT ni planes, empaquetado con la app (public/): es la carga base
+// del primer arranque. Lo escribe "Publicar contenido" en el proyecto de la app.
+export const BASE_CONTENT_FILE = 'base-content.json';
+
 export const CONTENT_APP = APP_NAME;
 
 // Versión del formato del archivo. Subirla sólo ante cambios incompatibles: las apps viejas
@@ -86,11 +90,21 @@ export interface RemoteSection {
   exercises: (Row & { exercise_key: string })[];
 }
 
+// Colecciones con reglas propias. 'goat': clases del box GOAT, que no van en la carga base
+// (llegan con "Actualizar contenido"). Va fuera del hash: no es un cambio de la clase.
+export type ClassCollection = 'goat';
+
 export interface RemoteClass {
   key: string;
   hash: string;
+  collection?: ClassCollection;
   row: Row;
   sections: RemoteSection[];
+}
+
+// Criterio único para clasificar una clase al publicar
+export function classCollectionOf(name: unknown): ClassCollection | undefined {
+  return /^GOAT\b/i.test(String(name ?? '').trim()) ? 'goat' : undefined;
 }
 
 export interface RemotePlanDay {

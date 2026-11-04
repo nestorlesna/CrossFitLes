@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState, useRef } from 'react';
 import { openDatabase, getDatabase, saveDatabase } from '../db/database';
 import { Dumbbell } from 'lucide-react';
 import { loadRemoteChallenges } from '../services/challengeCatalogService';
+import { loadBaseContent, needsBaseContent } from '../services/baseContentService';
 
 interface DbContextValue {
   isReady: boolean;
@@ -24,6 +25,7 @@ interface DbProviderProps {
 
 export function DbProvider({ children }: DbProviderProps) {
   const [state, setState] = useState<DbContextValue>({ isReady: false, error: null });
+  const [loadingBase, setLoadingBase] = useState(false);
   const initStarted = useRef(false);
 
   useEffect(() => {
@@ -35,6 +37,20 @@ export function DbProvider({ children }: DbProviderProps) {
       .then(() => {
         // Migrar imágenes de localStorage a SQLite (una sola vez)
         return migrateImagesFromLocalStorage();
+      })
+      // Primer arranque con la BD vacía: datos base empaquetados con la app
+      .then(async () => {
+        if (!(await needsBaseContent())) return;
+        setLoadingBase(true);
+        try {
+          const summary = await loadBaseContent();
+          console.log(
+            `[DB] Datos base cargados: ${summary.exercisesAdded} ejercicios, ${summary.classesAdded} clases`
+          );
+        } catch (err) {
+          // La app sigue usable vacía; se reintenta en el próximo arranque
+          console.error('[DB] No se pudieron cargar los datos base:', err);
+        }
       })
       // Challenges bajados con "Actualizar contenido" (se suman a los del APK)
       .then(() => loadRemoteChallenges())
@@ -52,7 +68,9 @@ export function DbProvider({ children }: DbProviderProps) {
     return (
       <div className="flex flex-col items-center justify-center min-h-dvh bg-gray-950 text-white gap-4">
         <Dumbbell size={48} className="text-primary-500 animate-pulse" />
-        <p className="text-gray-400">Iniciando base de datos...</p>
+        <p className="text-gray-400">
+          {loadingBase ? 'Preparando ejercicios y clases…' : 'Iniciando base de datos...'}
+        </p>
       </div>
     );
   }

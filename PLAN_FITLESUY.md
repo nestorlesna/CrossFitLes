@@ -34,6 +34,8 @@ Google Play (aunque la distribución sigue siendo por GitHub Releases).
   **Ojo:** la app 1.3.1 rechaza un `manifest.app` distinto de `CrossFit Session Tracker`, así que
   el contenido v8 (`FitLesUY Session Tracker`) se sube **junto con el release 2.0.0**
   (`release.ps1` lo hace), nunca antes.
+- **Fase 3: HECHA (2026-11-03)**: carga base = snapshot del contenido publicado **sin la biblioteca
+  de 3.242 ejercicios** (decisión: sólo lo publicado). Detalle en la sección de la Fase 3.
 
 ---
 
@@ -188,6 +190,28 @@ puede **duplicarlas**.
 
 Criterio de GOAT: nombre que empieza con `GOAT`. Mejor agregar una marca explícita en el contenido
 publicado (`row.collection = 'goat'`) para no depender del nombre.
+
+### Resultado (2026-11-03)
+- **Sin `seed2_exercises.json`**: sólo 36 de sus 3.242 ejercicios coinciden con los 337 publicados
+  y casi ninguno tiene imagen. Se decidió cargar sólo lo publicado. Se borraron
+  `seed2_exercises.json`, `seedService*.ts`, `imageUpdateService`, `videoUpdateService` y
+  `muscleSeedService` (imágenes, videos y músculos ya viajan en el contenido). Quedan en el historial
+  de git si hicieran falta.
+- `buildContent()` marca las GOAT con `collection: 'goat'` (campo de `RemoteClass`, fuera del hash).
+  "Publicar contenido" escribe además `public/base-content.json` (84 clases, 337 ejercicios con su
+  SVG, 9 challenges; ~2,6 MB) por el endpoint `/__content/base` de Vite.
+- `contentSyncService.applyContent()` es la importación compartida. La carga base **no** guarda
+  `content_version`, así el primer "Actualizar contenido" baja todo y sólo suma las GOAT.
+- `baseContentService`: con `app_setting.base_content` vacío y la BD sin ejercicios, clases ni
+  sesiones, carga el snapshot (`v<N>`); si ya había datos, marca `existing` y no hace nada. Reemplaza
+  a `seed_v1_done` de localStorage (ya no existe).
+- "Cargar Datos Base" se eliminó. "Limpiar base" quedó como **"Borrar todos los datos"**: borra
+  todo y recarga, y el primer arranque vuelve a cargar los datos base.
+- Probado en `localhost:5199` (BD vacía): carga base 84 clases / 0 GOAT / 337 ejercicios con
+  imagen; después, aplicar el contenido v9 sumó 48 clases (las GOAT), 0 actualizadas, 0
+  duplicados; "Borrar todos los datos" vuelve al mismo estado.
+- **Al publicar contenido nuevo, commitear también `public/base-content.json`** para que el APK
+  lleve el snapshot al día.
 
 ### Primer arranque
 - Con la BD vacía, mostrar una pantalla de bienvenida: descargo de salud (Fase 4) y luego

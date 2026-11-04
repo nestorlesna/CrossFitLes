@@ -39,7 +39,7 @@ import {
 const SETTING_VERSION = 'content_version';
 const SETTING_LAST_SYNC = 'content_last_sync';
 
-type Stmt = { statement: string; values: unknown[] };
+export type Stmt = { statement: string; values: unknown[] };
 
 export interface ContentStatus {
   localVersion: number;
@@ -137,9 +137,22 @@ export async function syncContent(force = false): Promise<SyncSummary> {
   }
 
   const status = await getContentStatus();
-  const summary: SyncSummary = {
+  if (!force && manifest.contentVersion <= status.localVersion) {
+    return { ...emptySummary(manifest.contentVersion), upToDate: true };
+  }
+
+  const content = await fetchJson<ContentFile>(CONTENT_PATH, manifest.contentVersion);
+  if (!isKnownAppName(content.app) || content.format > CONTENT_FORMAT) {
+    throw new Error('El contenido descargado no es compatible con esta versión de la app');
+  }
+
+  return applyContent(content, manifest.contentVersion);
+}
+
+function emptySummary(contentVersion: number): SyncSummary {
+  return {
     upToDate: false,
-    contentVersion: manifest.contentVersion,
+    contentVersion,
     catalogsAdded: 0,
     exercisesAdded: 0,
     exercisesUpdated: 0,
@@ -153,15 +166,20 @@ export async function syncContent(force = false): Promise<SyncSummary> {
     challengesAdded: 0,
     challengesUpdated: 0,
   };
-  if (!force && manifest.contentVersion <= status.localVersion) {
-    return { ...summary, upToDate: true };
-  }
+}
 
-  const content = await fetchJson<ContentFile>(CONTENT_PATH, manifest.contentVersion);
-  if (!isKnownAppName(content.app) || content.format > CONTENT_FORMAT) {
-    throw new Error('El contenido descargado no es compatible con esta versión de la app');
-  }
-
+/**
+ * Aplica un contenido ya descargado (o empaquetado) en una sola transacción.
+ * @param recordVersion versión a guardar como "contenido local"; null = no tocarla (carga base:
+ *        así el próximo "Actualizar contenido" baja el contenido completo y suma lo que falte)
+ * @param extraStmts sentencias que van en la misma transacción (ej. la marca de carga base)
+ */
+export async function applyContent(
+  content: ContentFile,
+  recordVersion: number | null,
+  extraStmts: Stmt[] = []
+): Promise<SyncSummary> {
+  const summary = emptySummary(recordVersion ?? content.contentVersion);
   const ts = nowSql();
   const stmts: Stmt[] = [];
   const imagesToWrite: { key: string; dataUrl: string }[] = [];
@@ -540,8 +558,12 @@ export async function syncContent(force = false): Promise<SyncSummary> {
   }
 
   // ── 6. Escritura atómica ──────────────────────────────────────────────────
-  stmts.push(setSettingStmt(SETTING_VERSION, String(manifest.contentVersion)));
-  stmts.push(setSettingStmt(SETTING_LAST_SYNC, ts));
+  if (recordVersion !== null) {
+    stmts.push(setSettingStmt(SETTING_VERSION, String(recordVersion)));
+    stmts.push(setSettingStmt(SETTING_LAST_SYNC, ts));
+  }
+
+  stmts.push(...extraStmts);
 
   const db = getDatabase();
   await db.executeSet(stmts, true);

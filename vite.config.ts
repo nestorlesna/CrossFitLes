@@ -4,9 +4,10 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 // Sólo en `npm run dev`: permite que "Publicar contenido" (Configuración) escriba
-// manifest.json y content/content.json en el clon local del repo CrossFitLes-content.
+// manifest.json y content/content.json en el clon local del repo CrossFitLes-content,
+// y la carga base (public/base-content.json) en este proyecto.
 // Ruta configurable con CONTENT_REPO_DIR (por defecto, carpeta hermana del proyecto).
-function contentPublishPlugin(repoDir: string): Plugin {
+function contentPublishPlugin(repoDir: string, publicDir: string): Plugin {
   const insideRepo = (rel: string) => {
     const full = path.resolve(repoDir, rel)
     if (!full.startsWith(path.resolve(repoDir) + path.sep)) throw new Error(`Ruta inválida: ${rel}`)
@@ -44,6 +45,26 @@ function contentPublishPlugin(repoDir: string): Plugin {
             res.setHeader('Content-Type', 'application/json')
             return res.end(fs.readFileSync(file))
           }
+          // Carga base del primer arranque: public/base-content.json del proyecto de la app
+          if (req.method === 'POST' && req.url?.startsWith('/base')) {
+            const chunks: Buffer[] = []
+            req.on('data', (c: Buffer) => chunks.push(c))
+            req.on('end', () => {
+              try {
+                const { path: rel, content } = JSON.parse(Buffer.concat(chunks).toString('utf8')) as {
+                  path: string
+                  content: string
+                }
+                if (!/^[\w-]+\.json$/.test(rel)) throw new Error(`Ruta inválida: ${rel}`)
+                const full = path.join(publicDir, rel)
+                fs.writeFileSync(full, content, 'utf8')
+                send(200, { file: full })
+              } catch (e) {
+                send(500, { error: String(e) })
+              }
+            })
+            return
+          }
           if (req.method === 'POST' && req.url?.startsWith('/publish')) {
             const chunks: Buffer[] = []
             req.on('data', (c: Buffer) => chunks.push(c))
@@ -78,7 +99,7 @@ export default defineConfig(({ mode }) => {
   const contentRepoDir = path.resolve(env.CONTENT_REPO_DIR || path.join(process.cwd(), '..', 'CrossFitLes-content'))
 
   return {
-    plugins: [react(), contentPublishPlugin(contentRepoDir)],
+    plugins: [react(), contentPublishPlugin(contentRepoDir, path.resolve(process.cwd(), 'public'))],
     // Configuración optimizada para mobile con Capacitor
     server: {
       port: 5173,
