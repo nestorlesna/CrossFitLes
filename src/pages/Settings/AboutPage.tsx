@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ChevronLeft, ChevronRight, Mail, Shield, AlertTriangle, Heart, HardDrive, MessageCircle,
-  Youtube, Github, Scale, BookOpen, ExternalLink, Lock, FileText,
+  Youtube, Scale, BookOpen, ExternalLink, Lock, FileText,
 } from 'lucide-react';
 import { Header } from '../../components/layout/Header';
 import { APP_NAME, APP_VERSION } from '../../utils/constants';
@@ -11,7 +11,6 @@ import { openFeedback } from '../../services/feedbackService';
 import { HEALTH_DISCLAIMER_POINTS, HEALTH_DISCLAIMER_TITLE } from '../../data/healthDisclaimer';
 
 const YOUTUBE_URL = 'https://www.youtube.com/@fitlesuy';
-const REPO_URL = 'https://github.com/nestorlesna/CrossFitLes';
 const DATASET_URL = 'https://github.com/hasaneyldrm/exercises-dataset';
 // Páginas públicas (GitHub Pages, carpeta docs/ de master)
 const SITE_URL = 'https://nestorlesna.github.io/CrossFitLes';
@@ -91,12 +90,6 @@ export function AboutPage() {
             label="Canal de YouTube"
             detail="youtube.com/@fitlesuy"
             onClick={() => openExternal(YOUTUBE_URL)}
-          />
-          <LinkRow
-            icon={<Github size={16} className="text-gray-300" />}
-            label="Código fuente"
-            detail="github.com/nestorlesna/CrossFitLes"
-            onClick={() => openExternal(REPO_URL)}
           />
           <LinkRow
             icon={<Mail size={16} className="text-primary-400" />}
