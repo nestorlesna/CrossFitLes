@@ -315,3 +315,26 @@ o `window.open` (Android lo deriva a WhatsApp). Botón en Configuración y en Ac
 - [ ] `grep -ri crossfit src android/app/src public index.html` sólo deja coincidencias justificadas
       (compatibilidad y nombres de ejercicios).
 - [ ] `npm run lint` y `npm run build` sin errores.
+
+---
+
+## Traspaso a la próxima sesión (2026-11-03)
+
+Orden acordado: **Fase 2 → Fase 3 → Fase 4**.
+
+- **Fase 2 primero**: la carga base de la Fase 3 sale del contenido publicado, así que conviene
+  corregir las clases antes. Las correcciones van en una **migración** (`v020_…`), igual que
+  `v019_rename_benchmarks`, para que se apliquen en la BD de desarrollo (web, IndexedDB en
+  `localhost:5173`) y luego se publiquen con "Publicar contenido". Para encontrar los 8 ejercicios
+  y las 4 secciones sin tiempos, analizar `../CrossFitLes-content/content/content.json` con node
+  (clases no-GOAT: `row.name` no empieza con `GOAT`).
+- **Fase 3**: snapshot sin GOAT empaquetado en el APK, que se carga solo con la BD vacía; se elimina
+  el botón "Cargar Datos Base" de `ResetSection.tsx`; revisar si "Limpiar base" sigue teniendo
+  sentido; pasar `seed_v1_done` de localStorage a `app_setting`; evitar duplicados con
+  `seedService3–6` y `seed2_exercises.json` (usar `global_key`).
+- **Fase 4**: la pantalla de bienvenida del primer arranque muestra el descargo de salud
+  (aceptación en `app_setting`) y después lanza la carga base de la Fase 3. Reemplazar el bloque
+  "Deslinde de responsabilidad" de `AboutPage.tsx` por el mismo texto.
+- Para probar un primer arranque **sin tocar la BD de desarrollo**, levantar dev en otro puerto
+  (`npm run dev -- --port 5199 --strictPort`): IndexedDB es por origen, así que arranca vacía.
+- Commits en `develop`, sin push. `BKP/Ejercicios.md` tiene cambios del usuario: no incluirlo.
