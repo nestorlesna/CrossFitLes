@@ -91,8 +91,6 @@ jobs:
             3. Abrir el APK descargado e instalar
             4. Si ya tenías FitLesUY instalada, se actualiza manteniendo tus datos
 
-            **¿Venís de la app vieja "CrossFit Session Tracker"?** FitLesUY se instala como una app nueva, al lado de la vieja. Para pasar tus datos: en la app vieja, Configuración → Exportar backup; en FitLesUY, Importar backup. Después podés desinstalar la vieja.
-
             ---
             *Build generado automáticamente desde el tag `${{ github.ref_name }}`*
           files: ${{ steps.find_apk.outputs.apk_path }}
