@@ -4,6 +4,8 @@ import { openDatabase, getDatabase, saveDatabase } from '../db/database';
 import { Dumbbell } from 'lucide-react';
 import { loadRemoteChallenges } from '../services/challengeCatalogService';
 import { loadBaseContent, needsBaseContent } from '../services/baseContentService';
+import { syncContent } from '../services/contentSyncService';
+import { toast } from 'sonner';
 import { acceptDisclaimer, needsDisclaimer } from '../services/disclaimerService';
 import { WelcomeScreen } from './WelcomeScreen';
 
@@ -26,13 +28,27 @@ interface DbProviderProps {
 }
 
 // Carga base del primer arranque; si falla, la app sigue usable vacía y se reintenta al reabrir
-async function tryLoadBaseContent(): Promise<void> {
+async function tryLoadBaseContent(): Promise<boolean> {
   try {
     const summary = await loadBaseContent();
     console.log(`[DB] Datos base cargados: ${summary.exercisesAdded} ejercicios, ${summary.classesAdded} clases`);
+    return true;
   } catch (err) {
     console.error('[DB] No se pudieron cargar los datos base:', err);
+    return false;
   }
+}
+
+// Después de la carga base, "Actualizar contenido" automático en segundo plano: suma lo publicado
+// después de compilar el APK. Sin internet no pasa nada: queda el botón manual en Configuración.
+function autoSyncContent(): void {
+  syncContent(false, 'public')
+    .then((summary) => {
+      if (summary.upToDate) return;
+      console.log(`[DB] Contenido actualizado a la versión ${summary.contentVersion}`);
+      toast.success('Contenido actualizado');
+    })
+    .catch((err) => console.warn('[DB] No se pudo actualizar el contenido automáticamente:', err));
 }
 
 export function DbProvider({ children }: DbProviderProps) {
@@ -48,10 +64,12 @@ export function DbProvider({ children }: DbProviderProps) {
   };
 
   // Últimos pasos comunes: challenges bajados con "Actualizar contenido" (se suman a los del APK)
-  const finish = async () => {
+  // autoSync = recién se cargaron los datos base: buscar contenido más nuevo en segundo plano
+  const finish = async (autoSync = false) => {
     await loadRemoteChallenges();
     setWelcome(null);
     setState({ isReady: true, error: null });
+    if (autoSync) autoSyncContent();
   };
 
   useEffect(() => {
@@ -68,11 +86,12 @@ export function DbProvider({ children }: DbProviderProps) {
         setWelcome({ firstRun: baseNeeded });
         return; // sigue en handleAccept
       }
+      let baseLoaded = false;
       if (baseNeeded) {
         setBusy(true);
-        await tryLoadBaseContent();
+        baseLoaded = await tryLoadBaseContent();
       }
-      await finish();
+      await finish(baseLoaded);
     })().catch(fail);
   }, []);
 
@@ -81,8 +100,8 @@ export function DbProvider({ children }: DbProviderProps) {
     setBusy(true);
     (async () => {
       await acceptDisclaimer();
-      if (welcome.firstRun) await tryLoadBaseContent();
-      await finish();
+      const baseLoaded = welcome.firstRun && (await tryLoadBaseContent());
+      await finish(baseLoaded);
     })().catch(fail);
   };
 
