@@ -20,6 +20,7 @@ import { v017_challenges } from './v017_challenges';
 import { v018_content_sync } from './v018_content_sync';
 import { v019_rename_benchmarks } from './v019_rename_benchmarks';
 import { v020_fix_classic_classes } from './v020_fix_classic_classes';
+import { v021_fitlesuy_explainer_videos } from './v021_fitlesuy_explainer_videos';
 
 export const migrations: Migration[] = [
   v001_initial,
@@ -42,4 +43,5 @@ export const migrations: Migration[] = [
   v018_content_sync,
   v019_rename_benchmarks,
   v020_fix_classic_classes,
+  v021_fitlesuy_explainer_videos,
 ];
