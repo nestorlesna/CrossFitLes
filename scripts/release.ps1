@@ -7,7 +7,7 @@ param(
     # Rama principal a la que se hace merge del release.
     [string]$MainBranch = "master",
 
-    # Clon local del repo público de contenido (ver PLAN_SINCRONIZACION.md).
+    # Clon local del repo público de contenido.
     [string]$ContentRepoDir = (Join-Path $PSScriptRoot "..\..\CrossFitLes-content"),
 
     [switch]$SkipContent,
