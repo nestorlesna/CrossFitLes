@@ -3,9 +3,9 @@
 //   sin pisar lo que el usuario creó o editó y sin tocar sesiones ni récords.
 // - Actualizar MI contenido: lo mismo con el canal personal cifrado; sólo aparece si el
 //   dispositivo guardó la semilla (7 toques en la versión, en Acerca de).
-// - Publicar contenido / Publicar MI contenido: sólo en la PC del administrador (`npm run dev`),
-//   eligen qué clases nuevas suman y escriben los archivos en el clon local de
-//   CrossFitLes-content para después hacer git push.
+// - Publicar contenido (público + MI contenido en una sola pantalla): sólo en la PC del
+//   administrador (`npm run dev`), eligen qué clases nuevas suman a cada canal y escriben los
+//   archivos en el clon local de CrossFitLes-content para después hacer git push.
 import { useEffect, useState, type ReactNode } from 'react';
 import { Capacitor } from '@capacitor/core';
 import { CloudDownload, CloudUpload, Loader2, Lock } from 'lucide-react';
@@ -17,14 +17,14 @@ import {
   ContentStatus,
   SyncSummary,
 } from '../../services/contentSyncService';
-import { preparePublish, publishDraft, PublishDraft, PublishResult } from '../../services/contentPublishService';
+import { preparePublish, publishDraft, PublishResult } from '../../services/contentPublishService';
 import type { ContentChannel } from '../../services/contentFormat';
 import { formatDate } from '../../utils/formatters';
-import { PublishClassesModal } from './PublishClassesModal';
+import { PublishClassesModal, type PublishDrafts, type PublishSelection } from './PublishClassesModal';
 
 const canPublish = import.meta.env.DEV && Capacitor.getPlatform() === 'web';
 
-type Busy = { action: 'sync' | 'publish'; channel: ContentChannel } | null;
+type Busy = { action: 'sync'; channel: ContentChannel } | { action: 'publish' } | null;
 
 function summaryLines(s: SyncSummary): string[] {
   const lines: string[] = [];
@@ -85,8 +85,8 @@ export function ContentSyncSection() {
   const [hasMine, setHasMine] = useState(false);
   const [busy, setBusy] = useState<Busy>(null);
   const [summary, setSummary] = useState<SyncSummary | null>(null);
-  const [published, setPublished] = useState<PublishResult | null>(null);
-  const [draft, setDraft] = useState<PublishDraft | null>(null);
+  const [published, setPublished] = useState<{ channel: ContentChannel; result: PublishResult }[]>([]);
+  const [drafts, setDrafts] = useState<PublishDrafts | null>(null);
 
   const loadStatus = async () => {
     try {
@@ -122,47 +122,65 @@ export function ContentSyncSection() {
     }
   };
 
-  // Paso 1: armar el contenido y abrir la lista de clases nuevas
-  const handlePrepare = async (channel: ContentChannel) => {
-    setBusy({ action: 'publish', channel });
-    setPublished(null);
+  // Paso 1: armar el contenido de ambos canales y abrir la lista de clases nuevas.
+  // El canal personal sólo entra si hay semilla guardada (si no, preparePublish falla).
+  const handlePrepare = async () => {
+    setBusy({ action: 'publish' });
+    setPublished([]);
     try {
-      setDraft(await preparePublish(channel));
+      const next: PublishDrafts = { public: await preparePublish('public') };
+      try {
+        next.mine = await preparePublish('mine');
+      } catch (error) {
+        toast.warning(
+          `MI contenido no se incluye: ${error instanceof Error ? error.message : 'falta la semilla'}`
+        );
+      }
+      setDrafts(next);
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'Error al armar el contenido');
       setBusy(null);
     }
   };
 
-  // Paso 2: publicar con las clases elegidas
-  const handlePublish = async (selectedKeys: string[]) => {
-    if (!draft) return;
-    const current = draft;
-    setDraft(null);
+  // Paso 2: publicar cada canal con las clases elegidas (uno después del otro)
+  const handlePublish = async (selection: PublishSelection) => {
+    if (!drafts) return;
+    const current = drafts;
+    setDrafts(null);
+    const results: { channel: ContentChannel; result: PublishResult }[] = [];
     try {
-      const result = await publishDraft(current, selectedKeys);
-      setPublished(result);
-      if (!result.changed) {
-        toast.info(`Sin cambios desde la versión ${result.contentVersion}`);
-      } else if (result.writtenTo === 'repo') {
-        toast.success(`Versión ${result.contentVersion} lista. Falta hacer git push.`);
-      } else {
-        toast.success(`Versión ${result.contentVersion} descargada. Copiala al repo de contenido.`);
+      for (const channel of ['public', 'mine'] as ContentChannel[]) {
+        const draft = current[channel];
+        if (!draft) continue;
+        const label = channel === 'mine' ? 'MI contenido' : 'Contenido';
+        try {
+          const result = await publishDraft(draft, selection[channel] ?? []);
+          results.push({ channel, result });
+          if (!result.changed) {
+            toast.info(`${label}: sin cambios desde la versión ${result.contentVersion}`);
+          } else if (result.writtenTo === 'repo') {
+            toast.success(`${label}: versión ${result.contentVersion} lista. Falta hacer git push.`);
+          } else {
+            toast.success(`${label}: versión ${result.contentVersion} descargada. Copiala al repo de contenido.`);
+          }
+        } catch (error) {
+          toast.error(`${label}: ${error instanceof Error ? error.message : 'Error al publicar el contenido'}`);
+        }
       }
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Error al publicar el contenido');
     } finally {
+      setPublished(results);
       setBusy(null);
     }
   };
 
   const cancelPublish = () => {
-    setDraft(null);
+    setDrafts(null);
     setBusy(null);
   };
 
-  const isBusy = (action: 'sync' | 'publish', channel: ContentChannel) =>
-    busy?.action === action && busy.channel === channel;
+  const isSyncing = (channel: ContentChannel) =>
+    busy?.action === 'sync' && busy.channel === channel;
   const lines = summary && !summary.upToDate ? summaryLines(summary) : [];
 
   return (
@@ -178,7 +196,7 @@ export function ContentSyncSection() {
           title="Actualizar contenido"
           detail={statusText(status)}
           color="primary"
-          loading={isBusy('sync', 'public')}
+          loading={isSyncing('public')}
           disabled={!!busy}
           onClick={() => handleSync('public')}
         />
@@ -189,7 +207,7 @@ export function ContentSyncSection() {
             title="Actualizar MI contenido"
             detail={statusText(mineStatus)}
             color="primary"
-            loading={isBusy('sync', 'mine')}
+            loading={isSyncing('mine')}
             disabled={!!busy}
             onClick={() => handleSync('mine')}
           />
@@ -200,20 +218,11 @@ export function ContentSyncSection() {
             <ActionRow
               icon={<CloudUpload size={18} />}
               title="Publicar contenido"
-              detail="Sólo administrador · el contenido que bajan todos"
+              detail="Sólo administrador · público y MI contenido (cifrado)"
               color="amber"
-              loading={isBusy('publish', 'public')}
+              loading={busy?.action === 'publish'}
               disabled={!!busy}
-              onClick={() => handlePrepare('public')}
-            />
-            <ActionRow
-              icon={<Lock size={18} />}
-              title="Publicar MI contenido"
-              detail="Sólo administrador · cifrado, sólo para tu celular"
-              color="amber"
-              loading={isBusy('publish', 'mine')}
-              disabled={!!busy}
-              onClick={() => handlePrepare('mine')}
+              onClick={handlePrepare}
             />
           </>
         )}
@@ -227,30 +236,35 @@ export function ContentSyncSection() {
         </div>
       )}
 
-      {published && (published.changed || published.excludedPlans.length > 0) && (
-        <div className="bg-gray-950 border border-gray-800 rounded-xl p-3 mt-3 space-y-0.5">
-          {published.changed && (
-            <p className="text-xs text-gray-300">
-              Versión {published.contentVersion} · {published.counts.classes} clases ·{' '}
-              {published.counts.exercises} ejercicios · {published.counts.plans} planes ·{' '}
-              {published.counts.challenges ?? 0} challenges · {published.sizeKb} KB
+      {published.map(({ channel, result }) => (
+        (result.changed || result.excludedPlans.length > 0) && (
+          <div key={channel} className="bg-gray-950 border border-gray-800 rounded-xl p-3 mt-3 space-y-0.5">
+            <p className="text-[11px] font-semibold text-amber-400">
+              {channel === 'mine' ? 'MI contenido' : 'Contenido público'}
             </p>
-          )}
-          {published.excludedPlans.length > 0 && (
-            <p className="text-[11px] text-amber-400">
-              Planes que no se publicaron porque usan clases que no van:{' '}
-              {published.excludedPlans.join(', ')}
-            </p>
-          )}
-          {published.changed && published.repoDir && (
-            <p className="text-[11px] text-gray-500 break-all">
-              Escrito en {published.repoDir}. Ahora: git add, commit y push.
-            </p>
-          )}
-        </div>
-      )}
+            {result.changed && (
+              <p className="text-xs text-gray-300">
+                Versión {result.contentVersion} · {result.counts.classes} clases ·{' '}
+                {result.counts.exercises} ejercicios · {result.counts.plans} planes ·{' '}
+                {result.counts.challenges ?? 0} challenges · {result.sizeKb} KB
+              </p>
+            )}
+            {result.excludedPlans.length > 0 && (
+              <p className="text-[11px] text-amber-400">
+                Planes que no se publicaron porque usan clases que no van:{' '}
+                {result.excludedPlans.join(', ')}
+              </p>
+            )}
+            {result.changed && result.repoDir && (
+              <p className="text-[11px] text-gray-500 break-all">
+                Escrito en {result.repoDir}. Ahora: git add, commit y push.
+              </p>
+            )}
+          </div>
+        )
+      ))}
 
-      <PublishClassesModal draft={draft} onClose={cancelPublish} onConfirm={handlePublish} />
+      <PublishClassesModal drafts={drafts} onClose={cancelPublish} onConfirm={handlePublish} />
     </section>
   );
 }

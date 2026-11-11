@@ -1,64 +1,49 @@
-// Selección de clases al publicar un canal de contenido.
-// Arriba, las clases locales que todavía no están en el canal (desmarcadas en el público,
-// marcadas en "MI contenido"); abajo, colapsadas, las que ya están publicadas y van siempre.
+// Selección de clases al publicar los canales de contenido, en una sola pantalla.
+// Izquierda: contenido público; derecha: MI contenido (cifrado). En cada columna, arriba las
+// clases locales que todavía no están en el canal (desmarcadas en el público, marcadas en
+// "MI contenido") y abajo, colapsadas, las que ya están publicadas y van siempre.
+// Un solo botón publica los canales presentes.
 import { useEffect, useState } from 'react';
-import { CheckSquare, ChevronDown, ChevronRight, Square } from 'lucide-react';
+import { CheckSquare, ChevronDown, ChevronRight, Lock, Square } from 'lucide-react';
 import { Modal } from '../ui/Modal';
 import type { PublishDraft } from '../../services/contentPublishService';
+import type { ContentChannel } from '../../services/contentFormat';
+
+export type PublishDrafts = Partial<Record<ContentChannel, PublishDraft>>;
+export type PublishSelection = Partial<Record<ContentChannel, string[]>>;
 
 interface Props {
-  draft: PublishDraft | null;
+  drafts: PublishDrafts | null;
   onClose: () => void;
-  onConfirm: (selectedKeys: string[]) => void;
+  onConfirm: (selection: PublishSelection) => void;
 }
 
-export function PublishClassesModal({ draft, onClose, onConfirm }: Props) {
-  const [selected, setSelected] = useState<Set<string>>(new Set());
+interface ColumnProps {
+  draft: PublishDraft;
+  selected: Set<string>;
+  onChange: (next: Set<string>) => void;
+}
+
+function ChannelColumn({ draft, selected, onChange }: ColumnProps) {
   const [showPublished, setShowPublished] = useState(false);
-
-  useEffect(() => {
-    if (!draft) return;
-    setSelected(new Set(draft.channel === 'mine' ? draft.newClasses.map((c) => c.key) : []));
-    setShowPublished(false);
-  }, [draft]);
-
-  if (!draft) return null;
-
   const isMine = draft.channel === 'mine';
   const allSelected = draft.newClasses.length > 0 && selected.size === draft.newClasses.length;
 
-  const toggle = (key: string) =>
-    setSelected((prev) => {
-      const next = new Set(prev);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
-      return next;
-    });
+  const toggle = (key: string) => {
+    const next = new Set(selected);
+    if (next.has(key)) next.delete(key);
+    else next.add(key);
+    onChange(next);
+  };
 
-  const toggleAll = () => setSelected(allSelected ? new Set() : new Set(draft.newClasses.map((c) => c.key)));
+  const toggleAll = () => onChange(allSelected ? new Set() : new Set(draft.newClasses.map((c) => c.key)));
 
   return (
-    <Modal
-      isOpen
-      onClose={onClose}
-      title={isMine ? 'Publicar MI contenido' : 'Publicar contenido'}
-      footer={
-        <div className="flex gap-2">
-          <button
-            onClick={onClose}
-            className="flex-1 py-3 rounded-xl bg-gray-800 text-gray-300 text-sm font-semibold"
-          >
-            Cancelar
-          </button>
-          <button
-            onClick={() => onConfirm([...selected])}
-            className="flex-1 py-3 rounded-xl bg-amber-500 text-gray-950 text-sm font-bold"
-          >
-            Publicar{selected.size > 0 ? ` (+${selected.size})` : ''}
-          </button>
-        </div>
-      }
-    >
+    <div className="min-w-0">
+      <h3 className="flex items-center gap-1.5 text-sm font-bold text-white mb-1">
+        {isMine && <Lock size={14} className="text-amber-400" />}
+        {isMine ? 'Publicar MI contenido' : 'Publicar contenido'}
+      </h3>
       <p className="text-[11px] text-gray-500 mb-3">
         Ejercicios, catálogos y challenges van siempre. Elegí qué clases nuevas se suman a{' '}
         {isMine ? 'tu contenido (cifrado)' : 'el contenido público'}.
@@ -112,6 +97,70 @@ export function PublishClassesModal({ draft, onClose, onConfirm }: Props) {
           ))}
         </div>
       )}
+    </div>
+  );
+}
+
+export function PublishClassesModal({ drafts, onClose, onConfirm }: Props) {
+  const [selection, setSelection] = useState<Record<ContentChannel, Set<string>>>({
+    public: new Set(),
+    mine: new Set(),
+  });
+
+  useEffect(() => {
+    if (!drafts) return;
+    setSelection({
+      public: new Set(),
+      mine: new Set(drafts.mine?.newClasses.map((c) => c.key) ?? []),
+    });
+  }, [drafts]);
+
+  if (!drafts) return null;
+
+  const channels = (['public', 'mine'] as ContentChannel[]).filter((ch) => drafts[ch]);
+  const total = channels.reduce((n, ch) => n + selection[ch].size, 0);
+
+  const confirm = () => {
+    const result: PublishSelection = {};
+    for (const ch of channels) result[ch] = [...selection[ch]];
+    onConfirm(result);
+  };
+
+  return (
+    <Modal
+      isOpen
+      onClose={onClose}
+      title={channels.length > 1 ? 'Publicar contenido y MI contenido' : 'Publicar contenido'}
+      size="xl"
+      maxHeightClass="max-h-[75vh]"
+      footer={
+        <div className="flex gap-2">
+          <button
+            onClick={onClose}
+            className="flex-1 py-3 rounded-xl bg-gray-800 text-gray-300 text-sm font-semibold"
+          >
+            Cancelar
+          </button>
+          <button
+            onClick={confirm}
+            className="flex-1 py-3 rounded-xl bg-amber-500 text-gray-950 text-sm font-bold"
+          >
+            Publicar{total > 0 ? ` (+${total})` : ''}
+          </button>
+        </div>
+      }
+    >
+      <div className={`grid gap-6 ${channels.length > 1 ? 'md:grid-cols-2 md:divide-x md:divide-gray-800' : ''}`}>
+        {channels.map((ch) => (
+          <div key={ch} className={ch === 'mine' && channels.length > 1 ? 'md:pl-6' : ''}>
+            <ChannelColumn
+              draft={drafts[ch]!}
+              selected={selection[ch]}
+              onChange={(next) => setSelection((prev) => ({ ...prev, [ch]: next }))}
+            />
+          </div>
+        ))}
+      </div>
     </Modal>
   );
 }
