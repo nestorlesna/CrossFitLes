@@ -12,8 +12,68 @@
   asigná los videos de X x x x usando ACTUALIZO_VIDEO.md
 ### COMO USAR
 
+
+
+
+
+### TEMPLATE
+Clase GOAT XX/XX/2026
+video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta
+
+Calentamiento
+
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+
+Activacion
+
+Fuerza
+
+WOD
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
 ### TEMPLATE
 
+
+
+Clase GOAT 11/11/2026
+
+Calentamiento
+
+- 6 minutos de calentamiento
+
+Movilidad - 5 minutos mayor cantidad de ejercicios
+- Thoracic Wall Sweep pie derecho
+- Thoracic Wall Sweep pie izquierdo
+- Yoga Push-Up
+- Squat Press-Out 10kg
+
+Activacion 6 repes de cada ejercicios cada 1 minutos
+- Barbell Sumo Deadlift High Pull, 20kg
+- Barbell Sumo Deadlift High Pull, 20kg
+- Barbell High Hang Power Clean, 20kg
+- Barbell High Hang Power Clean, 20kg
+- Barbell Front Squat, 20kg
+- Barbell Front Squat, 20kg
+
+Fuerza, cada 1.5 minutos
+- 5 Barbell Power Clean, 40kg
+- 3 Barbell Power Clean, 50kg
+- 2 Barbell Power Clean, 60kg
+- 2 Barbell Power Clean, 60kg
+- 1 Barbell Power Clean, 60kg
+
+WOD a terminar 18 minutos, en parejas algunos ejercicios a completar otros en espejo
+- 50 Hanging Toes to Bar cada uno
+- 40 Barbell Deadlift 40kg cada uno
+- 60 Partner Wall Ball Sit-Upl cada uno
+- 20 Barbell Power Clean, 40kg cada uno
+- 20 V-Up
+- 10 Barbell Front Squat 40kg
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 
 Clase GOAT 09/11/2026
 
@@ -51,7 +111,7 @@ WOD - mayor cantida de vueltas en 15 minutos (dejar las 2 rondas que es lo que a
 - 200 m running
 
 Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
-### TEMPLATE
+
 
 
 
