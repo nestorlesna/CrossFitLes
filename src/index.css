@@ -40,6 +40,15 @@
     width: min(100%, var(--video-max-width, 100%), calc(100cqh * var(--video-w) / var(--video-h)));
   }
 
+  /* Video vertical (Shorts/Reels, 9:16) fuera de la clase por video: ancho máximo 360px
+     y además acotado al alto de la pantalla (menos 240px de cabecera/márgenes del
+     modal), para que no se salga. La segunda regla usa dvh (barra del navegador móvil);
+     si no se soporta, queda la primera con vh. */
+  .video-vertical {
+    max-width: min(100%, 360px, max(160px, calc((100vh - 240px) * 9 / 16)));
+    max-width: min(100%, 360px, max(160px, calc((100dvh - 240px) * 9 / 16)));
+  }
+
   /* Archivos de video directos: el <video> ya respeta su relación de aspecto */
   .video-fit-native {
     max-width: 100%;
@@ -55,6 +64,11 @@
     width: 240px;
     height: 135px;
     max-width: 100%;
+  }
+  /* Variante vertical (Shorts/Reels 9:16): misma altura útil que dos filas de la lista */
+  .video-thumb.video-thumb-vertical {
+    width: 108px;
+    height: 192px;
   }
   .video-thumb > * {
     width: 100% !important;

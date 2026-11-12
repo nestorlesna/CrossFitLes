@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 230">
+  <style>
+    .f1{animation:sh1 7.8s linear infinite}.f2{animation:sh2 7.8s linear infinite}.f3{animation:sh3 7.8s linear infinite}.f4{animation:sh4 7.8s linear infinite}.f5{animation:sh5 7.8s linear infinite}.f6{animation:sh6 7.8s linear infinite}
+    @keyframes sh1{0%,13.3%{opacity:1}16.7%,96.7%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,16.7%{opacity:0}20%,30%{opacity:1}33.3%,100%{opacity:0}}
+    @keyframes sh3{0%,33.3%{opacity:0}36.7%,46.7%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh4{0%,50%{opacity:0}53.3%,63.3%{opacity:1}66.7%,100%{opacity:0}}
+    @keyframes sh5{0%,66.7%{opacity:0}70%,80%{opacity:1}83.3%,100%{opacity:0}}
+    @keyframes sh6{0%,83.3%{opacity:0}86.7%,96.7%{opacity:1}100%,100%{opacity:0}}
+  </style>
+  <rect width="220" height="230" fill="#111827" rx="12"/>
+  <line x1="20" y1="210" x2="200" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="110" y="225" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" fill="#475569" letter-spacing="2">SMITH BENCH PRESS</text>
+  <g fill="#475569"><rect x="34" y="166" width="132" height="8" rx="3"/><rect x="46" y="174" width="7" height="36"/><rect x="146" y="174" width="7" height="36"/></g>
+    <line x1="62" y1="40" x2="62" y2="210" stroke="#475569" stroke-width="5" stroke-linecap="round"/><rect x="44" y="204" width="36" height="6" rx="2" fill="#475569"/>
+    <g stroke="#475569" stroke-width="3" stroke-linecap="round"><line x1="62" y1="148" x2="72" y2="148"/><line x1="62" y1="64" x2="72" y2="64"/></g>
+  <!-- Frame 1: Brazos extendidos, barra arriba -->
+  <g class="f1">
+    <g stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"><polyline points="118,154 62,154" stroke="#94a3b8"/><polyline points="118,154 163.4,161.4 152,206 162,206" stroke="#94a3b8"/><polyline points="62,154 70.1,121 62,90" stroke="#94a3b8"/></g><circle cx="49" cy="154" r="12" fill="#94a3b8"/><circle cx="163.4" cy="161.4" r="5" fill="#64748b"/><circle cx="70.1" cy="121" r="4" fill="#64748b"/><circle cx="62" cy="90" r="15" fill="#1f2937" stroke="#475569" stroke-width="3"/><circle cx="62" cy="90" r="3.5" fill="#94a3b8"/>
+  </g>
+  <!-- Frame 2: Bajando -->
+  <g class="f2">
+    <g stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"><polyline points="118,154 62,154" stroke="#94a3b8"/><polyline points="118,154 163.4,161.4 152,206 162,206" stroke="#94a3b8"/><polyline points="62,154 83.5,127.7 62,104" stroke="#94a3b8"/></g><circle cx="49" cy="154" r="12" fill="#94a3b8"/><circle cx="163.4" cy="161.4" r="5" fill="#64748b"/><circle cx="83.5" cy="127.7" r="4" fill="#64748b"/><circle cx="62" cy="104" r="15" fill="#1f2937" stroke="#475569" stroke-width="3"/><circle cx="62" cy="104" r="3.5" fill="#94a3b8"/>
+  </g>
+  <!-- Frame 3: Barra en el pecho -->
+  <g class="f3">
+    <g stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"><polyline points="118,154 62,154" stroke="#94a3b8"/><polyline points="118,154 163.4,161.4 152,206 162,206" stroke="#94a3b8"/><polyline points="62,154 92.2,138.5 62,128" stroke="#94a3b8"/></g><circle cx="49" cy="154" r="12" fill="#94a3b8"/><circle cx="163.4" cy="161.4" r="5" fill="#64748b"/><circle cx="92.2" cy="138.5" r="4" fill="#64748b"/><circle cx="62" cy="128" r="15" fill="#1f2937" stroke="#475569" stroke-width="3"/><circle cx="62" cy="128" r="3.5" fill="#94a3b8"/>
+  </g>
+  <!-- Frame 4: Empujando -->
+  <g class="f4">
+    <g stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"><polyline points="118,154 62,154" stroke="#94a3b8"/><polyline points="118,154 163.4,161.4 152,206 162,206" stroke="#94a3b8"/><polyline points="62,154 89.6,134.2 62,118" stroke="#94a3b8"/></g><circle cx="49" cy="154" r="12" fill="#94a3b8"/><circle cx="163.4" cy="161.4" r="5" fill="#64748b"/><circle cx="89.6" cy="134.2" r="4" fill="#64748b"/><circle cx="62" cy="118" r="15" fill="#1f2937" stroke="#475569" stroke-width="3"/><circle cx="62" cy="118" r="3.5" fill="#94a3b8"/>
+  </g>
+  <!-- Frame 5: Casi arriba -->
+  <g class="f5">
+    <g stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"><polyline points="118,154 62,154" stroke="#94a3b8"/><polyline points="118,154 163.4,161.4 152,206 162,206" stroke="#94a3b8"/><polyline points="62,154 81,125.8 62,100" stroke="#94a3b8"/></g><circle cx="49" cy="154" r="12" fill="#94a3b8"/><circle cx="163.4" cy="161.4" r="5" fill="#64748b"/><circle cx="81" cy="125.8" r="4" fill="#64748b"/><circle cx="62" cy="100" r="15" fill="#1f2937" stroke="#475569" stroke-width="3"/><circle cx="62" cy="100" r="3.5" fill="#94a3b8"/>
+  </g>
+  <!-- Frame 6: Bloqueo -->
+  <g class="f6">
+    <g stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"><polyline points="118,154 62,154" stroke="#94a3b8"/><polyline points="118,154 163.4,161.4 152,206 162,206" stroke="#94a3b8"/><polyline points="62,154 73.3,121.9 62,92" stroke="#94a3b8"/></g><circle cx="49" cy="154" r="12" fill="#94a3b8"/><circle cx="163.4" cy="161.4" r="5" fill="#64748b"/><circle cx="73.3" cy="121.9" r="4" fill="#64748b"/><circle cx="62" cy="92" r="15" fill="#1f2937" stroke="#475569" stroke-width="3"/><circle cx="62" cy="92" r="3.5" fill="#94a3b8"/>
+  </g>
+</svg>

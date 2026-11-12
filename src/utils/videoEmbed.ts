@@ -19,6 +19,8 @@ export interface VideoEmbedInfo {
   embedUrl: string;
   /** true = formato vertical 9:16 (reels/shorts) */
   vertical: boolean;
+  /** Miniatura del video (sólo YouTube): permite mostrar un botón de play propio antes de cargar el iframe */
+  thumbnailUrl?: string;
 }
 
 /**
@@ -38,6 +40,7 @@ export function detectVideo(rawUrl: string, autoplay = false): VideoEmbedInfo {
       label: 'YouTube Shorts',
       embedUrl: `https://www.youtube.com/embed/${short[1]}${autoplay ? '?autoplay=1' : ''}`,
       vertical: true,
+      thumbnailUrl: `https://i.ytimg.com/vi/${short[1]}/maxresdefault.jpg`,
     };
   }
 
@@ -49,6 +52,7 @@ export function detectVideo(rawUrl: string, autoplay = false): VideoEmbedInfo {
       label: 'YouTube',
       embedUrl: `https://www.youtube.com/embed/${yt[1]}${autoplay ? '?autoplay=1' : ''}`,
       vertical: false,
+      thumbnailUrl: `https://i.ytimg.com/vi/${yt[1]}/maxresdefault.jpg`,
     };
   }
 

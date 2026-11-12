@@ -8,14 +8,17 @@ interface ModalProps {
   title: string;
   children: React.ReactNode;
   footer?: React.ReactNode;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  /** Alto máximo del modal (por defecto 90% de la pantalla) */
+  maxHeightClass?: string;
 }
 
-export function Modal({ isOpen, onClose, title, children, footer, size = 'lg' }: ModalProps) {
+export function Modal({ isOpen, onClose, title, children, footer, size = 'lg', maxHeightClass = 'max-h-[90vh]' }: ModalProps) {
   const sizeClasses = {
     sm: 'max-w-sm',
     md: 'max-w-md',
     lg: 'max-w-lg',
+    xl: 'max-w-4xl',
   };
   // Bloquear scroll del body cuando el modal está abierto
   useEffect(() => {
@@ -41,7 +44,7 @@ export function Modal({ isOpen, onClose, title, children, footer, size = 'lg' }:
 
       {/* Contenido del modal */}
       <div
-        className={`relative w-full ${sizeClasses[size]} bg-gray-900 rounded-2xl border border-gray-800 flex flex-col max-h-[90vh] animate-in fade-in zoom-in-95 duration-200`}
+        className={`relative w-full ${sizeClasses[size]} bg-gray-900 rounded-2xl border border-gray-800 flex flex-col ${maxHeightClass} animate-in fade-in zoom-in-95 duration-200`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

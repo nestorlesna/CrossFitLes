@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 230">
+  <style>
+    .f1{animation:sh1 7.8s linear infinite}.f2{animation:sh2 7.8s linear infinite}.f3{animation:sh3 7.8s linear infinite}.f4{animation:sh4 7.8s linear infinite}.f5{animation:sh5 7.8s linear infinite}.f6{animation:sh6 7.8s linear infinite}
+    @keyframes sh1{0%,13.3%{opacity:1}16.7%,96.7%{opacity:0}100%{opacity:1}}
+    @keyframes sh2{0%,16.7%{opacity:0}20%,30%{opacity:1}33.3%,100%{opacity:0}}
+    @keyframes sh3{0%,33.3%{opacity:0}36.7%,46.7%{opacity:1}50%,100%{opacity:0}}
+    @keyframes sh4{0%,50%{opacity:0}53.3%,63.3%{opacity:1}66.7%,100%{opacity:0}}
+    @keyframes sh5{0%,66.7%{opacity:0}70%,80%{opacity:1}83.3%,100%{opacity:0}}
+    @keyframes sh6{0%,83.3%{opacity:0}86.7%,96.7%{opacity:1}100%,100%{opacity:0}}
+  </style>
+  <rect width="220" height="230" fill="#111827" rx="12"/>
+  <line x1="20" y1="210" x2="200" y2="210" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <text x="110" y="225" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" fill="#475569" letter-spacing="2">ROWING MACHINE</text>
+  <line x1="24" y1="192" x2="178" y2="192" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="198" cy="172" r="19" fill="none" stroke="#475569" stroke-width="4"/><circle cx="198" cy="172" r="5" fill="#475569"/>
+    <line x1="150" y1="190" x2="168" y2="176" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+    <line x1="166" y1="192" x2="166" y2="210" stroke="#475569" stroke-width="4"/><line x1="40" y1="192" x2="40" y2="210" stroke="#475569" stroke-width="4"/>
+  <!-- Frame 1: Catch: piernas flexionadas, brazos adelante -->
+  <g class="f1">
+    <rect x="92" y="186" width="32" height="7" rx="3" fill="#475569"/><line x1="196" y1="172" x2="182" y2="140" stroke="#64748b" stroke-width="2"/><g stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"><polyline points="108,178 137.7,130.5" stroke="#94a3b8"/><polyline points="108,178 129,137.1 150,178 160,178" stroke="#94a3b8"/><polyline points="137.7,130.5 156.2,159 182,140" stroke="#94a3b8"/></g><circle cx="144.6" cy="119.5" r="12" fill="#94a3b8"/><circle cx="129" cy="137.1" r="5" fill="#64748b"/><circle cx="156.2" cy="159" r="4" fill="#64748b"/><line x1="184" y1="133" x2="184" y2="147" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <!-- Frame 2: Empuje de piernas -->
+  <g class="f2">
+    <rect x="76" y="186" width="32" height="7" rx="3" fill="#475569"/><line x1="196" y1="172" x2="172.5" y2="139.7" stroke="#64748b" stroke-width="2"/><g stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"><polyline points="92,178 116.5,127.7" stroke="#94a3b8"/><polyline points="92,178 121,142.3 150,178 160,178" stroke="#94a3b8"/><polyline points="116.5,127.7 142.2,149.9 172.5,139.7" stroke="#94a3b8"/></g><circle cx="122.2" cy="116" r="12" fill="#94a3b8"/><circle cx="121" cy="142.3" r="5" fill="#64748b"/><circle cx="142.2" cy="149.9" r="4" fill="#64748b"/><line x1="174.5" y1="132.7" x2="174.5" y2="146.7" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <!-- Frame 3: Torso se abre, brazos empiezan a tirar -->
+  <g class="f3">
+    <rect x="60" y="186" width="32" height="7" rx="3" fill="#475569"/><line x1="196" y1="172" x2="133.9" y2="144.3" stroke="#64748b" stroke-width="2"/><g stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"><polyline points="76,178 81.9,122.3" stroke="#94a3b8"/><polyline points="76,178 113,150.7 150,178 160,178" stroke="#94a3b8"/><polyline points="81.9,122.3 102.3,149.5 133.9,144.3" stroke="#94a3b8"/></g><circle cx="83.2" cy="109.4" r="12" fill="#94a3b8"/><circle cx="113" cy="150.7" r="5" fill="#64748b"/><circle cx="102.3" cy="149.5" r="4" fill="#64748b"/><line x1="135.9" y1="137.3" x2="135.9" y2="151.3" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <!-- Frame 4: Final: piernas extendidas, manija al pecho -->
+  <g class="f4">
+    <rect x="46" y="186" width="32" height="7" rx="3" fill="#475569"/><line x1="196" y1="172" x2="68.7" y2="150.7" stroke="#64748b" stroke-width="2"/><g stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"><polyline points="62,178 44.7,124.7" stroke="#94a3b8"/><polyline points="62,178 106,164.6 150,178 160,178" stroke="#94a3b8"/><polyline points="44.7,124.7 37.5,158 68.7,150.7" stroke="#94a3b8"/></g><circle cx="40.7" cy="112.4" r="12" fill="#94a3b8"/><circle cx="106" cy="164.6" r="5" fill="#64748b"/><circle cx="37.5" cy="158" r="4" fill="#64748b"/><line x1="70.7" y1="143.7" x2="70.7" y2="157.7" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <!-- Frame 5: Recuperación: brazos adelante -->
+  <g class="f5">
+    <rect x="48" y="186" width="32" height="7" rx="3" fill="#475569"/><line x1="196" y1="172" x2="114.3" y2="138.9" stroke="#64748b" stroke-width="2"/><g stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"><polyline points="64,178 54.3,122.9" stroke="#94a3b8"/><polyline points="64,178 107,161.7 150,178 160,178" stroke="#94a3b8"/><polyline points="54.3,122.9 82.4,141.9 114.3,138.9" stroke="#94a3b8"/></g><circle cx="52" cy="110" r="12" fill="#94a3b8"/><circle cx="107" cy="161.7" r="5" fill="#64748b"/><circle cx="82.4" cy="141.9" r="4" fill="#64748b"/><line x1="116.3" y1="131.9" x2="116.3" y2="145.9" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <!-- Frame 6: Recuperación: torso adelante, rodillas flexionan -->
+  <g class="f6">
+    <rect x="70" y="186" width="32" height="7" rx="3" fill="#475569"/><line x1="196" y1="172" x2="165" y2="138.1" stroke="#64748b" stroke-width="2"/><g stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"><polyline points="86,178 107,126.1" stroke="#94a3b8"/><polyline points="86,178 118,145 150,178 160,178" stroke="#94a3b8"/><polyline points="107,126.1 134.1,146.6 165,138.1" stroke="#94a3b8"/></g><circle cx="111.8" cy="114" r="12" fill="#94a3b8"/><circle cx="118" cy="145" r="5" fill="#64748b"/><circle cx="134.1" cy="146.6" r="4" fill="#64748b"/><line x1="167" y1="131.1" x2="167" y2="145.1" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</svg>

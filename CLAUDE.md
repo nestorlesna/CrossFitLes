@@ -98,7 +98,6 @@ Cada entidad principal tiene su propio repo:
 - Challenges: `BUILTIN_CHALLENGES` se publica en `content.json`; los remotos se guardan en
   `app_setting.challenge_catalog` y se cargan al iniciar (`challengeCatalogService`). Usar siempre
   `getChallenges()` / `getChallenge()`, nunca el array directo.
-- Plan y checklist: `PLAN_SINCRONIZACION.md`.
 
 ### Modelos clave
 - `TrainingSession` / `SessionWithRelations` / `SessionExerciseResult` — en `src/models/TrainingSession.ts`.
@@ -131,7 +130,6 @@ Todas bajo un `<Layout>` con `BottomNav` de 5 tabs:
   que acepta también el nombre viejo `CrossFit Session Tracker`.
 - `DB_NAME = 'crossfit_tracker'` y el alias `crossfitles` del keystore son históricos: **no cambiarlos**.
 - Media nativa en `MEDIA_BASE_DIR` (`fitlesuy/media`); nunca hardcodear la ruta.
-- Plan de la migración: `PLAN_FITLESUY.md`.
 
 ### Versionado
 - `APP_VERSION` vive sólo en `src/config/version.ts` (`src/utils/constants.ts` la re-exporta).

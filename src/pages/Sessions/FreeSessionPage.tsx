@@ -8,6 +8,7 @@ import {
 import { toast } from 'sonner';
 import { Header } from '../../components/layout/Header';
 import { Modal } from '../../components/ui/Modal';
+import { VideoEmbed } from '../../components/ui/VideoEmbed';
 import { ExerciseInfoModal } from '../../components/ui/ExerciseInfoModal';
 import { Exercise } from '../../models/Exercise';
 import { SessionExerciseResult } from '../../models/TrainingSession';
@@ -24,43 +25,6 @@ import {
 } from '../../db/repositories/trainingSessionRepo';
 import { getDatabase } from '../../db/database';
 import { getImageDisplayUrl } from '../../services/mediaService';
-
-// ── Helpers de video ─────────────────────────────────────────────────────────
-function getYoutubeId(url: string): string | null {
-  if (!url) return null;
-  // Soporta: youtu.be/ID, youtube.com/shorts/ID, youtube.com/watch?v=ID, youtube.com/v/ID, youtube.com/embed/ID
-  const m = url.match(/(?:youtube\.com\/(?:shorts\/|v\/|embed\/)|youtu\.be\/|watch\?v=)([^#&?]+)/);
-  return m ? m[1] : null;
-}
-function getVimeoId(url: string): string | null {
-  const m = url.match(/vimeo\.com\/(?:video\/|channels\/(?:\w+\/)?|groups\/(?:\w+\/)?|album\/(?:\w+\/)?|showcase\/(?:\w+\/)?|)(\d+)(?:$|\/|\?)/);
-  return m ? m[1] : null;
-}
-function VideoEmbed({ url }: { url: string }) {
-  const ytId = getYoutubeId(url);
-  const vmId = getVimeoId(url);
-  const iframeClass = 'absolute top-0 left-0 w-full h-full';
-  if (ytId) return (
-    <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
-      <iframe src={`https://www.youtube.com/embed/${ytId}?autoplay=1`} title="Video" frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen className={iframeClass} />
-    </div>
-  );
-  if (vmId) return (
-    <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-800">
-      <iframe src={`https://player.vimeo.com/video/${vmId}?autoplay=1`} title="Video" frameBorder="0"
-        allow="autoplay; fullscreen; picture-in-picture" allowFullScreen className={iframeClass} />
-    </div>
-  );
-  return (
-    <a href={url} target="_blank" rel="noopener noreferrer"
-      className="flex items-center justify-between bg-gray-800 p-3 rounded-lg">
-      <span className="text-sm text-gray-200 truncate">{url}</span>
-      <span className="text-xs text-primary-500">Ver enlace</span>
-    </a>
-  );
-}
 
 // ── Imagen de ejercicio ───────────────────────────────────────────────────────
 function ExerciseImg({ imagePath, imageUrl, name }: { imagePath?: string | null; imageUrl?: string | null; name: string }) {

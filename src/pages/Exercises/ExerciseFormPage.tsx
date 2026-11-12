@@ -18,58 +18,7 @@ import {
   SectionType,
 } from '../../models/catalogs';
 import { MuscleMap } from '../../components/exercises/MuscleMap';
-import { Video } from 'lucide-react';
-
-// Helper para obtener el ID de YouTube (incluye Shorts)
-function getYoutubeId(url: string): string | null {
-  if (!url) return null;
-  // Soporta: youtu.be/ID, youtube.com/shorts/ID, youtube.com/watch?v=ID, youtube.com/v/ID, youtube.com/embed/ID
-  const m = url.match(/(?:youtube\.com\/(?:shorts\/|v\/|embed\/)|youtu\.be\/|watch\?v=)([^#&?]+)/);
-  return m ? m[1] : null;
-}
-
-// Helper para obtener el ID de Vimeo
-function getVimeoId(url: string): string | null {
-  const regExp = /vimeo\.com\/(?:video\/|channels\/(?:\w+\/)?|groups\/(?:\w+\/)?|album\/(?:\w+\/)?|showcase\/(?:\w+\/)?|)(\d+)(?:$|\/|\?)/;
-  const match = url.match(regExp);
-  return (match && match[1]) ? match[1] : null;
-}
-
-// Componente para embeber video (versión reducida para formulario)
-function VideoEmbed({ url }: { url: string }) {
-  const youtubeId = getYoutubeId(url);
-  const vimeoId = getVimeoId(url);
-
-  if (!youtubeId && !vimeoId) return null;
-
-  return (
-    <div className="mt-3 w-full max-w-[260px] aspect-video rounded-xl overflow-hidden border border-gray-800 bg-black shadow-lg">
-      <div className="absolute inset-0 flex items-center justify-center -z-10">
-        <Video size={24} className="text-gray-800 animate-pulse" />
-      </div>
-      {youtubeId && (
-        <iframe
-          src={`https://www.youtube.com/embed/${youtubeId}`}
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="w-full h-full"
-        />
-      )}
-      {vimeoId && (
-        <iframe
-          src={`https://player.vimeo.com/video/${vimeoId}`}
-          title="Vimeo video player"
-          frameBorder="0"
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowFullScreen
-          className="w-full h-full"
-        />
-      )}
-    </div>
-  );
-}
+import { VideoEmbed } from '../../components/ui/VideoEmbed';
 
 export function ExerciseFormPage() {
   const uid = useId();
@@ -452,7 +401,7 @@ export function ExerciseFormPage() {
             placeholder="Ej: https://www.youtube.com/watch?v=..."
             className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 min-h-[44px]"
           />
-          {videoLink && <VideoEmbed url={videoLink} />}
+          {videoLink && <VideoEmbed url={videoLink} autoplay={false} />}
         </div>
 
         {/* ── 2c. Video explicativo ── */}
@@ -466,7 +415,7 @@ export function ExerciseFormPage() {
             placeholder="Ej: https://www.youtube.com/watch?v=..."
             className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 min-h-[44px]"
           />
-          {videoLongLink && <VideoEmbed url={videoLongLink} />}
+          {videoLongLink && <VideoEmbed url={videoLongLink} autoplay={false} />}
         </div>
 
         {/* ── 3. Dificultad ── */}

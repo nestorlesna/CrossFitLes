@@ -12,7 +12,13 @@
   asigná los videos de X x x x usando ACTUALIZO_VIDEO.md
 ### COMO USAR
 
+
+
+
+
 ### TEMPLATE
+Clase GOAT XX/XX/2026
+video clase URL (mm:ss)   <- opcional: sólo si la clase se sigue mirando un video de punta a punta
 
 Calentamiento
 
@@ -29,6 +35,117 @@ WOD
 Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 
 ### TEMPLATE
+
+
+
+Clase GOAT 11/11/2026
+
+Calentamiento
+
+- 6 minutos de calentamiento
+
+Movilidad - 5 minutos mayor cantidad de ejercicios
+- Thoracic Wall Sweep pie derecho
+- Thoracic Wall Sweep pie izquierdo
+- Yoga Push-Up
+- Squat Press-Out 10kg
+
+Activacion 6 repes de cada ejercicios cada 1 minutos
+- Barbell Sumo Deadlift High Pull, 20kg
+- Barbell Sumo Deadlift High Pull, 20kg
+- Barbell High Hang Power Clean, 20kg
+- Barbell High Hang Power Clean, 20kg
+- Barbell Front Squat, 20kg
+- Barbell Front Squat, 20kg
+
+Fuerza, cada 1.5 minutos
+- 5 Barbell Power Clean, 40kg
+- 3 Barbell Power Clean, 50kg
+- 2 Barbell Power Clean, 60kg
+- 2 Barbell Power Clean, 60kg
+- 1 Barbell Power Clean, 60kg
+
+WOD a terminar 18 minutos, en parejas algunos ejercicios a completar otros en espejo
+- 50 Hanging Toes to Bar cada uno
+- 40 Barbell Deadlift 40kg cada uno
+- 60 Partner Wall Ball Sit-Upl cada uno
+- 20 Barbell Power Clean, 40kg cada uno
+- 20 V-Up
+- 10 Barbell Front Squat 40kg
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+Clase GOAT 09/11/2026
+
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+- Wall Lat Stretch
+- Spiderman Stretch Rotation
+- Spiderman Stretch Rotation la otra pierna
+
+Activacion - 3 rondas todo 30 segundos
+- Single-Leg Wall Sit 
+- Single-Leg Wall Sit otro pie
+- Dumbbell Standing Calf Raise 10kg, video corto https://www.youtube.com/shorts/7oAXhnOMdZk, video explicativo https://www.youtube.com/shorts/OscsK8RMelQ
+- Plank Hip Dips video corto https://www.youtube.com/shorts/fZ9PoqS-Yi0, video explicativo https://www.youtube.com/shorts/_o6Ia7rZpk0
+
+Fuerza, 5 rondas cada 1.5 minutos, enl a 5ta, subo kg y hago mayor cantidad de repes
+- 3 Barbell Back Squat, 90kg
+- 3 Barbell Back Squat, 90kg
+- 3 Barbell Back Squat, 90kg
+- 3 Barbell Back Squat, 90kg
+- 8 Barbell Back Squat, 100kg
+
+WOD - mayor cantida de vueltas en 15 minutos (dejar las 2 rondas que es lo que aprox llega la gente)
+- 30 Box Jump-Over
+- 15 Alternating Single Arm Dumbbell Power Snatch 12.5kg
+- 30 Box Jump-Over
+- 15 Single-Arm Dumbbell Hang Clean and Push Jerk, 12.5 kg, video corto https://www.youtube.com/shorts/p-GBOGjTYz8, video explicativo https://www.youtube.com/shorts/yQ69y9NK5ok
+- 200 m running
+- 30 Box Jump-Over
+- 15 Alternating Single Arm Dumbbell Power Snatch 12.5kg
+- 30 Box Jump-Over
+- 15 Single-Arm Dumbbell Hang Clean and Push Jerk, 12.5 kg
+- 200 m running
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
+
+
+
+
+
+Clase GOAT 07/11/2026
+Calentamiento
+- 6 minutos de calentamiento
+
+Movilidad - 2 rondas todo 30 segundos
+- Pigeon Pose pierna derecha
+- Pigeon Pose pierna izquierda
+- lunge with twist, video corto https://www.youtube.com/shorts/XV79Y9_y7qg, video explicativo https://www.youtube.com/shorts/peb887Bc0-Q
+- Cat-Cow
+
+Activacion 6 minutos mayor cantidad de vueltas, 12 de cada ejercicio
+- banded hamstring curl video corto https://www.youtube.com/shorts/gTVC0qZJLzk, video explicativo https://www.youtube.com/watch?v=LtTcXXgeRYo
+- Russian Twist  5kg
+- Kettlebell Romanian Deadlift 5kg
+- Weighted Butterfly Sit-Up 5kg
+
+Fuerza, 5 rondas cada 2 minutos, la ultima ronda mayor cantida de repeticiones
+- 4 Barbell Romanian Deadlift, 80kg
+- 4 Barbell Romanian Deadlift, 80kg
+- 4 Barbell Romanian Deadlift, 80kg
+- 4 Barbell Romanian Deadlift, 80kg
+- 5 Barbell Romanian Deadlift, 90kg
+
+WOD, 3 tipo de ejercicios ,A, B,C, cada uno en 3 minutos, 2 vueltas, en parejas
+A1 - 400m running
+A2 - 40m Sled Push cada integrante 20m
+B1 - 40m Burpee Broad Jump, 20m cada integrante
+C1 - 14 Squat Jump to Plate, el individuo 1 y el 2 hace Barbell Lunge 20kg
+
+Estiramiento, 5 min aprox de estiramientos y vuelta a la calma
 
 
 

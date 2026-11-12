@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+<rect width="200" height="230" fill="#111827" rx="12"/>
+<style>
+  .f1{animation:sh1 7.8s linear infinite}.f2{animation:sh2 7.8s linear infinite}.f3{animation:sh3 7.8s linear infinite}.f4{animation:sh4 7.8s linear infinite}.f5{animation:sh5 7.8s linear infinite}.f6{animation:sh6 7.8s linear infinite}
+  @keyframes sh1{0%,13.3%{opacity:1}16.7%,96.7%{opacity:0}100%{opacity:1}}
+  @keyframes sh2{0%,16.7%{opacity:0}20%,30%{opacity:1}33.3%,100%{opacity:0}}
+  @keyframes sh3{0%,33.3%{opacity:0}36.7%,46.7%{opacity:1}50%,100%{opacity:0}}
+  @keyframes sh4{0%,50%{opacity:0}53.3%,63.3%{opacity:1}66.7%,100%{opacity:0}}
+  @keyframes sh5{0%,66.7%{opacity:0}70%,80%{opacity:1}83.3%,100%{opacity:0}}
+  @keyframes sh6{0%,83.3%{opacity:0}86.7%,96.7%{opacity:1}100%{opacity:0}}
+</style>
+<line x1="30" y1="204" x2="170" y2="204" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+<text x="100" y="222" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">DUMBBELL CALF RAISE</text>
+<g class="f1" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" fill="none">
+  <!-- F1: elevación 0px -->
+  <circle cx="100" cy="46" r="12" fill="#94a3b8" stroke="none"/>
+  <line x1="100" y1="58" x2="100" y2="124"/>
+  <line x1="100" y1="70" x2="80" y2="116"/>
+  <line x1="100" y1="70" x2="120" y2="116"/>
+  <rect x="72" y="117" width="16" height="8" rx="2" fill="#64748b" stroke="none"/>
+  <rect x="112" y="117" width="16" height="8" rx="2" fill="#64748b" stroke="none"/>
+  <line x1="100" y1="124" x2="88" y2="166"/>
+  <line x1="88" y1="166" x2="86" y2="204"/>
+  <line x1="100" y1="124" x2="112" y2="166"/>
+  <line x1="112" y1="166" x2="114" y2="204"/>
+  <line x1="80" y1="204" x2="92" y2="204"/>
+  <line x1="120" y1="204" x2="108" y2="204"/>
+  <circle cx="88" cy="166" r="4" fill="#64748b" stroke="none"/>
+  <circle cx="112" cy="166" r="4" fill="#64748b" stroke="none"/>
+</g>
+
+<g class="f2" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" fill="none">
+  <!-- F2: elevación 6px -->
+  <circle cx="100" cy="40" r="12" fill="#94a3b8" stroke="none"/>
+  <line x1="100" y1="52" x2="100" y2="118"/>
+  <line x1="100" y1="64" x2="80" y2="110"/>
+  <line x1="100" y1="64" x2="120" y2="110"/>
+  <rect x="72" y="111" width="16" height="8" rx="2" fill="#64748b" stroke="none"/>
+  <rect x="112" y="111" width="16" height="8" rx="2" fill="#64748b" stroke="none"/>
+  <line x1="100" y1="118" x2="88" y2="163"/>
+  <line x1="88" y1="163" x2="86" y2="198"/>
+  <line x1="100" y1="118" x2="112" y2="163"/>
+  <line x1="112" y1="163" x2="114" y2="198"/>
+  <line x1="80" y1="204" x2="88" y2="198"/>
+  <line x1="120" y1="204" x2="112" y2="198"/>
+  <circle cx="88" cy="163" r="4" fill="#64748b" stroke="none"/>
+  <circle cx="112" cy="163" r="4" fill="#64748b" stroke="none"/>
+</g>
+
+<g class="f3" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" fill="none">
+  <!-- F3: elevación 13px -->
+  <circle cx="100" cy="33" r="12" fill="#94a3b8" stroke="none"/>
+  <line x1="100" y1="45" x2="100" y2="111"/>
+  <line x1="100" y1="57" x2="80" y2="103"/>
+  <line x1="100" y1="57" x2="120" y2="103"/>
+  <rect x="72" y="104" width="16" height="8" rx="2" fill="#64748b" stroke="none"/>
+  <rect x="112" y="104" width="16" height="8" rx="2" fill="#64748b" stroke="none"/>
+  <line x1="100" y1="111" x2="88" y2="159.5"/>
+  <line x1="88" y1="159.5" x2="86" y2="191"/>
+  <line x1="100" y1="111" x2="112" y2="159.5"/>
+  <line x1="112" y1="159.5" x2="114" y2="191"/>
+  <line x1="80" y1="204" x2="88" y2="196"/>
+  <line x1="120" y1="204" x2="112" y2="196"/>
+  <circle cx="88" cy="159.5" r="4" fill="#64748b" stroke="none"/>
+  <circle cx="112" cy="159.5" r="4" fill="#64748b" stroke="none"/>
+</g>
+
+<g class="f4" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" fill="none">
+  <!-- F4: elevación 14px -->
+  <circle cx="100" cy="32" r="12" fill="#94a3b8" stroke="none"/>
+  <line x1="100" y1="44" x2="100" y2="110"/>
+  <line x1="100" y1="56" x2="80" y2="102"/>
+  <line x1="100" y1="56" x2="120" y2="102"/>
+  <rect x="72" y="103" width="16" height="8" rx="2" fill="#64748b" stroke="none"/>
+  <rect x="112" y="103" width="16" height="8" rx="2" fill="#64748b" stroke="none"/>
+  <line x1="100" y1="110" x2="88" y2="159"/>
+  <line x1="88" y1="159" x2="86" y2="190"/>
+  <line x1="100" y1="110" x2="112" y2="159"/>
+  <line x1="112" y1="159" x2="114" y2="190"/>
+  <line x1="80" y1="204" x2="88" y2="196"/>
+  <line x1="120" y1="204" x2="112" y2="196"/>
+  <circle cx="88" cy="159" r="4" fill="#64748b" stroke="none"/>
+  <circle cx="112" cy="159" r="4" fill="#64748b" stroke="none"/>
+</g>
+
+<g class="f5" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" fill="none">
+  <!-- F5: elevación 8px -->
+  <circle cx="100" cy="38" r="12" fill="#94a3b8" stroke="none"/>
+  <line x1="100" y1="50" x2="100" y2="116"/>
+  <line x1="100" y1="62" x2="80" y2="108"/>
+  <line x1="100" y1="62" x2="120" y2="108"/>
+  <rect x="72" y="109" width="16" height="8" rx="2" fill="#64748b" stroke="none"/>
+  <rect x="112" y="109" width="16" height="8" rx="2" fill="#64748b" stroke="none"/>
+  <line x1="100" y1="116" x2="88" y2="162"/>
+  <line x1="88" y1="162" x2="86" y2="196"/>
+  <line x1="100" y1="116" x2="112" y2="162"/>
+  <line x1="112" y1="162" x2="114" y2="196"/>
+  <line x1="80" y1="204" x2="88" y2="196"/>
+  <line x1="120" y1="204" x2="112" y2="196"/>
+  <circle cx="88" cy="162" r="4" fill="#64748b" stroke="none"/>
+  <circle cx="112" cy="162" r="4" fill="#64748b" stroke="none"/>
+</g>
+
+<g class="f6" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" fill="none">
+  <!-- F6: elevación 2px -->
+  <circle cx="100" cy="44" r="12" fill="#94a3b8" stroke="none"/>
+  <line x1="100" y1="56" x2="100" y2="122"/>
+  <line x1="100" y1="68" x2="80" y2="114"/>
+  <line x1="100" y1="68" x2="120" y2="114"/>
+  <rect x="72" y="115" width="16" height="8" rx="2" fill="#64748b" stroke="none"/>
+  <rect x="112" y="115" width="16" height="8" rx="2" fill="#64748b" stroke="none"/>
+  <line x1="100" y1="122" x2="88" y2="165"/>
+  <line x1="88" y1="165" x2="86" y2="202"/>
+  <line x1="100" y1="122" x2="112" y2="165"/>
+  <line x1="112" y1="165" x2="114" y2="202"/>
+  <line x1="80" y1="204" x2="88" y2="202"/>
+  <line x1="120" y1="204" x2="112" y2="202"/>
+  <circle cx="88" cy="165" r="4" fill="#64748b" stroke="none"/>
+  <circle cx="112" cy="165" r="4" fill="#64748b" stroke="none"/>
+</g>
+</svg>

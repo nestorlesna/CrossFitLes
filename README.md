@@ -152,7 +152,6 @@ Configuración → Publicar contenido  →  CrossFitLes-content          →   C
   sin sacar APK (si es de un tipo que la app ya soporta: meta de repeticiones o diario).
 - **Probar antes del push**: levantar el dev server con `VITE_CONTENT_BASE_URL=/__content/raw` y abrir
   `http://127.0.0.1:5173` (otro origen = otra base de datos) → Actualizar contenido.
-- Detalle, reglas y checklist: [`PLAN_SINCRONIZACION.md`](PLAN_SINCRONIZACION.md).
 
 ---
 

@@ -1,6 +1,6 @@
 // Migración v020: corrige los tiempos de las clases no-GOAT (Girls, Heroes, WODs feb–mar 2026)
 //
-// Revisión de la Fase 2 de PLAN_FITLESUY.md sobre el contenido publicado v7:
+// Revisión de la Fase 2 del plan de migración a FitLesUY sobre el contenido publicado v7:
 // - Secciones de intervalo sin `interval_seconds`: el motor caía en la ventana por defecto del
 //   formato (60 s en "Intervalos", 120 s en E2MOM) aunque el título diga "Every 90"" o
 //   "Every 2'30"". En los complejos ("Every 2 min: A + B + C") la ventana se reparte entre los
