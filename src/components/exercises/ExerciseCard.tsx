@@ -6,6 +6,7 @@ import { Exercise } from '../../models/Exercise';
 import { Badge } from '../ui/Badge';
 import { getImageDisplayUrl } from '../../services/mediaService';
 import { VideoEmbed } from '../ui/VideoEmbed';
+import { detectVideo } from '../../utils/videoEmbed';
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -18,6 +19,10 @@ interface ExerciseCardProps {
 export function ExerciseCard({ exercise, tags = [], showVideos = false }: ExerciseCardProps) {
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+  // Los dos videos comparten caja: vertical si alguno lo es, si no horizontal
+  const thumbVertical = [exercise.video_path, exercise.video_long_path].some((u) => u && detectVideo(u).vertical);
+  const thumbOrientation = thumbVertical ? 'vertical' : 'horizontal';
 
   // Cargar imagen: resolver tanto rutas estáticas como persistentes
   useEffect(() => {
@@ -95,13 +100,13 @@ export function ExerciseCard({ exercise, tags = [], showVideos = false }: Exerci
         {showVideos && (exercise.video_path || exercise.video_long_path) && (
           <div className="flex flex-wrap gap-2 shrink-0">
             {exercise.video_path && (
-              <div className="video-thumb">
-                <VideoEmbed url={exercise.video_path} autoplay={false} />
+              <div className={`video-thumb ${thumbVertical ? 'video-thumb-vertical' : ''}`}>
+                <VideoEmbed url={exercise.video_path} autoplay={false} orientation={thumbOrientation} />
               </div>
             )}
             {exercise.video_long_path && (
-              <div className="video-thumb">
-                <VideoEmbed url={exercise.video_long_path} autoplay={false} />
+              <div className={`video-thumb ${thumbVertical ? 'video-thumb-vertical' : ''}`}>
+                <VideoEmbed url={exercise.video_long_path} autoplay={false} orientation={thumbOrientation} />
               </div>
             )}
           </div>
